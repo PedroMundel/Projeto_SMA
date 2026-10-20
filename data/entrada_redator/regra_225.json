@@ -1,0 +1,95 @@
+{
+ "arquivo": "regra_225.gobr",
+ "comentarios": [
+  "Definição de times",
+  "Regras de agendamento"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Freq. de 10d para Prospects",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 10 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa"
+  },
+  {
+   "id": "R2",
+   "nome": "Freq. de 21d para Ativos Adimplentes",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e adimplentes e ativos para o vendedor",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R3",
+   "nome": "Freq. de 10d para Ativos Inadimplentes",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 10 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e inadimplentes e ativos para o vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R2"
+   ]
+  },
+  {
+   "id": "R4",
+   "nome": "Freq. de 14d para Inativos Adimplentes",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e adimplentes e não ativos para o vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R2"
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Freq. de 21d para Inativos Inadimplentes",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e inadimplentes e não ativos para o vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3",
+    "R4"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+ ]
+}

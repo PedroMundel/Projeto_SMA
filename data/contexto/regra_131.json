@@ -1,0 +1,568 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_131.gobr",
+  "sha256": "c45c0462b86cfb41662a6499ba59b8dec25683cef887ca3f8369d66da1902e53",
+  "comentarios": [
+    "Regras para Labtech",
+    "TIME TELEVENDAS",
+    "TIME CAMPO"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "time televendas",
+      "definicao": "todos os vendedores de televendas habilitados no Govendas",
+      "filtros": []
+    },
+    {
+      "id": "T2",
+      "nome": "time campo",
+      "definicao": "todos os vendedores de campo habilitados no Govendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Labtech: Não agendar inadimplentes",
+    "Labtech: Não agendar 'Administração pública em geral' e 'Segurança e ordem pública'"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Labtech: Não agendar inadimplentes",
+      "tipo_bloco": "parametros",
+      "fonte": "do time time televendas, time campo",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "inadimplentes",
+      "condicao_efetiva": "inadimplentes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Labtech: Não agendar 'Administração pública em geral' e 'Segurança e ordem pública'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time time televendas, time campo",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "cnae eh igual(\"8411600\",\"8424800\")",
+          "significado": "CNAE (id) em: 8411600, 8424800",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "CNAE (id) em: 8411600, 8424800",
+      "condicao_efetiva": "CNAE (id) em: 8411600, 8424800",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Labtech: Frequência de 7 dias para clientes sem crédito",
+      "tipo_bloco": "parametros",
+      "fonte": "do time time televendas, time campo",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "nao tem credito",
+          "significado": "sem crédito disponível",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem crédito disponível",
+      "condicao_efetiva": "CNAE (id) fora de: 8411600, 8424800 e sem crédito disponível",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Labtech: Frequência de 7 dias para clientes ativos - Modelo 1 - Televendas",
+      "tipo_bloco": "parametros",
+      "fonte": "do time time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "cnae eh igual(\"8630501\",\"8610101\",\"8630502\",\"7500100\",\"8610102\",\"8630503\",\"8640201\",\"8690901\",\"8630501\")",
+          "significado": "CNAE (id) em: 7500100, 8610101, 8610102, 8630501, 8630502, 8630503 e mais 2",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "CNAE (id) em: 7500100, 8610101, 8610102, 8630501, 8630502, 8630503 e mais 2 e ativos para o vendedor",
+      "condicao_efetiva": "CNAE (id) em: 7500100, 8610101, 8610102, 8630501, 8630502, 8630503 e mais 2 e com crédito disponível e ativos para o vendedor",
+      "tratados_antes_por": [
+        "R3"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Labtech: Frequência de 14 dias para clientes inativos - Modelo 1 - Televendas",
+      "tipo_bloco": "parametros",
+      "fonte": "do time time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "cnae eh igual(\"8630501\",\"8610101\",\"8630502\",\"7500100\",\"8610102\",\"8630503\",\"8640201\",\"8690901\",\"8630501\")",
+          "significado": "CNAE (id) em: 7500100, 8610101, 8610102, 8630501, 8630502, 8630503 e mais 2",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "CNAE (id) em: 7500100, 8610101, 8610102, 8630501, 8630502, 8630503 e mais 2",
+      "condicao_efetiva": "CNAE (id) em: 7500100, 8610101, 8610102, 8630501, 8630502, 8630503 e mais 2 e com crédito disponível e não ativos para o vendedor",
+      "tratados_antes_por": [
+        "R3",
+        "R4"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Labtech: Frequência de 21 dias para clientes ativos - Modelo 2 - Televendas",
+      "tipo_bloco": "parametros",
+      "fonte": "do time time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "cnae eh igual(\"8533300\",\"8532500\",\"4645101\",\"3250705\",\"4773300\")",
+          "significado": "CNAE (id) em: 3250705, 4645101, 4773300, 8532500, 8533300",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "CNAE (id) em: 3250705, 4645101, 4773300, 8532500, 8533300 e ativos para o vendedor",
+      "condicao_efetiva": "CNAE (id) em: 3250705, 4645101, 4773300, 8532500, 8533300 e com crédito disponível e ativos para o vendedor",
+      "tratados_antes_por": [
+        "R3"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Labtech: Frequência de 30 dias para clientes inativos - Modelo 2 - Televendas",
+      "tipo_bloco": "parametros",
+      "fonte": "do time time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "cnae eh igual(\"8533300\",\"8532500\",\"4645101\",\"3250705\",\"4773300\")",
+          "significado": "CNAE (id) em: 3250705, 4645101, 4773300, 8532500, 8533300",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "CNAE (id) em: 3250705, 4645101, 4773300, 8532500, 8533300",
+      "condicao_efetiva": "CNAE (id) em: 3250705, 4645101, 4773300, 8532500, 8533300 e com crédito disponível e não ativos para o vendedor",
+      "tratados_antes_por": [
+        "R3",
+        "R6"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R8",
+      "posicao": 8,
+      "nome": "Labtech: Frequência de 30 dias - Modelo 3 - Televendas",
+      "tipo_bloco": "parametros",
+      "fonte": "do time time televendas",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "CNAE (id) fora de: 3250705, 4645101, 4773300, 7500100, 8411600, 8424800 e mais 9 e com crédito disponível",
+      "tratados_antes_por": [
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R9",
+      "posicao": 9,
+      "nome": "Labtech: Frequência de 7 dias para clientes ativos - Modelo 1 - Externos",
+      "tipo_bloco": "parametros",
+      "fonte": "do time time campo",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "cnae eh igual(\"8630501\",\"8610101\",\"8630502\",\"7500100\",\"8610102\",\"8630503\",\"8640201\",\"8690901\",\"8630501\")",
+          "significado": "CNAE (id) em: 7500100, 8610101, 8610102, 8630501, 8630502, 8630503 e mais 2",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na segunda e na quarta e na sexta",
+          "significado": "dias de atendimento - preferência: segunda, quarta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "CNAE (id) em: 7500100, 8610101, 8610102, 8630501, 8630502, 8630503 e mais 2 e ativos para o vendedor",
+      "condicao_efetiva": "CNAE (id) em: 7500100, 8610101, 8610102, 8630501, 8630502, 8630503 e mais 2 e com crédito disponível e ativos para o vendedor",
+      "tratados_antes_por": [
+        "R3"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R10",
+      "posicao": 10,
+      "nome": "Labtech: Frequência de 14 dias para clientes inativos - Modelo 1 - Externos",
+      "tipo_bloco": "parametros",
+      "fonte": "do time time campo",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "cnae eh igual(\"8630501\",\"8610101\",\"8630502\",\"7500100\",\"8610102\",\"8630503\",\"8640201\",\"8690901\",\"8630501\")",
+          "significado": "CNAE (id) em: 7500100, 8610101, 8610102, 8630501, 8630502, 8630503 e mais 2",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na segunda e na quarta e na sexta",
+          "significado": "dias de atendimento - preferência: segunda, quarta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "CNAE (id) em: 7500100, 8610101, 8610102, 8630501, 8630502, 8630503 e mais 2",
+      "condicao_efetiva": "CNAE (id) em: 7500100, 8610101, 8610102, 8630501, 8630502, 8630503 e mais 2 e com crédito disponível e não ativos para o vendedor",
+      "tratados_antes_por": [
+        "R3",
+        "R9"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R11",
+      "posicao": 11,
+      "nome": "Labtech: Frequência de 21 dias para clientes ativos - Modelo 2 - Externos",
+      "tipo_bloco": "parametros",
+      "fonte": "do time time campo",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "cnae eh igual(\"8533300\",\"8532500\",\"4645101\",\"3250705\",\"4773300\")",
+          "significado": "CNAE (id) em: 3250705, 4645101, 4773300, 8532500, 8533300",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na segunda e na quarta e na sexta",
+          "significado": "dias de atendimento - preferência: segunda, quarta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "CNAE (id) em: 3250705, 4645101, 4773300, 8532500, 8533300 e ativos para o vendedor",
+      "condicao_efetiva": "CNAE (id) em: 3250705, 4645101, 4773300, 8532500, 8533300 e com crédito disponível e ativos para o vendedor",
+      "tratados_antes_por": [
+        "R3"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R12",
+      "posicao": 12,
+      "nome": "Labtech: Frequência de 30 dias para clientes inativos - Modelo 2 - Externos",
+      "tipo_bloco": "parametros",
+      "fonte": "do time time campo",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "cnae eh igual(\"8533300\",\"8532500\",\"4645101\",\"3250705\",\"4773300\")",
+          "significado": "CNAE (id) em: 3250705, 4645101, 4773300, 8532500, 8533300",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na segunda e na quarta e na sexta",
+          "significado": "dias de atendimento - preferência: segunda, quarta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "CNAE (id) em: 3250705, 4645101, 4773300, 8532500, 8533300",
+      "condicao_efetiva": "CNAE (id) em: 3250705, 4645101, 4773300, 8532500, 8533300 e com crédito disponível e não ativos para o vendedor",
+      "tratados_antes_por": [
+        "R3",
+        "R11"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R13",
+      "posicao": 13,
+      "nome": "Labtech: Frequência de 30 dias - Modelo 3 - Externos",
+      "tipo_bloco": "parametros",
+      "fonte": "do time time campo",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na segunda e na quarta e na sexta",
+          "significado": "dias de atendimento - preferência: segunda, quarta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "CNAE (id) fora de: 3250705, 4645101, 4773300, 7500100, 8411600, 8424800 e mais 9 e com crédito disponível",
+      "tratados_antes_por": [
+        "R3",
+        "R9",
+        "R10",
+        "R11",
+        "R12"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    7,
+    14,
+    21,
+    30
+  ],
+  "numeros_permitidos": [
+    7,
+    14,
+    21,
+    30,
+    3250705,
+    4645101,
+    4773300,
+    7500100,
+    8411600,
+    8424800,
+    8532500,
+    8533300,
+    8610101,
+    8610102,
+    8630501,
+    8630502,
+    8630503,
+    8640201,
+    8690901
+  ],
+  "premissas_usadas": [
+    "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+  ]
+}

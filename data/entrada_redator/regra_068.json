@@ -1,0 +1,141 @@
+{
+ "arquivo": "regra_068.gobr",
+ "comentarios": [
+  "Regras campo",
+  "Regras televendas"
+ ],
+ "times": [
+  {
+   "nome": "time campo",
+   "definicao": "todos os vendedores de campo"
+  },
+  {
+   "nome": "time televendas",
+   "definicao": "todos os vendedores de televendas"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "carteira campo",
+   "definicao": "carteira fixa dos vendedores do time time campo",
+   "filtros": []
+  },
+  {
+   "id": "C2",
+   "nome": "carteira televendas",
+   "definicao": "carteira fixa dos vendedores do time time televendas",
+   "filtros": []
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Regra Padrao da Playpet Customizavel: nao agendar plano veterinario",
+  "Regra Padrao da Playpet Customizavel: nao agendar clientes pessoa fisica",
+  "Regra Padrao da Playpet Customizavel: nao agendar inadimplentes ou inativos",
+  "Regra Padrao da Playpet Customizavel: Nao agendar inadimplentes"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Regra Padrao da Playpet Customizavel: nao agendar plano veterinario",
+   "fonte": "da carteira carteira campo",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "ramo de atividade (id) igual a 17"
+  },
+  {
+   "id": "R2",
+   "nome": "Regra Padrao da Playpet Customizavel: nao agendar clientes pessoa fisica",
+   "fonte": "da carteira carteira campo",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "pessoa física"
+  },
+  {
+   "id": "R3",
+   "nome": "Regra Padrao da Playpet Customizavel: 30 dias para ativos adimplentes",
+   "fonte": "da carteira carteira campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "adimplentes e ativos para o vendedor"
+  },
+  {
+   "id": "R4",
+   "nome": "Regra Padrao da Playpet Customizavel: 21 dias para clientes sem venda",
+   "fonte": "da carteira carteira campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor"
+  },
+  {
+   "id": "R5",
+   "nome": "Regra Padrao da Playpet Customizavel: nao agendar inadimplentes ou inativos",
+   "fonte": "da carteira carteira campo",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "(inativos para o vendedor) OU (inadimplentes e ativos para o vendedor)",
+   "tratados_antes_por": [
+    "R3",
+    "R4"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Regra Padrao da Playpet Customizavel: Nao agendar inadimplentes",
+   "fonte": "da carteira carteira televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes"
+  },
+  {
+   "id": "R7",
+   "nome": "Regra Padrao da Playpet Customizavel: 14 dias para ativos adimplentes",
+   "fonte": "da carteira carteira televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "adimplentes e ativos para o vendedor"
+  },
+  {
+   "id": "R8",
+   "nome": "Regra Padrao da Playpet Customizavel: 30 dias quando inativos adimplentes",
+   "fonte": "da carteira carteira televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "adimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R9",
+   "nome": "Regra Padrao da Playpet Customizavel: 14 dias para sem venda",
+   "fonte": "da carteira carteira televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "adimplentes e sem vendas para o vendedor"
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores.",
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

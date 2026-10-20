@@ -1,0 +1,245 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_077.gobr",
+  "sha256": "f622482a7c3fcdfbc1f0e144099de632fdeb270d36c2825dd2e4733827238039",
+  "comentarios": [
+    "Definição de times:",
+    "Regras de não agendamento:",
+    "Parâmetros de agendamento:"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "televendas",
+      "definicao": "todos os vendedores de televendas habilitados no Govendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Não agendar bloqueados",
+    "Não agendar clientes inadimplentes",
+    "Não agendar clientes com compra nos últimos 30d"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Não agendar bloqueados",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "bloqueados",
+          "significado": "bloqueados para atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "bloqueados para atendimento",
+      "condicao_efetiva": "bloqueados para atendimento",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Não agendar clientes inadimplentes",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "inadimplentes",
+      "condicao_efetiva": "inadimplentes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Não agendar clientes com compra nos últimos 30d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao em 30 dias",
+          "significado": "compraram nos últimos 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "compraram nos últimos 30 dias",
+      "condicao_efetiva": "compraram nos últimos 30 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Freq. de 14d para clientes prospects",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "no ciclo de vida prospect com a empresa",
+          "significado": "prospects (nunca compraram com qualquer vendedor da empresa)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "nunca compraram com qualquer vendedor da empresa",
+      "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Freq. de 7d para clientes ativos",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "no ciclo de vida ativo com a empresa",
+          "significado": "no ciclo de vida ativo com a empresa",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "no ciclo de vida ativo com a empresa",
+      "condicao_efetiva": "já compraram com qualquer vendedor da empresa e no ciclo de vida ativo com a empresa",
+      "tratados_antes_por": [
+        "R4"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Freq. de 14d para clientes inativos",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "já compraram com qualquer vendedor da empresa e fora do ciclo de vida ativo com a empresa",
+      "tratados_antes_por": [
+        "R4",
+        "R5"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    7,
+    14,
+    30
+  ],
+  "numeros_permitidos": [
+    7,
+    14,
+    30
+  ],
+  "premissas_usadas": [
+    "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+  ]
+}

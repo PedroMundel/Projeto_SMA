@@ -1,0 +1,45 @@
+{
+ "arquivo": "regra_138.gobr",
+ "comentarios": [
+  "Regras padrão",
+  "regras time interno"
+ ],
+ "times": [
+  {
+   "nome": "todos vendedores",
+   "definicao": "todos os vendedores habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "American Farma: Não agendar clientes inadimplentes (televendas)"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "American Farma: Não agendar clientes inadimplentes (televendas)",
+   "fonte": "do time todos vendedores",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes"
+  },
+  {
+   "id": "R2",
+   "nome": "American Farma: Freq. 7d para clientes ativos/inativos/prospects adimplentes (televendas)",
+   "fonte": "do time todos vendedores",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "todos os clientes"
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+ ]
+}

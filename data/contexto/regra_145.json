@@ -1,0 +1,416 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_145.gobr",
+  "sha256": "cf8120f991ad51145363806c976809da5e278f7ceb92bd03a38fe68153320a31",
+  "comentarios": [
+    "---",
+    "Definição de times",
+    "---",
+    "Regras de não agendamento",
+    "---",
+    "Regras de agendamento",
+    "Regra 1 - \"Ativação de Prospects\";",
+    "Regra 2 - \"Primeira compra\" (Indústria e Revenda);",
+    "Regra 3 - \"Estimular a regularidade de compra\";",
+    "Regra 4 - \"Compra regularmente\";",
+    "Regra 5 - \"Risco de inatividade\";",
+    "Regra 6 - \"Resgate de clientes sem compra\" (Inativos);"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "empresa toda",
+      "definicao": "todos os vendedores habilitados no Govendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Não agendar Filiais"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Não agendar Filiais",
+      "tipo_bloco": "parametros",
+      "fonte": "do time empresa toda",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "o cliente filial",
+          "significado": "filiais",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "filiais",
+      "condicao_efetiva": "filiais",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Freq. de 10d para 'Ativação de Prospects'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time empresa toda",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "pessoa juridica",
+          "significado": "pessoa jurídica",
+          "reconhecida": true
+        },
+        {
+          "codigo": "no ciclo de vida prospect com o vendedor",
+          "significado": "prospects (nunca compraram com o próprio vendedor)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 10 dias",
+          "significado": "frequência de 10 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "nunca compraram com o próprio vendedor e pessoa jurídica",
+      "condicao_efetiva": "nunca compraram com o próprio vendedor e pessoa jurídica",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        10
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Freq. de 14d para 'Primeira compra' (Indústria)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time empresa toda",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "pessoa juridica",
+          "significado": "pessoa jurídica",
+          "reconhecida": true
+        },
+        {
+          "codigo": "sem venda do vendedor",
+          "significado": "sem vendas para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "ramo de atividade igual(\"2\")",
+          "significado": "ramo de atividade (id) igual a 2",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ramo de atividade (id) igual a 2 e pessoa jurídica e sem vendas para o vendedor",
+      "condicao_efetiva": "já compraram com o próprio vendedor e ramo de atividade (id) igual a 2 e pessoa jurídica e sem vendas para o vendedor",
+      "tratados_antes_por": [
+        "R2"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Freq. de 7d para 'Primeira compra' (Revenda)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time empresa toda",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "pessoa juridica",
+          "significado": "pessoa jurídica",
+          "reconhecida": true
+        },
+        {
+          "codigo": "sem venda do vendedor",
+          "significado": "sem vendas para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "ramo de atividade igual(\"1\")",
+          "significado": "ramo de atividade (id) igual a 1",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ramo de atividade (id) igual a 1 e pessoa jurídica e sem vendas para o vendedor",
+      "condicao_efetiva": "já compraram com o próprio vendedor e ramo de atividade (id) igual a 1 e pessoa jurídica e sem vendas para o vendedor",
+      "tratados_antes_por": [
+        "R2"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Freq. de 14d para 'Estimular a regularidade de compra'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time empresa toda",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "pessoa juridica",
+          "significado": "pessoa jurídica",
+          "reconhecida": true
+        },
+        {
+          "codigo": "adimplentes",
+          "significado": "adimplentes",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao do vendedor entre 31 dias e 60 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 60 dias, mas estão há pelo menos 31 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e adimplentes e pessoa jurídica",
+      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e adimplentes e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor) OU (compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e ramo de atividade (id) fora de: 1, 2 e adimplentes e pessoa jurídica e sem vendas para o vendedor)",
+      "tratados_antes_por": [
+        "R3",
+        "R4"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        31,
+        60
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Freq. de 21d para 'Compra regularmente'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time empresa toda",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "pessoa juridica",
+          "significado": "pessoa jurídica",
+          "reconhecida": true
+        },
+        {
+          "codigo": "adimplentes",
+          "significado": "adimplentes",
+          "reconhecida": true
+        },
+        {
+          "codigo": "atividade do vendedor de 30 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 30 dias e adimplentes e pessoa jurídica",
+      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 30 dias e adimplentes e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor) OU (compraram com o próprio vendedor nos últimos 30 dias e ramo de atividade (id) fora de: 1, 2 e adimplentes e pessoa jurídica e sem vendas para o vendedor)",
+      "tratados_antes_por": [
+        "R3",
+        "R4"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21,
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Freq. de 7d para 'Risco de inatividade'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time empresa toda",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "pessoa juridica",
+          "significado": "pessoa jurídica",
+          "reconhecida": true
+        },
+        {
+          "codigo": "adimplentes",
+          "significado": "adimplentes",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao do vendedor entre 61 dias e 90 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 90 dias, mas estão há pelo menos 61 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e adimplentes e pessoa jurídica",
+      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e adimplentes e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor) OU (compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e ramo de atividade (id) fora de: 1, 2 e adimplentes e pessoa jurídica e sem vendas para o vendedor)",
+      "tratados_antes_por": [
+        "R3",
+        "R4"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7,
+        61,
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R8",
+      "posicao": 8,
+      "nome": "Freq. de 21d para 'Resgate de clientes sem compra'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time empresa toda",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "pessoa juridica",
+          "significado": "pessoa jurídica",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "pessoa jurídica",
+      "condicao_efetiva": null,
+      "tratados_antes_por": [
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21
+      ],
+      "alertas": [
+        "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+      ]
+    }
+  ],
+  "nao_cobertos": {
+    "do time empresa toda": "pessoa física"
+  },
+  "alertas": [],
+  "numeros_obrigatorios": [
+    7,
+    10,
+    14,
+    21,
+    30,
+    31,
+    60,
+    61,
+    90
+  ],
+  "numeros_permitidos": [
+    1,
+    2,
+    7,
+    10,
+    14,
+    21,
+    30,
+    31,
+    60,
+    61,
+    90
+  ],
+  "premissas_usadas": [
+    "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+    "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+  ]
+}

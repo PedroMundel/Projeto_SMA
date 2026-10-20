@@ -1,0 +1,61 @@
+{
+ "arquivo": "regra_157.gobr",
+ "comentarios": [],
+ "times": [
+  {
+   "nome": "toda empresa",
+   "definicao": "todos os vendedores habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Regra Padrao da Lubrilages: Frequência de 14 dias para clientes com mais de 120 dias sem vendas",
+   "fonte": "do time toda empresa",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "sem comprar há mais de 120 dias"
+  },
+  {
+   "id": "R2",
+   "nome": "Regra Padrao da Lubrilages: Frequência de 7 dias para clientes com mais de 30 dias sem vendas",
+   "fonte": "do time toda empresa",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram nos últimos 120 dias, mas estão há mais de 30 dias sem comprar",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R3",
+   "nome": "Regra Padrao da Lubrilages: mínimo de 5 dias e máximo de 30 dias",
+   "fonte": "do time toda empresa",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência calculada pelo histórico de compras; se não houver, limitada a no mínimo 5 dias e no máximo 30 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "(nunca compraram ou compraram nos últimos 30 dias)",
+   "tratados_antes_por": [
+    "R1",
+    "R2"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'."
+ ]
+}

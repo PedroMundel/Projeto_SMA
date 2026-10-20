@@ -1,0 +1,244 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_243.gobr",
+  "sha256": "bf45544b7aa91eaaeeba1b86a8d49042107e9711f6971626f2a5c08dcbe8d24c",
+  "comentarios": [
+    "Definição de times",
+    "Regras de planejamento"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "televendas",
+      "definicao": "todos os vendedores de televendas habilitados no Govendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Não agendar clientes sem compra em 33 dias",
+    "Não agendar se não for PJ"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Ative este cliente!",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "sem venda",
+          "significado": "sem vendas para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "pessoa juridica",
+          "significado": "pessoa jurídica",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis e no sabado",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "pessoa jurídica e sem vendas para o vendedor",
+      "condicao_efetiva": "pessoa jurídica e sem vendas para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        21
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Faça seu pós-vendas!",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao em 20 dias",
+          "significado": "compraram nos últimos 20 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "pessoa juridica",
+          "significado": "pessoa jurídica",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 3 dias",
+          "significado": "frequência de 3 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis e no sabado",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 20 dias e pessoa jurídica",
+      "condicao_efetiva": "compraram nos últimos 20 dias e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R1"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        3,
+        20
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Mantenha o cliente engajado!",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao entre 20 dias e 33 dias",
+          "significado": "compraram nos últimos 33 dias, mas estão há pelo menos 20 dias sem comprar",
+          "reconhecida": true
+        },
+        {
+          "codigo": "pessoa juridica",
+          "significado": "pessoa jurídica",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia do historico mais 2 dias ou no minimo de 20 dias e no maximo de 33 dias",
+          "significado": "frequência calculada pelo histórico de compras mais 2 dias; se não houver, limitada a no mínimo 20 dias e no máximo 33 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis e no sabado",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 33 dias, mas estão há pelo menos 20 dias sem comprar e pessoa jurídica",
+      "condicao_efetiva": "compraram nos últimos 33 dias, mas estão há mais de 20 dias sem comprar e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R1",
+        "R2"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        2,
+        20,
+        33
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Não agendar clientes sem compra em 33 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "pessoa juridica",
+          "significado": "pessoa jurídica",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "pessoa jurídica",
+      "condicao_efetiva": "(nunca compraram ou sem comprar há mais de 33 dias) e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": [
+        "Bloqueio depois de regras de frequência: clientes já parametrizados por \"Ative este cliente!\", \"Faça seu pós-vendas!\", \"Mantenha o cliente engajado!\" não serão bloqueados por esta regra."
+      ]
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Não agendar se não for PJ",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "pessoa física",
+      "tratados_antes_por": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "bloqueios_anteriores": [
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    2,
+    3,
+    20,
+    21,
+    33
+  ],
+  "numeros_permitidos": [
+    2,
+    3,
+    20,
+    21,
+    33
+  ],
+  "premissas_usadas": [
+    "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'."
+  ]
+}

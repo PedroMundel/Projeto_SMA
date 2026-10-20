@@ -1,0 +1,165 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_172.gobr",
+  "sha256": "2e42a569ce61650cbe6253b7216556230c51e8551ca3a1039c92e25bbbff749b",
+  "comentarios": [
+    "Definição de times:",
+    "Regras de não agendamento:",
+    "Regras de agendamento:"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "televendas",
+      "definicao": "todos os vendedores de televendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Não agendar inadimplentes",
+    "Não agendar filiais"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Não agendar inadimplentes",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "inadimplentes",
+      "condicao_efetiva": "inadimplentes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Não agendar filiais",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "o cliente filial",
+          "significado": "filiais",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "filiais",
+      "condicao_efetiva": "filiais",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Ativo:'Freq. de 7 dias'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ativos para o vendedor",
+      "condicao_efetiva": "ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Inativo:'Freq. de 14 dias'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "não ativos para o vendedor",
+      "tratados_antes_por": [
+        "R3"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    7,
+    14
+  ],
+  "numeros_permitidos": [
+    7,
+    14
+  ],
+  "premissas_usadas": []
+}

@@ -1,0 +1,539 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_071.gobr",
+  "sha256": "4bc279e2ff5f4c7fabfc8f8c63d029531a6ef6875a588c9dfb442b31d175095e",
+  "comentarios": [
+    "Regras dinâmicas para Palmed",
+    "time televendas da paraiba e do piaui",
+    "Time Paraiba e Piaui",
+    "parametrizacao dos televendas da paraiba e piaui com 14 dias para inadimplentes",
+    "parametrizacao dos televendas da paraiba e piaui com no máximo 7 dias",
+    "Time Tocantins",
+    "Time Televendas",
+    "preferencia na terca e na quarta e na quinta e na sexta",
+    "preferencia na terca e na quarta e na quinta e na sexta",
+    "preferencia na terca e na quarta e na quinta e na sexta",
+    "Time campo"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "televendas pi",
+      "definicao": "todos os vendedores de televendas dos supervisores de id 2736",
+      "filtros": []
+    },
+    {
+      "id": "T2",
+      "nome": "televendas pb",
+      "definicao": "todos os vendedores de televendas dos supervisores de id 2731",
+      "filtros": []
+    },
+    {
+      "id": "T3",
+      "nome": "tocantins",
+      "definicao": "os vendedores de id 435, 261, 385, 276, 438, 63, 164",
+      "filtros": []
+    },
+    {
+      "id": "T4",
+      "nome": "televendas",
+      "definicao": "todos os vendedores de televendas",
+      "filtros": []
+    },
+    {
+      "id": "T5",
+      "nome": "campo",
+      "definicao": "todos os vendedores de campo",
+      "filtros": []
+    }
+  ],
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "carteira televendas pi",
+      "definicao": "carteira fixa dos vendedores do time televendas pi",
+      "filtros": [],
+      "livre": false,
+      "exceto_alocados_em": []
+    },
+    {
+      "id": "C2",
+      "nome": "carteira televendas pb",
+      "definicao": "carteira fixa dos vendedores do time televendas pb",
+      "filtros": [],
+      "livre": false,
+      "exceto_alocados_em": []
+    },
+    {
+      "id": "C3",
+      "nome": "carteira tocantins",
+      "definicao": "carteira fixa dos vendedores do time tocantins",
+      "filtros": [],
+      "livre": false,
+      "exceto_alocados_em": []
+    },
+    {
+      "id": "C4",
+      "nome": "carteira televendas",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [],
+      "livre": false,
+      "exceto_alocados_em": []
+    }
+  ],
+  "segmentacoes": [],
+  "bloqueios": [],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Regra Padrao da Palmed: 14 dias para inativos e inadimplentes",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira televendas pi, carteira televendas pb",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inativos para o vendedor",
+          "significado": "inativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "sem choque na rota com time(\"campo\")",
+          "significado": "evitar que os dias de atendimento coincidam com os do time campo (apenas clientes roteirizáveis)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "inadimplentes e inativos para o vendedor",
+      "condicao_efetiva": "inadimplentes e inativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Regra Padrao da Palmed: Maximo 7 dias - PI",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira televendas pi",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia do historico ou no maximo semanal()",
+          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 7 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis e no sabado",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "sem choque na rota com time(\"campo\")",
+          "significado": "evitar que os dias de atendimento coincidam com os do time campo (apenas clientes roteirizáveis)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "(não inativos para o vendedor) OU (adimplentes e inativos para o vendedor)",
+      "tratados_antes_por": [
+        "R1"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Regra Padrao da Palmed: maximo 7 dias - PB",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira televendas pb",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia do historico ou no maximo semanal()",
+          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 7 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "sem choque na rota com time(\"campo\")",
+          "significado": "evitar que os dias de atendimento coincidam com os do time campo (apenas clientes roteirizáveis)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "(não inativos para o vendedor) OU (adimplentes e inativos para o vendedor)",
+      "tratados_antes_por": [
+        "R1"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Regra Padrao da Palmed: 14 dias para inativos e inadimplentes - Tocantins",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira tocantins",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inativos para o vendedor",
+          "significado": "inativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "sem choque na rota com time(\"campo\")",
+          "significado": "evitar que os dias de atendimento coincidam com os do time campo (apenas clientes roteirizáveis)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "inadimplentes e inativos para o vendedor",
+      "condicao_efetiva": "inadimplentes e inativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Regra Padrao da Palmed: semanal para ativos",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira tocantins",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia do historico ou no maximo semanal()",
+          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 7 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis e no sabado",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "sem choque na rota com time(\"campo\")",
+          "significado": "evitar que os dias de atendimento coincidam com os do time campo (apenas clientes roteirizáveis)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "(não inativos para o vendedor) OU (adimplentes e inativos para o vendedor)",
+      "tratados_antes_por": [
+        "R4"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Regra Padrao da Palmed: semanal para ativos e adimplentes (segunda a sexta) - Time Televendas",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "adimplentes",
+          "significado": "adimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia do historico ou no maximo semanal()",
+          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 7 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "adimplentes e ativos para o vendedor",
+      "condicao_efetiva": "adimplentes e ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Regra Padrao da Palmed: quinzenal para ativos e inadimplente (segunda a sexta) - Time Televendas",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "inadimplentes e ativos para o vendedor",
+      "condicao_efetiva": "inadimplentes e ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R8",
+      "posicao": 8,
+      "nome": "Regra Padrao da Palmed: semanal exceto na segunda para inativos adimplentes (terca a sexta) - Time Televendas",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inativos para o vendedor",
+          "significado": "inativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "adimplentes",
+          "significado": "adimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia do historico ou no maximo semanal()",
+          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 7 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na segunda e na terca e na quarta e na quinta e na sexta",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "adimplentes e inativos para o vendedor",
+      "condicao_efetiva": "adimplentes e inativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R9",
+      "posicao": 9,
+      "nome": "Regra Padrao da Palmed: 30 dias para inativos e inadimplentes (terca a sexta) - Time Televendas",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inativos para o vendedor",
+          "significado": "inativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na segunda e na terca e na quarta e na quinta e na sexta",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "inadimplentes e inativos para o vendedor",
+      "condicao_efetiva": "inadimplentes e inativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R10",
+      "posicao": 10,
+      "nome": "Regra Padrao da Palmed: 7 dias de terca a sexta - Time Televendas",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia do historico ou no maximo semanal()",
+          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 7 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na segunda e na terca e na quarta e na quinta e na sexta",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "sem vendas para o vendedor",
+      "tratados_antes_por": [
+        "R6",
+        "R7",
+        "R8",
+        "R9"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R11",
+      "posicao": 11,
+      "nome": "Regra Padrao da Palmed: 7 dias para todos os clientes - Time de Campo",
+      "tipo_bloco": "parametros",
+      "fonte": "do time campo",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "todos os clientes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {
+    "da carteira carteira televendas pi, carteira televendas pb": "várias combinações de clientes não são cobertas por nenhuma regra"
+  },
+  "alertas": [],
+  "numeros_obrigatorios": [
+    14,
+    30
+  ],
+  "numeros_permitidos": [
+    7,
+    14,
+    30,
+    63,
+    164,
+    261,
+    276,
+    385,
+    435,
+    438,
+    2731,
+    2736
+  ],
+  "premissas_usadas": [
+    "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+    "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores.",
+    "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+  ]
+}

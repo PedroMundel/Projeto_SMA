@@ -1,0 +1,46 @@
+{
+ "arquivo": "regra_115.gobr",
+ "comentarios": [
+  "Parametros televendas"
+ ],
+ "times": [
+  {
+   "nome": "time atacado",
+   "definicao": "os vendedores de id 510, 617, 596"
+  },
+  {
+   "nome": "time salmao",
+   "definicao": "os vendedores de id 613, 614, 568"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Regra Padrao da Frigoforte: 7 dias para atacado (televendas)",
+   "fonte": "do time time atacado",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "todos os clientes"
+  },
+  {
+   "id": "R2",
+   "nome": "Regra Padrao da Frigoforte: 2 dias para salmao (televendas)",
+   "fonte": "do time time salmao",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 2 dias"
+   ],
+   "condicao_efetiva": "todos os clientes"
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+ ]
+}

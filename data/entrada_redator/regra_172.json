@@ -1,0 +1,68 @@
+{
+ "arquivo": "regra_172.gobr",
+ "comentarios": [
+  "Definição de times:",
+  "Regras de não agendamento:",
+  "Regras de agendamento:"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Não agendar inadimplentes",
+  "Não agendar filiais"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Não agendar inadimplentes",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes"
+  },
+  {
+   "id": "R2",
+   "nome": "Não agendar filiais",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "filiais"
+  },
+  {
+   "id": "R3",
+   "nome": "Ativo:'Freq. de 7 dias'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "ativos para o vendedor"
+  },
+  {
+   "id": "R4",
+   "nome": "Inativo:'Freq. de 14 dias'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "não ativos para o vendedor",
+   "tratados_antes_por": [
+    "R3"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": []
+}

@@ -1,0 +1,129 @@
+{
+ "arquivo": "regra_159.gobr",
+ "comentarios": [
+  "Parâmetros do time \"Baby\":",
+  "Parâmetros do time \"Pet\":",
+  "regras default para todos os vendedores"
+ ],
+ "times": [
+  {
+   "nome": "todos os vendedores",
+   "definicao": "todos os vendedores"
+  },
+  {
+   "nome": "baby",
+   "definicao": "os vendedores de id 2095, 2152"
+  },
+  {
+   "nome": "pet",
+   "definicao": "os vendedores de id 2150, 2151"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Brasgroup: 45d para clientes Curva C (Segmento Baby)",
+   "fonte": "do time baby",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 45 dias"
+   ],
+   "condicao_efetiva": "total faturado no ano com a empresa menor que R$ 10000 (ou valor desconhecido)"
+  },
+  {
+   "id": "R2",
+   "nome": "Brasgroup: 15d para clientes Curva A (Segmento Baby)",
+   "fonte": "do time baby",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 15 dias"
+   ],
+   "condicao_efetiva": "total faturado no ano com a empresa maior que R$ 30000 e não (total faturado no ano com a empresa menor que R$ 10000 (ou valor desconhecido))",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R3",
+   "nome": "Brasgroup: 30d para clientes Curva B (Segmento Baby)",
+   "fonte": "do time baby",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "não (total faturado no ano com a empresa maior que R$ 30000) e não (total faturado no ano com a empresa menor que R$ 10000 (ou valor desconhecido))",
+   "tratados_antes_por": [
+    "R1",
+    "R2"
+   ]
+  },
+  {
+   "id": "R4",
+   "nome": "Brasgroup: 45d para clientes Curva C (Segmento Pet)",
+   "fonte": "do time pet",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 45 dias"
+   ],
+   "condicao_efetiva": "total faturado no ano com a empresa menor que R$ 5000 (ou valor desconhecido)"
+  },
+  {
+   "id": "R5",
+   "nome": "Brasgroup: 15d para clientes Curva A (Segmento Pet)",
+   "fonte": "do time pet",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 15 dias"
+   ],
+   "condicao_efetiva": "total faturado no ano com a empresa maior que R$ 20000 e não (total faturado no ano com a empresa menor que R$ 5000 (ou valor desconhecido))",
+   "tratados_antes_por": [
+    "R4"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Brasgroup: 30d para clientes Curva B (Segmento Pet)",
+   "fonte": "do time pet",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "não (total faturado no ano com a empresa maior que R$ 20000) e não (total faturado no ano com a empresa menor que R$ 5000 (ou valor desconhecido))",
+   "tratados_antes_por": [
+    "R4",
+    "R5"
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Regra Padrao do goVendas: Frequencia semanal para clientes ativos",
+   "fonte": "do time todos os vendedores",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "ativos para o vendedor"
+  },
+  {
+   "id": "R8",
+   "nome": "Regra Padrao do goVendas: Frequencia quinzenal para clientes inativos",
+   "fonte": "do time todos os vendedores",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 15 dias"
+   ],
+   "condicao_efetiva": "não ativos para o vendedor",
+   "tratados_antes_por": [
+    "R7"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+ ]
+}

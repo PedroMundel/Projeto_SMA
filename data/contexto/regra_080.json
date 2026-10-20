@@ -1,0 +1,230 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_080.gobr",
+  "sha256": "28eed7badaa8259d53ab7d02484f97e281912ae5848516559467ee6e3332b9bd",
+  "comentarios": [
+    "Regras para Makro Services"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "empresa toda",
+      "definicao": "todos os vendedores",
+      "filtros": []
+    }
+  ],
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "empresa toda",
+      "definicao": "carteira fixa dos vendedores do time empresa toda",
+      "filtros": [],
+      "livre": false,
+      "exceto_alocados_em": []
+    }
+  ],
+  "segmentacoes": [],
+  "bloqueios": [],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Regra Padrao da Empresa Customizavel: mensal para inativos com cnae do erp que inicia com (\"03\",\"47\",\"27\")",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira empresa toda",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inativos para o vendedor",
+          "significado": "inativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "cnae do erp inicia com(\"03\",\"47\",\"27\")",
+          "significado": "CNAE do ERP começa com 03, 47, 27",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia mensal()",
+          "significado": "frequência mensal (30 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia do vendedor",
+          "significado": "preferência de dias configurada pelo vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "CNAE do ERP começa com 03, 47, 27 e inativos para o vendedor",
+      "condicao_efetiva": "CNAE do ERP começa com 03, 47, 27 e inativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Regra Padrao da Empresa Customizavel: 15 dias para inativos",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira empresa toda",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inativos para o vendedor",
+          "significado": "inativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia quinzenal()",
+          "significado": "frequência quinzenal (15 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia do vendedor",
+          "significado": "preferência de dias configurada pelo vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "inativos para o vendedor",
+      "condicao_efetiva": "CNAE do ERP não começa com 03, 47, 27 e inativos para o vendedor",
+      "tratados_antes_por": [
+        "R1"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Regra Padrao da Empresa Customizavel: mensal para ativos",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira empresa toda",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia mensal()",
+          "significado": "frequência mensal (30 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia do vendedor",
+          "significado": "preferência de dias configurada pelo vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ativos para o vendedor",
+      "condicao_efetiva": "ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Regra Padrao da Empresa Customizavel: 15 dias para inativos",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira empresa toda",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inativos para o vendedor",
+          "significado": "inativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia quinzenal()",
+          "significado": "frequência quinzenal (15 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia do vendedor",
+          "significado": "preferência de dias configurada pelo vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "inativos para o vendedor",
+      "condicao_efetiva": null,
+      "tratados_antes_por": [
+        "R1",
+        "R2"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": true,
+      "numeros": [],
+      "alertas": [
+        "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Regra Padrao da Empresa Customizavel: mensal para inativos com cnae do erp que inicia com (\"03\",\"47\",\"27\")\", \"Regra Padrao da Empresa Customizavel: 15 dias para inativos\"."
+      ]
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Regra Padrao da Empresa Customizavel: mensal para clientes sem venda",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira empresa toda",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "sem vendas",
+          "significado": "sem vendas para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia mensal()",
+          "significado": "frequência mensal (30 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia do vendedor",
+          "significado": "preferência de dias configurada pelo vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem vendas para o vendedor",
+      "condicao_efetiva": "sem vendas para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [],
+  "numeros_permitidos": [
+    3,
+    15,
+    27,
+    47
+  ],
+  "premissas_usadas": [
+    "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+    "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+  ]
+}

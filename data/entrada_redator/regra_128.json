@@ -1,0 +1,598 @@
+{
+ "arquivo": "regra_128.gobr",
+ "comentarios": [
+  "Definição de times",
+  "televendas",
+  "externos",
+  "Definição de segmentações (Para configurar planejamento de ruptura)",
+  "Parâmetros iniciais de não agendamento",
+  "Parâmetros para segmentações (Ruptura / externos para internos)",
+  "Parâmetros para clientes somente do televendas",
+  "Parâmetros para regra fallback"
+ ],
+ "times": [
+  {
+   "nome": "tmk_1",
+   "definicao": "os vendedores de id 291"
+  },
+  {
+   "nome": "tmk_2",
+   "definicao": "os vendedores de id 292"
+  },
+  {
+   "nome": "tmk_3",
+   "definicao": "os vendedores de id 294"
+  },
+  {
+   "nome": "tmk_5",
+   "definicao": "os vendedores de id 375"
+  },
+  {
+   "nome": "tmk_6",
+   "definicao": "os vendedores de id 900"
+  },
+  {
+   "nome": "tmk_7",
+   "definicao": "os vendedores de id 901"
+  },
+  {
+   "nome": "ext_niteroi_rio2",
+   "definicao": "os vendedores de id 283, 279"
+  },
+  {
+   "nome": "ext_lagos_norte",
+   "definicao": "os vendedores de id 286, 284"
+  },
+  {
+   "nome": "ext_baixada1_baixada3",
+   "definicao": "os vendedores de id 275, 277"
+  },
+  {
+   "nome": "ext_rio1_rio3",
+   "definicao": "os vendedores de id 278, 280"
+  },
+  {
+   "nome": "ext_sulflu1_sulflu2",
+   "definicao": "os vendedores de id 273, 274"
+  },
+  {
+   "nome": "ext_serrana_baixada2",
+   "definicao": "os vendedores de id 282, 276"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [
+  {
+   "id": "S1",
+   "nome": "ext_niteroi_rio2_para_tmk1",
+   "definicao": "carteira fixa dos vendedores do time ext_niteroi_rio2",
+   "filtros": []
+  },
+  {
+   "id": "S2",
+   "nome": "ext_lagos_norte_para_tmk2",
+   "definicao": "carteira fixa dos vendedores do time ext_lagos_norte",
+   "filtros": []
+  },
+  {
+   "id": "S3",
+   "nome": "ext_baixada1_baixada3_para_tmk3",
+   "definicao": "carteira fixa dos vendedores do time ext_baixada1_baixada3",
+   "filtros": []
+  },
+  {
+   "id": "S4",
+   "nome": "ext_rio1_rio3_para_tmk5",
+   "definicao": "carteira fixa dos vendedores do time ext_rio1_rio3",
+   "filtros": []
+  },
+  {
+   "id": "S5",
+   "nome": "ext_sulflu1_sulflu2_para_tmk6",
+   "definicao": "carteira fixa dos vendedores do time ext_sulflu1_sulflu2",
+   "filtros": []
+  },
+  {
+   "id": "S6",
+   "nome": "ext_serrana_baixada2_para_tmk7",
+   "definicao": "carteira fixa dos vendedores do time ext_serrana_baixada2",
+   "filtros": []
+  }
+ ],
+ "bloqueios": [
+  "Não agendar clientes baixados na receita",
+  "Clientes que hoje não se enquadraram nas regra solicitadas"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Não agendar clientes baixados na receita",
+   "fonte": "do time tmk_1, tmk_2, tmk_3, tmk_5, tmk_6, tmk_7",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "com situação baixada na Receita Federal"
+  },
+  {
+   "id": "R2",
+   "nome": "Prospects / Ext. Niteroi (283) e Rio 2 (279) para Tmk 1 (291)",
+   "fonte": "do time tmk_1",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa"
+  },
+  {
+   "id": "R3",
+   "nome": "Ativos (A partir do dia 20 de cada mês) / Ext. Niteroi (283) e Rio 2 (279) para Tmk 1 (291)",
+   "fonte": "do time tmk_1",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 5 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+   "quando_executa": [
+    "somente a partir do dia 16 de cada mês"
+   ],
+   "alertas": [
+    "O nome da regra cita 20 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+   ]
+  },
+  {
+   "id": "R4",
+   "nome": "Retenção / Ext. Niteroi (283) e Rio 2 (279) para Tmk 1 (291)",
+   "fonte": "do time tmk_1",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+   "alertas": [
+    "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Niteroi (283) e Rio 2 (279) para Tmk 1 (291)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Recuperação / Ext. Niteroi (283) e Rio 2 (279) para Tmk 1 (291)",
+   "fonte": "do time tmk_1",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 90 dias",
+   "tratados_antes_por": [
+    "R2",
+    "R4"
+   ],
+   "alertas": [
+    "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Niteroi (283) e Rio 2 (279) para Tmk 1 (291)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Prospects / Ext. Lagos (286) e Norte (284) para Tmk 2 (292)",
+   "fonte": "do time tmk_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa"
+  },
+  {
+   "id": "R7",
+   "nome": "Ativos (A partir do dia 20 de cada mês) / Ext. Lagos (286) e Norte (284) para Tmk 2 (292)",
+   "fonte": "do time tmk_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 5 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+   "quando_executa": [
+    "somente a partir do dia 16 de cada mês"
+   ],
+   "alertas": [
+    "O nome da regra cita 20 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+   ]
+  },
+  {
+   "id": "R8",
+   "nome": "Retenção / Ext. Lagos (286) e Norte (284) para Tmk 2 (292)",
+   "fonte": "do time tmk_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+   "alertas": [
+    "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Lagos (286) e Norte (284) para Tmk 2 (292)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
+   ]
+  },
+  {
+   "id": "R9",
+   "nome": "Recuperação / Ext. Lagos (286) e Norte (284) para Tmk 2 (292)",
+   "fonte": "do time tmk_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 90 dias",
+   "tratados_antes_por": [
+    "R6",
+    "R8"
+   ],
+   "alertas": [
+    "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Lagos (286) e Norte (284) para Tmk 2 (292)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
+   ]
+  },
+  {
+   "id": "R10",
+   "nome": "Prospects / Ext. Baixada 1 (275) e Baixada 3 (277) para Tmk 3 (294)",
+   "fonte": "do time tmk_3",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa"
+  },
+  {
+   "id": "R11",
+   "nome": "Ativos (A partir do dia 20 de cada mês) / Ext. Baixada 1 (275) e Baixada 3 (277) para Tmk 3 (294)",
+   "fonte": "do time tmk_3",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 5 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+   "quando_executa": [
+    "somente a partir do dia 16 de cada mês"
+   ],
+   "alertas": [
+    "O nome da regra cita 20 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+   ]
+  },
+  {
+   "id": "R12",
+   "nome": "Retenção / Ext. Baixada 1 (275) e Baixada 3 (277) para Tmk 3 (294)",
+   "fonte": "do time tmk_3",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+   "alertas": [
+    "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Baixada 1 (275) e Baixada 3 (277) para Tmk 3 (294)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
+   ]
+  },
+  {
+   "id": "R13",
+   "nome": "Recuperação / Ext. Baixada 1 (275) e Baixada 3 (277) para Tmk 3 (294)",
+   "fonte": "do time tmk_3",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 90 dias",
+   "tratados_antes_por": [
+    "R10",
+    "R12"
+   ],
+   "alertas": [
+    "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Baixada 1 (275) e Baixada 3 (277) para Tmk 3 (294)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
+   ]
+  },
+  {
+   "id": "R14",
+   "nome": "Prospects / Ext. Rio 1 (278) e Rio 3 (280) para Tmk 5 (375)",
+   "fonte": "do time tmk_5",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa"
+  },
+  {
+   "id": "R15",
+   "nome": "Ativos (A partir do dia 20 de cada mês) / Ext. Rio 1 (278) e Rio 3 (280) para Tmk 5 (375)",
+   "fonte": "do time tmk_5",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 5 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+   "quando_executa": [
+    "somente a partir do dia 16 de cada mês"
+   ],
+   "alertas": [
+    "O nome da regra cita 20 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+   ]
+  },
+  {
+   "id": "R16",
+   "nome": "Retenção / Ext. Rio 1 (278) e Rio 3 (280) para Tmk 5 (375)",
+   "fonte": "do time tmk_5",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+   "alertas": [
+    "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Rio 1 (278) e Rio 3 (280) para Tmk 5 (375)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
+   ]
+  },
+  {
+   "id": "R17",
+   "nome": "Recuperação / Ext. Rio 1 (278) e Rio 3 (280) para Tmk 5 (375)",
+   "fonte": "do time tmk_5",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 90 dias",
+   "tratados_antes_por": [
+    "R14",
+    "R16"
+   ],
+   "alertas": [
+    "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Rio 1 (278) e Rio 3 (280) para Tmk 5 (375)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
+   ]
+  },
+  {
+   "id": "R18",
+   "nome": "Prospects / Ext. Sul Flu 1 (273) e Sul Flu 2 (274) para Tmk 6 (900)",
+   "fonte": "do time tmk_6",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa"
+  },
+  {
+   "id": "R19",
+   "nome": "Ativos (A partir do dia 20 de cada mês) / Ext. Sul Flu 1 (273) e Sul Flu 2 (274) para Tmk 6 (900)",
+   "fonte": "do time tmk_6",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 5 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+   "quando_executa": [
+    "somente a partir do dia 16 de cada mês"
+   ],
+   "alertas": [
+    "O nome da regra cita 20 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+   ]
+  },
+  {
+   "id": "R20",
+   "nome": "Retenção / Ext. Sul Flu 1 (273) e Sul Flu 2 (274) para Tmk 6 (900)",
+   "fonte": "do time tmk_6",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+   "alertas": [
+    "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Sul Flu 1 (273) e Sul Flu 2 (274) para Tmk 6 (900)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
+   ]
+  },
+  {
+   "id": "R21",
+   "nome": "Recuperação / Ext. Sul Flu 1 (273) e Sul Flu 2 (274) para Tmk 6 (900)",
+   "fonte": "do time tmk_6",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 90 dias",
+   "tratados_antes_por": [
+    "R18",
+    "R20"
+   ],
+   "alertas": [
+    "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Sul Flu 1 (273) e Sul Flu 2 (274) para Tmk 6 (900)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
+   ]
+  },
+  {
+   "id": "R22",
+   "nome": "Prospects / Ext. Serrana (282) e Baixada 2 (276) para Tmk 7 (901)",
+   "fonte": "do time tmk_7",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa"
+  },
+  {
+   "id": "R23",
+   "nome": "Ativos (A partir do dia 20 de cada mês) / Ext. Serrana (282) e Baixada 2 (276) para Tmk 7 (901)",
+   "fonte": "do time tmk_7",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 5 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+   "quando_executa": [
+    "somente a partir do dia 16 de cada mês"
+   ],
+   "alertas": [
+    "O nome da regra cita 20 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+   ]
+  },
+  {
+   "id": "R24",
+   "nome": "Retenção / Ext. Serrana (282) e Baixada 2 (276) para Tmk 7 (901)",
+   "fonte": "do time tmk_7",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+   "alertas": [
+    "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Serrana (282) e Baixada 2 (276) para Tmk 7 (901)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
+   ]
+  },
+  {
+   "id": "R25",
+   "nome": "Recuperação / Ext. Serrana (282) e Baixada 2 (276) para Tmk 7 (901)",
+   "fonte": "do time tmk_7",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 90 dias",
+   "tratados_antes_por": [
+    "R22",
+    "R24"
+   ],
+   "alertas": [
+    "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Serrana (282) e Baixada 2 (276) para Tmk 7 (901)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
+   ]
+  },
+  {
+   "id": "R26",
+   "nome": "Prospects / Exclusivo do televendas",
+   "fonte": "do time tmk_1, tmk_2, tmk_3, tmk_5, tmk_6, tmk_7",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "nunca compraram com qualquer vendedor da empresa",
+   "tratados_antes_por": [
+    "R2",
+    "R6",
+    "R10",
+    "R14",
+    "R18",
+    "R22"
+   ],
+   "alertas": [
+    "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+   ]
+  },
+  {
+   "id": "R27",
+   "nome": "Ativos / Exclusivo do televendas",
+   "fonte": "do time tmk_1, tmk_2, tmk_3, tmk_5, tmk_6, tmk_7",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+   "tratados_antes_por": [
+    "R4",
+    "R8",
+    "R12",
+    "R16",
+    "R20",
+    "R24"
+   ],
+   "alertas": [
+    "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Niteroi (283) e Rio 2 (279) para Tmk 1 (291)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+    "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Lagos (286) e Norte (284) para Tmk 2 (292)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+    "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Baixada 1 (275) e Baixada 3 (277) para Tmk 3 (294)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+    "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Rio 1 (278) e Rio 3 (280) para Tmk 5 (375)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+    "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Sul Flu 1 (273) e Sul Flu 2 (274) para Tmk 6 (900)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+    "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Serrana (282) e Baixada 2 (276) para Tmk 7 (901)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+    "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+   ]
+  },
+  {
+   "id": "R28",
+   "nome": "Retenção / Exclusivo do televendas",
+   "fonte": "do time tmk_1, tmk_2, tmk_3, tmk_5, tmk_6, tmk_7",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+   "tratados_antes_por": [
+    "R4",
+    "R8",
+    "R12",
+    "R16",
+    "R20",
+    "R24",
+    "R27"
+   ],
+   "alertas": [
+    "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Niteroi (283) e Rio 2 (279) para Tmk 1 (291)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+    "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Lagos (286) e Norte (284) para Tmk 2 (292)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+    "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Baixada 1 (275) e Baixada 3 (277) para Tmk 3 (294)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+    "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Rio 1 (278) e Rio 3 (280) para Tmk 5 (375)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+    "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Sul Flu 1 (273) e Sul Flu 2 (274) para Tmk 6 (900)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+    "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Serrana (282) e Baixada 2 (276) para Tmk 7 (901)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+    "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+   ]
+  },
+  {
+   "id": "R29",
+   "nome": "Recuperação / Exclusivo do televendas",
+   "fonte": "do time tmk_1, tmk_2, tmk_3, tmk_5, tmk_6, tmk_7",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 90 dias",
+   "tratados_antes_por": [
+    "R26",
+    "R27",
+    "R28"
+   ]
+  },
+  {
+   "id": "R30",
+   "nome": "Clientes que hoje não se enquadraram nas regra solicitadas",
+   "fonte": "do time tmk_1, tmk_2, tmk_3, tmk_5, tmk_6, tmk_7",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "todos os clientes da fonte (sem filtro)",
+   "tratados_antes_por": [
+    "R2",
+    "R4",
+    "R5",
+    "R6",
+    "R8",
+    "R9",
+    "R10",
+    "R12",
+    "R13",
+    "R14",
+    "R16",
+    "R17",
+    "R18",
+    "R20",
+    "R21",
+    "R22",
+    "R24",
+    "R25",
+    "R26",
+    "R27",
+    "R28",
+    "R29"
+   ],
+   "alertas": [
+    "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Niteroi (283) e Rio 2 (279) para Tmk 1 (291)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+    "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Lagos (286) e Norte (284) para Tmk 2 (292)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+    "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Baixada 1 (275) e Baixada 3 (277) para Tmk 3 (294)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+    "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Rio 1 (278) e Rio 3 (280) para Tmk 5 (375)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+    "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Sul Flu 1 (273) e Sul Flu 2 (274) para Tmk 6 (900)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+    "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Serrana (282) e Baixada 2 (276) para Tmk 7 (901)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+    "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado.",
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+ ]
+}

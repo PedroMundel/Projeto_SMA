@@ -1,0 +1,223 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_223.gobr",
+  "sha256": "149296c23d23040d847367280348e45bb51cee935612d15b838a332a1723912f",
+  "comentarios": [
+    "Definição de times",
+    "Definição de regras"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "ativacao",
+      "definicao": "os vendedores de id 970, 967, 973, 974",
+      "filtros": []
+    },
+    {
+      "id": "T2",
+      "nome": "generalista",
+      "definicao": "os vendedores de id 511, 803, 510, 906, 507, 506, 606, 925, 904, 907, 536, 927, 964, 521",
+      "filtros": []
+    },
+    {
+      "id": "T3",
+      "nome": "construtora",
+      "definicao": "os vendedores de id 956, 954, 958, 971, 520",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Cliente com compra na semana corrente (Entre seg. e sex)"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Cliente com pedido nos últimos 30 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time ativacao",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao em 30 dias",
+          "significado": "compraram nos últimos 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 30 dias",
+      "condicao_efetiva": "compraram nos últimos 30 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        21,
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Cliente sem pedido nos últimos 30 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time ativacao",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 15 dias",
+          "significado": "frequência de 15 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "(nunca compraram ou sem comprar há mais de 30 dias)",
+      "tratados_antes_por": [
+        "R1"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        15
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Cliente com compra na semana corrente (Entre seg. e sex)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time generalista",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao na semana",
+          "significado": "com compra na semana atual",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "com compra na semana atual",
+      "condicao_efetiva": "com compra na semana atual",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Cliente semanal - padrão",
+      "tipo_bloco": "parametros",
+      "fonte": "do time generalista",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "todos os clientes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R3"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Todos os clientes",
+      "tipo_bloco": "parametros",
+      "fonte": "do time construtora",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "todos os clientes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    7,
+    14,
+    15,
+    21,
+    30
+  ],
+  "numeros_permitidos": [
+    7,
+    14,
+    15,
+    21,
+    30,
+    506,
+    507,
+    510,
+    511,
+    520,
+    521,
+    536,
+    606,
+    803,
+    904,
+    906,
+    907,
+    925,
+    927,
+    954,
+    956,
+    958,
+    964,
+    967,
+    970,
+    971,
+    973,
+    974
+  ],
+  "premissas_usadas": [
+    "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+  ]
+}

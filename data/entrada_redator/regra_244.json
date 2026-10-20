@@ -1,0 +1,128 @@
+{
+ "arquivo": "regra_244.gobr",
+ "comentarios": [
+  "Regras de não agendamento",
+  "Regras de agendamento"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Não agendar filiais",
+  "Não agendar inadimplentes"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Não agendar filiais",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "filiais"
+  },
+  {
+   "id": "R2",
+   "nome": "Não agendar inadimplentes",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes"
+  },
+  {
+   "id": "R3",
+   "nome": "Prospect: Cliente potencial",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com o próprio vendedor"
+  },
+  {
+   "id": "R4",
+   "nome": "Ativado: Fez um pedido e ainda não comprou mais",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "já compraram com o próprio vendedor e com uma única compra com o vendedor",
+   "tratados_antes_por": [
+    "R3"
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Freq. histórica para Ativo: compra regularmente",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência calculada pelo histórico de compras; se não houver, limitada a no mínimo 5 dias e no máximo 7 dias"
+   ],
+   "condicao_efetiva": "já compraram com o próprio vendedor e frequência histórica de compra de até 7 dias e ativos para o vendedor e sem ser de compra única com o vendedor",
+   "tratados_antes_por": [
+    "R3",
+    "R4"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Estimular a regularidade de compra",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 30 dias, mas estão há mais de 7 dias sem comprar e não ativos para o vendedor e sem ser de compra única com o vendedor) OU (compraram com o próprio vendedor nos últimos 30 dias, mas estão há mais de 7 dias sem comprar e frequência histórica indefinida ou frequência histórica de compra de mais de 7 dias e ativos para o vendedor e sem ser de compra única com o vendedor)",
+   "tratados_antes_por": [
+    "R4",
+    "R5"
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Em ruptura: risco de ficar inativo",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e não ativos para o vendedor e sem ser de compra única com o vendedor) OU (compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e frequência histórica indefinida ou frequência histórica de compra de mais de 7 dias e ativos para o vendedor e sem ser de compra única com o vendedor)",
+   "tratados_antes_por": [
+    "R4",
+    "R5"
+   ]
+  },
+  {
+   "id": "R8",
+   "nome": "Inativo: reativar cliente sem compra",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "(sem comprar com o próprio vendedor há mais de 60 dias e não ativos para o vendedor e sem ser de compra única com o vendedor) OU (sem comprar com o próprio vendedor há mais de 60 dias e frequência histórica indefinida ou frequência histórica de compra de mais de 7 dias e ativos para o vendedor e sem ser de compra única com o vendedor)",
+   "tratados_antes_por": [
+    "R4",
+    "R5"
+   ]
+  }
+ ],
+ "nao_cobertos": {
+  "do time televendas": "(compraram com o próprio vendedor nos últimos 7 dias e não ativos para o vendedor e sem ser de compra única com o vendedor) OU (compraram com o próprio vendedor nos últimos 7 dias e frequência histórica indefinida ou frequência histórica de compra de mais de 7 dias e ativos para o vendedor e sem ser de compra única com o vendedor)"
+ },
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+ ]
+}

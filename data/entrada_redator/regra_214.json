@@ -1,0 +1,179 @@
+{
+ "arquivo": "regra_214.gobr",
+ "comentarios": [
+  "Definição de times:",
+  "Regras de não agendamento:",
+  "Regras de agendamento:"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Não agendar inadimplentes"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Não agendar inadimplentes",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes"
+  },
+  {
+   "id": "R2",
+   "nome": "Freq. de 14d para 'Cliente sem pedido com o vendedor'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "com uma única compra com o vendedor"
+  },
+  {
+   "id": "R3",
+   "nome": "Freq. de 21d para 'Ativado: fez um pedido e ainda não comprou mais'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "compraram nos últimos 30 dias e ramo de atividade (id) igual a 29 e com uma única compra com o vendedor",
+   "tratados_antes_por": [
+    "R2"
+   ],
+   "inalcancavel": true,
+   "alertas": [
+    "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Não agendar inadimplentes\", \"Freq. de 14d para 'Cliente sem pedido com o vendedor'\"."
+   ]
+  },
+  {
+   "id": "R4",
+   "nome": "Freq. de 14d para 'Ativado: fez um pedido e ainda não comprou mais'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "compraram nos últimos 30 dias e ramo de atividade (id) diferente de 29 e com uma única compra com o vendedor",
+   "tratados_antes_por": [
+    "R2"
+   ],
+   "inalcancavel": true,
+   "alertas": [
+    "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Não agendar inadimplentes\", \"Freq. de 14d para 'Cliente sem pedido com o vendedor'\"."
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Freq. de 10d para 'Ativo: compra regularmente'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 10 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "frequência histórica de compra de menos de 14 dias e ativos para o vendedor e sem ser de compra única com o vendedor",
+   "tratados_antes_por": [
+    "R2"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Freq. de 30d para 'Ativo: estimular a regularidade de compra'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 59 dias, mas estão há pelo menos 21 dias sem comprar e ramo de atividade (id) igual a 29 e não ativos para o vendedor e sem ser de compra única com o vendedor) OU (compraram com o próprio vendedor nos últimos 59 dias, mas estão há pelo menos 21 dias sem comprar e ramo de atividade (id) igual a 29 e frequência histórica indefinida ou frequência histórica de compra de pelo menos 14 dias e ativos para o vendedor e sem ser de compra única com o vendedor)",
+   "tratados_antes_por": [
+    "R2",
+    "R5"
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Freq. de 14d para 'Ativo: estimular a regularidade de compra'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 59 dias, mas estão há pelo menos 21 dias sem comprar e ramo de atividade (id) diferente de 29 e não ativos para o vendedor e sem ser de compra única com o vendedor) OU (compraram com o próprio vendedor nos últimos 59 dias, mas estão há pelo menos 21 dias sem comprar e ramo de atividade (id) diferente de 29 e frequência histórica indefinida ou frequência histórica de compra de pelo menos 14 dias e ativos para o vendedor e sem ser de compra única com o vendedor)",
+   "tratados_antes_por": [
+    "R2",
+    "R5"
+   ]
+  },
+  {
+   "id": "R8",
+   "nome": "Freq. de 14d para 'Em ruptura: risco de ficar inativo' (RA 29)",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 89 dias, mas estão há mais de 59 dias sem comprar e ramo de atividade (id) igual a 29 e não ativos para o vendedor e sem ser de compra única com o vendedor) OU (compraram com o próprio vendedor nos últimos 89 dias, mas estão há mais de 59 dias sem comprar e ramo de atividade (id) igual a 29 e frequência histórica indefinida ou frequência histórica de compra de pelo menos 14 dias e ativos para o vendedor e sem ser de compra única com o vendedor)",
+   "tratados_antes_por": [
+    "R2",
+    "R5"
+   ]
+  },
+  {
+   "id": "R9",
+   "nome": "Freq. de 14d para 'Em ruptura: risco de ficar inativo'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 89 dias, mas estão há mais de 59 dias sem comprar e ramo de atividade (id) diferente de 29 e não ativos para o vendedor e sem ser de compra única com o vendedor) OU (compraram com o próprio vendedor nos últimos 89 dias, mas estão há mais de 59 dias sem comprar e ramo de atividade (id) diferente de 29 e frequência histórica indefinida ou frequência histórica de compra de pelo menos 14 dias e ativos para o vendedor e sem ser de compra única com o vendedor)",
+   "tratados_antes_por": [
+    "R2",
+    "R5"
+   ]
+  },
+  {
+   "id": "R10",
+   "nome": "Freq. de 10d para 'Resgate de cliente sem compra'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 10 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "(sem comprar com o próprio vendedor há mais de 90 dias e não ativos para o vendedor e sem ser de compra única com o vendedor) OU (sem comprar com o próprio vendedor há mais de 90 dias e frequência histórica indefinida ou frequência histórica de compra de pelo menos 14 dias e ativos para o vendedor e sem ser de compra única com o vendedor)",
+   "tratados_antes_por": [
+    "R2",
+    "R5"
+   ]
+  }
+ ],
+ "nao_cobertos": {
+  "do time televendas": "((nunca compraram com o próprio vendedor ou compraram com o próprio vendedor nos últimos 20 dias ou compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 89 dias sem comprar) e não ativos para o vendedor e sem ser de compra única com o vendedor) OU ((nunca compraram com o próprio vendedor ou compraram com o próprio vendedor nos últimos 20 dias ou compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 89 dias sem comprar) e frequência histórica indefinida ou frequência histórica de compra de pelo menos 14 dias e ativos para o vendedor e sem ser de compra única com o vendedor)"
+ },
+ "alertas_do_arquivo": [
+  "A cascata mistura escopos de recência de compra (grupo: Freq. de 21d para 'Ativado: fez um pedido e ainda não comprou mais', Freq. de 14d para 'Ativado: fez um pedido e ainda não comprou mais'; vendedor: Freq. de 30d para 'Ativo: estimular a regularidade de compra', Freq. de 14d para 'Ativo: estimular a regularidade de compra', Freq. de 14d para 'Em ruptura: risco de ficar inativo' (RA 29)); faixas de escopos diferentes não se excluem automaticamente e podem se sobrepor ou deixar lacunas."
+ ],
+ "premissas_usadas": [
+  "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+  "P2: Escopos de recência (grupo, vendedor, global) são medidas distintas, ordenadas: global <= grupo <= vendedor."
+ ]
+}

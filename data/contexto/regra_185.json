@@ -1,0 +1,205 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_185.gobr",
+  "sha256": "98f487a67ac4795e1e108eb52130ea391a93479b6d2d2775d21f0b3473be252a",
+  "comentarios": [
+    "Definição de times",
+    "Regras de não agendamento",
+    "Regras de agendamento"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "televendas",
+      "definicao": "todos os vendedores de televendas habilitados no Govendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Não agendar Pessoa Física",
+    "Não agendar baixados na Receita"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Não agendar Pessoa Física",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "pessoa fisica",
+          "significado": "pessoa física",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "pessoa física",
+      "condicao_efetiva": "pessoa física",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Não agendar baixados na Receita",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "status na receita federal definido como baixada",
+          "significado": "com situação baixada na Receita Federal",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "com situação baixada na Receita Federal",
+      "condicao_efetiva": "com situação baixada na Receita Federal",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Freq. de 14d para Prospects",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "no ciclo de vida prospect com a empresa",
+          "significado": "prospects (nunca compraram com qualquer vendedor da empresa)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "nunca compraram com qualquer vendedor da empresa",
+      "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Freq. de 7d para Ativos",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "no ciclo de vida ativo com a empresa",
+          "significado": "no ciclo de vida ativo com a empresa",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "no ciclo de vida ativo com a empresa",
+      "condicao_efetiva": "já compraram com qualquer vendedor da empresa e no ciclo de vida ativo com a empresa",
+      "tratados_antes_por": [
+        "R3"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Freq. de 14 dias para Inativos",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "já compraram com qualquer vendedor da empresa e fora do ciclo de vida ativo com a empresa",
+      "tratados_antes_por": [
+        "R3",
+        "R4"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    7,
+    14
+  ],
+  "numeros_permitidos": [
+    7,
+    14
+  ],
+  "premissas_usadas": [
+    "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+  ]
+}

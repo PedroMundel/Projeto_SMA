@@ -1,0 +1,267 @@
+{
+ "arquivo": "regra_142.gobr",
+ "comentarios": [
+  "Regras padrão",
+  "time \"Larissa\":",
+  "vendedores porid (\"12\")",
+  "Regras da Yara",
+  "Regras da Lúcia",
+  "Regras do Wanderson",
+  "Código dentro de Ramo de atividades",
+  "001 Hospital/Home Care/OS",
+  "002 Clínicas",
+  "003 Distribuidora",
+  "004 Farmácia/Drogaria",
+  "005 ORGAO Público",
+  "006 REPRESENTANTES (MEI)",
+  "100 FORNECEDOR DE USO E CONSUMO",
+  "Regras padrão"
+ ],
+ "times": [
+  {
+   "nome": "todos",
+   "definicao": "todos os vendedores habilitados no Govendas, exceto os de id 10, 5, 3"
+  },
+  {
+   "nome": "Yara",
+   "definicao": "os vendedores de id 10"
+  },
+  {
+   "nome": "Lúcia",
+   "definicao": "os vendedores de id 5"
+  },
+  {
+   "nome": "Wanderson",
+   "definicao": "os vendedores de id 3"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Regra Padrão da Dispomed: Não liguar para inadimplente",
+  "Regra Padrão da Dispomed: Não liguar para Fornecedor de uso e consumo, Orgão público e Representantes"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Dispomed: Frequência de 3 dias para clientes curva A (Yara)",
+   "fonte": "do time Yara",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 3 dias"
+   ],
+   "condicao_efetiva": "curva A com a empresa"
+  },
+  {
+   "id": "R2",
+   "nome": "Dispomed: Frequência de 7 dias para clientes curva B (Yara)",
+   "fonte": "do time Yara",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "curva B com a empresa"
+  },
+  {
+   "id": "R3",
+   "nome": "Dispomed: Frequência de 14 dias para clientes curva C (Yara)",
+   "fonte": "do time Yara",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "curva C com a empresa"
+  },
+  {
+   "id": "R4",
+   "nome": "Dispomed: Frequência de 14 dias para clientes sem classificação de curva (Yara)",
+   "fonte": "do time Yara",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "fora da curva A nem B nem C com a empresa",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3"
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Dispomed: Frequência de 2 dias para clientes curva A (Lúcia)",
+   "fonte": "do time Lúcia",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 2 dias"
+   ],
+   "condicao_efetiva": "curva A com a empresa"
+  },
+  {
+   "id": "R6",
+   "nome": "Dispomed: Frequência de 7 dias para clientes curva B (Lúcia)",
+   "fonte": "do time Lúcia",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "curva B com a empresa"
+  },
+  {
+   "id": "R7",
+   "nome": "Dispomed: Frequência de 14 dias para clientes curva C (Lúcia)",
+   "fonte": "do time Lúcia",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "curva C com a empresa"
+  },
+  {
+   "id": "R8",
+   "nome": "Dispomed: Frequência de 7 dias para clientes sem classificação de curva (Lúcia)",
+   "fonte": "do time Lúcia",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "fora da curva A nem B nem C com a empresa",
+   "tratados_antes_por": [
+    "R5",
+    "R6",
+    "R7"
+   ]
+  },
+  {
+   "id": "R9",
+   "nome": "Dispomed: Frequência de 4 dias para clientes curva A (Wanderson)",
+   "fonte": "do time Wanderson",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 4 dias"
+   ],
+   "condicao_efetiva": "curva A com a empresa"
+  },
+  {
+   "id": "R10",
+   "nome": "Dispomed: Frequência de 7 dias para clientes curva B (Wanderson)",
+   "fonte": "do time Wanderson",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "curva B com a empresa"
+  },
+  {
+   "id": "R11",
+   "nome": "Dispomed: Frequência de 9 dias para clientes curva C (Wanderson)",
+   "fonte": "do time Wanderson",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 9 dias"
+   ],
+   "condicao_efetiva": "curva C com a empresa"
+  },
+  {
+   "id": "R12",
+   "nome": "Dispomed: Frequência de 14 dias para clientes sem classificação de curva (Wanderson)",
+   "fonte": "do time Wanderson",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "fora da curva A nem B nem C com a empresa",
+   "tratados_antes_por": [
+    "R9",
+    "R10",
+    "R11"
+   ]
+  },
+  {
+   "id": "R13",
+   "nome": "Regra Padrão da Dispomed: Não liguar para inadimplente",
+   "fonte": "do time todos",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes"
+  },
+  {
+   "id": "R14",
+   "nome": "Regra Padrão da Dispomed: Frequência de 14 dias para Hospitais e Clínicas",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "ramo de atividade (id) em: 001, 002"
+  },
+  {
+   "id": "R15",
+   "nome": "Regra Padrão da Dispomed: Frequência de 7 dias para Distribuidora",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "ramo de atividade (id) igual a 003"
+  },
+  {
+   "id": "R16",
+   "nome": "Regra Padrão da Dispomed: Frequência de 21 dias para Farmácias",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "ramo de atividade (id) igual a 004"
+  },
+  {
+   "id": "R17",
+   "nome": "Regra Padrão da Dispomed: Não liguar para Fornecedor de uso e consumo, Orgão público e Representantes",
+   "fonte": "do time todos",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "ramo de atividade (id) em: 005, 006, 100"
+  },
+  {
+   "id": "R18",
+   "nome": "Regra Padrão da Dispomed: Frequência semanal para clientes ativos",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "ramo de atividade (id) fora de: 001, 002, 003, 004, 005, 006 e mais 1 e ativos para o vendedor",
+   "tratados_antes_por": [
+    "R14",
+    "R15",
+    "R16"
+   ]
+  },
+  {
+   "id": "R19",
+   "nome": "Regra Padrao do goVendas: Frequência quinzenal para clientes inativos",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 15 dias"
+   ],
+   "condicao_efetiva": "ramo de atividade (id) fora de: 001, 002, 003, 004, 005, 006 e mais 1 e não ativos para o vendedor",
+   "tratados_antes_por": [
+    "R14",
+    "R15",
+    "R16",
+    "R18"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+ ]
+}

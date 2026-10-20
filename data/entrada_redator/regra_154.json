@@ -1,0 +1,254 @@
+{
+ "arquivo": "regra_154.gobr",
+ "comentarios": [
+  "<Regras padrão da Binatti Itapema>",
+  "<Atualizado em: 2024-09-25>",
+  "Definição de times",
+  "Regras de agendamento",
+  "Planejamento para dias específicos",
+  "<fixo>",
+  "<seg>",
+  "<ter>",
+  "<qua>",
+  "<qui>",
+  "<dinâmico>",
+  "<seg, ter ou sex>",
+  "<ter ou sex>",
+  "<seg ou qui>",
+  "<ter ou qui>",
+  "Planejamento para dias variados",
+  "Planejamento para clientes não passados nas rotas"
+ ],
+ "times": [
+  {
+   "nome": "todos",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Rota fixa de segunda-feira",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: segunda; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "cidade em: BALNEARIO BARRA DO S, BELA VISTA, CAMPO ALEGRE, CANOINHAS, CORUPA, ITAIOPOLIS e mais 8"
+  },
+  {
+   "id": "R2",
+   "nome": "Rota fixa de terça-feira",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: terça; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "cidade em: APIUNA, ASCURRA, BENEDITO NOVO, BLUMENAU, DOUTOR PEDRINHO, GASPAR e mais 6"
+  },
+  {
+   "id": "R3",
+   "nome": "Rota fixa de quarta-feira",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: quarta; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "cidade em: ARARANGUA, BIGUACU, BRACO DO NORTE, CAPIVARI DE BAIXO, COCAL DO SUL, CRICIUMA e mais 23"
+  },
+  {
+   "id": "R4",
+   "nome": "Rota fixa de quinta-feira",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: quinta; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "cidade em: ARAQUARI, MASSARANDUBA, PIRABEIRABA, SAO JOAO DO ITAPERIU"
+  },
+  {
+   "id": "R5",
+   "nome": "Rota dinâmica de segunda, terça ou sexta",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: segunda, terça, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "cidade igual a BRUSQUE"
+  },
+  {
+   "id": "R6",
+   "nome": "Rota dinâmica para terça ou sexta",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: terça, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "cidade igual a NOVA TRENTO"
+  },
+  {
+   "id": "R7",
+   "nome": "Rota dinâmica de segunda ou quinta",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: segunda, quinta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "cidade em: GUARAMIRIM, JARAGUA DO SUL, JOINVILLE, SCHROEDER"
+  },
+  {
+   "id": "R8",
+   "nome": "Rota dinâmica de terça ou quinta",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: terça, quinta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "cidade em: BALNEARIO PICARRAS, BARRA VELHA, NAVEGANTES, PENHA"
+  },
+  {
+   "id": "R9",
+   "nome": "Rota dinâmica para dias variados",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)"
+   ],
+   "condicao_efetiva": "cidade em: BALNEARIO CAMBORIU, CAMBORIU, CANELINHA, ITAJAI, ITAPEMA, PORTO BELO e mais 2"
+  },
+  {
+   "id": "R10",
+   "nome": "Freq. de 30d para 'Prospects'",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa e cidade fora de: APIUNA, ARAQUARI, ARARANGUA, ASCURRA, BALNEARIO BARRA DO S, BALNEARIO CAMBORIU e mais 71",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9"
+   ]
+  },
+  {
+   "id": "R11",
+   "nome": "Freq. de 14d para 'Ativos - Curva A'",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e cidade fora de: APIUNA, ARAQUARI, ARARANGUA, ASCURRA, BALNEARIO BARRA DO S, BALNEARIO CAMBORIU e mais 71 e curva A com a empresa e ativos para o vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9",
+    "R10"
+   ]
+  },
+  {
+   "id": "R12",
+   "nome": "Freq. de 21d para 'Ativos - Curva B'",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e cidade fora de: APIUNA, ARAQUARI, ARARANGUA, ASCURRA, BALNEARIO BARRA DO S, BALNEARIO CAMBORIU e mais 71 e curva B com a empresa e ativos para o vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9",
+    "R10"
+   ]
+  },
+  {
+   "id": "R13",
+   "nome": "Freq. de 28d para 'Ativos - Curva C'",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e cidade fora de: APIUNA, ARAQUARI, ARARANGUA, ASCURRA, BALNEARIO BARRA DO S, BALNEARIO CAMBORIU e mais 71 e fora da curva A nem B com a empresa e ativos para o vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9",
+    "R10",
+    "R11",
+    "R12"
+   ]
+  },
+  {
+   "id": "R14",
+   "nome": "Freq. de 30d para 'Inativos'",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e cidade fora de: APIUNA, ARAQUARI, ARARANGUA, ASCURRA, BALNEARIO BARRA DO S, BALNEARIO CAMBORIU e mais 71 e não ativos para o vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9",
+    "R10",
+    "R11",
+    "R12",
+    "R13"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+ ]
+}

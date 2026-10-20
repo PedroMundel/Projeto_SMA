@@ -1,0 +1,124 @@
+{
+ "arquivo": "regra_200.gobr",
+ "comentarios": [
+  "Definição de Times",
+  "Parâmetros de agendamento"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas, exceto os de id 1"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Freq. de 21d para 'Prospect: Fazer o primeiro pedido'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa"
+  },
+  {
+   "id": "R2",
+   "nome": "Freq. de 10d para 'Ativado: Boas vindas ao cliente com primeiro pedido'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 10 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e com uma única compra na empresa",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R3",
+   "nome": "Freq. do histórico para 'Alta frequência de compra'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência calculada pelo histórico de compras mais 5 dias; se não houver, limitada a no máximo 30 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 30 dias e sem ser de compra única na empresa",
+   "tratados_antes_por": [
+    "R2"
+   ]
+  },
+  {
+   "id": "R4",
+   "nome": "Freq. de 14d para 'Compra regularmente'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "compraram com o próprio vendedor nos últimos 30 dias",
+   "tratados_antes_por": [
+    "R2",
+    "R3"
+   ],
+   "inalcancavel": true,
+   "alertas": [
+    "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Freq. de 10d para 'Ativado: Boas vindas ao cliente com primeiro pedido'\", \"Freq. do histórico para 'Alta frequência de compra'\"."
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Freq. de 7d para 'Estimular regularidade de compra'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e sem ser de compra única na empresa",
+   "tratados_antes_por": [
+    "R2"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Freq. de 7d para 'Risco de inatividade'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e sem ser de compra única na empresa",
+   "tratados_antes_por": [
+    "R2"
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Freq. de 21d para 'Resgate de cliente sem compra' (Inativos)",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 90 dias) e sem ser de compra única na empresa",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3",
+    "R5",
+    "R6"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [
+  "A cascata mistura escopos de recência de compra (grupo: Freq. do histórico para 'Alta frequência de compra', Freq. de 7d para 'Estimular regularidade de compra', Freq. de 7d para 'Risco de inatividade'; vendedor: Freq. de 14d para 'Compra regularmente'); faixas de escopos diferentes não se excluem automaticamente e podem se sobrepor ou deixar lacunas."
+ ],
+ "premissas_usadas": [
+  "P2: Escopos de recência (grupo, vendedor, global) são medidas distintas, ordenadas: global <= grupo <= vendedor.",
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+ ]
+}

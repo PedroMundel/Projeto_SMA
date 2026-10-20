@@ -1,0 +1,101 @@
+{
+ "arquivo": "regra_133.gobr",
+ "comentarios": [
+  "regras time interno",
+  "regras time externo"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas"
+  },
+  {
+   "nome": "campo",
+   "definicao": "todos os vendedores de campo"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "carteira televendas",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": []
+  },
+  {
+   "id": "C2",
+   "nome": "carteira campo",
+   "definicao": "carteira fixa dos vendedores do time campo",
+   "filtros": []
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Regra Padrao da Casa Cardao: nao agendar inadimplentes"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Regra Padrao da Casa Cardao: nao agendar inadimplentes",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes"
+  },
+  {
+   "id": "R2",
+   "nome": "Regra Padrao da Casa Cardao: 7 dias para clintes ativos",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "ativos para o vendedor"
+  },
+  {
+   "id": "R3",
+   "nome": "Regra Padrao da Casa Cardao: 14 dias clintes inativos",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "não ativos para o vendedor",
+   "tratados_antes_por": [
+    "R2"
+   ]
+  },
+  {
+   "id": "R4",
+   "nome": "Regra Padrao da Casa Cardao - Frequencia 7 dias para clientes ativos (campo)",
+   "fonte": "da carteira carteira campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "ativos para o vendedor"
+  },
+  {
+   "id": "R5",
+   "nome": "Regra Padrao da Casa Cardao - Frequencia de 15 dias para clientes inativos (campo)",
+   "fonte": "da carteira carteira campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 15 dias",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "não ativos para o vendedor",
+   "tratados_antes_por": [
+    "R4"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores.",
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

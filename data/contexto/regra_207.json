@@ -1,0 +1,304 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_207.gobr",
+  "sha256": "a1dd357ecf0f1ca4c073f811801c66d86d0a2a80039d61b6b62a307e24d202f3",
+  "comentarios": [
+    "Definição de times",
+    "Parâmetros de planejamento"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "televendas",
+      "definicao": "todos os vendedores de televendas habilitados no Govendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Não agendar CPF"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Não agendar CPF",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "pessoa fisica",
+          "significado": "pessoa física",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "pessoa física",
+      "condicao_efetiva": "pessoa física",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Clientes sem pedido com a empresa",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "sem venda",
+          "significado": "sem vendas para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem vendas para o vendedor",
+      "condicao_efetiva": "sem vendas para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Clientes ativos com alta regularidade",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao em 14 dias",
+          "significado": "compraram nos últimos 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia do historico mais 7 dias ou no maximo de 14 dias",
+          "significado": "frequência calculada pelo histórico de compras mais 7 dias; se não houver, limitada a no máximo 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 14 dias",
+      "condicao_efetiva": "compraram nos últimos 14 dias e com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R2"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7,
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Manter a regularidade",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao entre 14 dias e 30 dias",
+          "significado": "compraram nos últimos 30 dias, mas estão há pelo menos 14 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 30 dias, mas estão há pelo menos 14 dias sem comprar",
+      "condicao_efetiva": "compraram nos últimos 30 dias, mas estão há mais de 14 dias sem comprar e com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R2",
+        "R3"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Sem pedido entre 30 a 45d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao entre 30 dias e 45 dias",
+          "significado": "compraram nos últimos 45 dias, mas estão há pelo menos 30 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 45 dias, mas estão há pelo menos 30 dias sem comprar",
+      "condicao_efetiva": "compraram nos últimos 45 dias, mas estão há mais de 30 dias sem comprar e com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R2",
+        "R4"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21,
+        30,
+        45
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Risco de ficar inativo",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao entre 45 dias e 90 dias",
+          "significado": "compraram nos últimos 90 dias, mas estão há pelo menos 45 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 90 dias, mas estão há pelo menos 45 dias sem comprar",
+      "condicao_efetiva": "compraram nos últimos 90 dias, mas estão há mais de 45 dias sem comprar e com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R2",
+        "R5"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        45,
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Resgate de inativos",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao em 90 dias",
+          "significado": "sem comprar há mais de 90 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 28 dias",
+          "significado": "frequência de 28 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar há mais de 90 dias",
+      "condicao_efetiva": "sem comprar há mais de 90 dias e com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R2"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        28,
+        90
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {
+    "do time televendas": "nunca compraram e com alguma venda (ativos ou inativos) para o vendedor"
+  },
+  "alertas": [],
+  "numeros_obrigatorios": [
+    7,
+    14,
+    21,
+    28,
+    30,
+    45,
+    90
+  ],
+  "numeros_permitidos": [
+    7,
+    14,
+    21,
+    28,
+    30,
+    45,
+    90
+  ],
+  "premissas_usadas": [
+    "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+    "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'."
+  ]
+}

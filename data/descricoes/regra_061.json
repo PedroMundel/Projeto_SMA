@@ -1,0 +1,128 @@
+{
+  "resumo": "Regra padrão aplicada a três carteiras fixas: a da vendedora Gesiane, a do time de campo e a do time de televendas. A carteira da Gesiane agenda ativos, inativos e clientes sem venda a cada 14 dias. Campo e televendas também usam 14 dias para os clientes que não são bloqueados. Deixam de ser agendados os inativos inadimplentes de campo e de televendas e, em televendas, os clientes sem venda.",
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "carteira Gesiane",
+      "descricao": "Carteira fixa da vendedora Gesiane"
+    },
+    {
+      "id": "C2",
+      "nome": "carteira campo",
+      "descricao": "Carteira fixa de todos os vendedores de campo"
+    },
+    {
+      "id": "C3",
+      "nome": "carteira televendas",
+      "descricao": "Carteira fixa de todos os vendedores de televendas"
+    }
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Regra Padrao da Gesiane Customizavel - Frequencia de 14 dias para clientes inativos da Gesiane",
+      "segmento": "Inativos (Gesiane)",
+      "criterio": "Clientes inativos para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Regra Padrao da Gesiane Customizavel - Frequencia de 14 dias para clientes sem venda da Gesiane",
+      "segmento": "Sem venda (Gesiane)",
+      "criterio": "Clientes sem vendas para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Regra Padrao da Gesiane Customizavel - Frequencia de 14 dias para clientes ativos da Gesiane",
+      "segmento": "Ativos (Gesiane)",
+      "criterio": "Clientes ativos para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Regra Padrao da Empresa Customizavel - Nao agendar inativos inadimplentes (campo)",
+      "segmento": "Bloqueio: inativos inadimplentes (campo)",
+      "criterio": "Clientes inadimplentes e inativos para o vendedor",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Regra Padrao do goVendas Customizavel - Frequencia de 14 dias para ativos ou adimplentes (campo)",
+      "segmento": "Demais clientes (campo)",
+      "criterio": "Clientes que não são inativos para o vendedor ou que são inativos para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "Regra final de campo: vale para quem sobrou do bloqueio anterior",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Regra Padrao da Empresa Customizavel - Nao agendar inativos inadimplentes (televendas)",
+      "segmento": "Bloqueio: inativos inadimplentes (televendas)",
+      "criterio": "Clientes inadimplentes e inativos para o vendedor",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Regra Padrao da Empresa Customizavel - Nao agendar clientes sem venda (televendas)",
+      "segmento": "Bloqueio: sem venda (televendas)",
+      "criterio": "Clientes sem vendas para o vendedor",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R8",
+      "nome": "Regra Padrao do goVendas Customizavel - Frequencia de 14 dias para ativos ou adimplentes (televendas)",
+      "segmento": "Demais clientes (televendas)",
+      "criterio": "Clientes ativos ou inativos para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "Regra final de televendas: vale para quem sobrou dos bloqueios anteriores",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Gesiane: ativos, inativos e sem venda a cada 14 dias. Campo e televendas: 14 dias para os demais; não agendar inativos inadimplentes; em televendas, não agendar clientes sem venda",
+    "A carteira da Gesiane liga a cada 14 dias pra todo mundo. No campo e no televendas também é a cada 14 dias, mas inativo inadimplente não entra na agenda, e no televendas cliente sem venda também não",
+    "Quero uma frequência padrão para três carteiras, uma de vendedora específica, uma de campo e uma de televendas, com bloqueio de inadimplentes inativos"
+  ],
+  "_meta": {
+    "arquivo": "regra_061.gobr",
+    "sha256_gobr": "ec3c78b744b20aae98fd92f4859bd0f0a95a81ba00b1561824f56a773b5f7f07",
+    "versao_pacote": "1",
+    "prompt_sha256": "fd3b943ec528",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T15:22:22+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_2.json",
+    "concordancia": 0.724
+  }
+}

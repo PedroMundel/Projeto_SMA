@@ -1,0 +1,94 @@
+{
+ "arquivo": "regra_224.gobr",
+ "comentarios": [
+  "Definição de times",
+  "Regras de planejamento"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Não agendar clientes baixados na receita",
+  "Não agendar clientes com data da rota na semana"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Não agendar clientes baixados na receita",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "com situação baixada na Receita Federal"
+  },
+  {
+   "id": "R2",
+   "nome": "Não agendar clientes com data da rota na semana",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "com data de rota (vendedor externo) nesta semana"
+  },
+  {
+   "id": "R3",
+   "nome": "Clientes Prospects",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa"
+  },
+  {
+   "id": "R4",
+   "nome": "Clientes Ativos",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias"
+  },
+  {
+   "id": "R5",
+   "nome": "Risco de Inatividade",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 90 dias, mas estão há mais de 60 dias sem comprar",
+   "tratados_antes_por": [
+    "R4"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Inativos + 90d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 90 dias",
+   "tratados_antes_por": [
+    "R3",
+    "R4",
+    "R5"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+ ]
+}

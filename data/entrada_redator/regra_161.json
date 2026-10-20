@@ -1,0 +1,66 @@
+{
+ "arquivo": "regra_161.gobr",
+ "comentarios": [
+  "Definição de times",
+  "Regras de agendamento"
+ ],
+ "times": [
+  {
+   "nome": "todos",
+   "definicao": "todos os vendedores habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Freq. de 15d para 'Ativos Curva A'",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 15 dias"
+   ],
+   "condicao_efetiva": "curva A com a empresa e ativos para o vendedor"
+  },
+  {
+   "id": "R2",
+   "nome": "Freq. de 7d para 'Ativos Curva B'",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "curva B com a empresa e ativos para o vendedor"
+  },
+  {
+   "id": "R3",
+   "nome": "Freq. de 15d para 'Ativos Curva C'",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 15 dias"
+   ],
+   "condicao_efetiva": "curva C com a empresa e ativos para o vendedor"
+  },
+  {
+   "id": "R4",
+   "nome": "Freq. de 7d para 'Inativos'",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "(não ativos para o vendedor) OU (fora da curva A nem B nem C com a empresa e ativos para o vendedor)",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": []
+}

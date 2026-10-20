@@ -1,0 +1,79 @@
+{
+ "arquivo": "regra_060.gobr",
+ "comentarios": [
+  "Regras padrão",
+  "regras time interno",
+  "regras time externo"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas"
+  },
+  {
+   "nome": "campo",
+   "definicao": "todos os vendedores de campo"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Regra Padrao do goVendas: Frequencia semanal para clientes ativos",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "ativos para o vendedor"
+  },
+  {
+   "id": "R2",
+   "nome": "Regra Padrao do goVendas: Frequencia quinzenal para clientes inativos",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 15 dias"
+   ],
+   "condicao_efetiva": "não ativos para o vendedor",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R3",
+   "nome": "Regra Padrao do goVendas: Frequencia de 7 dias para clientes ativos (campo)",
+   "fonte": "do time campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "ativos para o vendedor"
+  },
+  {
+   "id": "R4",
+   "nome": "Regra Padrao do goVendas: Frequencia de 14 dias para clientes inativos (campo)",
+   "fonte": "do time campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 15 dias",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "não ativos para o vendedor",
+   "tratados_antes_por": [
+    "R3"
+   ],
+   "alertas": [
+    "O nome da regra cita 14 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+ ]
+}

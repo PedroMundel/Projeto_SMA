@@ -1,0 +1,60 @@
+{
+ "arquivo": "regra_072.gobr",
+ "comentarios": [
+  "Regras para Mais Descartáveis"
+ ],
+ "times": [
+  {
+   "nome": "empresa toda",
+   "definicao": "todos os vendedores"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "empresa toda",
+   "definicao": "carteira fixa dos vendedores do time empresa toda",
+   "filtros": []
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Regra Padrao do goVendas Customizavel: Frequencia de inativos",
+   "fonte": "da carteira empresa toda",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência média dos clientes inativos da empresa"
+   ],
+   "condicao_efetiva": "inativos para o vendedor"
+  },
+  {
+   "id": "R2",
+   "nome": "Regra Padrao do goVendas Customizavel: Frequencia de ativos",
+   "fonte": "da carteira empresa toda",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência média dos clientes ativos da empresa"
+   ],
+   "condicao_efetiva": "ativos para o vendedor"
+  },
+  {
+   "id": "R3",
+   "nome": "Regra Padrao do goVendas Customizavel: Frequencia de clientes sem vendas",
+   "fonte": "da carteira empresa toda",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência média dos clientes inativos da empresa"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor"
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

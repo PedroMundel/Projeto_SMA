@@ -1,0 +1,327 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_056.gobr",
+  "sha256": "f29e5f5a314bb3105cc34dd6dbbc486f5f7f53f670a116b5a77cfe2ee082f5fc",
+  "comentarios": [
+    "ADM Destra",
+    "Regras RCA 50 e 53 (time de prospecção)",
+    "Regras empresa toda menos RCA 50 e 53"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "prospec",
+      "definicao": "os vendedores de id 50, 53",
+      "filtros": []
+    },
+    {
+      "id": "T2",
+      "nome": "regra padrao",
+      "definicao": "todos os vendedores, exceto os de id 50, 53",
+      "filtros": []
+    }
+  ],
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "regra padrao",
+      "definicao": "carteira fixa dos vendedores do time regra padrao",
+      "filtros": [],
+      "livre": false,
+      "exceto_alocados_em": []
+    },
+    {
+      "id": "C2",
+      "nome": "carteira prospec",
+      "definicao": "carteira fixa dos vendedores do time prospec",
+      "filtros": [],
+      "livre": false,
+      "exceto_alocados_em": []
+    }
+  ],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Regra Padrao da Destra - Customizavel: nao agendar clientes que ja compraram (RCA 50 e 53)",
+    "Regra Padrao da Destra - Customizavel: nao agendar inativos inadimplentes"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Regra Padrao da Destra - Customizavel: 30 dias para clientes sem vendas (RCA 50 e 53)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira prospec",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "sem vendas",
+          "significado": "sem vendas para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia do vendedor",
+          "significado": "preferência de dias configurada pelo vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem vendas para o vendedor",
+      "condicao_efetiva": "sem vendas para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Regra Padrao da Destra - Customizavel: nao agendar clientes que ja compraram (RCA 50 e 53)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira prospec",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R1"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Regra Padrao da Destra - Customizavel: 14 dias para Adimplentes ativos",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira regra padrao",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "adimplentes",
+          "significado": "adimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia do vendedor",
+          "significado": "preferência de dias configurada pelo vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "adimplentes e ativos para o vendedor",
+      "condicao_efetiva": "adimplentes e ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Regra Padrao da Destra - Customizavel: 30 dias para Adimplentes inativos",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira regra padrao",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inativos para o vendedor",
+          "significado": "inativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "adimplentes",
+          "significado": "adimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia do vendedor",
+          "significado": "preferência de dias configurada pelo vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "adimplentes e inativos para o vendedor",
+      "condicao_efetiva": "adimplentes e inativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Regra Padrao da Destra - Customizavel: 30 dias para ativos inadimplentes",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira regra padrao",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia do vendedor",
+          "significado": "preferência de dias configurada pelo vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "inadimplentes e ativos para o vendedor",
+      "condicao_efetiva": "inadimplentes e ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Regra Padrao da Destra - Customizavel: nao agendar inativos inadimplentes",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira regra padrao",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inativos para o vendedor",
+          "significado": "inativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "inadimplentes e inativos para o vendedor",
+      "condicao_efetiva": "inadimplentes e inativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Regra Padrao da Destra - Customizavel: 30 dias para clientes sem vendas",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira regra padrao",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "sem vendas",
+          "significado": "sem vendas para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia do vendedor",
+          "significado": "preferência de dias configurada pelo vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem vendas para o vendedor",
+      "condicao_efetiva": "sem vendas para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    14,
+    30
+  ],
+  "numeros_permitidos": [
+    14,
+    30,
+    50,
+    53
+  ],
+  "premissas_usadas": [
+    "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+    "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores.",
+    "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+  ]
+}

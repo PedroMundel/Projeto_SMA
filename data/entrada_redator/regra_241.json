@@ -1,0 +1,112 @@
+{
+ "arquivo": "regra_241.gobr",
+ "comentarios": [
+  "BLOQUEIO INICIAL",
+  "PARAMETROS"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Não agendar clientes baixados na receita",
+  "Clientes fora dos ramos mapeados"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Não agendar clientes baixados na receita",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "com situação baixada na Receita Federal"
+  },
+  {
+   "id": "R2",
+   "nome": "Clientes revenda freq 7 dias",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "ramo de atividade (id) em: 106, 109, 139, 141, 142, 143"
+  },
+  {
+   "id": "R3",
+   "nome": "Clientes revenda freq 14 dias",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "ramo de atividade (id) em: 140, 146, 148"
+  },
+  {
+   "id": "R4",
+   "nome": "Clientes revenda freq 28 dias",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "ramo de atividade (id) igual a 138"
+  },
+  {
+   "id": "R5",
+   "nome": "Clientes comsumo freq 7 dias",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "ramo de atividade (id) em: 108, 144, 147"
+  },
+  {
+   "id": "R6",
+   "nome": "Clientes comsumo freq 14 dias",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "ramo de atividade (id) em: 100, 107, 110, 111, 112, 113 e mais 1"
+  },
+  {
+   "id": "R7",
+   "nome": "Clientes comsumo freq 28 dias",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "ramo de atividade (id) igual a 114"
+  },
+  {
+   "id": "R8",
+   "nome": "Clientes fora dos ramos mapeados",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "ramo de atividade (id) fora de: 100, 106, 107, 108, 109, 110 e mais 15",
+   "tratados_antes_por": [
+    "R2",
+    "R3",
+    "R4",
+    "R5",
+    "R6",
+    "R7"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": []
+}

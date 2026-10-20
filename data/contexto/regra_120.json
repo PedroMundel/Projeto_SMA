@@ -1,0 +1,638 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_120.gobr",
+  "sha256": "6b336dbe98c6838b7963d7f9fed49fe66d907712795f441c3b6e95bc0684468d",
+  "comentarios": [
+    "Regras para televendas",
+    "Regras Capital",
+    "Regras para interior"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "Yasmim",
+      "definicao": "os vendedores de id 12",
+      "filtros": []
+    },
+    {
+      "id": "T2",
+      "nome": "televendas",
+      "definicao": "todos os vendedores de televendas, exceto os de id 12",
+      "filtros": []
+    },
+    {
+      "id": "T3",
+      "nome": "interior",
+      "definicao": "os vendedores de id 2, 3, 12",
+      "filtros": []
+    },
+    {
+      "id": "T4",
+      "nome": "capital",
+      "definicao": "os vendedores de id 5, 17, 18",
+      "filtros": []
+    }
+  ],
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "televendas",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [],
+      "livre": false,
+      "exceto_alocados_em": []
+    },
+    {
+      "id": "C2",
+      "nome": "interior",
+      "definicao": "carteira fixa dos vendedores do time interior",
+      "filtros": [],
+      "livre": false,
+      "exceto_alocados_em": []
+    },
+    {
+      "id": "C3",
+      "nome": "capital",
+      "definicao": "carteira fixa dos vendedores do time capital",
+      "filtros": [],
+      "livre": false,
+      "exceto_alocados_em": []
+    }
+  ],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Regra Padrao da IdealPet: Nao agendar clientes de carteira propria para RCA 12",
+    "Regra Padrao da IdelPet - Customizavel: 30 dias para clientes inativos inadimplentes (capital)",
+    "Regra Padrao da IdealPet - Customizavel: clientes inativos inadimplentes (interior)"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Regra Padrao da IdealPet: Nao agendar clientes de carteira propria para RCA 12",
+      "tipo_bloco": "parametros",
+      "fonte": "do time Yasmim",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "todos os clientes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Regra Padrao da IdealPet - Customizavel: 14 dias para clientes ativos (televendas)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ativos para o vendedor",
+      "condicao_efetiva": "ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Regra Padrao da IdealPet - Customizavel: 30 dias para clientes inativos (televendas)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inativos para o vendedor",
+          "significado": "inativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "inativos para o vendedor",
+      "condicao_efetiva": "inativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Regra Padrao da IdealPet - Customizavel: 7 dias para clientes sem venda (televendas)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "sem venda",
+          "significado": "sem vendas para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem vendas para o vendedor",
+      "condicao_efetiva": "sem vendas para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Regra Padrao da IdelPet - Customizavel: 20 dias para clientes ativos adimplentes (capital)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira capital",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "adimplentes",
+          "significado": "adimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 20 dias",
+          "significado": "frequência de 20 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "adimplentes e ativos para o vendedor",
+      "condicao_efetiva": "adimplentes e ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        20
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Regra Padrao da IdelPet - Customizavel: 20 dias para clientes ativos inadimplentes (capital)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira capital",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 20 dias",
+          "significado": "frequência de 20 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "inadimplentes e ativos para o vendedor",
+      "condicao_efetiva": "inadimplentes e ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        20
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Regra Padrao da IdelPet - Customizavel: 30 dias para clientes inativos adimplentes (capital)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira capital",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inativos para o vendedor",
+          "significado": "inativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "adimplentes",
+          "significado": "adimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "adimplentes e inativos para o vendedor",
+      "condicao_efetiva": "adimplentes e inativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R8",
+      "posicao": 8,
+      "nome": "Regra Padrao da IdelPet - Customizavel: 14 dias para clientes sem venda (capital)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira capital",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "sem venda",
+          "significado": "sem vendas para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem vendas para o vendedor",
+      "condicao_efetiva": "sem vendas para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": [
+        "O nome da regra cita 14 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+      ]
+    },
+    {
+      "id": "R9",
+      "posicao": 9,
+      "nome": "Regra Padrao da IdelPet - Customizavel: 30 dias para clientes inativos inadimplentes (capital)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira capital",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inativos para o vendedor",
+          "significado": "inativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "inadimplentes e inativos para o vendedor",
+      "condicao_efetiva": "inadimplentes e inativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": [
+        "O nome da regra cita 30 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+      ]
+    },
+    {
+      "id": "R10",
+      "posicao": 10,
+      "nome": "Regra Padrao da IdealPet - Customizavel: 21 dias para clientes ativos (interior)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira interior",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ativos para o vendedor",
+      "condicao_efetiva": "ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        21
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R11",
+      "posicao": 11,
+      "nome": "Regra Padrao da IdealPet - Customizavel: 21 dias para clientes inativos adimplentes (interior)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira interior",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inativos para o vendedor",
+          "significado": "inativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "adimplentes",
+          "significado": "adimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "adimplentes e inativos para o vendedor",
+      "condicao_efetiva": "adimplentes e inativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        21
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R12",
+      "posicao": 12,
+      "nome": "Regra Padrao da IdealPet - Customizavel: 30 dias para clientes inativos inadimplentes (interior)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira interior",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inativos para o vendedor",
+          "significado": "inativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 42 dias",
+          "significado": "frequência de 42 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "inadimplentes e inativos para o vendedor",
+      "condicao_efetiva": "inadimplentes e inativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        42
+      ],
+      "alertas": [
+        "O nome da regra cita 30 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+      ]
+    },
+    {
+      "id": "R13",
+      "posicao": 13,
+      "nome": "Regra Padrao da IdealPet - Customizavel: 38 dias para clientes sem venda (interior)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira interior",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "sem venda",
+          "significado": "sem vendas para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 38 dias",
+          "significado": "frequência de 38 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem vendas para o vendedor",
+      "condicao_efetiva": "sem vendas para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        38
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R14",
+      "posicao": 14,
+      "nome": "Regra Padrao da IdealPet - Customizavel: clientes inativos inadimplentes (interior)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira interior",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inativos para o vendedor",
+          "significado": "inativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "inadimplentes e inativos para o vendedor",
+      "condicao_efetiva": null,
+      "tratados_antes_por": [
+        "R12"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": true,
+      "numeros": [],
+      "alertas": [
+        "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Regra Padrao da IdealPet - Customizavel: 30 dias para clientes inativos inadimplentes (interior)\".",
+        "Bloqueio depois de regras de frequência: clientes já parametrizados por \"Regra Padrao da IdealPet - Customizavel: 30 dias para clientes inativos inadimplentes (interior)\" não serão bloqueados por esta regra."
+      ]
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    7,
+    14,
+    20,
+    21,
+    30,
+    38,
+    42
+  ],
+  "numeros_permitidos": [
+    2,
+    3,
+    5,
+    7,
+    12,
+    14,
+    17,
+    18,
+    20,
+    21,
+    30,
+    38,
+    42
+  ],
+  "premissas_usadas": [
+    "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+    "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores.",
+    "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+  ]
+}

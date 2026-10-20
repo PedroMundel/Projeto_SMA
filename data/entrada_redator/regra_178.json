@@ -1,0 +1,158 @@
+{
+ "arquivo": "regra_178.gobr",
+ "comentarios": [
+  "Definição de times",
+  "BLOQUEIO INICIAL",
+  "PARAMETRIZAÇÕES"
+ ],
+ "times": [
+  {
+   "nome": "televendas_1",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  },
+  {
+   "nome": "televendas_2",
+   "definicao": "os vendedores de id 48"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Não agendar clientes baixados na receita",
+  "Clientes que nunca compraram com a empresa",
+  "Não agendar clientes com compra recente"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Não agendar clientes baixados na receita",
+   "fonte": "do time televendas_1",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "com situação baixada na Receita Federal"
+  },
+  {
+   "id": "R2",
+   "nome": "Clientes que nunca compraram com a empresa",
+   "fonte": "do time televendas_2",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "cadastrados no ERP há pelo menos 7 dias"
+  },
+  {
+   "id": "R3",
+   "nome": "Não agendar clientes com compra recente",
+   "fonte": "do time televendas_1",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "compraram nos últimos 39 dias"
+  },
+  {
+   "id": "R4",
+   "nome": "Tentativa final",
+   "fonte": "do time televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "cadastrados no ERP há pelo menos 60 dias"
+  },
+  {
+   "id": "R5",
+   "nome": "Lead frio",
+   "fonte": "do time televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 20 dias"
+   ],
+   "condicao_efetiva": "cadastrados no ERP há pelo menos 30 dias e não (cadastrados no ERP há pelo menos 60 dias)",
+   "tratados_antes_por": [
+    "R4"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Lead morno",
+   "fonte": "do time televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 15 dias"
+   ],
+   "condicao_efetiva": "cadastrados no ERP há pelo menos 15 dias e não (cadastrados no ERP há pelo menos 30 dias) e não (cadastrados no ERP há pelo menos 60 dias)",
+   "tratados_antes_por": [
+    "R4",
+    "R5"
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Follow-up",
+   "fonte": "do time televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 15 dias"
+   ],
+   "condicao_efetiva": "não (cadastrados no ERP há pelo menos 15 dias) e não (cadastrados no ERP há pelo menos 30 dias) e não (cadastrados no ERP há pelo menos 60 dias) e cadastrados no ERP há pelo menos 8 dias",
+   "tratados_antes_por": [
+    "R4",
+    "R5",
+    "R6"
+   ]
+  },
+  {
+   "id": "R8",
+   "nome": "Estimular recompra",
+   "fonte": "do time televendas_1",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 15 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 89 dias, mas estão há mais de 39 dias sem comprar"
+  },
+  {
+   "id": "R9",
+   "nome": "Reativação moderada",
+   "fonte": "do time televendas_1",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 119 dias, mas estão há mais de 89 dias sem comprar"
+  },
+  {
+   "id": "R10",
+   "nome": "Reativação intensa",
+   "fonte": "do time televendas_1",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 359 dias, mas estão há mais de 119 dias sem comprar"
+  },
+  {
+   "id": "R11",
+   "nome": "Resgate crítico",
+   "fonte": "do time televendas_1",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "sem comprar há mais de 359 dias"
+  }
+ ],
+ "nao_cobertos": {
+  "do time televendas_1": "todos os clientes",
+  "do time televendas_2": "não (cadastrados no ERP há pelo menos 15 dias) e não (cadastrados no ERP há pelo menos 30 dias) e não (cadastrados no ERP há pelo menos 60 dias) e não (cadastrados no ERP há pelo menos 8 dias)"
+ },
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+ ]
+}

@@ -1,0 +1,226 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_086.gobr",
+  "sha256": "d1f7898116536771f700603d5e9e6dbd3a3fcfbb4e2039890cf0b2489aeba9b8",
+  "comentarios": [],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "empresa toda",
+      "definicao": "todos os vendedores",
+      "filtros": []
+    }
+  ],
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "empresa toda",
+      "definicao": "carteira fixa dos vendedores do time empresa toda",
+      "filtros": [],
+      "livre": false,
+      "exceto_alocados_em": []
+    }
+  ],
+  "segmentacoes": [],
+  "bloqueios": [],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Regra Padrao da Taiken Customizavel: 10 dias para ativos adimplentes",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira empresa toda",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "adimplentes",
+          "significado": "adimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 10 dias",
+          "significado": "frequência de 10 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "adimplentes e ativos para o vendedor",
+      "condicao_efetiva": "adimplentes e ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        10
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Regra Padrao da Taiken Customizavel: 14 dias para ativos inadimplentes",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira empresa toda",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "inadimplentes e ativos para o vendedor",
+      "condicao_efetiva": "inadimplentes e ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Regra Padrao da Taiken Customizavel: 14 dias para inativos adimplentes",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira empresa toda",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inativos para o vendedor",
+          "significado": "inativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "adimplentes",
+          "significado": "adimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "adimplentes e inativos para o vendedor",
+      "condicao_efetiva": "adimplentes e inativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Regra Padrao da Taiken Customizavel: 90 dias para inativos inadimplentes",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira empresa toda",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inativos para o vendedor",
+          "significado": "inativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 90 dias",
+          "significado": "frequência de 90 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "inadimplentes e inativos para o vendedor",
+      "condicao_efetiva": "inadimplentes e inativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Regra Padrao da Taiken Customizavel: 21 dias para clientes sem vendas",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira empresa toda",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "sem venda",
+          "significado": "sem vendas para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem vendas para o vendedor",
+      "condicao_efetiva": "sem vendas para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        21
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    10,
+    14,
+    21,
+    90
+  ],
+  "numeros_permitidos": [
+    10,
+    14,
+    21,
+    90
+  ],
+  "premissas_usadas": [
+    "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+    "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+  ]
+}

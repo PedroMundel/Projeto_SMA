@@ -1,0 +1,37 @@
+{
+ "arquivo": "regra_043.gobr",
+ "comentarios": [],
+ "times": [
+  {
+   "nome": "empresa toda",
+   "definicao": "todos os vendedores"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "empresa toda",
+   "definicao": "carteira fixa dos vendedores do time empresa toda",
+   "filtros": []
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Regra Padrao do goVendas Customizavel: Frequencia de inativos",
+   "fonte": "da carteira empresa toda",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "todos os clientes"
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

@@ -1,0 +1,386 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_106.gobr",
+  "sha256": "6ca39a6ba723549c6588bb29216f260b4b29f79e74c442d0a9d948b0d580d5d4",
+  "comentarios": [
+    "PARAMETROS TELEVENDAS",
+    "PARAMETROS Campo"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "time televendas",
+      "definicao": "todos os vendedores de televendas",
+      "filtros": []
+    },
+    {
+      "id": "T2",
+      "nome": "time campo",
+      "definicao": "todos os vendedores de campo",
+      "filtros": []
+    }
+  ],
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "carteira campo",
+      "definicao": "carteira fixa dos vendedores do time time campo",
+      "filtros": [],
+      "livre": false,
+      "exceto_alocados_em": []
+    },
+    {
+      "id": "C2",
+      "nome": "carteira televendas",
+      "definicao": "carteira fixa dos vendedores do time time televendas",
+      "filtros": [],
+      "livre": false,
+      "exceto_alocados_em": []
+    }
+  ],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Regra Padrao da Empresa Customizavel: nao agendar inadimplentes (campo)"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Regra Padrao da Empresa Customizavel: 10 dias para ativos adimplentes (televendas)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "adimplentes",
+          "significado": "adimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 10 dias",
+          "significado": "frequência de 10 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "adimplentes e ativos para o vendedor",
+      "condicao_efetiva": "adimplentes e ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        10
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Regra Padrao da Empresa Customizavel: 21 dias para ativos inadimplentes (televendas)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "inadimplentes e ativos para o vendedor",
+      "condicao_efetiva": "inadimplentes e ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        21
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Regra Padrao da Empresa Customizavel: 14 dias para inativos adimplentes (televendas)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inativos para o vendedor",
+          "significado": "inativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "adimplentes",
+          "significado": "adimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "adimplentes e inativos para o vendedor",
+      "condicao_efetiva": "adimplentes e inativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Regra Padrao da Empresa Customizavel: 60 dias para inativos inadimplentes (televendas)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inativos para o vendedor",
+          "significado": "inativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 60 dias",
+          "significado": "frequência de 60 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "inadimplentes e inativos para o vendedor",
+      "condicao_efetiva": "inadimplentes e inativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        60
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Regra Padrao da Empresa Customizavel: 30 dias para clientes sem venda (televendas)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "sem venda",
+          "significado": "sem vendas para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem vendas para o vendedor",
+      "condicao_efetiva": "sem vendas para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Regra Padrao da Empresa Customizavel: 30 dias para ativos adimplentes (campo)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira campo",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "adimplentes",
+          "significado": "adimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "adimplentes e ativos para o vendedor",
+      "condicao_efetiva": "adimplentes e ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Regra Padrao da Empresa Customizavel: 14 dias para inativos adimplentes (campo)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira campo",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inativos para o vendedor",
+          "significado": "inativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "adimplentes",
+          "significado": "adimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "adimplentes e inativos para o vendedor",
+      "condicao_efetiva": "adimplentes e inativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R8",
+      "posicao": 8,
+      "nome": "Regra Padrao da Empresa Customizavel: nao agendar inadimplentes (campo)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira campo",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "inadimplentes",
+      "condicao_efetiva": "inadimplentes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R9",
+      "posicao": 9,
+      "nome": "Regra Padrao da Empresa Customizavel: 30 dias para clientes sem venda (campo)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira campo",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "sem venda",
+          "significado": "sem vendas para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem vendas para o vendedor",
+      "condicao_efetiva": "adimplentes e sem vendas para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R8"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    10,
+    14,
+    21,
+    30,
+    60
+  ],
+  "numeros_permitidos": [
+    10,
+    14,
+    21,
+    30,
+    60
+  ],
+  "premissas_usadas": [
+    "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+    "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores.",
+    "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+  ]
+}

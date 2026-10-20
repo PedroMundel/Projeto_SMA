@@ -1,0 +1,214 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_194.gobr",
+  "sha256": "3a8df8de1c56b2ec8abb3f3a0c7699a90214fb0cd3e4e805e0541fc79344c35d",
+  "comentarios": [
+    "Definição de times",
+    "Regras de planejamento"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "televendas",
+      "definicao": "todos os vendedores de televendas habilitados no Govendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Baixados na Receita Federal"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Baixados na Receita Federal",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "status na receita federal definido como baixada",
+          "significado": "com situação baixada na Receita Federal",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "com situação baixada na Receita Federal",
+      "condicao_efetiva": "com situação baixada na Receita Federal",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Prospects (Nunca tirou pedido)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "no ciclo de vida prospect com a empresa",
+          "significado": "prospects (nunca compraram com qualquer vendedor da empresa)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "nunca compraram com qualquer vendedor da empresa",
+      "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Ativo (Com último pedido em até 60d atrás)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao global em 60 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        60
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Risco de Inatividade (Com pedido entre 60 e 90d atrás)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao em 90 dias",
+          "significado": "compraram nos últimos 90 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 90 dias",
+      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 60 dias e compraram no grupo de vendedores nos últimos 90 dias",
+      "tratados_antes_por": [
+        "R3"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7,
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Inativo (Com último pedido há mais de 90d atrás)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 28 dias",
+          "significado": "frequência de 28 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 60 dias e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 90 dias)",
+      "tratados_antes_por": [
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        28
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [
+    "A cascata mistura escopos de recência de compra (global: Ativo (Com último pedido em até 60d atrás); grupo: Risco de Inatividade (Com pedido entre 60 e 90d atrás)); faixas de escopos diferentes não se excluem automaticamente e podem se sobrepor ou deixar lacunas."
+  ],
+  "numeros_obrigatorios": [
+    7,
+    14,
+    28,
+    60,
+    90
+  ],
+  "numeros_permitidos": [
+    7,
+    14,
+    28,
+    60,
+    90
+  ],
+  "premissas_usadas": [
+    "P2: Escopos de recência (grupo, vendedor, global) são medidas distintas, ordenadas: global <= grupo <= vendedor.",
+    "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+  ]
+}

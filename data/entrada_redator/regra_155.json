@@ -1,0 +1,225 @@
+{
+ "arquivo": "regra_155.gobr",
+ "comentarios": [
+  "Definição de times",
+  "Regras de não agendamento",
+  "Regras de agendamento"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Não agendar PF",
+  "Não agendar filiais",
+  "Não agendar baixadas na receita federal",
+  "Não agendar Inadimplentes",
+  "Não agendar clientes com compra em 30d"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Não agendar PF",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "pessoa física"
+  },
+  {
+   "id": "R2",
+   "nome": "Não agendar filiais",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "filiais"
+  },
+  {
+   "id": "R3",
+   "nome": "Não agendar baixadas na receita federal",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "com situação baixada na Receita Federal"
+  },
+  {
+   "id": "R4",
+   "nome": "Não agendar Inadimplentes",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes"
+  },
+  {
+   "id": "R5",
+   "nome": "Não agendar clientes com compra em 30d",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "compraram nos últimos 30 dias"
+  },
+  {
+   "id": "R6",
+   "nome": "Ativação de um novo cliente em potencial - Conceito: Quando o cliente ainda não comprou com o vendedor",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa e cadastrados no ERP há pelo menos 30 dias"
+  },
+  {
+   "id": "R7",
+   "nome": "Requalificar lead - Conceito: Requalificar o lead cadastrado na empresa que nunca tirou ou não tira orçamento há mais de 1 ano",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa e não (cadastrados no ERP há pelo menos 30 dias)",
+   "tratados_antes_por": [
+    "R6"
+   ]
+  },
+  {
+   "id": "R8",
+   "nome": "Boas vindas a um novo cliente ativado - Conceito: Quando o cliente tirou o primeiro orçamento com o vendedor",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e com uma única compra com o vendedor",
+   "tratados_antes_por": [
+    "R6",
+    "R7"
+   ]
+  },
+  {
+   "id": "R9",
+   "nome": "Cliente com bom histórico de compra - Conceito: Quando o cliente tem alta recência de compra com a empresa (CURVA A)",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 29 dias ou sem comprar com qualquer vendedor da empresa há mais de 45 dias) e curva A com a empresa e sem ser de compra única com o vendedor",
+   "tratados_antes_por": [
+    "R8"
+   ]
+  },
+  {
+   "id": "R10",
+   "nome": "Cliente com bom histórico de compra - Conceito: Quando o cliente tem alta recência de compra com a empresa (CURVA B)",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 29 dias ou sem comprar com qualquer vendedor da empresa há mais de 45 dias) e curva B com a empresa e sem ser de compra única com o vendedor",
+   "tratados_antes_por": [
+    "R8"
+   ]
+  },
+  {
+   "id": "R11",
+   "nome": "Cliente com bom histórico de compra - Conceito: Quando o cliente tem alta recência de compra com a empresa (CURVA C)",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 45 dias"
+   ],
+   "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 29 dias ou sem comprar com qualquer vendedor da empresa há mais de 45 dias) e fora da curva A nem B com a empresa e sem ser de compra única com o vendedor",
+   "tratados_antes_por": [
+    "R8",
+    "R9",
+    "R10"
+   ]
+  },
+  {
+   "id": "R12",
+   "nome": "Estimular regularidade de compra - Conceito: Quando o cliente está há mais de 45 dias sem orçamento",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 45 dias, mas estão há pelo menos 30 dias sem comprar e sem ser de compra única com o vendedor",
+   "tratados_antes_por": [
+    "R8",
+    "R9",
+    "R10",
+    "R11"
+   ]
+  },
+  {
+   "id": "R13",
+   "nome": "Atenção!!! Cliente com RISCO de ficar inativo - Conceito: Quando o cliente está há mais de 60 dias sem orçamento",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "(compraram com qualquer vendedor da empresa nos últimos 60 dias ou sem comprar com qualquer vendedor da empresa há mais de 90 dias)",
+   "tratados_antes_por": [
+    "R8",
+    "R9",
+    "R10",
+    "R11",
+    "R12"
+   ],
+   "inalcancavel": true,
+   "alertas": [
+    "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Não agendar PF\", \"Não agendar filiais\", \"Não agendar baixadas na receita federal\", \"Não agendar Inadimplentes\", \"Não agendar clientes com compra em 30d\", \"Boas vindas a um novo cliente ativado - Conceito: Quando o cliente tirou o primeiro orçamento com o vendedor\", \"Cliente com bom histórico de compra - Conceito: Quando o cliente tem alta recência de compra com a empresa (CURVA A)\", \"Cliente com bom histórico de compra - Conceito: Quando o cliente tem alta recência de compra com a empresa (CURVA B)\", \"Cliente com bom histórico de compra - Conceito: Quando o cliente tem alta recência de compra com a empresa (CURVA C)\", \"Estimular regularidade de compra - Conceito: Quando o cliente está há mais de 45 dias sem orçamento\"."
+   ]
+  },
+  {
+   "id": "R14",
+   "nome": "Atenção!!! Seu cliente corre RISCO de ativação por outro RCA - Conceito: Quando o cliente está há mais de 90 dias sem orçamento",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "todos os clientes da fonte (sem filtro)",
+   "tratados_antes_por": [
+    "R6",
+    "R7",
+    "R8",
+    "R9",
+    "R10",
+    "R11",
+    "R12"
+   ],
+   "inalcancavel": true,
+   "alertas": [
+    "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Não agendar PF\", \"Não agendar filiais\", \"Não agendar baixadas na receita federal\", \"Não agendar Inadimplentes\", \"Não agendar clientes com compra em 30d\", \"Ativação de um novo cliente em potencial - Conceito: Quando o cliente ainda não comprou com o vendedor\", \"Requalificar lead - Conceito: Requalificar o lead cadastrado na empresa que nunca tirou ou não tira orçamento há mais de 1 ano\", \"Boas vindas a um novo cliente ativado - Conceito: Quando o cliente tirou o primeiro orçamento com o vendedor\", \"Cliente com bom histórico de compra - Conceito: Quando o cliente tem alta recência de compra com a empresa (CURVA A)\", \"Cliente com bom histórico de compra - Conceito: Quando o cliente tem alta recência de compra com a empresa (CURVA B)\", \"Cliente com bom histórico de compra - Conceito: Quando o cliente tem alta recência de compra com a empresa (CURVA C)\", \"Estimular regularidade de compra - Conceito: Quando o cliente está há mais de 45 dias sem orçamento\".",
+    "O nome da regra cita 90 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [
+  "A cascata mistura escopos de recência de compra (global: Cliente com bom histórico de compra - Conceito: Quando o cliente tem alta recência de compra com a empresa (CURVA A), Cliente com bom histórico de compra - Conceito: Quando o cliente tem alta recência de compra com a empresa (CURVA B), Cliente com bom histórico de compra - Conceito: Quando o cliente tem alta recência de compra com a empresa (CURVA C); grupo: Não agendar clientes com compra em 30d); faixas de escopos diferentes não se excluem automaticamente e podem se sobrepor ou deixar lacunas."
+ ],
+ "premissas_usadas": [
+  "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+  "P2: Escopos de recência (grupo, vendedor, global) são medidas distintas, ordenadas: global <= grupo <= vendedor.",
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+ ]
+}

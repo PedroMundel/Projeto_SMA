@@ -1,0 +1,189 @@
+{
+ "arquivo": "regra_169.gobr",
+ "comentarios": [
+  "Regras para Motor Diesel",
+  "Última atualização: 2026-09-28",
+  "Definição de times",
+  "Definição das regras"
+ ],
+ "times": [
+  {
+   "nome": "fornecedor",
+   "definicao": "os vendedores de id 341"
+  },
+  {
+   "nome": "televendas",
+   "definicao": "os vendedores de id 203, 466, 314, 291"
+  },
+  {
+   "nome": "televendas_2",
+   "definicao": "os vendedores de id 132, 232, 145"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "televendas consumidor",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": [
+    "(nunca compraram ou sem comprar há mais de 7 dias)",
+    "adimplentes",
+    "fora da segmentação \"televendas ruptura de fornecedor\""
+   ]
+  }
+ ],
+ "segmentacoes": [
+  {
+   "id": "S1",
+   "nome": "televendas ruptura de fornecedor",
+   "definicao": "clientes de fornecedor em ruptura de sem compra há 7 dias (incluindo prospects), transferidos para televendas",
+   "filtros": [
+    "adimplentes"
+   ]
+  }
+ ],
+ "bloqueios": [
+  "Ativos com compra em 7 dias",
+  "Não agendar Inadimplentes",
+  "Não agendar - choque de agendas"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Clientes Prospects",
+   "fonte": "da segmentacao televendas ruptura de fornecedor e da carteira televendas consumidor",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa"
+  },
+  {
+   "id": "R2",
+   "nome": "Ativos com compra entre 7d e 30d",
+   "fonte": "da segmentacao televendas ruptura de fornecedor e da carteira televendas consumidor",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 30 dias",
+   "alertas": [
+    "O nome da regra cita 7 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+   ]
+  },
+  {
+   "id": "R3",
+   "nome": "Ativos com compra entre 30d e 60d",
+   "fonte": "da segmentacao televendas ruptura de fornecedor e da carteira televendas consumidor",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias, mas estão há mais de 30 dias sem comprar",
+   "tratados_antes_por": [
+    "R2"
+   ]
+  },
+  {
+   "id": "R4",
+   "nome": "Ativos com compra entre 60d e 90d",
+   "fonte": "da segmentacao televendas ruptura de fornecedor e da carteira televendas consumidor",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 90 dias, mas estão há mais de 60 dias sem comprar",
+   "tratados_antes_por": [
+    "R2",
+    "R3"
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Clientes inativos",
+   "fonte": "da segmentacao televendas ruptura de fornecedor e da carteira televendas consumidor",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 180 dias, mas estão há mais de 90 dias sem comprar",
+   "tratados_antes_por": [
+    "R4"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Ativos com compra em 7 dias",
+   "fonte": "do time televendas, televendas_2",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "(do time televendas_2 e compraram com qualquer vendedor da empresa nos últimos 7 dias) OU (do time televendas e compraram com qualquer vendedor da empresa nos últimos 7 dias e fora da carteira televendas consumidor e fora da segmentação \"televendas ruptura de fornecedor\")",
+   "tratados_antes_por": [
+    "R2"
+   ],
+   "alertas": [
+    "Bloqueio depois de regras de frequência: clientes já parametrizados por \"Ativos com compra entre 7d e 30d\" não serão bloqueados por esta regra."
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Não agendar Inadimplentes",
+   "fonte": "do time televendas, televendas_2",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "inadimplentes",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5"
+   ],
+   "alertas": [
+    "Bloqueio depois de regras de frequência: clientes já parametrizados por \"Clientes Prospects\", \"Ativos com compra entre 7d e 30d\", \"Ativos com compra entre 30d e 60d\", \"Ativos com compra entre 60d e 90d\", \"Clientes inativos\" não serão bloqueados por esta regra.",
+    "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+   ]
+  },
+  {
+   "id": "R8",
+   "nome": "Não agendar - choque de agendas",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "((nunca compraram com qualquer vendedor da empresa ou sem comprar com qualquer vendedor da empresa há mais de 7 dias) e fora da carteira televendas consumidor e fora da segmentação \"televendas ruptura de fornecedor\") OU (sem comprar com qualquer vendedor da empresa há mais de 180 dias e da carteira televendas consumidor e fora da segmentação \"televendas ruptura de fornecedor\") OU (sem comprar com qualquer vendedor da empresa há mais de 180 dias e na segmentação \"televendas ruptura de fornecedor\")",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5"
+   ]
+  },
+  {
+   "id": "R9",
+   "nome": "Freq. de 14 dias para clientes sem venda em 8 dias",
+   "fonte": "do time televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "(nunca compraram com qualquer vendedor da empresa ou sem comprar com qualquer vendedor da empresa há mais de 7 dias)"
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado.",
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores.",
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b.",
+  "P8: Fonte composta ('da segmentacao(x) e da carteira(y)') é a união das fontes: a regra vale para as duas."
+ ]
+}

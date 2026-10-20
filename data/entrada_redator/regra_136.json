@@ -1,0 +1,108 @@
+{
+ "arquivo": "regra_136.gobr",
+ "comentarios": [
+  "REGRAS DE NÃO AGENDAMENTO EMPRESA TODA",
+  "REGRAS TIME EXTERNO CAPITAL",
+  "REGRAS TIME EXTERNO INTERIOR"
+ ],
+ "times": [
+  {
+   "nome": "empresa toda",
+   "definicao": "todos os vendedores habilitados no Govendas"
+  },
+  {
+   "nome": "time interior",
+   "definicao": "os vendedores de id 5, 9, 15, 16, 21, 31, 33"
+  },
+  {
+   "nome": "time capital",
+   "definicao": "todos os vendedores de campo, exceto os de id 5, 9, 15, 16, 21, 31, 33"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "carteira capital",
+   "definicao": "carteira fixa dos vendedores do time time capital",
+   "filtros": []
+  },
+  {
+   "id": "C2",
+   "nome": "carteira interior",
+   "definicao": "carteira fixa dos vendedores do time time interior",
+   "filtros": []
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Não agendar ramo de atividade 19 (Funcionários)",
+  "Regra Padrao da Multisul: nao agendar clientes inativos (Capital)",
+  "Regra Padrao da Multisul: nao agendar clientes inativos (Interior)"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Não agendar ramo de atividade 19 (Funcionários)",
+   "fonte": "do time empresa toda",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "ramo de atividade (id) igual a 19"
+  },
+  {
+   "id": "R2",
+   "nome": "Regra Padrao da Multisul: 7 dias para ativos (Capital)",
+   "fonte": "da carteira carteira capital",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "ativos para o vendedor"
+  },
+  {
+   "id": "R3",
+   "nome": "Regra Padrao da Multisul: nao agendar clientes inativos (Capital)",
+   "fonte": "da carteira carteira capital",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "não ativos para o vendedor",
+   "tratados_antes_por": [
+    "R2"
+   ]
+  },
+  {
+   "id": "R4",
+   "nome": "Regra Padrao da Multisul: 14 dias para ativos (Interior)",
+   "fonte": "da carteira carteira interior",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "ativos para o vendedor"
+  },
+  {
+   "id": "R5",
+   "nome": "Regra Padrao da Multisul: nao agendar clientes inativos (Interior)",
+   "fonte": "da carteira carteira interior",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "não ativos para o vendedor",
+   "tratados_antes_por": [
+    "R4"
+   ]
+  }
+ ],
+ "nao_cobertos": {
+  "do time empresa toda": "todos os clientes"
+ },
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores.",
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

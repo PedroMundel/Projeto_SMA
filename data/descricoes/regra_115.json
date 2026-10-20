@@ -1,0 +1,58 @@
+{
+  "resumo": "Regra padrão de frequência para dois times de televendas, cada um com um prazo único aplicado a todos os clientes. O time atacado agenda a cada 7 dias e o time salmão a cada 2 dias. Não há bloqueios de agenda nem regra final de descarte.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Regra Padrao da Frigoforte: 7 dias para atacado (televendas)",
+      "segmento": "Time atacado (televendas)",
+      "criterio": "Clientes de todos os segmentos atendidos pelo time atacado",
+      "frequencia": "7 dias",
+      "observacao": "Time atacado: vendedores de id 510, 617, 596",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Regra Padrao da Frigoforte: 2 dias para salmao (televendas)",
+      "segmento": "Time salmão (televendas)",
+      "criterio": "Clientes de todos os segmentos atendidos pelo time salmão",
+      "frequencia": "2 dias",
+      "observacao": "Time salmão: vendedores de id 613, 614, 568",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Televendas: time atacado a cada 7 dias; time salmão a cada 2 dias; todos os clientes",
+    "A gente tem dois times no televendas: o do atacado liga toda semana, a cada 7 dias, e o do salmão liga a cada 2 dias, para todos os clientes de cada um",
+    "Quero uma frequência fixa por time de televendas, igual para todos os clientes"
+  ],
+  "_meta": {
+    "arquivo": "regra_115.gobr",
+    "sha256_gobr": "496e67ae6fc67ff00721b1ef6cce92aa3c7ba7fca6aeba7fce21d077fa80ed15",
+    "versao_pacote": "1",
+    "prompt_sha256": "fd3b943ec528",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T15:22:22+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_1.json",
+    "concordancia": 0.613
+  }
+}

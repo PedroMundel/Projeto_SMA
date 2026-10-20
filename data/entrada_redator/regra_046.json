@@ -1,0 +1,75 @@
+{
+ "arquivo": "regra_046.gobr",
+ "comentarios": [
+  "Parametros televendas"
+ ],
+ "times": [
+  {
+   "nome": "time todos",
+   "definicao": "todos os vendedores"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "carteira todos",
+   "definicao": "carteira fixa dos vendedores do time time todos",
+   "filtros": []
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Regra Padrao da Empresa Customizavel: 7 dias para ativos",
+   "fonte": "da carteira carteira todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "ativos para o vendedor"
+  },
+  {
+   "id": "R2",
+   "nome": "Regra Padrao da Empresa Customizavel: 14 dias para inativos adimplentes",
+   "fonte": "da carteira carteira todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "adimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R3",
+   "nome": "Regra Padrao da Empresa Customizavel: 30 dias para inativos inadimplentes",
+   "fonte": "da carteira carteira todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "inadimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R4",
+   "nome": "Regra Padrao da Empresa Customizavel: 7 dias para sem vendas",
+   "fonte": "da carteira carteira todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

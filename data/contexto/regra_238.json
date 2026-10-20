@@ -1,0 +1,132 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_238.gobr",
+  "sha256": "4650fb81df98f318eae8e665b6d5eb969e1349069c1c985ce9600f2f6d759a28",
+  "comentarios": [
+    "Definição de times",
+    "Regras de planejamento"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "televendas",
+      "definicao": "todos os vendedores de televendas habilitados no Govendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [],
+  "bloqueios": [],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Matenha relacionamento com seu cliente!",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao global em 59 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 59 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 59 dias",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 59 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        59
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Se não mantiver a regularidade de compra, o cliente ficará inativo!",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao global em 89 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 89 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 89 dias",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 89 dias, mas estão há mais de 59 dias sem comprar",
+      "tratados_antes_por": [
+        "R1"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        89
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Resgate seu cliente inativo!",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "(nunca compraram com qualquer vendedor da empresa ou sem comprar com qualquer vendedor da empresa há mais de 89 dias)",
+      "tratados_antes_por": [
+        "R1",
+        "R2"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    14,
+    59,
+    89
+  ],
+  "numeros_permitidos": [
+    14,
+    59,
+    89
+  ],
+  "premissas_usadas": []
+}

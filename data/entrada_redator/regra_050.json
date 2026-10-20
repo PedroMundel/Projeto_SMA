@@ -1,0 +1,73 @@
+{
+ "arquivo": "regra_050.gobr",
+ "comentarios": [],
+ "times": [
+  {
+   "nome": "empresa toda",
+   "definicao": "todos os vendedores"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "empresa toda",
+   "definicao": "carteira fixa dos vendedores do time empresa toda",
+   "filtros": []
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Regra Padrao da Duferro Customizavel: Nao agendar inativos inadimplentes"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Regra Padrao da Duferro Customizavel: 7 dias para adimplentes",
+   "fonte": "da carteira empresa toda",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "adimplentes"
+  },
+  {
+   "id": "R2",
+   "nome": "Regra Padrao da Duferro Customizavel: 14 dias para ativos inadimplentes",
+   "fonte": "da carteira empresa toda",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "inadimplentes e ativos para o vendedor"
+  },
+  {
+   "id": "R3",
+   "nome": "Regra Padrao da Duferro Customizavel: Nao agendar inativos inadimplentes",
+   "fonte": "da carteira empresa toda",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R4",
+   "nome": "Regra Padrao da Duferro Customizavel: 7 dias para clientes sem vendas",
+   "fonte": "da carteira empresa toda",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "inadimplentes e sem vendas para o vendedor",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

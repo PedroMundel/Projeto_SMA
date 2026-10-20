@@ -1,0 +1,691 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_235.gobr",
+  "sha256": "899d1c3ed5bdabe3af0995900cf2be88a6ace508089f7cc131dd97020c60bc96",
+  "comentarios": [
+    "Definição de times",
+    "Regras de bloqueios",
+    "Regras de parametrização",
+    "Regras complementares",
+    "Regra catch all"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "felipe",
+      "definicao": "todos os vendedores de televendas habilitados no Govendas, exceto os de id 503, 518, 519, 521, 623, 624, 626",
+      "filtros": []
+    },
+    {
+      "id": "T2",
+      "nome": "paola_1",
+      "definicao": "os vendedores de id 519",
+      "filtros": []
+    },
+    {
+      "id": "T3",
+      "nome": "paola_2",
+      "definicao": "os vendedores de id 503, 518, 521, 623, 624, 626",
+      "filtros": []
+    },
+    {
+      "id": "T4",
+      "nome": "temporario_2meses",
+      "definicao": "os vendedores de id 521, 623, 624",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Nao agendar - clientes baixados na receita",
+    "Nao agendar - clientes com rota futura em 7 dias",
+    "Nao agendar - clientes com recencia de positivacao em 7 dias",
+    "Clientes com compra em 30 dias",
+    "Clientes que hoje não se enquadraram nas regras padrão"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Nao agendar - clientes baixados na receita",
+      "tipo_bloco": "parametros",
+      "fonte": "do time felipe, paola_1, paola_2, temporario_2meses",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "status na receita federal definido como baixada",
+          "significado": "com situação baixada na Receita Federal",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "com situação baixada na Receita Federal",
+      "condicao_efetiva": "com situação baixada na Receita Federal",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Nao agendar - clientes com rota futura em 7 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time paola_1, paola_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "data da rota futura em 7 dias",
+          "significado": "com data de rota futura nos últimos 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "com data de rota futura nos últimos 7 dias",
+      "condicao_efetiva": "com data de rota futura nos últimos 7 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Nao agendar - clientes com recencia de positivacao em 7 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time paola_1, paola_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao em 7 dias",
+          "significado": "compraram nos últimos 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "compraram nos últimos 7 dias",
+      "condicao_efetiva": "compraram nos últimos 7 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Clientes com compra em 30 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time felipe",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao em 30 dias",
+          "significado": "compraram nos últimos 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "compraram nos últimos 30 dias",
+      "condicao_efetiva": "compraram nos últimos 30 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Cobertura de rota de visita exatamente 14 dias depois",
+      "tipo_bloco": "parametros",
+      "fonte": "do time temporario_2meses",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "data da rota ha 14 dias atras",
+          "significado": "com data de rota há 14 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "com 5% de credito",
+          "significado": "com pelo menos 5% do limite de crédito disponível",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 1 dia",
+          "significado": "frequência de 1 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis e no sabado",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "com data de rota há 14 dias e com pelo menos 5% do limite de crédito disponível",
+      "condicao_efetiva": "com data de rota há 14 dias e com pelo menos 5% do limite de crédito disponível",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        1,
+        5,
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Clientes com compra entre 30 e 90 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time felipe",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao entre 30 dias e 90 dias",
+          "significado": "compraram nos últimos 90 dias, mas estão há pelo menos 30 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 15 dias",
+          "significado": "frequência de 15 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis e no sabado",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 90 dias, mas estão há pelo menos 30 dias sem comprar",
+      "condicao_efetiva": "compraram nos últimos 90 dias, mas estão há mais de 30 dias sem comprar",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        15,
+        30,
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Clientes sem compra em 90 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time felipe",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 10 dias",
+          "significado": "frequência de 10 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis e no sabado",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "(nunca compraram ou sem comprar há mais de 90 dias)",
+      "tratados_antes_por": [
+        "R6"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        10
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R8",
+      "posicao": 8,
+      "nome": "Clientes com rota ha 7 dias ou mais",
+      "tipo_bloco": "parametros",
+      "fonte": "do time paola_1, paola_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "data da rota em 7 dias",
+          "significado": "com data de rota nos últimos 7 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "com 5% de credito",
+          "significado": "com pelo menos 5% do limite de crédito disponível",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis e no sabado",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "com data de rota nos últimos 7 dias e com pelo menos 5% do limite de crédito disponível",
+      "condicao_efetiva": "(nunca compraram ou sem comprar há mais de 7 dias) e com data de rota nos últimos 7 dias e com pelo menos 5% do limite de crédito disponível",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        5,
+        7,
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R9",
+      "posicao": 9,
+      "nome": "Clientes com compra entre 7 e 30 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time paola_1, paola_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao global entre 7 dias e 30 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 30 dias, mas estão há pelo menos 7 dias sem comprar",
+          "reconhecida": true
+        },
+        {
+          "codigo": "com 5% de credito",
+          "significado": "com pelo menos 5% do limite de crédito disponível",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis e no sabado",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 30 dias, mas estão há pelo menos 7 dias sem comprar e com pelo menos 5% do limite de crédito disponível",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 30 dias, mas estão há pelo menos 7 dias sem comprar e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 7 dias) e não (com data de rota nos últimos 7 dias) e com pelo menos 5% do limite de crédito disponível",
+      "tratados_antes_por": [
+        "R8"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        5,
+        7,
+        14,
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R10",
+      "posicao": 10,
+      "nome": "Clientes com compra entre 31 e 60 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time paola_1, paola_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao global entre 31 dias e 60 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 60 dias, mas estão há pelo menos 31 dias sem comprar",
+          "reconhecida": true
+        },
+        {
+          "codigo": "com 5% de credito",
+          "significado": "com pelo menos 5% do limite de crédito disponível",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis e no sabado",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e com pelo menos 5% do limite de crédito disponível",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e não (com data de rota nos últimos 7 dias) e com pelo menos 5% do limite de crédito disponível",
+      "tratados_antes_por": [
+        "R8"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        5,
+        14,
+        31,
+        60
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R11",
+      "posicao": 11,
+      "nome": "Clientes com compra entre 61 e 89 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time paola_1, paola_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao global entre 61 dias e 89 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 89 dias, mas estão há pelo menos 61 dias sem comprar",
+          "reconhecida": true
+        },
+        {
+          "codigo": "com 5% de credito",
+          "significado": "com pelo menos 5% do limite de crédito disponível",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis e no sabado",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 89 dias, mas estão há mais de 60 dias sem comprar e com pelo menos 5% do limite de crédito disponível",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 89 dias, mas estão há mais de 60 dias sem comprar e não (com data de rota nos últimos 7 dias) e com pelo menos 5% do limite de crédito disponível",
+      "tratados_antes_por": [
+        "R8"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        5,
+        7,
+        61,
+        89
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R12",
+      "posicao": 12,
+      "nome": "Clientes com compra entre 90 e 179 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time paola_1, paola_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao global entre 90 dias e 179 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 179 dias, mas estão há pelo menos 90 dias sem comprar",
+          "reconhecida": true
+        },
+        {
+          "codigo": "com 5% de credito",
+          "significado": "com pelo menos 5% do limite de crédito disponível",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis e no sabado",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 179 dias, mas estão há mais de 89 dias sem comprar e com pelo menos 5% do limite de crédito disponível",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 179 dias, mas estão há mais de 89 dias sem comprar e não (com data de rota nos últimos 7 dias) e com pelo menos 5% do limite de crédito disponível",
+      "tratados_antes_por": [
+        "R8"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        5,
+        14,
+        90,
+        179
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R13",
+      "posicao": 13,
+      "nome": "Clientes sem compra em 180 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time paola_1, paola_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "com 5% de credito",
+          "significado": "com pelo menos 5% do limite de crédito disponível",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis e no sabado",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "com pelo menos 5% do limite de crédito disponível",
+      "condicao_efetiva": "(nunca compraram com qualquer vendedor da empresa ou compraram com qualquer vendedor da empresa nos últimos 6 dias ou sem comprar com qualquer vendedor da empresa há mais de 179 dias) e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 7 dias) e não (com data de rota nos últimos 7 dias) e com pelo menos 5% do limite de crédito disponível",
+      "tratados_antes_por": [
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        5,
+        21
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R14",
+      "posicao": 14,
+      "nome": "Clientes que hoje não se enquadraram nas regras padrão",
+      "tipo_bloco": "parametros",
+      "fonte": "do time felipe, paola_1, paola_2, temporario_2meses",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "(do time temporario_2meses e não (com data de rota há 14 dias)) OU (do time temporario_2meses e com data de rota há 14 dias e não (com pelo menos 5% do limite de crédito disponível)) OU (do time paola_1, paola_2 e (nunca compraram ou sem comprar há mais de 7 dias) e não (com pelo menos 5% do limite de crédito disponível))",
+      "tratados_antes_por": [
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [
+    "A cascata mistura escopos de recência de compra (global: Clientes com compra entre 7 e 30 dias, Clientes com compra entre 31 e 60 dias, Clientes com compra entre 61 e 89 dias; grupo: Nao agendar - clientes com recencia de positivacao em 7 dias, Clientes com compra em 30 dias, Clientes com compra entre 30 e 90 dias); faixas de escopos diferentes não se excluem automaticamente e podem se sobrepor ou deixar lacunas."
+  ],
+  "numeros_obrigatorios": [
+    1,
+    5,
+    7,
+    10,
+    14,
+    15,
+    21,
+    30,
+    31,
+    60,
+    61,
+    89,
+    90,
+    179
+  ],
+  "numeros_permitidos": [
+    1,
+    2,
+    5,
+    7,
+    10,
+    14,
+    15,
+    21,
+    30,
+    31,
+    60,
+    61,
+    89,
+    90,
+    179,
+    180,
+    503,
+    518,
+    519,
+    521,
+    623,
+    624,
+    626
+  ],
+  "premissas_usadas": [
+    "P2: Escopos de recência (grupo, vendedor, global) são medidas distintas, ordenadas: global <= grupo <= vendedor.",
+    "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+  ]
+}

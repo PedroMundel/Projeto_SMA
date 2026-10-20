@@ -1,0 +1,242 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_218.gobr",
+  "sha256": "c4518d61130ca500a9d236a4fa1bc54d37d7767188386541d3b91a2e4d16f291",
+  "comentarios": [
+    "Definição de times:",
+    "Regras de agendamento:"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "televendas_1",
+      "definicao": "todos os vendedores de televendas habilitados no Govendas, exceto os de id 4504",
+      "filtros": []
+    },
+    {
+      "id": "T2",
+      "nome": "televendas_2",
+      "definicao": "os vendedores de id 4504",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [],
+  "bloqueios": [],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Freq. de 5d para clientes sem compra em 7d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas_1",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao em 7 dias",
+          "significado": "sem comprar há mais de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 5 dias",
+          "significado": "frequência de 5 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar há mais de 7 dias",
+      "condicao_efetiva": "sem comprar há mais de 7 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        5,
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Freq. do histórico para clientes com recência de compra entre 0 e 14d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas_1",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao em 14 dias",
+          "significado": "compraram nos últimos 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia do historico ou no maximo de 14 dias",
+          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 14 dias",
+      "condicao_efetiva": "compraram nos últimos 7 dias",
+      "tratados_antes_por": [
+        "R1"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Freq. de 14d para clientes sem compra em 14d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas_1",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "nunca compraram",
+      "tratados_antes_por": [
+        "R1",
+        "R2"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Freq. de 14d para clientes sem pedido",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "no ciclo de vida prospect com o vendedor",
+          "significado": "prospects (nunca compraram com o próprio vendedor)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "nunca compraram com o próprio vendedor",
+      "condicao_efetiva": "nunca compraram com o próprio vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Freq. de 14d para clientes com compra em 30d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao em 30 dias",
+          "significado": "compraram nos últimos 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 30 dias",
+      "condicao_efetiva": "compraram no grupo de vendedores nos últimos 30 dias e já compraram com o próprio vendedor",
+      "tratados_antes_por": [
+        "R4"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Freq. de 7d para clientes sem compra em 30d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas_2",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "sem comprar no grupo de vendedores há mais de 30 dias e já compraram com o próprio vendedor",
+      "tratados_antes_por": [
+        "R4",
+        "R5"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    5,
+    7,
+    14,
+    30
+  ],
+  "numeros_permitidos": [
+    1,
+    2,
+    5,
+    7,
+    14,
+    30,
+    4504
+  ],
+  "premissas_usadas": [
+    "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+    "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado.",
+    "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+  ]
+}

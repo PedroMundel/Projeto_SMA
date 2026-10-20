@@ -1,0 +1,208 @@
+{
+ "arquivo": "regra_131.gobr",
+ "comentarios": [
+  "Regras para Labtech",
+  "TIME TELEVENDAS",
+  "TIME CAMPO"
+ ],
+ "times": [
+  {
+   "nome": "time televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  },
+  {
+   "nome": "time campo",
+   "definicao": "todos os vendedores de campo habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Labtech: Não agendar inadimplentes",
+  "Labtech: Não agendar 'Administração pública em geral' e 'Segurança e ordem pública'"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Labtech: Não agendar inadimplentes",
+   "fonte": "do time time televendas, time campo",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes"
+  },
+  {
+   "id": "R2",
+   "nome": "Labtech: Não agendar 'Administração pública em geral' e 'Segurança e ordem pública'",
+   "fonte": "do time time televendas, time campo",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "CNAE (id) em: 8411600, 8424800"
+  },
+  {
+   "id": "R3",
+   "nome": "Labtech: Frequência de 7 dias para clientes sem crédito",
+   "fonte": "do time time televendas, time campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "CNAE (id) fora de: 8411600, 8424800 e sem crédito disponível"
+  },
+  {
+   "id": "R4",
+   "nome": "Labtech: Frequência de 7 dias para clientes ativos - Modelo 1 - Televendas",
+   "fonte": "do time time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "CNAE (id) em: 7500100, 8610101, 8610102, 8630501, 8630502, 8630503 e mais 2 e com crédito disponível e ativos para o vendedor",
+   "tratados_antes_por": [
+    "R3"
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Labtech: Frequência de 14 dias para clientes inativos - Modelo 1 - Televendas",
+   "fonte": "do time time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "CNAE (id) em: 7500100, 8610101, 8610102, 8630501, 8630502, 8630503 e mais 2 e com crédito disponível e não ativos para o vendedor",
+   "tratados_antes_por": [
+    "R3",
+    "R4"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Labtech: Frequência de 21 dias para clientes ativos - Modelo 2 - Televendas",
+   "fonte": "do time time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "CNAE (id) em: 3250705, 4645101, 4773300, 8532500, 8533300 e com crédito disponível e ativos para o vendedor",
+   "tratados_antes_por": [
+    "R3"
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Labtech: Frequência de 30 dias para clientes inativos - Modelo 2 - Televendas",
+   "fonte": "do time time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "CNAE (id) em: 3250705, 4645101, 4773300, 8532500, 8533300 e com crédito disponível e não ativos para o vendedor",
+   "tratados_antes_por": [
+    "R3",
+    "R6"
+   ]
+  },
+  {
+   "id": "R8",
+   "nome": "Labtech: Frequência de 30 dias - Modelo 3 - Televendas",
+   "fonte": "do time time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "CNAE (id) fora de: 3250705, 4645101, 4773300, 7500100, 8411600, 8424800 e mais 9 e com crédito disponível",
+   "tratados_antes_por": [
+    "R3",
+    "R4",
+    "R5",
+    "R6",
+    "R7"
+   ]
+  },
+  {
+   "id": "R9",
+   "nome": "Labtech: Frequência de 7 dias para clientes ativos - Modelo 1 - Externos",
+   "fonte": "do time time campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias",
+    "dias de atendimento - preferência: segunda, quarta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "CNAE (id) em: 7500100, 8610101, 8610102, 8630501, 8630502, 8630503 e mais 2 e com crédito disponível e ativos para o vendedor",
+   "tratados_antes_por": [
+    "R3"
+   ]
+  },
+  {
+   "id": "R10",
+   "nome": "Labtech: Frequência de 14 dias para clientes inativos - Modelo 1 - Externos",
+   "fonte": "do time time campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias",
+    "dias de atendimento - preferência: segunda, quarta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "CNAE (id) em: 7500100, 8610101, 8610102, 8630501, 8630502, 8630503 e mais 2 e com crédito disponível e não ativos para o vendedor",
+   "tratados_antes_por": [
+    "R3",
+    "R9"
+   ]
+  },
+  {
+   "id": "R11",
+   "nome": "Labtech: Frequência de 21 dias para clientes ativos - Modelo 2 - Externos",
+   "fonte": "do time time campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias",
+    "dias de atendimento - preferência: segunda, quarta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "CNAE (id) em: 3250705, 4645101, 4773300, 8532500, 8533300 e com crédito disponível e ativos para o vendedor",
+   "tratados_antes_por": [
+    "R3"
+   ]
+  },
+  {
+   "id": "R12",
+   "nome": "Labtech: Frequência de 30 dias para clientes inativos - Modelo 2 - Externos",
+   "fonte": "do time time campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias",
+    "dias de atendimento - preferência: segunda, quarta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "CNAE (id) em: 3250705, 4645101, 4773300, 8532500, 8533300 e com crédito disponível e não ativos para o vendedor",
+   "tratados_antes_por": [
+    "R3",
+    "R11"
+   ]
+  },
+  {
+   "id": "R13",
+   "nome": "Labtech: Frequência de 30 dias - Modelo 3 - Externos",
+   "fonte": "do time time campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias",
+    "dias de atendimento - preferência: segunda, quarta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "CNAE (id) fora de: 3250705, 4645101, 4773300, 7500100, 8411600, 8424800 e mais 9 e com crédito disponível",
+   "tratados_antes_por": [
+    "R3",
+    "R9",
+    "R10",
+    "R11",
+    "R12"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+ ]
+}

@@ -1,0 +1,125 @@
+{
+ "arquivo": "regra_191.gobr",
+ "comentarios": [
+  "Regras de não agendamento",
+  "Regras de agendamento"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Não agendar clientes baixados na receita",
+  "Não agendar inadimplentes"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Não agendar clientes baixados na receita",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "com situação baixada na Receita Federal"
+  },
+  {
+   "id": "R2",
+   "nome": "Não agendar inadimplentes",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes"
+  },
+  {
+   "id": "R3",
+   "nome": "Clientes Prospects",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa"
+  },
+  {
+   "id": "R4",
+   "nome": "Pós-venda",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 7 dias"
+  },
+  {
+   "id": "R5",
+   "nome": "Alta regularidade",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência calculada pelo histórico de compras mais 3 dias; se não houver, limitada a no mínimo 14 dias e no máximo 30 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 30 dias, mas estão há mais de 7 dias sem comprar",
+   "tratados_antes_por": [
+    "R4"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Estimular regularidade",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 45 dias, mas estão há mais de 30 dias sem comprar",
+   "tratados_antes_por": [
+    "R4",
+    "R5"
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Risco de inatividade",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 60 dias, mas estão há mais de 45 dias sem comprar",
+   "tratados_antes_por": [
+    "R4",
+    "R5",
+    "R6"
+   ]
+  },
+  {
+   "id": "R8",
+   "nome": "Clientes Inativos",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 60 dias)",
+   "tratados_antes_por": [
+    "R3",
+    "R4",
+    "R5",
+    "R6",
+    "R7"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+ ]
+}

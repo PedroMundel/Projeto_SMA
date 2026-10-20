@@ -1,0 +1,844 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_245.gobr",
+  "sha256": "6f64138b8f5115ef2f1a10bb4ae513fdf043429e5d3f980c5e08d0bb0f11ae97",
+  "comentarios": [
+    "Obs.: Em teste!",
+    "TIMES",
+    "REGRAS PARA CARTEIRAS DE ROTAS POR CIDADE",
+    "PARÂMETROS DE PLANEJAMENTO",
+    "NÃO AGENDAMENTO",
+    "AGENDAMENTO PARA ROTA TODOS OS DIAS",
+    "(D+2)",
+    "AGENDAMENTO PARA SEGUNDA",
+    "AGENDAMENTO PARA TERÇA",
+    "AGENDAMENTO PARA QUARTA",
+    "AGENDAMENTO PARA QUINTA",
+    "AGENDAMENTO PARA SEXTA",
+    "DEMAIS CIDADES - NÃO INFORMADAS NAS ROTAS",
+    "(D-1)"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "televendas",
+      "definicao": "todos os vendedores de televendas habilitados no Govendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "rota_todo_dia",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [
+        {
+          "codigo": "nome da cidade igual(\"AMERICANA\",\"ATIBAIA\",\"BOM JESUS DOS PERDOES\",\"CAMPINAS\",\"HORTOLANDIA\",\"INDAIATUBA\",\"ITATIBA\",\"ITU\",\"JARINU\",\"JUNDIAI\",\"LOUVEIRA\",\"NOVA ODE…",
+          "significado": "cidade em: AMERICANA, ATIBAIA, BOM JESUS DOS PERDOES, CAMPINAS, HORTOLANDIA, INDAIATUBA e mais 13",
+          "reconhecida": true
+        }
+      ],
+      "livre": true
+    },
+    {
+      "id": "C2",
+      "nome": "rota_segunda",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [
+        {
+          "codigo": "nome da cidade igual(\"CAMPO LIMPO PAULISTA\",\"ARACOIABA DA SERRA\",\"SAO PEDRO\",\"JOANOPOLIS\",\"PINHALZINHO\",\"VARGEM\",\"AGUAS DE LINDOIA\",\"AMPARO\",\"ITAPIRA\",\"LINDOIA\"…",
+          "significado": "cidade em: AGUAS DE LINDOIA, AGUAS DE SANTA BARBARA, AMPARO, ARACOIABA DA SERRA, BRAGANCA PAULISTA, CAMPO LIMPO PAULISTA e mais 12",
+          "reconhecida": true
+        }
+      ],
+      "livre": true
+    },
+    {
+      "id": "C3",
+      "nome": "rota_terca",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [
+        {
+          "codigo": "nome da cidade igual(\"ARTUR NOGUEIRA\",\"CABREUVA\",\"CAPIVARI\",\"CONCHAL\",\"COSMOPOLIS\",\"ELIAS FAUSTO\",\"ENGENHEIRO COELHO\",\"ESTIVA GERBI\",\"FRANCISCO MORATO\",\"HOLAMBR…",
+          "significado": "cidade em: ARTUR NOGUEIRA, BRAGANCA PAULISTA, CABREUVA, CAPIVARI, CONCHAL, CONCHAS e mais 33",
+          "reconhecida": true
+        }
+      ],
+      "livre": true
+    },
+    {
+      "id": "C4",
+      "nome": "rota_quarta",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [
+        {
+          "codigo": "nome da cidade igual(\"SOROCABA\",\"VOTORANTIM\",\"CAMPO LIMPO PAULISTA\",\"ARACOIABA DA SERRA\",\"SAO PEDRO\",\"JOANOPOLIS\",\"PINHALZINHO\",\"VARGEM\",\"AGUAS DE LINDOIA\",\"AMP…",
+          "significado": "cidade em: AGUAI, AGUAS DE LINDOIA, AGUAS DE SAO PEDRO, AMPARO, ARACOIABA DA SERRA, ARARAS e mais 29",
+          "reconhecida": true
+        }
+      ],
+      "livre": true
+    },
+    {
+      "id": "C5",
+      "nome": "rota_quinta",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [
+        {
+          "codigo": "nome da cidade igual(\"ARTUR NOGUEIRA\",\"CABREUVA\",\"CAPIVARI\",\"CONCHAL\",\"COSMOPOLIS\",\"ELIAS FAUSTO\",\"ENGENHEIRO COELHO\",\"ESTIVA GERBI\",\"FRANCISCO MORATO\",\"HOLAMBR…",
+          "significado": "cidade em: AGUAS DE SANTA BARBARA, ARANDU, ARTUR NOGUEIRA, AVARE, BOTUCATU, BRAGANCA PAULISTA e mais 25",
+          "reconhecida": true
+        }
+      ],
+      "livre": true
+    },
+    {
+      "id": "C6",
+      "nome": "rota_sexta",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [
+        {
+          "codigo": "nome da cidade igual(\"SOROCABA\",\"VOTORANTIM\",\"MAIRIPORA\",\"NAZARE PAULISTA\",\"SALTO DE PIRAPORA\",\"PARANAPANEMA\",\"CAMPO LIMPO PAULISTA\",\"ARACOIABA DA SERRA\",\"SAO P…",
+          "significado": "cidade em: AGUAI, AGUAS DE SAO PEDRO, ARACOIABA DA SERRA, ARARAS, BOITUVA, CAMPO LIMPO PAULISTA e mais 29",
+          "reconhecida": true
+        }
+      ],
+      "livre": true
+    }
+  ],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Não agendar Inadimplentes",
+    "Não agendar baixados na Receita",
+    "Não agendar sem crédito",
+    "Não agendar clientes com compra em 60d"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Não agendar Inadimplentes",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "inadimplentes",
+      "condicao_efetiva": "inadimplentes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Não agendar baixados na Receita",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "status na receita federal definido como baixada",
+          "significado": "com situação baixada na Receita Federal",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "com situação baixada na Receita Federal",
+      "condicao_efetiva": "com situação baixada na Receita Federal",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Não agendar sem crédito",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "nao tem credito",
+          "significado": "sem crédito disponível",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "sem crédito disponível",
+      "condicao_efetiva": "sem crédito disponível",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Não agendar clientes com compra em 60d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao em 60 dias",
+          "significado": "compraram nos últimos 60 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "compraram nos últimos 60 dias",
+      "condicao_efetiva": "compraram nos últimos 60 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        60
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Com atendimento/venda na semana / Rota: Todos os dias - Agendar para semana seguinte (freq. do hist.)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rota_todo_dia",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de visita na semana",
+          "significado": "com visita na semana atual",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia do historico ou no minimo de 7 dias e no maximo de 14 dias",
+          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no mínimo 7 dias e no máximo 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "com visita na semana atual",
+      "condicao_efetiva": "com visita na semana atual",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7,
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Sem atendimento/venda na semana / Rota: Todos os dias - Agendar para semana corrente (freq. do hist. +2)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rota_todo_dia",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia do historico mais 2 dias ou no minimo de 3 dias e no maximo de 7 dias",
+          "significado": "frequência calculada pelo histórico de compras mais 2 dias; se não houver, limitada a no mínimo 3 dias e no máximo 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "não (com visita na semana atual)",
+      "tratados_antes_por": [
+        "R5"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        2,
+        3,
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Com atendimento/venda na semana / Rota: Ter / Pref. de agend.: Seg",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rota_terca",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de visita na semana",
+          "significado": "com visita na semana atual",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia maior na segunda",
+          "significado": "dias de atendimento - maior preferência: segunda; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "com visita na semana atual",
+      "condicao_efetiva": "com visita na semana atual",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R8",
+      "posicao": 8,
+      "nome": "Sem atendimento/venda na semana / Rota: Ter / Pref. de agend.: Seg",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rota_terca",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia maior na segunda",
+          "significado": "dias de atendimento - maior preferência: segunda; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "não (com visita na semana atual)",
+      "tratados_antes_por": [
+        "R7"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R9",
+      "posicao": 9,
+      "nome": "Com atendimento/venda na semana / Rota: Qua / Pref. de agend.: Ter",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rota_quarta",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de visita na semana",
+          "significado": "com visita na semana atual",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia maior na terca",
+          "significado": "dias de atendimento - maior preferência: terça; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "com visita na semana atual",
+      "condicao_efetiva": "com visita na semana atual",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R10",
+      "posicao": 10,
+      "nome": "Sem atendimento/venda na semana / Rota: Qua / Pref. de agend.: Ter",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rota_quarta",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia maior na terca",
+          "significado": "dias de atendimento - maior preferência: terça; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "não (com visita na semana atual)",
+      "tratados_antes_por": [
+        "R9"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R11",
+      "posicao": 11,
+      "nome": "Com atendimento/venda na semana / Rota: Qui / Pref. de agend.: Qua",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rota_quinta",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de visita na semana",
+          "significado": "com visita na semana atual",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia maior na quarta",
+          "significado": "dias de atendimento - maior preferência: quarta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "com visita na semana atual",
+      "condicao_efetiva": "com visita na semana atual",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R12",
+      "posicao": 12,
+      "nome": "Sem atendimento/venda na semana / Rota: Qui / Pref. de agend.: Qua",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rota_quinta",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia maior na quarta",
+          "significado": "dias de atendimento - maior preferência: quarta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "não (com visita na semana atual)",
+      "tratados_antes_por": [
+        "R11"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R13",
+      "posicao": 13,
+      "nome": "Com atendimento/venda na semana / Rota: Sex / Pref. de agend.: Qui",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rota_sexta",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de visita na semana",
+          "significado": "com visita na semana atual",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia maior na quinta",
+          "significado": "dias de atendimento - maior preferência: quinta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "com visita na semana atual",
+      "condicao_efetiva": "com visita na semana atual",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R14",
+      "posicao": 14,
+      "nome": "Sem atendimento/venda na semana / Rota: Sex / Pref. de agend.: Qui",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rota_sexta",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia maior na quinta",
+          "significado": "dias de atendimento - maior preferência: quinta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "não (com visita na semana atual)",
+      "tratados_antes_por": [
+        "R13"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R15",
+      "posicao": 15,
+      "nome": "Com atendimento/venda na semana / Rota: Seg / Pref. de agend.: Sex",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rota_segunda",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de visita na semana",
+          "significado": "com visita na semana atual",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia maior na sexta",
+          "significado": "dias de atendimento - maior preferência: sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "com visita na semana atual",
+      "condicao_efetiva": "com visita na semana atual",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R16",
+      "posicao": 16,
+      "nome": "Sem atendimento/venda na semana / Rota: Seg / Pref. de agend.: Sex",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rota_segunda",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia maior na sexta",
+          "significado": "dias de atendimento - maior preferência: sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "não (com visita na semana atual)",
+      "tratados_antes_por": [
+        "R15"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R17",
+      "posicao": 17,
+      "nome": "Com atendimento/venda na semana - Cidades não informadas nas rotas - Agendar para semana seguinte (freq. do hist.)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de visita na semana",
+          "significado": "com visita na semana atual",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia do historico ou no minimo de 7 dias e no maximo de 14 dias",
+          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no mínimo 7 dias e no máximo 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "com visita na semana atual",
+      "condicao_efetiva": "fora da carteira rota_quarta, rota_quinta, rota_segunda, rota_sexta, rota_terca, rota_todo_dia e com visita na semana atual",
+      "tratados_antes_por": [
+        "R5",
+        "R7",
+        "R9",
+        "R11",
+        "R13",
+        "R15"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7,
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R18",
+      "posicao": 18,
+      "nome": "Sem atendimento/venda na semana - Cidades não informadas nas rotas - Agendar para semana corrente (freq. do hist. -1)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia do historico menos 1 dias ou no minimo de 1 dias e no maximo de 7 dias",
+          "significado": "frequência calculada pelo histórico de compras menos 1 dias; se não houver, limitada a no mínimo 1 dias e no máximo 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "fora da carteira rota_quarta, rota_quinta, rota_segunda, rota_sexta, rota_terca, rota_todo_dia e não (com visita na semana atual)",
+      "tratados_antes_por": [
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13",
+        "R14",
+        "R15",
+        "R16",
+        "R17"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        1,
+        7
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [
+    "As carteiras \"rota_segunda\" e \"rota_terca\" compartilham 2 valor(es) de nome da cidade (BRAGANCA PAULISTA, PIRACAIA): esses clientes aparecem nas duas.",
+    "As carteiras \"rota_segunda\" e \"rota_quarta\" compartilham 15 valor(es) de nome da cidade (AGUAS DE LINDOIA, AMPARO, ARACOIABA DA SERRA, BRAGANCA PAULISTA, CAMPO LIMPO PAULISTA...): esses clientes aparecem nas duas.",
+    "As carteiras \"rota_segunda\" e \"rota_quinta\" compartilham 4 valor(es) de nome da cidade (AGUAS DE SANTA BARBARA, BRAGANCA PAULISTA, ITATINGA, PIRACAIA): esses clientes aparecem nas duas.",
+    "As carteiras \"rota_segunda\" e \"rota_sexta\" compartilham 3 valor(es) de nome da cidade (ARACOIABA DA SERRA, CAMPO LIMPO PAULISTA, SAO PEDRO): esses clientes aparecem nas duas.",
+    "As carteiras \"rota_terca\" e \"rota_quarta\" compartilham 4 valor(es) de nome da cidade (BRAGANCA PAULISTA, PIRACAIA, SOROCABA, VOTORANTIM): esses clientes aparecem nas duas.",
+    "As carteiras \"rota_terca\" e \"rota_quinta\" compartilham 25 valor(es) de nome da cidade (ARTUR NOGUEIRA, BRAGANCA PAULISTA, CABREUVA, CAPIVARI, CONCHAL...): esses clientes aparecem nas duas.",
+    "As carteiras \"rota_terca\" e \"rota_sexta\" compartilham 14 valor(es) de nome da cidade (CORDEIROPOLIS, IRACEMAPOLIS, LIMEIRA, MAIRIPORA, NAZARE PAULISTA...): esses clientes aparecem nas duas.",
+    "As carteiras \"rota_quarta\" e \"rota_quinta\" compartilham 2 valor(es) de nome da cidade (BRAGANCA PAULISTA, PIRACAIA): esses clientes aparecem nas duas.",
+    "As carteiras \"rota_quarta\" e \"rota_sexta\" compartilham 23 valor(es) de nome da cidade (AGUAI, AGUAS DE SAO PEDRO, ARACOIABA DA SERRA, ARARAS, BOITUVA...): esses clientes aparecem nas duas."
+  ],
+  "numeros_obrigatorios": [
+    1,
+    2,
+    3,
+    7,
+    14,
+    60
+  ],
+  "numeros_permitidos": [
+    1,
+    2,
+    3,
+    7,
+    14,
+    60
+  ],
+  "premissas_usadas": [
+    "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+  ]
+}

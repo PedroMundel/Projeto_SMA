@@ -1,0 +1,373 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_068.gobr",
+  "sha256": "e894956f1db2d16bbe3144cbe5d9f525d6b16261c7247e5cfd0b90200fadd67e",
+  "comentarios": [
+    "Regras campo",
+    "Regras televendas"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "time campo",
+      "definicao": "todos os vendedores de campo",
+      "filtros": []
+    },
+    {
+      "id": "T2",
+      "nome": "time televendas",
+      "definicao": "todos os vendedores de televendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "carteira campo",
+      "definicao": "carteira fixa dos vendedores do time time campo",
+      "filtros": [],
+      "livre": false,
+      "exceto_alocados_em": []
+    },
+    {
+      "id": "C2",
+      "nome": "carteira televendas",
+      "definicao": "carteira fixa dos vendedores do time time televendas",
+      "filtros": [],
+      "livre": false,
+      "exceto_alocados_em": []
+    }
+  ],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Regra Padrao da Playpet Customizavel: nao agendar plano veterinario",
+    "Regra Padrao da Playpet Customizavel: nao agendar clientes pessoa fisica",
+    "Regra Padrao da Playpet Customizavel: nao agendar inadimplentes ou inativos",
+    "Regra Padrao da Playpet Customizavel: Nao agendar inadimplentes"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Regra Padrao da Playpet Customizavel: nao agendar plano veterinario",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira campo",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"17\")",
+          "significado": "ramo de atividade (id) igual a 17",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "ramo de atividade (id) igual a 17",
+      "condicao_efetiva": "ramo de atividade (id) igual a 17",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Regra Padrao da Playpet Customizavel: nao agendar clientes pessoa fisica",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira campo",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "pessoa fisica",
+          "significado": "pessoa física",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "pessoa física",
+      "condicao_efetiva": "pessoa física",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Regra Padrao da Playpet Customizavel: 30 dias para ativos adimplentes",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira campo",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "adimplentes",
+          "significado": "adimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "adimplentes e ativos para o vendedor",
+      "condicao_efetiva": "adimplentes e ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Regra Padrao da Playpet Customizavel: 21 dias para clientes sem venda",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira campo",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "sem venda",
+          "significado": "sem vendas para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem vendas para o vendedor",
+      "condicao_efetiva": "sem vendas para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Regra Padrao da Playpet Customizavel: nao agendar inadimplentes ou inativos",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira campo",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "(inativos para o vendedor) OU (inadimplentes e ativos para o vendedor)",
+      "tratados_antes_por": [
+        "R3",
+        "R4"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Regra Padrao da Playpet Customizavel: Nao agendar inadimplentes",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "inadimplentes",
+      "condicao_efetiva": "inadimplentes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Regra Padrao da Playpet Customizavel: 14 dias para ativos adimplentes",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "adimplentes",
+          "significado": "adimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "adimplentes e ativos para o vendedor",
+      "condicao_efetiva": "adimplentes e ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R8",
+      "posicao": 8,
+      "nome": "Regra Padrao da Playpet Customizavel: 30 dias quando inativos adimplentes",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inativos para o vendedor",
+          "significado": "inativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "adimplentes",
+          "significado": "adimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "adimplentes e inativos para o vendedor",
+      "condicao_efetiva": "adimplentes e inativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R9",
+      "posicao": 9,
+      "nome": "Regra Padrao da Playpet Customizavel: 14 dias para sem venda",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "sem venda",
+          "significado": "sem vendas para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem vendas para o vendedor",
+      "condicao_efetiva": "adimplentes e sem vendas para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R6"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    14,
+    21,
+    30
+  ],
+  "numeros_permitidos": [
+    14,
+    17,
+    21,
+    30
+  ],
+  "premissas_usadas": [
+    "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+    "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores.",
+    "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+  ]
+}

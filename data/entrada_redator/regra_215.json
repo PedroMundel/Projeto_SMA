@@ -1,0 +1,103 @@
+{
+ "arquivo": "regra_215.gobr",
+ "comentarios": [
+  "Definição de times:",
+  "Regras de agendamento:"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Freq. de 7d para 'Primeira compra'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com o próprio vendedor"
+  },
+  {
+   "id": "R2",
+   "nome": "Freq. de 7d para 'Prospect ativado'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "sem comprar no grupo de vendedores há mais de 20 dias e já compraram com o próprio vendedor e com uma única compra com o vendedor",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R3",
+   "nome": "Freq. de 7d para 'Compra regularmente'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 30 dias e sem ser de compra única com o vendedor) OU (compraram no grupo de vendedores nos últimos 20 dias e compraram com o próprio vendedor nos últimos 30 dias e com uma única compra com o vendedor)",
+   "tratados_antes_por": [
+    "R2"
+   ]
+  },
+  {
+   "id": "R4",
+   "nome": "Freq. de 7d para 'Ativo: estimular a regularidade de compra'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e sem ser de compra única com o vendedor) OU (compraram no grupo de vendedores nos últimos 20 dias e compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e com uma única compra com o vendedor)",
+   "tratados_antes_por": [
+    "R2"
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Freq. de 7d para 'Risco de inatividade'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e sem ser de compra única com o vendedor) OU (compraram no grupo de vendedores nos últimos 20 dias e compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e com uma única compra com o vendedor)",
+   "tratados_antes_por": [
+    "R2",
+    "R4"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Freq. de 7d para 'Resgate de cliente sem compra'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "(sem comprar com o próprio vendedor há mais de 90 dias e sem ser de compra única com o vendedor) OU (compraram no grupo de vendedores nos últimos 20 dias e sem comprar com o próprio vendedor há mais de 90 dias e com uma única compra com o vendedor)",
+   "tratados_antes_por": [
+    "R2"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [
+  "A cascata mistura escopos de recência de compra (grupo: Freq. de 7d para 'Prospect ativado'; vendedor: Freq. de 7d para 'Compra regularmente', Freq. de 7d para 'Ativo: estimular a regularidade de compra', Freq. de 7d para 'Risco de inatividade'); faixas de escopos diferentes não se excluem automaticamente e podem se sobrepor ou deixar lacunas."
+ ],
+ "premissas_usadas": [
+  "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+  "P2: Escopos de recência (grupo, vendedor, global) são medidas distintas, ordenadas: global <= grupo <= vendedor.",
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+ ]
+}

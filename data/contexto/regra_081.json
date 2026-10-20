@@ -1,0 +1,241 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_081.gobr",
+  "sha256": "f6dca84770d6516e5585dc677b39b20777b90784a3e89a50b75790210b24921e",
+  "comentarios": [
+    "Regras para Recife Doces"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "empresa toda",
+      "definicao": "todos os vendedores",
+      "filtros": []
+    }
+  ],
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "empresa toda",
+      "definicao": "carteira fixa dos vendedores do time empresa toda",
+      "filtros": [],
+      "livre": false,
+      "exceto_alocados_em": []
+    }
+  ],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Regra Padrao da Empresa Customizavel: nao agendar inativos e inadimplentes"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Regra Padrao da Empresa Customizavel: semanal para clientes ativos e adimplentes",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira empresa toda",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ativos para o vendedor",
+      "condicao_efetiva": "ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Regra Padrao da Empresa Customizavel: 21 dias para clientes ativos e inadimplentes",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira empresa toda",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "inadimplentes e ativos para o vendedor",
+      "condicao_efetiva": null,
+      "tratados_antes_por": [
+        "R1"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": true,
+      "numeros": [
+        21
+      ],
+      "alertas": [
+        "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Regra Padrao da Empresa Customizavel: semanal para clientes ativos e adimplentes\"."
+      ]
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Regra Padrao da Empresa Customizavel: 30 dias para clientes inativos e adimplentes",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira empresa toda",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inativos para o vendedor",
+          "significado": "inativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "inativos para o vendedor",
+      "condicao_efetiva": "inativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Regra Padrao da Empresa Customizavel: nao agendar inativos e inadimplentes",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira empresa toda",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inativos para o vendedor",
+          "significado": "inativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "inadimplentes e inativos para o vendedor",
+      "condicao_efetiva": null,
+      "tratados_antes_por": [
+        "R3"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": true,
+      "numeros": [],
+      "alertas": [
+        "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Regra Padrao da Empresa Customizavel: 30 dias para clientes inativos e adimplentes\".",
+        "Bloqueio depois de regras de frequência: clientes já parametrizados por \"Regra Padrao da Empresa Customizavel: 30 dias para clientes inativos e adimplentes\" não serão bloqueados por esta regra."
+      ]
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Regra Padrao da Empresa Customizavel: 30 dias para clientes sem vendas",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira empresa toda",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "sem vendas",
+          "significado": "sem vendas para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem vendas para o vendedor",
+      "condicao_efetiva": "sem vendas para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    21,
+    30
+  ],
+  "numeros_permitidos": [
+    21,
+    30
+  ],
+  "premissas_usadas": [
+    "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+    "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+  ]
+}

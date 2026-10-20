@@ -1,0 +1,805 @@
+{
+ "arquivo": "regra_135.gobr",
+ "comentarios": [
+  "-------------------------",
+  "Definição de Times",
+  "-------------------------",
+  "-------------------------",
+  "Carteiras da Camila (Rotas)",
+  "-------------------------",
+  "-------------------------",
+  "Parametrização (Perfil + Rota)",
+  "-------------------------",
+  "Terça",
+  "Quarta",
+  "Quinta",
+  "Sexta",
+  "Irrestrito",
+  "-------------------------",
+  "Regras atuais para demais vendedores",
+  "-------------------------"
+ ],
+ "times": [
+  {
+   "nome": "televendas_1",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas, exceto os de id 0000002"
+  },
+  {
+   "nome": "televendas_2",
+   "definicao": "os vendedores de id 0000002"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "segunda_feira_televendas_2",
+   "definicao": "carteira fixa dos vendedores do time televendas_2",
+   "filtros": [
+    "cidade em: AGUAS DE SAO PEDRO, AMERICANA, ARARAS, CHARQUEADA, CORDEIROPOLIS, Cordeirópolis e mais 10"
+   ],
+   "livre": true
+  },
+  {
+   "id": "C2",
+   "nome": "terca_feira_televendas_2",
+   "definicao": "carteira fixa dos vendedores do time televendas_2",
+   "filtros": [
+    "cidade em: AMERICO BRASILIENSE, ARARAQUARA, BARRINHA, CRAVINHOS, DESCALVADO, GUARIBA e mais 15"
+   ],
+   "livre": true
+  },
+  {
+   "id": "C3",
+   "nome": "quarta_feira_televendas_2",
+   "definicao": "carteira fixa dos vendedores do time televendas_2",
+   "filtros": [
+    "cidade em: AGUAI, AGUAS DE LINDOIA, AMPARO, ANDRADAS, ARTUR NOGUEIRA, ENGENHEIRO COELHO e mais 17"
+   ],
+   "livre": true
+  },
+  {
+   "id": "C4",
+   "nome": "quinta_feira_televendas_2",
+   "definicao": "carteira fixa dos vendedores do time televendas_2",
+   "filtros": [
+    "cidade em: ALUMINIO, ARACOIABA DA SERRA, BOITUVA, CERQUILHO, COTIA, IBIUNA e mais 15"
+   ],
+   "livre": true
+  },
+  {
+   "id": "C5",
+   "nome": "sexta_feira_televendas_2",
+   "definicao": "carteira fixa dos vendedores do time televendas_2",
+   "filtros": [
+    "cidade em: ATIBAIA, BRAGANCA PAULISTA, CAMPINAS, CAMPO LIMPO PAULISTA, COSMOPOLIS, HORTOLANDIA e mais 9"
+   ],
+   "livre": true
+  },
+  {
+   "id": "C6",
+   "nome": "irrestrito_televendas_2",
+   "definicao": "carteira fixa dos vendedores do time televendas_2",
+   "filtros": [
+    "cidade em: ARUJA, BARUERI, CAIEIRAS, CAJAMAR, CARAPICUIBA, DIADEMA e mais 19"
+   ],
+   "livre": true
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Prospects Segunda",
+   "fonte": "da carteira segunda_feira_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "nunca compraram com o próprio vendedor"
+  },
+  {
+   "id": "R2",
+   "nome": "Alta Frequencia Segunda",
+   "fonte": "da carteira segunda_feira_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram com o próprio vendedor nos últimos 30 dias"
+  },
+  {
+   "id": "R3",
+   "nome": "Regularidade Segunda",
+   "fonte": "da carteira segunda_feira_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram com o próprio vendedor nos últimos 45 dias, mas estão há mais de 30 dias sem comprar",
+   "tratados_antes_por": [
+    "R2"
+   ]
+  },
+  {
+   "id": "R4",
+   "nome": "Risco Inatividade Segunda",
+   "fonte": "da carteira segunda_feira_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 120 dias e já compraram com o próprio vendedor",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Inativos Segunda",
+   "fonte": "da carteira segunda_feira_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 120 dias e sem comprar no grupo de vendedores há mais de 180 dias e já compraram com o próprio vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R4"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Sem Regra Segunda",
+   "fonte": "da carteira segunda_feira_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 120 dias e compraram no grupo de vendedores nos últimos 180 dias e sem comprar com o próprio vendedor há mais de 45 dias",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5"
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Prospects Terca",
+   "fonte": "da carteira terca_feira_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: segunda; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "nunca compraram com o próprio vendedor"
+  },
+  {
+   "id": "R8",
+   "nome": "Alta Frequencia Terca",
+   "fonte": "da carteira terca_feira_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: segunda; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram com o próprio vendedor nos últimos 30 dias"
+  },
+  {
+   "id": "R9",
+   "nome": "Regularidade Terca",
+   "fonte": "da carteira terca_feira_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: segunda; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram com o próprio vendedor nos últimos 45 dias, mas estão há mais de 30 dias sem comprar",
+   "tratados_antes_por": [
+    "R8"
+   ]
+  },
+  {
+   "id": "R10",
+   "nome": "Risco Inatividade Terca",
+   "fonte": "da carteira terca_feira_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: segunda; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 120 dias e já compraram com o próprio vendedor",
+   "tratados_antes_por": [
+    "R7"
+   ]
+  },
+  {
+   "id": "R11",
+   "nome": "Inativos Terca",
+   "fonte": "da carteira terca_feira_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: segunda; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 120 dias e sem comprar no grupo de vendedores há mais de 180 dias e já compraram com o próprio vendedor",
+   "tratados_antes_por": [
+    "R7",
+    "R10"
+   ]
+  },
+  {
+   "id": "R12",
+   "nome": "Sem Regra Terca",
+   "fonte": "da carteira terca_feira_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: segunda; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 120 dias e compraram no grupo de vendedores nos últimos 180 dias e sem comprar com o próprio vendedor há mais de 45 dias",
+   "tratados_antes_por": [
+    "R7",
+    "R8",
+    "R9",
+    "R10",
+    "R11"
+   ]
+  },
+  {
+   "id": "R13",
+   "nome": "Prospects Quarta",
+   "fonte": "da carteira quarta_feira_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: terça; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "nunca compraram com o próprio vendedor"
+  },
+  {
+   "id": "R14",
+   "nome": "Alta Frequencia Quarta",
+   "fonte": "da carteira quarta_feira_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: terça; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram com o próprio vendedor nos últimos 30 dias"
+  },
+  {
+   "id": "R15",
+   "nome": "Regularidade Quarta",
+   "fonte": "da carteira quarta_feira_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: terça; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram com o próprio vendedor nos últimos 45 dias, mas estão há mais de 30 dias sem comprar",
+   "tratados_antes_por": [
+    "R14"
+   ]
+  },
+  {
+   "id": "R16",
+   "nome": "Risco Inatividade Quarta",
+   "fonte": "da carteira quarta_feira_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: terça; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 120 dias e já compraram com o próprio vendedor",
+   "tratados_antes_por": [
+    "R13"
+   ]
+  },
+  {
+   "id": "R17",
+   "nome": "Inativos Quarta",
+   "fonte": "da carteira quarta_feira_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: terça; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 120 dias e sem comprar no grupo de vendedores há mais de 180 dias e já compraram com o próprio vendedor",
+   "tratados_antes_por": [
+    "R13",
+    "R16"
+   ]
+  },
+  {
+   "id": "R18",
+   "nome": "Sem Regra Quarta",
+   "fonte": "da carteira quarta_feira_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: terça; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 120 dias e compraram no grupo de vendedores nos últimos 180 dias e sem comprar com o próprio vendedor há mais de 45 dias",
+   "tratados_antes_por": [
+    "R13",
+    "R14",
+    "R15",
+    "R16",
+    "R17"
+   ]
+  },
+  {
+   "id": "R19",
+   "nome": "Prospects Quinta",
+   "fonte": "da carteira quinta_feira_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: quarta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "nunca compraram com o próprio vendedor"
+  },
+  {
+   "id": "R20",
+   "nome": "Alta Frequencia Quinta",
+   "fonte": "da carteira quinta_feira_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: quarta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram com o próprio vendedor nos últimos 30 dias"
+  },
+  {
+   "id": "R21",
+   "nome": "Regularidade Quinta",
+   "fonte": "da carteira quinta_feira_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: quarta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram com o próprio vendedor nos últimos 45 dias, mas estão há mais de 30 dias sem comprar",
+   "tratados_antes_por": [
+    "R20"
+   ]
+  },
+  {
+   "id": "R22",
+   "nome": "Risco Inatividade Quinta",
+   "fonte": "da carteira quinta_feira_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: quarta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 120 dias e já compraram com o próprio vendedor",
+   "tratados_antes_por": [
+    "R19"
+   ]
+  },
+  {
+   "id": "R23",
+   "nome": "Inativos Quinta",
+   "fonte": "da carteira quinta_feira_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: quarta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 120 dias e sem comprar no grupo de vendedores há mais de 180 dias e já compraram com o próprio vendedor",
+   "tratados_antes_por": [
+    "R19",
+    "R22"
+   ]
+  },
+  {
+   "id": "R24",
+   "nome": "Sem Regra Quinta",
+   "fonte": "da carteira quinta_feira_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: quarta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 120 dias e compraram no grupo de vendedores nos últimos 180 dias e sem comprar com o próprio vendedor há mais de 45 dias",
+   "tratados_antes_por": [
+    "R19",
+    "R20",
+    "R21",
+    "R22",
+    "R23"
+   ]
+  },
+  {
+   "id": "R25",
+   "nome": "Prospects Sexta",
+   "fonte": "da carteira sexta_feira_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: quinta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "nunca compraram com o próprio vendedor"
+  },
+  {
+   "id": "R26",
+   "nome": "Alta Frequencia Sexta",
+   "fonte": "da carteira sexta_feira_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: quinta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram com o próprio vendedor nos últimos 30 dias"
+  },
+  {
+   "id": "R27",
+   "nome": "Regularidade Sexta",
+   "fonte": "da carteira sexta_feira_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: quinta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram com o próprio vendedor nos últimos 45 dias, mas estão há mais de 30 dias sem comprar",
+   "tratados_antes_por": [
+    "R26"
+   ]
+  },
+  {
+   "id": "R28",
+   "nome": "Risco Inatividade Sexta",
+   "fonte": "da carteira sexta_feira_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: quinta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 120 dias e já compraram com o próprio vendedor",
+   "tratados_antes_por": [
+    "R25"
+   ]
+  },
+  {
+   "id": "R29",
+   "nome": "Inativos Sexta",
+   "fonte": "da carteira sexta_feira_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: quinta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 120 dias e sem comprar no grupo de vendedores há mais de 180 dias e já compraram com o próprio vendedor",
+   "tratados_antes_por": [
+    "R25",
+    "R28"
+   ]
+  },
+  {
+   "id": "R30",
+   "nome": "Sem Regra Sexta",
+   "fonte": "da carteira sexta_feira_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: quinta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 120 dias e compraram no grupo de vendedores nos últimos 180 dias e sem comprar com o próprio vendedor há mais de 45 dias",
+   "tratados_antes_por": [
+    "R25",
+    "R26",
+    "R27",
+    "R28",
+    "R29"
+   ]
+  },
+  {
+   "id": "R31",
+   "nome": "Irrestrito: Clientes prospects",
+   "fonte": "da carteira irrestrito_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)"
+   ],
+   "condicao_efetiva": "nunca compraram com o próprio vendedor"
+  },
+  {
+   "id": "R32",
+   "nome": "Irrestrito: Clientes com Alta Freq. de compra",
+   "fonte": "da carteira irrestrito_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "compraram no grupo de vendedores nos últimos 7 dias e já compraram com o próprio vendedor",
+   "tratados_antes_por": [
+    "R31"
+   ]
+  },
+  {
+   "id": "R33",
+   "nome": "Irrestrito: Clientes que compram com regularidade",
+   "fonte": "da carteira irrestrito_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram no grupo de vendedores nos últimos 45 dias, mas estão há mais de 7 dias sem comprar e já compraram com o próprio vendedor",
+   "tratados_antes_por": [
+    "R31",
+    "R32"
+   ]
+  },
+  {
+   "id": "R34",
+   "nome": "Irrestrito: Risco de ficar inativo curva A",
+   "fonte": "da carteira irrestrito_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 120 dias e já compraram com o próprio vendedor e curva A com a empresa",
+   "tratados_antes_por": [
+    "R31"
+   ]
+  },
+  {
+   "id": "R35",
+   "nome": "Irrestrito: Risco de ficar inativo curva B",
+   "fonte": "da carteira irrestrito_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 120 dias e já compraram com o próprio vendedor e curva B com a empresa",
+   "tratados_antes_por": [
+    "R31"
+   ]
+  },
+  {
+   "id": "R36",
+   "nome": "Irrestrito: Risco de ficar inativo curva C",
+   "fonte": "da carteira irrestrito_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 120 dias e já compraram com o próprio vendedor e curva C com a empresa",
+   "tratados_antes_por": [
+    "R31"
+   ]
+  },
+  {
+   "id": "R37",
+   "nome": "Irrestrito: Clientes inativos",
+   "fonte": "da carteira irrestrito_televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 120 dias e sem comprar no grupo de vendedores há mais de 180 dias e já compraram com o próprio vendedor) OU (sem comprar com qualquer vendedor da empresa há mais de 120 dias e sem comprar no grupo de vendedores há mais de 180 dias e já compraram com o próprio vendedor e fora da curva A nem B nem C com a empresa)",
+   "tratados_antes_por": [
+    "R31",
+    "R34",
+    "R35",
+    "R36"
+   ]
+  },
+  {
+   "id": "R38",
+   "nome": "cidade SÃO JOSE DO RIO PRETO - 30 dias",
+   "fonte": "do time televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "(cidade igual a SAO JOSE DO RIO PRETO e fora da carteira irrestrito_televendas_2, quarta_feira_televendas_2, quinta_feira_televendas_2, segunda_feira_televendas_2, sexta_feira_televendas_2, terca_feira_televendas_2) OU (compraram com qualquer vendedor da empresa nos últimos 120 dias e compraram no grupo de vendedores nos últimos 180 dias, mas estão há mais de 45 dias sem comprar e já compraram com o próprio vendedor e cidade igual a SAO JOSE DO RIO PRETO e da carteira irrestrito_televendas_2) OU (sem comprar com qualquer vendedor da empresa há mais de 120 dias e compraram no grupo de vendedores nos últimos 180 dias, mas estão há mais de 45 dias sem comprar e já compraram com o próprio vendedor e cidade igual a SAO JOSE DO RIO PRETO e da carteira irrestrito_televendas_2 e fora da curva A nem B nem C com a empresa)",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9",
+    "R10",
+    "R11",
+    "R12",
+    "R13",
+    "R14",
+    "R15",
+    "R16",
+    "R17",
+    "R18",
+    "R19",
+    "R20",
+    "R21",
+    "R22",
+    "R23",
+    "R24",
+    "R25",
+    "R26",
+    "R27",
+    "R28",
+    "R29",
+    "R30",
+    "R31",
+    "R32",
+    "R33",
+    "R34",
+    "R35",
+    "R36",
+    "R37"
+   ]
+  },
+  {
+   "id": "R39",
+   "nome": "Irrestrito: sem regra mapeada",
+   "fonte": "do time televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "(cidade diferente de SAO JOSE DO RIO PRETO e fora da carteira irrestrito_televendas_2, quarta_feira_televendas_2, quinta_feira_televendas_2, segunda_feira_televendas_2, sexta_feira_televendas_2, terca_feira_televendas_2) OU (compraram com qualquer vendedor da empresa nos últimos 120 dias e compraram no grupo de vendedores nos últimos 180 dias, mas estão há mais de 45 dias sem comprar e já compraram com o próprio vendedor e cidade diferente de SAO JOSE DO RIO PRETO e da carteira irrestrito_televendas_2) OU (sem comprar com qualquer vendedor da empresa há mais de 120 dias e compraram no grupo de vendedores nos últimos 180 dias, mas estão há mais de 45 dias sem comprar e já compraram com o próprio vendedor e cidade diferente de SAO JOSE DO RIO PRETO e da carteira irrestrito_televendas_2 e fora da curva A nem B nem C com a empresa)",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9",
+    "R10",
+    "R11",
+    "R12",
+    "R13",
+    "R14",
+    "R15",
+    "R16",
+    "R17",
+    "R18",
+    "R19",
+    "R20",
+    "R21",
+    "R22",
+    "R23",
+    "R24",
+    "R25",
+    "R26",
+    "R27",
+    "R28",
+    "R29",
+    "R30",
+    "R31",
+    "R32",
+    "R33",
+    "R34",
+    "R35",
+    "R36",
+    "R37",
+    "R38"
+   ]
+  },
+  {
+   "id": "R40",
+   "nome": "Freq. de 14d para Prospects",
+   "fonte": "do time televendas_1",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa"
+  },
+  {
+   "id": "R41",
+   "nome": "Ativos - recência 1 a 7 dias",
+   "fonte": "do time televendas_1",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 7 dias"
+  },
+  {
+   "id": "R42",
+   "nome": "Ativos - recência 8 a 30 dias",
+   "fonte": "do time televendas_1",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 30 dias, mas estão há mais de 7 dias sem comprar",
+   "tratados_antes_por": [
+    "R41"
+   ]
+  },
+  {
+   "id": "R43",
+   "nome": "Ativos - recência 31 a 60 dias",
+   "fonte": "do time televendas_1",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 45 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 60 dias, mas estão há mais de 30 dias sem comprar",
+   "tratados_antes_por": [
+    "R41",
+    "R42"
+   ]
+  },
+  {
+   "id": "R44",
+   "nome": "Ativos - recência 61 a 90 dias",
+   "fonte": "do time televendas_1",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 70 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 90 dias, mas estão há mais de 60 dias sem comprar",
+   "tratados_antes_por": [
+    "R41",
+    "R42",
+    "R43"
+   ]
+  },
+  {
+   "id": "R45",
+   "nome": "Ativos - recência 91 a 180 dias",
+   "fonte": "do time televendas_1",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 15 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 180 dias, mas estão há mais de 90 dias sem comprar",
+   "tratados_antes_por": [
+    "R41",
+    "R42",
+    "R43",
+    "R44"
+   ]
+  },
+  {
+   "id": "R46",
+   "nome": "Inativos - sem compra acima de 180 dias",
+   "fonte": "do time televendas_1",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 180 dias)",
+   "tratados_antes_por": [
+    "R40",
+    "R41",
+    "R42",
+    "R43",
+    "R44",
+    "R45"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [
+  "A cascata mistura escopos de recência de compra (global: Risco Inatividade Segunda, Risco Inatividade Terca, Risco Inatividade Quarta; grupo: Inativos Segunda, Inativos Terca, Inativos Quarta; vendedor: Alta Frequencia Segunda, Regularidade Segunda, Alta Frequencia Terca); faixas de escopos diferentes não se excluem automaticamente e podem se sobrepor ou deixar lacunas."
+ ],
+ "premissas_usadas": [
+  "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+  "P2: Escopos de recência (grupo, vendedor, global) são medidas distintas, ordenadas: global <= grupo <= vendedor.",
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado.",
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores.",
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

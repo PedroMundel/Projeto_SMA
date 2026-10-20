@@ -1,0 +1,151 @@
+{
+ "arquivo": "regra_144.gobr",
+ "comentarios": [
+  "Regras do time \"todos\":",
+  "Regra específica dos times \"Fabricantes\" e \"Segmentos de Revendas/Manutenção\":",
+  "Regra específica dos times \"Consumidor final recorrente\", \"Compra exporádica\" e \"Consumidor final - Grande porte\":"
+ ],
+ "times": [
+  {
+   "nome": "todos",
+   "definicao": "todos os vendedores habilitados no Govendas"
+  },
+  {
+   "nome": "fabricantes",
+   "definicao": "os vendedores de id F, L, A"
+  },
+  {
+   "nome": "segmentos de revendas/manutencao",
+   "definicao": "os vendedores de id J"
+  },
+  {
+   "nome": "consumidor final recorrente",
+   "definicao": "os vendedores de id LC"
+  },
+  {
+   "nome": "compra exporadica",
+   "definicao": "os vendedores de id LC"
+  },
+  {
+   "nome": "consumidor final - grande porte",
+   "definicao": "os vendedores de id A"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Freq. de 14d para 'PROSPECT: FAZER O PRIMEIRO PEDIDO' (Todos)",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa"
+  },
+  {
+   "id": "R2",
+   "nome": "Freq. de 21d para 'INADIMPLENTES' (Todos)",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e inadimplentes",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R3",
+   "nome": "Freq. de 28d para 'BOAS VINDAS A CLIENTE COM O PRIMEIRO PEDIDO' (Todos)",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e cadastrados no ERP há pelo menos 30 dias e adimplentes e com uma única compra na empresa",
+   "tratados_antes_por": [
+    "R1",
+    "R2"
+   ]
+  },
+  {
+   "id": "R4",
+   "nome": "Freq. de 30d para 'COM COMPRA ENTRE 31 E 60 DIAS' (Todos)",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "(compraram nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e adimplentes e sem ser de compra única na empresa) OU (compraram nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e não (cadastrados no ERP há pelo menos 30 dias) e adimplentes e com uma única compra na empresa)",
+   "tratados_antes_por": [
+    "R2",
+    "R3"
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Freq. de 10d para 'EM RUPTURA: RISCO DE INATIVIDADE' (Todos)",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 10 dias"
+   ],
+   "condicao_efetiva": "(compraram nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e adimplentes e sem ser de compra única na empresa) OU (compraram nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e não (cadastrados no ERP há pelo menos 30 dias) e adimplentes e com uma única compra na empresa)",
+   "tratados_antes_por": [
+    "R2",
+    "R3"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Freq. de 21d 'INATIVOS: RESGATE DE CLIENTES SEM COMPRA' (Todos)",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "(já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 30 dias ou sem comprar no grupo de vendedores há mais de 90 dias) e no ciclo de vida inativo com a empresa e adimplentes e sem ser de compra única na empresa) OU (já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 30 dias ou sem comprar no grupo de vendedores há mais de 90 dias) e no ciclo de vida inativo com a empresa e não (cadastrados no ERP há pelo menos 30 dias) e adimplentes e com uma única compra na empresa)",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5"
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Freq. de 21d para 'ATIVO: COMPRA REGULARMENTE' (Fabricantes e Segmentos de Revendas/Manutenção)",
+   "fonte": "do time fabricantes, segmentos de revendas/manutencao",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 30 dias"
+  },
+  {
+   "id": "R8",
+   "nome": "Freq. de 28d para 'ATIVO: COMPRA REGULARMENTE' (Consumidor final recorrente, Compra exporádica e Consumidor final - Grande porte)",
+   "fonte": "do time consumidor final recorrente, compra exporadica, consumidor final - grande porte",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 30 dias"
+  }
+ ],
+ "nao_cobertos": {
+  "do time todos": "(já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 30 dias ou sem comprar no grupo de vendedores há mais de 90 dias) e fora do ciclo de vida inativo com a empresa e adimplentes e sem ser de compra única na empresa) OU (já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 30 dias ou sem comprar no grupo de vendedores há mais de 90 dias) e fora do ciclo de vida inativo com a empresa e não (cadastrados no ERP há pelo menos 30 dias) e adimplentes e com uma única compra na empresa)",
+  "do time fabricantes, segmentos de revendas/manutencao": "(nunca compraram ou sem comprar há mais de 30 dias)",
+  "do time consumidor final recorrente, compra exporadica, consumidor final - grande porte": "(nunca compraram ou sem comprar há mais de 30 dias)"
+ },
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado.",
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+ ]
+}

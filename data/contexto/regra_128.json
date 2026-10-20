@@ -1,0 +1,1460 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_128.gobr",
+  "sha256": "7041767ef635dad5e8de6cb4c5ee3d29d6043aebcf6055d534ab84ef43c0a3d2",
+  "comentarios": [
+    "Definição de times",
+    "televendas",
+    "externos",
+    "Definição de segmentações (Para configurar planejamento de ruptura)",
+    "Parâmetros iniciais de não agendamento",
+    "Parâmetros para segmentações (Ruptura / externos para internos)",
+    "Parâmetros para clientes somente do televendas",
+    "Parâmetros para regra fallback"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "tmk_1",
+      "definicao": "os vendedores de id 291",
+      "filtros": []
+    },
+    {
+      "id": "T2",
+      "nome": "tmk_2",
+      "definicao": "os vendedores de id 292",
+      "filtros": []
+    },
+    {
+      "id": "T3",
+      "nome": "tmk_3",
+      "definicao": "os vendedores de id 294",
+      "filtros": []
+    },
+    {
+      "id": "T4",
+      "nome": "tmk_5",
+      "definicao": "os vendedores de id 375",
+      "filtros": []
+    },
+    {
+      "id": "T5",
+      "nome": "tmk_6",
+      "definicao": "os vendedores de id 900",
+      "filtros": []
+    },
+    {
+      "id": "T6",
+      "nome": "tmk_7",
+      "definicao": "os vendedores de id 901",
+      "filtros": []
+    },
+    {
+      "id": "T7",
+      "nome": "ext_niteroi_rio2",
+      "definicao": "os vendedores de id 283, 279",
+      "filtros": []
+    },
+    {
+      "id": "T8",
+      "nome": "ext_lagos_norte",
+      "definicao": "os vendedores de id 286, 284",
+      "filtros": []
+    },
+    {
+      "id": "T9",
+      "nome": "ext_baixada1_baixada3",
+      "definicao": "os vendedores de id 275, 277",
+      "filtros": []
+    },
+    {
+      "id": "T10",
+      "nome": "ext_rio1_rio3",
+      "definicao": "os vendedores de id 278, 280",
+      "filtros": []
+    },
+    {
+      "id": "T11",
+      "nome": "ext_sulflu1_sulflu2",
+      "definicao": "os vendedores de id 273, 274",
+      "filtros": []
+    },
+    {
+      "id": "T12",
+      "nome": "ext_serrana_baixada2",
+      "definicao": "os vendedores de id 282, 276",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [
+    {
+      "id": "S1",
+      "nome": "ext_niteroi_rio2_para_tmk1",
+      "definicao": "carteira fixa dos vendedores do time ext_niteroi_rio2",
+      "filtros": []
+    },
+    {
+      "id": "S2",
+      "nome": "ext_lagos_norte_para_tmk2",
+      "definicao": "carteira fixa dos vendedores do time ext_lagos_norte",
+      "filtros": []
+    },
+    {
+      "id": "S3",
+      "nome": "ext_baixada1_baixada3_para_tmk3",
+      "definicao": "carteira fixa dos vendedores do time ext_baixada1_baixada3",
+      "filtros": []
+    },
+    {
+      "id": "S4",
+      "nome": "ext_rio1_rio3_para_tmk5",
+      "definicao": "carteira fixa dos vendedores do time ext_rio1_rio3",
+      "filtros": []
+    },
+    {
+      "id": "S5",
+      "nome": "ext_sulflu1_sulflu2_para_tmk6",
+      "definicao": "carteira fixa dos vendedores do time ext_sulflu1_sulflu2",
+      "filtros": []
+    },
+    {
+      "id": "S6",
+      "nome": "ext_serrana_baixada2_para_tmk7",
+      "definicao": "carteira fixa dos vendedores do time ext_serrana_baixada2",
+      "filtros": []
+    }
+  ],
+  "bloqueios": [
+    "Não agendar clientes baixados na receita",
+    "Clientes que hoje não se enquadraram nas regra solicitadas"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Não agendar clientes baixados na receita",
+      "tipo_bloco": "parametros",
+      "fonte": "do time tmk_1, tmk_2, tmk_3, tmk_5, tmk_6, tmk_7",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "status na receita federal definido como baixada",
+          "significado": "com situação baixada na Receita Federal",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "com situação baixada na Receita Federal",
+      "condicao_efetiva": "com situação baixada na Receita Federal",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Prospects / Ext. Niteroi (283) e Rio 2 (279) para Tmk 1 (291)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time tmk_1",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "contido na segmentacao(\"ext_niteroi_rio2_para_tmk1\")",
+          "significado": "na segmentação \"ext_niteroi_rio2_para_tmk1\"",
+          "reconhecida": true
+        },
+        {
+          "codigo": "no ciclo de vida prospect com a empresa",
+          "significado": "prospects (nunca compraram com qualquer vendedor da empresa)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "nunca compraram com qualquer vendedor da empresa",
+      "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Ativos (A partir do dia 20 de cada mês) / Ext. Niteroi (283) e Rio 2 (279) para Tmk 1 (291)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time tmk_1",
+      "quando_executa": [
+        {
+          "codigo": "a partir do dia 16",
+          "significado": "somente a partir do dia 16 de cada mês",
+          "reconhecida": true
+        }
+      ],
+      "filtros": [
+        {
+          "codigo": "contido na segmentacao(\"ext_niteroi_rio2_para_tmk1\")",
+          "significado": "na segmentação \"ext_niteroi_rio2_para_tmk1\"",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao global em 60 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 5 dias",
+          "significado": "frequência de 5 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        5,
+        16,
+        60
+      ],
+      "alertas": [
+        "O nome da regra cita 20 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+      ]
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Retenção / Ext. Niteroi (283) e Rio 2 (279) para Tmk 1 (291)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time tmk_1",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "contido na segmentacao(\"ext_niteroi_rio2_para_tmk1\")",
+          "significado": "na segmentação \"ext_niteroi_rio2_para_tmk1\"",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao global em 90 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7,
+        90
+      ],
+      "alertas": [
+        "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Niteroi (283) e Rio 2 (279) para Tmk 1 (291)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
+      ]
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Recuperação / Ext. Niteroi (283) e Rio 2 (279) para Tmk 1 (291)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time tmk_1",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "contido na segmentacao(\"ext_niteroi_rio2_para_tmk1\")",
+          "significado": "na segmentação \"ext_niteroi_rio2_para_tmk1\"",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes",
+      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 90 dias",
+      "tratados_antes_por": [
+        "R2",
+        "R4"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": [
+        "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Niteroi (283) e Rio 2 (279) para Tmk 1 (291)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
+      ]
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Prospects / Ext. Lagos (286) e Norte (284) para Tmk 2 (292)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time tmk_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "contido na segmentacao(\"ext_lagos_norte_para_tmk2\")",
+          "significado": "na segmentação \"ext_lagos_norte_para_tmk2\"",
+          "reconhecida": true
+        },
+        {
+          "codigo": "no ciclo de vida prospect com a empresa",
+          "significado": "prospects (nunca compraram com qualquer vendedor da empresa)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "nunca compraram com qualquer vendedor da empresa",
+      "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Ativos (A partir do dia 20 de cada mês) / Ext. Lagos (286) e Norte (284) para Tmk 2 (292)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time tmk_2",
+      "quando_executa": [
+        {
+          "codigo": "a partir do dia 16",
+          "significado": "somente a partir do dia 16 de cada mês",
+          "reconhecida": true
+        }
+      ],
+      "filtros": [
+        {
+          "codigo": "contido na segmentacao(\"ext_lagos_norte_para_tmk2\")",
+          "significado": "na segmentação \"ext_lagos_norte_para_tmk2\"",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao global em 60 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 5 dias",
+          "significado": "frequência de 5 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        5,
+        16,
+        60
+      ],
+      "alertas": [
+        "O nome da regra cita 20 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+      ]
+    },
+    {
+      "id": "R8",
+      "posicao": 8,
+      "nome": "Retenção / Ext. Lagos (286) e Norte (284) para Tmk 2 (292)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time tmk_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "contido na segmentacao(\"ext_lagos_norte_para_tmk2\")",
+          "significado": "na segmentação \"ext_lagos_norte_para_tmk2\"",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao global em 90 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7,
+        90
+      ],
+      "alertas": [
+        "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Lagos (286) e Norte (284) para Tmk 2 (292)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
+      ]
+    },
+    {
+      "id": "R9",
+      "posicao": 9,
+      "nome": "Recuperação / Ext. Lagos (286) e Norte (284) para Tmk 2 (292)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time tmk_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "contido na segmentacao(\"ext_lagos_norte_para_tmk2\")",
+          "significado": "na segmentação \"ext_lagos_norte_para_tmk2\"",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes",
+      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 90 dias",
+      "tratados_antes_por": [
+        "R6",
+        "R8"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": [
+        "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Lagos (286) e Norte (284) para Tmk 2 (292)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
+      ]
+    },
+    {
+      "id": "R10",
+      "posicao": 10,
+      "nome": "Prospects / Ext. Baixada 1 (275) e Baixada 3 (277) para Tmk 3 (294)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time tmk_3",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "contido na segmentacao(\"ext_baixada1_baixada3_para_tmk3\")",
+          "significado": "na segmentação \"ext_baixada1_baixada3_para_tmk3\"",
+          "reconhecida": true
+        },
+        {
+          "codigo": "no ciclo de vida prospect com a empresa",
+          "significado": "prospects (nunca compraram com qualquer vendedor da empresa)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "nunca compraram com qualquer vendedor da empresa",
+      "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R11",
+      "posicao": 11,
+      "nome": "Ativos (A partir do dia 20 de cada mês) / Ext. Baixada 1 (275) e Baixada 3 (277) para Tmk 3 (294)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time tmk_3",
+      "quando_executa": [
+        {
+          "codigo": "a partir do dia 16",
+          "significado": "somente a partir do dia 16 de cada mês",
+          "reconhecida": true
+        }
+      ],
+      "filtros": [
+        {
+          "codigo": "contido na segmentacao(\"ext_baixada1_baixada3_para_tmk3\")",
+          "significado": "na segmentação \"ext_baixada1_baixada3_para_tmk3\"",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao global em 60 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 5 dias",
+          "significado": "frequência de 5 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        5,
+        16,
+        60
+      ],
+      "alertas": [
+        "O nome da regra cita 20 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+      ]
+    },
+    {
+      "id": "R12",
+      "posicao": 12,
+      "nome": "Retenção / Ext. Baixada 1 (275) e Baixada 3 (277) para Tmk 3 (294)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time tmk_3",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "contido na segmentacao(\"ext_baixada1_baixada3_para_tmk3\")",
+          "significado": "na segmentação \"ext_baixada1_baixada3_para_tmk3\"",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao global em 90 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7,
+        90
+      ],
+      "alertas": [
+        "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Baixada 1 (275) e Baixada 3 (277) para Tmk 3 (294)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
+      ]
+    },
+    {
+      "id": "R13",
+      "posicao": 13,
+      "nome": "Recuperação / Ext. Baixada 1 (275) e Baixada 3 (277) para Tmk 3 (294)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time tmk_3",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "contido na segmentacao(\"ext_baixada1_baixada3_para_tmk3\")",
+          "significado": "na segmentação \"ext_baixada1_baixada3_para_tmk3\"",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes",
+      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 90 dias",
+      "tratados_antes_por": [
+        "R10",
+        "R12"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": [
+        "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Baixada 1 (275) e Baixada 3 (277) para Tmk 3 (294)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
+      ]
+    },
+    {
+      "id": "R14",
+      "posicao": 14,
+      "nome": "Prospects / Ext. Rio 1 (278) e Rio 3 (280) para Tmk 5 (375)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time tmk_5",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "contido na segmentacao(\"ext_rio1_rio3_para_tmk5\")",
+          "significado": "na segmentação \"ext_rio1_rio3_para_tmk5\"",
+          "reconhecida": true
+        },
+        {
+          "codigo": "no ciclo de vida prospect com a empresa",
+          "significado": "prospects (nunca compraram com qualquer vendedor da empresa)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "nunca compraram com qualquer vendedor da empresa",
+      "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R15",
+      "posicao": 15,
+      "nome": "Ativos (A partir do dia 20 de cada mês) / Ext. Rio 1 (278) e Rio 3 (280) para Tmk 5 (375)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time tmk_5",
+      "quando_executa": [
+        {
+          "codigo": "a partir do dia 16",
+          "significado": "somente a partir do dia 16 de cada mês",
+          "reconhecida": true
+        }
+      ],
+      "filtros": [
+        {
+          "codigo": "contido na segmentacao(\"ext_rio1_rio3_para_tmk5\")",
+          "significado": "na segmentação \"ext_rio1_rio3_para_tmk5\"",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao global em 60 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 5 dias",
+          "significado": "frequência de 5 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        5,
+        16,
+        60
+      ],
+      "alertas": [
+        "O nome da regra cita 20 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+      ]
+    },
+    {
+      "id": "R16",
+      "posicao": 16,
+      "nome": "Retenção / Ext. Rio 1 (278) e Rio 3 (280) para Tmk 5 (375)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time tmk_5",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "contido na segmentacao(\"ext_rio1_rio3_para_tmk5\")",
+          "significado": "na segmentação \"ext_rio1_rio3_para_tmk5\"",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao global em 90 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7,
+        90
+      ],
+      "alertas": [
+        "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Rio 1 (278) e Rio 3 (280) para Tmk 5 (375)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
+      ]
+    },
+    {
+      "id": "R17",
+      "posicao": 17,
+      "nome": "Recuperação / Ext. Rio 1 (278) e Rio 3 (280) para Tmk 5 (375)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time tmk_5",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "contido na segmentacao(\"ext_rio1_rio3_para_tmk5\")",
+          "significado": "na segmentação \"ext_rio1_rio3_para_tmk5\"",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes",
+      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 90 dias",
+      "tratados_antes_por": [
+        "R14",
+        "R16"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": [
+        "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Rio 1 (278) e Rio 3 (280) para Tmk 5 (375)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
+      ]
+    },
+    {
+      "id": "R18",
+      "posicao": 18,
+      "nome": "Prospects / Ext. Sul Flu 1 (273) e Sul Flu 2 (274) para Tmk 6 (900)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time tmk_6",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "contido na segmentacao(\"ext_sulflu1_sulflu2_para_tmk6\")",
+          "significado": "na segmentação \"ext_sulflu1_sulflu2_para_tmk6\"",
+          "reconhecida": true
+        },
+        {
+          "codigo": "no ciclo de vida prospect com a empresa",
+          "significado": "prospects (nunca compraram com qualquer vendedor da empresa)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "nunca compraram com qualquer vendedor da empresa",
+      "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R19",
+      "posicao": 19,
+      "nome": "Ativos (A partir do dia 20 de cada mês) / Ext. Sul Flu 1 (273) e Sul Flu 2 (274) para Tmk 6 (900)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time tmk_6",
+      "quando_executa": [
+        {
+          "codigo": "a partir do dia 16",
+          "significado": "somente a partir do dia 16 de cada mês",
+          "reconhecida": true
+        }
+      ],
+      "filtros": [
+        {
+          "codigo": "contido na segmentacao(\"ext_sulflu1_sulflu2_para_tmk6\")",
+          "significado": "na segmentação \"ext_sulflu1_sulflu2_para_tmk6\"",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao global em 60 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 5 dias",
+          "significado": "frequência de 5 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        5,
+        16,
+        60
+      ],
+      "alertas": [
+        "O nome da regra cita 20 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+      ]
+    },
+    {
+      "id": "R20",
+      "posicao": 20,
+      "nome": "Retenção / Ext. Sul Flu 1 (273) e Sul Flu 2 (274) para Tmk 6 (900)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time tmk_6",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "contido na segmentacao(\"ext_sulflu1_sulflu2_para_tmk6\")",
+          "significado": "na segmentação \"ext_sulflu1_sulflu2_para_tmk6\"",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao global em 90 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7,
+        90
+      ],
+      "alertas": [
+        "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Sul Flu 1 (273) e Sul Flu 2 (274) para Tmk 6 (900)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
+      ]
+    },
+    {
+      "id": "R21",
+      "posicao": 21,
+      "nome": "Recuperação / Ext. Sul Flu 1 (273) e Sul Flu 2 (274) para Tmk 6 (900)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time tmk_6",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "contido na segmentacao(\"ext_sulflu1_sulflu2_para_tmk6\")",
+          "significado": "na segmentação \"ext_sulflu1_sulflu2_para_tmk6\"",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes",
+      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 90 dias",
+      "tratados_antes_por": [
+        "R18",
+        "R20"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": [
+        "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Sul Flu 1 (273) e Sul Flu 2 (274) para Tmk 6 (900)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
+      ]
+    },
+    {
+      "id": "R22",
+      "posicao": 22,
+      "nome": "Prospects / Ext. Serrana (282) e Baixada 2 (276) para Tmk 7 (901)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time tmk_7",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "contido na segmentacao(\"ext_serrana_baixada2_para_tmk7\")",
+          "significado": "na segmentação \"ext_serrana_baixada2_para_tmk7\"",
+          "reconhecida": true
+        },
+        {
+          "codigo": "no ciclo de vida prospect com a empresa",
+          "significado": "prospects (nunca compraram com qualquer vendedor da empresa)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "nunca compraram com qualquer vendedor da empresa",
+      "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R23",
+      "posicao": 23,
+      "nome": "Ativos (A partir do dia 20 de cada mês) / Ext. Serrana (282) e Baixada 2 (276) para Tmk 7 (901)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time tmk_7",
+      "quando_executa": [
+        {
+          "codigo": "a partir do dia 16",
+          "significado": "somente a partir do dia 16 de cada mês",
+          "reconhecida": true
+        }
+      ],
+      "filtros": [
+        {
+          "codigo": "contido na segmentacao(\"ext_serrana_baixada2_para_tmk7\")",
+          "significado": "na segmentação \"ext_serrana_baixada2_para_tmk7\"",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao global em 60 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 5 dias",
+          "significado": "frequência de 5 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        5,
+        16,
+        60
+      ],
+      "alertas": [
+        "O nome da regra cita 20 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+      ]
+    },
+    {
+      "id": "R24",
+      "posicao": 24,
+      "nome": "Retenção / Ext. Serrana (282) e Baixada 2 (276) para Tmk 7 (901)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time tmk_7",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "contido na segmentacao(\"ext_serrana_baixada2_para_tmk7\")",
+          "significado": "na segmentação \"ext_serrana_baixada2_para_tmk7\"",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao global em 90 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7,
+        90
+      ],
+      "alertas": [
+        "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Serrana (282) e Baixada 2 (276) para Tmk 7 (901)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
+      ]
+    },
+    {
+      "id": "R25",
+      "posicao": 25,
+      "nome": "Recuperação / Ext. Serrana (282) e Baixada 2 (276) para Tmk 7 (901)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time tmk_7",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "contido na segmentacao(\"ext_serrana_baixada2_para_tmk7\")",
+          "significado": "na segmentação \"ext_serrana_baixada2_para_tmk7\"",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes",
+      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 90 dias",
+      "tratados_antes_por": [
+        "R22",
+        "R24"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": [
+        "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Serrana (282) e Baixada 2 (276) para Tmk 7 (901)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
+      ]
+    },
+    {
+      "id": "R26",
+      "posicao": 26,
+      "nome": "Prospects / Exclusivo do televendas",
+      "tipo_bloco": "parametros",
+      "fonte": "do time tmk_1, tmk_2, tmk_3, tmk_5, tmk_6, tmk_7",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "no ciclo de vida prospect com a empresa",
+          "significado": "prospects (nunca compraram com qualquer vendedor da empresa)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "nunca compraram com qualquer vendedor da empresa",
+      "condicao_efetiva": null,
+      "tratados_antes_por": [
+        "R2",
+        "R6",
+        "R10",
+        "R14",
+        "R18",
+        "R22"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": [
+        "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+      ]
+    },
+    {
+      "id": "R27",
+      "posicao": 27,
+      "nome": "Ativos / Exclusivo do televendas",
+      "tipo_bloco": "parametros",
+      "fonte": "do time tmk_1, tmk_2, tmk_3, tmk_5, tmk_6, tmk_7",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao global em 60 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+      "condicao_efetiva": null,
+      "tratados_antes_por": [
+        "R4",
+        "R8",
+        "R12",
+        "R16",
+        "R20",
+        "R24"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7,
+        60
+      ],
+      "alertas": [
+        "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Niteroi (283) e Rio 2 (279) para Tmk 1 (291)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+        "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Lagos (286) e Norte (284) para Tmk 2 (292)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+        "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Baixada 1 (275) e Baixada 3 (277) para Tmk 3 (294)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+        "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Rio 1 (278) e Rio 3 (280) para Tmk 5 (375)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+        "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Sul Flu 1 (273) e Sul Flu 2 (274) para Tmk 6 (900)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+        "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Serrana (282) e Baixada 2 (276) para Tmk 7 (901)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+        "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+      ]
+    },
+    {
+      "id": "R28",
+      "posicao": 28,
+      "nome": "Retenção / Exclusivo do televendas",
+      "tipo_bloco": "parametros",
+      "fonte": "do time tmk_1, tmk_2, tmk_3, tmk_5, tmk_6, tmk_7",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao global em 90 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+      "condicao_efetiva": null,
+      "tratados_antes_por": [
+        "R4",
+        "R8",
+        "R12",
+        "R16",
+        "R20",
+        "R24",
+        "R27"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7,
+        90
+      ],
+      "alertas": [
+        "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Niteroi (283) e Rio 2 (279) para Tmk 1 (291)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+        "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Lagos (286) e Norte (284) para Tmk 2 (292)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+        "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Baixada 1 (275) e Baixada 3 (277) para Tmk 3 (294)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+        "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Rio 1 (278) e Rio 3 (280) para Tmk 5 (375)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+        "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Sul Flu 1 (273) e Sul Flu 2 (274) para Tmk 6 (900)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+        "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Serrana (282) e Baixada 2 (276) para Tmk 7 (901)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+        "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+      ]
+    },
+    {
+      "id": "R29",
+      "posicao": 29,
+      "nome": "Recuperação / Exclusivo do televendas",
+      "tipo_bloco": "parametros",
+      "fonte": "do time tmk_1, tmk_2, tmk_3, tmk_5, tmk_6, tmk_7",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "nao contido na segmentacao(\"ext_niteroi_rio2_para_tmk1\",\"ext_lagos_norte_para_tmk2\",\"ext_baixada1_baixada3_para_tmk3\",\"ext_rio1_rio3_para_tmk5\",\"ext_sulflu1_sul…",
+          "significado": "fora da segmentação \"ext_niteroi_rio2_para_tmk1\" e fora da segmentação \"ext_lagos_norte_para_tmk2\" e fora da segmentação \"ext_baixada1_baixada3_para_tmk3\" e fora da segmentação \"ext_rio1_rio3_para_tmk5\" e fora da segmentação \"ext_sulflu1_sulflu2_para_tmk6\" e fora da segmentação \"ext_serrana_baixada2_para_tmk7\"",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes",
+      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 90 dias",
+      "tratados_antes_por": [
+        "R26",
+        "R27",
+        "R28"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R30",
+      "posicao": 30,
+      "nome": "Clientes que hoje não se enquadraram nas regra solicitadas",
+      "tipo_bloco": "parametros",
+      "fonte": "do time tmk_1, tmk_2, tmk_3, tmk_5, tmk_6, tmk_7",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": null,
+      "tratados_antes_por": [
+        "R2",
+        "R4",
+        "R5",
+        "R6",
+        "R8",
+        "R9",
+        "R10",
+        "R12",
+        "R13",
+        "R14",
+        "R16",
+        "R17",
+        "R18",
+        "R20",
+        "R21",
+        "R22",
+        "R24",
+        "R25",
+        "R26",
+        "R27",
+        "R28",
+        "R29"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": [
+        "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Niteroi (283) e Rio 2 (279) para Tmk 1 (291)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+        "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Lagos (286) e Norte (284) para Tmk 2 (292)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+        "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Baixada 1 (275) e Baixada 3 (277) para Tmk 3 (294)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+        "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Rio 1 (278) e Rio 3 (280) para Tmk 5 (375)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+        "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Sul Flu 1 (273) e Sul Flu 2 (274) para Tmk 6 (900)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+        "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Serrana (282) e Baixada 2 (276) para Tmk 7 (901)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
+        "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+      ]
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    5,
+    7,
+    16,
+    60,
+    90
+  ],
+  "numeros_permitidos": [
+    1,
+    2,
+    3,
+    5,
+    6,
+    7,
+    16,
+    20,
+    60,
+    90,
+    273,
+    274,
+    275,
+    276,
+    277,
+    278,
+    279,
+    280,
+    282,
+    283,
+    284,
+    286,
+    291,
+    292,
+    294,
+    375,
+    900,
+    901
+  ],
+  "premissas_usadas": [
+    "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado.",
+    "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+  ]
+}

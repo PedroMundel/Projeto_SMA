@@ -1,0 +1,134 @@
+{
+ "arquivo": "regra_189.gobr",
+ "comentarios": [
+  "Definição de times",
+  "Regras de agendamento"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Base de valor alto",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: segunda, sexta; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "sem compra com a empresa no ano atual e ticket médio maior que R$ 4999"
+  },
+  {
+   "id": "R2",
+   "nome": "Base de valor médio",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: terça, sexta; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "sem compra com a empresa no ano atual e não (ticket médio maior que R$ 4999) e ticket médio menor que R$ 4999",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R3",
+   "nome": "Última compra em 2024",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: quarta, quinta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "com compra com a empresa no ano anterior e sem compra com a empresa no ano atual e não (ticket médio maior que R$ 4999) e não (ticket médio menor que R$ 4999)",
+   "tratados_antes_por": [
+    "R1",
+    "R2"
+   ]
+  },
+  {
+   "id": "R4",
+   "nome": "Ativação de um novo cliente em potencial",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "(não (sem compra com a empresa no ano atual) e sem vendas para o vendedor) OU (não (com compra com a empresa no ano anterior) e sem compra com a empresa no ano atual e não (ticket médio maior que R$ 4999) e não (ticket médio menor que R$ 4999) e sem vendas para o vendedor)",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3"
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Boas vindas a um novo cliente ativado",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "(não (sem compra com a empresa no ano atual) e com alguma venda (ativos ou inativos) para o vendedor e com uma única compra com o vendedor) OU (não (com compra com a empresa no ano anterior) e sem compra com a empresa no ano atual e não (ticket médio maior que R$ 4999) e não (ticket médio menor que R$ 4999) e com alguma venda (ativos ou inativos) para o vendedor e com uma única compra com o vendedor)",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3",
+    "R4"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Clientes com bom histórico de compra",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência calculada pelo histórico de compras; se não houver, limitada a no mínimo 4 dias e no máximo 6 dias"
+   ],
+   "condicao_efetiva": "(não (sem compra com a empresa no ano atual) e frequência histórica de compra de até 14 dias e com alguma venda (ativos ou inativos) para o vendedor e sem ser de compra única com o vendedor) OU (não (com compra com a empresa no ano anterior) e sem compra com a empresa no ano atual e não (ticket médio maior que R$ 4999) e não (ticket médio menor que R$ 4999) e frequência histórica de compra de até 14 dias e com alguma venda (ativos ou inativos) para o vendedor e sem ser de compra única com o vendedor)",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5"
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Atenção!!! Cliente com RISCO de ficar inativo",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "((compraram com o próprio vendedor nos últimos 24 dias ou sem comprar com o próprio vendedor há mais de 30 dias) e não (sem compra com a empresa no ano atual) e frequência histórica indefinida ou frequência histórica de compra de mais de 14 dias e com alguma venda (ativos ou inativos) para o vendedor e sem ser de compra única com o vendedor) OU ((compraram com o próprio vendedor nos últimos 24 dias ou sem comprar com o próprio vendedor há mais de 30 dias) e não (com compra com a empresa no ano anterior) e sem compra com a empresa no ano atual e não (ticket médio maior que R$ 4999) e não (ticket médio menor que R$ 4999) e frequência histórica indefinida ou frequência histórica de compra de mais de 14 dias e com alguma venda (ativos ou inativos) para o vendedor e sem ser de compra única com o vendedor)",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5",
+    "R6"
+   ]
+  }
+ ],
+ "nao_cobertos": {
+  "do time televendas": "((nunca compraram com o próprio vendedor ou compraram com o próprio vendedor nos últimos 30 dias, mas estão há pelo menos 25 dias sem comprar) e não (sem compra com a empresa no ano atual) e frequência histórica indefinida ou frequência histórica de compra de mais de 14 dias e com alguma venda (ativos ou inativos) para o vendedor e sem ser de compra única com o vendedor) OU ((nunca compraram com o próprio vendedor ou compraram com o próprio vendedor nos últimos 30 dias, mas estão há pelo menos 25 dias sem comprar) e não (com compra com a empresa no ano anterior) e sem compra com a empresa no ano atual e não (ticket médio maior que R$ 4999) e não (ticket médio menor que R$ 4999) e frequência histórica indefinida ou frequência histórica de compra de mais de 14 dias e com alguma venda (ativos ou inativos) para o vendedor e sem ser de compra única com o vendedor)"
+ },
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'."
+ ]
+}

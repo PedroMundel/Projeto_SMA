@@ -1,0 +1,91 @@
+{
+ "arquivo": "regra_047.gobr",
+ "comentarios": [],
+ "times": [
+  {
+   "nome": "regra padrao",
+   "definicao": "todos os vendedores habilitados no Govendas"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "regra padrao",
+   "definicao": "carteira fixa dos vendedores do time regra padrao",
+   "filtros": []
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Regra Padrao da STO Customizavel: nao agendar CPF",
+  "Regra Padrao da STO Customizavel: nao agendar inativos inadimplentes"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Regra Padrao da STO Customizavel: nao agendar CPF",
+   "fonte": "da carteira regra padrao",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "pessoa física"
+  },
+  {
+   "id": "R2",
+   "nome": "Regra Padrao da STO Customizavel: 7 dias para ativos adimplentes",
+   "fonte": "da carteira regra padrao",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "adimplentes e ativos para o vendedor"
+  },
+  {
+   "id": "R3",
+   "nome": "Regra Padrao da STO Customizavel: 14 dias para ativos inadimplentes",
+   "fonte": "da carteira regra padrao",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "inadimplentes e ativos para o vendedor"
+  },
+  {
+   "id": "R4",
+   "nome": "Regra Padrao da STO Customizavel: 14 dias para inativos adimplentes",
+   "fonte": "da carteira regra padrao",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "adimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R5",
+   "nome": "Regra Padrao da STO Customizavel: nao agendar inativos inadimplentes",
+   "fonte": "da carteira regra padrao",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R6",
+   "nome": "Regra Padrao da STO Customizavel: 14 dias para clientes sem vendas",
+   "fonte": "da carteira regra padrao",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor"
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

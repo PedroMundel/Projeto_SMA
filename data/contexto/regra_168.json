@@ -1,0 +1,435 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_168.gobr",
+  "sha256": "588f2199f9fde1bae53b09c41254597cb8fa8372455de57c4d31bb599f1abb95",
+  "comentarios": [
+    "DEFINIÇÃO DE TIMES",
+    "CARTEIRAS DE ROTAS POR CIDADE",
+    "PARÂMETROS DE PLANEJAMENTO"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "televendas",
+      "definicao": "todos os vendedores de televendas habilitados no Govendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "rota_todo_dia",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [
+        {
+          "codigo": "nome da cidade igual(\"BALNEARIO CAMBORIU\",\"BOMBINHAS\",\"CAMBORIU\",\"ITAJAI\",\"ITAPEMA\",\"PORTO BELO\")",
+          "significado": "cidade em: BALNEARIO CAMBORIU, BOMBINHAS, CAMBORIU, ITAJAI, ITAPEMA, PORTO BELO",
+          "reconhecida": true
+        }
+      ],
+      "livre": true
+    },
+    {
+      "id": "C2",
+      "nome": "rota_terca",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [
+        {
+          "codigo": "nome da cidade igual(\"CASCAVEL\",\"LAGES\",\"BOM RETIRO\",\"SAO JOAQUIM\",\"BIGUACU\",\"BLUMENAU\",\"BRUSQUE\",\"FLORIANOPOLIS\",\"GOVERNADOR CELSO RAMOS\",\"GUABIRUBA\",\"IBIRAMA\"…",
+          "significado": "cidade em: BIGUACU, BLUMENAU, BOM RETIRO, BOTUVERA, BRUSQUE, CASCAVEL e mais 16",
+          "reconhecida": true
+        }
+      ],
+      "livre": true
+    },
+    {
+      "id": "C3",
+      "nome": "rota_quarta",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [
+        {
+          "codigo": "nome da cidade igual(\"IRATI\",\"PONTA GROSSA\",\"FERNANDES PINHEIRO\",\"TEIXEIRA SOARES\",\"ARAUCARIA\",\"CURITIBA\",\"SAO JOSE DOS PINHAIS\",\"PIRAQUARA\",\"COLOMBO\",\"PINHAIS\"…",
+          "significado": "cidade em: ARAUCARIA, BALNEARIO BARRA DO SUL, BALNEARIO PICARRAS, BARRA VELHA, CAMPO ALEGRE, CAMPO LARGO e mais 20",
+          "reconhecida": true
+        }
+      ],
+      "livre": true
+    },
+    {
+      "id": "C4",
+      "nome": "rota_quinta",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [
+        {
+          "codigo": "nome da cidade igual(\"BENTO GONCALVES\",\"CACHOEIRINHA\",\"CAMPO BOM\",\"CANOAS\",\"CAPAO DA CANOA\",\"CAXIAS DO SUL\",\"GRAMADO\",\"NOVO HAMBURGO\",\"PORTO ALEGRE\",\"TORRES\",\"T…",
+          "significado": "cidade em: BENTO GONCALVES, BIGUACU, BLUMENAU, BOTUVERA, BRUSQUE, CACHOEIRINHA e mais 33",
+          "reconhecida": true
+        }
+      ],
+      "livre": true
+    },
+    {
+      "id": "C5",
+      "nome": "rota_sexta",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [
+        {
+          "codigo": "nome da cidade igual(\"GUARATUBA\",\"MATINHOS\",\"ITAPOA\",\"MORRETES\",\"PARANAGUA\",\"ARAUCARIA\",\"CURITIBA\",\"SAO JOSE DOS PINHAIS\",\"PIRAQUARA\",\"COLOMBO\",\"PINHAIS\",\"CAMPO…",
+          "significado": "cidade em: ARAUCARIA, BALNEARIO BARRA DO SUL, BALNEARIO PICARRAS, BARRA VELHA, BIGUACU, CAMPO ALEGRE e mais 25",
+          "reconhecida": true
+        }
+      ],
+      "livre": true
+    }
+  ],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Não agendar baixados na Receita",
+    "Não agendar bloqueados",
+    "Não agendar clientes que não se enquadraram nas regras hoje"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Não agendar baixados na Receita",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "status na receita federal definido como baixada",
+          "significado": "com situação baixada na Receita Federal",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "com situação baixada na Receita Federal",
+      "condicao_efetiva": "com situação baixada na Receita Federal",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Não agendar bloqueados",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "bloqueados",
+          "significado": "bloqueados para atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "bloqueados para atendimento",
+      "condicao_efetiva": "bloqueados para atendimento",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Rota todo dia -> Agendamento todo dia",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rota_todo_dia",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia diaria()",
+          "significado": "frequência diaria (1 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia maior na segunda e maior na terca e maior na quarta e maior na quinta e maior na sexta",
+          "significado": "dias de atendimento - maior preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "roteirizavel",
+          "significado": "cliente incluído na roteirização de visitas presenciais",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "todos os clientes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Rota de terça -> Agendamento segunda",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rota_terca",
+      "quando_executa": [
+        {
+          "codigo": "na segunda",
+          "significado": "somente quando executada na segunda",
+          "reconhecida": true
+        }
+      ],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia diaria()",
+          "significado": "frequência diaria (1 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia maior na segunda",
+          "significado": "dias de atendimento - maior preferência: segunda; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "roteirizavel",
+          "significado": "cliente incluído na roteirização de visitas presenciais",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "todos os clientes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Rota de quarta -> Agendamento terça",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rota_quarta",
+      "quando_executa": [
+        {
+          "codigo": "na terca",
+          "significado": "somente quando executada na terça",
+          "reconhecida": true
+        }
+      ],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia diaria()",
+          "significado": "frequência diaria (1 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia maior na terca",
+          "significado": "dias de atendimento - maior preferência: terça; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "roteirizavel",
+          "significado": "cliente incluído na roteirização de visitas presenciais",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "todos os clientes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Rota de quinta -> Agendamento quarta",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rota_quinta",
+      "quando_executa": [
+        {
+          "codigo": "na quarta",
+          "significado": "somente quando executada na quarta",
+          "reconhecida": true
+        }
+      ],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia diaria()",
+          "significado": "frequência diaria (1 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia maior na quarta",
+          "significado": "dias de atendimento - maior preferência: quarta; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "roteirizavel",
+          "significado": "cliente incluído na roteirização de visitas presenciais",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "todos os clientes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Rota de sexta -> Agendamento quinta",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rota_sexta",
+      "quando_executa": [
+        {
+          "codigo": "na quinta",
+          "significado": "somente quando executada na quinta",
+          "reconhecida": true
+        }
+      ],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia diaria()",
+          "significado": "frequência diaria (1 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia maior na quinta",
+          "significado": "dias de atendimento - maior preferência: quinta; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "roteirizavel",
+          "significado": "cliente incluído na roteirização de visitas presenciais",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "todos os clientes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R8",
+      "posicao": 8,
+      "nome": "Não agendar clientes que não se enquadraram nas regras hoje",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "fora da carteira rota_todo_dia",
+      "tratados_antes_por": [
+        "R3"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": [
+        "Nos dias em que \"Rota de terça -> Agendamento segunda\" é executada (somente quando executada na segunda), os clientes dela são tratados por ela antes desta regra.",
+        "Nos dias em que \"Rota de quarta -> Agendamento terça\" é executada (somente quando executada na terça), os clientes dela são tratados por ela antes desta regra.",
+        "Nos dias em que \"Rota de quinta -> Agendamento quarta\" é executada (somente quando executada na quarta), os clientes dela são tratados por ela antes desta regra.",
+        "Nos dias em que \"Rota de sexta -> Agendamento quinta\" é executada (somente quando executada na quinta), os clientes dela são tratados por ela antes desta regra."
+      ]
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [
+    "As carteiras \"rota_terca\" e \"rota_quinta\" compartilham 18 valor(es) de nome da cidade (BIGUACU, BLUMENAU, BOTUVERA, BRUSQUE, FLORIANOPOLIS...): esses clientes aparecem nas duas.",
+    "As carteiras \"rota_terca\" e \"rota_sexta\" compartilham 6 valor(es) de nome da cidade (BIGUACU, FLORIANOPOLIS, GOVERNADOR CELSO RAMOS, PALHOCA, SAO JOSE...): esses clientes aparecem nas duas.",
+    "As carteiras \"rota_quarta\" e \"rota_sexta\" compartilham 19 valor(es) de nome da cidade (ARAUCARIA, BALNEARIO BARRA DO SUL, BALNEARIO PICARRAS, BARRA VELHA, CAMPO ALEGRE...): esses clientes aparecem nas duas.",
+    "As carteiras \"rota_quinta\" e \"rota_sexta\" compartilham 6 valor(es) de nome da cidade (BIGUACU, FLORIANOPOLIS, GOVERNADOR CELSO RAMOS, PALHOCA, SAO JOSE...): esses clientes aparecem nas duas."
+  ],
+  "numeros_obrigatorios": [],
+  "numeros_permitidos": [],
+  "premissas_usadas": [
+    "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+  ]
+}

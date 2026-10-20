@@ -1,0 +1,124 @@
+{
+ "arquivo": "regra_152.gobr",
+ "comentarios": [
+  "Regras para Br Distribuidora",
+  "Última atualização: 2026-02-02",
+  "Definição de times"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Nunca fez pedido com o vendedor (prospect)",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com o próprio vendedor"
+  },
+  {
+   "id": "R2",
+   "nome": "Tirou o primeiro pedido com o vendedor",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "já compraram com o próprio vendedor e com uma única compra com o vendedor",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R3",
+   "nome": "Teve pedido entre 0 e 7 dias",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram no grupo de vendedores nos últimos 7 dias e já compraram com o próprio vendedor e sem ser de compra única com o vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R2"
+   ]
+  },
+  {
+   "id": "R4",
+   "nome": "Teve pedido entre 7 e 30 dias",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram no grupo de vendedores nos últimos 30 dias, mas estão há mais de 7 dias sem comprar e já compraram com o próprio vendedor e sem ser de compra única com o vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3"
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Teve pedido entre 30 e 60 dias",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram no grupo de vendedores nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e já compraram com o próprio vendedor e sem ser de compra única com o vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R4"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Teve pedido entre 60 e 90 dias",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "compraram no grupo de vendedores nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e já compraram com o próprio vendedor e sem ser de compra única com o vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R5"
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Teve pedido há 90 dias ou mais",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "sem comprar no grupo de vendedores há mais de 90 dias e já compraram com o próprio vendedor e sem ser de compra única com o vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5",
+    "R6"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+ ]
+}

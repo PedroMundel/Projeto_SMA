@@ -1,0 +1,264 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_177.gobr",
+  "sha256": "980c81c604a6dee5abf4ca7d7293459a82fb6cb3d868eb162b0a60b7b7ff1801",
+  "comentarios": [
+    "Regras de não agendamento:",
+    "Regras de agendamento:"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "time televendas",
+      "definicao": "todos os vendedores de televendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "carteira televendas",
+      "definicao": "carteira fixa dos vendedores do time time televendas",
+      "filtros": [],
+      "livre": false,
+      "exceto_alocados_em": []
+    }
+  ],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Acioly: Não agendar clientes DH com crédito igual ou menor que R$0,00 (televendas)",
+    "Acioly: Não agendar clientes BK com crédito menor que R$200,00 (televendas)",
+    "Acioly: Não agendar clientes inadimplentes (televendas)"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Acioly: Não agendar clientes DH com crédito igual ou menor que R$0,00 (televendas)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "nao tem credito",
+          "significado": "sem crédito disponível",
+          "reconhecida": true
+        },
+        {
+          "codigo": "tipo de cobranca igual(\"DH\")",
+          "significado": "tipo de cobrança (id) igual a DH",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "tipo de cobrança (id) igual a DH e sem crédito disponível",
+      "condicao_efetiva": "tipo de cobrança (id) igual a DH e sem crédito disponível",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Acioly: Não agendar clientes BK com crédito menor que R$200,00 (televendas)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "com menos de r$ 199 de credito disponivel",
+          "significado": "com menos de R$ 199 de crédito disponível",
+          "reconhecida": true
+        },
+        {
+          "codigo": "tipo de cobranca igual(\"BK\")",
+          "significado": "tipo de cobrança (id) igual a BK",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "tipo de cobrança (id) igual a BK e com menos de R$ 199 de crédito disponível",
+      "condicao_efetiva": "tipo de cobrança (id) igual a BK e com menos de R$ 199 de crédito disponível",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        199
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Acioly: Não agendar clientes inadimplentes (televendas)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "inadimplentes",
+      "condicao_efetiva": "inadimplentes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Acioly: Frequência de 7d para clientes ativos/adimplentes (televendas)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ativos para o vendedor",
+      "condicao_efetiva": "ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Acioly: Frequência de 14d para clientes inativos/adimplentes (televendas)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inativos para o vendedor",
+          "significado": "inativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "inativos para o vendedor",
+      "condicao_efetiva": "inativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Acioly: Frequência de 14d para clientes sem venda (televendas)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "sem venda",
+          "significado": "sem vendas para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem vendas para o vendedor",
+      "condicao_efetiva": "sem vendas para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    7,
+    14,
+    199
+  ],
+  "numeros_permitidos": [
+    7,
+    14,
+    199
+  ],
+  "premissas_usadas": [
+    "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+    "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+  ]
+}

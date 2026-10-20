@@ -1,0 +1,113 @@
+{
+ "arquivo": "regra_226.gobr",
+ "comentarios": [
+  "Definição de times",
+  "Parâmetros de atendimento"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Ative essa oportunidade",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "sem vendas para a empresa"
+  },
+  {
+   "id": "R2",
+   "nome": "Cliente ativado! Crie relacionamento com seu cliente!",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 30 dias e com alguma venda (ativos ou inativos) para a empresa e com uma única compra na empresa",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R3",
+   "nome": "Clientes que compram mensalmente (clientes regulares)",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 120 dias, mas estão há mais de 30 dias sem comprar e frequência histórica de compra de 30 dias e com alguma venda (ativos ou inativos) para a empresa) OU (compraram com qualquer vendedor da empresa nos últimos 30 dias e frequência histórica de compra de 30 dias e com alguma venda (ativos ou inativos) para a empresa e sem ser de compra única na empresa)",
+   "tratados_antes_por": [
+    "R1",
+    "R2"
+   ]
+  },
+  {
+   "id": "R4",
+   "nome": "Recência de atendimento igual a recência de compra (clientes que compram mês sim, mês não)",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 60 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 30 dias e compraram com o próprio vendedor nos últimos 30 dias, mas estão há pelo menos 20 dias sem comprar e frequência histórica indefinida ou frequência histórica de compra de menos de 30 dias ou frequência histórica de compra de mais de 30 dias e com alguma venda (ativos ou inativos) para a empresa e sem ser de compra única na empresa",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3"
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Mantenha seu cliente ativo! Ele está há 120 dias sem comprar com a empresa",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 120 dias e com alguma venda (ativos ou inativos) para a empresa",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Resgate seu cliente inativo! Ele está há mais de 180 dias sem comprar com a empresa",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "sem comprar com qualquer vendedor da empresa há mais de 180 dias",
+   "tratados_antes_por": [
+    "R1",
+    "R5"
+   ],
+   "inalcancavel": true,
+   "alertas": [
+    "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Ative essa oportunidade\", \"Mantenha seu cliente ativo! Ele está há 120 dias sem comprar com a empresa\"."
+   ]
+  }
+ ],
+ "nao_cobertos": {
+  "do time televendas": "((nunca compraram com qualquer vendedor da empresa ou compraram com qualquer vendedor da empresa nos últimos 120 dias, mas estão há mais de 30 dias sem comprar) e frequência histórica indefinida ou frequência histórica de compra de menos de 30 dias ou frequência histórica de compra de mais de 30 dias e com alguma venda (ativos ou inativos) para a empresa) OU (nunca compraram com qualquer vendedor da empresa e frequência histórica de compra de 30 dias e com alguma venda (ativos ou inativos) para a empresa) OU (compraram com qualquer vendedor da empresa nos últimos 30 dias e (nunca compraram com o próprio vendedor ou compraram com o próprio vendedor nos últimos 19 dias ou sem comprar com o próprio vendedor há mais de 30 dias) e frequência histórica indefinida ou frequência histórica de compra de menos de 30 dias ou frequência histórica de compra de mais de 30 dias e com alguma venda (ativos ou inativos) para a empresa e sem ser de compra única na empresa)"
+ },
+ "alertas_do_arquivo": [
+  "A cascata mistura escopos de recência de compra (global: Cliente ativado! Crie relacionamento com seu cliente!, Clientes que compram mensalmente (clientes regulares), Mantenha seu cliente ativo! Ele está há 120 dias sem comprar com a empresa; vendedor: Recência de atendimento igual a recência de compra (clientes que compram mês sim, mês não)); faixas de escopos diferentes não se excluem automaticamente e podem se sobrepor ou deixar lacunas."
+ ],
+ "premissas_usadas": [
+  "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+  "P2: Escopos de recência (grupo, vendedor, global) são medidas distintas, ordenadas: global <= grupo <= vendedor.",
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'."
+ ]
+}

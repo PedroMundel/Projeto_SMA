@@ -1,0 +1,515 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_093.gobr",
+  "sha256": "f822cc71e45458847a2c52a4768faea680e99b92d35d8f7553b440c6b623ff6f",
+  "comentarios": [
+    "Definicao de times",
+    "vendedores porid(\"113\", \"128\", \"137\", \"141\", \"164\", \"170\", \"176\", \"176\", \"183\", \"207\", \"259\", \"264\", \"264\", \"264\", \"307\", \"345\", \"351\", \"355\", \"359\", \"377\", \"378\", \"381\", \"382\", \"384\", \"400\", \"403\", \"41\", \"426\", \"430\", \"431\", \"436\", \"439\", \"441\", \"442\", \"447\", \"468\", \"477\", \"481\", \"482\", \"486\", \"488\", \"489\", \"491\", \"492\", \"493\", \"495\", \"498\", \"499\", \"50\", \"86\", \"9\")",
+    "Definicao de carteiras",
+    "Definicao de parametros \"carteira fixa time televendas\"",
+    "Definicao de parametros \"carteira fixa time campo capital\"",
+    "Definicao de parametros \"carteira fixa time campo interior\""
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "time campo interior",
+      "definicao": "os vendedores de id 18, 212, 300, 376, 395, 421, 43, 449, 486, 488, 489, 490, 6, 68",
+      "filtros": []
+    },
+    {
+      "id": "T2",
+      "nome": "time campo capital",
+      "definicao": "todos os vendedores de campo, exceto os de id 18, 212, 300, 376, 395, 421, 43, 449, 486, 488, 489, 490, 6, 68",
+      "filtros": []
+    },
+    {
+      "id": "T3",
+      "nome": "time televendas",
+      "definicao": "todos os vendedores de televendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "carteira fixa time interior",
+      "definicao": "carteira fixa dos vendedores do time time campo interior",
+      "filtros": [],
+      "livre": false,
+      "exceto_alocados_em": []
+    },
+    {
+      "id": "C2",
+      "nome": "carteira fixa time campo capital",
+      "definicao": "carteira fixa dos vendedores do time time campo capital",
+      "filtros": [],
+      "livre": false,
+      "exceto_alocados_em": []
+    },
+    {
+      "id": "C3",
+      "nome": "carteira fixa time televendas",
+      "definicao": "carteira fixa dos vendedores do time time televendas",
+      "filtros": [],
+      "livre": false,
+      "exceto_alocados_em": []
+    }
+  ],
+  "segmentacoes": [],
+  "bloqueios": [],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Regra Padrao da Empresa Customizavel - Semanal para ativos adimplentes (time televendas)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira fixa time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "adimplentes",
+          "significado": "adimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "adimplentes e ativos para o vendedor",
+      "condicao_efetiva": "adimplentes e ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Regra Padrao da Empresa Customizavel - 14 dias para ativos inadimplentes (time televendas)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira fixa time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "inadimplentes e ativos para o vendedor",
+      "condicao_efetiva": "inadimplentes e ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Regra Padrao da Empresa Customizavel - 30 dias para inativos (time televendas)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira fixa time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inativos para o vendedor",
+          "significado": "inativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "inativos para o vendedor",
+      "condicao_efetiva": "inativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Regra Padrao da Empresa Customizavel - 30 dias pra clientes sem vendas (time televendas)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira fixa time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "sem vendas",
+          "significado": "sem vendas para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem vendas para o vendedor",
+      "condicao_efetiva": "sem vendas para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Regra Padrao da Empresa Customizavel - semanal para ativos adimplentes (time campo capital)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira fixa time campo capital",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "adimplentes",
+          "significado": "adimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "adimplentes e ativos para o vendedor",
+      "condicao_efetiva": "adimplentes e ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Regra Padrao da Empresa Customizavel - 14 dias para ativos inadimplentes (time campo capital)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira fixa time campo capital",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "inadimplentes e ativos para o vendedor",
+      "condicao_efetiva": "inadimplentes e ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Regra Padrao da Empresa Customizavel - 30 dias para inativos (time campo capital)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira fixa time campo capital",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inativos para o vendedor",
+          "significado": "inativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "inativos para o vendedor",
+      "condicao_efetiva": "inativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R8",
+      "posicao": 8,
+      "nome": "Regra Padrao da Empresa Customizavel - 30 dias pra clientes sem vendas (time campo capital)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira fixa time campo capital",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "sem vendas",
+          "significado": "sem vendas para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem vendas para o vendedor",
+      "condicao_efetiva": "sem vendas para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R9",
+      "posicao": 9,
+      "nome": "Regra Padrao da Empresa Customizavel - 14 dias para ativos (time campo interior)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira fixa time interior",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ativos para o vendedor",
+      "condicao_efetiva": "ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R10",
+      "posicao": 10,
+      "nome": "Regra Padrao da Empresa Customizavel - 30 dias para inativos (time campo interior)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira fixa time interior",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inativos para o vendedor",
+          "significado": "inativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "inativos para o vendedor",
+      "condicao_efetiva": "inativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R11",
+      "posicao": 11,
+      "nome": "Regra Padrao da Empresa Customizavel - 30 dias pra clientes sem vendas (time campo interior)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira fixa time interior",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "sem vendas",
+          "significado": "sem vendas para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem vendas para o vendedor",
+      "condicao_efetiva": "sem vendas para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    14,
+    30
+  ],
+  "numeros_permitidos": [
+    6,
+    14,
+    18,
+    30,
+    43,
+    68,
+    212,
+    300,
+    376,
+    395,
+    421,
+    449,
+    486,
+    488,
+    489,
+    490
+  ],
+  "premissas_usadas": [
+    "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+    "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores.",
+    "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+  ]
+}

@@ -1,0 +1,138 @@
+{
+ "arquivo": "regra_061.gobr",
+ "comentarios": [
+  "Regras padrão",
+  "Regras para a vendedora Gesiane (inativos)",
+  "carteira time campo",
+  "carteira time televendas"
+ ],
+ "times": [
+  {
+   "nome": "Gesiane",
+   "definicao": "os vendedores de id 16"
+  },
+  {
+   "nome": "campo",
+   "definicao": "todos os vendedores de campo"
+  },
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "carteira Gesiane",
+   "definicao": "carteira fixa dos vendedores do time Gesiane",
+   "filtros": []
+  },
+  {
+   "id": "C2",
+   "nome": "carteira campo",
+   "definicao": "carteira fixa dos vendedores do time campo",
+   "filtros": []
+  },
+  {
+   "id": "C3",
+   "nome": "carteira televendas",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": []
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Regra Padrao da Empresa Customizavel - Nao agendar inativos inadimplentes (campo)",
+  "Regra Padrao da Empresa Customizavel - Nao agendar inativos inadimplentes (televendas)",
+  "Regra Padrao da Empresa Customizavel - Nao agendar clientes sem venda (televendas)"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Regra Padrao da Gesiane Customizavel - Frequencia de 14 dias para clientes inativos da Gesiane",
+   "fonte": "da carteira carteira Gesiane",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "inativos para o vendedor"
+  },
+  {
+   "id": "R2",
+   "nome": "Regra Padrao da Gesiane Customizavel - Frequencia de 14 dias para clientes sem venda da Gesiane",
+   "fonte": "da carteira carteira Gesiane",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor"
+  },
+  {
+   "id": "R3",
+   "nome": "Regra Padrao da Gesiane Customizavel - Frequencia de 14 dias para clientes ativos da Gesiane",
+   "fonte": "da carteira carteira Gesiane",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "ativos para o vendedor"
+  },
+  {
+   "id": "R4",
+   "nome": "Regra Padrao da Empresa Customizavel - Nao agendar inativos inadimplentes (campo)",
+   "fonte": "da carteira carteira campo",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R5",
+   "nome": "Regra Padrao do goVendas Customizavel - Frequencia de 14 dias para ativos ou adimplentes (campo)",
+   "fonte": "da carteira carteira campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "(não inativos para o vendedor) OU (inativos para o vendedor)"
+  },
+  {
+   "id": "R6",
+   "nome": "Regra Padrao da Empresa Customizavel - Nao agendar inativos inadimplentes (televendas)",
+   "fonte": "da carteira carteira televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R7",
+   "nome": "Regra Padrao da Empresa Customizavel - Nao agendar clientes sem venda (televendas)",
+   "fonte": "da carteira carteira televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor"
+  },
+  {
+   "id": "R8",
+   "nome": "Regra Padrao do goVendas Customizavel - Frequencia de 14 dias para ativos ou adimplentes (televendas)",
+   "fonte": "da carteira carteira televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "(ativos para o vendedor) OU (inativos para o vendedor)"
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores.",
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

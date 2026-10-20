@@ -1,0 +1,93 @@
+{
+ "arquivo": "regra_045.gobr",
+ "comentarios": [
+  "Regras para Milenium",
+  "Todos os vendedores ativos, menos a vendedora Sandra"
+ ],
+ "times": [
+  {
+   "nome": "empresa toda",
+   "definicao": "todos os vendedores, exceto os de id 945"
+  },
+  {
+   "nome": "sandra",
+   "definicao": "os vendedores de id 945"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "empresa toda",
+   "definicao": "carteira fixa dos vendedores do time empresa toda",
+   "filtros": []
+  },
+  {
+   "id": "C2",
+   "nome": "carteira sandra",
+   "definicao": "carteira fixa dos vendedores do time sandra",
+   "filtros": []
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Regra Padrao da Empresa Customizavel: frequencia semanal para clientes da sandra",
+   "fonte": "da carteira carteira sandra",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "todos os clientes"
+  },
+  {
+   "id": "R2",
+   "nome": "Regra Padrao da Empresa Customisavel: 30 dias para clientes inativos inadimplentes",
+   "fonte": "da carteira empresa toda",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "inadimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R3",
+   "nome": "Regra Padrao da Empresa Customisavel: 7 dias para clientes inativos adiplentes",
+   "fonte": "da carteira empresa toda",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "adimplentes e inativos para o vendedor",
+   "tratados_antes_por": [
+    "R2"
+   ]
+  },
+  {
+   "id": "R4",
+   "nome": "Regra Padrao da Empresa Customisavel: 14 dias para clientes ativos ou adimplentes ou sem venda",
+   "fonte": "da carteira empresa toda",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "não inativos para o vendedor",
+   "tratados_antes_por": [
+    "R2",
+    "R3"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores.",
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

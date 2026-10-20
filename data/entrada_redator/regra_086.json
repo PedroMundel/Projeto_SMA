@@ -1,0 +1,78 @@
+{
+ "arquivo": "regra_086.gobr",
+ "comentarios": [],
+ "times": [
+  {
+   "nome": "empresa toda",
+   "definicao": "todos os vendedores"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "empresa toda",
+   "definicao": "carteira fixa dos vendedores do time empresa toda",
+   "filtros": []
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Regra Padrao da Taiken Customizavel: 10 dias para ativos adimplentes",
+   "fonte": "da carteira empresa toda",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 10 dias"
+   ],
+   "condicao_efetiva": "adimplentes e ativos para o vendedor"
+  },
+  {
+   "id": "R2",
+   "nome": "Regra Padrao da Taiken Customizavel: 14 dias para ativos inadimplentes",
+   "fonte": "da carteira empresa toda",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "inadimplentes e ativos para o vendedor"
+  },
+  {
+   "id": "R3",
+   "nome": "Regra Padrao da Taiken Customizavel: 14 dias para inativos adimplentes",
+   "fonte": "da carteira empresa toda",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "adimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R4",
+   "nome": "Regra Padrao da Taiken Customizavel: 90 dias para inativos inadimplentes",
+   "fonte": "da carteira empresa toda",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 90 dias"
+   ],
+   "condicao_efetiva": "inadimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R5",
+   "nome": "Regra Padrao da Taiken Customizavel: 21 dias para clientes sem vendas",
+   "fonte": "da carteira empresa toda",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor"
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

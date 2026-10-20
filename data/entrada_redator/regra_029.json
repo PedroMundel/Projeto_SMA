@@ -1,0 +1,49 @@
+{
+ "arquivo": "regra_029.gobr",
+ "comentarios": [],
+ "times": [
+  {
+   "nome": "empresa toda",
+   "definicao": "todos os vendedores"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "empresa toda",
+   "definicao": "carteira fixa dos vendedores do time empresa toda",
+   "filtros": []
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Regra Padrao da Trilha - Customizavel: Nao agedar inativos inadimplentes"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Regra Padrao da Trilha - Customizavel: Nao agedar inativos inadimplentes",
+   "fonte": "da carteira empresa toda",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R2",
+   "nome": "Regra Padrao da Trilha - Customizavel: 14 dias para todos os clientes",
+   "fonte": "da carteira empresa toda",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "todos os clientes"
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

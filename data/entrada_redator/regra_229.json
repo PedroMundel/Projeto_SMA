@@ -1,0 +1,88 @@
+{
+ "arquivo": "regra_229.gobr",
+ "comentarios": [
+  "Definição de times",
+  "Regras de não agendamento",
+  "Regras de agendamento"
+ ],
+ "times": [
+  {
+   "nome": "farm",
+   "definicao": "os vendedores de id 3, 4, 8, 9, 10, 12, 16"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Não agendar clientes com compra em 30 dias"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Não agendar clientes com compra em 30 dias",
+   "fonte": "do time farm",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "compraram nos últimos 30 dias"
+  },
+  {
+   "id": "R2",
+   "nome": "Este cliente nunca comprou de você. Faz sentido ele ficar na sua carteira? Ele é perfil? Você tem interesse em ativá-lo? Se sim, execute o atendimento!",
+   "fonte": "do time farm",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa"
+  },
+  {
+   "id": "R3",
+   "nome": "Mantenha este cliente com cobertura mensal de positivação - Ele está entre 31 e 60 dias sem compra!",
+   "fonte": "do time farm",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem comprar há mais de 60 dias"
+  },
+  {
+   "id": "R4",
+   "nome": "Este cliente está caminhando para inatividade - Ele está entre 61 e 90 dias sem compra!",
+   "fonte": "do time farm",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 60 dias, mas estão há mais de 30 dias sem comprar",
+   "tratados_antes_por": [
+    "R3"
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Este cliente já não tem fidelidade com a sua empresa - Ele está há mais de 90 dias sem compra!",
+   "fonte": "do time farm",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e nunca compraram no grupo de vendedores",
+   "tratados_antes_por": [
+    "R2",
+    "R3",
+    "R4"
+   ],
+   "alertas": [
+    "O nome da regra cita 90 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+ ]
+}

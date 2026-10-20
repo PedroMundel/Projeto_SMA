@@ -1,0 +1,146 @@
+{
+ "arquivo": "regra_101.gobr",
+ "comentarios": [
+  "time televendas",
+  "time capital",
+  "time interior"
+ ],
+ "times": [
+  {
+   "nome": "time televendas",
+   "definicao": "todos os vendedores de televendas"
+  },
+  {
+   "nome": "time capital",
+   "definicao": "todos os vendedores de campo, exceto os de id 17, 18, 13"
+  },
+  {
+   "nome": "time interior",
+   "definicao": "os vendedores de id 17, 18, 13"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Regra Padrao da Propec: Nao agendar clientes inativos inadimplentes (regiao metropolitana)",
+  "Regra Padrao da Propec: Nao agendar clientes inativos inadimplentes (interior)"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Regra Padrao da Propec: Frequencia de 7 dias para clientes ativos (televendas)",
+   "fonte": "do time time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "ativos para o vendedor"
+  },
+  {
+   "id": "R2",
+   "nome": "Regra Padrao da Propec: Frequencia de 30 dias para clientes inativos (televendas)",
+   "fonte": "do time time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "inativos para o vendedor"
+  },
+  {
+   "id": "R3",
+   "nome": "Regra Padrao da Propec: Frequencia de 7 dias para clientes sem venda (televendas)",
+   "fonte": "do time time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor"
+  },
+  {
+   "id": "R4",
+   "nome": "Regra Padrao da Propec: Frequencia de 7 dias para clientes ativos (regiao metropolitana)",
+   "fonte": "do time time capital",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "ativos para o vendedor"
+  },
+  {
+   "id": "R5",
+   "nome": "Regra Padrao da Propec: Frequencia de 14 dias para clientes inativos adimplentes (regiao metropolitana)",
+   "fonte": "do time time capital",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "adimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R6",
+   "nome": "Regra Padrao da Propec: Nao agendar clientes inativos inadimplentes (regiao metropolitana)",
+   "fonte": "do time time capital",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R7",
+   "nome": "Regra Padrao da Propec: Frequencia de 14 dias para clientes sem venda (regiao metropolitana)",
+   "fonte": "do time time capital",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor"
+  },
+  {
+   "id": "R8",
+   "nome": "Regra Padrao da Propec: Frequencia de 14 dias para clientes ativos (interior)",
+   "fonte": "do time time interior",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "ativos para o vendedor"
+  },
+  {
+   "id": "R9",
+   "nome": "Regra Padrao da Propec: Frequencia de 30 dias para clientes inativos adimplentes (interior)",
+   "fonte": "do time time interior",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "adimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R10",
+   "nome": "Regra Padrao da Propec: Nao agendar clientes inativos inadimplentes (interior)",
+   "fonte": "do time time interior",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R11",
+   "nome": "Regra Padrao da Propec: Frequencia de 30 dias para clientes sem venda (interior)",
+   "fonte": "do time time interior",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor"
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+ ]
+}

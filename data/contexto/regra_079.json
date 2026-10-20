@@ -1,0 +1,135 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_079.gobr",
+  "sha256": "914d7e2dea77c940563061d1e2465173b3b2614cd65cc611c39dca5828bcf8c1",
+  "comentarios": [
+    "Definição dos times:",
+    "Parâmetros de não agendamento:",
+    "Parâmetros de agendamento:"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "televendas",
+      "definicao": "todos os vendedores habilitados no Govendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Girardi: Não agendar ramos de atividade diferente de 12, 13, 14, 15, 16, 17, 18 e 19"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Girardi: Não agendar ramos de atividade diferente de 12, 13, 14, 15, 16, 17, 18 e 19",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade diferente(\"12\",\"13\",\"14\",\"15\",\"16\",\"17\",\"18\",\"19\")",
+          "significado": "ramo de atividade (id) fora de: 12, 13, 14, 15, 16, 17 e mais 2",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "ramo de atividade (id) fora de: 12, 13, 14, 15, 16, 17 e mais 2",
+      "condicao_efetiva": "ramo de atividade (id) fora de: 12, 13, 14, 15, 16, 17 e mais 2",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Girardi: 7d para ramo de atividade 12",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"12\")",
+          "significado": "ramo de atividade (id) igual a 12",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ramo de atividade (id) igual a 12",
+      "condicao_efetiva": "ramo de atividade (id) igual a 12",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Girardi: 14d para ramos de atividade 13, 14, 15, 16, 17, 18 e 19",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "ramo de atividade (id) em: 13, 14, 15, 16, 17, 18 e mais 1",
+      "tratados_antes_por": [
+        "R2"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    7,
+    14
+  ],
+  "numeros_permitidos": [
+    7,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "premissas_usadas": []
+}

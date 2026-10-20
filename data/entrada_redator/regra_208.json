@@ -1,0 +1,172 @@
+{
+ "arquivo": "regra_208.gobr",
+ "comentarios": [
+  "Definição de times:",
+  "Regras de planejamento:"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Não agendar Baixados na Receita",
+  "Não agendar inadimplentes",
+  "Não agendar bloqueados",
+  "Não agendar filiais",
+  "Não mapeados nas regras"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Não agendar Baixados na Receita",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "com situação baixada na Receita Federal"
+  },
+  {
+   "id": "R2",
+   "nome": "Não agendar inadimplentes",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes"
+  },
+  {
+   "id": "R3",
+   "nome": "Não agendar bloqueados",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "bloqueados para atendimento"
+  },
+  {
+   "id": "R4",
+   "nome": "Não agendar filiais",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "filiais"
+  },
+  {
+   "id": "R5",
+   "nome": "Ativação de novos",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com o próprio vendedor"
+  },
+  {
+   "id": "R6",
+   "nome": "Fazer relacionamento com o cliente",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "já compraram com o próprio vendedor e com uma única compra com o vendedor",
+   "tratados_antes_por": [
+    "R5"
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Manter contato com o cliente que comprou no mês",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "já compraram com o próprio vendedor e com compra no mês atual e frequência histórica de compra entre 90 e 120 dias e sem ser de compra única com o vendedor",
+   "tratados_antes_por": [
+    "R5",
+    "R6"
+   ]
+  },
+  {
+   "id": "R8",
+   "nome": "Manter a regularidade de compra",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "(compraram no grupo de vendedores nos últimos 30 dias e já compraram com o próprio vendedor e não (com compra no mês atual) e sem ser de compra única com o vendedor) OU (compraram no grupo de vendedores nos últimos 30 dias e já compraram com o próprio vendedor e com compra no mês atual e frequência histórica indefinida ou frequência histórica de compra de até 89 dias ou frequência histórica de compra de mais de 120 dias e sem ser de compra única com o vendedor)",
+   "tratados_antes_por": [
+    "R5",
+    "R6",
+    "R7"
+   ]
+  },
+  {
+   "id": "R9",
+   "nome": "Atuar para o cliente não ficar inativo",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "(compraram no grupo de vendedores nos últimos 89 dias, mas estão há mais de 30 dias sem comprar e já compraram com o próprio vendedor e não (com compra no mês atual) e sem ser de compra única com o vendedor) OU (compraram no grupo de vendedores nos últimos 89 dias, mas estão há mais de 30 dias sem comprar e já compraram com o próprio vendedor e com compra no mês atual e frequência histórica indefinida ou frequência histórica de compra de até 89 dias ou frequência histórica de compra de mais de 120 dias e sem ser de compra única com o vendedor)",
+   "tratados_antes_por": [
+    "R5",
+    "R6",
+    "R7",
+    "R8"
+   ]
+  },
+  {
+   "id": "R10",
+   "nome": "Resgatar cliente inativo",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 3 dias"
+   ],
+   "condicao_efetiva": "(compraram no grupo de vendedores nos últimos 120 dias, mas estão há mais de 89 dias sem comprar e já compraram com o próprio vendedor e não (com compra no mês atual) e sem ser de compra única com o vendedor) OU (compraram no grupo de vendedores nos últimos 120 dias, mas estão há mais de 89 dias sem comprar e já compraram com o próprio vendedor e com compra no mês atual e frequência histórica indefinida ou frequência histórica de compra de até 89 dias ou frequência histórica de compra de mais de 120 dias e sem ser de compra única com o vendedor)",
+   "tratados_antes_por": [
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9"
+   ]
+  },
+  {
+   "id": "R11",
+   "nome": "Não mapeados nas regras",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "(sem comprar no grupo de vendedores há mais de 120 dias e já compraram com o próprio vendedor e não (com compra no mês atual) e sem ser de compra única com o vendedor) OU (sem comprar no grupo de vendedores há mais de 120 dias e já compraram com o próprio vendedor e com compra no mês atual e frequência histórica indefinida ou frequência histórica de compra de até 89 dias ou frequência histórica de compra de mais de 120 dias e sem ser de compra única com o vendedor)",
+   "tratados_antes_por": [
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9",
+    "R10"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+ ]
+}

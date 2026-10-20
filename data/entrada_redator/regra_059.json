@@ -1,0 +1,170 @@
+{
+ "arquivo": "regra_059.gobr",
+ "comentarios": [
+  "Parâmetros de não agendamento:",
+  "Parâmetros de agendamento para Prospects:",
+  "Parâmetros de agendamento para Ativos:",
+  "Parâmetros de agendamento para Inativos:"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Hospidrogas: Não agendar ramos de atividade específicos"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Hospidrogas: Não agendar ramos de atividade específicos",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "ramo de atividade (id) fora de: 10, 11, 12, 14, 15, 17 e mais 9"
+  },
+  {
+   "id": "R2",
+   "nome": "Hospidrogas: Freq. 30d para prospects e ramos de atividade igual 2, 7, 11, 12, 14 ou 19",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa e ramo de atividade (id) em: 11, 12, 14, 19, 2, 7"
+  },
+  {
+   "id": "R3",
+   "nome": "Hospidrogas: Freq. 30d para ativos e ramos de atividade igual 3, 4, 6, 8, 15 ou 18",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "ramo de atividade (id) em: 15, 18, 3, 4, 6, 8 e ativos para o vendedor"
+  },
+  {
+   "id": "R4",
+   "nome": "Hospidrogas: Freq. 15d para ativos e ramos de atividade igual 7 ou 17",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 15 dias"
+   ],
+   "condicao_efetiva": "(já compraram com qualquer vendedor da empresa e ramo de atividade (id) em: 17, 7 e ativos para o vendedor) OU (nunca compraram com qualquer vendedor da empresa e ramo de atividade (id) igual a 17 e ativos para o vendedor)",
+   "tratados_antes_por": [
+    "R2"
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Hospidrogas: Freq. 7d para ativos e ramos de atividade igual 10, 11, 14 ou 19",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "(já compraram com qualquer vendedor da empresa e ramo de atividade (id) em: 10, 11, 14, 19 e ativos para o vendedor) OU (nunca compraram com qualquer vendedor da empresa e ramo de atividade (id) igual a 10 e ativos para o vendedor)",
+   "tratados_antes_por": [
+    "R2"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Hospidrogas: Freq. 5d para ativos e ramos de atividade igual 2 ou 12",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 5 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e ramo de atividade (id) em: 12, 2 e ativos para o vendedor",
+   "tratados_antes_por": [
+    "R2"
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Hospidrogas: Freq. 30d para inativos e ramos de atividade igual 3, 4, 6, 8, 15 ou 18",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "ramo de atividade (id) em: 15, 18, 3, 4, 6, 8 e não ativos para o vendedor",
+   "tratados_antes_por": [
+    "R3"
+   ]
+  },
+  {
+   "id": "R8",
+   "nome": "Hospidrogas: Freq. 20d para inativos e ramos de atividade igual 17",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 20 dias"
+   ],
+   "condicao_efetiva": "ramo de atividade (id) igual a 17 e não ativos para o vendedor",
+   "tratados_antes_por": [
+    "R4"
+   ]
+  },
+  {
+   "id": "R9",
+   "nome": "Hospidrogas: Freq. 15d para inativos e ramos de atividade igual 10",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 15 dias"
+   ],
+   "condicao_efetiva": "ramo de atividade (id) igual a 10 e não ativos para o vendedor",
+   "tratados_antes_por": [
+    "R5"
+   ]
+  },
+  {
+   "id": "R10",
+   "nome": "Hospidrogas: Freq. 10d para inativos e ramos de atividade igual 11 ou 19",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 10 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e ramo de atividade (id) em: 11, 19 e não ativos para o vendedor",
+   "tratados_antes_por": [
+    "R2",
+    "R5"
+   ]
+  },
+  {
+   "id": "R11",
+   "nome": "Hospidrogas: Freq. 5d para inativos e ramos de atividade igual 2, 7, 12 ou 14",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 5 dias"
+   ],
+   "condicao_efetiva": "(já compraram com qualquer vendedor da empresa e ramo de atividade (id) em: 12, 14, 2, 5, 7 e não ativos para o vendedor) OU (ramo de atividade (id) igual a 5 e ativos para o vendedor) OU (nunca compraram com qualquer vendedor da empresa e ramo de atividade (id) igual a 5 e não ativos para o vendedor)",
+   "tratados_antes_por": [
+    "R2",
+    "R3",
+    "R4",
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9",
+    "R10"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+ ]
+}

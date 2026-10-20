@@ -1,0 +1,498 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_171.gobr",
+  "sha256": "d81b243d39826e8db937f53a80412a8137312e6faaac190c15808bea0bd280e6",
+  "comentarios": [
+    "Definição de times:",
+    "Regras de não agendamento:",
+    "Regras de agendamento:"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "televendas",
+      "definicao": "todos os vendedores de televendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Não agendar inadimplentes",
+    "Não agendar bloqueados",
+    "Não agendar filiais",
+    "Não agendar Baixados na Receita"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Não agendar inadimplentes",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "inadimplentes",
+      "condicao_efetiva": "inadimplentes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Não agendar bloqueados",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "bloqueados",
+          "significado": "bloqueados para atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "bloqueados para atendimento",
+      "condicao_efetiva": "bloqueados para atendimento",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Não agendar filiais",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "cliente filial",
+          "significado": "filiais",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "filiais",
+      "condicao_efetiva": "filiais",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Não agendar Baixados na Receita",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "status na receita federal definido como baixada",
+          "significado": "com situação baixada na Receita Federal",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "com situação baixada na Receita Federal",
+      "condicao_efetiva": "com situação baixada na Receita Federal",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Freq. de 14d para 'Prospect: Cliente potencial'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "no ciclo de vida prospect com a empresa",
+          "significado": "prospects (nunca compraram com qualquer vendedor da empresa)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "nunca compraram com qualquer vendedor da empresa",
+      "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Freq. de 10d para 'Ativado: fez um pedido e ainda não comprou mais'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "unica compra com a empresa",
+          "significado": "com uma única compra na empresa",
+          "reconhecida": true
+        },
+        {
+          "codigo": "cadastrado ha 30 dias",
+          "significado": "cadastrados no ERP há pelo menos 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 10 dias",
+          "significado": "frequência de 10 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "cadastrados no ERP há pelo menos 30 dias e com uma única compra na empresa",
+      "condicao_efetiva": "já compraram com qualquer vendedor da empresa e cadastrados no ERP há pelo menos 30 dias e com uma única compra na empresa",
+      "tratados_antes_por": [
+        "R5"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        10,
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Freq. de 14d para 'Ativo: Alta frequência de compra'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao global em 30 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 30 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "frequencia historica menor que 14 dias",
+          "significado": "frequência histórica de compra de menos de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 30 dias e frequência histórica de compra de menos de 14 dias",
+      "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 30 dias e frequência histórica de compra de menos de 14 dias e sem ser de compra única na empresa) OU (compraram com qualquer vendedor da empresa nos últimos 30 dias e não (cadastrados no ERP há pelo menos 30 dias) e frequência histórica de compra de menos de 14 dias e com uma única compra na empresa)",
+      "tratados_antes_por": [
+        "R6"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R8",
+      "posicao": 8,
+      "nome": "Freq. de 21d para 'Ativo: compra regularmente'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao global em 30 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 30 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "frequencia historica menor que 30 dias",
+          "significado": "frequência histórica de compra de menos de 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia do historico ou no minimo de 14 dias e no maximo de 28 dias",
+          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no mínimo 14 dias e no máximo 28 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 30 dias e frequência histórica de compra de menos de 30 dias",
+      "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 30 dias e frequência histórica de compra entre 14 e 29 dias e sem ser de compra única na empresa) OU (compraram com qualquer vendedor da empresa nos últimos 30 dias e não (cadastrados no ERP há pelo menos 30 dias) e frequência histórica de compra entre 14 e 29 dias e com uma única compra na empresa)",
+      "tratados_antes_por": [
+        "R6",
+        "R7"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        28,
+        30
+      ],
+      "alertas": [
+        "O nome da regra cita 21 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+      ]
+    },
+    {
+      "id": "R9",
+      "posicao": 9,
+      "nome": "Freq. de 14d para 'Ativo: estimular a regularidade de compra'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao global entre 21 dias e 60 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 60 dias, mas estão há pelo menos 21 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 60 dias, mas estão há pelo menos 21 dias sem comprar",
+      "condicao_efetiva": null,
+      "tratados_antes_por": [
+        "R6",
+        "R7",
+        "R8"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        21,
+        60
+      ],
+      "alertas": [
+        "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+      ]
+    },
+    {
+      "id": "R10",
+      "posicao": 10,
+      "nome": "Freq. de 7d para 'Em ruptura: risco de ficar inativo'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao global entre 61 dias e 90 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 90 dias, mas estão há pelo menos 61 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 90 dias, mas estão há mais de 60 dias sem comprar",
+      "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e sem ser de compra única na empresa) OU (compraram com qualquer vendedor da empresa nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e não (cadastrados no ERP há pelo menos 30 dias) e com uma única compra na empresa)",
+      "tratados_antes_por": [
+        "R6"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7,
+        61,
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R11",
+      "posicao": 11,
+      "nome": "Freq. de 21d para 'Inativo: reativar cliente sem compra'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao global entre 90 dias e 180 dias",
+          "significado": "(compraram com qualquer vendedor da empresa nos últimos 89 dias ou sem comprar com qualquer vendedor da empresa há mais de 180 dias)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "(compraram com qualquer vendedor da empresa nos últimos 89 dias ou sem comprar com qualquer vendedor da empresa há mais de 180 dias)",
+      "condicao_efetiva": null,
+      "tratados_antes_por": [
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21,
+        90,
+        180
+      ],
+      "alertas": [
+        "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+      ]
+    }
+  ],
+  "nao_cobertos": {
+    "do time televendas": "(compraram com qualquer vendedor da empresa nos últimos 180 dias, mas estão há mais de 90 dias sem comprar e sem ser de compra única na empresa) OU (compraram com qualquer vendedor da empresa nos últimos 180 dias, mas estão há mais de 90 dias sem comprar e não (cadastrados no ERP há pelo menos 30 dias) e com uma única compra na empresa)"
+  },
+  "alertas": [],
+  "numeros_obrigatorios": [
+    7,
+    10,
+    14,
+    21,
+    28,
+    30,
+    60,
+    61,
+    90,
+    180
+  ],
+  "numeros_permitidos": [
+    7,
+    10,
+    14,
+    21,
+    28,
+    30,
+    60,
+    61,
+    90,
+    180
+  ],
+  "premissas_usadas": [
+    "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+    "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+  ]
+}

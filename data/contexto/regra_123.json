@@ -1,0 +1,284 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_123.gobr",
+  "sha256": "357f1fde4b4f6b800786cc6660c5e1c362b1fed44beb55e2fc73fb53cf6a8474",
+  "comentarios": [
+    "Regras padrão",
+    "regras time interno",
+    "regras time saude interno",
+    "regras time externo"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "televendas",
+      "definicao": "todos os vendedores de televendas, exceto os de id 7027",
+      "filtros": []
+    },
+    {
+      "id": "T2",
+      "nome": "time saude televendas",
+      "definicao": "os vendedores de id 7027",
+      "filtros": []
+    },
+    {
+      "id": "T3",
+      "nome": "campo",
+      "definicao": "todos os vendedores de campo",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Regra Padrao do goVendas: Nao agendar ramo de atividade diferente de saude (saude)"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Regra Padrao do goVendas: Frequencia semanal para clientes ativos",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ativos para o vendedor",
+      "condicao_efetiva": "ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Regra Padrao do goVendas: Frequencia quinzenal para clientes inativos",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 15 dias",
+          "significado": "frequência de 15 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "não ativos para o vendedor",
+      "tratados_antes_por": [
+        "R1"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        15
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Regra Padrao do goVendas: Frequencia semanal para clientes ativos (saude)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time time saude televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "ramo de atividade igual(\"1\")",
+          "significado": "ramo de atividade (id) igual a 1",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ramo de atividade (id) igual a 1 e ativos para o vendedor",
+      "condicao_efetiva": "ramo de atividade (id) igual a 1 e ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Regra Padrao do goVendas: Frequencia quinzenal para clientes inativos (saude)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time time saude televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"1\")",
+          "significado": "ramo de atividade (id) igual a 1",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 15 dias",
+          "significado": "frequência de 15 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ramo de atividade (id) igual a 1",
+      "condicao_efetiva": "ramo de atividade (id) igual a 1 e não ativos para o vendedor",
+      "tratados_antes_por": [
+        "R3"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        15
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Regra Padrao do goVendas: Nao agendar ramo de atividade diferente de saude (saude)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time time saude televendas",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "ramo de atividade (id) diferente de 1",
+      "tratados_antes_por": [
+        "R3",
+        "R4"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Regra Padrao do goVendas: Frequencia de 7 dias para clientes ativos (campo)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time campo",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ativos para o vendedor",
+      "condicao_efetiva": "ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Regra Padrao do goVendas: Frequencia de 14 dias para clientes inativos (campo)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time campo",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 15 dias",
+          "significado": "frequência de 15 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "não ativos para o vendedor",
+      "tratados_antes_por": [
+        "R6"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        15
+      ],
+      "alertas": [
+        "O nome da regra cita 14 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+      ]
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    7,
+    15
+  ],
+  "numeros_permitidos": [
+    1,
+    7,
+    14,
+    15,
+    7027
+  ],
+  "premissas_usadas": [
+    "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+  ]
+}

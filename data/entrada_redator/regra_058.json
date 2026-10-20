@@ -1,0 +1,107 @@
+{
+ "arquivo": "regra_058.gobr",
+ "comentarios": [
+  "REGRAS"
+ ],
+ "times": [
+  {
+   "nome": "time televendas",
+   "definicao": "todos os vendedores de televendas"
+  },
+  {
+   "nome": "time campo",
+   "definicao": "todos os vendedores de campo"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "televendas",
+   "definicao": "carteira fixa dos vendedores do time time televendas",
+   "filtros": []
+  },
+  {
+   "id": "C2",
+   "nome": "campo",
+   "definicao": "carteira fixa dos vendedores do time time campo",
+   "filtros": []
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Regra Padrao da Otima Atacado: 14 dias para clientes inadimplentes (televendas)",
+   "fonte": "da carteira televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "inadimplentes"
+  },
+  {
+   "id": "R2",
+   "nome": "Regra Padrao da Otima Atacado: Frequência de atendimento baseada no histórico de vendas, ou até de 14 dias (televendas)",
+   "fonte": "da carteira televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 14 dias"
+   ],
+   "condicao_efetiva": "adimplentes",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R3",
+   "nome": "Regra Padrao da Otima Atacado: 7 dias para clientes adimplentes",
+   "fonte": "da carteira campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "adimplentes"
+  },
+  {
+   "id": "R4",
+   "nome": "Regra Padrao da Otima Atacado: 14 dias para clientes ativos inadimplentes",
+   "fonte": "da carteira campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "inadimplentes e ativos para o vendedor"
+  },
+  {
+   "id": "R5",
+   "nome": "Regra Padrao dda Otima Atacado: 60 dias para clientes inativos inadimplentes",
+   "fonte": "da carteira campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 60 dias"
+   ],
+   "condicao_efetiva": "inadimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R6",
+   "nome": "Regra Padrao dda Otima Atacado: 14 dias para clientes sem venda (campo)",
+   "fonte": "da carteira campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "inadimplentes e sem vendas para o vendedor",
+   "tratados_antes_por": [
+    "R3"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores.",
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

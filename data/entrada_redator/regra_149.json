@@ -1,0 +1,105 @@
+{
+ "arquivo": "regra_149.gobr",
+ "comentarios": [
+  "Regras para Goiás Clean",
+  "Última atualização: 2026-01-30",
+  "Definição de time",
+  "Definição das regras"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Ativos com compra em 7 dias"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Ativos com compra em 7 dias",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "compraram nos últimos 7 dias"
+  },
+  {
+   "id": "R2",
+   "nome": "Clientes Prospects",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa"
+  },
+  {
+   "id": "R3",
+   "nome": "Ativos com compra entre 7d e 30d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram nos últimos 30 dias, mas estão há mais de 7 dias sem comprar"
+  },
+  {
+   "id": "R4",
+   "nome": "Ativos com compra entre 30d e 60d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram nos últimos 60 dias, mas estão há mais de 30 dias sem comprar",
+   "tratados_antes_por": [
+    "R3"
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Ativos com compra entre 60d e 90d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram nos últimos 90 dias, mas estão há mais de 60 dias sem comprar",
+   "tratados_antes_por": [
+    "R3",
+    "R4"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Clientes inativos",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 90 dias)",
+   "tratados_antes_por": [
+    "R2",
+    "R3",
+    "R4",
+    "R5"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+ ]
+}

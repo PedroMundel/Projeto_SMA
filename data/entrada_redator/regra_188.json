@@ -1,0 +1,127 @@
+{
+ "arquivo": "regra_188.gobr",
+ "comentarios": [
+  "Definição de times:",
+  "Regras de não agendamento",
+  "Regras de agendamento:"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Não agendar inadimplentes",
+  "Não agendar clientes filiais",
+  "Não agendar Baixados na Receita"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Não agendar inadimplentes",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes"
+  },
+  {
+   "id": "R2",
+   "nome": "Não agendar clientes filiais",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "filiais"
+  },
+  {
+   "id": "R3",
+   "nome": "Não agendar Baixados na Receita",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "com situação baixada na Receita Federal"
+  },
+  {
+   "id": "R4",
+   "nome": "Este cliente foi pré-qualificado. Aproveite a oportunidade e ative este novo cliente!",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor"
+  },
+  {
+   "id": "R5",
+   "nome": "Cliente com compra regular e com bom histórico de compra!",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência calculada pelo histórico de compras; se não houver, limitada a no mínimo 7 dias e no máximo 30 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 30 dias e com alguma venda (ativos ou inativos) para o vendedor",
+   "tratados_antes_por": [
+    "R4"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Estimule a regularidade de compra deste cliente, pois ele está entre 30 e 45 dias sem comprar!",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem comprar há mais de 45 dias e com alguma venda (ativos ou inativos) para o vendedor",
+   "tratados_antes_por": [
+    "R4",
+    "R5"
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Atenção!!! Cliente deixando de comprar com você! Ele está entre 45 e 60 dias sem comprar!",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 45 dias, mas estão há mais de 30 dias sem comprar e com alguma venda (ativos ou inativos) para o vendedor",
+   "tratados_antes_por": [
+    "R4",
+    "R5",
+    "R6"
+   ]
+  },
+  {
+   "id": "R8",
+   "nome": "Atenção!!! Resgate este cliente caso ele seja perfil!",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "nunca compraram e com alguma venda (ativos ou inativos) para o vendedor",
+   "tratados_antes_por": [
+    "R4",
+    "R5",
+    "R6",
+    "R7"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'."
+ ]
+}

@@ -1,0 +1,87 @@
+{
+ "arquivo": "regra_240.gobr",
+ "comentarios": [
+  "Definição de times",
+  "Regras de planejamento"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Clientes com compra em 7d"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Clientes com compra em 7d",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "compraram nos últimos 7 dias"
+  },
+  {
+   "id": "R2",
+   "nome": "Manter a regularidade de compra!",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 30 dias, mas estão há mais de 7 dias sem comprar"
+  },
+  {
+   "id": "R3",
+   "nome": "Garantir a positivação da carteira!",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 60 dias, mas estão há mais de 30 dias sem comprar",
+   "tratados_antes_por": [
+    "R2"
+   ]
+  },
+  {
+   "id": "R4",
+   "nome": "Cliente com risco de inatividade!",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 90 dias, mas estão há mais de 60 dias sem comprar",
+   "tratados_antes_por": [
+    "R2",
+    "R3"
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Clientes inativos",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "(nunca compraram ou sem comprar há mais de 90 dias)",
+   "tratados_antes_por": [
+    "R2",
+    "R3",
+    "R4"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

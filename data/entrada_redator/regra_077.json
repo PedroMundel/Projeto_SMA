@@ -1,0 +1,95 @@
+{
+ "arquivo": "regra_077.gobr",
+ "comentarios": [
+  "Definição de times:",
+  "Regras de não agendamento:",
+  "Parâmetros de agendamento:"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Não agendar bloqueados",
+  "Não agendar clientes inadimplentes",
+  "Não agendar clientes com compra nos últimos 30d"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Não agendar bloqueados",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "bloqueados para atendimento"
+  },
+  {
+   "id": "R2",
+   "nome": "Não agendar clientes inadimplentes",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes"
+  },
+  {
+   "id": "R3",
+   "nome": "Não agendar clientes com compra nos últimos 30d",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "compraram nos últimos 30 dias"
+  },
+  {
+   "id": "R4",
+   "nome": "Freq. de 14d para clientes prospects",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa"
+  },
+  {
+   "id": "R5",
+   "nome": "Freq. de 7d para clientes ativos",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e no ciclo de vida ativo com a empresa",
+   "tratados_antes_por": [
+    "R4"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Freq. de 14d para clientes inativos",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e fora do ciclo de vida ativo com a empresa",
+   "tratados_antes_por": [
+    "R4",
+    "R5"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+ ]
+}

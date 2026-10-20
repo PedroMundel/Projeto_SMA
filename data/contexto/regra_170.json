@@ -1,0 +1,283 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_170.gobr",
+  "sha256": "215b3a0564eff22d68849fe47cccf17924ff4375ec302d3404524a071fd070f3",
+  "comentarios": [
+    "Definição de times",
+    "Regras de agendamento"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "todos os vendedores",
+      "definicao": "todos os vendedores",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Não agendar ramo distribuidor com vendas em 60 dias",
+    "Não agendar ativos com vendas em 30 dias"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Ramo distribuidor sem vendas em 60 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time todos os vendedores",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "ramo de atividade igual(\"DISTRIBUIDOR\")",
+          "significado": "ramo de atividade (id) igual a DISTRIBUIDOR",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fora da recencia de positivacao em 60 dias",
+          "significado": "sem comprar há mais de 60 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia quinzenal()",
+          "significado": "frequência quinzenal (15 dias)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar há mais de 60 dias e ramo de atividade (id) igual a DISTRIBUIDOR e ativos para o vendedor",
+      "condicao_efetiva": "sem comprar há mais de 60 dias e ramo de atividade (id) igual a DISTRIBUIDOR e ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        60
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Compra com regularidade",
+      "tipo_bloco": "parametros",
+      "fonte": "do time todos os vendedores",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao global em 10 dias",
+          "significado": "sem comprar com qualquer vendedor da empresa há mais de 10 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "frequencia historica menor que 7 dias",
+          "significado": "frequência histórica de compra de menos de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar com qualquer vendedor da empresa há mais de 10 dias e frequência histórica de compra de menos de 7 dias",
+      "condicao_efetiva": "(sem comprar com qualquer vendedor da empresa há mais de 10 dias e frequência histórica de compra de menos de 7 dias e não ativos para o vendedor) OU (sem comprar com qualquer vendedor da empresa há mais de 10 dias e ramo de atividade (id) diferente de DISTRIBUIDOR e frequência histórica de compra de menos de 7 dias e ativos para o vendedor) OU (sem comprar com qualquer vendedor da empresa há mais de 10 dias e (nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 60 dias) e ramo de atividade (id) igual a DISTRIBUIDOR e frequência histórica de compra de menos de 7 dias e ativos para o vendedor)",
+      "tratados_antes_por": [
+        "R1"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        7,
+        10,
+        21
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Não agendar ramo distribuidor com vendas em 60 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time todos os vendedores",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "ramo de atividade igual(\"DISTRIBUIDOR\")",
+          "significado": "ramo de atividade (id) igual a DISTRIBUIDOR",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "ramo de atividade (id) igual a DISTRIBUIDOR e ativos para o vendedor",
+      "condicao_efetiva": "((nunca compraram com qualquer vendedor da empresa ou compraram com qualquer vendedor da empresa nos últimos 10 dias) e (nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 60 dias) e ramo de atividade (id) igual a DISTRIBUIDOR e ativos para o vendedor) OU (sem comprar com qualquer vendedor da empresa há mais de 10 dias e (nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 60 dias) e ramo de atividade (id) igual a DISTRIBUIDOR e frequência histórica indefinida ou frequência histórica de compra de pelo menos 7 dias e ativos para o vendedor)",
+      "tratados_antes_por": [
+        "R1",
+        "R2"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": [
+        "Bloqueio depois de regras de frequência: clientes já parametrizados por \"Ramo distribuidor sem vendas em 60 dias\", \"Compra com regularidade\" não serão bloqueados por esta regra."
+      ]
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Ativos e sem vendas em 30 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time todos os vendedores",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fora da recencia de positivacao em 30 dias",
+          "significado": "sem comprar há mais de 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia quinzenal()",
+          "significado": "frequência quinzenal (15 dias)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar há mais de 30 dias e ativos para o vendedor",
+      "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 10 dias e sem comprar no grupo de vendedores há mais de 30 dias e ramo de atividade (id) diferente de DISTRIBUIDOR e ativos para o vendedor) OU (sem comprar com qualquer vendedor da empresa há mais de 10 dias e sem comprar no grupo de vendedores há mais de 30 dias e ramo de atividade (id) diferente de DISTRIBUIDOR e frequência histórica indefinida ou frequência histórica de compra de pelo menos 7 dias e ativos para o vendedor)",
+      "tratados_antes_por": [
+        "R1",
+        "R2"
+      ],
+      "bloqueios_anteriores": [
+        "R3"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Não agendar ativos com vendas em 30 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time todos os vendedores",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "ativos para o vendedor",
+      "condicao_efetiva": "((nunca compraram com qualquer vendedor da empresa ou compraram com qualquer vendedor da empresa nos últimos 10 dias) e (nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 30 dias) e ramo de atividade (id) diferente de DISTRIBUIDOR e ativos para o vendedor) OU (sem comprar com qualquer vendedor da empresa há mais de 10 dias e (nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 30 dias) e ramo de atividade (id) diferente de DISTRIBUIDOR e frequência histórica indefinida ou frequência histórica de compra de pelo menos 7 dias e ativos para o vendedor)",
+      "tratados_antes_por": [
+        "R1",
+        "R2",
+        "R4"
+      ],
+      "bloqueios_anteriores": [
+        "R3"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": [
+        "Bloqueio depois de regras de frequência: clientes já parametrizados por \"Ramo distribuidor sem vendas em 60 dias\", \"Compra com regularidade\", \"Ativos e sem vendas em 30 dias\" não serão bloqueados por esta regra."
+      ]
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Clientes inativos e prospects",
+      "tipo_bloco": "parametros",
+      "fonte": "do time todos os vendedores",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia mensal()",
+          "significado": "frequência mensal (30 dias)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "((nunca compraram com qualquer vendedor da empresa ou compraram com qualquer vendedor da empresa nos últimos 10 dias) e não ativos para o vendedor) OU (sem comprar com qualquer vendedor da empresa há mais de 10 dias e frequência histórica indefinida ou frequência histórica de compra de pelo menos 7 dias e não ativos para o vendedor)",
+      "tratados_antes_por": [
+        "R1",
+        "R2",
+        "R4"
+      ],
+      "bloqueios_anteriores": [
+        "R3",
+        "R5"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [
+    "A cascata mistura escopos de recência de compra (global: Compra com regularidade; grupo: Ramo distribuidor sem vendas em 60 dias, Ativos e sem vendas em 30 dias); faixas de escopos diferentes não se excluem automaticamente e podem se sobrepor ou deixar lacunas."
+  ],
+  "numeros_obrigatorios": [
+    7,
+    10,
+    21,
+    30,
+    60
+  ],
+  "numeros_permitidos": [
+    7,
+    10,
+    21,
+    30,
+    60
+  ],
+  "premissas_usadas": [
+    "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+    "P2: Escopos de recência (grupo, vendedor, global) são medidas distintas, ordenadas: global <= grupo <= vendedor.",
+    "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+    "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+  ]
+}

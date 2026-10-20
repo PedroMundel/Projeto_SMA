@@ -1,0 +1,445 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_190.gobr",
+  "sha256": "806a45d3b2c76b11c45ff213f6ff4368cc8580d01a88c4f557d6e0d9c5445cef",
+  "comentarios": [
+    "Regras do time \"Televendas\":"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "Televendas",
+      "definicao": "todos os vendedores habilitados no Govendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [],
+  "bloqueios": [],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Ases: Freq. de 21d para 'PROSPECT: FAZER O PRIMEIRO PEDIDO'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time Televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "no ciclo de vida prospect com a empresa",
+          "significado": "prospects (nunca compraram com qualquer vendedor da empresa)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "nunca compraram com qualquer vendedor da empresa",
+      "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        21
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Ases: Freq. de 10d para 'ATIVADO: BOAS VINDAS AO CLIENTE COM O PRIMEIRO PEDIDO'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time Televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "unica compra com a empresa",
+          "significado": "com uma única compra na empresa",
+          "reconhecida": true
+        },
+        {
+          "codigo": "cadastrado faz 30 dias",
+          "significado": "cadastrados no ERP há pelo menos 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 10 dias",
+          "significado": "frequência de 10 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "cadastrados no ERP há pelo menos 30 dias e com uma única compra na empresa",
+      "condicao_efetiva": "já compraram com qualquer vendedor da empresa e cadastrados no ERP há pelo menos 30 dias e com uma única compra na empresa",
+      "tratados_antes_por": [
+        "R1"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        10,
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Ases: Freq. de 7d para 'EM RUPTURA: RISCO DE INATIVIDADE'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time Televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "adimplentes",
+          "significado": "adimplentes",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao entre 61 dias e 90 dias",
+          "significado": "compraram nos últimos 90 dias, mas estão há pelo menos 61 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 90 dias, mas estão há pelo menos 61 dias sem comprar e adimplentes",
+      "condicao_efetiva": "(compraram nos últimos 90 dias, mas estão há pelo menos 61 dias sem comprar e adimplentes e sem ser de compra única na empresa) OU (compraram nos últimos 90 dias, mas estão há pelo menos 61 dias sem comprar e não (cadastrados no ERP há pelo menos 30 dias) e adimplentes e com uma única compra na empresa)",
+      "tratados_antes_por": [
+        "R2"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        7,
+        61,
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Ases: Freq. de 14d 'INATIVOS: RESGATE DE CLIENTES SEM COMPRA'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time Televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "adimplentes",
+          "significado": "adimplentes",
+          "reconhecida": true
+        },
+        {
+          "codigo": "no ciclo de vida inativo com a empresa",
+          "significado": "no ciclo de vida inativo com a empresa",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "no ciclo de vida inativo com a empresa e adimplentes",
+      "condicao_efetiva": "(já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 60 dias ou sem comprar no grupo de vendedores há mais de 90 dias) e no ciclo de vida inativo com a empresa e adimplentes e sem ser de compra única na empresa) OU (já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 60 dias ou sem comprar no grupo de vendedores há mais de 90 dias) e no ciclo de vida inativo com a empresa e não (cadastrados no ERP há pelo menos 30 dias) e adimplentes e com uma única compra na empresa)",
+      "tratados_antes_por": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Ases: Freq. do histórico para 'ATIVO: COMPRA REGULARMENTE Curva A (com compra no mês)'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time Televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "curva a com a empresa",
+          "significado": "curva A com a empresa",
+          "reconhecida": true
+        },
+        {
+          "codigo": "tem venda no mes",
+          "significado": "com compra no mês atual",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia do historico ou no maximo de 30 dias",
+          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "curva A com a empresa e com compra no mês atual",
+      "condicao_efetiva": null,
+      "tratados_antes_por": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": [
+        "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+      ]
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Ases: Freq. de 7d para 'ATIVO: COMPRA REGULARMENTE Curva A (sem compra no mês)'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time Televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "curva a com a empresa",
+          "significado": "curva A com a empresa",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "curva A com a empresa",
+      "condicao_efetiva": null,
+      "tratados_antes_por": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": [
+        "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+      ]
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Ases: Freq. do histórico para 'ATIVO: COMPRA REGULARMENTE Curva B (com compra no mês)'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time Televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "curva b com a empresa",
+          "significado": "curva B com a empresa",
+          "reconhecida": true
+        },
+        {
+          "codigo": "tem venda no mes",
+          "significado": "com compra no mês atual",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia do historico ou no maximo de 30 dias",
+          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "curva B com a empresa e com compra no mês atual",
+      "condicao_efetiva": null,
+      "tratados_antes_por": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": [
+        "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+      ]
+    },
+    {
+      "id": "R8",
+      "posicao": 8,
+      "nome": "Ases: Freq. de 14d para 'ATIVO: COMPRA REGULARMENTE Curva B (sem compra no mês)'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time Televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "curva b com a empresa",
+          "significado": "curva B com a empresa",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "curva B com a empresa",
+      "condicao_efetiva": null,
+      "tratados_antes_por": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R7"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": [
+        "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+      ]
+    },
+    {
+      "id": "R9",
+      "posicao": 9,
+      "nome": "Ases: Freq. do histórico para 'ATIVO: COMPRA REGULARMENTE Curva C (com compra no mês)'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time Televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "tem venda no mes",
+          "significado": "com compra no mês atual",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia do historico ou no maximo de 30 dias",
+          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "com compra no mês atual",
+      "condicao_efetiva": null,
+      "tratados_antes_por": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R7"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": [
+        "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+      ]
+    },
+    {
+      "id": "R10",
+      "posicao": 10,
+      "nome": "Ases: Freq. de 21d para 'ATIVO: COMPRA REGULARMENTE Curva C (sem compra no mês)'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time Televendas",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": null,
+      "tratados_antes_por": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        21
+      ],
+      "alertas": [
+        "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+      ]
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    7,
+    10,
+    14,
+    21,
+    30,
+    61,
+    90
+  ],
+  "numeros_permitidos": [
+    7,
+    10,
+    14,
+    21,
+    30,
+    61,
+    90
+  ],
+  "premissas_usadas": [
+    "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+  ]
+}

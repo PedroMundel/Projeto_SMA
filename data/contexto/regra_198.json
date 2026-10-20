@@ -1,0 +1,212 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_198.gobr",
+  "sha256": "369f1f725b029b22c3722c9a0b0bce22916848911d31bd37afed16bfc4d6eee0",
+  "comentarios": [
+    "Definição de times",
+    "Parâmetros de agendamento"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "televendas",
+      "definicao": "todos os vendedores de televendas habilitados no Govendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [],
+  "bloqueios": [],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Freq. de 25d para Prospects",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "no ciclo de vida prospect com a empresa",
+          "significado": "prospects (nunca compraram com qualquer vendedor da empresa)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 25 dias",
+          "significado": "frequência de 25 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "nunca compraram com qualquer vendedor da empresa",
+      "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        25
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Freq. de 14d para 'Ativado: Boas vindas ao cliente com primeiro pedido'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "unica compra com a empresa",
+          "significado": "com uma única compra na empresa",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fora da recencia de venda do vendedor em 30 dias",
+          "significado": "sem comprar com o próprio vendedor há mais de 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar com o próprio vendedor há mais de 30 dias e com uma única compra na empresa",
+      "condicao_efetiva": "sem comprar com o próprio vendedor há mais de 30 dias e com uma única compra na empresa",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Freq. do histórico para 'Alta frequência de compra'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao do vendedor em 30 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia do historico ou no minimo de 7 dias e no maximo de 30 dias",
+          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no mínimo 7 dias e no máximo 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 30 dias",
+      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 30 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        7,
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Freq. de 14d para Ativos",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "no ciclo de vida ativo com a empresa",
+          "significado": "no ciclo de vida ativo com a empresa",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "no ciclo de vida ativo com a empresa",
+      "condicao_efetiva": "(já compraram com qualquer vendedor da empresa e (nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 30 dias) e no ciclo de vida ativo com a empresa e sem ser de compra única na empresa) OU (já compraram com qualquer vendedor da empresa e nunca compraram com o próprio vendedor e no ciclo de vida ativo com a empresa e com uma única compra na empresa)",
+      "tratados_antes_por": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Freq. de 21d para Inativos",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "(já compraram com qualquer vendedor da empresa e (nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 30 dias) e fora do ciclo de vida ativo com a empresa e sem ser de compra única na empresa) OU (já compraram com qualquer vendedor da empresa e nunca compraram com o próprio vendedor e fora do ciclo de vida ativo com a empresa e com uma única compra na empresa)",
+      "tratados_antes_por": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        21
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    7,
+    14,
+    21,
+    25,
+    30
+  ],
+  "numeros_permitidos": [
+    7,
+    14,
+    21,
+    25,
+    30
+  ],
+  "premissas_usadas": [
+    "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+    "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+  ]
+}

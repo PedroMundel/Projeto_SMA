@@ -1,0 +1,98 @@
+{
+  "resumo": "Regra de agendamento do time de televendas por tempo desde a última compra e pela frequência histórica de compra, com frequências de 7, 14 e 28 dias. Clientes sem vendas para a empresa têm prioridade semanal, e os que compraram há pouco, os regulares e os parados há mais de 120 dias têm faixas próprias. Não há regras de bloqueio, e a última faixa (mais de 180 dias sem comprar) nunca é aplicada.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Ative essa oportunidade",
+      "segmento": "Sem vendas para a empresa",
+      "criterio": "Clientes sem vendas para a empresa",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Cliente ativado! Crie relacionamento com seu cliente!",
+      "segmento": "Clientes recém-ativados",
+      "criterio": "Clientes que compraram com qualquer vendedor da empresa nos últimos 30 dias e têm uma única compra na empresa",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Clientes que compram mensalmente (clientes regulares)",
+      "segmento": "Clientes regulares (mensais)",
+      "criterio": "Clientes de frequência histórica entre 30 e 30 dias: há mais de 30 dias sem comprar (compra nos últimos 120) ou com mais de uma compra nos últimos 30 dias",
+      "frequencia": "28 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Recência de atendimento igual a recência de compra (clientes que compram mês sim, mês não)",
+      "segmento": "Compram mês sim, mês não",
+      "criterio": "Clientes que compraram nos últimos 30 dias, mas estão há pelo menos 20 dias sem comprar com o próprio vendedor, com frequência histórica indefinida, menor ou maior que 30 dias",
+      "frequencia": "Pelo histórico de compras",
+      "observacao": "Sem histórico, limitada a no máximo 60 dias",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Mantenha seu cliente ativo! Ele está há 120 dias sem comprar com a empresa",
+      "segmento": "Sem comprar há mais de 120 dias",
+      "criterio": "Clientes que estão há mais de 120 dias sem comprar com qualquer vendedor da empresa e já têm alguma venda para a empresa",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Resgate seu cliente inativo! Ele está há mais de 180 dias sem comprar com a empresa",
+      "segmento": "Sem comprar há mais de 180 dias",
+      "criterio": "Clientes que estão há mais de 180 dias sem comprar com qualquer vendedor da empresa",
+      "frequencia": "28 dias",
+      "observacao": "Nunca é aplicada: todos esses clientes já foram tratados antes",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [
+    "A regra 'Resgate seu cliente inativo' nunca é aplicada: todos os clientes dela já são tratados por regras anteriores ('Ative essa oportunidade' e 'Mantenha seu cliente ativo').",
+    "As regras misturam medidas de recência de compra diferentes (da empresa toda e do próprio vendedor), então as faixas podem se sobrepor ou deixar lacunas.",
+    "Clientes que nunca compraram com qualquer vendedor da empresa, ou que compraram nos últimos 120 dias mas estão há mais de 30 dias sem comprar, com frequência histórica indefinida, menor ou maior que 30 dias, não se enquadram em nenhuma regra e ficam sem parametrização. O mesmo vale para quem nunca comprou e tem frequência histórica entre 30 e 30 dias, e para quem comprou nos últimos 30 dias com histórico indefinido ou diferente de 30 dias, mas nunca comprou com o próprio vendedor, comprou com ele há menos de 20 dias ou está há mais de 30 dias sem comprar com ele."
+  ],
+  "consultas_hipoteticas": [
+    "Televendas: sem vendas na empresa a cada 7 dias; compra única nos últimos 30 dias a cada 14 dias; clientes mensais a cada 28 dias; mais de 120 dias sem comprar a cada 14 dias; mais de 180 dias a cada 28 dias",
+    "A gente quer ligar toda semana para quem nunca comprou, de 14 em 14 dias para quem acabou de fazer a primeira compra, e de 28 em 28 dias para quem compra todo mês ou está parado há muito tempo",
+    "Regra do televendas por recência e frequência histórica de compra, com faixas para novos, regulares e inativos"
+  ],
+  "_meta": {
+    "arquivo": "regra_226.gobr",
+    "sha256_gobr": "d0badb40e720e3e2c173e34ad2e607a65806fc91a63216a936cbfbb866781292",
+    "versao_pacote": "1",
+    "prompt_sha256": "fd3b943ec528",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T15:22:22+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_1.json",
+    "concordancia": 0.641
+  }
+}

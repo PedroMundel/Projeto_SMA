@@ -1,0 +1,110 @@
+{
+ "arquivo": "regra_141.gobr",
+ "comentarios": [
+  "Regras padrão",
+  "Regras de curva"
+ ],
+ "times": [
+  {
+   "nome": "todos",
+   "definicao": "todos os vendedores habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Ever Limp: Frequência de 15 dias para clientes ativos curva A",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 15 dias"
+   ],
+   "condicao_efetiva": "curva A com a empresa e ativos para o vendedor"
+  },
+  {
+   "id": "R2",
+   "nome": "Ever Limp: Frequência de 7 dias para clientes inativos curva A",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "curva A com a empresa e não ativos para o vendedor",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R3",
+   "nome": "Ever Limp: Frequência de 21 dias para clientes ativos curva B",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "curva B com a empresa e ativos para o vendedor"
+  },
+  {
+   "id": "R4",
+   "nome": "Ever Limp: Frequência de 14 dias para clientes inativos curva B",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "curva B com a empresa e não ativos para o vendedor",
+   "tratados_antes_por": [
+    "R3"
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Ever Limp: Frequência de 30 dias para clientes ativos curva C",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "curva C com a empresa e ativos para o vendedor"
+  },
+  {
+   "id": "R6",
+   "nome": "Ever Limp: Frequência de 21 dias para clientes inativos curva C",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "curva C com a empresa e não ativos para o vendedor",
+   "tratados_antes_por": [
+    "R5"
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Ever Limp: Frequência de 21 dias para prospects",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "fora da curva A nem B nem C com a empresa",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5",
+    "R6"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+ ]
+}

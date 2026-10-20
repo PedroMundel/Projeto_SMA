@@ -1,0 +1,205 @@
+{
+ "arquivo": "regra_184.gobr",
+ "comentarios": [
+  "Definição de times",
+  "Parâmetros de agendamento time Televendas",
+  "Parâmetros de agendamento time São Paulo",
+  "Regra fallback"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas, exceto os de id 39, 11, 63, 8, 49, 31, 29, 10"
+  },
+  {
+   "nome": "sao_paulo",
+   "definicao": "os vendedores de id 39, 11, 63, 8, 49, 31, 29, 10"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Garantir recorrência de compra",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 5 dias"
+   ],
+   "condicao_efetiva": "com compra no mês atual e com uma única compra na empresa"
+  },
+  {
+   "id": "R2",
+   "nome": "Alta frequência de compra",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência calculada pelo histórico de compras; se não houver, limitada a no mínimo 1 dias e no máximo 5 dias",
+    "dias de atendimento - preferência: segunda, terça; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "(compraram nos últimos 7 dias, mas estão há pelo menos 1 dias sem comprar e sem ser de compra única na empresa) OU (compraram nos últimos 7 dias, mas estão há pelo menos 1 dias sem comprar e não (com compra no mês atual) e com uma única compra na empresa)",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R3",
+   "nome": "Manter regularidade de compra",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência calculada pelo histórico de compras; se não houver, limitada a no mínimo 7 dias e no máximo 12 dias"
+   ],
+   "condicao_efetiva": "(compraram nos últimos 14 dias, mas estão há mais de 7 dias sem comprar e sem ser de compra única na empresa) OU (compraram nos últimos 14 dias, mas estão há mais de 7 dias sem comprar e não (com compra no mês atual) e com uma única compra na empresa)",
+   "tratados_antes_por": [
+    "R1",
+    "R2"
+   ]
+  },
+  {
+   "id": "R4",
+   "nome": "Estimular compra dentro do mês",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência calculada pelo histórico de compras; se não houver, limitada a no mínimo 14 dias e no máximo 28 dias"
+   ],
+   "condicao_efetiva": "(compraram nos últimos 30 dias, mas estão há mais de 14 dias sem comprar e sem ser de compra única na empresa) OU (compraram nos últimos 30 dias, mas estão há mais de 14 dias sem comprar e não (com compra no mês atual) e com uma única compra na empresa)",
+   "tratados_antes_por": [
+    "R1",
+    "R3"
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Gerar relacionamento e estimular compra",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "(compraram nos últimos 90 dias, mas estão há mais de 30 dias sem comprar e sem ser de compra única na empresa) OU (compraram nos últimos 90 dias, mas estão há mais de 30 dias sem comprar e não (com compra no mês atual) e com uma única compra na empresa)",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Resgate de clientes inativos",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "(compraram nos últimos 180 dias, mas estão há mais de 90 dias sem comprar e sem ser de compra única na empresa) OU (compraram nos últimos 180 dias, mas estão há mais de 90 dias sem comprar e não (com compra no mês atual) e com uma única compra na empresa)",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Requalificar perfil e ativar cliente",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "(sem comprar há mais de 360 dias e sem ser de compra única na empresa) OU (sem comprar há mais de 360 dias e não (com compra no mês atual) e com uma única compra na empresa)",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R8",
+   "nome": "Clientes com freq. semanal (Time São Paulo)",
+   "fonte": "do time sao_paulo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias",
+    "dias de atendimento - maior preferência: segunda; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "frequência histórica de compra de 7 dias"
+  },
+  {
+   "id": "R9",
+   "nome": "Clientes com freq. quinzenal (Time São Paulo)",
+   "fonte": "do time sao_paulo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias",
+    "dias de atendimento - maior preferência: segunda; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "frequência histórica de compra de 14 dias"
+  },
+  {
+   "id": "R10",
+   "nome": "Clientes com freq. mensal (Time São Paulo)",
+   "fonte": "do time sao_paulo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias",
+    "dias de atendimento - maior preferência: segunda; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "frequência histórica de compra de 28 dias"
+  },
+  {
+   "id": "R11",
+   "nome": "Clientes com freq. bimestral (Time São Paulo)",
+   "fonte": "do time sao_paulo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 56 dias",
+    "dias de atendimento - maior preferência: segunda; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "frequência histórica de compra de 56 dias"
+  },
+  {
+   "id": "R12",
+   "nome": "Clientes com freq. trimestral (Time São Paulo)",
+   "fonte": "do time sao_paulo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 84 dias",
+    "dias de atendimento - maior preferência: segunda; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "frequência histórica de compra de 84 dias"
+  },
+  {
+   "id": "R13",
+   "nome": "Clientes que não se enquadraram nas demais regras",
+   "fonte": "do time televendas, sao_paulo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "(do time sao_paulo e frequência histórica indefinida ou frequência histórica de compra de menos de 7 dias ou frequência histórica de compra entre 8 e 13 dias ou frequência histórica de compra entre 15 e 27 dias ou frequência histórica de compra entre 29 e 55 dias ou frequência histórica de compra entre 57 e 83 dias ou frequência histórica de compra de mais de 84 dias) OU (do time televendas e (nunca compraram ou compraram nos últimos 0 dias ou compraram nos últimos 360 dias, mas estão há mais de 180 dias sem comprar) e sem ser de compra única na empresa) OU (do time televendas e (nunca compraram ou compraram nos últimos 0 dias ou compraram nos últimos 360 dias, mas estão há mais de 180 dias sem comprar) e não (com compra no mês atual) e com uma única compra na empresa)",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9",
+    "R10",
+    "R11",
+    "R12"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+ ]
+}

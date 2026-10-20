@@ -1,0 +1,706 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_160.gobr",
+  "sha256": "9dc5c53b3f2fa95e7a64d3d4286da2083e9a9816c04c6a50faf67c7071fe56c5",
+  "comentarios": [
+    "Definição de times",
+    "PARÂMETROS POR PERFIL E ROTA",
+    "PARÂMETROS SOMENTE POR PERFIL",
+    "Específicos para o time \"vendedores_prospects\"",
+    "Específicos para o time \"vendedores_ativos\"",
+    "Para todos"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "vendedores_ativos",
+      "definicao": "todos os vendedores de televendas habilitados no Govendas, exceto os de id 2136, 2179, 2134, 1865",
+      "filtros": []
+    },
+    {
+      "id": "T2",
+      "nome": "vendedores_prospects",
+      "definicao": "os vendedores de id 2136, 2179, 2134, 1865",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [],
+  "bloqueios": [],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Fechamento de Rota e Sem Atendimento há 3 dias - Primeira Compra",
+      "tipo_bloco": "parametros",
+      "fonte": "do time vendedores_ativos, vendedores_prospects",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "pessoa juridica",
+          "significado": "pessoa jurídica",
+          "reconhecida": true
+        },
+        {
+          "codigo": "data da rota nos proximos 1 dia",
+          "significado": "com data de rota nos próximos 1 dia",
+          "reconhecida": true
+        },
+        {
+          "codigo": "sem venda do vendedor",
+          "significado": "sem vendas para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de visita entre 4 dias e 3000 dias",
+          "significado": "foram visitados nos últimos 3000 dias, mas estão há pelo menos 4 dias sem receber visita",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 1 dia",
+          "significado": "frequência de 1 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "foram visitados nos últimos 3000 dias, mas estão há mais de 3 dias sem receber visita e com data de rota nos próximos 1 dia e pessoa jurídica e sem vendas para o vendedor",
+      "condicao_efetiva": "foram visitados nos últimos 3000 dias, mas estão há mais de 3 dias sem receber visita e com data de rota nos próximos 1 dia e pessoa jurídica e sem vendas para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        1,
+        4,
+        3000
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Fechamento de Rota e Sem Atendimento há 3 dias - Estimular Regularidade de Compra",
+      "tipo_bloco": "parametros",
+      "fonte": "do time vendedores_ativos, vendedores_prospects",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "pessoa juridica",
+          "significado": "pessoa jurídica",
+          "reconhecida": true
+        },
+        {
+          "codigo": "data da rota nos proximos 1 dia",
+          "significado": "com data de rota nos próximos 1 dia",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de visita entre 4 dias e 3000 dias",
+          "significado": "foram visitados nos últimos 3000 dias, mas estão há pelo menos 4 dias sem receber visita",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao do vendedor entre 31 dias e 60 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 60 dias, mas estão há pelo menos 31 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 1 dia",
+          "significado": "frequência de 1 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e foram visitados nos últimos 3000 dias, mas estão há mais de 3 dias sem receber visita e com data de rota nos próximos 1 dia e pessoa jurídica",
+      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e foram visitados nos últimos 3000 dias, mas estão há mais de 3 dias sem receber visita e com data de rota nos próximos 1 dia e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R1"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        1,
+        4,
+        31,
+        60,
+        3000
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Fechamento de Rota e Sem Atendimento há 3 dias - Risco de inatividade",
+      "tipo_bloco": "parametros",
+      "fonte": "do time vendedores_ativos, vendedores_prospects",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "pessoa juridica",
+          "significado": "pessoa jurídica",
+          "reconhecida": true
+        },
+        {
+          "codigo": "data da rota nos proximos 1 dia",
+          "significado": "com data de rota nos próximos 1 dia",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de visita entre 4 dias e 3000 dias",
+          "significado": "foram visitados nos últimos 3000 dias, mas estão há pelo menos 4 dias sem receber visita",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao do vendedor entre 61 dias e 90 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 90 dias, mas estão há pelo menos 61 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 1 dia",
+          "significado": "frequência de 1 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e foram visitados nos últimos 3000 dias, mas estão há mais de 3 dias sem receber visita e com data de rota nos próximos 1 dia e pessoa jurídica",
+      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e foram visitados nos últimos 3000 dias, mas estão há mais de 3 dias sem receber visita e com data de rota nos próximos 1 dia e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R1"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        1,
+        4,
+        61,
+        90,
+        3000
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Fechamento de Rota e Sem Atendimento há 3 dias - Compra regularmente",
+      "tipo_bloco": "parametros",
+      "fonte": "do time vendedores_ativos, vendedores_prospects",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "pessoa juridica",
+          "significado": "pessoa jurídica",
+          "reconhecida": true
+        },
+        {
+          "codigo": "data da rota nos proximos 1 dia",
+          "significado": "com data de rota nos próximos 1 dia",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de visita entre 4 dias e 3000 dias",
+          "significado": "foram visitados nos últimos 3000 dias, mas estão há pelo menos 4 dias sem receber visita",
+          "reconhecida": true
+        },
+        {
+          "codigo": "atividade do vendedor de 30 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 1 dia",
+          "significado": "frequência de 1 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 30 dias e foram visitados nos últimos 3000 dias, mas estão há mais de 3 dias sem receber visita e com data de rota nos próximos 1 dia e pessoa jurídica",
+      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 30 dias e foram visitados nos últimos 3000 dias, mas estão há mais de 3 dias sem receber visita e com data de rota nos próximos 1 dia e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R1"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        1,
+        4,
+        30,
+        3000
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Fechamento de Rota e Sem Atendimento há 3 dias - Resgate de cliente sem compra",
+      "tipo_bloco": "parametros",
+      "fonte": "do time vendedores_ativos, vendedores_prospects",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "pessoa juridica",
+          "significado": "pessoa jurídica",
+          "reconhecida": true
+        },
+        {
+          "codigo": "data da rota nos proximos 1 dia",
+          "significado": "com data de rota nos próximos 1 dia",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de visita entre 4 dias e 3000 dias",
+          "significado": "foram visitados nos últimos 3000 dias, mas estão há pelo menos 4 dias sem receber visita",
+          "reconhecida": true
+        },
+        {
+          "codigo": "inativos para o vendedor",
+          "significado": "inativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 1 dia",
+          "significado": "frequência de 1 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "foram visitados nos últimos 3000 dias, mas estão há mais de 3 dias sem receber visita e com data de rota nos próximos 1 dia e pessoa jurídica e inativos para o vendedor",
+      "condicao_efetiva": "(nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 90 dias) e foram visitados nos últimos 3000 dias, mas estão há mais de 3 dias sem receber visita e com data de rota nos próximos 1 dia e pessoa jurídica e inativos para o vendedor",
+      "tratados_antes_por": [
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        1,
+        4,
+        3000
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Fechamento de Rota e Sem Atendimento há 3 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time vendedores_ativos, vendedores_prospects",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "pessoa juridica",
+          "significado": "pessoa jurídica",
+          "reconhecida": true
+        },
+        {
+          "codigo": "data da rota nos proximos 1 dia",
+          "significado": "com data de rota nos próximos 1 dia",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de visita entre 4 dias e 3000 dias",
+          "significado": "foram visitados nos últimos 3000 dias, mas estão há pelo menos 4 dias sem receber visita",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 1 dia",
+          "significado": "frequência de 1 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "foram visitados nos últimos 3000 dias, mas estão há mais de 3 dias sem receber visita e com data de rota nos próximos 1 dia e pessoa jurídica",
+      "condicao_efetiva": "(nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 90 dias) e foram visitados nos últimos 3000 dias, mas estão há mais de 3 dias sem receber visita e com data de rota nos próximos 1 dia e pessoa jurídica e ativos para o vendedor",
+      "tratados_antes_por": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        1,
+        4,
+        3000
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Primeira Compra (Vendedores Prospects)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time vendedores_prospects",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "pessoa juridica",
+          "significado": "pessoa jurídica",
+          "reconhecida": true
+        },
+        {
+          "codigo": "sem venda do vendedor",
+          "significado": "sem vendas para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "pessoa jurídica e sem vendas para o vendedor",
+      "condicao_efetiva": "(não (com data de rota nos próximos 1 dia) e pessoa jurídica e sem vendas para o vendedor) OU ((nunca foram visitados ou foram visitados nos últimos 3 dias ou sem receber visita há mais de 3000 dias) e com data de rota nos próximos 1 dia e pessoa jurídica e sem vendas para o vendedor)",
+      "tratados_antes_por": [
+        "R1"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R8",
+      "posicao": 8,
+      "nome": "Primeira Compra (Vendedores Ativos)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time vendedores_ativos",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "pessoa juridica",
+          "significado": "pessoa jurídica",
+          "reconhecida": true
+        },
+        {
+          "codigo": "sem venda do vendedor",
+          "significado": "sem vendas para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "pessoa jurídica e sem vendas para o vendedor",
+      "condicao_efetiva": "(não (com data de rota nos próximos 1 dia) e pessoa jurídica e sem vendas para o vendedor) OU ((nunca foram visitados ou foram visitados nos últimos 3 dias ou sem receber visita há mais de 3000 dias) e com data de rota nos próximos 1 dia e pessoa jurídica e sem vendas para o vendedor)",
+      "tratados_antes_por": [
+        "R1"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R9",
+      "posicao": 9,
+      "nome": "Risco de inatividade",
+      "tipo_bloco": "parametros",
+      "fonte": "do time vendedores_ativos, vendedores_prospects",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "pessoa juridica",
+          "significado": "pessoa jurídica",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao do vendedor entre 61 dias e 90 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 90 dias, mas estão há pelo menos 61 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e pessoa jurídica",
+      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e não (com data de rota nos próximos 1 dia) e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor) OU (compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e (nunca foram visitados ou foram visitados nos últimos 3 dias ou sem receber visita há mais de 3000 dias) e com data de rota nos próximos 1 dia e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor)",
+      "tratados_antes_por": [
+        "R1",
+        "R3",
+        "R7",
+        "R8"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        7,
+        61,
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R10",
+      "posicao": 10,
+      "nome": "Estimular a regularidade de compra",
+      "tipo_bloco": "parametros",
+      "fonte": "do time vendedores_ativos, vendedores_prospects",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "pessoa juridica",
+          "significado": "pessoa jurídica",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao do vendedor entre 31 dias e 60 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 60 dias, mas estão há pelo menos 31 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e pessoa jurídica",
+      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e não (com data de rota nos próximos 1 dia) e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor) OU (compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e (nunca foram visitados ou foram visitados nos últimos 3 dias ou sem receber visita há mais de 3000 dias) e com data de rota nos próximos 1 dia e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor)",
+      "tratados_antes_por": [
+        "R1",
+        "R2",
+        "R7",
+        "R8"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        31,
+        60
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R11",
+      "posicao": 11,
+      "nome": "Compra regularmente",
+      "tipo_bloco": "parametros",
+      "fonte": "do time vendedores_ativos, vendedores_prospects",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "pessoa juridica",
+          "significado": "pessoa jurídica",
+          "reconhecida": true
+        },
+        {
+          "codigo": "atividade do vendedor de 30 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 30 dias e pessoa jurídica",
+      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 30 dias e não (com data de rota nos próximos 1 dia) e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor) OU (compraram com o próprio vendedor nos últimos 30 dias e (nunca foram visitados ou foram visitados nos últimos 3 dias ou sem receber visita há mais de 3000 dias) e com data de rota nos próximos 1 dia e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor)",
+      "tratados_antes_por": [
+        "R1",
+        "R4",
+        "R7",
+        "R8"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R12",
+      "posicao": 12,
+      "nome": "Resgate de cliente sem compra",
+      "tipo_bloco": "parametros",
+      "fonte": "do time vendedores_ativos, vendedores_prospects",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "pessoa juridica",
+          "significado": "pessoa jurídica",
+          "reconhecida": true
+        },
+        {
+          "codigo": "inativos para o vendedor",
+          "significado": "inativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "pessoa jurídica e inativos para o vendedor",
+      "condicao_efetiva": "((nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 90 dias) e não (com data de rota nos próximos 1 dia) e pessoa jurídica e inativos para o vendedor) OU ((nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 90 dias) e (nunca foram visitados ou foram visitados nos últimos 3 dias ou sem receber visita há mais de 3000 dias) e com data de rota nos próximos 1 dia e pessoa jurídica e inativos para o vendedor)",
+      "tratados_antes_por": [
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R9",
+        "R10",
+        "R11"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        21
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R13",
+      "posicao": 13,
+      "nome": "Pessoa Física",
+      "tipo_bloco": "parametros",
+      "fonte": "do time vendedores_ativos, vendedores_prospects",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "pessoa fisica",
+          "significado": "pessoa física",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "pessoa física",
+      "condicao_efetiva": "pessoa física",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R14",
+      "posicao": 14,
+      "nome": "Pessoa Física/Jurídica (indefinido)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time vendedores_ativos, vendedores_prospects",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "((nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 90 dias) e não (com data de rota nos próximos 1 dia) e pessoa jurídica e ativos para o vendedor) OU ((nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 90 dias) e (nunca foram visitados ou foram visitados nos últimos 3 dias ou sem receber visita há mais de 3000 dias) e com data de rota nos próximos 1 dia e pessoa jurídica e ativos para o vendedor)",
+      "tratados_antes_por": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    1,
+    4,
+    7,
+    14,
+    21,
+    30,
+    31,
+    60,
+    61,
+    90,
+    3000
+  ],
+  "numeros_permitidos": [
+    1,
+    3,
+    4,
+    7,
+    14,
+    21,
+    30,
+    31,
+    60,
+    61,
+    90,
+    1865,
+    2134,
+    2136,
+    2179,
+    3000
+  ],
+  "premissas_usadas": [
+    "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+    "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado.",
+    "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+  ]
+}

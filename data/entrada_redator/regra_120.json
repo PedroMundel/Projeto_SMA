@@ -1,0 +1,230 @@
+{
+ "arquivo": "regra_120.gobr",
+ "comentarios": [
+  "Regras para televendas",
+  "Regras Capital",
+  "Regras para interior"
+ ],
+ "times": [
+  {
+   "nome": "Yasmim",
+   "definicao": "os vendedores de id 12"
+  },
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas, exceto os de id 12"
+  },
+  {
+   "nome": "interior",
+   "definicao": "os vendedores de id 2, 3, 12"
+  },
+  {
+   "nome": "capital",
+   "definicao": "os vendedores de id 5, 17, 18"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "televendas",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": []
+  },
+  {
+   "id": "C2",
+   "nome": "interior",
+   "definicao": "carteira fixa dos vendedores do time interior",
+   "filtros": []
+  },
+  {
+   "id": "C3",
+   "nome": "capital",
+   "definicao": "carteira fixa dos vendedores do time capital",
+   "filtros": []
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Regra Padrao da IdealPet: Nao agendar clientes de carteira propria para RCA 12",
+  "Regra Padrao da IdelPet - Customizavel: 30 dias para clientes inativos inadimplentes (capital)",
+  "Regra Padrao da IdealPet - Customizavel: clientes inativos inadimplentes (interior)"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Regra Padrao da IdealPet: Nao agendar clientes de carteira propria para RCA 12",
+   "fonte": "do time Yasmim",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "todos os clientes"
+  },
+  {
+   "id": "R2",
+   "nome": "Regra Padrao da IdealPet - Customizavel: 14 dias para clientes ativos (televendas)",
+   "fonte": "da carteira televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "ativos para o vendedor"
+  },
+  {
+   "id": "R3",
+   "nome": "Regra Padrao da IdealPet - Customizavel: 30 dias para clientes inativos (televendas)",
+   "fonte": "da carteira televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "inativos para o vendedor"
+  },
+  {
+   "id": "R4",
+   "nome": "Regra Padrao da IdealPet - Customizavel: 7 dias para clientes sem venda (televendas)",
+   "fonte": "da carteira televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor"
+  },
+  {
+   "id": "R5",
+   "nome": "Regra Padrao da IdelPet - Customizavel: 20 dias para clientes ativos adimplentes (capital)",
+   "fonte": "da carteira capital",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 20 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "adimplentes e ativos para o vendedor"
+  },
+  {
+   "id": "R6",
+   "nome": "Regra Padrao da IdelPet - Customizavel: 20 dias para clientes ativos inadimplentes (capital)",
+   "fonte": "da carteira capital",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 20 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "inadimplentes e ativos para o vendedor"
+  },
+  {
+   "id": "R7",
+   "nome": "Regra Padrao da IdelPet - Customizavel: 30 dias para clientes inativos adimplentes (capital)",
+   "fonte": "da carteira capital",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "adimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R8",
+   "nome": "Regra Padrao da IdelPet - Customizavel: 14 dias para clientes sem venda (capital)",
+   "fonte": "da carteira capital",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor",
+   "alertas": [
+    "O nome da regra cita 14 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+   ]
+  },
+  {
+   "id": "R9",
+   "nome": "Regra Padrao da IdelPet - Customizavel: 30 dias para clientes inativos inadimplentes (capital)",
+   "fonte": "da carteira capital",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes e inativos para o vendedor",
+   "alertas": [
+    "O nome da regra cita 30 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+   ]
+  },
+  {
+   "id": "R10",
+   "nome": "Regra Padrao da IdealPet - Customizavel: 21 dias para clientes ativos (interior)",
+   "fonte": "da carteira interior",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "ativos para o vendedor"
+  },
+  {
+   "id": "R11",
+   "nome": "Regra Padrao da IdealPet - Customizavel: 21 dias para clientes inativos adimplentes (interior)",
+   "fonte": "da carteira interior",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "adimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R12",
+   "nome": "Regra Padrao da IdealPet - Customizavel: 30 dias para clientes inativos inadimplentes (interior)",
+   "fonte": "da carteira interior",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 42 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "inadimplentes e inativos para o vendedor",
+   "alertas": [
+    "O nome da regra cita 30 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+   ]
+  },
+  {
+   "id": "R13",
+   "nome": "Regra Padrao da IdealPet - Customizavel: 38 dias para clientes sem venda (interior)",
+   "fonte": "da carteira interior",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 38 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor"
+  },
+  {
+   "id": "R14",
+   "nome": "Regra Padrao da IdealPet - Customizavel: clientes inativos inadimplentes (interior)",
+   "fonte": "da carteira interior",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "inadimplentes e inativos para o vendedor",
+   "tratados_antes_por": [
+    "R12"
+   ],
+   "inalcancavel": true,
+   "alertas": [
+    "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Regra Padrao da IdealPet - Customizavel: 30 dias para clientes inativos inadimplentes (interior)\".",
+    "Bloqueio depois de regras de frequência: clientes já parametrizados por \"Regra Padrao da IdealPet - Customizavel: 30 dias para clientes inativos inadimplentes (interior)\" não serão bloqueados por esta regra."
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores.",
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

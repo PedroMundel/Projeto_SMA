@@ -1,0 +1,79 @@
+{
+ "arquivo": "V1Vidros-RegraComercial.gobr",
+ "comentarios": [
+  "TIMES",
+  "BLOQUEIOS",
+  "REGRAS DE PARAMETRIZAÇÕES"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Nao agendar baixados receita"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Nao agendar baixados receita",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "com situação baixada na Receita Federal"
+  },
+  {
+   "id": "R2",
+   "nome": "Clientes Ativos",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 30 dias"
+  },
+  {
+   "id": "R3",
+   "nome": "Risco de Inatividade",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 45 dias, mas estão há mais de 30 dias sem comprar"
+  },
+  {
+   "id": "R4",
+   "nome": "Inativos",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem comprar há mais de 45 dias"
+  },
+  {
+   "id": "R5",
+   "nome": "Clientes Prospects",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa"
+  }
+ ],
+ "nao_cobertos": {
+  "do time televendas": "já compraram com qualquer vendedor da empresa e nunca compraram no grupo de vendedores"
+ },
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+ ]
+}

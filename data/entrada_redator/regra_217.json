@@ -1,0 +1,46 @@
+{
+ "arquivo": "regra_217.gobr",
+ "comentarios": [
+  "Definição de times",
+  "Regras de planejamento"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Fazer relacionamento com o cliente",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "com uma única compra com o vendedor"
+  },
+  {
+   "id": "R2",
+   "nome": "Manter a regularidade de compra",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência calculada pelo histórico de compras; se não houver, limitada a no mínimo 14 dias e no máximo 28 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 30 dias, mas estão há pelo menos 7 dias sem comprar e sem ser de compra única com o vendedor",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  }
+ ],
+ "nao_cobertos": {
+  "do time televendas": "(nunca compraram ou compraram nos últimos 6 dias ou sem comprar há mais de 30 dias) e sem ser de compra única com o vendedor"
+ },
+ "alertas_do_arquivo": [],
+ "premissas_usadas": []
+}

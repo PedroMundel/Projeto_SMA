@@ -1,0 +1,86 @@
+{
+ "arquivo": "regra_223.gobr",
+ "comentarios": [
+  "Definição de times",
+  "Definição de regras"
+ ],
+ "times": [
+  {
+   "nome": "ativacao",
+   "definicao": "os vendedores de id 970, 967, 973, 974"
+  },
+  {
+   "nome": "generalista",
+   "definicao": "os vendedores de id 511, 803, 510, 906, 507, 506, 606, 925, 904, 907, 536, 927, 964, 521"
+  },
+  {
+   "nome": "construtora",
+   "definicao": "os vendedores de id 956, 954, 958, 971, 520"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Cliente com compra na semana corrente (Entre seg. e sex)"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Cliente com pedido nos últimos 30 dias",
+   "fonte": "do time ativacao",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 30 dias"
+  },
+  {
+   "id": "R2",
+   "nome": "Cliente sem pedido nos últimos 30 dias",
+   "fonte": "do time ativacao",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 15 dias"
+   ],
+   "condicao_efetiva": "(nunca compraram ou sem comprar há mais de 30 dias)",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R3",
+   "nome": "Cliente com compra na semana corrente (Entre seg. e sex)",
+   "fonte": "do time generalista",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "com compra na semana atual"
+  },
+  {
+   "id": "R4",
+   "nome": "Cliente semanal - padrão",
+   "fonte": "do time generalista",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "todos os clientes"
+  },
+  {
+   "id": "R5",
+   "nome": "Todos os clientes",
+   "fonte": "do time construtora",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "todos os clientes"
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+ ]
+}

@@ -1,0 +1,135 @@
+{
+ "arquivo": "regra_175.gobr",
+ "comentarios": [
+  "Definição de Times",
+  "Definição de carteiras por ramo de atividade",
+  "Parâmetros de atendimento"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "activity_in",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": [
+    "ramo de atividade (id) em: 1, 18, 2, 23, 3, 4 e mais 1"
+   ],
+   "livre": true
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Não agendar clientes filiais",
+  "Não agendar clientes inadimplentes",
+  "Não agendar clientes com compra em 30d",
+  "Não agendar clientes fora das regras solicitadas"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Não agendar clientes filiais",
+   "fonte": "da carteira activity_in",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "filiais"
+  },
+  {
+   "id": "R2",
+   "nome": "Não agendar clientes inadimplentes",
+   "fonte": "da carteira activity_in",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes"
+  },
+  {
+   "id": "R3",
+   "nome": "Não agendar clientes com compra em 30d",
+   "fonte": "da carteira activity_in",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "compraram nos últimos 30 dias"
+  },
+  {
+   "id": "R4",
+   "nome": "Clientes ativos na empresa",
+   "fonte": "da carteira activity_in",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "ativos para a empresa"
+  },
+  {
+   "id": "R5",
+   "nome": "Clientes inativos na empresa",
+   "fonte": "da carteira activity_in",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "inativos para a empresa"
+  },
+  {
+   "id": "R6",
+   "nome": "Clientes que compraram em 2024 e estão sem vendas em 2025",
+   "fonte": "da carteira activity_in",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "com compra com a empresa no ano anterior e sem compra com a empresa no ano atual e sem vendas para a empresa",
+   "tratados_antes_por": [
+    "R4",
+    "R5"
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Clientes que compraram em 2023 e não compraram mais",
+   "fonte": "da carteira activity_in",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "(não (com compra com a empresa no ano anterior) e com compra no intervalo entre <d0> e <d1> e sem vendas para a empresa) OU (com compra com a empresa no ano anterior e com compra no intervalo entre <d0> e <d1> e não (sem compra com a empresa no ano atual) e sem vendas para a empresa)",
+   "tratados_antes_por": [
+    "R4",
+    "R5",
+    "R6"
+   ]
+  },
+  {
+   "id": "R8",
+   "nome": "Não agendar clientes fora das regras solicitadas",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "(fora da carteira activity_in) OU (da carteira activity_in e não (com compra com a empresa no ano anterior) e não (com compra no intervalo entre <d0> e <d1>) e sem vendas para a empresa) OU (da carteira activity_in e com compra com a empresa no ano anterior e não (com compra no intervalo entre <d0> e <d1>) e não (sem compra com a empresa no ano atual) e sem vendas para a empresa)",
+   "tratados_antes_por": [
+    "R4",
+    "R5",
+    "R6",
+    "R7"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

@@ -1,0 +1,157 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_065.gobr",
+  "sha256": "b91ab1981da608c8bf3dcefaba34af60ce9649ceb792efb4622cc37dcdde44ca",
+  "comentarios": [
+    "Regras para Evermax"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "time televendas",
+      "definicao": "todos os vendedores de televendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "televendas",
+      "definicao": "carteira fixa dos vendedores do time time televendas",
+      "filtros": [],
+      "livre": false,
+      "exceto_alocados_em": []
+    }
+  ],
+  "segmentacoes": [],
+  "bloqueios": [],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Regra Padrao da Empresa Customizavel: quinzenal para clientes que compram até 30 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "atividade de 30 dias",
+          "significado": "compraram nos últimos 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 30 dias",
+      "condicao_efetiva": "compraram nos últimos 30 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Regra Padrao da Empresa Customizavel: mensal para clientes que não compram a mais de 30 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inatividade de 30 dias",
+          "significado": "sem comprar há pelo menos 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 28 dias",
+          "significado": "frequência de 28 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar há pelo menos 30 dias",
+      "condicao_efetiva": "sem comprar há mais de 30 dias",
+      "tratados_antes_por": [
+        "R1"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        28,
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Regra Padrao da Empresa Customizavel: mensal para clientes que nunca comprou",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira televendas",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 28 dias",
+          "significado": "frequência de 28 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "nunca compraram",
+      "tratados_antes_por": [
+        "R1",
+        "R2"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        28
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    14,
+    28,
+    30
+  ],
+  "numeros_permitidos": [
+    14,
+    28,
+    30
+  ],
+  "premissas_usadas": [
+    "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+  ]
+}

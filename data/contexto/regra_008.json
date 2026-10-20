@@ -1,0 +1,188 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_008.gobr",
+  "sha256": "3106789d3aa8f6000be3c1bc96d3c768b150fe79872aee505c0a5ac7ef252ad6",
+  "comentarios": [
+    "REGRAS TIME EXTERNO CAPITAL",
+    "REGRAS TIME EXTERNO INTERIOR"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "time interior",
+      "definicao": "os vendedores de id 35, 34",
+      "filtros": []
+    },
+    {
+      "id": "T2",
+      "nome": "time capital",
+      "definicao": "todos os vendedores de campo, exceto os de id 35, 34",
+      "filtros": []
+    }
+  ],
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "carteira capital",
+      "definicao": "carteira fixa dos vendedores do time time capital",
+      "filtros": [],
+      "livre": false,
+      "exceto_alocados_em": []
+    },
+    {
+      "id": "C2",
+      "nome": "carteira interior",
+      "definicao": "carteira fixa dos vendedores do time time interior",
+      "filtros": [],
+      "livre": false,
+      "exceto_alocados_em": []
+    }
+  ],
+  "segmentacoes": [],
+  "bloqueios": [],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Regra Padrao da NB PI Customizavel: 14 dias para adimplentes (Capital)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira capital",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "adimplentes",
+          "significado": "adimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "adimplentes",
+      "condicao_efetiva": "adimplentes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Regra Padrao da NB PI Customizavel: 14 dias para clientes sem venda (Capital)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira capital",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "sem venda",
+          "significado": "sem vendas para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem vendas para o vendedor",
+      "condicao_efetiva": "inadimplentes e sem vendas para o vendedor",
+      "tratados_antes_por": [
+        "R1"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Regra Padrao da NB PI Customizavel: 30 dias para inadimplentes (Capital)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira capital",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "inadimplentes",
+      "condicao_efetiva": "inadimplentes e com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R2"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Regra Padrao da NB PI Customizavel: 30 dias para todos os clientes (Interior)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira interior",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "todos os clientes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    14,
+    30
+  ],
+  "numeros_permitidos": [
+    14,
+    30,
+    34,
+    35
+  ],
+  "premissas_usadas": [
+    "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+    "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores.",
+    "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+  ]
+}

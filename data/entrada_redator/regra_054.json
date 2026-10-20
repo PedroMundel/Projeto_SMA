@@ -1,0 +1,69 @@
+{
+ "arquivo": "regra_054.gobr",
+ "comentarios": [],
+ "times": [
+  {
+   "nome": "empresa toda",
+   "definicao": "todos os vendedores"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "empresa toda",
+   "definicao": "carteira fixa dos vendedores do time empresa toda",
+   "filtros": []
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Regra Padrao da Empresa Customizavel: Não agendar inadimplentes"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Regra Padrao da Empresa Customizavel: 14 dias para clientes sem venda",
+   "fonte": "da carteira empresa toda",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor"
+  },
+  {
+   "id": "R2",
+   "nome": "Regra Padrao da Empresa Customizavel: 30 dias para adimplentes",
+   "fonte": "da carteira empresa toda",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "adimplentes e com alguma venda (ativos ou inativos) para o vendedor",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R3",
+   "nome": "Regra Padrao da Empresa Customizavel: Não agendar inadimplentes",
+   "fonte": "da carteira empresa toda",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes e com alguma venda (ativos ou inativos) para o vendedor",
+   "tratados_antes_por": [
+    "R1"
+   ],
+   "alertas": [
+    "Bloqueio depois de regras de frequência: clientes já parametrizados por \"Regra Padrao da Empresa Customizavel: 14 dias para clientes sem venda\" não serão bloqueados por esta regra."
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

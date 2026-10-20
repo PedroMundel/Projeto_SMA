@@ -1,0 +1,538 @@
+{
+ "arquivo": "regra_140.gobr",
+ "comentarios": [
+  "Definição de times",
+  "Definição de carteiras",
+  "Parâmetros de não agendamento",
+  "Parâmetros de agendamento para rotas em dias variáveis (seg a sex)",
+  "Parâmetros de agendamento para rotas fixas em dias específicos",
+  "Segunda (Rotas 003 e 004)",
+  "Terça (Rota 005)",
+  "Quarta (Rota 006)",
+  "Sexta (Rota 007)",
+  "Sem rota mapeada"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "rotas_dias_variaveis",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": [
+    "código da rota em: 10, 11, 8, 9"
+   ]
+  },
+  {
+   "id": "C2",
+   "nome": "rotas 3 e 4",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": [
+    "código da rota em: 3, 4"
+   ],
+   "exceto_alocados_em": [
+    "rotas_dias_variaveis"
+   ]
+  },
+  {
+   "id": "C3",
+   "nome": "rota 5",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": [
+    "código da rota igual a 5"
+   ],
+   "exceto_alocados_em": [
+    "rotas_dias_variaveis",
+    "rotas 3 e 4"
+   ]
+  },
+  {
+   "id": "C4",
+   "nome": "rota 6",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": [
+    "código da rota igual a 6"
+   ],
+   "exceto_alocados_em": [
+    "rotas_dias_variaveis",
+    "rotas 3 e 4",
+    "rota 5"
+   ]
+  },
+  {
+   "id": "C5",
+   "nome": "rota 7",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": [
+    "código da rota igual a 7"
+   ],
+   "exceto_alocados_em": [
+    "rotas_dias_variaveis",
+    "rotas 3 e 4",
+    "rota 5",
+    "rota 6"
+   ]
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Não agendar CPF",
+  "Não agendar Filiais",
+  "Não agendar Inadimplentes",
+  "Não agendar com visita recente"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Não agendar CPF",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "pessoa física"
+  },
+  {
+   "id": "R2",
+   "nome": "Não agendar Filiais",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "filiais"
+  },
+  {
+   "id": "R3",
+   "nome": "Não agendar Inadimplentes",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes"
+  },
+  {
+   "id": "R4",
+   "nome": "Não agendar com visita recente",
+   "fonte": "da carteira rotas_dias_variaveis, rotas 3 e 4, rota 5, rota 6, rota 7",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "foram visitados nos últimos 3 dias"
+  },
+  {
+   "id": "R5",
+   "nome": "Rotas 008, 009, 010 e 011 - Primeira compra",
+   "fonte": "da carteira rotas_dias_variaveis",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor"
+  },
+  {
+   "id": "R6",
+   "nome": "Rotas 008, 009, 010 e 011 - Compra regularmente",
+   "fonte": "da carteira rotas_dias_variaveis",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)"
+   ],
+   "condicao_efetiva": "compraram com o próprio vendedor nos últimos 21 dias e com alguma venda (ativos ou inativos) para o vendedor",
+   "tratados_antes_por": [
+    "R5"
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Rotas 008, 009, 010 e 011 - Estimular a regularidade de compra",
+   "fonte": "da carteira rotas_dias_variaveis",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)"
+   ],
+   "condicao_efetiva": "compraram no grupo de vendedores nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar e (nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 21 dias) e com alguma venda (ativos ou inativos) para o vendedor",
+   "tratados_antes_por": [
+    "R5",
+    "R6"
+   ]
+  },
+  {
+   "id": "R8",
+   "nome": "Rotas 008, 009, 010 e 011 - Risco de inatividade",
+   "fonte": "da carteira rotas_dias_variaveis",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)"
+   ],
+   "condicao_efetiva": "compraram nos últimos 90 dias, mas estão há mais de 41 dias sem comprar e com alguma venda (ativos ou inativos) para o vendedor",
+   "tratados_antes_por": [
+    "R5",
+    "R7"
+   ]
+  },
+  {
+   "id": "R9",
+   "nome": "Rotas 008, 009, 010 e 011 - Cliente sem compra há mais de 90d",
+   "fonte": "da carteira rotas_dias_variaveis",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)"
+   ],
+   "condicao_efetiva": "sem comprar há mais de 90 dias e com alguma venda (ativos ou inativos) para o vendedor",
+   "tratados_antes_por": [
+    "R5"
+   ]
+  },
+  {
+   "id": "R10",
+   "nome": "Rotas 003 e 004 - Primeira compra",
+   "fonte": "da carteira rotas 3 e 4",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: segunda; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor"
+  },
+  {
+   "id": "R11",
+   "nome": "Rotas 003 e 004 - Compra regularmente",
+   "fonte": "da carteira rotas 3 e 4",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: segunda; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "compraram com o próprio vendedor nos últimos 21 dias e com alguma venda (ativos ou inativos) para o vendedor",
+   "tratados_antes_por": [
+    "R10"
+   ]
+  },
+  {
+   "id": "R12",
+   "nome": "Rotas 003 e 004 - Estimular a regularidade de compra",
+   "fonte": "da carteira rotas 3 e 4",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: segunda; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "compraram no grupo de vendedores nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar e (nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 21 dias) e com alguma venda (ativos ou inativos) para o vendedor",
+   "tratados_antes_por": [
+    "R10",
+    "R11"
+   ]
+  },
+  {
+   "id": "R13",
+   "nome": "Rotas 003 e 004 - Risco de inatividade",
+   "fonte": "da carteira rotas 3 e 4",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: segunda; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "compraram nos últimos 90 dias, mas estão há mais de 41 dias sem comprar e com alguma venda (ativos ou inativos) para o vendedor",
+   "tratados_antes_por": [
+    "R10",
+    "R12"
+   ]
+  },
+  {
+   "id": "R14",
+   "nome": "Rotas 003 e 004 - Cliente sem compra há mais de 90d",
+   "fonte": "da carteira rotas 3 e 4",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: segunda; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "sem comprar há mais de 90 dias e com alguma venda (ativos ou inativos) para o vendedor",
+   "tratados_antes_por": [
+    "R10"
+   ]
+  },
+  {
+   "id": "R15",
+   "nome": "Rota 005 - Primeira compra",
+   "fonte": "da carteira rota 5",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: terça; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor"
+  },
+  {
+   "id": "R16",
+   "nome": "Rota 005 - Compra regularmente",
+   "fonte": "da carteira rota 5",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: terça; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "compraram com o próprio vendedor nos últimos 21 dias e com alguma venda (ativos ou inativos) para o vendedor",
+   "tratados_antes_por": [
+    "R15"
+   ]
+  },
+  {
+   "id": "R17",
+   "nome": "Rota 005 - Estimular a regularidade de compra",
+   "fonte": "da carteira rota 5",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: terça; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "compraram no grupo de vendedores nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar e (nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 21 dias) e com alguma venda (ativos ou inativos) para o vendedor",
+   "tratados_antes_por": [
+    "R15",
+    "R16"
+   ]
+  },
+  {
+   "id": "R18",
+   "nome": "Rota 005 - Risco de inatividade",
+   "fonte": "da carteira rota 5",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: terça; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "compraram nos últimos 90 dias, mas estão há mais de 41 dias sem comprar e com alguma venda (ativos ou inativos) para o vendedor",
+   "tratados_antes_por": [
+    "R15",
+    "R17"
+   ]
+  },
+  {
+   "id": "R19",
+   "nome": "Rota 005 - Cliente sem compra há mais de 90d",
+   "fonte": "da carteira rota 5",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: terça; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "sem comprar há mais de 90 dias e com alguma venda (ativos ou inativos) para o vendedor",
+   "tratados_antes_por": [
+    "R15"
+   ]
+  },
+  {
+   "id": "R20",
+   "nome": "Rota 006 - Primeira compra",
+   "fonte": "da carteira rota 6",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: quarta; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor"
+  },
+  {
+   "id": "R21",
+   "nome": "Rota 006 - Compra regularmente",
+   "fonte": "da carteira rota 6",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: quarta; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "compraram com o próprio vendedor nos últimos 21 dias e com alguma venda (ativos ou inativos) para o vendedor",
+   "tratados_antes_por": [
+    "R20"
+   ]
+  },
+  {
+   "id": "R22",
+   "nome": "Rota 006 - Estimular a regularidade de compra",
+   "fonte": "da carteira rota 6",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: quarta; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "compraram no grupo de vendedores nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar e (nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 21 dias) e com alguma venda (ativos ou inativos) para o vendedor",
+   "tratados_antes_por": [
+    "R20",
+    "R21"
+   ]
+  },
+  {
+   "id": "R23",
+   "nome": "Rota 006 - Risco de inatividade",
+   "fonte": "da carteira rota 6",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: quarta; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "compraram nos últimos 90 dias, mas estão há mais de 41 dias sem comprar e com alguma venda (ativos ou inativos) para o vendedor",
+   "tratados_antes_por": [
+    "R20",
+    "R22"
+   ]
+  },
+  {
+   "id": "R24",
+   "nome": "Rota 006 - Cliente sem compra há mais de 90d",
+   "fonte": "da carteira rota 6",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: quarta; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "sem comprar há mais de 90 dias e com alguma venda (ativos ou inativos) para o vendedor",
+   "tratados_antes_por": [
+    "R20"
+   ]
+  },
+  {
+   "id": "R25",
+   "nome": "Rota 007 - Primeira compra",
+   "fonte": "da carteira rota 7",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: sexta; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor"
+  },
+  {
+   "id": "R26",
+   "nome": "Rota 007 - Compra regularmente",
+   "fonte": "da carteira rota 7",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: sexta; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "compraram com o próprio vendedor nos últimos 21 dias e com alguma venda (ativos ou inativos) para o vendedor",
+   "tratados_antes_por": [
+    "R25"
+   ]
+  },
+  {
+   "id": "R27",
+   "nome": "Rota 007 - Estimular a regularidade de compra",
+   "fonte": "da carteira rota 7",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: sexta; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "compraram no grupo de vendedores nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar e (nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 21 dias) e com alguma venda (ativos ou inativos) para o vendedor",
+   "tratados_antes_por": [
+    "R25",
+    "R26"
+   ]
+  },
+  {
+   "id": "R28",
+   "nome": "Rota 007 - Risco de inatividade",
+   "fonte": "da carteira rota 7",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: sexta; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "compraram nos últimos 90 dias, mas estão há mais de 41 dias sem comprar e com alguma venda (ativos ou inativos) para o vendedor",
+   "tratados_antes_por": [
+    "R25",
+    "R27"
+   ]
+  },
+  {
+   "id": "R29",
+   "nome": "Rota 007 - Cliente sem compra há mais de 90d",
+   "fonte": "da carteira rota 7",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: sexta; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "sem comprar há mais de 90 dias e com alguma venda (ativos ou inativos) para o vendedor",
+   "tratados_antes_por": [
+    "R25"
+   ]
+  },
+  {
+   "id": "R30",
+   "nome": "CLIENTES SEM ROTAS ASSOCIADAS",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)"
+   ],
+   "condicao_efetiva": "(fora da carteira rota 5, rota 6, rota 7, rotas 3 e 4, rotas_dias_variaveis) OU ((nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 20 dias) e (nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 21 dias) e da carteira rota 5, rota 6, rota 7, rotas 3 e 4, rotas_dias_variaveis e com alguma venda (ativos ou inativos) para o vendedor)",
+   "tratados_antes_por": [
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9",
+    "R10",
+    "R11",
+    "R12",
+    "R13",
+    "R14",
+    "R15",
+    "R16",
+    "R17",
+    "R18",
+    "R19",
+    "R20",
+    "R21",
+    "R22",
+    "R23",
+    "R24",
+    "R25",
+    "R26",
+    "R27",
+    "R28",
+    "R29"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [
+  "A cascata mistura escopos de recência de compra (grupo: Rotas 008, 009, 010 e 011 - Estimular a regularidade de compra, Rotas 008, 009, 010 e 011 - Risco de inatividade, Rotas 008, 009, 010 e 011 - Cliente sem compra há mais de 90d; vendedor: Rotas 008, 009, 010 e 011 - Compra regularmente, Rotas 003 e 004 - Compra regularmente, Rota 005 - Compra regularmente); faixas de escopos diferentes não se excluem automaticamente e podem se sobrepor ou deixar lacunas.",
+  "O arquivo contém caracteres de controle invisíveis (possível erro de digitação)."
+ ],
+ "premissas_usadas": [
+  "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+  "P2: Escopos de recência (grupo, vendedor, global) são medidas distintas, ordenadas: global <= grupo <= vendedor.",
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

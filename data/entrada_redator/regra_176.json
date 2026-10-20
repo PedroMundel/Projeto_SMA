@@ -1,0 +1,95 @@
+{
+ "arquivo": "regra_176.gobr",
+ "comentarios": [
+  "Regras de não agendamento:",
+  "Regras de agendamento:"
+ ],
+ "times": [
+  {
+   "nome": "time televendas",
+   "definicao": "todos os vendedores de televendas"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "carteira televendas",
+   "definicao": "carteira fixa dos vendedores do time time televendas",
+   "filtros": []
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Nordil AL: Não agendar clientes DH com crédito igual ou menor que R$0,00 (televendas)",
+  "Nordil AL: Não agendar clientes BK com crédito menor que R$200,00 (televendas)",
+  "Nordil AL: Não agendar clientes inadimplentes (televendas)"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Nordil AL: Não agendar clientes DH com crédito igual ou menor que R$0,00 (televendas)",
+   "fonte": "da carteira carteira televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "tipo de cobrança (id) igual a DH e sem crédito disponível"
+  },
+  {
+   "id": "R2",
+   "nome": "Nordil AL: Não agendar clientes BK com crédito menor que R$200,00 (televendas)",
+   "fonte": "da carteira carteira televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "tipo de cobrança (id) igual a BK e com menos de R$ 199 de crédito disponível"
+  },
+  {
+   "id": "R3",
+   "nome": "Nordil AL: Não agendar clientes inadimplentes (televendas)",
+   "fonte": "da carteira carteira televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes"
+  },
+  {
+   "id": "R4",
+   "nome": "Nordil AL: Frequência de 7d para clientes ativos/adimplentes (televendas)",
+   "fonte": "da carteira carteira televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "ativos para o vendedor"
+  },
+  {
+   "id": "R5",
+   "nome": "Nordil AL: Frequência de 14d para clientes inativos/adimplentes (televendas)",
+   "fonte": "da carteira carteira televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "inativos para o vendedor"
+  },
+  {
+   "id": "R6",
+   "nome": "Nordil AL: Frequência de 14d para clientes sem venda (televendas)",
+   "fonte": "da carteira carteira televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor"
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

@@ -1,0 +1,317 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_193.gobr",
+  "sha256": "09f4704e3d9dc3acbc79dcd90a3f3350bf773a69fce0c6e19c7c2eaae0686f41",
+  "comentarios": [
+    "Definição de times",
+    "Definição de carteiras por ramo de atividade",
+    "Parâmetros de não agendamento",
+    "Parâmetros de agendamento"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "televendas",
+      "definicao": "todos os vendedores de televendas habilitados no Govendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "ramos_freq_14",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"30\",\"583\",\"33\",\"26\",\"42\",\"34\",\"7\",\"21\",\"2\",\"29\",\"43\",\"4\",\"40\",\"52\",\"20\",\"584\",\"110\",\"124\",\"39\",\"120\",\"75\",\"57\",\"240\",\"366\",\"470\",\"237\",…",
+          "significado": "ramo de atividade (id) em: 110, 120, 124, 2, 20, 21 e mais 26",
+          "reconhecida": true
+        }
+      ],
+      "livre": false,
+      "exceto_alocados_em": []
+    },
+    {
+      "id": "C2",
+      "nome": "ramos_freq_21",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [
+        {
+          "codigo": "ramo de atividade diferente(\"30\",\"583\",\"33\",\"26\",\"42\",\"34\",\"7\",\"21\",\"2\",\"29\",\"43\",\"4\",\"40\",\"52\",\"20\",\"584\",\"110\",\"124\",\"39\",\"120\",\"75\",\"57\",\"240\",\"366\",\"470\",\"2…",
+          "significado": "ramo de atividade (id) fora de: 110, 120, 124, 2, 20, 21 e mais 26",
+          "reconhecida": true
+        }
+      ],
+      "livre": false,
+      "exceto_alocados_em": [
+        "ramos_freq_14"
+      ]
+    }
+  ],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Não agendar clientes filiais",
+    "Não agendar clientes baixados na receita",
+    "Não agendar clientes fora da semana de cobertura"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Não agendar clientes filiais",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "cliente filial",
+          "significado": "filiais",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "filiais",
+      "condicao_efetiva": "filiais",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Não agendar clientes baixados na receita",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "status na receita federal definido como baixada",
+          "significado": "com situação baixada na Receita Federal",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "com situação baixada na Receita Federal",
+      "condicao_efetiva": "com situação baixada na Receita Federal",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Não agendar clientes fora da semana de cobertura",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "data da rota futura do vendedor nos proximos 21 dias",
+          "significado": "com data de rota futura do vendedor nos próximos 21 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao global em 60 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 60 dias e com data de rota futura do vendedor nos próximos 21 dias",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias e com data de rota futura do vendedor nos próximos 21 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21,
+        60
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Freq. de 14d para ramos de atividade específicos, com venda em 60d.",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira ramos_freq_14",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao global em 60 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        60
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Freq. de 21d para ramos de atividade específicos, com venda em 60d",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira ramos_freq_21",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao global em 60 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21,
+        60
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Freq. de 7d para todos os ramos de atividade, sem venda em 60d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "(fora da carteira ramos_freq_14, ramos_freq_21) OU ((nunca compraram com qualquer vendedor da empresa ou sem comprar com qualquer vendedor da empresa há mais de 60 dias))",
+      "tratados_antes_por": [
+        "R4",
+        "R5"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    7,
+    14,
+    21,
+    60
+  ],
+  "numeros_permitidos": [
+    2,
+    4,
+    7,
+    14,
+    20,
+    21,
+    26,
+    29,
+    30,
+    33,
+    34,
+    39,
+    40,
+    42,
+    43,
+    46,
+    52,
+    56,
+    57,
+    58,
+    60,
+    69,
+    75,
+    110,
+    120,
+    124,
+    237,
+    240,
+    242,
+    298,
+    366,
+    470,
+    583,
+    584
+  ],
+  "premissas_usadas": [
+    "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+    "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+  ]
+}

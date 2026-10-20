@@ -1,0 +1,1290 @@
+{
+ "arquivo": "regra_032.gobr",
+ "comentarios": [
+  "TIMES",
+  "REGRAS PARA CARTEIRAS POR REGIÃO",
+  "PARÂMETROS DE PLANEJAMENTO",
+  "REGRAS GENÉRICAS",
+  "REGRAS PARA REGIÕES SUL, SUDESTE E CENTRO-OESTE",
+  "Segmentos Matcon, Ferragista, Agropecuária e Home Center",
+  "Segmentos EPI e Licitação",
+  "Segmentos Atacado/Distribuidores",
+  "Segmentos Corporativo/Consumidor",
+  "REGRAS PARA REGIÕES NORTE E NORDESTE",
+  "Segmentos Matcon, Ferragista, Agropecuária e Home Center",
+  "Segmentos EPI e Licitação",
+  "Segmentos Atacado/Distribuidores",
+  "Segmentos Corporativo/Consumidor"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "sul_sudeste_centrooeste",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": [
+    "UF em: DF, ES, GO, MG, MS, MT e mais 5"
+   ],
+   "livre": true
+  },
+  {
+   "id": "C2",
+   "nome": "norte_nordeste",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": [
+    "UF em: AC, AL, AM, AP, BA, CE e mais 10"
+   ],
+   "livre": true
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Baixados na Receita",
+  "Clientes que hoje não se enquadraram nas regras padrão"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Baixados na Receita",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "com situação baixada na Receita Federal"
+  },
+  {
+   "id": "R2",
+   "nome": "Prospects",
+   "fonte": "da carteira sul_sudeste_centrooeste, norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa"
+  },
+  {
+   "id": "R3",
+   "nome": "Ativos Curva A (Sul, Sudeste e Centro-Oeste - Matcon, Ferragista, Agropecuária e Home Center)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 120 dias e ramo de atividade (id) em: AGROPECUARIA, FERRAGISTA, HOME CENTER, MATCON e faturamento médio mensal no ano com a empresa maior que R$ 25000"
+  },
+  {
+   "id": "R4",
+   "nome": "Ativos Curva B (Sul, Sudeste e Centro-Oeste - Matcon, Ferragista, Agropecuária e Home Center)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 120 dias e ramo de atividade (id) em: AGROPECUARIA, FERRAGISTA, HOME CENTER, MATCON e faturamento médio mensal no ano com a empresa maior que R$ 10000 e não (faturamento médio mensal no ano com a empresa maior que R$ 25000)",
+   "tratados_antes_por": [
+    "R3"
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Ativos Curva C (Sul, Sudeste e Centro-Oeste - Matcon, Ferragista, Agropecuária e Home Center)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 120 dias e ramo de atividade (id) em: AGROPECUARIA, FERRAGISTA, HOME CENTER, MATCON e não (faturamento médio mensal no ano com a empresa maior que R$ 10000) e não (faturamento médio mensal no ano com a empresa maior que R$ 25000)",
+   "tratados_antes_por": [
+    "R3",
+    "R4"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Pré-inativos Curva A (Sul, Sudeste e Centro-Oeste - Matcon, Ferragista, Agropecuária e Home Center)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 150 dias, mas estão há mais de 120 dias sem comprar e ramo de atividade (id) em: AGROPECUARIA, FERRAGISTA, HOME CENTER, MATCON e faturamento médio mensal no ano com a empresa maior que R$ 25000",
+   "tratados_antes_por": [
+    "R3"
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Pré-inativos Curva B (Sul, Sudeste e Centro-Oeste - Matcon, Ferragista, Agropecuária e Home Center)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 150 dias, mas estão há mais de 120 dias sem comprar e ramo de atividade (id) em: AGROPECUARIA, FERRAGISTA, HOME CENTER, MATCON e faturamento médio mensal no ano com a empresa maior que R$ 10000 e não (faturamento médio mensal no ano com a empresa maior que R$ 25000)",
+   "tratados_antes_por": [
+    "R3",
+    "R4",
+    "R6"
+   ]
+  },
+  {
+   "id": "R8",
+   "nome": "Pré-inativos Curva C (Sul, Sudeste e Centro-Oeste - Matcon, Ferragista, Agropecuária e Home Center)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 150 dias, mas estão há mais de 120 dias sem comprar e compraram no grupo de vendedores nos últimos 150 dias e ramo de atividade (id) em: AGROPECUARIA, FERRAGISTA, HOME CENTER, MATCON e não (faturamento médio mensal no ano com a empresa maior que R$ 10000) e não (faturamento médio mensal no ano com a empresa maior que R$ 25000)",
+   "tratados_antes_por": [
+    "R3",
+    "R4",
+    "R5",
+    "R6",
+    "R7"
+   ]
+  },
+  {
+   "id": "R9",
+   "nome": "Inativos Curva A (Sul, Sudeste e Centro-Oeste - Matcon, Ferragista, Agropecuária e Home Center)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 150 dias e ramo de atividade (id) em: AGROPECUARIA, FERRAGISTA, HOME CENTER, MATCON e faturamento médio mensal no ano com a empresa maior que R$ 25000",
+   "tratados_antes_por": [
+    "R2",
+    "R3",
+    "R6"
+   ]
+  },
+  {
+   "id": "R10",
+   "nome": "Inativos Curva B (Sul, Sudeste e Centro-Oeste - Matcon, Ferragista, Agropecuária e Home Center)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 150 dias e ramo de atividade (id) em: AGROPECUARIA, FERRAGISTA, HOME CENTER, MATCON e faturamento médio mensal no ano com a empresa maior que R$ 10000 e não (faturamento médio mensal no ano com a empresa maior que R$ 25000)",
+   "tratados_antes_por": [
+    "R2",
+    "R3",
+    "R4",
+    "R6",
+    "R7",
+    "R9"
+   ]
+  },
+  {
+   "id": "R11",
+   "nome": "Inativos Curva C (Sul, Sudeste e Centro-Oeste - Matcon, Ferragista, Agropecuária e Home Center)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "(sem comprar com qualquer vendedor da empresa há mais de 150 dias e ramo de atividade (id) em: AGROPECUARIA, FERRAGISTA, HOME CENTER, MATCON e não (faturamento médio mensal no ano com a empresa maior que R$ 10000) e não (faturamento médio mensal no ano com a empresa maior que R$ 25000)) OU (compraram com qualquer vendedor da empresa nos últimos 150 dias, mas estão há mais de 120 dias sem comprar e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 150 dias) e ramo de atividade (id) em: AGROPECUARIA, FERRAGISTA, HOME CENTER, MATCON e não (faturamento médio mensal no ano com a empresa maior que R$ 10000) e não (faturamento médio mensal no ano com a empresa maior que R$ 25000))",
+   "tratados_antes_por": [
+    "R2",
+    "R3",
+    "R4",
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9",
+    "R10"
+   ]
+  },
+  {
+   "id": "R12",
+   "nome": "Ativos Curva A (Sul, Sudeste e Centro-Oeste - EPI e Licitação)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 120 dias e ramo de atividade (id) em: EPI, LICITACAO e faturamento médio mensal no ano com a empresa maior que R$ 25000"
+  },
+  {
+   "id": "R13",
+   "nome": "Ativos Curva B (Sul, Sudeste e Centro-Oeste - EPI e Licitação)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 120 dias e ramo de atividade (id) em: EPI, LICITACAO e faturamento médio mensal no ano com a empresa maior que R$ 10000 e não (faturamento médio mensal no ano com a empresa maior que R$ 25000)",
+   "tratados_antes_por": [
+    "R12"
+   ]
+  },
+  {
+   "id": "R14",
+   "nome": "Ativos Curva C (Sul, Sudeste e Centro-Oeste - EPI e Licitação)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 120 dias e ramo de atividade (id) em: EPI, LICITACAO e não (faturamento médio mensal no ano com a empresa maior que R$ 10000) e não (faturamento médio mensal no ano com a empresa maior que R$ 25000)",
+   "tratados_antes_por": [
+    "R12",
+    "R13"
+   ]
+  },
+  {
+   "id": "R15",
+   "nome": "Pré-inativos Curva A (Sul, Sudeste e Centro-Oeste - EPI e Licitação)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 150 dias, mas estão há mais de 120 dias sem comprar e ramo de atividade (id) em: EPI, LICITACAO e faturamento médio mensal no ano com a empresa maior que R$ 25000",
+   "tratados_antes_por": [
+    "R12"
+   ]
+  },
+  {
+   "id": "R16",
+   "nome": "Pré-inativos Curva B (Sul, Sudeste e Centro-Oeste - EPI e Licitação)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 150 dias, mas estão há mais de 120 dias sem comprar e ramo de atividade (id) em: EPI, LICITACAO e faturamento médio mensal no ano com a empresa maior que R$ 10000 e não (faturamento médio mensal no ano com a empresa maior que R$ 25000)",
+   "tratados_antes_por": [
+    "R12",
+    "R13",
+    "R15"
+   ]
+  },
+  {
+   "id": "R17",
+   "nome": "Pré-inativos Curva C (Sul, Sudeste e Centro-Oeste - EPI e Licitação)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 150 dias, mas estão há mais de 120 dias sem comprar e ramo de atividade (id) em: EPI, LICITACAO e não (faturamento médio mensal no ano com a empresa maior que R$ 10000) e não (faturamento médio mensal no ano com a empresa maior que R$ 25000)",
+   "tratados_antes_por": [
+    "R12",
+    "R13",
+    "R14",
+    "R15",
+    "R16"
+   ]
+  },
+  {
+   "id": "R18",
+   "nome": "Inativos Curva A (Sul, Sudeste e Centro-Oeste - EPI e Licitação)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 150 dias e ramo de atividade (id) em: EPI, LICITACAO e faturamento médio mensal no ano com a empresa maior que R$ 25000",
+   "tratados_antes_por": [
+    "R2",
+    "R12",
+    "R15"
+   ]
+  },
+  {
+   "id": "R19",
+   "nome": "Inativos Curva B (Sul, Sudeste e Centro-Oeste - EPI e Licitação)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 150 dias e ramo de atividade (id) em: EPI, LICITACAO e faturamento médio mensal no ano com a empresa maior que R$ 10000 e não (faturamento médio mensal no ano com a empresa maior que R$ 25000)",
+   "tratados_antes_por": [
+    "R2",
+    "R12",
+    "R13",
+    "R15",
+    "R16",
+    "R18"
+   ]
+  },
+  {
+   "id": "R20",
+   "nome": "Inativos Curva C (Sul, Sudeste e Centro-Oeste - EPI e Licitação)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 150 dias e ramo de atividade (id) em: EPI, LICITACAO e não (faturamento médio mensal no ano com a empresa maior que R$ 10000) e não (faturamento médio mensal no ano com a empresa maior que R$ 25000)",
+   "tratados_antes_por": [
+    "R2",
+    "R12",
+    "R13",
+    "R14",
+    "R15",
+    "R16",
+    "R17",
+    "R18",
+    "R19"
+   ]
+  },
+  {
+   "id": "R21",
+   "nome": "Ativos Curva A (Sul, Sudeste e Centro-Oeste - Atacado/ Distribuidores)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 10 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 120 dias e ramo de atividade (id) igual a ATACADO e faturamento médio mensal no ano com a empresa maior que R$ 50000"
+  },
+  {
+   "id": "R22",
+   "nome": "Ativos Curva B (Sul, Sudeste e Centro-Oeste - Atacado/ Distribuidores)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 120 dias e ramo de atividade (id) igual a ATACADO e faturamento médio mensal no ano com a empresa maior que R$ 25000 e não (faturamento médio mensal no ano com a empresa maior que R$ 50000)",
+   "tratados_antes_por": [
+    "R21"
+   ]
+  },
+  {
+   "id": "R23",
+   "nome": "Ativos Curva C (Sul, Sudeste e Centro-Oeste - Atacado/ Distribuidores)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 120 dias e ramo de atividade (id) igual a ATACADO e não (faturamento médio mensal no ano com a empresa maior que R$ 25000) e não (faturamento médio mensal no ano com a empresa maior que R$ 50000)",
+   "tratados_antes_por": [
+    "R21",
+    "R22"
+   ]
+  },
+  {
+   "id": "R24",
+   "nome": "Pré-inativos Curva A (Sul, Sudeste e Centro-Oeste - Atacado/ Distribuidores)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 150 dias, mas estão há mais de 120 dias sem comprar e ramo de atividade (id) igual a ATACADO e faturamento médio mensal no ano com a empresa maior que R$ 50000",
+   "tratados_antes_por": [
+    "R21"
+   ]
+  },
+  {
+   "id": "R25",
+   "nome": "Pré-inativos Curva B (Sul, Sudeste e Centro-Oeste - Atacado/ Distribuidores)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 10 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 150 dias, mas estão há mais de 120 dias sem comprar e ramo de atividade (id) igual a ATACADO e faturamento médio mensal no ano com a empresa maior que R$ 25000 e não (faturamento médio mensal no ano com a empresa maior que R$ 50000)",
+   "tratados_antes_por": [
+    "R21",
+    "R22",
+    "R24"
+   ]
+  },
+  {
+   "id": "R26",
+   "nome": "Pré-inativos Curva C (Sul, Sudeste e Centro-Oeste - Atacado/ Distribuidores)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 150 dias, mas estão há mais de 120 dias sem comprar e ramo de atividade (id) igual a ATACADO e não (faturamento médio mensal no ano com a empresa maior que R$ 25000) e não (faturamento médio mensal no ano com a empresa maior que R$ 50000)",
+   "tratados_antes_por": [
+    "R21",
+    "R22",
+    "R23",
+    "R24",
+    "R25"
+   ]
+  },
+  {
+   "id": "R27",
+   "nome": "Inativos Curva A (Sul, Sudeste e Centro-Oeste - Atacado/ Distribuidores)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 10 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 150 dias e ramo de atividade (id) igual a ATACADO e faturamento médio mensal no ano com a empresa maior que R$ 50000",
+   "tratados_antes_por": [
+    "R2",
+    "R21",
+    "R24"
+   ]
+  },
+  {
+   "id": "R28",
+   "nome": "Inativos Curva B (Sul, Sudeste e Centro-Oeste - Atacado/ Distribuidores)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 10 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 150 dias e ramo de atividade (id) igual a ATACADO e faturamento médio mensal no ano com a empresa maior que R$ 25000 e não (faturamento médio mensal no ano com a empresa maior que R$ 50000)",
+   "tratados_antes_por": [
+    "R2",
+    "R21",
+    "R22",
+    "R24",
+    "R25",
+    "R27"
+   ]
+  },
+  {
+   "id": "R29",
+   "nome": "Inativos Curva C (Sul, Sudeste e Centro-Oeste - Atacado/ Distribuidores)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 150 dias e ramo de atividade (id) igual a ATACADO e não (faturamento médio mensal no ano com a empresa maior que R$ 25000) e não (faturamento médio mensal no ano com a empresa maior que R$ 50000)",
+   "tratados_antes_por": [
+    "R2",
+    "R21",
+    "R22",
+    "R23",
+    "R24",
+    "R25",
+    "R26",
+    "R27",
+    "R28"
+   ]
+  },
+  {
+   "id": "R30",
+   "nome": "Ativos Curva A (Sul, Sudeste e Centro-Oeste - Corporativo/ Consumidor)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 120 dias e ramo de atividade (id) igual a CONS. FINAL e faturamento médio mensal no ano com a empresa maior que R$ 15000"
+  },
+  {
+   "id": "R31",
+   "nome": "Ativos Curva B (Sul, Sudeste e Centro-Oeste - Corporativo/ Consumidor)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 120 dias e ramo de atividade (id) igual a CONS. FINAL e faturamento médio mensal no ano com a empresa maior que R$ 10000 e não (faturamento médio mensal no ano com a empresa maior que R$ 15000)",
+   "tratados_antes_por": [
+    "R30"
+   ]
+  },
+  {
+   "id": "R32",
+   "nome": "Ativos Curva C (Sul, Sudeste e Centro-Oeste - Corporativo/ Consumidor)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 120 dias e ramo de atividade (id) igual a CONS. FINAL e não (faturamento médio mensal no ano com a empresa maior que R$ 10000) e não (faturamento médio mensal no ano com a empresa maior que R$ 15000)",
+   "tratados_antes_por": [
+    "R30",
+    "R31"
+   ]
+  },
+  {
+   "id": "R33",
+   "nome": "Pré-inativos Curva A (Sul, Sudeste e Centro-Oeste - Corporativo/ Consumidor)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 150 dias, mas estão há mais de 120 dias sem comprar e ramo de atividade (id) igual a CONS. FINAL e faturamento médio mensal no ano com a empresa maior que R$ 15000",
+   "tratados_antes_por": [
+    "R30"
+   ]
+  },
+  {
+   "id": "R34",
+   "nome": "Pré-inativos Curva B (Sul, Sudeste e Centro-Oeste - Corporativo/ Consumidor)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 150 dias, mas estão há mais de 120 dias sem comprar e ramo de atividade (id) igual a CONS. FINAL e faturamento médio mensal no ano com a empresa maior que R$ 10000 e não (faturamento médio mensal no ano com a empresa maior que R$ 15000)",
+   "tratados_antes_por": [
+    "R30",
+    "R31",
+    "R33"
+   ]
+  },
+  {
+   "id": "R35",
+   "nome": "Pré-inativos Curva C (Sul, Sudeste e Centro-Oeste - Corporativo/ Consumidor)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 150 dias, mas estão há mais de 120 dias sem comprar e ramo de atividade (id) igual a CONS. FINAL e não (faturamento médio mensal no ano com a empresa maior que R$ 10000) e não (faturamento médio mensal no ano com a empresa maior que R$ 15000)",
+   "tratados_antes_por": [
+    "R30",
+    "R31",
+    "R32",
+    "R33",
+    "R34"
+   ]
+  },
+  {
+   "id": "R36",
+   "nome": "Inativos Curva A (Sul, Sudeste e Centro-Oeste - Corporativo/ Consumidor)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 150 dias e ramo de atividade (id) igual a CONS. FINAL e faturamento médio mensal no ano com a empresa maior que R$ 15000",
+   "tratados_antes_por": [
+    "R2",
+    "R30",
+    "R33"
+   ]
+  },
+  {
+   "id": "R37",
+   "nome": "Inativos Curva B (Sul, Sudeste e Centro-Oeste - Corporativo/ Consumidor)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 150 dias e ramo de atividade (id) igual a CONS. FINAL e faturamento médio mensal no ano com a empresa maior que R$ 10000 e não (faturamento médio mensal no ano com a empresa maior que R$ 15000)",
+   "tratados_antes_por": [
+    "R2",
+    "R30",
+    "R31",
+    "R33",
+    "R34",
+    "R36"
+   ]
+  },
+  {
+   "id": "R38",
+   "nome": "Inativos Curva C (Sul, Sudeste e Centro-Oeste - Corporativo/ Consumidor)",
+   "fonte": "da carteira sul_sudeste_centrooeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 150 dias e ramo de atividade (id) igual a CONS. FINAL e não (faturamento médio mensal no ano com a empresa maior que R$ 10000) e não (faturamento médio mensal no ano com a empresa maior que R$ 15000)",
+   "tratados_antes_por": [
+    "R2",
+    "R30",
+    "R31",
+    "R32",
+    "R33",
+    "R34",
+    "R35",
+    "R36",
+    "R37"
+   ]
+  },
+  {
+   "id": "R39",
+   "nome": "Ativos Curva A (Norte e Nordeste - Matcon, Ferragista, Agropecuária e Home Center)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 150 dias e ramo de atividade (id) em: AGROPECUARIA, FERRAGISTA, HOME CENTER, MATCON e faturamento médio mensal no ano com a empresa maior que R$ 25000"
+  },
+  {
+   "id": "R40",
+   "nome": "Ativos Curva B (Norte e Nordeste - Matcon, Ferragista, Agropecuária e Home Center)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 150 dias e ramo de atividade (id) em: AGROPECUARIA, FERRAGISTA, HOME CENTER, MATCON e faturamento médio mensal no ano com a empresa maior que R$ 10000 e não (faturamento médio mensal no ano com a empresa maior que R$ 25000)",
+   "tratados_antes_por": [
+    "R39"
+   ]
+  },
+  {
+   "id": "R41",
+   "nome": "Ativos Curva C (Norte e Nordeste - Matcon, Ferragista, Agropecuária e Home Center)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 150 dias e ramo de atividade (id) em: AGROPECUARIA, FERRAGISTA, HOME CENTER, MATCON e não (faturamento médio mensal no ano com a empresa maior que R$ 10000) e não (faturamento médio mensal no ano com a empresa maior que R$ 25000)",
+   "tratados_antes_por": [
+    "R39",
+    "R40"
+   ]
+  },
+  {
+   "id": "R42",
+   "nome": "Pré-inativos Curva A (Norte e Nordeste - Matcon, Ferragista, Agropecuária e Home Center)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 180 dias, mas estão há mais de 150 dias sem comprar e ramo de atividade (id) em: AGROPECUARIA, FERRAGISTA, HOME CENTER, MATCON e faturamento médio mensal no ano com a empresa maior que R$ 25000",
+   "tratados_antes_por": [
+    "R39"
+   ]
+  },
+  {
+   "id": "R43",
+   "nome": "Pré-inativos Curva B (Norte e Nordeste - Matcon, Ferragista, Agropecuária e Home Center)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 180 dias, mas estão há mais de 150 dias sem comprar e ramo de atividade (id) em: AGROPECUARIA, FERRAGISTA, HOME CENTER, MATCON e faturamento médio mensal no ano com a empresa maior que R$ 10000 e não (faturamento médio mensal no ano com a empresa maior que R$ 25000)",
+   "tratados_antes_por": [
+    "R39",
+    "R40",
+    "R42"
+   ]
+  },
+  {
+   "id": "R44",
+   "nome": "Pré-inativos Curva C (Norte e Nordeste - Matcon, Ferragista, Agropecuária e Home Center)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 180 dias, mas estão há mais de 150 dias sem comprar e ramo de atividade (id) em: AGROPECUARIA, FERRAGISTA, HOME CENTER, MATCON e não (faturamento médio mensal no ano com a empresa maior que R$ 10000) e não (faturamento médio mensal no ano com a empresa maior que R$ 25000)",
+   "tratados_antes_por": [
+    "R39",
+    "R40",
+    "R41",
+    "R42",
+    "R43"
+   ]
+  },
+  {
+   "id": "R45",
+   "nome": "Inativos Curva A (Norte e Nordeste - Matcon, Ferragista, Agropecuária e Home Center)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 180 dias e ramo de atividade (id) em: AGROPECUARIA, FERRAGISTA, HOME CENTER, MATCON e faturamento médio mensal no ano com a empresa maior que R$ 25000",
+   "tratados_antes_por": [
+    "R2",
+    "R39",
+    "R42"
+   ]
+  },
+  {
+   "id": "R46",
+   "nome": "Inativos Curva B (Norte e Nordeste - Matcon, Ferragista, Agropecuária e Home Center)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 180 dias e ramo de atividade (id) em: AGROPECUARIA, FERRAGISTA, HOME CENTER, MATCON e faturamento médio mensal no ano com a empresa maior que R$ 10000 e não (faturamento médio mensal no ano com a empresa maior que R$ 25000)",
+   "tratados_antes_por": [
+    "R2",
+    "R39",
+    "R40",
+    "R42",
+    "R43",
+    "R45"
+   ]
+  },
+  {
+   "id": "R47",
+   "nome": "Inativos Curva C (Norte e Nordeste - Matcon, Ferragista, Agropecuária e Home Center)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 180 dias e ramo de atividade (id) em: AGROPECUARIA, FERRAGISTA, HOME CENTER, MATCON e não (faturamento médio mensal no ano com a empresa maior que R$ 10000) e não (faturamento médio mensal no ano com a empresa maior que R$ 25000)",
+   "tratados_antes_por": [
+    "R2",
+    "R39",
+    "R40",
+    "R41",
+    "R42",
+    "R43",
+    "R44",
+    "R45",
+    "R46"
+   ]
+  },
+  {
+   "id": "R48",
+   "nome": "Ativos Curva A (Norte e Nordeste - EPI e Licitação)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 150 dias e ramo de atividade (id) em: EPI, LICITACAO e faturamento médio mensal no ano com a empresa maior que R$ 25000"
+  },
+  {
+   "id": "R49",
+   "nome": "Ativos Curva B (Norte e Nordeste - EPI e Licitação)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 150 dias e ramo de atividade (id) em: EPI, LICITACAO e faturamento médio mensal no ano com a empresa maior que R$ 10000 e não (faturamento médio mensal no ano com a empresa maior que R$ 25000)",
+   "tratados_antes_por": [
+    "R48"
+   ]
+  },
+  {
+   "id": "R50",
+   "nome": "Ativos Curva C (Norte e Nordeste - EPI e Licitação)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 150 dias e ramo de atividade (id) em: EPI, LICITACAO e não (faturamento médio mensal no ano com a empresa maior que R$ 10000) e não (faturamento médio mensal no ano com a empresa maior que R$ 25000)",
+   "tratados_antes_por": [
+    "R48",
+    "R49"
+   ]
+  },
+  {
+   "id": "R51",
+   "nome": "Pré-inativos Curva A (Norte e Nordeste - EPI e Licitação)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 180 dias, mas estão há mais de 150 dias sem comprar e ramo de atividade (id) em: EPI, LICITACAO e faturamento médio mensal no ano com a empresa maior que R$ 25000",
+   "tratados_antes_por": [
+    "R48"
+   ]
+  },
+  {
+   "id": "R52",
+   "nome": "Pré-inativos Curva B (Norte e Nordeste - EPI e Licitação)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 180 dias, mas estão há mais de 150 dias sem comprar e ramo de atividade (id) em: EPI, LICITACAO e faturamento médio mensal no ano com a empresa maior que R$ 10000 e não (faturamento médio mensal no ano com a empresa maior que R$ 25000)",
+   "tratados_antes_por": [
+    "R48",
+    "R49",
+    "R51"
+   ]
+  },
+  {
+   "id": "R53",
+   "nome": "Pré-inativos Curva C (Norte e Nordeste - EPI e Licitação)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 180 dias, mas estão há mais de 150 dias sem comprar e ramo de atividade (id) em: EPI, LICITACAO e não (faturamento médio mensal no ano com a empresa maior que R$ 10000) e não (faturamento médio mensal no ano com a empresa maior que R$ 25000)",
+   "tratados_antes_por": [
+    "R48",
+    "R49",
+    "R50",
+    "R51",
+    "R52"
+   ]
+  },
+  {
+   "id": "R54",
+   "nome": "Inativos Curva A (Norte e Nordeste - EPI e Licitação)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 180 dias e ramo de atividade (id) em: EPI, LICITACAO e faturamento médio mensal no ano com a empresa maior que R$ 25000",
+   "tratados_antes_por": [
+    "R2",
+    "R48",
+    "R51"
+   ]
+  },
+  {
+   "id": "R55",
+   "nome": "Inativos Curva B (Norte e Nordeste - EPI e Licitação)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 180 dias e ramo de atividade (id) em: EPI, LICITACAO e faturamento médio mensal no ano com a empresa maior que R$ 10000 e não (faturamento médio mensal no ano com a empresa maior que R$ 25000)",
+   "tratados_antes_por": [
+    "R2",
+    "R48",
+    "R49",
+    "R51",
+    "R52",
+    "R54"
+   ]
+  },
+  {
+   "id": "R56",
+   "nome": "Inativos Curva C (Norte e Nordeste - EPI e Licitação)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 180 dias e ramo de atividade (id) em: EPI, LICITACAO e não (faturamento médio mensal no ano com a empresa maior que R$ 10000) e não (faturamento médio mensal no ano com a empresa maior que R$ 25000)",
+   "tratados_antes_por": [
+    "R2",
+    "R48",
+    "R49",
+    "R50",
+    "R51",
+    "R52",
+    "R53",
+    "R54",
+    "R55"
+   ]
+  },
+  {
+   "id": "R57",
+   "nome": "Ativos Curva A (Norte e Nordeste - Atacado/ Distribuidores)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 10 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 150 dias e ramo de atividade (id) igual a ATACADO e faturamento médio mensal no ano com a empresa maior que R$ 50000"
+  },
+  {
+   "id": "R58",
+   "nome": "Ativos Curva B (Norte e Nordeste - Atacado/ Distribuidores)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 150 dias e ramo de atividade (id) igual a ATACADO e faturamento médio mensal no ano com a empresa maior que R$ 25000 e não (faturamento médio mensal no ano com a empresa maior que R$ 50000)",
+   "tratados_antes_por": [
+    "R57"
+   ]
+  },
+  {
+   "id": "R59",
+   "nome": "Ativos Curva C (Norte e Nordeste - Atacado/ Distribuidores)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 150 dias e ramo de atividade (id) igual a ATACADO e não (faturamento médio mensal no ano com a empresa maior que R$ 25000) e não (faturamento médio mensal no ano com a empresa maior que R$ 50000)",
+   "tratados_antes_por": [
+    "R57",
+    "R58"
+   ]
+  },
+  {
+   "id": "R60",
+   "nome": "Pré-inativos Curva A (Norte e Nordeste - Atacado/ Distribuidores)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 180 dias, mas estão há mais de 150 dias sem comprar e ramo de atividade (id) igual a ATACADO e faturamento médio mensal no ano com a empresa maior que R$ 50000",
+   "tratados_antes_por": [
+    "R57"
+   ]
+  },
+  {
+   "id": "R61",
+   "nome": "Pré-inativos Curva B (Norte e Nordeste - Atacado/ Distribuidores)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 10 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 180 dias, mas estão há mais de 150 dias sem comprar e ramo de atividade (id) igual a ATACADO e faturamento médio mensal no ano com a empresa maior que R$ 25000 e não (faturamento médio mensal no ano com a empresa maior que R$ 50000)",
+   "tratados_antes_por": [
+    "R57",
+    "R58",
+    "R60"
+   ]
+  },
+  {
+   "id": "R62",
+   "nome": "Pré-inativos Curva C (Norte e Nordeste - Atacado/ Distribuidores)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 180 dias, mas estão há mais de 150 dias sem comprar e ramo de atividade (id) igual a ATACADO e não (faturamento médio mensal no ano com a empresa maior que R$ 25000) e não (faturamento médio mensal no ano com a empresa maior que R$ 50000)",
+   "tratados_antes_por": [
+    "R57",
+    "R58",
+    "R59",
+    "R60",
+    "R61"
+   ]
+  },
+  {
+   "id": "R63",
+   "nome": "Inativos Curva A (Norte e Nordeste - Atacado/ Distribuidores)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 10 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 180 dias e ramo de atividade (id) igual a ATACADO e faturamento médio mensal no ano com a empresa maior que R$ 50000",
+   "tratados_antes_por": [
+    "R2",
+    "R57",
+    "R60"
+   ]
+  },
+  {
+   "id": "R64",
+   "nome": "Inativos Curva B (Norte e Nordeste - Atacado/ Distribuidores)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 10 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 180 dias e ramo de atividade (id) igual a ATACADO e faturamento médio mensal no ano com a empresa maior que R$ 25000 e não (faturamento médio mensal no ano com a empresa maior que R$ 50000)",
+   "tratados_antes_por": [
+    "R2",
+    "R57",
+    "R58",
+    "R60",
+    "R61",
+    "R63"
+   ]
+  },
+  {
+   "id": "R65",
+   "nome": "Inativos Curva C (Norte e Nordeste - Atacado/ Distribuidores)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 180 dias e ramo de atividade (id) igual a ATACADO e não (faturamento médio mensal no ano com a empresa maior que R$ 25000) e não (faturamento médio mensal no ano com a empresa maior que R$ 50000)",
+   "tratados_antes_por": [
+    "R2",
+    "R57",
+    "R58",
+    "R59",
+    "R60",
+    "R61",
+    "R62",
+    "R63",
+    "R64"
+   ]
+  },
+  {
+   "id": "R66",
+   "nome": "Ativos Curva A (Norte e Nordeste - Corporativo/ Consumidor)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 150 dias e ramo de atividade (id) igual a CONS. FINAL e faturamento médio mensal no ano com a empresa maior que R$ 15000"
+  },
+  {
+   "id": "R67",
+   "nome": "Ativos Curva B (Norte e Nordeste - Corporativo/ Consumidor)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 150 dias e ramo de atividade (id) igual a CONS. FINAL e faturamento médio mensal no ano com a empresa maior que R$ 10000 e não (faturamento médio mensal no ano com a empresa maior que R$ 15000)",
+   "tratados_antes_por": [
+    "R66"
+   ]
+  },
+  {
+   "id": "R68",
+   "nome": "Ativos Curva C (Norte e Nordeste - Corporativo/ Consumidor)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 150 dias e ramo de atividade (id) igual a CONS. FINAL e não (faturamento médio mensal no ano com a empresa maior que R$ 10000) e não (faturamento médio mensal no ano com a empresa maior que R$ 15000)",
+   "tratados_antes_por": [
+    "R66",
+    "R67"
+   ]
+  },
+  {
+   "id": "R69",
+   "nome": "Pré-inativos Curva A (Norte e Nordeste - Corporativo/ Consumidor)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 180 dias, mas estão há mais de 150 dias sem comprar e ramo de atividade (id) igual a CONS. FINAL e faturamento médio mensal no ano com a empresa maior que R$ 15000",
+   "tratados_antes_por": [
+    "R66"
+   ]
+  },
+  {
+   "id": "R70",
+   "nome": "Pré-inativos Curva B (Norte e Nordeste - Corporativo/ Consumidor)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 180 dias, mas estão há mais de 150 dias sem comprar e ramo de atividade (id) igual a CONS. FINAL e faturamento médio mensal no ano com a empresa maior que R$ 10000 e não (faturamento médio mensal no ano com a empresa maior que R$ 15000)",
+   "tratados_antes_por": [
+    "R66",
+    "R67",
+    "R69"
+   ]
+  },
+  {
+   "id": "R71",
+   "nome": "Pré-inativos Curva C (Norte e Nordeste - Corporativo/ Consumidor)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 180 dias, mas estão há mais de 150 dias sem comprar e ramo de atividade (id) igual a CONS. FINAL e não (faturamento médio mensal no ano com a empresa maior que R$ 10000) e não (faturamento médio mensal no ano com a empresa maior que R$ 15000)",
+   "tratados_antes_por": [
+    "R66",
+    "R67",
+    "R68",
+    "R69",
+    "R70"
+   ]
+  },
+  {
+   "id": "R72",
+   "nome": "Inativos Curva A (Norte e Nordeste - Corporativo/ Consumidor)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 180 dias e ramo de atividade (id) igual a CONS. FINAL e faturamento médio mensal no ano com a empresa maior que R$ 15000",
+   "tratados_antes_por": [
+    "R2",
+    "R66",
+    "R69"
+   ]
+  },
+  {
+   "id": "R73",
+   "nome": "Inativos Curva B (Norte e Nordeste - Corporativo/ Consumidor)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 180 dias e ramo de atividade (id) igual a CONS. FINAL e faturamento médio mensal no ano com a empresa maior que R$ 10000 e não (faturamento médio mensal no ano com a empresa maior que R$ 15000)",
+   "tratados_antes_por": [
+    "R2",
+    "R66",
+    "R67",
+    "R69",
+    "R70",
+    "R72"
+   ]
+  },
+  {
+   "id": "R74",
+   "nome": "Inativos Curva C (Norte e Nordeste - Corporativo/ Consumidor)",
+   "fonte": "da carteira norte_nordeste",
+   "acao_principal": "nenhuma",
+   "acoes": [],
+   "condicao_efetiva": "(já compraram com qualquer vendedor da empresa e ramo de atividade (id) fora de: AGROPECUARIA, ATACADO, CONS. FINAL, EPI, FERRAGISTA, HOME CENTER e mais 2 e [não traduzido: ramo de atividade igual(\"CONS. FINAL\"]) OU (sem comprar com qualquer vendedor da empresa há mais de 180 dias e ramo de atividade (id) igual a CONS. FINAL e não (faturamento médio mensal no ano com a empresa maior que R$ 10000) e não (faturamento médio mensal no ano com a empresa maior que R$ 15000) e [não traduzido: ramo de atividade igual(\"CONS. FINAL\"])",
+   "tratados_antes_por": [
+    "R2",
+    "R39",
+    "R40",
+    "R41",
+    "R42",
+    "R43",
+    "R44",
+    "R45",
+    "R46",
+    "R47",
+    "R48",
+    "R49",
+    "R50",
+    "R51",
+    "R52",
+    "R53",
+    "R54",
+    "R55",
+    "R56",
+    "R57",
+    "R58",
+    "R59",
+    "R60",
+    "R61",
+    "R62",
+    "R63",
+    "R64",
+    "R65",
+    "R66",
+    "R67",
+    "R68",
+    "R69",
+    "R70",
+    "R71",
+    "R72",
+    "R73"
+   ],
+   "clausulas_desconhecidas": [
+    "ramo de atividade igual(\"CONS. FINAL\""
+   ],
+   "alertas": [
+    "Trecho não reconhecido (possível erro de sintaxe): ramo de atividade igual(\"CONS. FINAL\"",
+    "Regra sem ação (nenhuma frequência, preferência ou bloqueio)."
+   ]
+  },
+  {
+   "id": "R75",
+   "nome": "Clientes que hoje não se enquadraram nas regras padrão",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "todos os clientes da fonte (sem filtro)",
+   "tratados_antes_por": [
+    "R2",
+    "R3",
+    "R4",
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9",
+    "R10",
+    "R11",
+    "R12",
+    "R13",
+    "R14",
+    "R15",
+    "R16",
+    "R17",
+    "R18",
+    "R19",
+    "R20",
+    "R21",
+    "R22",
+    "R23",
+    "R24",
+    "R25",
+    "R26",
+    "R27",
+    "R28",
+    "R29",
+    "R30",
+    "R31",
+    "R32",
+    "R33",
+    "R34",
+    "R35",
+    "R36",
+    "R37",
+    "R38",
+    "R39",
+    "R40",
+    "R41",
+    "R42",
+    "R43",
+    "R44",
+    "R45",
+    "R46",
+    "R47",
+    "R48",
+    "R49",
+    "R50",
+    "R51",
+    "R52",
+    "R53",
+    "R54",
+    "R55",
+    "R56",
+    "R57",
+    "R58",
+    "R59",
+    "R60",
+    "R61",
+    "R62",
+    "R63",
+    "R64",
+    "R65",
+    "R66",
+    "R67",
+    "R68",
+    "R69",
+    "R70",
+    "R71",
+    "R72",
+    "R73",
+    "R74"
+   ],
+   "alertas": [
+    "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [
+  "A cascata mistura escopos de recência de compra (global: Ativos Curva A (Sul, Sudeste e Centro-Oeste - Matcon, Ferragista, Agropecuária e Home Center), Ativos Curva B (Sul, Sudeste e Centro-Oeste - Matcon, Ferragista, Agropecuária e Home Center), Ativos Curva C (Sul, Sudeste e Centro-Oeste - Matcon, Ferragista, Agropecuária e Home Center); grupo: Pré-inativos Curva C (Sul, Sudeste e Centro-Oeste - Matcon, Ferragista, Agropecuária e Home Center)); faixas de escopos diferentes não se excluem automaticamente e podem se sobrepor ou deixar lacunas."
+ ],
+ "premissas_usadas": [
+  "P2: Escopos de recência (grupo, vendedor, global) são medidas distintas, ordenadas: global <= grupo <= vendedor.",
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado.",
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

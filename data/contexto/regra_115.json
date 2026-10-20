@@ -1,0 +1,98 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_115.gobr",
+  "sha256": "496e67ae6fc67ff00721b1ef6cce92aa3c7ba7fca6aeba7fce21d077fa80ed15",
+  "comentarios": [
+    "Parametros televendas"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "time atacado",
+      "definicao": "os vendedores de id 510, 617, 596",
+      "filtros": []
+    },
+    {
+      "id": "T2",
+      "nome": "time salmao",
+      "definicao": "os vendedores de id 613, 614, 568",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [],
+  "bloqueios": [],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Regra Padrao da Frigoforte: 7 dias para atacado (televendas)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time time atacado",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "todos os clientes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Regra Padrao da Frigoforte: 2 dias para salmao (televendas)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time time salmao",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 2 dias",
+          "significado": "frequência de 2 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "todos os clientes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        2
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    2,
+    7
+  ],
+  "numeros_permitidos": [
+    2,
+    7,
+    510,
+    568,
+    596,
+    613,
+    614,
+    617
+  ],
+  "premissas_usadas": [
+    "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+  ]
+}

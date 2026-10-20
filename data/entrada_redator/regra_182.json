@@ -1,0 +1,440 @@
+{
+ "arquivo": "regra_182.gobr",
+ "comentarios": [
+  "Definição de Times",
+  "Parâmetros de planejamento"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Não agendar CPF",
+  "Não agendar inadimplentes",
+  "Não agendar baixados na Receita",
+  "Não agendar cliente com pedido nos últimos 7 dias"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Não agendar CPF",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "pessoa física"
+  },
+  {
+   "id": "R2",
+   "nome": "Não agendar inadimplentes",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes"
+  },
+  {
+   "id": "R3",
+   "nome": "Não agendar baixados na Receita",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "com situação baixada na Receita Federal"
+  },
+  {
+   "id": "R4",
+   "nome": "Não agendar cliente com pedido nos últimos 7 dias",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "compraram nos últimos 7 dias"
+  },
+  {
+   "id": "R5",
+   "nome": "Prospects dos ramos de atividade 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa e ramo de atividade (id) em: 089, 090, 091, 092, 093, 094 e mais 9"
+  },
+  {
+   "id": "R6",
+   "nome": "Ramo de atividade MANGUEIRAS com pedido em 45d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 45 dias, mas estão há mais de 7 dias sem comprar e ramo de atividade (id) igual a 089"
+  },
+  {
+   "id": "R7",
+   "nome": "Ramo de atividade MANGUEIRAS com pedido acima de 45d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 45 dias) e ramo de atividade (id) igual a 089",
+   "tratados_antes_por": [
+    "R5",
+    "R6"
+   ]
+  },
+  {
+   "id": "R8",
+   "nome": "Ramo de atividade MATERIAIS DE LIMPEZA com pedido em 60d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 60 dias, mas estão há mais de 7 dias sem comprar e ramo de atividade (id) igual a 090"
+  },
+  {
+   "id": "R9",
+   "nome": "Ramo de atividade MATERIAIS DE LIMPEZA com pedido acima de 60d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 10 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 60 dias) e ramo de atividade (id) igual a 090",
+   "tratados_antes_por": [
+    "R5",
+    "R8"
+   ]
+  },
+  {
+   "id": "R10",
+   "nome": "Ramo de atividade REVENDA EPI com pedido em 45d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 45 dias, mas estão há mais de 7 dias sem comprar e ramo de atividade (id) igual a 091"
+  },
+  {
+   "id": "R11",
+   "nome": "Ramo de atividade REVENDA EPI com pedido acima de 45d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 45 dias) e ramo de atividade (id) igual a 091",
+   "tratados_antes_por": [
+    "R5",
+    "R10"
+   ]
+  },
+  {
+   "id": "R12",
+   "nome": "Ramo de atividade MATERIAIS DE CONSTRUÇÃO com pedido em 90d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 90 dias, mas estão há mais de 7 dias sem comprar e ramo de atividade (id) igual a 092"
+  },
+  {
+   "id": "R13",
+   "nome": "Ramo de atividade MATERIAIS DE CONSTRUÇÃO com pedido acima de 90d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 90 dias) e ramo de atividade (id) igual a 092",
+   "tratados_antes_por": [
+    "R5",
+    "R12"
+   ]
+  },
+  {
+   "id": "R14",
+   "nome": "Ramo de atividade FERRAGEM E FERRAMENTAS com pedido em 45d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 45 dias, mas estão há mais de 7 dias sem comprar e ramo de atividade (id) igual a 093"
+  },
+  {
+   "id": "R15",
+   "nome": "Ramo de atividade FERRAGEM E FERRAMENTAS com pedido acima de 45d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 45 dias) e ramo de atividade (id) igual a 093",
+   "tratados_antes_por": [
+    "R5",
+    "R14"
+   ]
+  },
+  {
+   "id": "R16",
+   "nome": "Ramo de atividade AGROPECUARIA com pedido em 90d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 90 dias, mas estão há mais de 7 dias sem comprar e ramo de atividade (id) igual a 094"
+  },
+  {
+   "id": "R17",
+   "nome": "Ramo de atividade AGROPECUARIA com pedido acima 90d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 90 dias) e ramo de atividade (id) igual a 094",
+   "tratados_antes_por": [
+    "R5",
+    "R16"
+   ]
+  },
+  {
+   "id": "R18",
+   "nome": "Ramo de atividade PRESTADOR DE SERVIÇO com pedido em 75d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 75 dias, mas estão há mais de 7 dias sem comprar e ramo de atividade (id) igual a 095"
+  },
+  {
+   "id": "R19",
+   "nome": "Ramo de atividade PRESTADOR DE SERVIÇO com pedido acima de 75d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 75 dias) e ramo de atividade (id) igual a 095",
+   "tratados_antes_por": [
+    "R5",
+    "R18"
+   ]
+  },
+  {
+   "id": "R20",
+   "nome": "Ramo de atividade INDÚSTRIA com pedido em 75d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 75 dias, mas estão há mais de 7 dias sem comprar e ramo de atividade (id) igual a 096"
+  },
+  {
+   "id": "R21",
+   "nome": "Ramo de atividade INDÚSTRIA com pedido acima de 75d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 75 dias) e ramo de atividade (id) igual a 096",
+   "tratados_antes_por": [
+    "R5",
+    "R20"
+   ]
+  },
+  {
+   "id": "R22",
+   "nome": "Ramo de atividade COOPERATIVA com pedido em 60d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 60 dias, mas estão há mais de 7 dias sem comprar e ramo de atividade (id) igual a 097"
+  },
+  {
+   "id": "R23",
+   "nome": "Ramo de atividade COOPERATIVA com pedido acima de 60d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 10 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 60 dias) e ramo de atividade (id) igual a 097",
+   "tratados_antes_por": [
+    "R5",
+    "R22"
+   ]
+  },
+  {
+   "id": "R24",
+   "nome": "Ramo de atividade HOME CENTER com pedido em 60d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 60 dias, mas estão há mais de 7 dias sem comprar e ramo de atividade (id) igual a 098"
+  },
+  {
+   "id": "R25",
+   "nome": "Ramo de atividade HOME CENTER com pedido acima de 60d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 10 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 60 dias) e ramo de atividade (id) igual a 098",
+   "tratados_antes_por": [
+    "R5",
+    "R24"
+   ]
+  },
+  {
+   "id": "R26",
+   "nome": "Ramo de atividade ATACADO com pedido em 45d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 45 dias, mas estão há mais de 7 dias sem comprar e ramo de atividade (id) igual a 099"
+  },
+  {
+   "id": "R27",
+   "nome": "Ramo de atividade ATACADO com pedido acima de 45d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 45 dias) e ramo de atividade (id) igual a 099",
+   "tratados_antes_por": [
+    "R5",
+    "R26"
+   ]
+  },
+  {
+   "id": "R28",
+   "nome": "Ramo de atividade CONSTRUTORA com pedido em 75d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 75 dias, mas estão há mais de 7 dias sem comprar e ramo de atividade (id) igual a 100"
+  },
+  {
+   "id": "R29",
+   "nome": "Ramo de atividade CONSTRUTORA com pedido acima de 75d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 75 dias) e ramo de atividade (id) igual a 100",
+   "tratados_antes_por": [
+    "R5",
+    "R28"
+   ]
+  },
+  {
+   "id": "R30",
+   "nome": "Ramo de atividade ÓRGÃO PÚBLICO com pedido em 90d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 90 dias, mas estão há mais de 7 dias sem comprar e ramo de atividade (id) igual a 101"
+  },
+  {
+   "id": "R31",
+   "nome": "Ramo de atividade ÓRGÃO PÚBLICO com pedido acima de 90d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 90 dias) e ramo de atividade (id) igual a 101",
+   "tratados_antes_por": [
+    "R5",
+    "R30"
+   ]
+  },
+  {
+   "id": "R32",
+   "nome": "Ramo de atividade E-COMMERCE com pedido em 45d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 45 dias, mas estão há mais de 7 dias sem comprar e ramo de atividade (id) igual a 102"
+  },
+  {
+   "id": "R33",
+   "nome": "Ramo de atividade E-COMMERCE com pedido acima de 45d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 45 dias) e ramo de atividade (id) igual a 102",
+   "tratados_antes_por": [
+    "R5",
+    "R32"
+   ]
+  },
+  {
+   "id": "R34",
+   "nome": "Ramo de atividade PRODUTOR RURAL com pedido em 90d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 90 dias, mas estão há mais de 7 dias sem comprar e ramo de atividade (id) igual a 103"
+  },
+  {
+   "id": "R35",
+   "nome": "Ramo de atividade PRODUTOR RURAL com pedido acima de 90d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 90 dias) e ramo de atividade (id) igual a 103",
+   "tratados_antes_por": [
+    "R5",
+    "R34"
+   ]
+  }
+ ],
+ "nao_cobertos": {
+  "do time televendas": "ramo de atividade (id) fora de: 089, 090, 091, 092, 093, 094 e mais 9"
+ },
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+ ]
+}

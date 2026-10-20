@@ -1,0 +1,195 @@
+{
+ "arquivo": "regra_168.gobr",
+ "comentarios": [
+  "DEFINIÇÃO DE TIMES",
+  "CARTEIRAS DE ROTAS POR CIDADE",
+  "PARÂMETROS DE PLANEJAMENTO"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "rota_todo_dia",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": [
+    "cidade em: BALNEARIO CAMBORIU, BOMBINHAS, CAMBORIU, ITAJAI, ITAPEMA, PORTO BELO"
+   ],
+   "livre": true
+  },
+  {
+   "id": "C2",
+   "nome": "rota_terca",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": [
+    "cidade em: BIGUACU, BLUMENAU, BOM RETIRO, BOTUVERA, BRUSQUE, CASCAVEL e mais 16"
+   ],
+   "livre": true
+  },
+  {
+   "id": "C3",
+   "nome": "rota_quarta",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": [
+    "cidade em: ARAUCARIA, BALNEARIO BARRA DO SUL, BALNEARIO PICARRAS, BARRA VELHA, CAMPO ALEGRE, CAMPO LARGO e mais 20"
+   ],
+   "livre": true
+  },
+  {
+   "id": "C4",
+   "nome": "rota_quinta",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": [
+    "cidade em: BENTO GONCALVES, BIGUACU, BLUMENAU, BOTUVERA, BRUSQUE, CACHOEIRINHA e mais 33"
+   ],
+   "livre": true
+  },
+  {
+   "id": "C5",
+   "nome": "rota_sexta",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": [
+    "cidade em: ARAUCARIA, BALNEARIO BARRA DO SUL, BALNEARIO PICARRAS, BARRA VELHA, BIGUACU, CAMPO ALEGRE e mais 25"
+   ],
+   "livre": true
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Não agendar baixados na Receita",
+  "Não agendar bloqueados",
+  "Não agendar clientes que não se enquadraram nas regras hoje"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Não agendar baixados na Receita",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "com situação baixada na Receita Federal"
+  },
+  {
+   "id": "R2",
+   "nome": "Não agendar bloqueados",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "bloqueados para atendimento"
+  },
+  {
+   "id": "R3",
+   "nome": "Rota todo dia -> Agendamento todo dia",
+   "fonte": "da carteira rota_todo_dia",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência diaria (1 dias)",
+    "dias de atendimento - maior preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+    "cliente incluído na roteirização de visitas presenciais",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "todos os clientes"
+  },
+  {
+   "id": "R4",
+   "nome": "Rota de terça -> Agendamento segunda",
+   "fonte": "da carteira rota_terca",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência diaria (1 dias)",
+    "dias de atendimento - maior preferência: segunda; demais dias sem atendimento",
+    "cliente incluído na roteirização de visitas presenciais",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "todos os clientes",
+   "quando_executa": [
+    "somente quando executada na segunda"
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Rota de quarta -> Agendamento terça",
+   "fonte": "da carteira rota_quarta",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência diaria (1 dias)",
+    "dias de atendimento - maior preferência: terça; demais dias sem atendimento",
+    "cliente incluído na roteirização de visitas presenciais",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "todos os clientes",
+   "quando_executa": [
+    "somente quando executada na terça"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Rota de quinta -> Agendamento quarta",
+   "fonte": "da carteira rota_quinta",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência diaria (1 dias)",
+    "dias de atendimento - maior preferência: quarta; demais dias sem atendimento",
+    "cliente incluído na roteirização de visitas presenciais",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "todos os clientes",
+   "quando_executa": [
+    "somente quando executada na quarta"
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Rota de sexta -> Agendamento quinta",
+   "fonte": "da carteira rota_sexta",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência diaria (1 dias)",
+    "dias de atendimento - maior preferência: quinta; demais dias sem atendimento",
+    "cliente incluído na roteirização de visitas presenciais",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "todos os clientes",
+   "quando_executa": [
+    "somente quando executada na quinta"
+   ]
+  },
+  {
+   "id": "R8",
+   "nome": "Não agendar clientes que não se enquadraram nas regras hoje",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "fora da carteira rota_todo_dia",
+   "tratados_antes_por": [
+    "R3"
+   ],
+   "alertas": [
+    "Nos dias em que \"Rota de terça -> Agendamento segunda\" é executada (somente quando executada na segunda), os clientes dela são tratados por ela antes desta regra.",
+    "Nos dias em que \"Rota de quarta -> Agendamento terça\" é executada (somente quando executada na terça), os clientes dela são tratados por ela antes desta regra.",
+    "Nos dias em que \"Rota de quinta -> Agendamento quarta\" é executada (somente quando executada na quarta), os clientes dela são tratados por ela antes desta regra.",
+    "Nos dias em que \"Rota de sexta -> Agendamento quinta\" é executada (somente quando executada na quinta), os clientes dela são tratados por ela antes desta regra."
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [
+  "As carteiras \"rota_terca\" e \"rota_quinta\" compartilham 18 valor(es) de nome da cidade (BIGUACU, BLUMENAU, BOTUVERA, BRUSQUE, FLORIANOPOLIS...): esses clientes aparecem nas duas.",
+  "As carteiras \"rota_terca\" e \"rota_sexta\" compartilham 6 valor(es) de nome da cidade (BIGUACU, FLORIANOPOLIS, GOVERNADOR CELSO RAMOS, PALHOCA, SAO JOSE...): esses clientes aparecem nas duas.",
+  "As carteiras \"rota_quarta\" e \"rota_sexta\" compartilham 19 valor(es) de nome da cidade (ARAUCARIA, BALNEARIO BARRA DO SUL, BALNEARIO PICARRAS, BARRA VELHA, CAMPO ALEGRE...): esses clientes aparecem nas duas.",
+  "As carteiras \"rota_quinta\" e \"rota_sexta\" compartilham 6 valor(es) de nome da cidade (BIGUACU, FLORIANOPOLIS, GOVERNADOR CELSO RAMOS, PALHOCA, SAO JOSE...): esses clientes aparecem nas duas."
+ ],
+ "premissas_usadas": [
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

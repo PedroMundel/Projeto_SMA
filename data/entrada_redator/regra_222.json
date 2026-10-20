@@ -1,0 +1,112 @@
+{
+ "arquivo": "regra_222.gobr",
+ "comentarios": [
+  "Definição dos times:",
+  "Regras do time \"ruptura_global\":",
+  "Regras do time \"carteira\":"
+ ],
+ "times": [
+  {
+   "nome": "ruptura_global",
+   "definicao": "os vendedores de id 8506, 8507, 8508, 8509, 8512"
+  },
+  {
+   "nome": "carteira",
+   "definicao": "os vendedores de id 602, 607, 8406"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Freq. de 14d para 'Sem venda há mais de 30d'",
+   "fonte": "do time ruptura_global",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "(nunca compraram ou sem comprar há mais de 30 dias) e ramo de atividade (id) em: 10, 28, 32, 33, 37, 38 e mais 6 e adimplentes"
+  },
+  {
+   "id": "R2",
+   "nome": "Freq. de 14d para 'Sem venda há mais de 45d'",
+   "fonte": "do time ruptura_global",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem comprar há mais de 45 dias e ramo de atividade (id) em: 1, 11, 12, 13, 14, 15 e mais 24 e adimplentes"
+  },
+  {
+   "id": "R3",
+   "nome": "Freq. de 14d para curva A e com compra em 90 dias",
+   "fonte": "do time carteira",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 90 dias e curva A com a empresa"
+  },
+  {
+   "id": "R4",
+   "nome": "Freq. de 21d para curva B e com compra em 90 dias",
+   "fonte": "do time carteira",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 90 dias e curva B com a empresa"
+  },
+  {
+   "id": "R5",
+   "nome": "Freq. de 28d para curva C e com compra em 90 dias",
+   "fonte": "do time carteira",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 90 dias e curva C com a empresa"
+  },
+  {
+   "id": "R6",
+   "nome": "Freq. de 21d para sem classificação de curva e com compra em 90 dias",
+   "fonte": "do time carteira",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 90 dias e fora da curva A nem B nem C com a empresa",
+   "tratados_antes_por": [
+    "R3",
+    "R4",
+    "R5"
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Freq. de 21d para sem compra há mais de 90 dias",
+   "fonte": "do time carteira",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "(nunca compraram ou sem comprar há mais de 90 dias)",
+   "tratados_antes_por": [
+    "R3",
+    "R4",
+    "R5",
+    "R6"
+   ]
+  }
+ ],
+ "nao_cobertos": {
+  "do time ruptura_global": "várias combinações de clientes não são cobertas por nenhuma regra"
+ },
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+ ]
+}

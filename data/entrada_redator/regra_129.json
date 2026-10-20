@@ -1,0 +1,67 @@
+{
+ "arquivo": "regra_129.gobr",
+ "comentarios": [
+  "Regras de não agendamento:",
+  "Regras de agendamento:"
+ ],
+ "times": [
+  {
+   "nome": "todos",
+   "definicao": "todos os vendedores habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Boa Praça: Não agendar clientes inadimplentes",
+  "Boa Praça: Não agendar clientes filial"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Boa Praça: Não agendar clientes inadimplentes",
+   "fonte": "do time todos",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes"
+  },
+  {
+   "id": "R2",
+   "nome": "Boa Praça: Não agendar clientes filial",
+   "fonte": "do time todos",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "filiais"
+  },
+  {
+   "id": "R3",
+   "nome": "Boa Praça: Freq. de 7 dias para clientes ativos",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "ativos para o vendedor"
+  },
+  {
+   "id": "R4",
+   "nome": "Boa Praça: Freq. de 14 dias para clientes inativos",
+   "fonte": "do time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "não ativos para o vendedor",
+   "tratados_antes_por": [
+    "R3"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": []
+}

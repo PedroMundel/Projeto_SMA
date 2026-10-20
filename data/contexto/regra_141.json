@@ -1,0 +1,287 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_141.gobr",
+  "sha256": "29099bcf81b56a47bdf81d15b57125fe28cc4513619f71414f9f5c1f9533792a",
+  "comentarios": [
+    "Regras padrão",
+    "Regras de curva"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "todos",
+      "definicao": "todos os vendedores habilitados no Govendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [],
+  "bloqueios": [],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Ever Limp: Frequência de 15 dias para clientes ativos curva A",
+      "tipo_bloco": "parametros",
+      "fonte": "do time todos",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "curva a com a empresa",
+          "significado": "curva A com a empresa",
+          "reconhecida": true
+        },
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 15 dias",
+          "significado": "frequência de 15 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "curva A com a empresa e ativos para o vendedor",
+      "condicao_efetiva": "curva A com a empresa e ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        15
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Ever Limp: Frequência de 7 dias para clientes inativos curva A",
+      "tipo_bloco": "parametros",
+      "fonte": "do time todos",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "curva a com a empresa",
+          "significado": "curva A com a empresa",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "curva A com a empresa",
+      "condicao_efetiva": "curva A com a empresa e não ativos para o vendedor",
+      "tratados_antes_por": [
+        "R1"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Ever Limp: Frequência de 21 dias para clientes ativos curva B",
+      "tipo_bloco": "parametros",
+      "fonte": "do time todos",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "curva b com a empresa",
+          "significado": "curva B com a empresa",
+          "reconhecida": true
+        },
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "curva B com a empresa e ativos para o vendedor",
+      "condicao_efetiva": "curva B com a empresa e ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        21
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Ever Limp: Frequência de 14 dias para clientes inativos curva B",
+      "tipo_bloco": "parametros",
+      "fonte": "do time todos",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "curva b com a empresa",
+          "significado": "curva B com a empresa",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "curva B com a empresa",
+      "condicao_efetiva": "curva B com a empresa e não ativos para o vendedor",
+      "tratados_antes_por": [
+        "R3"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Ever Limp: Frequência de 30 dias para clientes ativos curva C",
+      "tipo_bloco": "parametros",
+      "fonte": "do time todos",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "curva c com a empresa",
+          "significado": "curva C com a empresa",
+          "reconhecida": true
+        },
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "curva C com a empresa e ativos para o vendedor",
+      "condicao_efetiva": "curva C com a empresa e ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Ever Limp: Frequência de 21 dias para clientes inativos curva C",
+      "tipo_bloco": "parametros",
+      "fonte": "do time todos",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "curva c com a empresa",
+          "significado": "curva C com a empresa",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "curva C com a empresa",
+      "condicao_efetiva": "curva C com a empresa e não ativos para o vendedor",
+      "tratados_antes_por": [
+        "R5"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        21
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Ever Limp: Frequência de 21 dias para prospects",
+      "tipo_bloco": "parametros",
+      "fonte": "do time todos",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "fora da curva A nem B nem C com a empresa",
+      "tratados_antes_por": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        21
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    7,
+    14,
+    15,
+    21,
+    30
+  ],
+  "numeros_permitidos": [
+    7,
+    14,
+    15,
+    21,
+    30
+  ],
+  "premissas_usadas": [
+    "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+  ]
+}

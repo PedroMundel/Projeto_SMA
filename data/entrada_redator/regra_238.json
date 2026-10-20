@@ -1,0 +1,58 @@
+{
+ "arquivo": "regra_238.gobr",
+ "comentarios": [
+  "Definição de times",
+  "Regras de planejamento"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Matenha relacionamento com seu cliente!",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 59 dias"
+  },
+  {
+   "id": "R2",
+   "nome": "Se não mantiver a regularidade de compra, o cliente ficará inativo!",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 89 dias, mas estão há mais de 59 dias sem comprar",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R3",
+   "nome": "Resgate seu cliente inativo!",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "(nunca compraram com qualquer vendedor da empresa ou sem comprar com qualquer vendedor da empresa há mais de 89 dias)",
+   "tratados_antes_por": [
+    "R1",
+    "R2"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": []
+}

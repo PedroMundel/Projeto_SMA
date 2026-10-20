@@ -1,0 +1,367 @@
+{
+ "arquivo": "regra_164.gobr",
+ "comentarios": [
+  "Definicao dos times",
+  "Regras de agendamento Bruna:",
+  "Regras de agendamento \"construtora\":",
+  "Regras de agendamento shopping, supermercado, industria, estaleiro, clube, escolas, universidade, igreja, hotel, hospital, clínica, restaurantes, condominio\":",
+  "Regras de não agendamento:"
+ ],
+ "times": [
+  {
+   "nome": "time todos",
+   "definicao": "todos os vendedores habilitados no Govendas"
+  },
+  {
+   "nome": "time bruna",
+   "definicao": "os vendedores de id 10bruna"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Isocom: Não agendar - cliente não coberto por regra comercial"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Freq. 14 dias para novos cadastros 'Condomínio' vendedora Bruna",
+   "fonte": "do time time bruna",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "rótulo contém condominio e cadastrados a partir de '2024-10-03'"
+  },
+  {
+   "id": "R2",
+   "nome": "Freq. de 7 dias para compra detectada com a empresa entre 0 e 30 dias 'Condomínio' vendedora Bruna",
+   "fonte": "do time time bruna",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 30 dias e rótulo contém condominio e não (cadastrados a partir de '2024-10-03')",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R3",
+   "nome": "Freq. de 30 dias para não tem compra com a empresa nos últimos 90 dias 'Condomínio' vendedora Bruna",
+   "fonte": "do time time bruna",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 90 dias e rótulo contém condominio e não (cadastrados a partir de '2024-10-03')",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R4",
+   "nome": "Freq. de 7d para: 'Ativar prospects'",
+   "fonte": "do time time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "cadastrados a partir de '2024-08-01' e sem vendas para o vendedor"
+  },
+  {
+   "id": "R5",
+   "nome": "Boas vindas: Frequência de 14d para construtora",
+   "fonte": "do time time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "(sem comprar há mais de 60 dias e rótulo contém construtora e com alguma venda (ativos ou inativos) para o vendedor e com uma única compra na empresa) OU (sem comprar há mais de 60 dias e rótulo contém construtora e não (cadastrados a partir de '2024-08-01') e sem vendas para o vendedor e com uma única compra na empresa)",
+   "tratados_antes_por": [
+    "R4"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Compra com regularidade no RJ - Curva A: Frequência de 7d para construtora",
+   "fonte": "do time time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "sem comprar há mais de 14 dias e rótulo contém construtora e UF igual a RJ e curva A com a empresa e frequência histórica de compra de menos de 30 dias",
+   "tratados_antes_por": [
+    "R4",
+    "R5"
+   ],
+   "alertas": [
+    "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Compra com regularidade no RJ - Curva B: Frequência de 10d para construtora",
+   "fonte": "do time time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 10 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "sem comprar há mais de 14 dias e rótulo contém construtora e UF igual a RJ e curva B com a empresa e frequência histórica de compra de menos de 30 dias",
+   "tratados_antes_por": [
+    "R4",
+    "R5"
+   ],
+   "alertas": [
+    "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+   ]
+  },
+  {
+   "id": "R8",
+   "nome": "Compra com regularidade no RJ - Curva C: Frequência de 14d para construtora",
+   "fonte": "do time time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "sem comprar há mais de 14 dias e rótulo contém construtora e UF igual a RJ e curva C com a empresa e frequência histórica de compra de menos de 30 dias",
+   "tratados_antes_por": [
+    "R4",
+    "R5"
+   ],
+   "alertas": [
+    "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+   ]
+  },
+  {
+   "id": "R9",
+   "nome": "Compra com regularidade: Frequência de 14d para construtora",
+   "fonte": "do time time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "sem comprar há mais de 14 dias e rótulo contém construtora e frequência histórica de compra de menos de 30 dias",
+   "tratados_antes_por": [
+    "R4",
+    "R5",
+    "R6",
+    "R7",
+    "R8"
+   ],
+   "alertas": [
+    "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+   ]
+  },
+  {
+   "id": "R10",
+   "nome": "Estimular regularidade: Frequência de 10d para construtora",
+   "fonte": "do time time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 10 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "sem comprar com qualquer vendedor da empresa há mais de 45 dias e rótulo contém construtora e no ciclo de vida ativo com a empresa",
+   "tratados_antes_por": [
+    "R4",
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9"
+   ],
+   "alertas": [
+    "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+   ]
+  },
+  {
+   "id": "R11",
+   "nome": "Risco de ficar inativo: Frequência de 14d para construtora",
+   "fonte": "do time time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "sem comprar há mais de 60 dias e rótulo contém construtora",
+   "tratados_antes_por": [
+    "R4",
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9",
+    "R10"
+   ],
+   "alertas": [
+    "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+   ]
+  },
+  {
+   "id": "R12",
+   "nome": "Ativar novos clientes: Frequência de 7d para construtora",
+   "fonte": "do time time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "rótulo contém construtora e cadastrados a partir de '2024-10-03'",
+   "tratados_antes_por": [
+    "R4",
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9",
+    "R10",
+    "R11"
+   ],
+   "alertas": [
+    "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+   ]
+  },
+  {
+   "id": "R13",
+   "nome": "Resgate de inativos: Frequência de 45d para construtora",
+   "fonte": "do time time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 45 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "rótulo contém construtora",
+   "tratados_antes_por": [
+    "R4",
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9",
+    "R10",
+    "R11",
+    "R12"
+   ],
+   "alertas": [
+    "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+   ]
+  },
+  {
+   "id": "R14",
+   "nome": "Freq. de 14 dias para Novos cadastros shopping, supermercado, industria, estaleiro, clube, escolas, universidade, igreja, hotel, hospital, clínica, restaurantes, condominio",
+   "fonte": "do time time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "(rótulo não contém construtora e rótulo contém shopping, supermercado, industria, estaleiro, clube, escolas e mais 7 e cadastrados a partir de '2024-10-03' e com alguma venda (ativos ou inativos) para o vendedor) OU (rótulo não contém construtora e rótulo contém shopping, supermercado, industria, estaleiro, clube, escolas e mais 7 e não (cadastrados a partir de '2024-08-01') e cadastrados a partir de '2024-10-03' e sem vendas para o vendedor)",
+   "tratados_antes_por": [
+    "R4",
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9",
+    "R10",
+    "R11",
+    "R12"
+   ]
+  },
+  {
+   "id": "R15",
+   "nome": "Freq. de 7 dias para Novos cadastros shopping, supermercado, industria, estaleiro, clube, escolas, universidade, igreja, hotel, hospital, clínica, restaurantes, condominio",
+   "fonte": "do time time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 30 dias e rótulo não contém construtora e rótulo contém shopping, supermercado, industria, estaleiro, clube, escolas e mais 7 e não (cadastrados a partir de '2024-10-03') e com alguma venda (ativos ou inativos) para o vendedor) OU (compraram com qualquer vendedor da empresa nos últimos 30 dias e rótulo não contém construtora e rótulo contém shopping, supermercado, industria, estaleiro, clube, escolas e mais 7 e não (cadastrados a partir de '2024-08-01') e não (cadastrados a partir de '2024-10-03') e sem vendas para o vendedor)",
+   "tratados_antes_por": [
+    "R4",
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9",
+    "R11",
+    "R12",
+    "R13",
+    "R14"
+   ]
+  },
+  {
+   "id": "R16",
+   "nome": "Freq. de 30 dias para Novos cadastros shopping, supermercado, industria, estaleiro, clube, escolas, universidade, igreja, hotel, hospital, clínica, restaurantes, condominio",
+   "fonte": "do time time todos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 30 dias e rótulo contém shopping, supermercado, industria, estaleiro, clube, escolas e mais 7",
+   "tratados_antes_por": [
+    "R4",
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9",
+    "R11",
+    "R12",
+    "R13",
+    "R14",
+    "R15"
+   ],
+   "inalcancavel": true,
+   "alertas": [
+    "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Freq. de 7d para: 'Ativar prospects'\", \"Boas vindas: Frequência de 14d para construtora\", \"Compra com regularidade no RJ - Curva A: Frequência de 7d para construtora\", \"Compra com regularidade no RJ - Curva B: Frequência de 10d para construtora\", \"Compra com regularidade no RJ - Curva C: Frequência de 14d para construtora\", \"Compra com regularidade: Frequência de 14d para construtora\", \"Risco de ficar inativo: Frequência de 14d para construtora\", \"Ativar novos clientes: Frequência de 7d para construtora\", \"Resgate de inativos: Frequência de 45d para construtora\", \"Freq. de 14 dias para Novos cadastros shopping, supermercado, industria, estaleiro, clube, escolas, universidade, igreja, hotel, hospital, clínica, restaurantes, condominio\", \"Freq. de 7 dias para Novos cadastros shopping, supermercado, industria, estaleiro, clube, escolas, universidade, igreja, hotel, hospital, clínica, restaurantes, condominio\"."
+   ]
+  },
+  {
+   "id": "R17",
+   "nome": "Isocom: Não agendar - cliente não coberto por regra comercial",
+   "fonte": "do time time todos",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "todos os clientes da fonte (sem filtro)",
+   "tratados_antes_por": [
+    "R4",
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9",
+    "R10",
+    "R11",
+    "R12",
+    "R13",
+    "R14",
+    "R15"
+   ],
+   "alertas": [
+    "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+   ]
+  }
+ ],
+ "nao_cobertos": {
+  "do time time bruna": "(rótulo não contém condominio) OU ((nunca compraram com qualquer vendedor da empresa ou compraram com qualquer vendedor da empresa nos últimos 90 dias, mas estão há mais de 30 dias sem comprar) e rótulo contém condominio e não (cadastrados a partir de '2024-10-03'))"
+ },
+ "alertas_do_arquivo": [
+  "A cascata mistura escopos de recência de compra (global: Freq. de 7 dias para compra detectada com a empresa entre 0 e 30 dias 'Condomínio' vendedora Bruna, Freq. de 30 dias para não tem compra com a empresa nos últimos 90 dias 'Condomínio' vendedora Bruna, Estimular regularidade: Frequência de 10d para construtora; grupo: Boas vindas: Frequência de 14d para construtora, Compra com regularidade no RJ - Curva A: Frequência de 7d para construtora, Compra com regularidade no RJ - Curva B: Frequência de 10d para construtora); faixas de escopos diferentes não se excluem automaticamente e podem se sobrepor ou deixar lacunas."
+ ],
+ "premissas_usadas": [
+  "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+  "P2: Escopos de recência (grupo, vendedor, global) são medidas distintas, ordenadas: global <= grupo <= vendedor.",
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado.",
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+ ]
+}

@@ -1,0 +1,144 @@
+{
+ "arquivo": "regra_062.gobr",
+ "comentarios": [
+  "Parametros televendas",
+  "Parametros campo"
+ ],
+ "times": [
+  {
+   "nome": "televenda",
+   "definicao": "todos os vendedores de televendas"
+  },
+  {
+   "nome": "campo",
+   "definicao": "todos os vendedores de campo"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "carteira televendas",
+   "definicao": "carteira fixa dos vendedores do time televenda",
+   "filtros": []
+  },
+  {
+   "id": "C2",
+   "nome": "carteira campo",
+   "definicao": "carteira fixa dos vendedores do time campo",
+   "filtros": []
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Regra Padrao da Royal Pet - Customizavel: Não agendar inativos inadimplentes (televendas)"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Regra Padrao da Royal Pet - Customizavel: Frequencia de 7 dias para ativos adimplentes (televendas)",
+   "fonte": "da carteira carteira televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "adimplentes e ativos para o vendedor"
+  },
+  {
+   "id": "R2",
+   "nome": "Regra Padrao da Royal Pet -  Customizavel: Frequencia de 14 dias para ativos inadimplentes (televendas)",
+   "fonte": "da carteira carteira televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "inadimplentes e ativos para o vendedor"
+  },
+  {
+   "id": "R3",
+   "nome": "Regra Padrao da Royal Pet - Customizavel: Frequencia de 14 dias para inativos adimplentes (televendas)",
+   "fonte": "da carteira carteira televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "adimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R4",
+   "nome": "Regra Padrao da Royal Pet - Customizavel: Não agendar inativos inadimplentes (televendas)",
+   "fonte": "da carteira carteira televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R5",
+   "nome": "Regra Padrao da Royal Pet - Customizavel: Frequencia de 14 dias para clientes sem vendas (televendas)",
+   "fonte": "da carteira carteira televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor"
+  },
+  {
+   "id": "R6",
+   "nome": "Regra Padrao da Royal Pet - Customizavel: Frequencia de 7 dias para ativos adimplentes (campo)",
+   "fonte": "da carteira carteira campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "adimplentes e ativos para o vendedor"
+  },
+  {
+   "id": "R7",
+   "nome": "Regra Padrao da Royal Pet -  Customizavel: Frequencia de 14 dias para ativos inadimplentes (campo)",
+   "fonte": "da carteira carteira campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "inadimplentes e ativos para o vendedor"
+  },
+  {
+   "id": "R8",
+   "nome": "Regra Padrao da Royal Pet - Customizavel: Frequencia de 14 dias para inativos adimplentes (campo)",
+   "fonte": "da carteira carteira campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "adimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R9",
+   "nome": "Regra Padrao da Royal Pet - Customizavel: Frequencia de 30 dias para inativos adimplentes (campo)",
+   "fonte": "da carteira carteira campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "inadimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R10",
+   "nome": "Regra Padrao da Royal Pet - Customizavel: Frequencia de 14 dias para clientes sem vendas (campo)",
+   "fonte": "da carteira carteira campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor"
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores.",
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

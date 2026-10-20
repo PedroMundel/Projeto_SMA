@@ -1,0 +1,192 @@
+{
+ "arquivo": "regra_203.gobr",
+ "comentarios": [
+  "Definição de times",
+  "Parâmetros de não agendamento",
+  "Parâmetros de agendamento"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Não agendar baixados na receita",
+  "Não agendar filiais",
+  "Não agendar inadimplentes",
+  "Não agendar prospects",
+  "Não agendar clientes sem compra em 95 dias"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Não agendar baixados na receita",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "com situação baixada na Receita Federal"
+  },
+  {
+   "id": "R2",
+   "nome": "Não agendar filiais",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "id do cliente principal diferente de 36979 e filiais"
+  },
+  {
+   "id": "R3",
+   "nome": "Não agendar inadimplentes",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes"
+  },
+  {
+   "id": "R4",
+   "nome": "Não agendar prospects",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor"
+  },
+  {
+   "id": "R5",
+   "nome": "Não agendar clientes sem compra em 95 dias",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "sem comprar há mais de 95 dias"
+  },
+  {
+   "id": "R6",
+   "nome": "Clientes que compraram apenas uma vez",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "com uma única compra na empresa"
+  },
+  {
+   "id": "R7",
+   "nome": "Clientes freq. hist. média de pedidos entre 0 e 7 dias",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 6 dias"
+   ],
+   "condicao_efetiva": "frequência histórica de compra de até 7 dias e sem ser de compra única na empresa",
+   "tratados_antes_por": [
+    "R6"
+   ]
+  },
+  {
+   "id": "R8",
+   "nome": "Clientes com freq. hist. média de pedidos entre 8 e 14 dias",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 9 dias"
+   ],
+   "condicao_efetiva": "frequência histórica de compra entre 8 e 14 dias e sem ser de compra única na empresa",
+   "tratados_antes_por": [
+    "R6"
+   ]
+  },
+  {
+   "id": "R9",
+   "nome": "Clientes com freq. hist. média de pedidos entre 15 e 21 dias",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 16 dias"
+   ],
+   "condicao_efetiva": "frequência histórica de compra entre 15 e 21 dias e sem ser de compra única na empresa",
+   "tratados_antes_por": [
+    "R6"
+   ]
+  },
+  {
+   "id": "R10",
+   "nome": "Clientes com freq. hist. média de pedidos entre 22 e 28 dias",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 23 dias"
+   ],
+   "condicao_efetiva": "frequência histórica de compra entre 22 e 28 dias e sem ser de compra única na empresa",
+   "tratados_antes_por": [
+    "R6"
+   ]
+  },
+  {
+   "id": "R11",
+   "nome": "Clientes com freq. hist. média de pedidos entre 29 e 38 dias",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 29 dias"
+   ],
+   "condicao_efetiva": "frequência histórica de compra entre 29 e 38 dias e sem ser de compra única na empresa",
+   "tratados_antes_por": [
+    "R6"
+   ]
+  },
+  {
+   "id": "R12",
+   "nome": "Clientes com freq. hist. média de pedidos entre 39 e 60 dias",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 35 dias"
+   ],
+   "condicao_efetiva": "frequência histórica de compra entre 39 e 60 dias e sem ser de compra única na empresa",
+   "tratados_antes_por": [
+    "R6"
+   ]
+  },
+  {
+   "id": "R13",
+   "nome": "Clientes com freq. hist. média de pedidos entre 61 e 95 dias",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 55 dias"
+   ],
+   "condicao_efetiva": "frequência histórica indefinida ou frequência histórica de compra de mais de 60 dias e sem ser de compra única na empresa",
+   "tratados_antes_por": [
+    "R6",
+    "R7",
+    "R8",
+    "R9",
+    "R10",
+    "R11",
+    "R12"
+   ],
+   "alertas": [
+    "O nome da regra cita 95 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+ ]
+}

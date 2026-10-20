@@ -1,0 +1,28 @@
+{
+ "arquivo": "regra_134.gobr",
+ "comentarios": [],
+ "times": [
+  {
+   "nome": "toda empresa",
+   "definicao": "todos os vendedores habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Regra padrão da Linavet: Frequencia de 15 dias para todos os clientes",
+   "fonte": "do time toda empresa",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 15 dias"
+   ],
+   "condicao_efetiva": "todos os clientes"
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": []
+}

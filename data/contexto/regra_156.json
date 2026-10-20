@@ -1,0 +1,209 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_156.gobr",
+  "sha256": "8e10fbde2bd43f4ff6c94504580940700ce15779dd53146606c4814f4e114dd6",
+  "comentarios": [
+    "Regras padrão",
+    "Regras de não agendamento",
+    "Regras de agendamento"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "todos",
+      "definicao": "todos os vendedores habilitados no Govendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Tropical Color: Não agendar clientes inadimplentes"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Tropical Color: Não agendar clientes inadimplentes",
+      "tipo_bloco": "parametros",
+      "fonte": "do time todos",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "inadimplentes",
+      "condicao_efetiva": "inadimplentes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Tropical Color: 14 dias para prospects",
+      "tipo_bloco": "parametros",
+      "fonte": "do time todos",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "no ciclo de vida prospect com o vendedor",
+          "significado": "prospects (nunca compraram com o próprio vendedor)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "nunca compraram com o próprio vendedor",
+      "condicao_efetiva": "nunca compraram com o próprio vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Tropical Color: 10 dias para clientes com apenas 1 compra",
+      "tipo_bloco": "parametros",
+      "fonte": "do time todos",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "unica compra com o vendedor",
+          "significado": "com uma única compra com o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 10 dias",
+          "significado": "frequência de 10 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "com uma única compra com o vendedor",
+      "condicao_efetiva": "já compraram com o próprio vendedor e com uma única compra com o vendedor",
+      "tratados_antes_por": [
+        "R2"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        10
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Tropical Color: 7 dias para adimplentes/ativos",
+      "tipo_bloco": "parametros",
+      "fonte": "do time todos",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ativos para o vendedor",
+      "condicao_efetiva": "já compraram com o próprio vendedor e ativos para o vendedor e sem ser de compra única com o vendedor",
+      "tratados_antes_por": [
+        "R2",
+        "R3"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Tropical Color: 14 dias para adimplentes/inativos",
+      "tipo_bloco": "parametros",
+      "fonte": "do time todos",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "já compraram com o próprio vendedor e não ativos para o vendedor e sem ser de compra única com o vendedor",
+      "tratados_antes_por": [
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    7,
+    10,
+    14
+  ],
+  "numeros_permitidos": [
+    7,
+    10,
+    14
+  ],
+  "premissas_usadas": [
+    "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+  ]
+}

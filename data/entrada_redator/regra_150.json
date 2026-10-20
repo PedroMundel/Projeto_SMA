@@ -1,0 +1,70 @@
+{
+ "arquivo": "regra_150.gobr",
+ "comentarios": [
+  "Definição de times:",
+  "Regras de não agendamento:",
+  "Parâmetros de agendamento:"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Não agendar clientes com compra da empresa nos últimos 45d"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Não agendar clientes com compra da empresa nos últimos 45d",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 45 dias"
+  },
+  {
+   "id": "R2",
+   "nome": "Ative este cliente na sua carteira",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa"
+  },
+  {
+   "id": "R3",
+   "nome": "Cliente está caminhando para inatividade",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 89 dias, mas estão há mais de 45 dias sem comprar"
+  },
+  {
+   "id": "R4",
+   "nome": "Cliente inativo - Resgate este cliente",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 89 dias",
+   "tratados_antes_por": [
+    "R2",
+    "R3"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+ ]
+}

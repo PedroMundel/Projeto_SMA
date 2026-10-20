@@ -1,0 +1,398 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_165.gobr",
+  "sha256": "bc61014bea041dbf9709dcd573fe2732ac929060104cbd07bcc087f86a1012f1",
+  "comentarios": [
+    "Regras para Chegatto",
+    "Última atualização: 2025-08-05",
+    "Definição de times",
+    "Definição de segmentações",
+    "Definição de parâmetros"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "televendas",
+      "definicao": "todos os vendedores de televendas habilitados no Govendas",
+      "filtros": []
+    },
+    {
+      "id": "T2",
+      "nome": "campo",
+      "definicao": "todos os vendedores de campo",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [
+    {
+      "id": "S1",
+      "nome": "freq_hist_1a7",
+      "definicao": "carteira fixa dos vendedores do time campo",
+      "filtros": [
+        {
+          "codigo": "frequencia historica entre 1 dias e 7 dias",
+          "significado": "frequência histórica de compra entre 1 e 7 dias",
+          "reconhecida": true
+        }
+      ]
+    },
+    {
+      "id": "S2",
+      "nome": "freq_hist_16a30",
+      "definicao": "carteira fixa dos vendedores do time campo",
+      "filtros": [
+        {
+          "codigo": "frequencia historica entre 16 dias e 30 dias",
+          "significado": "frequência histórica de compra entre 16 e 30 dias",
+          "reconhecida": true
+        }
+      ]
+    },
+    {
+      "id": "S3",
+      "nome": "freq_hist_31a45",
+      "definicao": "carteira fixa dos vendedores do time campo",
+      "filtros": [
+        {
+          "codigo": "frequencia historica entre 31 dias e 45 dias",
+          "significado": "frequência histórica de compra entre 31 e 45 dias",
+          "reconhecida": true
+        }
+      ]
+    },
+    {
+      "id": "S4",
+      "nome": "freq_hist_61a90",
+      "definicao": "carteira fixa dos vendedores do time campo",
+      "filtros": [
+        {
+          "codigo": "frequencia historica entre 61 dias e 90 dias",
+          "significado": "frequência histórica de compra entre 61 e 90 dias",
+          "reconhecida": true
+        }
+      ]
+    }
+  ],
+  "bloqueios": [
+    "Não agendar clientes inativos inadimplentes",
+    "Não agendar clientes que não se enquadrem em nenhuma regra padrão"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Não agendar clientes inativos inadimplentes",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "no ciclo de vida inativo com a empresa",
+          "significado": "no ciclo de vida inativo com a empresa",
+          "reconhecida": true
+        },
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "no ciclo de vida inativo com a empresa e inadimplentes",
+      "condicao_efetiva": "no ciclo de vida inativo com a empresa e inadimplentes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Clientes há mais de 90 dias sem compra",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao em 90 dias",
+          "significado": "sem comprar há mais de 90 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar há mais de 90 dias",
+      "condicao_efetiva": "sem comprar há mais de 90 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7,
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Clientes com frequência histórica de pedidos entre 1 e 7 dias, e sem compra entre 8 e 15 dias.",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "contido na segmentacao(\"freq_hist_1a7\")",
+          "significado": "na segmentação \"freq_hist_1a7\"",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fora da recencia de positivacao entre 8 dias e 15 dias",
+          "significado": "(compraram nos últimos 7 dias ou sem comprar há mais de 15 dias)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "(compraram nos últimos 7 dias ou sem comprar há mais de 15 dias)",
+      "condicao_efetiva": "(compraram nos últimos 7 dias ou compraram nos últimos 90 dias, mas estão há mais de 15 dias sem comprar)",
+      "tratados_antes_por": [
+        "R2"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        8,
+        14,
+        15
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Clientes com frequência histórica de pedidos entre 16 e 30 dias, e sem compra entre 31 e 45 dias.",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "contido na segmentacao(\"freq_hist_16a30\")",
+          "significado": "na segmentação \"freq_hist_16a30\"",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fora da recencia de positivacao entre 31 dias e 45 dias",
+          "significado": "(compraram nos últimos 30 dias ou sem comprar há mais de 45 dias)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 28 dias",
+          "significado": "frequência de 28 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "(compraram nos últimos 30 dias ou sem comprar há mais de 45 dias)",
+      "condicao_efetiva": "((compraram nos últimos 30 dias ou compraram nos últimos 90 dias, mas estão há mais de 45 dias sem comprar) e fora da segmentação \"freq_hist_1a7\") OU (compraram nos últimos 15 dias, mas estão há mais de 7 dias sem comprar e na segmentação \"freq_hist_1a7\")",
+      "tratados_antes_por": [
+        "R2",
+        "R3"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        28,
+        31,
+        45
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Clientes com frequência histórica de pedidos entre 31 e 45 dias, e sem compra entre 46 e 60 dias.",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "contido na segmentacao(\"freq_hist_31a45\")",
+          "significado": "na segmentação \"freq_hist_31a45\"",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fora da recencia de positivacao entre 46 dias e 60 dias",
+          "significado": "(compraram nos últimos 45 dias ou sem comprar há mais de 60 dias)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "(compraram nos últimos 45 dias ou sem comprar há mais de 60 dias)",
+      "condicao_efetiva": "((compraram nos últimos 45 dias ou compraram nos últimos 90 dias, mas estão há mais de 60 dias sem comprar) e fora da segmentação \"freq_hist_16a30\" e fora da segmentação \"freq_hist_1a7\") OU (compraram nos últimos 45 dias, mas estão há mais de 30 dias sem comprar e na segmentação \"freq_hist_16a30\" e fora da segmentação \"freq_hist_1a7\") OU (compraram nos últimos 15 dias, mas estão há mais de 7 dias sem comprar e fora da segmentação \"freq_hist_16a30\" e na segmentação \"freq_hist_1a7\")",
+      "tratados_antes_por": [
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21,
+        46,
+        60
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Clientes com frequência histórica de pedidos entre 61 e 90 dias, e sem compra há 90 dias.",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "contido na segmentacao(\"freq_hist_61a90\")",
+          "significado": "na segmentação \"freq_hist_61a90\"",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fora da recencia de positivacao em 90 dias",
+          "significado": "sem comprar há mais de 90 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 15 dias",
+          "significado": "frequência de 15 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar há mais de 90 dias",
+      "condicao_efetiva": null,
+      "tratados_antes_por": [
+        "R2"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": true,
+      "numeros": [
+        15,
+        90
+      ],
+      "alertas": [
+        "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Não agendar clientes inativos inadimplentes\", \"Clientes há mais de 90 dias sem compra\"."
+      ]
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Não agendar clientes que não se enquadrem em nenhuma regra padrão",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": null,
+      "tratados_antes_por": [
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": [
+        "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+      ]
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    7,
+    8,
+    14,
+    15,
+    21,
+    28,
+    31,
+    45,
+    46,
+    60,
+    90
+  ],
+  "numeros_permitidos": [
+    1,
+    7,
+    8,
+    14,
+    15,
+    16,
+    21,
+    28,
+    30,
+    31,
+    45,
+    46,
+    60,
+    61,
+    90
+  ],
+  "premissas_usadas": [
+    "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+    "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+  ]
+}

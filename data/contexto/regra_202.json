@@ -1,0 +1,225 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_202.gobr",
+  "sha256": "ce0189a5e24f09ac0347617620a237474ebe89c1e7efb80ccf8dd6839ac4a063",
+  "comentarios": [
+    "Definição de times:",
+    "Regras de agendamento:"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "televendas",
+      "definicao": "todos os vendedores de televendas habilitados no Govendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [],
+  "bloqueios": [],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Freq. de 7d para clientes sem compra em 60d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao em 60 dias",
+          "significado": "sem comprar há mais de 60 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar há mais de 60 dias",
+      "condicao_efetiva": "sem comprar há mais de 60 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        7,
+        60
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Ative um novo cliente na sua carteira",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "sem venda do vendedor",
+          "significado": "sem vendas para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem vendas para o vendedor",
+      "condicao_efetiva": "(nunca compraram ou compraram nos últimos 60 dias) e sem vendas para o vendedor",
+      "tratados_antes_por": [
+        "R1"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Estabeleça relacionamento com seu novo cliente",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "unica compra com o vendedor",
+          "significado": "com uma única compra com o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fora da recencia de positivacao em 7 dias",
+          "significado": "sem comprar há mais de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar há mais de 7 dias e com uma única compra com o vendedor",
+      "condicao_efetiva": "compraram nos últimos 60 dias, mas estão há mais de 7 dias sem comprar e com alguma venda (ativos ou inativos) para o vendedor e com uma única compra com o vendedor",
+      "tratados_antes_por": [
+        "R1",
+        "R2"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Cliente que tem uma alta frequência de compra com você!",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao em 30 dias",
+          "significado": "compraram nos últimos 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia do historico ou no maximo de 30 dias",
+          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 30 dias",
+      "condicao_efetiva": "(compraram nos últimos 30 dias e com alguma venda (ativos ou inativos) para o vendedor e sem ser de compra única com o vendedor) OU (compraram nos últimos 7 dias e com alguma venda (ativos ou inativos) para o vendedor e com uma única compra com o vendedor)",
+      "tratados_antes_por": [
+        "R2",
+        "R3"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Estimule a regularidade de compra do seu cliente, pois ele está sem pedido há mais de 30 dias!",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao entre 31 dias e 60 dias",
+          "significado": "(compraram nos últimos 30 dias ou sem comprar há mais de 60 dias)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "(compraram nos últimos 30 dias ou sem comprar há mais de 60 dias)",
+      "condicao_efetiva": null,
+      "tratados_antes_por": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": true,
+      "numeros": [
+        7,
+        31,
+        60
+      ],
+      "alertas": [
+        "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Freq. de 7d para clientes sem compra em 60d\", \"Ative um novo cliente na sua carteira\", \"Estabeleça relacionamento com seu novo cliente\", \"Cliente que tem uma alta frequência de compra com você!\"."
+      ]
+    }
+  ],
+  "nao_cobertos": {
+    "do time televendas": "((nunca compraram ou compraram nos últimos 60 dias, mas estão há mais de 30 dias sem comprar) e com alguma venda (ativos ou inativos) para o vendedor e sem ser de compra única com o vendedor) OU (nunca compraram e com alguma venda (ativos ou inativos) para o vendedor e com uma única compra com o vendedor)"
+  },
+  "alertas": [],
+  "numeros_obrigatorios": [
+    7,
+    30,
+    31,
+    60
+  ],
+  "numeros_permitidos": [
+    7,
+    30,
+    31,
+    60
+  ],
+  "premissas_usadas": [
+    "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+    "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'."
+  ]
+}

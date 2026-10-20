@@ -1,0 +1,70 @@
+{
+ "arquivo": "regra_122.gobr",
+ "comentarios": [],
+ "times": [
+  {
+   "nome": "time televendas",
+   "definicao": "todos os vendedores de televendas"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "carteira televendas",
+   "definicao": "carteira fixa dos vendedores do time time televendas",
+   "filtros": []
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Regra Padrao da Empresa Customizavel: Não agendar inadimplentes (televendas)"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Regra Padrao da Empresa Customizavel: Não agendar inadimplentes (televendas)",
+   "fonte": "da carteira carteira televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes"
+  },
+  {
+   "id": "R2",
+   "nome": "Regra Padrao da Empresa Customizavel: 14 dias para ativos adimplentes (televendas)",
+   "fonte": "da carteira carteira televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "adimplentes e ativos para o vendedor"
+  },
+  {
+   "id": "R3",
+   "nome": "Regra Padrao da Empresa Customizavel: 30 dias para inativos adimplentes (televendas)",
+   "fonte": "da carteira carteira televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "adimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R4",
+   "nome": "Regra Padrao da Empresa Customizavel: 14 dias para clientes sem vendas (televendas)",
+   "fonte": "da carteira carteira televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "adimplentes e sem vendas para o vendedor"
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

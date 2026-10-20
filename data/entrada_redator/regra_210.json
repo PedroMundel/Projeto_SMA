@@ -1,0 +1,109 @@
+{
+ "arquivo": "regra_210.gobr",
+ "comentarios": [
+  "Definição de times",
+  "Regras de não agendamento",
+  "Regras de agendamento"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Não agendar Filiais",
+  "Não agendar Inadimplentes",
+  "Não agendar Bloqueados"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Não agendar Filiais",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "filiais"
+  },
+  {
+   "id": "R2",
+   "nome": "Não agendar Inadimplentes",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes"
+  },
+  {
+   "id": "R3",
+   "nome": "Não agendar Bloqueados",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "bloqueados para atendimento"
+  },
+  {
+   "id": "R4",
+   "nome": "Freq. de 30d para 'Ativado: fez um pedido e ainda não comprou mais'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "com uma única compra com o vendedor"
+  },
+  {
+   "id": "R5",
+   "nome": "Freq. de 30d para 'Esquecido'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 365 dias, mas estão há pelo menos 181 dias sem comprar e sem ser de compra única com o vendedor",
+   "tratados_antes_por": [
+    "R4"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Freq. de 30d 'Inativo: Reativar cliente sem compra'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "sem comprar há mais de 365 dias e sem ser de compra única com o vendedor",
+   "tratados_antes_por": [
+    "R4"
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Freq. de 30d para 'Ativo fidelizado'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "(nunca compraram ou compraram nos últimos 180 dias) e sem ser de compra única com o vendedor",
+   "tratados_antes_por": [
+    "R4",
+    "R5",
+    "R6"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra."
+ ]
+}

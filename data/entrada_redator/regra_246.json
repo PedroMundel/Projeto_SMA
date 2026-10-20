@@ -1,0 +1,203 @@
+{
+ "arquivo": "regra_246.gobr",
+ "comentarios": [
+  "TIMES",
+  "REGRAS PARA CARTEIRAS POR RAMOS DE ATIVIDADE",
+  "REGRAS DE PLANEJAMENTO",
+  "Regra Catch all"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "ramos_1",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": [
+    "ramo de atividade (id) em: 101009, 101016, 101025, 101101, 101102, 101103 e mais 6"
+   ],
+   "livre": true
+  },
+  {
+   "id": "C2",
+   "nome": "ramos_2",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": [
+    "ramo de atividade (id) em: 101001, 101002, 101003, 101004, 101005, 101006 e mais 20"
+   ],
+   "livre": true
+  },
+  {
+   "id": "C3",
+   "nome": "ramos_3",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": [
+    "ramo de atividade (id) em: 101008, 101010, 101017, 101018, 101019, 101020 e mais 28"
+   ],
+   "livre": true
+  },
+  {
+   "id": "C4",
+   "nome": "ramos_4",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": [
+    "ramo de atividade (id) em: 101013, 101040, 102001, 102002, 201011, 201021 e mais 2"
+   ],
+   "livre": true
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Baixados na Receita Federal",
+  "Clientes que hoje não se enquadraram nas regras padrão"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Baixados na Receita Federal",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "com situação baixada na Receita Federal"
+  },
+  {
+   "id": "R2",
+   "nome": "Prospects",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa"
+  },
+  {
+   "id": "R3",
+   "nome": "Ativos dos ramos de atividade POSTO DE COMBUSTIVEL, FARMACIA E DROGARIA, SUPERMERCADO, REDE DE FAST FOOD, REDE DE POSTO DE COMBUSTIVEL, REDE DE DROGARIA, REDE DE SUPERMERCADO, REDE DE HIPERMERCADO, EMPRESA DE ONIBUS, TRANSPORTADORA, LOGISTICA, POSTO DE SERVICO - VDO",
+   "fonte": "da carteira ramos_1",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 45 dias"
+  },
+  {
+   "id": "R4",
+   "nome": "Inativos dos ramos de atividade POSTO DE COMBUSTIVEL, FARMACIA E DROGARIA, SUPERMERCADO, REDE DE FAST FOOD, REDE DE POSTO DE COMBUSTIVEL, REDE DE DROGARIA, REDE DE SUPERMERCADO, REDE DE HIPERMERCADO, EMPRESA DE ONIBUS, TRANSPORTADORA, LOGISTICA, POSTO DE SERVICO - VDO",
+   "fonte": "da carteira ramos_1",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 45 dias",
+   "tratados_antes_por": [
+    "R2",
+    "R3"
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Ativos dos ramos de atividade DISTRIB. AUTOPECAS, DISTRIB. PECAS MECANICAS, DISTRIB. PECAS ELETRICAS, DISTRIB. PECAS E ACESSORIOS, DISTRIB. ACESSORIOS, DISTRIB. FILTROS/LUBRIFICANTES, CONCESSIONARIAS, AUTOMACAO, SUPRIMENTO DE INFORMATICA, GRAFICA, EMBALAGEM E DESCARTAVEL, MATERIAL DE LIMPEZA, MATERIAL DE ESCRITORIO, MATERIAL HOSPITALAR, PAPELARIA, COOPERATIVA, MAGAZINES, E-COMERCE, REDE DE MAGAZINE, REDE LOJA VAREJISTA, HOSPITAL, LABORATORIO, IND. ALIMENTICIA, IND. DE BEBIDAS, IND. FARMACEUTICA, IND. FRIGORIFICA",
+   "fonte": "da carteira ramos_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias"
+  },
+  {
+   "id": "R6",
+   "nome": "Inativos dos ramos de atividade DISTRIB. AUTOPECAS, DISTRIB. PECAS MECANICAS, DISTRIB. PECAS ELETRICAS, DISTRIB. PECAS E ACESSORIOS, DISTRIB. ACESSORIOS, DISTRIB. FILTROS/LUBRIFICANTES, CONCESSIONARIAS, AUTOMACAO, SUPRIMENTO DE INFORMATICA, GRAFICA, EMBALAGEM E DESCARTAVEL, MATERIAL DE LIMPEZA, MATERIAL DE ESCRITORIO, MATERIAL HOSPITALAR, PAPELARIA, COOPERATIVA, MAGAZINES, E-COMERCE, REDE DE MAGAZINE, REDE LOJA VAREJISTA, HOSPITAL, LABORATORIO, IND. ALIMENTICIA, IND. DE BEBIDAS, IND. FARMACEUTICA, IND. FRIGORIFICA",
+   "fonte": "da carteira ramos_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 10 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 60 dias",
+   "tratados_antes_por": [
+    "R2",
+    "R5"
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Ativos dos ramos de atividade IMPLEMENTOS RODOVIARIOS, LOJA DE CONVENIENCIA, FARMACIA DE MANIPULACAO, ACOUGUE, PEIXARIA, HORTIFRUTI, PADARIA E CONFEITARIA, LANCHONETE, PIZZARIA, RESTAURANTE, MATERIAL DE CONSTRUCAO, JOALHERIA, LIVRARIA, FLORICULTURA, ARMARINHOS E MIUDEZAS, COSMETICOS, PERFUMARIA, HIGIENE PESSOAL, CIA DE GAS, ADMINISTRADORA DE CARTOES, ESTACIONAMENTO, HOTEL, INST. DE ENSINO, INST. FINANCEIRA, OFICINA, SHOPPING, ENTRETERIMENTO, IND. AUTOMOBILISTICA, IND. DE CALCADOS, IND. DE COSMETICOS, IND. PAPEL, IND. QUIMICA, IND. TEXTIL, IND. BRINQUEDOS, IND. MANUFATURAS, IND. ELETRONICOS",
+   "fonte": "da carteira ramos_3",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 75 dias"
+  },
+  {
+   "id": "R8",
+   "nome": "Inativos dos ramos de atividade IMPLEMENTOS RODOVIARIOS, LOJA DE CONVENIENCIA, FARMACIA DE MANIPULACAO, ACOUGUE, PEIXARIA, HORTIFRUTI, PADARIA E CONFEITARIA, LANCHONETE, PIZZARIA, RESTAURANTE, MATERIAL DE CONSTRUCAO, JOALHERIA, LIVRARIA, FLORICULTURA, ARMARINHOS E MIUDEZAS, COSMETICOS, PERFUMARIA, HIGIENE PESSOAL, CIA DE GAS, ADMINISTRADORA DE CARTOES, ESTACIONAMENTO, HOTEL, INST. DE ENSINO, INST. FINANCEIRA, OFICINA, SHOPPING, ENTRETERIMENTO, IND. AUTOMOBILISTICA, IND. DE CALCADOS, IND. DE COSMETICOS, IND. PAPEL, IND. QUIMICA, IND. TEXTIL, IND. BRINQUEDOS, IND. MANUFATURAS, IND. ELETRONICOS",
+   "fonte": "da carteira ramos_3",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 75 dias",
+   "tratados_antes_por": [
+    "R2",
+    "R7"
+   ]
+  },
+  {
+   "id": "R9",
+   "nome": "Ativos dos ramos de atividade RECARGA CELULAR, VIDRACARIA, EXPORTACAO DIRETA, EXPORTACAO TRADE, EVENTOS E SHOWS, REPRESENTANTE, PROMOTOR DE VENDA, OUTROS",
+   "fonte": "da carteira ramos_4",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 90 dias"
+  },
+  {
+   "id": "R10",
+   "nome": "Inativos dos ramos de atividade RECARGA CELULAR, VIDRACARIA, EXPORTACAO DIRETA, EXPORTACAO TRADE, EVENTOS E SHOWS, REPRESENTANTE, PROMOTOR DE VENDA, OUTROS",
+   "fonte": "da carteira ramos_4",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 90 dias",
+   "tratados_antes_por": [
+    "R2",
+    "R9"
+   ]
+  },
+  {
+   "id": "R11",
+   "nome": "Clientes que hoje não se enquadraram nas regras padrão",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e fora da carteira ramos_1, ramos_2, ramos_3, ramos_4",
+   "tratados_antes_por": [
+    "R2",
+    "R3",
+    "R4",
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9",
+    "R10"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado.",
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

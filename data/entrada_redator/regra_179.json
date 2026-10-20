@@ -1,0 +1,307 @@
+{
+ "arquivo": "regra_179.gobr",
+ "comentarios": [
+  "Definição de times",
+  "Definição de carteiras por ramo de atividade",
+  "Definição de parâmetros"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "construtora",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": [
+    "ramo de atividade (id) em: 10101016, 10204002, 10205001, 10205002, 10207001, 10207002 e mais 7"
+   ],
+   "livre": true
+  },
+  {
+   "id": "C2",
+   "nome": "matcon",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": [
+    "ramo de atividade (id) em: 10101006, 10101013, 10101019, 10102004, 10103003, 10103004 e mais 18"
+   ],
+   "livre": true
+  },
+  {
+   "id": "C3",
+   "nome": "demais_segment",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": [
+    "ramo de atividade (id) fora de: 10101006, 10101013, 10101016, 10101019, 10102004, 10103003 e mais 31"
+   ],
+   "livre": true
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Ative um novo cliente em sua carteira! (Todos os segmentos)",
+   "fonte": "da carteira construtora, matcon, demais_segment",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com o próprio vendedor"
+  },
+  {
+   "id": "R2",
+   "nome": "Estabeleça relacionamento com seu novo cliente! (Construtoras)",
+   "fonte": "da carteira construtora",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "já compraram com o próprio vendedor e com uma única compra com o vendedor",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R3",
+   "nome": "Estabeleça relacionamento com seu novo cliente! (Exceto Construtoras)",
+   "fonte": "da carteira matcon, demais_segment",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "já compraram com o próprio vendedor e com uma única compra com o vendedor",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R4",
+   "nome": "Cliente que compra com regularidade! (Exceto Construtoras)",
+   "fonte": "da carteira matcon, demais_segment",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência calculada pelo histórico de compras; se não houver, limitada a no mínimo 7 dias e no máximo 30 dias"
+   ],
+   "condicao_efetiva": "compraram no grupo de vendedores nos últimos 30 dias, mas estão há pelo menos 7 dias sem comprar e já compraram com o próprio vendedor e sem ser de compra única com o vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R3"
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Cliente que compra com regularidade! (Construtoras com venda em 30d)",
+   "fonte": "da carteira construtora",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "compraram no grupo de vendedores nos últimos 30 dias e já compraram com o próprio vendedor e sem ser de compra única com o vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R2"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Cliente que compra com regularidade! (Construtoras sem venda em 30d)",
+   "fonte": "da carteira construtora",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem comprar no grupo de vendedores há mais de 30 dias e já compraram com o próprio vendedor e sem ser de compra única com o vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R2"
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Estimule a regularidade de compra do seu cliente! (Matcon)",
+   "fonte": "da carteira matcon",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias, mas estão há pelo menos 30 dias sem comprar e (compraram no grupo de vendedores nos últimos 6 dias ou sem comprar no grupo de vendedores há mais de 30 dias) e já compraram com o próprio vendedor e sem ser de compra única com o vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R3",
+    "R4"
+   ]
+  },
+  {
+   "id": "R8",
+   "nome": "Estimule a regularidade de compra do seu cliente! (Exceto Matcon)",
+   "fonte": "da carteira construtora, demais_segment",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias, mas estão há pelo menos 30 dias sem comprar e (compraram no grupo de vendedores nos últimos 6 dias ou sem comprar no grupo de vendedores há mais de 30 dias) e já compraram com o próprio vendedor e da carteira demais_segment e sem ser de compra única com o vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5",
+    "R6"
+   ]
+  },
+  {
+   "id": "R9",
+   "nome": "Atenção!!! Cliente caminhando para inatividade! (Matcon)",
+   "fonte": "da carteira matcon",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 89 dias, mas estão há mais de 60 dias sem comprar e já compraram com o próprio vendedor e sem ser de compra única com o vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R3",
+    "R7"
+   ]
+  },
+  {
+   "id": "R10",
+   "nome": "Atenção!!! Cliente caminhando para inatividade! (Construtoras)",
+   "fonte": "da carteira construtora",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 89 dias, mas estão há pelo menos 60 dias sem comprar",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R6"
+   ],
+   "inalcancavel": true,
+   "alertas": [
+    "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Ative um novo cliente em sua carteira! (Todos os segmentos)\", \"Estabeleça relacionamento com seu novo cliente! (Construtoras)\", \"Cliente que compra com regularidade! (Construtoras sem venda em 30d)\"."
+   ]
+  },
+  {
+   "id": "R11",
+   "nome": "Atenção!!! Cliente caminhando para inatividade! (Exceto Matcon e Construtoras)",
+   "fonte": "da carteira demais_segment",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 89 dias, mas estão há mais de 60 dias sem comprar e já compraram com o próprio vendedor e sem ser de compra única com o vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R3",
+    "R8"
+   ]
+  },
+  {
+   "id": "R12",
+   "nome": "Resgate este cliente inativo! (Matcon)",
+   "fonte": "da carteira matcon",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 179 dias, mas estão há mais de 89 dias sem comprar e já compraram com o próprio vendedor e sem ser de compra única com o vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R3"
+   ]
+  },
+  {
+   "id": "R13",
+   "nome": "Resgate este cliente inativo! (Construtoras)",
+   "fonte": "da carteira construtora",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 179 dias, mas estão há mais de 89 dias sem comprar",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R6"
+   ],
+   "inalcancavel": true,
+   "alertas": [
+    "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Ative um novo cliente em sua carteira! (Todos os segmentos)\", \"Estabeleça relacionamento com seu novo cliente! (Construtoras)\", \"Cliente que compra com regularidade! (Construtoras sem venda em 30d)\"."
+   ]
+  },
+  {
+   "id": "R14",
+   "nome": "Resgate este cliente inativo! (Exceto Matcon e Construtoras)",
+   "fonte": "da carteira demais_segment",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 179 dias, mas estão há mais de 89 dias sem comprar e já compraram com o próprio vendedor e sem ser de compra única com o vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R3"
+   ]
+  },
+  {
+   "id": "R15",
+   "nome": "Requalifique e resgate este cliente! (Exceto Construtoras)",
+   "fonte": "da carteira matcon, demais_segment",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 180 dias e já compraram com o próprio vendedor e sem ser de compra única com o vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R3"
+   ]
+  },
+  {
+   "id": "R16",
+   "nome": "Requalifique e resgate este cliente! (Construtoras)",
+   "fonte": "da carteira construtora",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "sem comprar com qualquer vendedor da empresa há mais de 180 dias",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R6"
+   ],
+   "inalcancavel": true,
+   "alertas": [
+    "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Ative um novo cliente em sua carteira! (Todos os segmentos)\", \"Estabeleça relacionamento com seu novo cliente! (Construtoras)\", \"Cliente que compra com regularidade! (Construtoras sem venda em 30d)\"."
+   ]
+  }
+ ],
+ "nao_cobertos": {
+  "da carteira construtora, matcon, demais_segment": "(compraram com qualquer vendedor da empresa nos últimos 29 dias ou compraram com qualquer vendedor da empresa nos últimos 180 dias, mas estão há mais de 179 dias sem comprar) e (compraram no grupo de vendedores nos últimos 6 dias ou sem comprar no grupo de vendedores há mais de 30 dias) e já compraram com o próprio vendedor e da carteira demais_segment, matcon e sem ser de compra única com o vendedor",
+  "da carteira matcon, demais_segment": "(compraram com qualquer vendedor da empresa nos últimos 29 dias ou compraram com qualquer vendedor da empresa nos últimos 180 dias, mas estão há mais de 179 dias sem comprar) e (compraram no grupo de vendedores nos últimos 6 dias ou sem comprar no grupo de vendedores há mais de 30 dias) e já compraram com o próprio vendedor e sem ser de compra única com o vendedor",
+  "da carteira matcon": "(compraram com qualquer vendedor da empresa nos últimos 29 dias ou compraram com qualquer vendedor da empresa nos últimos 180 dias, mas estão há mais de 179 dias sem comprar) e (compraram no grupo de vendedores nos últimos 6 dias ou sem comprar no grupo de vendedores há mais de 30 dias) e já compraram com o próprio vendedor e sem ser de compra única com o vendedor",
+  "da carteira construtora, demais_segment": "(compraram com qualquer vendedor da empresa nos últimos 29 dias ou compraram com qualquer vendedor da empresa nos últimos 180 dias, mas estão há mais de 179 dias sem comprar) e (compraram no grupo de vendedores nos últimos 6 dias ou sem comprar no grupo de vendedores há mais de 30 dias) e já compraram com o próprio vendedor e da carteira demais_segment e sem ser de compra única com o vendedor",
+  "da carteira demais_segment": "(compraram com qualquer vendedor da empresa nos últimos 29 dias ou compraram com qualquer vendedor da empresa nos últimos 180 dias, mas estão há mais de 179 dias sem comprar) e (compraram no grupo de vendedores nos últimos 6 dias ou sem comprar no grupo de vendedores há mais de 30 dias) e já compraram com o próprio vendedor e sem ser de compra única com o vendedor"
+ },
+ "alertas_do_arquivo": [
+  "A cascata mistura escopos de recência de compra (global: Estimule a regularidade de compra do seu cliente! (Matcon), Estimule a regularidade de compra do seu cliente! (Exceto Matcon), Atenção!!! Cliente caminhando para inatividade! (Matcon); grupo: Cliente que compra com regularidade! (Exceto Construtoras), Cliente que compra com regularidade! (Construtoras com venda em 30d), Cliente que compra com regularidade! (Construtoras sem venda em 30d)); faixas de escopos diferentes não se excluem automaticamente e podem se sobrepor ou deixar lacunas."
+ ],
+ "premissas_usadas": [
+  "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+  "P2: Escopos de recência (grupo, vendedor, global) são medidas distintas, ordenadas: global <= grupo <= vendedor.",
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado.",
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

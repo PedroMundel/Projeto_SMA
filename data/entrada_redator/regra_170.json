@@ -1,0 +1,118 @@
+{
+ "arquivo": "regra_170.gobr",
+ "comentarios": [
+  "Definição de times",
+  "Regras de agendamento"
+ ],
+ "times": [
+  {
+   "nome": "todos os vendedores",
+   "definicao": "todos os vendedores"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Não agendar ramo distribuidor com vendas em 60 dias",
+  "Não agendar ativos com vendas em 30 dias"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Ramo distribuidor sem vendas em 60 dias",
+   "fonte": "do time todos os vendedores",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência quinzenal (15 dias)"
+   ],
+   "condicao_efetiva": "sem comprar há mais de 60 dias e ramo de atividade (id) igual a DISTRIBUIDOR e ativos para o vendedor"
+  },
+  {
+   "id": "R2",
+   "nome": "Compra com regularidade",
+   "fonte": "do time todos os vendedores",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "(sem comprar com qualquer vendedor da empresa há mais de 10 dias e frequência histórica de compra de menos de 7 dias e não ativos para o vendedor) OU (sem comprar com qualquer vendedor da empresa há mais de 10 dias e ramo de atividade (id) diferente de DISTRIBUIDOR e frequência histórica de compra de menos de 7 dias e ativos para o vendedor) OU (sem comprar com qualquer vendedor da empresa há mais de 10 dias e (nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 60 dias) e ramo de atividade (id) igual a DISTRIBUIDOR e frequência histórica de compra de menos de 7 dias e ativos para o vendedor)",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R3",
+   "nome": "Não agendar ramo distribuidor com vendas em 60 dias",
+   "fonte": "do time todos os vendedores",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "((nunca compraram com qualquer vendedor da empresa ou compraram com qualquer vendedor da empresa nos últimos 10 dias) e (nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 60 dias) e ramo de atividade (id) igual a DISTRIBUIDOR e ativos para o vendedor) OU (sem comprar com qualquer vendedor da empresa há mais de 10 dias e (nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 60 dias) e ramo de atividade (id) igual a DISTRIBUIDOR e frequência histórica indefinida ou frequência histórica de compra de pelo menos 7 dias e ativos para o vendedor)",
+   "tratados_antes_por": [
+    "R1",
+    "R2"
+   ],
+   "alertas": [
+    "Bloqueio depois de regras de frequência: clientes já parametrizados por \"Ramo distribuidor sem vendas em 60 dias\", \"Compra com regularidade\" não serão bloqueados por esta regra."
+   ]
+  },
+  {
+   "id": "R4",
+   "nome": "Ativos e sem vendas em 30 dias",
+   "fonte": "do time todos os vendedores",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência quinzenal (15 dias)"
+   ],
+   "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 10 dias e sem comprar no grupo de vendedores há mais de 30 dias e ramo de atividade (id) diferente de DISTRIBUIDOR e ativos para o vendedor) OU (sem comprar com qualquer vendedor da empresa há mais de 10 dias e sem comprar no grupo de vendedores há mais de 30 dias e ramo de atividade (id) diferente de DISTRIBUIDOR e frequência histórica indefinida ou frequência histórica de compra de pelo menos 7 dias e ativos para o vendedor)",
+   "tratados_antes_por": [
+    "R1",
+    "R2"
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Não agendar ativos com vendas em 30 dias",
+   "fonte": "do time todos os vendedores",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "((nunca compraram com qualquer vendedor da empresa ou compraram com qualquer vendedor da empresa nos últimos 10 dias) e (nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 30 dias) e ramo de atividade (id) diferente de DISTRIBUIDOR e ativos para o vendedor) OU (sem comprar com qualquer vendedor da empresa há mais de 10 dias e (nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 30 dias) e ramo de atividade (id) diferente de DISTRIBUIDOR e frequência histórica indefinida ou frequência histórica de compra de pelo menos 7 dias e ativos para o vendedor)",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R4"
+   ],
+   "alertas": [
+    "Bloqueio depois de regras de frequência: clientes já parametrizados por \"Ramo distribuidor sem vendas em 60 dias\", \"Compra com regularidade\", \"Ativos e sem vendas em 30 dias\" não serão bloqueados por esta regra."
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Clientes inativos e prospects",
+   "fonte": "do time todos os vendedores",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência mensal (30 dias)"
+   ],
+   "condicao_efetiva": "((nunca compraram com qualquer vendedor da empresa ou compraram com qualquer vendedor da empresa nos últimos 10 dias) e não ativos para o vendedor) OU (sem comprar com qualquer vendedor da empresa há mais de 10 dias e frequência histórica indefinida ou frequência histórica de compra de pelo menos 7 dias e não ativos para o vendedor)",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R4"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [
+  "A cascata mistura escopos de recência de compra (global: Compra com regularidade; grupo: Ramo distribuidor sem vendas em 60 dias, Ativos e sem vendas em 30 dias); faixas de escopos diferentes não se excluem automaticamente e podem se sobrepor ou deixar lacunas."
+ ],
+ "premissas_usadas": [
+  "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+  "P2: Escopos de recência (grupo, vendedor, global) são medidas distintas, ordenadas: global <= grupo <= vendedor.",
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+ ]
+}

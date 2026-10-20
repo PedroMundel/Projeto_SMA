@@ -1,0 +1,86 @@
+{
+ "arquivo": "regra_124.gobr",
+ "comentarios": [
+  "TIME EXTERNO",
+  "TIME INTERNO"
+ ],
+ "times": [
+  {
+   "nome": "time campo",
+   "definicao": "todos os vendedores de campo"
+  },
+  {
+   "nome": "time televendas",
+   "definicao": "todos os vendedores de televendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Regra Padrao da Roda Viva: 30 dias para todos os clientes (time externo)",
+   "fonte": "do time time campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "todos os clientes"
+  },
+  {
+   "id": "R2",
+   "nome": "Regra Padrao da Roda Viva: 25 dias para clientes ativos (televendas)",
+   "fonte": "do time time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 25 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+    "evitar que os dias de atendimento coincidam com os do time time campo"
+   ],
+   "condicao_efetiva": "ativos para o vendedor"
+  },
+  {
+   "id": "R3",
+   "nome": "Regra Padrao da Roda Viva: 25 dias para clientes inativos adimplentes (televendas)",
+   "fonte": "do time time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 25 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+    "evitar que os dias de atendimento coincidam com os do time time campo"
+   ],
+   "condicao_efetiva": "adimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R4",
+   "nome": "Regra Padrao da Roda Viva: 25 dias para clientes inativos inadimplentes (televendas)",
+   "fonte": "do time time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 25 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+    "evitar que os dias de atendimento coincidam com os do time time campo"
+   ],
+   "condicao_efetiva": "inadimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R5",
+   "nome": "Regra Padrao da Roda Viva: 25 dias para clientes sem vendas (televendas)",
+   "fonte": "do time time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 25 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+    "evitar que os dias de atendimento coincidam com os do time time campo"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor"
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+ ]
+}

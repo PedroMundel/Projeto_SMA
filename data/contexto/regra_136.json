@@ -1,0 +1,226 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_136.gobr",
+  "sha256": "0f6b3342d651e6ef8d1dd9bf6d1c9deb40bd052d4918acc14fee8702209b97af",
+  "comentarios": [
+    "REGRAS DE NÃO AGENDAMENTO EMPRESA TODA",
+    "REGRAS TIME EXTERNO CAPITAL",
+    "REGRAS TIME EXTERNO INTERIOR"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "empresa toda",
+      "definicao": "todos os vendedores habilitados no Govendas",
+      "filtros": []
+    },
+    {
+      "id": "T2",
+      "nome": "time interior",
+      "definicao": "os vendedores de id 5, 9, 15, 16, 21, 31, 33",
+      "filtros": []
+    },
+    {
+      "id": "T3",
+      "nome": "time capital",
+      "definicao": "todos os vendedores de campo, exceto os de id 5, 9, 15, 16, 21, 31, 33",
+      "filtros": []
+    }
+  ],
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "carteira capital",
+      "definicao": "carteira fixa dos vendedores do time time capital",
+      "filtros": [],
+      "livre": false,
+      "exceto_alocados_em": []
+    },
+    {
+      "id": "C2",
+      "nome": "carteira interior",
+      "definicao": "carteira fixa dos vendedores do time time interior",
+      "filtros": [],
+      "livre": false,
+      "exceto_alocados_em": []
+    }
+  ],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Não agendar ramo de atividade 19 (Funcionários)",
+    "Regra Padrao da Multisul: nao agendar clientes inativos (Capital)",
+    "Regra Padrao da Multisul: nao agendar clientes inativos (Interior)"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Não agendar ramo de atividade 19 (Funcionários)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time empresa toda",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"19\")",
+          "significado": "ramo de atividade (id) igual a 19",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "ramo de atividade (id) igual a 19",
+      "condicao_efetiva": "ramo de atividade (id) igual a 19",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Regra Padrao da Multisul: 7 dias para ativos (Capital)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira capital",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ativos para o vendedor",
+      "condicao_efetiva": "ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Regra Padrao da Multisul: nao agendar clientes inativos (Capital)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira capital",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "não ativos para o vendedor",
+      "tratados_antes_por": [
+        "R2"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Regra Padrao da Multisul: 14 dias para ativos (Interior)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira interior",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ativos para o vendedor",
+      "condicao_efetiva": "ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Regra Padrao da Multisul: nao agendar clientes inativos (Interior)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira interior",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "não ativos para o vendedor",
+      "tratados_antes_por": [
+        "R4"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {
+    "do time empresa toda": "todos os clientes"
+  },
+  "alertas": [],
+  "numeros_obrigatorios": [
+    7,
+    14
+  ],
+  "numeros_permitidos": [
+    5,
+    7,
+    9,
+    14,
+    15,
+    16,
+    19,
+    21,
+    31,
+    33
+  ],
+  "premissas_usadas": [
+    "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores.",
+    "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+  ]
+}

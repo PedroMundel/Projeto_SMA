@@ -1,0 +1,82 @@
+{
+  "resumo": "Regra padrão do time de televendas, aplicada à carteira fixa dos vendedores do time. Primeiro deixam de ser agendados os clientes inadimplentes; entre os adimplentes, os ativos são atendidos a cada 7 dias e os inativos e os sem vendas a cada 14 dias.",
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "carteira televendas",
+      "descricao": "Carteira fixa de todos os vendedores do time de televendas"
+    }
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Regra Padrao da Empresa Customizavel: nao agendar inadimplentes",
+      "segmento": "Bloqueio: inadimplentes",
+      "criterio": "Clientes inadimplentes",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Regra Padrao da Empresa Customizavel: 7 dias para ativos adimplentes",
+      "segmento": "Ativos adimplentes",
+      "criterio": "Clientes adimplentes e ativos para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Regra Padrao da Empresa Customizavel: 14 dias para inativos adimplentes",
+      "segmento": "Inativos adimplentes",
+      "criterio": "Clientes adimplentes e inativos para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Regra Padrao da Empresa Customizavel: 14 dias para sem venda",
+      "segmento": "Sem vendas adimplentes",
+      "criterio": "Clientes adimplentes que nunca compraram com o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Televendas: não agendar inadimplentes; adimplentes ativos a cada 7 dias; adimplentes inativos e sem venda a cada 14 dias",
+    "Pro pessoal do televendas, quem está inadimplente a gente não agenda. Quem paga em dia e está comprando é visitado toda semana, e quem está parado ou nunca comprou, a cada 14 dias",
+    "Regra do televendas por situação do cliente, com bloqueio de inadimplentes"
+  ],
+  "_meta": {
+    "arquivo": "regra_075.gobr",
+    "sha256_gobr": "065cff673f607e6d62e35edc1a077d6f9a65a87c1fe7c30ab55caecaca38387c",
+    "versao_pacote": "1",
+    "prompt_sha256": "fd3b943ec528",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T15:22:22+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_3.json",
+    "concordancia": 0.879
+  }
+}

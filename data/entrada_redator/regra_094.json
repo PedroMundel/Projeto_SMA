@@ -1,0 +1,88 @@
+{
+ "arquivo": "regra_094.gobr",
+ "comentarios": [],
+ "times": [
+  {
+   "nome": "time televendas",
+   "definicao": "todos os vendedores de televendas"
+  },
+  {
+   "nome": "time campo",
+   "definicao": "todos os vendedores de campo"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "carteira televendas",
+   "definicao": "carteira fixa dos vendedores do time time televendas",
+   "filtros": []
+  },
+  {
+   "id": "C2",
+   "nome": "carteira campo",
+   "definicao": "carteira fixa dos vendedores do time time campo",
+   "filtros": []
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Regra Padrao da AHL Customizavel: 30 dias para clientes adimplentes (televendas)",
+   "fonte": "da carteira carteira televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "adimplentes"
+  },
+  {
+   "id": "R2",
+   "nome": "Regra Padrao da AHL Customizavel: 60 dias para clientes inadimplentes (televendas)",
+   "fonte": "da carteira carteira televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 60 dias"
+   ],
+   "condicao_efetiva": "inadimplentes"
+  },
+  {
+   "id": "R3",
+   "nome": "Regra Padrao da AHL Customizavel: 30 dias para clientes sem venda (televendas)",
+   "fonte": "da carteira carteira televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "sem vendas para o vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R2"
+   ],
+   "inalcancavel": true,
+   "alertas": [
+    "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Regra Padrao da AHL Customizavel: 30 dias para clientes adimplentes (televendas)\", \"Regra Padrao da AHL Customizavel: 60 dias para clientes inadimplentes (televendas)\"."
+   ]
+  },
+  {
+   "id": "R4",
+   "nome": "Regra Padrao da AHL Customizavel: 30 dias para todos os clientes (campo)",
+   "fonte": "da carteira carteira campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "todos os clientes"
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores.",
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

@@ -1,0 +1,105 @@
+{
+ "arquivo": "regra_116.gobr",
+ "comentarios": [
+  "Definição de times",
+  "Regras de não agendamento",
+  "Regras de agendamento",
+  "Time televendas",
+  "Time Campo"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas"
+  },
+  {
+   "nome": "campo",
+   "definicao": "todos os vendedores de campo"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Não agendar filiais"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Não agendar filiais",
+   "fonte": "do time televendas, campo",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "filiais"
+  },
+  {
+   "id": "R2",
+   "nome": "Freq. de 7d para todos os clientes (televendas)",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento",
+    "evitar que os dias de atendimento coincidam com os do time campo"
+   ],
+   "condicao_efetiva": "todos os clientes"
+  },
+  {
+   "id": "R3",
+   "nome": "Freq. de 7d para Ativos Adimplentes (campo)",
+   "fonte": "do time campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "adimplentes e ativos para o vendedor"
+  },
+  {
+   "id": "R4",
+   "nome": "Freq. de 14d para Ativos Inadimplentes (campo)",
+   "fonte": "do time campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "inadimplentes e ativos para o vendedor"
+  },
+  {
+   "id": "R5",
+   "nome": "Freq. de 30d para Inativos Adimplentes (campo)",
+   "fonte": "do time campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "adimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R6",
+   "nome": "Freq. de 60d para Inativos Inadimplentes (campo)",
+   "fonte": "do time campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 60 dias"
+   ],
+   "condicao_efetiva": "inadimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R7",
+   "nome": "Freq. de 7d para sem vendas (campo)",
+   "fonte": "do time campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor"
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+ ]
+}

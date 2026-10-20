@@ -1,0 +1,85 @@
+{
+ "arquivo": "regra_198.gobr",
+ "comentarios": [
+  "Definição de times",
+  "Parâmetros de agendamento"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Freq. de 25d para Prospects",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 25 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa"
+  },
+  {
+   "id": "R2",
+   "nome": "Freq. de 14d para 'Ativado: Boas vindas ao cliente com primeiro pedido'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem comprar com o próprio vendedor há mais de 30 dias e com uma única compra na empresa"
+  },
+  {
+   "id": "R3",
+   "nome": "Freq. do histórico para 'Alta frequência de compra'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência calculada pelo histórico de compras; se não houver, limitada a no mínimo 7 dias e no máximo 30 dias"
+   ],
+   "condicao_efetiva": "compraram com o próprio vendedor nos últimos 30 dias"
+  },
+  {
+   "id": "R4",
+   "nome": "Freq. de 14d para Ativos",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "(já compraram com qualquer vendedor da empresa e (nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 30 dias) e no ciclo de vida ativo com a empresa e sem ser de compra única na empresa) OU (já compraram com qualquer vendedor da empresa e nunca compraram com o próprio vendedor e no ciclo de vida ativo com a empresa e com uma única compra na empresa)",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3"
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Freq. de 21d para Inativos",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "(já compraram com qualquer vendedor da empresa e (nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 30 dias) e fora do ciclo de vida ativo com a empresa e sem ser de compra única na empresa) OU (já compraram com qualquer vendedor da empresa e nunca compraram com o próprio vendedor e fora do ciclo de vida ativo com a empresa e com uma única compra na empresa)",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3",
+    "R4"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+ ]
+}

@@ -1,0 +1,190 @@
+{
+ "arquivo": "regra_201.gobr",
+ "comentarios": [
+  "TIMES",
+  "Regras de planejamento",
+  "Obs.: Foi necessário colocar a regra de inativos antes das demais para utilizar a precedência na regra catch-all."
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Clientes Baixados na Receita Federal",
+  "Clientes Inadimplentes",
+  "Clientes Bloqueados",
+  "Não agendar Filiais",
+  "Clientes que hoje não se enquararam nas regras padrão"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Clientes Baixados na Receita Federal",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "com situação baixada na Receita Federal"
+  },
+  {
+   "id": "R2",
+   "nome": "Clientes Inadimplentes",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes"
+  },
+  {
+   "id": "R3",
+   "nome": "Clientes Bloqueados",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "bloqueados para atendimento"
+  },
+  {
+   "id": "R4",
+   "nome": "Não agendar Filiais",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "filiais"
+  },
+  {
+   "id": "R5",
+   "nome": "Prospect: Cliente potencial",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com o próprio vendedor"
+  },
+  {
+   "id": "R6",
+   "nome": "Inativo: Reativar clientes sem compra",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "sem comprar no grupo de vendedores há mais de 90 dias e já compraram com o próprio vendedor",
+   "tratados_antes_por": [
+    "R5"
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Ativado: Fez um pedido e ainda não comprou mais",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "compraram no grupo de vendedores nos últimos 90 dias e já compraram com o próprio vendedor e cadastrados no ERP há pelo menos 60 dias e com uma única compra com o vendedor",
+   "tratados_antes_por": [
+    "R5",
+    "R6"
+   ]
+  },
+  {
+   "id": "R8",
+   "nome": "Ativo: Alta frequência de compra",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "(compraram no grupo de vendedores nos últimos 30 dias e já compraram com o próprio vendedor e não (cadastrados no ERP há pelo menos 60 dias) e frequência histórica de compra de menos de 30 dias) OU (compraram no grupo de vendedores nos últimos 30 dias e já compraram com o próprio vendedor e cadastrados no ERP há pelo menos 60 dias e frequência histórica de compra de menos de 30 dias e sem ser de compra única com o vendedor)",
+   "tratados_antes_por": [
+    "R5",
+    "R7"
+   ]
+  },
+  {
+   "id": "R9",
+   "nome": "Ativo: Compra regularmente",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "(compraram no grupo de vendedores nos últimos 30 dias e já compraram com o próprio vendedor e não (cadastrados no ERP há pelo menos 60 dias) e frequência histórica de compra entre 30 e 89 dias) OU (compraram no grupo de vendedores nos últimos 30 dias e já compraram com o próprio vendedor e cadastrados no ERP há pelo menos 60 dias e frequência histórica de compra entre 30 e 89 dias e sem ser de compra única com o vendedor)",
+   "tratados_antes_por": [
+    "R5",
+    "R7",
+    "R8"
+   ]
+  },
+  {
+   "id": "R10",
+   "nome": "Ativo: Estimular a regularidade de compra",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 10 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "compraram nos últimos 60 dias, mas estão há pelo menos 30 dias sem comprar",
+   "tratados_antes_por": [
+    "R5",
+    "R7",
+    "R8",
+    "R9"
+   ],
+   "alertas": [
+    "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+   ]
+  },
+  {
+   "id": "R11",
+   "nome": "Em ruptura: Risco de ficar inativo",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "(compraram no grupo de vendedores nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e já compraram com o próprio vendedor e não (cadastrados no ERP há pelo menos 60 dias)) OU (compraram no grupo de vendedores nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e já compraram com o próprio vendedor e cadastrados no ERP há pelo menos 60 dias e sem ser de compra única com o vendedor)",
+   "tratados_antes_por": [
+    "R5",
+    "R7"
+   ]
+  },
+  {
+   "id": "R12",
+   "nome": "Clientes que hoje não se enquararam nas regras padrão",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "(compraram no grupo de vendedores nos últimos 29 dias e já compraram com o próprio vendedor e não (cadastrados no ERP há pelo menos 60 dias) e frequência histórica indefinida ou frequência histórica de compra de pelo menos 90 dias) OU (compraram no grupo de vendedores nos últimos 29 dias e já compraram com o próprio vendedor e cadastrados no ERP há pelo menos 60 dias e frequência histórica indefinida ou frequência histórica de compra de pelo menos 90 dias e sem ser de compra única com o vendedor)",
+   "tratados_antes_por": [
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9",
+    "R10",
+    "R11"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+ ]
+}

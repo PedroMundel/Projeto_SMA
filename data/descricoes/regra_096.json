@@ -1,0 +1,73 @@
+{
+  "resumo": "Regra padrão de frequência aplicada à carteira fixa de todos os vendedores da empresa. Clientes ativos para o vendedor seguem a frequência média dos ativos da empresa; inativos e clientes sem vendas seguem a frequência média dos inativos da empresa.",
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "empresa toda",
+      "descricao": "Carteira fixa de todos os vendedores da empresa"
+    }
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Regra Padrao do goVendas Customizavel: Frequencia de inativos",
+      "segmento": "Inativos",
+      "criterio": "Clientes inativos para o vendedor",
+      "frequencia": "Média dos inativos da empresa",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Regra Padrao do goVendas Customizavel: Frequencia de ativos",
+      "segmento": "Ativos",
+      "criterio": "Clientes ativos para o vendedor",
+      "frequencia": "Média dos ativos da empresa",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Regra Padrao do goVendas Customizavel: Frequencia de clientes sem vendas",
+      "segmento": "Sem vendas",
+      "criterio": "Clientes sem vendas para o vendedor",
+      "frequencia": "Média dos inativos da empresa",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Carteira fixa de todos os vendedores: ativos com média dos ativos; inativos e sem vendas com média dos inativos",
+    "Cada vendedor da empresa deve atender a carteira com a frequência média dos ativos se o cliente está comprando, e dos inativos se parou ou nunca comprou",
+    "Quero a regra padrão de frequência por situação do cliente para a empresa toda"
+  ],
+  "_meta": {
+    "arquivo": "regra_096.gobr",
+    "sha256_gobr": "8e5fc571976850efc69a8196d7cee3a6e27a8f96b8d7f4a65d105b3312e89015",
+    "versao_pacote": "1",
+    "prompt_sha256": "fd3b943ec528",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T15:22:22+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_3.json",
+    "concordancia": 0.978
+  }
+}

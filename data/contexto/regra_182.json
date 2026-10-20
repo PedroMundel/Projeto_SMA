@@ -1,0 +1,1487 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_182.gobr",
+  "sha256": "f51a309e70fd224f54fd38462e600edc124deb986fc01554ae8c22a21b5a2a80",
+  "comentarios": [
+    "Definição de Times",
+    "Parâmetros de planejamento"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "televendas",
+      "definicao": "todos os vendedores de televendas habilitados no Govendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Não agendar CPF",
+    "Não agendar inadimplentes",
+    "Não agendar baixados na Receita",
+    "Não agendar cliente com pedido nos últimos 7 dias"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Não agendar CPF",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "pessoa fisica",
+          "significado": "pessoa física",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "pessoa física",
+      "condicao_efetiva": "pessoa física",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Não agendar inadimplentes",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "inadimplentes",
+      "condicao_efetiva": "inadimplentes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Não agendar baixados na Receita",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "status na receita federal definido como baixada",
+          "significado": "com situação baixada na Receita Federal",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "com situação baixada na Receita Federal",
+      "condicao_efetiva": "com situação baixada na Receita Federal",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Não agendar cliente com pedido nos últimos 7 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao em 7 dias",
+          "significado": "compraram nos últimos 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "compraram nos últimos 7 dias",
+      "condicao_efetiva": "compraram nos últimos 7 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Prospects dos ramos de atividade 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"089\",\"090\",\"091\",\"092\",\"093\",\"094\",\"095\",\"096\",\"097\",\"098\",\"099\",\"100\",\"101\",\"102\",\"103\")",
+          "significado": "ramo de atividade (id) em: 089, 090, 091, 092, 093, 094 e mais 9",
+          "reconhecida": true
+        },
+        {
+          "codigo": "no ciclo de vida prospect com a empresa",
+          "significado": "prospects (nunca compraram com qualquer vendedor da empresa)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "nunca compraram com qualquer vendedor da empresa e ramo de atividade (id) em: 089, 090, 091, 092, 093, 094 e mais 9",
+      "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa e ramo de atividade (id) em: 089, 090, 091, 092, 093, 094 e mais 9",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Ramo de atividade MANGUEIRAS com pedido em 45d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"089\")",
+          "significado": "ramo de atividade (id) igual a 089",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao em 45 dias",
+          "significado": "compraram nos últimos 45 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 45 dias e ramo de atividade (id) igual a 089",
+      "condicao_efetiva": "compraram nos últimos 45 dias, mas estão há mais de 7 dias sem comprar e ramo de atividade (id) igual a 089",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        45
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Ramo de atividade MANGUEIRAS com pedido acima de 45d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"089\")",
+          "significado": "ramo de atividade (id) igual a 089",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ramo de atividade (id) igual a 089",
+      "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 45 dias) e ramo de atividade (id) igual a 089",
+      "tratados_antes_por": [
+        "R5",
+        "R6"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R8",
+      "posicao": 8,
+      "nome": "Ramo de atividade MATERIAIS DE LIMPEZA com pedido em 60d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"090\")",
+          "significado": "ramo de atividade (id) igual a 090",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao em 60 dias",
+          "significado": "compraram nos últimos 60 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 60 dias e ramo de atividade (id) igual a 090",
+      "condicao_efetiva": "compraram nos últimos 60 dias, mas estão há mais de 7 dias sem comprar e ramo de atividade (id) igual a 090",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21,
+        60
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R9",
+      "posicao": 9,
+      "nome": "Ramo de atividade MATERIAIS DE LIMPEZA com pedido acima de 60d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"090\")",
+          "significado": "ramo de atividade (id) igual a 090",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 10 dias",
+          "significado": "frequência de 10 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ramo de atividade (id) igual a 090",
+      "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 60 dias) e ramo de atividade (id) igual a 090",
+      "tratados_antes_por": [
+        "R5",
+        "R8"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        10
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R10",
+      "posicao": 10,
+      "nome": "Ramo de atividade REVENDA EPI com pedido em 45d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"091\")",
+          "significado": "ramo de atividade (id) igual a 091",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao em 45 dias",
+          "significado": "compraram nos últimos 45 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 45 dias e ramo de atividade (id) igual a 091",
+      "condicao_efetiva": "compraram nos últimos 45 dias, mas estão há mais de 7 dias sem comprar e ramo de atividade (id) igual a 091",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        45
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R11",
+      "posicao": 11,
+      "nome": "Ramo de atividade REVENDA EPI com pedido acima de 45d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"091\")",
+          "significado": "ramo de atividade (id) igual a 091",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ramo de atividade (id) igual a 091",
+      "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 45 dias) e ramo de atividade (id) igual a 091",
+      "tratados_antes_por": [
+        "R5",
+        "R10"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R12",
+      "posicao": 12,
+      "nome": "Ramo de atividade MATERIAIS DE CONSTRUÇÃO com pedido em 90d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"092\")",
+          "significado": "ramo de atividade (id) igual a 092",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao em 90 dias",
+          "significado": "compraram nos últimos 90 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 28 dias",
+          "significado": "frequência de 28 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 90 dias e ramo de atividade (id) igual a 092",
+      "condicao_efetiva": "compraram nos últimos 90 dias, mas estão há mais de 7 dias sem comprar e ramo de atividade (id) igual a 092",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        28,
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R13",
+      "posicao": 13,
+      "nome": "Ramo de atividade MATERIAIS DE CONSTRUÇÃO com pedido acima de 90d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"092\")",
+          "significado": "ramo de atividade (id) igual a 092",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ramo de atividade (id) igual a 092",
+      "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 90 dias) e ramo de atividade (id) igual a 092",
+      "tratados_antes_por": [
+        "R5",
+        "R12"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R14",
+      "posicao": 14,
+      "nome": "Ramo de atividade FERRAGEM E FERRAMENTAS com pedido em 45d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"093\")",
+          "significado": "ramo de atividade (id) igual a 093",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao em 45 dias",
+          "significado": "compraram nos últimos 45 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 45 dias e ramo de atividade (id) igual a 093",
+      "condicao_efetiva": "compraram nos últimos 45 dias, mas estão há mais de 7 dias sem comprar e ramo de atividade (id) igual a 093",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        45
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R15",
+      "posicao": 15,
+      "nome": "Ramo de atividade FERRAGEM E FERRAMENTAS com pedido acima de 45d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"093\")",
+          "significado": "ramo de atividade (id) igual a 093",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ramo de atividade (id) igual a 093",
+      "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 45 dias) e ramo de atividade (id) igual a 093",
+      "tratados_antes_por": [
+        "R5",
+        "R14"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R16",
+      "posicao": 16,
+      "nome": "Ramo de atividade AGROPECUARIA com pedido em 90d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"094\")",
+          "significado": "ramo de atividade (id) igual a 094",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao em 90 dias",
+          "significado": "compraram nos últimos 90 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 28 dias",
+          "significado": "frequência de 28 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 90 dias e ramo de atividade (id) igual a 094",
+      "condicao_efetiva": "compraram nos últimos 90 dias, mas estão há mais de 7 dias sem comprar e ramo de atividade (id) igual a 094",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        28,
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R17",
+      "posicao": 17,
+      "nome": "Ramo de atividade AGROPECUARIA com pedido acima 90d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"094\")",
+          "significado": "ramo de atividade (id) igual a 094",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ramo de atividade (id) igual a 094",
+      "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 90 dias) e ramo de atividade (id) igual a 094",
+      "tratados_antes_por": [
+        "R5",
+        "R16"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R18",
+      "posicao": 18,
+      "nome": "Ramo de atividade PRESTADOR DE SERVIÇO com pedido em 75d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"095\")",
+          "significado": "ramo de atividade (id) igual a 095",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao em 75 dias",
+          "significado": "compraram nos últimos 75 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 75 dias e ramo de atividade (id) igual a 095",
+      "condicao_efetiva": "compraram nos últimos 75 dias, mas estão há mais de 7 dias sem comprar e ramo de atividade (id) igual a 095",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21,
+        75
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R19",
+      "posicao": 19,
+      "nome": "Ramo de atividade PRESTADOR DE SERVIÇO com pedido acima de 75d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"095\")",
+          "significado": "ramo de atividade (id) igual a 095",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ramo de atividade (id) igual a 095",
+      "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 75 dias) e ramo de atividade (id) igual a 095",
+      "tratados_antes_por": [
+        "R5",
+        "R18"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R20",
+      "posicao": 20,
+      "nome": "Ramo de atividade INDÚSTRIA com pedido em 75d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"096\")",
+          "significado": "ramo de atividade (id) igual a 096",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao em 75 dias",
+          "significado": "compraram nos últimos 75 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 28 dias",
+          "significado": "frequência de 28 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 75 dias e ramo de atividade (id) igual a 096",
+      "condicao_efetiva": "compraram nos últimos 75 dias, mas estão há mais de 7 dias sem comprar e ramo de atividade (id) igual a 096",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        28,
+        75
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R21",
+      "posicao": 21,
+      "nome": "Ramo de atividade INDÚSTRIA com pedido acima de 75d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"096\")",
+          "significado": "ramo de atividade (id) igual a 096",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ramo de atividade (id) igual a 096",
+      "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 75 dias) e ramo de atividade (id) igual a 096",
+      "tratados_antes_por": [
+        "R5",
+        "R20"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R22",
+      "posicao": 22,
+      "nome": "Ramo de atividade COOPERATIVA com pedido em 60d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"097\")",
+          "significado": "ramo de atividade (id) igual a 097",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao em 60 dias",
+          "significado": "compraram nos últimos 60 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 60 dias e ramo de atividade (id) igual a 097",
+      "condicao_efetiva": "compraram nos últimos 60 dias, mas estão há mais de 7 dias sem comprar e ramo de atividade (id) igual a 097",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21,
+        60
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R23",
+      "posicao": 23,
+      "nome": "Ramo de atividade COOPERATIVA com pedido acima de 60d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"097\")",
+          "significado": "ramo de atividade (id) igual a 097",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 10 dias",
+          "significado": "frequência de 10 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ramo de atividade (id) igual a 097",
+      "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 60 dias) e ramo de atividade (id) igual a 097",
+      "tratados_antes_por": [
+        "R5",
+        "R22"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        10
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R24",
+      "posicao": 24,
+      "nome": "Ramo de atividade HOME CENTER com pedido em 60d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"098\")",
+          "significado": "ramo de atividade (id) igual a 098",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao em 60 dias",
+          "significado": "compraram nos últimos 60 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 60 dias e ramo de atividade (id) igual a 098",
+      "condicao_efetiva": "compraram nos últimos 60 dias, mas estão há mais de 7 dias sem comprar e ramo de atividade (id) igual a 098",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21,
+        60
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R25",
+      "posicao": 25,
+      "nome": "Ramo de atividade HOME CENTER com pedido acima de 60d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"098\")",
+          "significado": "ramo de atividade (id) igual a 098",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 10 dias",
+          "significado": "frequência de 10 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ramo de atividade (id) igual a 098",
+      "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 60 dias) e ramo de atividade (id) igual a 098",
+      "tratados_antes_por": [
+        "R5",
+        "R24"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        10
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R26",
+      "posicao": 26,
+      "nome": "Ramo de atividade ATACADO com pedido em 45d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"099\")",
+          "significado": "ramo de atividade (id) igual a 099",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao em 45 dias",
+          "significado": "compraram nos últimos 45 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 45 dias e ramo de atividade (id) igual a 099",
+      "condicao_efetiva": "compraram nos últimos 45 dias, mas estão há mais de 7 dias sem comprar e ramo de atividade (id) igual a 099",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        45
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R27",
+      "posicao": 27,
+      "nome": "Ramo de atividade ATACADO com pedido acima de 45d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"099\")",
+          "significado": "ramo de atividade (id) igual a 099",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ramo de atividade (id) igual a 099",
+      "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 45 dias) e ramo de atividade (id) igual a 099",
+      "tratados_antes_por": [
+        "R5",
+        "R26"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R28",
+      "posicao": 28,
+      "nome": "Ramo de atividade CONSTRUTORA com pedido em 75d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"100\")",
+          "significado": "ramo de atividade (id) igual a 100",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao em 75 dias",
+          "significado": "compraram nos últimos 75 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 28 dias",
+          "significado": "frequência de 28 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 75 dias e ramo de atividade (id) igual a 100",
+      "condicao_efetiva": "compraram nos últimos 75 dias, mas estão há mais de 7 dias sem comprar e ramo de atividade (id) igual a 100",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        28,
+        75
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R29",
+      "posicao": 29,
+      "nome": "Ramo de atividade CONSTRUTORA com pedido acima de 75d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"100\")",
+          "significado": "ramo de atividade (id) igual a 100",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ramo de atividade (id) igual a 100",
+      "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 75 dias) e ramo de atividade (id) igual a 100",
+      "tratados_antes_por": [
+        "R5",
+        "R28"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R30",
+      "posicao": 30,
+      "nome": "Ramo de atividade ÓRGÃO PÚBLICO com pedido em 90d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"101\")",
+          "significado": "ramo de atividade (id) igual a 101",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao em 90 dias",
+          "significado": "compraram nos últimos 90 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 28 dias",
+          "significado": "frequência de 28 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 90 dias e ramo de atividade (id) igual a 101",
+      "condicao_efetiva": "compraram nos últimos 90 dias, mas estão há mais de 7 dias sem comprar e ramo de atividade (id) igual a 101",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        28,
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R31",
+      "posicao": 31,
+      "nome": "Ramo de atividade ÓRGÃO PÚBLICO com pedido acima de 90d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"101\")",
+          "significado": "ramo de atividade (id) igual a 101",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ramo de atividade (id) igual a 101",
+      "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 90 dias) e ramo de atividade (id) igual a 101",
+      "tratados_antes_por": [
+        "R5",
+        "R30"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R32",
+      "posicao": 32,
+      "nome": "Ramo de atividade E-COMMERCE com pedido em 45d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"102\")",
+          "significado": "ramo de atividade (id) igual a 102",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao em 45 dias",
+          "significado": "compraram nos últimos 45 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 45 dias e ramo de atividade (id) igual a 102",
+      "condicao_efetiva": "compraram nos últimos 45 dias, mas estão há mais de 7 dias sem comprar e ramo de atividade (id) igual a 102",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        45
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R33",
+      "posicao": 33,
+      "nome": "Ramo de atividade E-COMMERCE com pedido acima de 45d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"102\")",
+          "significado": "ramo de atividade (id) igual a 102",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ramo de atividade (id) igual a 102",
+      "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 45 dias) e ramo de atividade (id) igual a 102",
+      "tratados_antes_por": [
+        "R5",
+        "R32"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R34",
+      "posicao": 34,
+      "nome": "Ramo de atividade PRODUTOR RURAL com pedido em 90d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"103\")",
+          "significado": "ramo de atividade (id) igual a 103",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao em 90 dias",
+          "significado": "compraram nos últimos 90 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 28 dias",
+          "significado": "frequência de 28 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 90 dias e ramo de atividade (id) igual a 103",
+      "condicao_efetiva": "compraram nos últimos 90 dias, mas estão há mais de 7 dias sem comprar e ramo de atividade (id) igual a 103",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        28,
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R35",
+      "posicao": 35,
+      "nome": "Ramo de atividade PRODUTOR RURAL com pedido acima de 90d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"103\")",
+          "significado": "ramo de atividade (id) igual a 103",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ramo de atividade (id) igual a 103",
+      "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 90 dias) e ramo de atividade (id) igual a 103",
+      "tratados_antes_por": [
+        "R5",
+        "R34"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {
+    "do time televendas": "ramo de atividade (id) fora de: 089, 090, 091, 092, 093, 094 e mais 9"
+  },
+  "alertas": [],
+  "numeros_obrigatorios": [
+    7,
+    10,
+    14,
+    21,
+    28,
+    45,
+    60,
+    75,
+    90
+  ],
+  "numeros_permitidos": [
+    7,
+    10,
+    14,
+    21,
+    28,
+    45,
+    60,
+    75,
+    89,
+    90,
+    91,
+    92,
+    93,
+    94,
+    95,
+    96,
+    97,
+    98,
+    99,
+    100,
+    101,
+    102,
+    103
+  ],
+  "premissas_usadas": [
+    "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+  ]
+}

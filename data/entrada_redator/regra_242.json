@@ -1,0 +1,102 @@
+{
+ "arquivo": "regra_242.gobr",
+ "comentarios": [
+  "Definição de times",
+  "Parâmetros de planejamento"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Freq. hist. de 0 a 30d - sem compra em 20d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 30 dias, mas estão há pelo menos 20 dias sem comprar e frequência histórica de compra de até 30 dias"
+  },
+  {
+   "id": "R2",
+   "nome": "Freq. hist. de 31 a 60d - sem compra em 29d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 44 dias, mas estão há pelo menos 29 dias sem comprar e frequência histórica de compra entre 31 e 60 dias"
+  },
+  {
+   "id": "R3",
+   "nome": "Freq. hist. de 31 a 60d - sem compra em 44d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 60 dias, mas estão há mais de 44 dias sem comprar e frequência histórica de compra entre 31 e 60 dias",
+   "tratados_antes_por": [
+    "R2"
+   ]
+  },
+  {
+   "id": "R4",
+   "nome": "Freq. hist. de 61 a 90d - sem compra em 60d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 15 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e frequência histórica de compra entre 61 e 90 dias"
+  },
+  {
+   "id": "R5",
+   "nome": "Freq. hist. de 61 a 90d - sem compra em 90d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 180 dias, mas estão há mais de 90 dias sem comprar e frequência histórica de compra entre 61 e 90 dias",
+   "tratados_antes_por": [
+    "R4"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Freq. hist. de 91 a 180d - sem compra em 44d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 120 dias, mas estão há pelo menos 44 dias sem comprar e frequência histórica de compra entre 91 e 180 dias"
+  },
+  {
+   "id": "R7",
+   "nome": "Freq. hist. de 91 a 180d - sem compra em 120d",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 15 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 180 dias, mas estão há mais de 120 dias sem comprar e frequência histórica de compra entre 91 e 180 dias",
+   "tratados_antes_por": [
+    "R6"
+   ]
+  }
+ ],
+ "nao_cobertos": {
+  "do time televendas": "várias combinações de clientes não são cobertas por nenhuma regra"
+ },
+ "alertas_do_arquivo": [],
+ "premissas_usadas": []
+}

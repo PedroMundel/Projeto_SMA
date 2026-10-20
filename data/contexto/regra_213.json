@@ -1,0 +1,641 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_213.gobr",
+  "sha256": "1993d541254c8283ce6d13d71317a3724a846128343ec90b5899e5c2e75105da",
+  "comentarios": [
+    "Definição de times",
+    "Definição de carteiras",
+    "Parâmetros de atendimento"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "time televendas",
+      "definicao": "todos os vendedores de televendas habilitados no Govendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "carteira_segunda",
+      "definicao": "carteira fixa dos vendedores do time time televendas",
+      "filtros": [
+        {
+          "codigo": "codigo da rota igual(\"24\",\"523\",\"524\",\"525\",\"526\")",
+          "significado": "código da rota em: 24, 523, 524, 525, 526",
+          "reconhecida": true
+        }
+      ],
+      "livre": false,
+      "exceto_alocados_em": []
+    },
+    {
+      "id": "C2",
+      "nome": "carteira_terca",
+      "definicao": "carteira fixa dos vendedores do time time televendas",
+      "filtros": [
+        {
+          "codigo": "codigo da rota igual(\"3\",\"4\",\"17\",\"500\",\"512\",\"514\",\"515\")",
+          "significado": "código da rota em: 17, 3, 4, 500, 512, 514 e mais 1",
+          "reconhecida": true
+        }
+      ],
+      "livre": false,
+      "exceto_alocados_em": [
+        "carteira_segunda"
+      ]
+    },
+    {
+      "id": "C3",
+      "nome": "carteira_quarta",
+      "definicao": "carteira fixa dos vendedores do time time televendas",
+      "filtros": [
+        {
+          "codigo": "codigo da rota igual(\"502\",\"530\",\"531\")",
+          "significado": "código da rota em: 502, 530, 531",
+          "reconhecida": true
+        }
+      ],
+      "livre": false,
+      "exceto_alocados_em": [
+        "carteira_segunda",
+        "carteira_terca"
+      ]
+    },
+    {
+      "id": "C4",
+      "nome": "carteira_quinta",
+      "definicao": "carteira fixa dos vendedores do time time televendas",
+      "filtros": [
+        {
+          "codigo": "codigo da rota igual(\"20\",\"501\",\"504\",\"505\",\"506\",\"508\",\"513\",\"516\",\"527\",\"528\")",
+          "significado": "código da rota em: 20, 501, 504, 505, 506, 508 e mais 4",
+          "reconhecida": true
+        }
+      ],
+      "livre": false,
+      "exceto_alocados_em": [
+        "carteira_segunda",
+        "carteira_terca",
+        "carteira_quarta"
+      ]
+    },
+    {
+      "id": "C5",
+      "nome": "carteira_sexta",
+      "definicao": "carteira fixa dos vendedores do time time televendas",
+      "filtros": [
+        {
+          "codigo": "codigo da rota igual(\"5\",\"19\",\"510\",\"511\",\"521\")",
+          "significado": "código da rota em: 19, 5, 510, 511, 521",
+          "reconhecida": true
+        }
+      ],
+      "livre": false,
+      "exceto_alocados_em": [
+        "carteira_segunda",
+        "carteira_terca",
+        "carteira_quarta",
+        "carteira_quinta"
+      ]
+    },
+    {
+      "id": "C6",
+      "nome": "carteira_curitiba",
+      "definicao": "carteira fixa dos vendedores do time time televendas",
+      "filtros": [
+        {
+          "codigo": "codigo da rota igual(\"10\",\"11\")",
+          "significado": "código da rota em: 10, 11",
+          "reconhecida": true
+        }
+      ],
+      "livre": false,
+      "exceto_alocados_em": [
+        "carteira_segunda",
+        "carteira_terca",
+        "carteira_quarta",
+        "carteira_quinta",
+        "carteira_sexta"
+      ]
+    }
+  ],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Não agendar Clientes Filiais"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Não agendar Clientes Filiais",
+      "tipo_bloco": "parametros",
+      "fonte": "do time time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "cliente filial",
+          "significado": "filiais",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "filiais",
+      "condicao_efetiva": "filiais",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Clientes Ativos (segunda)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira_segunda",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na segunda",
+          "significado": "dias de atendimento - preferência: segunda; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ativos para o vendedor",
+      "condicao_efetiva": "ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Clientes Inativos (segunda)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira_segunda",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 28 dias",
+          "significado": "frequência de 28 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na segunda",
+          "significado": "dias de atendimento - preferência: segunda; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "não ativos para o vendedor",
+      "tratados_antes_por": [
+        "R2"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        28
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Clientes Ativos (terça)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira_terca",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na terca",
+          "significado": "dias de atendimento - preferência: terça; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ativos para o vendedor",
+      "condicao_efetiva": "ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Clientes Inativos (terça)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira_terca",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 28 dias",
+          "significado": "frequência de 28 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na terca",
+          "significado": "dias de atendimento - preferência: terça; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "não ativos para o vendedor",
+      "tratados_antes_por": [
+        "R4"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        28
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Clientes Ativos (quarta)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira_quarta",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na quarta",
+          "significado": "dias de atendimento - preferência: quarta; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ativos para o vendedor",
+      "condicao_efetiva": "ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Clientes Inativos (quarta)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira_quarta",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 28 dias",
+          "significado": "frequência de 28 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na quarta",
+          "significado": "dias de atendimento - preferência: quarta; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "não ativos para o vendedor",
+      "tratados_antes_por": [
+        "R6"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        28
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R8",
+      "posicao": 8,
+      "nome": "Clientes Ativos (quinta)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira_quinta",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na quinta",
+          "significado": "dias de atendimento - preferência: quinta; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ativos para o vendedor",
+      "condicao_efetiva": "ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R9",
+      "posicao": 9,
+      "nome": "Clientes Inativos (quinta)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira_quinta",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 28 dias",
+          "significado": "frequência de 28 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na quinta",
+          "significado": "dias de atendimento - preferência: quinta; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "não ativos para o vendedor",
+      "tratados_antes_por": [
+        "R8"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        28
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R10",
+      "posicao": 10,
+      "nome": "Clientes Ativos (sexta)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira_sexta",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na sexta",
+          "significado": "dias de atendimento - preferência: sexta; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ativos para o vendedor",
+      "condicao_efetiva": "ativos para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R11",
+      "posicao": 11,
+      "nome": "Clientes Inativos (sexta)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira_sexta",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 28 dias",
+          "significado": "frequência de 28 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na sexta",
+          "significado": "dias de atendimento - preferência: sexta; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "não ativos para o vendedor",
+      "tratados_antes_por": [
+        "R10"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        28
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R12",
+      "posicao": 12,
+      "nome": "Clientes sem dia específico",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira carteira_curitiba",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "todos os clientes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {
+    "do time time televendas": "fora da carteira carteira_curitiba, carteira_quarta, carteira_quinta, carteira_segunda, carteira_sexta, carteira_terca"
+  },
+  "alertas": [],
+  "numeros_obrigatorios": [
+    28
+  ],
+  "numeros_permitidos": [
+    3,
+    4,
+    5,
+    10,
+    11,
+    17,
+    19,
+    20,
+    24,
+    28,
+    500,
+    501,
+    502,
+    504,
+    505,
+    506,
+    508,
+    510,
+    511,
+    512,
+    513,
+    514,
+    515,
+    516,
+    521,
+    523,
+    524,
+    525,
+    526,
+    527,
+    528,
+    530,
+    531
+  ],
+  "premissas_usadas": [
+    "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+  ]
+}

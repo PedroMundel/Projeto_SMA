@@ -1,0 +1,162 @@
+{
+ "arquivo": "regra_147.gobr",
+ "comentarios": [
+  "Regras Times Carteira, Petvet e Portal",
+  "Regras Time Distribuidor",
+  "Regras time Pré-venda"
+ ],
+ "times": [
+  {
+   "nome": "time carteira",
+   "definicao": "os vendedores de id 3597, 3598, 3603, 3602, 3599, 3600, 3601, 3555, 3530, 3560, 3557, 3533, 3511, 3528, 3512, 3529, 3568"
+  },
+  {
+   "nome": "time distribuidor",
+   "definicao": "os vendedores de id 3516, 3556, 3531, 3519"
+  },
+  {
+   "nome": "time petvet",
+   "definicao": "os vendedores de id 3559"
+  },
+  {
+   "nome": "time portal",
+   "definicao": "os vendedores de id 3594, 3595, 3596, 3565, 3566, 3571, 3573, 3570, 3575, 3572, 3574, 3576, 3586, 3585, 3592, 3584, 3583, 3582, 3581, 3580"
+  },
+  {
+   "nome": "pre-venda",
+   "definicao": "os vendedores de id 3621, 3622, 3623"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "HospDrogas: Frequência de 1 dia para clientes novos e sem atendimento (Time Carteira, PetVet e Portal)",
+   "fonte": "do time time carteira, time petvet, time portal",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 1 dias"
+   ],
+   "condicao_efetiva": "sem receber visita há mais de 60 dias e cadastrados a partir de '2023-07-18'"
+  },
+  {
+   "id": "R2",
+   "nome": "HospDrogas: Frequência de 7 dias para clientes novos (Time Carteira, PetVet e Portal)",
+   "fonte": "do time time carteira, time petvet, time portal",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "(nunca foram visitados ou foram visitados nos últimos 60 dias) e cadastrados a partir de '2023-07-18'",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R3",
+   "nome": "HospDrogas: Frequência de 5 dias para clientes ativos (Time Carteira, PetVet e Portal)",
+   "fonte": "do time time carteira, time petvet, time portal",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 5 dias"
+   ],
+   "condicao_efetiva": "não (cadastrados a partir de '2023-07-18') e ativos para o vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R2"
+   ]
+  },
+  {
+   "id": "R4",
+   "nome": "HospDrogas: Frequência de 10 dias para clientes inativos (Time Carteira, PetVet e Portal)",
+   "fonte": "do time time carteira, time petvet, time portal",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 10 dias"
+   ],
+   "condicao_efetiva": "não (cadastrados a partir de '2023-07-18') e inativos para o vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R2"
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "HospDrogas: Frequência de 20 dias para clientes sem venda (Time Carteira, PetVet e Portal)",
+   "fonte": "do time time carteira, time petvet, time portal",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 20 dias"
+   ],
+   "condicao_efetiva": "não (cadastrados a partir de '2023-07-18') e sem vendas para o vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R2"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "HospDrogas: Frequência de 2 dias para clientes curva A (Time Distribuidor)",
+   "fonte": "do time time distribuidor",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 2 dias"
+   ],
+   "condicao_efetiva": "curva A com o vendedor"
+  },
+  {
+   "id": "R7",
+   "nome": "HospDrogas: Frequência de 4 dias para clientes curva B (Time Distribuidor)",
+   "fonte": "do time time distribuidor",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 4 dias"
+   ],
+   "condicao_efetiva": "curva B com o vendedor"
+  },
+  {
+   "id": "R8",
+   "nome": "HospDrogas: Frequência de 7 dias para clientes curva C (Time Distribuidor)",
+   "fonte": "do time time distribuidor",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "curva C com o vendedor"
+  },
+  {
+   "id": "R9",
+   "nome": "HospDrogas: Frequência de 15 dias para clientes sem classificação de curva ABC (Time Distribuidor)",
+   "fonte": "do time time distribuidor",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 15 dias"
+   ],
+   "condicao_efetiva": "fora da curva A nem B nem C com o vendedor",
+   "tratados_antes_por": [
+    "R6",
+    "R7",
+    "R8"
+   ]
+  },
+  {
+   "id": "R10",
+   "nome": "HospDrogas: Freq. de 7d para todos os clientes (Time Pré-venda)",
+   "fonte": "do time pre-venda",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "todos os clientes"
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+ ]
+}

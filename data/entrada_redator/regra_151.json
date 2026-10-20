@@ -1,0 +1,63 @@
+{
+ "arquivo": "regra_151.gobr",
+ "comentarios": [
+  "Parâmetros de não agendamento"
+ ],
+ "times": [
+  {
+   "nome": "de campo",
+   "definicao": "os vendedores de id 283, 279"
+  },
+  {
+   "nome": "televendas",
+   "definicao": "os vendedores de id 291"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "televendas fixa com ruptura de campo",
+   "definicao": "clientes de de campo em ruptura de sem compra há entre 7 e 60 dias, transferidos para televendas",
+   "filtros": []
+  }
+ ],
+ "segmentacoes": [
+  {
+   "id": "S1",
+   "nome": "cliente de ruptura",
+   "definicao": "carteira fixa dos vendedores do time de campo",
+   "filtros": [
+    "compraram nos últimos 60 dias"
+   ]
+  }
+ ],
+ "bloqueios": [
+  "Não agendar Ativos de campo com vendas em 60 dias"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Não agendar Ativos de campo com vendas em 60 dias",
+   "fonte": "da carteira televendas fixa com ruptura de campo",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "todos os clientes",
+   "quando_executa": [
+    "somente na última semana do mês"
+   ],
+   "alertas": [
+    "O nome da regra cita 60 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+   ]
+  }
+ ],
+ "nao_cobertos": {
+  "da carteira televendas fixa com ruptura de campo": "todos os clientes"
+ },
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores.",
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

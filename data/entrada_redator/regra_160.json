@@ -1,0 +1,242 @@
+{
+ "arquivo": "regra_160.gobr",
+ "comentarios": [
+  "Definição de times",
+  "PARÂMETROS POR PERFIL E ROTA",
+  "PARÂMETROS SOMENTE POR PERFIL",
+  "Específicos para o time \"vendedores_prospects\"",
+  "Específicos para o time \"vendedores_ativos\"",
+  "Para todos"
+ ],
+ "times": [
+  {
+   "nome": "vendedores_ativos",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas, exceto os de id 2136, 2179, 2134, 1865"
+  },
+  {
+   "nome": "vendedores_prospects",
+   "definicao": "os vendedores de id 2136, 2179, 2134, 1865"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Fechamento de Rota e Sem Atendimento há 3 dias - Primeira Compra",
+   "fonte": "do time vendedores_ativos, vendedores_prospects",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 1 dias"
+   ],
+   "condicao_efetiva": "foram visitados nos últimos 3000 dias, mas estão há mais de 3 dias sem receber visita e com data de rota nos próximos 1 dia e pessoa jurídica e sem vendas para o vendedor"
+  },
+  {
+   "id": "R2",
+   "nome": "Fechamento de Rota e Sem Atendimento há 3 dias - Estimular Regularidade de Compra",
+   "fonte": "do time vendedores_ativos, vendedores_prospects",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 1 dias"
+   ],
+   "condicao_efetiva": "compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e foram visitados nos últimos 3000 dias, mas estão há mais de 3 dias sem receber visita e com data de rota nos próximos 1 dia e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R3",
+   "nome": "Fechamento de Rota e Sem Atendimento há 3 dias - Risco de inatividade",
+   "fonte": "do time vendedores_ativos, vendedores_prospects",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 1 dias"
+   ],
+   "condicao_efetiva": "compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e foram visitados nos últimos 3000 dias, mas estão há mais de 3 dias sem receber visita e com data de rota nos próximos 1 dia e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R4",
+   "nome": "Fechamento de Rota e Sem Atendimento há 3 dias - Compra regularmente",
+   "fonte": "do time vendedores_ativos, vendedores_prospects",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 1 dias"
+   ],
+   "condicao_efetiva": "compraram com o próprio vendedor nos últimos 30 dias e foram visitados nos últimos 3000 dias, mas estão há mais de 3 dias sem receber visita e com data de rota nos próximos 1 dia e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Fechamento de Rota e Sem Atendimento há 3 dias - Resgate de cliente sem compra",
+   "fonte": "do time vendedores_ativos, vendedores_prospects",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 1 dias"
+   ],
+   "condicao_efetiva": "(nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 90 dias) e foram visitados nos últimos 3000 dias, mas estão há mais de 3 dias sem receber visita e com data de rota nos próximos 1 dia e pessoa jurídica e inativos para o vendedor",
+   "tratados_antes_por": [
+    "R2",
+    "R3",
+    "R4"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Fechamento de Rota e Sem Atendimento há 3 dias",
+   "fonte": "do time vendedores_ativos, vendedores_prospects",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 1 dias"
+   ],
+   "condicao_efetiva": "(nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 90 dias) e foram visitados nos últimos 3000 dias, mas estão há mais de 3 dias sem receber visita e com data de rota nos próximos 1 dia e pessoa jurídica e ativos para o vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5"
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Primeira Compra (Vendedores Prospects)",
+   "fonte": "do time vendedores_prospects",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "(não (com data de rota nos próximos 1 dia) e pessoa jurídica e sem vendas para o vendedor) OU ((nunca foram visitados ou foram visitados nos últimos 3 dias ou sem receber visita há mais de 3000 dias) e com data de rota nos próximos 1 dia e pessoa jurídica e sem vendas para o vendedor)",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R8",
+   "nome": "Primeira Compra (Vendedores Ativos)",
+   "fonte": "do time vendedores_ativos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "(não (com data de rota nos próximos 1 dia) e pessoa jurídica e sem vendas para o vendedor) OU ((nunca foram visitados ou foram visitados nos últimos 3 dias ou sem receber visita há mais de 3000 dias) e com data de rota nos próximos 1 dia e pessoa jurídica e sem vendas para o vendedor)",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R9",
+   "nome": "Risco de inatividade",
+   "fonte": "do time vendedores_ativos, vendedores_prospects",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e não (com data de rota nos próximos 1 dia) e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor) OU (compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e (nunca foram visitados ou foram visitados nos últimos 3 dias ou sem receber visita há mais de 3000 dias) e com data de rota nos próximos 1 dia e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor)",
+   "tratados_antes_por": [
+    "R1",
+    "R3",
+    "R7",
+    "R8"
+   ]
+  },
+  {
+   "id": "R10",
+   "nome": "Estimular a regularidade de compra",
+   "fonte": "do time vendedores_ativos, vendedores_prospects",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e não (com data de rota nos próximos 1 dia) e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor) OU (compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e (nunca foram visitados ou foram visitados nos últimos 3 dias ou sem receber visita há mais de 3000 dias) e com data de rota nos próximos 1 dia e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor)",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R7",
+    "R8"
+   ]
+  },
+  {
+   "id": "R11",
+   "nome": "Compra regularmente",
+   "fonte": "do time vendedores_ativos, vendedores_prospects",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 30 dias e não (com data de rota nos próximos 1 dia) e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor) OU (compraram com o próprio vendedor nos últimos 30 dias e (nunca foram visitados ou foram visitados nos últimos 3 dias ou sem receber visita há mais de 3000 dias) e com data de rota nos próximos 1 dia e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor)",
+   "tratados_antes_por": [
+    "R1",
+    "R4",
+    "R7",
+    "R8"
+   ]
+  },
+  {
+   "id": "R12",
+   "nome": "Resgate de cliente sem compra",
+   "fonte": "do time vendedores_ativos, vendedores_prospects",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "((nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 90 dias) e não (com data de rota nos próximos 1 dia) e pessoa jurídica e inativos para o vendedor) OU ((nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 90 dias) e (nunca foram visitados ou foram visitados nos últimos 3 dias ou sem receber visita há mais de 3000 dias) e com data de rota nos próximos 1 dia e pessoa jurídica e inativos para o vendedor)",
+   "tratados_antes_por": [
+    "R2",
+    "R3",
+    "R4",
+    "R5",
+    "R9",
+    "R10",
+    "R11"
+   ]
+  },
+  {
+   "id": "R13",
+   "nome": "Pessoa Física",
+   "fonte": "do time vendedores_ativos, vendedores_prospects",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "pessoa física"
+  },
+  {
+   "id": "R14",
+   "nome": "Pessoa Física/Jurídica (indefinido)",
+   "fonte": "do time vendedores_ativos, vendedores_prospects",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "((nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 90 dias) e não (com data de rota nos próximos 1 dia) e pessoa jurídica e ativos para o vendedor) OU ((nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 90 dias) e (nunca foram visitados ou foram visitados nos últimos 3 dias ou sem receber visita há mais de 3000 dias) e com data de rota nos próximos 1 dia e pessoa jurídica e ativos para o vendedor)",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9",
+    "R10",
+    "R11",
+    "R12",
+    "R13"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado.",
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+ ]
+}

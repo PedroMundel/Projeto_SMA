@@ -1,0 +1,74 @@
+{
+ "arquivo": "regra_119.gobr",
+ "comentarios": [
+  "Parametrizacao televendas"
+ ],
+ "times": [
+  {
+   "nome": "time televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Regra padrão da Ultrax: Não agendar clientes inativos inadimplentes"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Regra padrão da Ultrax : Frequencia de 15 dias para clientes ativos adimplentes",
+   "fonte": "do time time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 15 dias"
+   ],
+   "condicao_efetiva": "adimplentes e ativos para o vendedor"
+  },
+  {
+   "id": "R2",
+   "nome": "Regra padrão da Ultrax: Frequencia de 30 dias para clientes ativos inadimplentes",
+   "fonte": "do time time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "inadimplentes e ativos para o vendedor"
+  },
+  {
+   "id": "R3",
+   "nome": "Regra padrão da Ultrax: Frequencia de 7 dias para clientes inativos adimplentes",
+   "fonte": "do time time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "adimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R4",
+   "nome": "Regra padrão da Ultrax: Não agendar clientes inativos inadimplentes",
+   "fonte": "do time time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R5",
+   "nome": "Regra padrão da Ultrax: Frequencia de 15 dias para clientes sem compra",
+   "fonte": "do time time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 15 dias"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor"
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'."
+ ]
+}

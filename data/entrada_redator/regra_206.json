@@ -1,0 +1,206 @@
+{
+ "arquivo": "regra_206.gobr",
+ "comentarios": [
+  "Definição de times:",
+  "Definição de carteiras:",
+  "Parâmetros de planejamento"
+ ],
+ "times": [
+  {
+   "nome": "ativo_inativo",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas, exceto os de id 135"
+  },
+  {
+   "nome": "prospeccao",
+   "definicao": "os vendedores de id 135"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "0_90",
+   "definicao": "carteira fixa dos vendedores do time ativo_inativo",
+   "filtros": [
+    "compraram com qualquer vendedor da empresa nos últimos 90 dias"
+   ],
+   "livre": true
+  },
+  {
+   "id": "C2",
+   "nome": "90_180",
+   "definicao": "carteira fixa dos vendedores do time ativo_inativo",
+   "filtros": [
+    "compraram com qualquer vendedor da empresa nos últimos 180 dias, mas estão há pelo menos 91 dias sem comprar"
+   ],
+   "livre": true
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Não agendar filiais",
+  "Não agendar inadimplentes",
+  "Não agendar Prospects"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Não agendar filiais",
+   "fonte": "do time ativo_inativo, prospeccao",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "filiais"
+  },
+  {
+   "id": "R2",
+   "nome": "Não agendar inadimplentes",
+   "fonte": "do time ativo_inativo, prospeccao",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes"
+  },
+  {
+   "id": "R3",
+   "nome": "Não agendar Prospects",
+   "fonte": "do time ativo_inativo",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa"
+  },
+  {
+   "id": "R4",
+   "nome": "Com pedido nos últimos 90d dos segmentos POSTO DE MOLAS, EMPRESA ÔNIBUS, AUTO PEÇAS e MINERAÇÃO.",
+   "fonte": "da carteira 0_90",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "ramo de atividade (id) em: 1, 12, 2, 4",
+   "alertas": [
+    "O nome da regra cita 90 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Com pedido nos últimos 90d do segmento TRANSPORTADORA.",
+   "fonte": "da carteira 0_90",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 15 dias"
+   ],
+   "condicao_efetiva": "ramo de atividade (id) igual a 3",
+   "alertas": [
+    "O nome da regra cita 90 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Com pedido nos últimos 90d de segmentos não especificados",
+   "fonte": "da carteira 0_90",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "ramo de atividade (id) fora de: 1, 12, 2, 3, 4",
+   "tratados_antes_por": [
+    "R4",
+    "R5"
+   ],
+   "alertas": [
+    "O nome da regra cita 90 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Com pedido entre 90d e 180d (clientes em risco) dos segmentos POSTO DE MOLAS, EMPRESA ÔNIBUS, AUTO PEÇAS e MINERAÇÃO.",
+   "fonte": "da carteira 90_180",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "ramo de atividade (id) em: 1, 12, 2, 4",
+   "alertas": [
+    "O nome da regra cita 90, 180 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+   ]
+  },
+  {
+   "id": "R8",
+   "nome": "Com pedido entre 90d e 180d (clientes em risco) do segmento TRANSPORTADORA.",
+   "fonte": "da carteira 90_180",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 15 dias"
+   ],
+   "condicao_efetiva": "ramo de atividade (id) igual a 3",
+   "alertas": [
+    "O nome da regra cita 90, 180 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+   ]
+  },
+  {
+   "id": "R9",
+   "nome": "Com pedido entre 90d e 180d (clientes em risco) de segmentos não especificados",
+   "fonte": "da carteira 90_180",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "ramo de atividade (id) fora de: 1, 12, 2, 3, 4",
+   "tratados_antes_por": [
+    "R7",
+    "R8"
+   ],
+   "alertas": [
+    "O nome da regra cita 90, 180 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+   ]
+  },
+  {
+   "id": "R10",
+   "nome": "Leads e Prospects dos segmentos POSTO DE MOLAS, EMPRESA ÔNIBUS, AUTO PEÇAS e MINERAÇÃO.",
+   "fonte": "do time prospeccao",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "ramo de atividade (id) em: 1, 12, 2, 4"
+  },
+  {
+   "id": "R11",
+   "nome": "Leads e Prospects do segmento TRANSPORTADORA.",
+   "fonte": "do time prospeccao",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 15 dias"
+   ],
+   "condicao_efetiva": "ramo de atividade (id) igual a 3"
+  },
+  {
+   "id": "R12",
+   "nome": "Leads e Prospects de segmentos não especificados.",
+   "fonte": "do time prospeccao",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "ramo de atividade (id) fora de: 1, 12, 2, 3, 4",
+   "tratados_antes_por": [
+    "R10",
+    "R11"
+   ]
+  }
+ ],
+ "nao_cobertos": {
+  "do time ativo_inativo, prospeccao": "fora da carteira 0_90, 90_180",
+  "do time ativo_inativo": "fora da carteira 0_90, 90_180"
+ },
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado.",
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores.",
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

@@ -1,0 +1,167 @@
+{
+ "arquivo": "regra_165.gobr",
+ "comentarios": [
+  "Regras para Chegatto",
+  "Última atualização: 2025-08-05",
+  "Definição de times",
+  "Definição de segmentações",
+  "Definição de parâmetros"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  },
+  {
+   "nome": "campo",
+   "definicao": "todos os vendedores de campo"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [
+  {
+   "id": "S1",
+   "nome": "freq_hist_1a7",
+   "definicao": "carteira fixa dos vendedores do time campo",
+   "filtros": [
+    "frequência histórica de compra entre 1 e 7 dias"
+   ]
+  },
+  {
+   "id": "S2",
+   "nome": "freq_hist_16a30",
+   "definicao": "carteira fixa dos vendedores do time campo",
+   "filtros": [
+    "frequência histórica de compra entre 16 e 30 dias"
+   ]
+  },
+  {
+   "id": "S3",
+   "nome": "freq_hist_31a45",
+   "definicao": "carteira fixa dos vendedores do time campo",
+   "filtros": [
+    "frequência histórica de compra entre 31 e 45 dias"
+   ]
+  },
+  {
+   "id": "S4",
+   "nome": "freq_hist_61a90",
+   "definicao": "carteira fixa dos vendedores do time campo",
+   "filtros": [
+    "frequência histórica de compra entre 61 e 90 dias"
+   ]
+  }
+ ],
+ "bloqueios": [
+  "Não agendar clientes inativos inadimplentes",
+  "Não agendar clientes que não se enquadrem em nenhuma regra padrão"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Não agendar clientes inativos inadimplentes",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "no ciclo de vida inativo com a empresa e inadimplentes"
+  },
+  {
+   "id": "R2",
+   "nome": "Clientes há mais de 90 dias sem compra",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "sem comprar há mais de 90 dias"
+  },
+  {
+   "id": "R3",
+   "nome": "Clientes com frequência histórica de pedidos entre 1 e 7 dias, e sem compra entre 8 e 15 dias.",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "(compraram nos últimos 7 dias ou compraram nos últimos 90 dias, mas estão há mais de 15 dias sem comprar)",
+   "tratados_antes_por": [
+    "R2"
+   ]
+  },
+  {
+   "id": "R4",
+   "nome": "Clientes com frequência histórica de pedidos entre 16 e 30 dias, e sem compra entre 31 e 45 dias.",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "((compraram nos últimos 30 dias ou compraram nos últimos 90 dias, mas estão há mais de 45 dias sem comprar) e fora da segmentação \"freq_hist_1a7\") OU (compraram nos últimos 15 dias, mas estão há mais de 7 dias sem comprar e na segmentação \"freq_hist_1a7\")",
+   "tratados_antes_por": [
+    "R2",
+    "R3"
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Clientes com frequência histórica de pedidos entre 31 e 45 dias, e sem compra entre 46 e 60 dias.",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "((compraram nos últimos 45 dias ou compraram nos últimos 90 dias, mas estão há mais de 60 dias sem comprar) e fora da segmentação \"freq_hist_16a30\" e fora da segmentação \"freq_hist_1a7\") OU (compraram nos últimos 45 dias, mas estão há mais de 30 dias sem comprar e na segmentação \"freq_hist_16a30\" e fora da segmentação \"freq_hist_1a7\") OU (compraram nos últimos 15 dias, mas estão há mais de 7 dias sem comprar e fora da segmentação \"freq_hist_16a30\" e na segmentação \"freq_hist_1a7\")",
+   "tratados_antes_por": [
+    "R2",
+    "R3",
+    "R4"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Clientes com frequência histórica de pedidos entre 61 e 90 dias, e sem compra há 90 dias.",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 15 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "sem comprar há mais de 90 dias",
+   "tratados_antes_por": [
+    "R2"
+   ],
+   "inalcancavel": true,
+   "alertas": [
+    "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Não agendar clientes inativos inadimplentes\", \"Clientes há mais de 90 dias sem compra\"."
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Não agendar clientes que não se enquadrem em nenhuma regra padrão",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "todos os clientes da fonte (sem filtro)",
+   "tratados_antes_por": [
+    "R2",
+    "R3",
+    "R4",
+    "R5"
+   ],
+   "alertas": [
+    "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+ ]
+}

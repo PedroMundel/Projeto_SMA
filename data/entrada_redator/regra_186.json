@@ -1,0 +1,188 @@
+{
+ "arquivo": "regra_186.gobr",
+ "comentarios": [
+  "Definição de times",
+  "Parâmetros de planejamento"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Não agendar clientes que compraram com o televendas em 7d.",
+  "Não agendar clientes que tem rota em 7 dias à frente."
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Não agendar clientes que compraram com o televendas em 7d.",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "compraram com o próprio vendedor nos últimos 7 dias"
+  },
+  {
+   "id": "R2",
+   "nome": "Não agendar clientes que tem rota em 7 dias à frente.",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "com data de rota futura nos próximos 7 dias"
+  },
+  {
+   "id": "R3",
+   "nome": "Ative este cliente! (Nunca tirou pedido)",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem vendas para a empresa"
+  },
+  {
+   "id": "R4",
+   "nome": "Ative este cliente!",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 360 dias, mas estão há pelo menos 180 dias sem comprar e com compra no ano anterior e com alguma venda (ativos ou inativos) para a empresa",
+   "tratados_antes_por": [
+    "R3"
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Restabeleça relacionamento com este cliente que foi ativado!",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 14 dias e com compra com a empresa entre 181 e 360 dias atrás e não (com compra no ano anterior) e sem compra com a empresa entre 15 e 180 dias atrás e com alguma venda (ativos ou inativos) para a empresa) OU (compraram com qualquer vendedor da empresa nos últimos 14 dias e (nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 179 dias ou sem comprar no grupo de vendedores há mais de 360 dias) e com compra com a empresa entre 181 e 360 dias atrás e com compra no ano anterior e sem compra com a empresa entre 15 e 180 dias atrás e com alguma venda (ativos ou inativos) para a empresa)",
+   "tratados_antes_por": [
+    "R3",
+    "R4"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Mantenha a regularidade de compra do cliente que teve pedido detectado nos últimos 30d e foi visitado na semana anterior!",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "com compra com a empresa entre 7 e 30 dias atrás e com data de rota há 7 dias e com visita na semana anterior",
+   "tratados_antes_por": [
+    "R3",
+    "R4",
+    "R5"
+   ],
+   "alertas": [
+    "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Garanta regularidade de compra e relacionamento com este cliente! Seu último pedido foi entre 30d e 60d atrás.",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "com compra com a empresa entre 31 e 60 dias atrás e com data de rota há 7 dias e com visita na semana anterior",
+   "tratados_antes_por": [
+    "R3",
+    "R4",
+    "R5",
+    "R6"
+   ],
+   "alertas": [
+    "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+   ]
+  },
+  {
+   "id": "R8",
+   "nome": "Cliente caminhando para INATIVIDADE! Seu último pedido foi entre 60d e 90d atrás.",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 90 dias, mas estão há mais de 60 dias sem comprar",
+   "tratados_antes_por": [
+    "R3",
+    "R4",
+    "R6",
+    "R7"
+   ],
+   "alertas": [
+    "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+   ]
+  },
+  {
+   "id": "R9",
+   "nome": "Resgaste este cliente! Seu último pedido foi entre 90d e 180d atrás.",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 180 dias, mas estão há mais de 90 dias sem comprar",
+   "tratados_antes_por": [
+    "R3",
+    "R4",
+    "R6",
+    "R7"
+   ],
+   "alertas": [
+    "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+   ]
+  },
+  {
+   "id": "R10",
+   "nome": "Atendimento ao cliente que não se enquadrou nas demais regras.",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "todos os clientes da fonte (sem filtro)",
+   "tratados_antes_por": [
+    "R3",
+    "R4",
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9"
+   ],
+   "alertas": [
+    "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [
+  "A cascata mistura escopos de recência de compra (global: Restabeleça relacionamento com este cliente que foi ativado!, Cliente caminhando para INATIVIDADE! Seu último pedido foi entre 60d e 90d atrás., Resgaste este cliente! Seu último pedido foi entre 90d e 180d atrás.; grupo: Ative este cliente!; vendedor: Não agendar clientes que compraram com o televendas em 7d.); faixas de escopos diferentes não se excluem automaticamente e podem se sobrepor ou deixar lacunas."
+ ],
+ "premissas_usadas": [
+  "P2: Escopos de recência (grupo, vendedor, global) são medidas distintas, ordenadas: global <= grupo <= vendedor.",
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'."
+ ]
+}

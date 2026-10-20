@@ -1,0 +1,268 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_227.gobr",
+  "sha256": "db66e0f1e61631b2b78aeecb69baf893e3396b4da576a94fa29ddb4d62052212",
+  "comentarios": [
+    "Copiado da contas SIM Lubrificantes",
+    "Solicitação:",
+    "Definição de times",
+    "Regras de planejamento"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "felipe",
+      "definicao": "todos os vendedores de televendas habilitados no Govendas, exceto os de id 518, 519, 521, 626, 503, 624, 623",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Não agendar clientes com compra em 30 dias (Ativos)",
+    "Nao agendar clientes nao cobertos pelas regras"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Cobertura de rota de visita exatamente 7 dias depois",
+      "tipo_bloco": "parametros",
+      "fonte": "do time felipe",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "data da rota ha 7 dias atras",
+          "significado": "com data de rota há 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 1 dia",
+          "significado": "frequência de 1 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "com data de rota há 7 dias",
+      "condicao_efetiva": "com data de rota há 7 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        1,
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Não agendar clientes com compra em 30 dias (Ativos)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time felipe",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao global em 30 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 30 dias",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 30 dias e não (com data de rota há 7 dias)",
+      "tratados_antes_por": [
+        "R1"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": [
+        "Bloqueio depois de regras de frequência: clientes já parametrizados por \"Cobertura de rota de visita exatamente 7 dias depois\" não serão bloqueados por esta regra."
+      ]
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Freq. de 60d para clientes que nunca compraram (Prospects)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time felipe",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "no ciclo de vida prospect com a empresa",
+          "significado": "prospects (nunca compraram com qualquer vendedor da empresa)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 60 dias",
+          "significado": "frequência de 60 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "nunca compraram com qualquer vendedor da empresa",
+      "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa e não (com data de rota há 7 dias)",
+      "tratados_antes_por": [
+        "R1"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        60
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Freq. de 15d para clientes com compra entre 30 e 90 dias (Ativos)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time felipe",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao global entre 30 dias e 90 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 90 dias, mas estão há pelo menos 30 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 15 dias",
+          "significado": "frequência de 15 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 90 dias, mas estão há pelo menos 30 dias sem comprar",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 90 dias, mas estão há mais de 30 dias sem comprar e não (com data de rota há 7 dias)",
+      "tratados_antes_por": [
+        "R1"
+      ],
+      "bloqueios_anteriores": [
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        15,
+        30,
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Freq. de 10d para clientes sem compra em 90 dias (Inativos)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time felipe",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 10 dias",
+          "significado": "frequência de 10 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 90 dias e não (com data de rota há 7 dias)",
+      "tratados_antes_por": [
+        "R1",
+        "R3",
+        "R4"
+      ],
+      "bloqueios_anteriores": [
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        10
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Nao agendar clientes nao cobertos pelas regras",
+      "tipo_bloco": "parametros",
+      "fonte": "do time felipe",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": null,
+      "tratados_antes_por": [
+        "R1",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "bloqueios_anteriores": [
+        "R2"
+      ],
+      "inalcancavel": true,
+      "numeros": [],
+      "alertas": [
+        "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Cobertura de rota de visita exatamente 7 dias depois\", \"Não agendar clientes com compra em 30 dias (Ativos)\", \"Freq. de 60d para clientes que nunca compraram (Prospects)\", \"Freq. de 15d para clientes com compra entre 30 e 90 dias (Ativos)\", \"Freq. de 10d para clientes sem compra em 90 dias (Inativos)\"."
+      ]
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    1,
+    7,
+    10,
+    15,
+    30,
+    60,
+    90
+  ],
+  "numeros_permitidos": [
+    1,
+    7,
+    10,
+    15,
+    30,
+    60,
+    90,
+    503,
+    518,
+    519,
+    521,
+    623,
+    624,
+    626
+  ],
+  "premissas_usadas": [
+    "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+  ]
+}

@@ -1,0 +1,59 @@
+{
+ "arquivo": "regra_137.gobr",
+ "comentarios": [
+  "Regras de agendamento"
+ ],
+ "times": [
+  {
+   "nome": "empresa toda",
+   "definicao": "todos os vendedores habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Fênix distribuidora: 14d para prospects",
+   "fonte": "do time empresa toda",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa"
+  },
+  {
+   "id": "R2",
+   "nome": "Fênix distribuidora: 21d para ativos/adimplentes",
+   "fonte": "do time empresa toda",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e ativos para o vendedor",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R3",
+   "nome": "Fênix distribuidora: 14d para inativos/adimplentes",
+   "fonte": "do time empresa toda",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e não ativos para o vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R2"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+ ]
+}

@@ -1,0 +1,186 @@
+{
+ "arquivo": "regra_048.gobr",
+ "comentarios": [
+  "Parametros time de campo"
+ ],
+ "times": [
+  {
+   "nome": "time televendas",
+   "definicao": "todos os vendedores de televendas"
+  },
+  {
+   "nome": "time campo",
+   "definicao": "todos os vendedores de campo"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "carteira campo",
+   "definicao": "carteira fixa dos vendedores do time time campo",
+   "filtros": []
+  },
+  {
+   "id": "C2",
+   "nome": "carteira televendas",
+   "definicao": "carteira fixa dos vendedores do time time televendas",
+   "filtros": []
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Regra Padrao da Empresa Customizavel: 14 dias para ativos adimplentes (televendas)",
+   "fonte": "da carteira carteira televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "adimplentes e ativos para o vendedor"
+  },
+  {
+   "id": "R2",
+   "nome": "Regra Padrao da Empresa Customizavel: 7 dias para ativos inadimplentes (televendas)",
+   "fonte": "da carteira carteira televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "inadimplentes e ativos para o vendedor"
+  },
+  {
+   "id": "R3",
+   "nome": "Regra Padrao da Empresa Customizavel: 30 dias para inativos adimplentes (televendas)",
+   "fonte": "da carteira carteira televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "adimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R4",
+   "nome": "Regra Padrao da Empresa Customizavel: 60 dias para inativos inadimplentes (televendas)",
+   "fonte": "da carteira carteira televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 60 dias"
+   ],
+   "condicao_efetiva": "inadimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R5",
+   "nome": "Regra Padrao da Empresa Customizavel: 30 dias para clientes sem venda (televendas)",
+   "fonte": "da carteira carteira televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor"
+  },
+  {
+   "id": "R6",
+   "nome": "Regra Padrao da Empresa Customizavel: 30 dias para clientes prospects (televendas)",
+   "fonte": "da carteira carteira televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "todos os clientes da fonte (sem filtro)",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5"
+   ],
+   "inalcancavel": true,
+   "alertas": [
+    "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Regra Padrao da Empresa Customizavel: 14 dias para ativos adimplentes (televendas)\", \"Regra Padrao da Empresa Customizavel: 7 dias para ativos inadimplentes (televendas)\", \"Regra Padrao da Empresa Customizavel: 30 dias para inativos adimplentes (televendas)\", \"Regra Padrao da Empresa Customizavel: 60 dias para inativos inadimplentes (televendas)\", \"Regra Padrao da Empresa Customizavel: 30 dias para clientes sem venda (televendas)\"."
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Regra Padrao da Empresa Customizavel: 7 dias para clientes ativos adimplentes (campo)",
+   "fonte": "da carteira carteira campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "adimplentes e ativos para o vendedor"
+  },
+  {
+   "id": "R8",
+   "nome": "Regra Padrao da Empresa Customizavel: 14 dias para clientes ativos inadimplentes (campo)",
+   "fonte": "da carteira carteira campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "inadimplentes e ativos para o vendedor"
+  },
+  {
+   "id": "R9",
+   "nome": "Regra Padrao da Empresa Customizavel: 14 dias para clientes inativos ativos (campo)",
+   "fonte": "da carteira carteira campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "adimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R10",
+   "nome": "Regra Padrao da Empresa Customizavel: 30 dias para clientes inativos inadimplentes (campo)",
+   "fonte": "da carteira carteira campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "inadimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R11",
+   "nome": "Regra Padrao da Empresa Customizavel: 14 dias para clientes sem venda (campo)",
+   "fonte": "da carteira carteira campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor"
+  },
+  {
+   "id": "R12",
+   "nome": "Regra Padrao da Empresa Customizavel: 14 dias para clientes prospects (campo)",
+   "fonte": "da carteira carteira campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "todos os clientes da fonte (sem filtro)",
+   "tratados_antes_por": [
+    "R7",
+    "R8",
+    "R9",
+    "R10",
+    "R11"
+   ],
+   "inalcancavel": true,
+   "alertas": [
+    "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Regra Padrao da Empresa Customizavel: 7 dias para clientes ativos adimplentes (campo)\", \"Regra Padrao da Empresa Customizavel: 14 dias para clientes ativos inadimplentes (campo)\", \"Regra Padrao da Empresa Customizavel: 14 dias para clientes inativos ativos (campo)\", \"Regra Padrao da Empresa Customizavel: 30 dias para clientes inativos inadimplentes (campo)\", \"Regra Padrao da Empresa Customizavel: 14 dias para clientes sem venda (campo)\"."
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado.",
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores.",
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

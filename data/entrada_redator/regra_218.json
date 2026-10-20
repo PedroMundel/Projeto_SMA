@@ -1,0 +1,103 @@
+{
+ "arquivo": "regra_218.gobr",
+ "comentarios": [
+  "Definição de times:",
+  "Regras de agendamento:"
+ ],
+ "times": [
+  {
+   "nome": "televendas_1",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas, exceto os de id 4504"
+  },
+  {
+   "nome": "televendas_2",
+   "definicao": "os vendedores de id 4504"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Freq. de 5d para clientes sem compra em 7d",
+   "fonte": "do time televendas_1",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 5 dias"
+   ],
+   "condicao_efetiva": "sem comprar há mais de 7 dias"
+  },
+  {
+   "id": "R2",
+   "nome": "Freq. do histórico para clientes com recência de compra entre 0 e 14d",
+   "fonte": "do time televendas_1",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 14 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 7 dias",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R3",
+   "nome": "Freq. de 14d para clientes sem compra em 14d",
+   "fonte": "do time televendas_1",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "nunca compraram",
+   "tratados_antes_por": [
+    "R1",
+    "R2"
+   ]
+  },
+  {
+   "id": "R4",
+   "nome": "Freq. de 14d para clientes sem pedido",
+   "fonte": "do time televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com o próprio vendedor"
+  },
+  {
+   "id": "R5",
+   "nome": "Freq. de 14d para clientes com compra em 30d",
+   "fonte": "do time televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "compraram no grupo de vendedores nos últimos 30 dias e já compraram com o próprio vendedor",
+   "tratados_antes_por": [
+    "R4"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Freq. de 7d para clientes sem compra em 30d",
+   "fonte": "do time televendas_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "sem comprar no grupo de vendedores há mais de 30 dias e já compraram com o próprio vendedor",
+   "tratados_antes_por": [
+    "R4",
+    "R5"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado.",
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+ ]
+}

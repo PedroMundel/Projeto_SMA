@@ -1,0 +1,105 @@
+{
+ "arquivo": "regra_220.gobr",
+ "comentarios": [
+  "TIME REATIVACAO",
+  "TIME CARTEIRA DIRETA"
+ ],
+ "times": [
+  {
+   "nome": "carteira regional",
+   "definicao": "os vendedores de id 99, 645, 693, 729"
+  },
+  {
+   "nome": "carteira reativacao",
+   "definicao": "os vendedores de id 744, 738"
+  },
+  {
+   "nome": "carteira direta",
+   "definicao": "os vendedores de id 568, 712"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Não agendar clientes com compra na empresa nos últimos 30 dias - Carteira Regional",
+  "Regra Padrao da Girobem: Não agendar clientes com menos de 150 dias sem compra  - Carteira Reativação"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Não agendar clientes com compra na empresa nos últimos 30 dias - Carteira Regional",
+   "fonte": "do time carteira regional",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 30 dias"
+  },
+  {
+   "id": "R2",
+   "nome": "Regra Padrao da Girobem: Frequênicia de 7 dias para clientes sem comprar entre 30 e 150 dias - Carteira Regional",
+   "fonte": "do time carteira regional",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "(nunca compraram com qualquer vendedor da empresa ou sem comprar com qualquer vendedor da empresa há mais de 30 dias)",
+   "alertas": [
+    "O nome da regra cita 150 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+   ]
+  },
+  {
+   "id": "R3",
+   "nome": "Regra Padrao da Girobem: 14 dias para clientes com mais de 150 dias sem compra  - Carteira Reativação",
+   "fonte": "do time carteira reativacao",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 149 dias"
+  },
+  {
+   "id": "R4",
+   "nome": "Regra Padrao da Girobem: 14 dias para clientes sem compra  - Carteira Reativação",
+   "fonte": "do time carteira reativacao",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "(nunca compraram com qualquer vendedor da empresa ou compraram com qualquer vendedor da empresa nos últimos 149 dias) e sem vendas para o vendedor",
+   "tratados_antes_por": [
+    "R3"
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Regra Padrao da Girobem: Não agendar clientes com menos de 150 dias sem compra  - Carteira Reativação",
+   "fonte": "do time carteira reativacao",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "(nunca compraram com qualquer vendedor da empresa ou compraram com qualquer vendedor da empresa nos últimos 149 dias) e com alguma venda (ativos ou inativos) para o vendedor",
+   "tratados_antes_por": [
+    "R3",
+    "R4"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Regra Padrao da Girobem: 7 dias para todos os clientes - Carteira Direta",
+   "fonte": "do time carteira direta",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "todos os clientes"
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+ ]
+}

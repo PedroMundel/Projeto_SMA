@@ -1,0 +1,177 @@
+{
+ "arquivo": "regra_093.gobr",
+ "comentarios": [
+  "Definicao de times",
+  "vendedores porid(\"113\", \"128\", \"137\", \"141\", \"164\", \"170\", \"176\", \"176\", \"183\", \"207\", \"259\", \"264\", \"264\", \"264\", \"307\", \"345\", \"351\", \"355\", \"359\", \"377\", \"378\", \"381\", \"382\", \"384\", \"400\", \"403\", \"41\", \"426\", \"430\", \"431\", \"436\", \"439\", \"441\", \"442\", \"447\", \"468\", \"477\", \"481\", \"482\", \"486\", \"488\", \"489\", \"491\", \"492\", \"493\", \"495\", \"498\", \"499\", \"50\", \"86\", \"9\")",
+  "Definicao de carteiras",
+  "Definicao de parametros \"carteira fixa time televendas\"",
+  "Definicao de parametros \"carteira fixa time campo capital\"",
+  "Definicao de parametros \"carteira fixa time campo interior\""
+ ],
+ "times": [
+  {
+   "nome": "time campo interior",
+   "definicao": "os vendedores de id 18, 212, 300, 376, 395, 421, 43, 449, 486, 488, 489, 490, 6, 68"
+  },
+  {
+   "nome": "time campo capital",
+   "definicao": "todos os vendedores de campo, exceto os de id 18, 212, 300, 376, 395, 421, 43, 449, 486, 488, 489, 490, 6, 68"
+  },
+  {
+   "nome": "time televendas",
+   "definicao": "todos os vendedores de televendas"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "carteira fixa time interior",
+   "definicao": "carteira fixa dos vendedores do time time campo interior",
+   "filtros": []
+  },
+  {
+   "id": "C2",
+   "nome": "carteira fixa time campo capital",
+   "definicao": "carteira fixa dos vendedores do time time campo capital",
+   "filtros": []
+  },
+  {
+   "id": "C3",
+   "nome": "carteira fixa time televendas",
+   "definicao": "carteira fixa dos vendedores do time time televendas",
+   "filtros": []
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Regra Padrao da Empresa Customizavel - Semanal para ativos adimplentes (time televendas)",
+   "fonte": "da carteira carteira fixa time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "adimplentes e ativos para o vendedor"
+  },
+  {
+   "id": "R2",
+   "nome": "Regra Padrao da Empresa Customizavel - 14 dias para ativos inadimplentes (time televendas)",
+   "fonte": "da carteira carteira fixa time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "inadimplentes e ativos para o vendedor"
+  },
+  {
+   "id": "R3",
+   "nome": "Regra Padrao da Empresa Customizavel - 30 dias para inativos (time televendas)",
+   "fonte": "da carteira carteira fixa time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "inativos para o vendedor"
+  },
+  {
+   "id": "R4",
+   "nome": "Regra Padrao da Empresa Customizavel - 30 dias pra clientes sem vendas (time televendas)",
+   "fonte": "da carteira carteira fixa time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor"
+  },
+  {
+   "id": "R5",
+   "nome": "Regra Padrao da Empresa Customizavel - semanal para ativos adimplentes (time campo capital)",
+   "fonte": "da carteira carteira fixa time campo capital",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "adimplentes e ativos para o vendedor"
+  },
+  {
+   "id": "R6",
+   "nome": "Regra Padrao da Empresa Customizavel - 14 dias para ativos inadimplentes (time campo capital)",
+   "fonte": "da carteira carteira fixa time campo capital",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "inadimplentes e ativos para o vendedor"
+  },
+  {
+   "id": "R7",
+   "nome": "Regra Padrao da Empresa Customizavel - 30 dias para inativos (time campo capital)",
+   "fonte": "da carteira carteira fixa time campo capital",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "inativos para o vendedor"
+  },
+  {
+   "id": "R8",
+   "nome": "Regra Padrao da Empresa Customizavel - 30 dias pra clientes sem vendas (time campo capital)",
+   "fonte": "da carteira carteira fixa time campo capital",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor"
+  },
+  {
+   "id": "R9",
+   "nome": "Regra Padrao da Empresa Customizavel - 14 dias para ativos (time campo interior)",
+   "fonte": "da carteira carteira fixa time interior",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "ativos para o vendedor"
+  },
+  {
+   "id": "R10",
+   "nome": "Regra Padrao da Empresa Customizavel - 30 dias para inativos (time campo interior)",
+   "fonte": "da carteira carteira fixa time interior",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "inativos para o vendedor"
+  },
+  {
+   "id": "R11",
+   "nome": "Regra Padrao da Empresa Customizavel - 30 dias pra clientes sem vendas (time campo interior)",
+   "fonte": "da carteira carteira fixa time interior",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor"
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores.",
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

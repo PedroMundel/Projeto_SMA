@@ -1,0 +1,135 @@
+{
+ "arquivo": "regra_158.gobr",
+ "comentarios": [
+  "Definição de times:",
+  "Regras de não agendamento:",
+  "Regras de agendamento:"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Não agendar inadimplentes",
+  "Não agendar Baixados na Receita"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Não agendar inadimplentes",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes"
+  },
+  {
+   "id": "R2",
+   "nome": "Não agendar Baixados na Receita",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "com situação baixada na Receita Federal"
+  },
+  {
+   "id": "R3",
+   "nome": "Freq. de 30d para 'Prospect: Cliente potencial'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa"
+  },
+  {
+   "id": "R4",
+   "nome": "Freq. de 21d para 'Ativado: fez um pedido e ainda não comprou mais'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 45 dias e cadastrados no ERP há pelo menos 120 dias e com uma única compra na empresa"
+  },
+  {
+   "id": "R5",
+   "nome": "Freq. de 14d para 'Ativo: Alta frequência de compra'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 45 dias e frequência histórica de compra de menos de 30 dias e sem ser de compra única na empresa) OU (compraram com qualquer vendedor da empresa nos últimos 45 dias e não (cadastrados no ERP há pelo menos 120 dias) e frequência histórica de compra de menos de 30 dias e com uma única compra na empresa)",
+   "tratados_antes_por": [
+    "R4"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Freq. de 30d para 'Ativo: compra regularmente'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 120 dias, mas estão há mais de 45 dias sem comprar e frequência histórica de compra de menos de 120 dias) OU (compraram com qualquer vendedor da empresa nos últimos 45 dias e frequência histórica de compra entre 30 e 119 dias e sem ser de compra única na empresa) OU (compraram com qualquer vendedor da empresa nos últimos 45 dias e não (cadastrados no ERP há pelo menos 120 dias) e frequência histórica de compra entre 30 e 119 dias e com uma única compra na empresa)",
+   "tratados_antes_por": [
+    "R4",
+    "R5"
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Freq. de 30d para 'Ativo: estimular a regularidade de compra'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 70 dias, mas estão há mais de 45 dias sem comprar e frequência histórica indefinida ou frequência histórica de compra de pelo menos 120 dias) OU (compraram com qualquer vendedor da empresa nos últimos 45 dias, mas estão há pelo menos 45 dias sem comprar e frequência histórica indefinida ou frequência histórica de compra de pelo menos 120 dias e sem ser de compra única na empresa) OU (compraram com qualquer vendedor da empresa nos últimos 45 dias, mas estão há pelo menos 45 dias sem comprar e não (cadastrados no ERP há pelo menos 120 dias) e frequência histórica indefinida ou frequência histórica de compra de pelo menos 120 dias e com uma única compra na empresa)",
+   "tratados_antes_por": [
+    "R4",
+    "R5",
+    "R6"
+   ]
+  },
+  {
+   "id": "R8",
+   "nome": "Freq. de 21d para 'Em ruptura: risco de ficar inativo'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 120 dias, mas estão há mais de 70 dias sem comprar e frequência histórica indefinida ou frequência histórica de compra de pelo menos 120 dias",
+   "tratados_antes_por": [
+    "R6"
+   ]
+  },
+  {
+   "id": "R9",
+   "nome": "Freq. de 30d para 'Inativo: reativar cliente sem compra'",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 120 dias"
+  }
+ ],
+ "nao_cobertos": {
+  "do time televendas": "(compraram com qualquer vendedor da empresa nos últimos 44 dias e frequência histórica indefinida ou frequência histórica de compra de pelo menos 120 dias e sem ser de compra única na empresa) OU (compraram com qualquer vendedor da empresa nos últimos 44 dias e não (cadastrados no ERP há pelo menos 120 dias) e frequência histórica indefinida ou frequência histórica de compra de pelo menos 120 dias e com uma única compra na empresa)"
+ },
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+ ]
+}

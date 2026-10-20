@@ -1,0 +1,114 @@
+{
+ "arquivo": "regra_231.gobr",
+ "comentarios": [
+  "Solicitação:",
+  "Definição de times",
+  "Parâmetros",
+  "TODOS",
+  "CARTEIRA REGIONAL",
+  "CARTEIRA REATIVAÇÃO",
+  "CARTEIRA DIRETA"
+ ],
+ "times": [
+  {
+   "nome": "carteira_regional",
+   "definicao": "os vendedores de id 200, 382, 677, 631, 686, 731, 789"
+  },
+  {
+   "nome": "carteira_reativacao",
+   "definicao": "os vendedores de id 706, 763"
+  },
+  {
+   "nome": "carteira_direta",
+   "definicao": "os vendedores de id 708, 736, 737, 755"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Baixados na receita",
+  "Clientes com compra nos últimos 30 dias",
+  "Clientes com compra em 150 dias"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Baixados na receita",
+   "fonte": "do time carteira_regional, carteira_reativacao, carteira_direta",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "com situação baixada na Receita Federal"
+  },
+  {
+   "id": "R2",
+   "nome": "Clientes com compra nos últimos 30 dias",
+   "fonte": "do time carteira_regional",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 30 dias"
+  },
+  {
+   "id": "R3",
+   "nome": "Clientes com compra entre 30 e 150 dias",
+   "fonte": "do time carteira_regional",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 150 dias, mas estão há mais de 30 dias sem comprar"
+  },
+  {
+   "id": "R4",
+   "nome": "Clientes com compra em 150 dias",
+   "fonte": "do time carteira_reativacao",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 150 dias"
+  },
+  {
+   "id": "R5",
+   "nome": "Clientes sem compra",
+   "fonte": "do time carteira_reativacao",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa"
+  },
+  {
+   "id": "R6",
+   "nome": "Clientes sem compra em 150 dias",
+   "fonte": "do time carteira_reativacao",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 150 dias"
+  },
+  {
+   "id": "R7",
+   "nome": "Freq. de 7d para todos os clientes",
+   "fonte": "do time carteira_direta",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "todos os clientes"
+  }
+ ],
+ "nao_cobertos": {
+  "do time carteira_regional, carteira_reativacao, carteira_direta": "todos os clientes",
+  "do time carteira_regional": "todos os clientes"
+ },
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado.",
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+ ]
+}

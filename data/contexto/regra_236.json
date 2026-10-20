@@ -1,0 +1,396 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_236.gobr",
+  "sha256": "d0be51c40a420e43dbef4d1ecbf19b0b5bf1a24cb8c7dd9665d1f216afd10994",
+  "comentarios": [],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "televendas",
+      "definicao": "todos os vendedores de televendas habilitados no Govendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "cidades_todo_dia",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [
+        {
+          "codigo": "uf do estado igual(\"RJ\")",
+          "significado": "UF igual a RJ",
+          "reconhecida": true
+        },
+        {
+          "codigo": "nome da cidade igual(\"BARRA MANSA\",\"VOLTA REDONDA\",\"RESENDE\",\"QUEIMADOS\",\"ITATIAIA\",\"SÃO JOÃO DE MERITI\",\"NOVA IGUAÇU\",\"MESQUITA\",\"BELFORD ROXO\",\"PORTO REAL\")",
+          "significado": "cidade em: BARRA MANSA, BELFORD ROXO, ITATIAIA, MESQUITA, NOVA IGUAÇU, PORTO REAL e mais 4",
+          "reconhecida": true
+        }
+      ],
+      "livre": true
+    },
+    {
+      "id": "C2",
+      "nome": "bairros_todo_dia",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [
+        {
+          "codigo": "uf do estado igual(\"RJ\")",
+          "significado": "UF igual a RJ",
+          "reconhecida": true
+        },
+        {
+          "codigo": "nome da cidade igual(\"RIO DE JANEIRO\")",
+          "significado": "cidade igual a RIO DE JANEIRO",
+          "reconhecida": true
+        },
+        {
+          "codigo": "nome do bairro igual(\"CENTRO\",\"Centro\",\"centro\",\"PAVUNA\",\"Pavuna\",\"BOLCO A - PAVUNA\")",
+          "significado": "bairro em: BOLCO A - PAVUNA, CENTRO, Centro, PAVUNA, Pavuna, centro",
+          "reconhecida": true
+        }
+      ],
+      "livre": true
+    },
+    {
+      "id": "C3",
+      "nome": "cidades_seg_qua_sex",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [
+        {
+          "codigo": "uf do estado igual(\"RJ\")",
+          "significado": "UF igual a RJ",
+          "reconhecida": true
+        },
+        {
+          "codigo": "nome da cidade igual(\"ITAGUAI\",\"SEROPEDICA\",\"VISCONDE DE MAUA\")",
+          "significado": "cidade em: ITAGUAI, SEROPEDICA, VISCONDE DE MAUA",
+          "reconhecida": true
+        }
+      ],
+      "livre": true
+    },
+    {
+      "id": "C4",
+      "nome": "bairros_seg_qua_sex",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [
+        {
+          "codigo": "uf do estado igual(\"RJ\")",
+          "significado": "UF igual a RJ",
+          "reconhecida": true
+        },
+        {
+          "codigo": "nome da cidade igual(\"RIO DE JANEIRO\")",
+          "significado": "cidade igual a RIO DE JANEIRO",
+          "reconhecida": true
+        },
+        {
+          "codigo": "nome do bairro igual(\"SANTA CRUZ\",\"SANTA CRUZ CONJUNTO ALVORADA\",\"SANTA CRUZ/ SAO FERNANDO\",\"SANTA CRUZ/ URUCÂNIA\",\"SANTA CRUZ/ VITOR DUMAS\",\"SANTA CRUZ/JESUÍTA…",
+          "significado": "bairro em: BANGU, BANGUA, BARRA DA TIJUCA, Bangu, CACHAMBI, CAMPO   GRANDE e mais 69",
+          "reconhecida": true
+        }
+      ],
+      "livre": true
+    },
+    {
+      "id": "C5",
+      "nome": "cidades_rj_ter_qui",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [
+        {
+          "codigo": "uf do estado igual(\"RJ\")",
+          "significado": "UF igual a RJ",
+          "reconhecida": true
+        },
+        {
+          "codigo": "nome da cidade igual(\"BARRA DO PIRAI\",\"BARRA DO PIRAÍ\",\"VASSOURAS\",\"MIGUEL PEREIRA\",\"VALENCA\",\"VALENÇA\",\"PATY DO ALFERES\",\"RIO CLARO\",\"MANGARATIBA\",\"PARATI\",\"PI…",
+          "significado": "cidade em: BANANAL, BARRA DO PIRAI, BARRA DO PIRAÍ, MANGARATIBA, MENDES, MIGUEL PEREIRA e mais 12",
+          "reconhecida": true
+        }
+      ],
+      "livre": true
+    },
+    {
+      "id": "C6",
+      "nome": "bairros_rj_ter_qui",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [
+        {
+          "codigo": "uf do estado igual(\"RJ\")",
+          "significado": "UF igual a RJ",
+          "reconhecida": true
+        },
+        {
+          "codigo": "nome da cidade igual(\"RIO DE JANEIRO\",\"ANGRA DOS REIS\")",
+          "significado": "cidade em: ANGRA DOS REIS, RIO DE JANEIRO",
+          "reconhecida": true
+        },
+        {
+          "codigo": "nome do bairro igual(\"GUARATIBA\",\"Guaratiba\",\"PRAIA BRAVA PEREQUE\",\"PQ MAMBUCABA PEREQUE\",\"PEREQUE MAMBUCABA\",\"PEREQUÊ\",\"PEREQUE\",\"PARQUE PEREQUÊ MAMBUCABA\",\"PA…",
+          "significado": "bairro em: GUARATIBA, Guaratiba, PARQUE PEREQUE, PARQUE PEREQUÊ MAMBUCABA, PEREQUE, PEREQUE MAMBUCABA e mais 3",
+          "reconhecida": true
+        }
+      ],
+      "livre": true
+    },
+    {
+      "id": "C7",
+      "nome": "cidades_sp_ter_qui",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [
+        {
+          "codigo": "uf do estado igual(\"SP\")",
+          "significado": "UF igual a SP",
+          "reconhecida": true
+        },
+        {
+          "codigo": "nome da cidade igual(\"SAO PAULO\")",
+          "significado": "cidade igual a SAO PAULO",
+          "reconhecida": true
+        }
+      ],
+      "livre": true
+    }
+  ],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Não agendar baixados na Receita",
+    "Não agendar clientes fora das regras padrão"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Não agendar baixados na Receita",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "status na receita federal definido como baixada",
+          "significado": "com situação baixada na Receita Federal",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "com situação baixada na Receita Federal",
+      "condicao_efetiva": "com situação baixada na Receita Federal",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Rota todos os dias (com venda recente)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira cidades_todo_dia, bairros_todo_dia",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao em 1 dias",
+          "significado": "compraram nos últimos 1 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 1 dias",
+      "condicao_efetiva": "compraram nos últimos 1 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        1
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Rota todos os dias",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira cidades_todo_dia, bairros_todo_dia",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 2 dias",
+          "significado": "frequência de 2 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "(nunca compraram ou sem comprar há mais de 1 dias)",
+      "tratados_antes_por": [
+        "R2"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        2
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Rota segunda, quarta e sexta",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira cidades_seg_qua_sex, bairros_seg_qua_sex",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao na semana",
+          "significado": "sem compra na semana atual",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia normal na segunda e normal na quarta e normal na sexta",
+          "significado": "dias de atendimento - preferência: segunda, quarta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem compra na semana atual",
+      "condicao_efetiva": "sem compra na semana atual",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Rota terça e quinta",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira cidades_rj_ter_qui, bairros_rj_ter_qui, cidades_sp_ter_qui",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao na semana",
+          "significado": "sem compra na semana atual",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia normal na terca e normal na quinta",
+          "significado": "dias de atendimento - preferência: terça, quinta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem compra na semana atual",
+      "condicao_efetiva": "sem compra na semana atual",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Não agendar clientes fora das regras padrão",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "(fora da carteira bairros_rj_ter_qui, bairros_seg_qua_sex, bairros_todo_dia, cidades_rj_ter_qui, cidades_seg_qua_sex, cidades_sp_ter_qui, cidades_todo_dia) OU (da carteira bairros_rj_ter_qui, bairros_seg_qua_sex, cidades_rj_ter_qui, cidades_seg_qua_sex, cidades_sp_ter_qui e não (sem compra na semana atual))",
+      "tratados_antes_por": [
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [
+    "As carteiras \"cidades_todo_dia\" e \"bairros_todo_dia\" compartilham 1 valor(es) de uf do estado (RJ): esses clientes aparecem nas duas.",
+    "As carteiras \"cidades_todo_dia\" e \"cidades_seg_qua_sex\" compartilham 1 valor(es) de uf do estado (RJ): esses clientes aparecem nas duas.",
+    "As carteiras \"cidades_todo_dia\" e \"bairros_seg_qua_sex\" compartilham 1 valor(es) de uf do estado (RJ): esses clientes aparecem nas duas.",
+    "As carteiras \"cidades_todo_dia\" e \"cidades_rj_ter_qui\" compartilham 1 valor(es) de uf do estado (RJ): esses clientes aparecem nas duas.",
+    "As carteiras \"cidades_todo_dia\" e \"bairros_rj_ter_qui\" compartilham 1 valor(es) de uf do estado (RJ): esses clientes aparecem nas duas.",
+    "As carteiras \"bairros_todo_dia\" e \"cidades_seg_qua_sex\" compartilham 1 valor(es) de uf do estado (RJ): esses clientes aparecem nas duas.",
+    "As carteiras \"bairros_todo_dia\" e \"bairros_seg_qua_sex\" compartilham 1 valor(es) de uf do estado (RJ): esses clientes aparecem nas duas.",
+    "As carteiras \"bairros_todo_dia\" e \"bairros_seg_qua_sex\" compartilham 1 valor(es) de nome da cidade (RIO DE JANEIRO): esses clientes aparecem nas duas.",
+    "As carteiras \"bairros_todo_dia\" e \"cidades_rj_ter_qui\" compartilham 1 valor(es) de uf do estado (RJ): esses clientes aparecem nas duas.",
+    "As carteiras \"bairros_todo_dia\" e \"bairros_rj_ter_qui\" compartilham 1 valor(es) de uf do estado (RJ): esses clientes aparecem nas duas.",
+    "As carteiras \"bairros_todo_dia\" e \"bairros_rj_ter_qui\" compartilham 1 valor(es) de nome da cidade (RIO DE JANEIRO): esses clientes aparecem nas duas.",
+    "As carteiras \"cidades_seg_qua_sex\" e \"bairros_seg_qua_sex\" compartilham 1 valor(es) de uf do estado (RJ): esses clientes aparecem nas duas.",
+    "As carteiras \"cidades_seg_qua_sex\" e \"cidades_rj_ter_qui\" compartilham 1 valor(es) de uf do estado (RJ): esses clientes aparecem nas duas.",
+    "As carteiras \"cidades_seg_qua_sex\" e \"bairros_rj_ter_qui\" compartilham 1 valor(es) de uf do estado (RJ): esses clientes aparecem nas duas.",
+    "As carteiras \"bairros_seg_qua_sex\" e \"cidades_rj_ter_qui\" compartilham 1 valor(es) de uf do estado (RJ): esses clientes aparecem nas duas.",
+    "As carteiras \"bairros_seg_qua_sex\" e \"bairros_rj_ter_qui\" compartilham 1 valor(es) de uf do estado (RJ): esses clientes aparecem nas duas.",
+    "As carteiras \"bairros_seg_qua_sex\" e \"bairros_rj_ter_qui\" compartilham 1 valor(es) de nome da cidade (RIO DE JANEIRO): esses clientes aparecem nas duas.",
+    "As carteiras \"cidades_rj_ter_qui\" e \"bairros_rj_ter_qui\" compartilham 1 valor(es) de uf do estado (RJ): esses clientes aparecem nas duas."
+  ],
+  "numeros_obrigatorios": [
+    1,
+    2
+  ],
+  "numeros_permitidos": [
+    1,
+    2
+  ],
+  "premissas_usadas": [
+    "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+    "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+  ]
+}

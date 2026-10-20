@@ -1,0 +1,140 @@
+{
+ "arquivo": "regra_023.gobr",
+ "comentarios": [
+  "Parametros televendas GYN",
+  "Parametros televendas DF",
+  "Parametros vendas externas DF"
+ ],
+ "times": [
+  {
+   "nome": "time televendas gyn",
+   "definicao": "todos os vendedores de televendas dos supervisores de id 5178"
+  },
+  {
+   "nome": "time televendas df",
+   "definicao": "todos os vendedores de televendas"
+  },
+  {
+   "nome": "time campo df",
+   "definicao": "todos os vendedores de campo"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "carteira televendas gyn",
+   "definicao": "carteira fixa dos vendedores do time time televendas gyn",
+   "filtros": []
+  },
+  {
+   "id": "C2",
+   "nome": "carteira televendas df",
+   "definicao": "carteira fixa dos vendedores do time time televendas df",
+   "filtros": []
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Regra Padrao da BSB Vet: nao agendar inativos inadimplentes (televendas)"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Regra Padrao da BSB Vet (GYN): 7 dias para clientes sem venda (televendas)",
+   "fonte": "da carteira carteira televendas gyn",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor"
+  },
+  {
+   "id": "R2",
+   "nome": "Regra Padrao da BSB Vet (GYN): 14 para todos os clientes (televendas)",
+   "fonte": "da carteira carteira televendas gyn",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "com alguma venda (ativos ou inativos) para o vendedor",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R3",
+   "nome": "Regra Padrao da BSB Vet: 7 dias para clientes adimplentes (televendas)",
+   "fonte": "da carteira carteira televendas df",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "adimplentes"
+  },
+  {
+   "id": "R4",
+   "nome": "Regra Padrao da BSB Vet: 14 dias para ativos inadimplentes (televendas)",
+   "fonte": "da carteira carteira televendas df",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "inadimplentes e ativos para o vendedor"
+  },
+  {
+   "id": "R5",
+   "nome": "Regra Padrao da BSB Vet: nao agendar inativos inadimplentes (televendas)",
+   "fonte": "da carteira carteira televendas df",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R6",
+   "nome": "Regra Padrao da BSB Vet: 7 dias para clientes sem venda (televendas)",
+   "fonte": "da carteira carteira televendas df",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "inadimplentes e sem vendas para o vendedor",
+   "tratados_antes_por": [
+    "R3"
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Regra Padrao da BSB Vet: Frequencia de 7 dias para clientes ativos (campo)",
+   "fonte": "do time time campo df",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "ativos para o vendedor"
+  },
+  {
+   "id": "R8",
+   "nome": "Regra Padrao da BSB Vet: Frequencia de 15 dias para clientes inativos (campo)",
+   "fonte": "do time time campo df",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 15 dias",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "não ativos para o vendedor",
+   "tratados_antes_por": [
+    "R7"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores.",
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

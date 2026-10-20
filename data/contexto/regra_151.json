@@ -1,0 +1,105 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_151.gobr",
+  "sha256": "1fed3ec8cee93c762eac8a1355752c8fb8c88644148184f61b044e448e7cb0b8",
+  "comentarios": [
+    "Parâmetros de não agendamento"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "de campo",
+      "definicao": "os vendedores de id 283, 279",
+      "filtros": []
+    },
+    {
+      "id": "T2",
+      "nome": "televendas",
+      "definicao": "os vendedores de id 291",
+      "filtros": []
+    }
+  ],
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "televendas fixa com ruptura de campo",
+      "definicao": "clientes de de campo em ruptura de sem compra há entre 7 e 60 dias, transferidos para televendas",
+      "filtros": [],
+      "livre": false,
+      "exceto_alocados_em": []
+    }
+  ],
+  "segmentacoes": [
+    {
+      "id": "S1",
+      "nome": "cliente de ruptura",
+      "definicao": "carteira fixa dos vendedores do time de campo",
+      "filtros": [
+        {
+          "codigo": "tem venda em 60 dias",
+          "significado": "compraram nos últimos 60 dias",
+          "reconhecida": true
+        }
+      ]
+    }
+  ],
+  "bloqueios": [
+    "Não agendar Ativos de campo com vendas em 60 dias"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Não agendar Ativos de campo com vendas em 60 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira televendas fixa com ruptura de campo",
+      "quando_executa": [
+        {
+          "codigo": "na ultima semana",
+          "significado": "somente na última semana do mês",
+          "reconhecida": true
+        }
+      ],
+      "filtros": [
+        {
+          "codigo": "contido na segmentacao(\"cliente de ruptura\")",
+          "significado": "na segmentação \"cliente de ruptura\"",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "todos os clientes",
+      "condicao_efetiva": "todos os clientes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": [
+        "O nome da regra cita 60 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+      ]
+    }
+  ],
+  "nao_cobertos": {
+    "da carteira televendas fixa com ruptura de campo": "todos os clientes"
+  },
+  "alertas": [],
+  "numeros_obrigatorios": [],
+  "numeros_permitidos": [
+    7,
+    60,
+    279,
+    283,
+    291
+  ],
+  "premissas_usadas": [
+    "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores.",
+    "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+  ]
+}

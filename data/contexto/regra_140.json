@@ -1,0 +1,1512 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_140.gobr",
+  "sha256": "608502f120b13ab385e337d6785c87c49d8de4934ab02af4b5664595ad96a05f",
+  "comentarios": [
+    "Definição de times",
+    "Definição de carteiras",
+    "Parâmetros de não agendamento",
+    "Parâmetros de agendamento para rotas em dias variáveis (seg a sex)",
+    "Parâmetros de agendamento para rotas fixas em dias específicos",
+    "Segunda (Rotas 003 e 004)",
+    "Terça (Rota 005)",
+    "Quarta (Rota 006)",
+    "Sexta (Rota 007)",
+    "Sem rota mapeada"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "televendas",
+      "definicao": "todos os vendedores de televendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "rotas_dias_variaveis",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [
+        {
+          "codigo": "codigo da rota igual(\"8\",\"9\",\"10\",\"11\")",
+          "significado": "código da rota em: 10, 11, 8, 9",
+          "reconhecida": true
+        }
+      ],
+      "livre": false,
+      "exceto_alocados_em": []
+    },
+    {
+      "id": "C2",
+      "nome": "rotas 3 e 4",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [
+        {
+          "codigo": "codigo da rota igual(\"3\",\"4\")",
+          "significado": "código da rota em: 3, 4",
+          "reconhecida": true
+        }
+      ],
+      "livre": false,
+      "exceto_alocados_em": [
+        "rotas_dias_variaveis"
+      ]
+    },
+    {
+      "id": "C3",
+      "nome": "rota 5",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [
+        {
+          "codigo": "codigo da rota igual(\"5\")",
+          "significado": "código da rota igual a 5",
+          "reconhecida": true
+        }
+      ],
+      "livre": false,
+      "exceto_alocados_em": [
+        "rotas_dias_variaveis",
+        "rotas 3 e 4"
+      ]
+    },
+    {
+      "id": "C4",
+      "nome": "rota 6",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [
+        {
+          "codigo": "codigo da rota igual(\"6\")",
+          "significado": "código da rota igual a 6",
+          "reconhecida": true
+        }
+      ],
+      "livre": false,
+      "exceto_alocados_em": [
+        "rotas_dias_variaveis",
+        "rotas 3 e 4",
+        "rota 5"
+      ]
+    },
+    {
+      "id": "C5",
+      "nome": "rota 7",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [
+        {
+          "codigo": "codigo da rota igual(\"7\")",
+          "significado": "código da rota igual a 7",
+          "reconhecida": true
+        }
+      ],
+      "livre": false,
+      "exceto_alocados_em": [
+        "rotas_dias_variaveis",
+        "rotas 3 e 4",
+        "rota 5",
+        "rota 6"
+      ]
+    }
+  ],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Não agendar CPF",
+    "Não agendar Filiais",
+    "Não agendar Inadimplentes",
+    "Não agendar com visita recente"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Não agendar CPF",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "pessoa fisica",
+          "significado": "pessoa física",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "pessoa física",
+      "condicao_efetiva": "pessoa física",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Não agendar Filiais",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "cliente filial",
+          "significado": "filiais",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "filiais",
+      "condicao_efetiva": "filiais",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Não agendar Inadimplentes",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "inadimplentes",
+      "condicao_efetiva": "inadimplentes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Não agendar com visita recente",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rotas_dias_variaveis, rotas 3 e 4, rota 5, rota 6, rota 7",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de visita em 3 dias",
+          "significado": "foram visitados nos últimos 3 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "foram visitados nos últimos 3 dias",
+      "condicao_efetiva": "foram visitados nos últimos 3 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        3
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Rotas 008, 009, 010 e 011 - Primeira compra",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rotas_dias_variaveis",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "sem venda do vendedor",
+          "significado": "sem vendas para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem vendas para o vendedor",
+      "condicao_efetiva": "sem vendas para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Rotas 008, 009, 010 e 011 - Compra regularmente",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rotas_dias_variaveis",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao do vendedor em 21 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 21 dias",
+      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 21 dias e com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R5"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Rotas 008, 009, 010 e 011 - Estimular a regularidade de compra",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rotas_dias_variaveis",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao entre 21 dias e 41 dias",
+          "significado": "compraram nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar",
+      "condicao_efetiva": "compraram no grupo de vendedores nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar e (nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 21 dias) e com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R5",
+        "R6"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21,
+        41
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R8",
+      "posicao": 8,
+      "nome": "Rotas 008, 009, 010 e 011 - Risco de inatividade",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rotas_dias_variaveis",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao entre 41 dias e 90 dias",
+          "significado": "compraram nos últimos 90 dias, mas estão há pelo menos 41 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 90 dias, mas estão há pelo menos 41 dias sem comprar",
+      "condicao_efetiva": "compraram nos últimos 90 dias, mas estão há mais de 41 dias sem comprar e com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R5",
+        "R7"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        41,
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R9",
+      "posicao": 9,
+      "nome": "Rotas 008, 009, 010 e 011 - Cliente sem compra há mais de 90d",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rotas_dias_variaveis",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao em 90 dias",
+          "significado": "sem comprar há mais de 90 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar há mais de 90 dias",
+      "condicao_efetiva": "sem comprar há mais de 90 dias e com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R5"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R10",
+      "posicao": 10,
+      "nome": "Rotas 003 e 004 - Primeira compra",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rotas 3 e 4",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "sem venda do vendedor",
+          "significado": "sem vendas para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na segunda",
+          "significado": "dias de atendimento - preferência: segunda; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem vendas para o vendedor",
+      "condicao_efetiva": "sem vendas para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R11",
+      "posicao": 11,
+      "nome": "Rotas 003 e 004 - Compra regularmente",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rotas 3 e 4",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao do vendedor em 21 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na segunda",
+          "significado": "dias de atendimento - preferência: segunda; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 21 dias",
+      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 21 dias e com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R10"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R12",
+      "posicao": 12,
+      "nome": "Rotas 003 e 004 - Estimular a regularidade de compra",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rotas 3 e 4",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao entre 21 dias e 41 dias",
+          "significado": "compraram nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na segunda",
+          "significado": "dias de atendimento - preferência: segunda; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar",
+      "condicao_efetiva": "compraram no grupo de vendedores nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar e (nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 21 dias) e com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R10",
+        "R11"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21,
+        41
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R13",
+      "posicao": 13,
+      "nome": "Rotas 003 e 004 - Risco de inatividade",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rotas 3 e 4",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao entre 41 dias e 90 dias",
+          "significado": "compraram nos últimos 90 dias, mas estão há pelo menos 41 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na segunda",
+          "significado": "dias de atendimento - preferência: segunda; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 90 dias, mas estão há pelo menos 41 dias sem comprar",
+      "condicao_efetiva": "compraram nos últimos 90 dias, mas estão há mais de 41 dias sem comprar e com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R10",
+        "R12"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        41,
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R14",
+      "posicao": 14,
+      "nome": "Rotas 003 e 004 - Cliente sem compra há mais de 90d",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rotas 3 e 4",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao em 90 dias",
+          "significado": "sem comprar há mais de 90 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na segunda",
+          "significado": "dias de atendimento - preferência: segunda; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar há mais de 90 dias",
+      "condicao_efetiva": "sem comprar há mais de 90 dias e com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R10"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R15",
+      "posicao": 15,
+      "nome": "Rota 005 - Primeira compra",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rota 5",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "sem venda do vendedor",
+          "significado": "sem vendas para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na terca",
+          "significado": "dias de atendimento - preferência: terça; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem vendas para o vendedor",
+      "condicao_efetiva": "sem vendas para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R16",
+      "posicao": 16,
+      "nome": "Rota 005 - Compra regularmente",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rota 5",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao do vendedor em 21 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na terca",
+          "significado": "dias de atendimento - preferência: terça; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 21 dias",
+      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 21 dias e com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R15"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R17",
+      "posicao": 17,
+      "nome": "Rota 005 - Estimular a regularidade de compra",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rota 5",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao entre 21 dias e 41 dias",
+          "significado": "compraram nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na terca",
+          "significado": "dias de atendimento - preferência: terça; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar",
+      "condicao_efetiva": "compraram no grupo de vendedores nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar e (nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 21 dias) e com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R15",
+        "R16"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21,
+        41
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R18",
+      "posicao": 18,
+      "nome": "Rota 005 - Risco de inatividade",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rota 5",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao entre 41 dias e 90 dias",
+          "significado": "compraram nos últimos 90 dias, mas estão há pelo menos 41 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na terca",
+          "significado": "dias de atendimento - preferência: terça; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 90 dias, mas estão há pelo menos 41 dias sem comprar",
+      "condicao_efetiva": "compraram nos últimos 90 dias, mas estão há mais de 41 dias sem comprar e com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R15",
+        "R17"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        41,
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R19",
+      "posicao": 19,
+      "nome": "Rota 005 - Cliente sem compra há mais de 90d",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rota 5",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao em 90 dias",
+          "significado": "sem comprar há mais de 90 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na terca",
+          "significado": "dias de atendimento - preferência: terça; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar há mais de 90 dias",
+      "condicao_efetiva": "sem comprar há mais de 90 dias e com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R15"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R20",
+      "posicao": 20,
+      "nome": "Rota 006 - Primeira compra",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rota 6",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "sem venda do vendedor",
+          "significado": "sem vendas para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na quarta",
+          "significado": "dias de atendimento - preferência: quarta; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem vendas para o vendedor",
+      "condicao_efetiva": "sem vendas para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R21",
+      "posicao": 21,
+      "nome": "Rota 006 - Compra regularmente",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rota 6",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao do vendedor em 21 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na quarta",
+          "significado": "dias de atendimento - preferência: quarta; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 21 dias",
+      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 21 dias e com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R20"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R22",
+      "posicao": 22,
+      "nome": "Rota 006 - Estimular a regularidade de compra",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rota 6",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao entre 21 dias e 41 dias",
+          "significado": "compraram nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na quarta",
+          "significado": "dias de atendimento - preferência: quarta; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar",
+      "condicao_efetiva": "compraram no grupo de vendedores nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar e (nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 21 dias) e com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R20",
+        "R21"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21,
+        41
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R23",
+      "posicao": 23,
+      "nome": "Rota 006 - Risco de inatividade",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rota 6",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao entre 41 dias e 90 dias",
+          "significado": "compraram nos últimos 90 dias, mas estão há pelo menos 41 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na quarta",
+          "significado": "dias de atendimento - preferência: quarta; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 90 dias, mas estão há pelo menos 41 dias sem comprar",
+      "condicao_efetiva": "compraram nos últimos 90 dias, mas estão há mais de 41 dias sem comprar e com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R20",
+        "R22"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        41,
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R24",
+      "posicao": 24,
+      "nome": "Rota 006 - Cliente sem compra há mais de 90d",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rota 6",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao em 90 dias",
+          "significado": "sem comprar há mais de 90 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na quarta",
+          "significado": "dias de atendimento - preferência: quarta; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar há mais de 90 dias",
+      "condicao_efetiva": "sem comprar há mais de 90 dias e com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R20"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R25",
+      "posicao": 25,
+      "nome": "Rota 007 - Primeira compra",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rota 7",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "sem venda do vendedor",
+          "significado": "sem vendas para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na sexta",
+          "significado": "dias de atendimento - preferência: sexta; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem vendas para o vendedor",
+      "condicao_efetiva": "sem vendas para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R26",
+      "posicao": 26,
+      "nome": "Rota 007 - Compra regularmente",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rota 7",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao do vendedor em 21 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na sexta",
+          "significado": "dias de atendimento - preferência: sexta; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 21 dias",
+      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 21 dias e com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R25"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R27",
+      "posicao": 27,
+      "nome": "Rota 007 - Estimular a regularidade de compra",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rota 7",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao entre 21 dias e 41 dias",
+          "significado": "compraram nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na sexta",
+          "significado": "dias de atendimento - preferência: sexta; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar",
+      "condicao_efetiva": "compraram no grupo de vendedores nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar e (nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 21 dias) e com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R25",
+        "R26"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21,
+        41
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R28",
+      "posicao": 28,
+      "nome": "Rota 007 - Risco de inatividade",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rota 7",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao entre 41 dias e 90 dias",
+          "significado": "compraram nos últimos 90 dias, mas estão há pelo menos 41 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na sexta",
+          "significado": "dias de atendimento - preferência: sexta; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 90 dias, mas estão há pelo menos 41 dias sem comprar",
+      "condicao_efetiva": "compraram nos últimos 90 dias, mas estão há mais de 41 dias sem comprar e com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R25",
+        "R27"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        41,
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R29",
+      "posicao": 29,
+      "nome": "Rota 007 - Cliente sem compra há mais de 90d",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira rota 7",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao em 90 dias",
+          "significado": "sem comprar há mais de 90 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na sexta",
+          "significado": "dias de atendimento - preferência: sexta; demais dias sem atendimento",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fixo",
+          "significado": "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar há mais de 90 dias",
+      "condicao_efetiva": "sem comprar há mais de 90 dias e com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R25"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R30",
+      "posicao": 30,
+      "nome": "CLIENTES SEM ROTAS ASSOCIADAS",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "(fora da carteira rota 5, rota 6, rota 7, rotas 3 e 4, rotas_dias_variaveis) OU ((nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 20 dias) e (nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 21 dias) e da carteira rota 5, rota 6, rota 7, rotas 3 e 4, rotas_dias_variaveis e com alguma venda (ativos ou inativos) para o vendedor)",
+      "tratados_antes_por": [
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13",
+        "R14",
+        "R15",
+        "R16",
+        "R17",
+        "R18",
+        "R19",
+        "R20",
+        "R21",
+        "R22",
+        "R23",
+        "R24",
+        "R25",
+        "R26",
+        "R27",
+        "R28",
+        "R29"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [
+    "A cascata mistura escopos de recência de compra (grupo: Rotas 008, 009, 010 e 011 - Estimular a regularidade de compra, Rotas 008, 009, 010 e 011 - Risco de inatividade, Rotas 008, 009, 010 e 011 - Cliente sem compra há mais de 90d; vendedor: Rotas 008, 009, 010 e 011 - Compra regularmente, Rotas 003 e 004 - Compra regularmente, Rota 005 - Compra regularmente); faixas de escopos diferentes não se excluem automaticamente e podem se sobrepor ou deixar lacunas.",
+    "O arquivo contém caracteres de controle invisíveis (possível erro de digitação)."
+  ],
+  "numeros_obrigatorios": [
+    3,
+    21,
+    41,
+    90
+  ],
+  "numeros_permitidos": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    21,
+    41,
+    90
+  ],
+  "premissas_usadas": [
+    "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+    "P2: Escopos de recência (grupo, vendedor, global) são medidas distintas, ordenadas: global <= grupo <= vendedor.",
+    "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+    "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+  ]
+}

@@ -1,0 +1,1922 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_135.gobr",
+  "sha256": "99816a5a2a4d02eece749e28c749c846ec7b335304972ef0a83911065393212e",
+  "comentarios": [
+    "-------------------------",
+    "Definição de Times",
+    "-------------------------",
+    "-------------------------",
+    "Carteiras da Camila (Rotas)",
+    "-------------------------",
+    "-------------------------",
+    "Parametrização (Perfil + Rota)",
+    "-------------------------",
+    "Terça",
+    "Quarta",
+    "Quinta",
+    "Sexta",
+    "Irrestrito",
+    "-------------------------",
+    "Regras atuais para demais vendedores",
+    "-------------------------"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "televendas_1",
+      "definicao": "todos os vendedores de televendas habilitados no Govendas, exceto os de id 0000002",
+      "filtros": []
+    },
+    {
+      "id": "T2",
+      "nome": "televendas_2",
+      "definicao": "os vendedores de id 0000002",
+      "filtros": []
+    }
+  ],
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "segunda_feira_televendas_2",
+      "definicao": "carteira fixa dos vendedores do time televendas_2",
+      "filtros": [
+        {
+          "codigo": "nome da cidade igual(\"AGUAS DE SAO PEDRO\",\"AMERICANA\",\"ARARAS\",\"CHARQUEADA\",\"CORDEIROPOLIS\",\"Cordeirópolis\",\"IPEUNA\",\"IRACEMAPOLIS\",\"Iracemápolis\",\"PIRACICABA\",…",
+          "significado": "cidade em: AGUAS DE SAO PEDRO, AMERICANA, ARARAS, CHARQUEADA, CORDEIROPOLIS, Cordeirópolis e mais 10",
+          "reconhecida": true
+        }
+      ],
+      "livre": true
+    },
+    {
+      "id": "C2",
+      "nome": "terca_feira_televendas_2",
+      "definicao": "carteira fixa dos vendedores do time televendas_2",
+      "filtros": [
+        {
+          "codigo": "nome da cidade igual(\"AMERICO BRASILIENSE\",\"ARARAQUARA\",\"BARRINHA\",\"CRAVINHOS\",\"DESCALVADO\",\"GUARIBA\",\"IBATE\",\"JABOTICABAL\",\"LEME\",\"MATAO\",\"MONTE ALTO\",\"PIRASSU…",
+          "significado": "cidade em: AMERICO BRASILIENSE, ARARAQUARA, BARRINHA, CRAVINHOS, DESCALVADO, GUARIBA e mais 15",
+          "reconhecida": true
+        }
+      ],
+      "livre": true
+    },
+    {
+      "id": "C3",
+      "nome": "quarta_feira_televendas_2",
+      "definicao": "carteira fixa dos vendedores do time televendas_2",
+      "filtros": [
+        {
+          "codigo": "nome da cidade igual(\"AGUAI\",\"AGUAS DE LINDOIA\",\"AMPARO\",\"ANDRADAS\",\"ARTUR NOGUEIRA\",\"ENGENHEIRO COELHO\",\"ESPIRITO SANTO DO PINHAL\",\"HOLAMBRA\",\"ITAPIRA\",\"JACUTI…",
+          "significado": "cidade em: AGUAI, AGUAS DE LINDOIA, AMPARO, ANDRADAS, ARTUR NOGUEIRA, ENGENHEIRO COELHO e mais 17",
+          "reconhecida": true
+        }
+      ],
+      "livre": true
+    },
+    {
+      "id": "C4",
+      "nome": "quinta_feira_televendas_2",
+      "definicao": "carteira fixa dos vendedores do time televendas_2",
+      "filtros": [
+        {
+          "codigo": "nome da cidade igual(\"ALUMINIO\",\"ARACOIABA DA SERRA\",\"BOITUVA\",\"CERQUILHO\",\"COTIA\",\"IBIUNA\",\"INDAIATUBA\",\"IPERO\",\"ITAPETININGA\",\"ITAPEVI\",\"ITU\",\"MAIRINQUE\",\"MON…",
+          "significado": "cidade em: ALUMINIO, ARACOIABA DA SERRA, BOITUVA, CERQUILHO, COTIA, IBIUNA e mais 15",
+          "reconhecida": true
+        }
+      ],
+      "livre": true
+    },
+    {
+      "id": "C5",
+      "nome": "sexta_feira_televendas_2",
+      "definicao": "carteira fixa dos vendedores do time televendas_2",
+      "filtros": [
+        {
+          "codigo": "nome da cidade igual(\"ATIBAIA\",\"BRAGANCA PAULISTA\",\"CAMPINAS\",\"CAMPO LIMPO PAULISTA\",\"COSMOPOLIS\",\"HORTOLANDIA\",\"ITATIBA\",\"JUNDIAI\",\"LOUVEIRA\",\"NOVA ODESSA\",\"PA…",
+          "significado": "cidade em: ATIBAIA, BRAGANCA PAULISTA, CAMPINAS, CAMPO LIMPO PAULISTA, COSMOPOLIS, HORTOLANDIA e mais 9",
+          "reconhecida": true
+        }
+      ],
+      "livre": true
+    },
+    {
+      "id": "C6",
+      "nome": "irrestrito_televendas_2",
+      "definicao": "carteira fixa dos vendedores do time televendas_2",
+      "filtros": [
+        {
+          "codigo": "nome da cidade igual(\"ARUJA\",\"BARUERI\",\"CAIEIRAS\",\"CAJAMAR\",\"CARAPICUIBA\",\"DIADEMA\",\"EMBU DAS ARTES\",\"FERRAZ DE VASCONCELOS\",\"FRANCISCO MORATO\",\"FRANCO DA ROCHA…",
+          "significado": "cidade em: ARUJA, BARUERI, CAIEIRAS, CAJAMAR, CARAPICUIBA, DIADEMA e mais 19",
+          "reconhecida": true
+        }
+      ],
+      "livre": true
+    }
+  ],
+  "segmentacoes": [],
+  "bloqueios": [],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Prospects Segunda",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira segunda_feira_televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "no ciclo de vida prospect com o vendedor",
+          "significado": "prospects (nunca compraram com o próprio vendedor)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na sexta",
+          "significado": "dias de atendimento - preferência: sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "nunca compraram com o próprio vendedor",
+      "condicao_efetiva": "nunca compraram com o próprio vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Alta Frequencia Segunda",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira segunda_feira_televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao do vendedor em 30 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na sexta",
+          "significado": "dias de atendimento - preferência: sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 30 dias",
+      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 30 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Regularidade Segunda",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira segunda_feira_televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao do vendedor em 45 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 45 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na sexta",
+          "significado": "dias de atendimento - preferência: sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 45 dias",
+      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 45 dias, mas estão há mais de 30 dias sem comprar",
+      "tratados_antes_por": [
+        "R2"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        45
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Risco Inatividade Segunda",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira segunda_feira_televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao global em 120 dias",
+          "significado": "sem comprar com qualquer vendedor da empresa há mais de 120 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na sexta",
+          "significado": "dias de atendimento - preferência: sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar com qualquer vendedor da empresa há mais de 120 dias",
+      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 120 dias e já compraram com o próprio vendedor",
+      "tratados_antes_por": [
+        "R1"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        120
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Inativos Segunda",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira segunda_feira_televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao em 180 dias",
+          "significado": "sem comprar há mais de 180 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na sexta",
+          "significado": "dias de atendimento - preferência: sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar há mais de 180 dias",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 120 dias e sem comprar no grupo de vendedores há mais de 180 dias e já compraram com o próprio vendedor",
+      "tratados_antes_por": [
+        "R1",
+        "R4"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        180
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Sem Regra Segunda",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira segunda_feira_televendas_2",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na sexta",
+          "significado": "dias de atendimento - preferência: sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 120 dias e compraram no grupo de vendedores nos últimos 180 dias e sem comprar com o próprio vendedor há mais de 45 dias",
+      "tratados_antes_por": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Prospects Terca",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira terca_feira_televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "no ciclo de vida prospect com o vendedor",
+          "significado": "prospects (nunca compraram com o próprio vendedor)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na segunda",
+          "significado": "dias de atendimento - preferência: segunda; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "nunca compraram com o próprio vendedor",
+      "condicao_efetiva": "nunca compraram com o próprio vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R8",
+      "posicao": 8,
+      "nome": "Alta Frequencia Terca",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira terca_feira_televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao do vendedor em 30 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na segunda",
+          "significado": "dias de atendimento - preferência: segunda; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 30 dias",
+      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 30 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R9",
+      "posicao": 9,
+      "nome": "Regularidade Terca",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira terca_feira_televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao do vendedor em 45 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 45 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na segunda",
+          "significado": "dias de atendimento - preferência: segunda; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 45 dias",
+      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 45 dias, mas estão há mais de 30 dias sem comprar",
+      "tratados_antes_por": [
+        "R8"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        45
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R10",
+      "posicao": 10,
+      "nome": "Risco Inatividade Terca",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira terca_feira_televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao global em 120 dias",
+          "significado": "sem comprar com qualquer vendedor da empresa há mais de 120 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na segunda",
+          "significado": "dias de atendimento - preferência: segunda; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar com qualquer vendedor da empresa há mais de 120 dias",
+      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 120 dias e já compraram com o próprio vendedor",
+      "tratados_antes_por": [
+        "R7"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        120
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R11",
+      "posicao": 11,
+      "nome": "Inativos Terca",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira terca_feira_televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao em 180 dias",
+          "significado": "sem comprar há mais de 180 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na segunda",
+          "significado": "dias de atendimento - preferência: segunda; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar há mais de 180 dias",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 120 dias e sem comprar no grupo de vendedores há mais de 180 dias e já compraram com o próprio vendedor",
+      "tratados_antes_por": [
+        "R7",
+        "R10"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        180
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R12",
+      "posicao": 12,
+      "nome": "Sem Regra Terca",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira terca_feira_televendas_2",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na segunda",
+          "significado": "dias de atendimento - preferência: segunda; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 120 dias e compraram no grupo de vendedores nos últimos 180 dias e sem comprar com o próprio vendedor há mais de 45 dias",
+      "tratados_antes_por": [
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R13",
+      "posicao": 13,
+      "nome": "Prospects Quarta",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira quarta_feira_televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "no ciclo de vida prospect com o vendedor",
+          "significado": "prospects (nunca compraram com o próprio vendedor)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na terca",
+          "significado": "dias de atendimento - preferência: terça; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "nunca compraram com o próprio vendedor",
+      "condicao_efetiva": "nunca compraram com o próprio vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R14",
+      "posicao": 14,
+      "nome": "Alta Frequencia Quarta",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira quarta_feira_televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao do vendedor em 30 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na terca",
+          "significado": "dias de atendimento - preferência: terça; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 30 dias",
+      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 30 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R15",
+      "posicao": 15,
+      "nome": "Regularidade Quarta",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira quarta_feira_televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao do vendedor em 45 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 45 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na terca",
+          "significado": "dias de atendimento - preferência: terça; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 45 dias",
+      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 45 dias, mas estão há mais de 30 dias sem comprar",
+      "tratados_antes_por": [
+        "R14"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        45
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R16",
+      "posicao": 16,
+      "nome": "Risco Inatividade Quarta",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira quarta_feira_televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao global em 120 dias",
+          "significado": "sem comprar com qualquer vendedor da empresa há mais de 120 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na terca",
+          "significado": "dias de atendimento - preferência: terça; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar com qualquer vendedor da empresa há mais de 120 dias",
+      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 120 dias e já compraram com o próprio vendedor",
+      "tratados_antes_por": [
+        "R13"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        120
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R17",
+      "posicao": 17,
+      "nome": "Inativos Quarta",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira quarta_feira_televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao em 180 dias",
+          "significado": "sem comprar há mais de 180 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na terca",
+          "significado": "dias de atendimento - preferência: terça; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar há mais de 180 dias",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 120 dias e sem comprar no grupo de vendedores há mais de 180 dias e já compraram com o próprio vendedor",
+      "tratados_antes_por": [
+        "R13",
+        "R16"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        180
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R18",
+      "posicao": 18,
+      "nome": "Sem Regra Quarta",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira quarta_feira_televendas_2",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na terca",
+          "significado": "dias de atendimento - preferência: terça; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 120 dias e compraram no grupo de vendedores nos últimos 180 dias e sem comprar com o próprio vendedor há mais de 45 dias",
+      "tratados_antes_por": [
+        "R13",
+        "R14",
+        "R15",
+        "R16",
+        "R17"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R19",
+      "posicao": 19,
+      "nome": "Prospects Quinta",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira quinta_feira_televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "no ciclo de vida prospect com o vendedor",
+          "significado": "prospects (nunca compraram com o próprio vendedor)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na quarta",
+          "significado": "dias de atendimento - preferência: quarta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "nunca compraram com o próprio vendedor",
+      "condicao_efetiva": "nunca compraram com o próprio vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R20",
+      "posicao": 20,
+      "nome": "Alta Frequencia Quinta",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira quinta_feira_televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao do vendedor em 30 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na quarta",
+          "significado": "dias de atendimento - preferência: quarta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 30 dias",
+      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 30 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R21",
+      "posicao": 21,
+      "nome": "Regularidade Quinta",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira quinta_feira_televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao do vendedor em 45 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 45 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na quarta",
+          "significado": "dias de atendimento - preferência: quarta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 45 dias",
+      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 45 dias, mas estão há mais de 30 dias sem comprar",
+      "tratados_antes_por": [
+        "R20"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        45
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R22",
+      "posicao": 22,
+      "nome": "Risco Inatividade Quinta",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira quinta_feira_televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao global em 120 dias",
+          "significado": "sem comprar com qualquer vendedor da empresa há mais de 120 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na quarta",
+          "significado": "dias de atendimento - preferência: quarta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar com qualquer vendedor da empresa há mais de 120 dias",
+      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 120 dias e já compraram com o próprio vendedor",
+      "tratados_antes_por": [
+        "R19"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        120
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R23",
+      "posicao": 23,
+      "nome": "Inativos Quinta",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira quinta_feira_televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao em 180 dias",
+          "significado": "sem comprar há mais de 180 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na quarta",
+          "significado": "dias de atendimento - preferência: quarta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar há mais de 180 dias",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 120 dias e sem comprar no grupo de vendedores há mais de 180 dias e já compraram com o próprio vendedor",
+      "tratados_antes_por": [
+        "R19",
+        "R22"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        180
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R24",
+      "posicao": 24,
+      "nome": "Sem Regra Quinta",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira quinta_feira_televendas_2",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na quarta",
+          "significado": "dias de atendimento - preferência: quarta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 120 dias e compraram no grupo de vendedores nos últimos 180 dias e sem comprar com o próprio vendedor há mais de 45 dias",
+      "tratados_antes_por": [
+        "R19",
+        "R20",
+        "R21",
+        "R22",
+        "R23"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R25",
+      "posicao": 25,
+      "nome": "Prospects Sexta",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira sexta_feira_televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "no ciclo de vida prospect com o vendedor",
+          "significado": "prospects (nunca compraram com o próprio vendedor)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na quinta",
+          "significado": "dias de atendimento - preferência: quinta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "nunca compraram com o próprio vendedor",
+      "condicao_efetiva": "nunca compraram com o próprio vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R26",
+      "posicao": 26,
+      "nome": "Alta Frequencia Sexta",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira sexta_feira_televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao do vendedor em 30 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na quinta",
+          "significado": "dias de atendimento - preferência: quinta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 30 dias",
+      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 30 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R27",
+      "posicao": 27,
+      "nome": "Regularidade Sexta",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira sexta_feira_televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao do vendedor em 45 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 45 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na quinta",
+          "significado": "dias de atendimento - preferência: quinta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 45 dias",
+      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 45 dias, mas estão há mais de 30 dias sem comprar",
+      "tratados_antes_por": [
+        "R26"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        45
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R28",
+      "posicao": 28,
+      "nome": "Risco Inatividade Sexta",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira sexta_feira_televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao global em 120 dias",
+          "significado": "sem comprar com qualquer vendedor da empresa há mais de 120 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na quinta",
+          "significado": "dias de atendimento - preferência: quinta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar com qualquer vendedor da empresa há mais de 120 dias",
+      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 120 dias e já compraram com o próprio vendedor",
+      "tratados_antes_por": [
+        "R25"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        120
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R29",
+      "posicao": 29,
+      "nome": "Inativos Sexta",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira sexta_feira_televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao em 180 dias",
+          "significado": "sem comprar há mais de 180 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na quinta",
+          "significado": "dias de atendimento - preferência: quinta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar há mais de 180 dias",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 120 dias e sem comprar no grupo de vendedores há mais de 180 dias e já compraram com o próprio vendedor",
+      "tratados_antes_por": [
+        "R25",
+        "R28"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        180
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R30",
+      "posicao": 30,
+      "nome": "Sem Regra Sexta",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira sexta_feira_televendas_2",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia na quinta",
+          "significado": "dias de atendimento - preferência: quinta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 120 dias e compraram no grupo de vendedores nos últimos 180 dias e sem comprar com o próprio vendedor há mais de 45 dias",
+      "tratados_antes_por": [
+        "R25",
+        "R26",
+        "R27",
+        "R28",
+        "R29"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R31",
+      "posicao": 31,
+      "nome": "Irrestrito: Clientes prospects",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira irrestrito_televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "no ciclo de vida prospect com o vendedor",
+          "significado": "prospects (nunca compraram com o próprio vendedor)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia semanal()",
+          "significado": "frequência semanal (7 dias)",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "nunca compraram com o próprio vendedor",
+      "condicao_efetiva": "nunca compraram com o próprio vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R32",
+      "posicao": 32,
+      "nome": "Irrestrito: Clientes com Alta Freq. de compra",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira irrestrito_televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao em 7 dias",
+          "significado": "compraram nos últimos 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 7 dias",
+      "condicao_efetiva": "compraram no grupo de vendedores nos últimos 7 dias e já compraram com o próprio vendedor",
+      "tratados_antes_por": [
+        "R31"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R33",
+      "posicao": 33,
+      "nome": "Irrestrito: Clientes que compram com regularidade",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira irrestrito_televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao em 45 dias",
+          "significado": "compraram nos últimos 45 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 45 dias",
+      "condicao_efetiva": "compraram no grupo de vendedores nos últimos 45 dias, mas estão há mais de 7 dias sem comprar e já compraram com o próprio vendedor",
+      "tratados_antes_por": [
+        "R31",
+        "R32"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        45
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R34",
+      "posicao": 34,
+      "nome": "Irrestrito: Risco de ficar inativo curva A",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira irrestrito_televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao global em 120 dias",
+          "significado": "sem comprar com qualquer vendedor da empresa há mais de 120 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "curva a com a empresa",
+          "significado": "curva A com a empresa",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar com qualquer vendedor da empresa há mais de 120 dias e curva A com a empresa",
+      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 120 dias e já compraram com o próprio vendedor e curva A com a empresa",
+      "tratados_antes_por": [
+        "R31"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        120
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R35",
+      "posicao": 35,
+      "nome": "Irrestrito: Risco de ficar inativo curva B",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira irrestrito_televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao global em 120 dias",
+          "significado": "sem comprar com qualquer vendedor da empresa há mais de 120 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "curva b com a empresa",
+          "significado": "curva B com a empresa",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar com qualquer vendedor da empresa há mais de 120 dias e curva B com a empresa",
+      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 120 dias e já compraram com o próprio vendedor e curva B com a empresa",
+      "tratados_antes_por": [
+        "R31"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30,
+        120
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R36",
+      "posicao": 36,
+      "nome": "Irrestrito: Risco de ficar inativo curva C",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira irrestrito_televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao global em 120 dias",
+          "significado": "sem comprar com qualquer vendedor da empresa há mais de 120 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "curva c com a empresa",
+          "significado": "curva C com a empresa",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar com qualquer vendedor da empresa há mais de 120 dias e curva C com a empresa",
+      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 120 dias e já compraram com o próprio vendedor e curva C com a empresa",
+      "tratados_antes_por": [
+        "R31"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30,
+        120
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R37",
+      "posicao": 37,
+      "nome": "Irrestrito: Clientes inativos",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira irrestrito_televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao em 180 dias",
+          "significado": "sem comprar há mais de 180 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar há mais de 180 dias",
+      "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 120 dias e sem comprar no grupo de vendedores há mais de 180 dias e já compraram com o próprio vendedor) OU (sem comprar com qualquer vendedor da empresa há mais de 120 dias e sem comprar no grupo de vendedores há mais de 180 dias e já compraram com o próprio vendedor e fora da curva A nem B nem C com a empresa)",
+      "tratados_antes_por": [
+        "R31",
+        "R34",
+        "R35",
+        "R36"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        21,
+        180
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R38",
+      "posicao": 38,
+      "nome": "cidade SÃO JOSE DO RIO PRETO - 30 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "nome da cidade igual(\"SAO JOSE DO RIO PRETO\")",
+          "significado": "cidade igual a SAO JOSE DO RIO PRETO",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "cidade igual a SAO JOSE DO RIO PRETO",
+      "condicao_efetiva": "(cidade igual a SAO JOSE DO RIO PRETO e fora da carteira irrestrito_televendas_2, quarta_feira_televendas_2, quinta_feira_televendas_2, segunda_feira_televendas_2, sexta_feira_televendas_2, terca_feira_televendas_2) OU (compraram com qualquer vendedor da empresa nos últimos 120 dias e compraram no grupo de vendedores nos últimos 180 dias, mas estão há mais de 45 dias sem comprar e já compraram com o próprio vendedor e cidade igual a SAO JOSE DO RIO PRETO e da carteira irrestrito_televendas_2) OU (sem comprar com qualquer vendedor da empresa há mais de 120 dias e compraram no grupo de vendedores nos últimos 180 dias, mas estão há mais de 45 dias sem comprar e já compraram com o próprio vendedor e cidade igual a SAO JOSE DO RIO PRETO e da carteira irrestrito_televendas_2 e fora da curva A nem B nem C com a empresa)",
+      "tratados_antes_por": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13",
+        "R14",
+        "R15",
+        "R16",
+        "R17",
+        "R18",
+        "R19",
+        "R20",
+        "R21",
+        "R22",
+        "R23",
+        "R24",
+        "R25",
+        "R26",
+        "R27",
+        "R28",
+        "R29",
+        "R30",
+        "R31",
+        "R32",
+        "R33",
+        "R34",
+        "R35",
+        "R36",
+        "R37"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R39",
+      "posicao": 39,
+      "nome": "Irrestrito: sem regra mapeada",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas_2",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "(cidade diferente de SAO JOSE DO RIO PRETO e fora da carteira irrestrito_televendas_2, quarta_feira_televendas_2, quinta_feira_televendas_2, segunda_feira_televendas_2, sexta_feira_televendas_2, terca_feira_televendas_2) OU (compraram com qualquer vendedor da empresa nos últimos 120 dias e compraram no grupo de vendedores nos últimos 180 dias, mas estão há mais de 45 dias sem comprar e já compraram com o próprio vendedor e cidade diferente de SAO JOSE DO RIO PRETO e da carteira irrestrito_televendas_2) OU (sem comprar com qualquer vendedor da empresa há mais de 120 dias e compraram no grupo de vendedores nos últimos 180 dias, mas estão há mais de 45 dias sem comprar e já compraram com o próprio vendedor e cidade diferente de SAO JOSE DO RIO PRETO e da carteira irrestrito_televendas_2 e fora da curva A nem B nem C com a empresa)",
+      "tratados_antes_por": [
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13",
+        "R14",
+        "R15",
+        "R16",
+        "R17",
+        "R18",
+        "R19",
+        "R20",
+        "R21",
+        "R22",
+        "R23",
+        "R24",
+        "R25",
+        "R26",
+        "R27",
+        "R28",
+        "R29",
+        "R30",
+        "R31",
+        "R32",
+        "R33",
+        "R34",
+        "R35",
+        "R36",
+        "R37",
+        "R38"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R40",
+      "posicao": 40,
+      "nome": "Freq. de 14d para Prospects",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas_1",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "no ciclo de vida prospect com a empresa",
+          "significado": "prospects (nunca compraram com qualquer vendedor da empresa)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "nunca compraram com qualquer vendedor da empresa",
+      "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R41",
+      "posicao": 41,
+      "nome": "Ativos - recência 1 a 7 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas_1",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao em 7 dias",
+          "significado": "compraram nos últimos 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 7 dias",
+      "condicao_efetiva": "compraram nos últimos 7 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        7,
+        21
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R42",
+      "posicao": 42,
+      "nome": "Ativos - recência 8 a 30 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas_1",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao em 30 dias",
+          "significado": "compraram nos últimos 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 30 dias",
+      "condicao_efetiva": "compraram nos últimos 30 dias, mas estão há mais de 7 dias sem comprar",
+      "tratados_antes_por": [
+        "R41"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R43",
+      "posicao": 43,
+      "nome": "Ativos - recência 31 a 60 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas_1",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao em 60 dias",
+          "significado": "compraram nos últimos 60 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 45 dias",
+          "significado": "frequência de 45 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 60 dias",
+      "condicao_efetiva": "compraram nos últimos 60 dias, mas estão há mais de 30 dias sem comprar",
+      "tratados_antes_por": [
+        "R41",
+        "R42"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        45,
+        60
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R44",
+      "posicao": 44,
+      "nome": "Ativos - recência 61 a 90 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas_1",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao em 90 dias",
+          "significado": "compraram nos últimos 90 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 70 dias",
+          "significado": "frequência de 70 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 90 dias",
+      "condicao_efetiva": "compraram nos últimos 90 dias, mas estão há mais de 60 dias sem comprar",
+      "tratados_antes_por": [
+        "R41",
+        "R42",
+        "R43"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        70,
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R45",
+      "posicao": 45,
+      "nome": "Ativos - recência 91 a 180 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas_1",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao em 180 dias",
+          "significado": "compraram nos últimos 180 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 15 dias",
+          "significado": "frequência de 15 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 180 dias",
+      "condicao_efetiva": "compraram nos últimos 180 dias, mas estão há mais de 90 dias sem comprar",
+      "tratados_antes_por": [
+        "R41",
+        "R42",
+        "R43",
+        "R44"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        15,
+        180
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R46",
+      "posicao": 46,
+      "nome": "Inativos - sem compra acima de 180 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas_1",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 180 dias)",
+      "tratados_antes_por": [
+        "R40",
+        "R41",
+        "R42",
+        "R43",
+        "R44",
+        "R45"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        21
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [
+    "A cascata mistura escopos de recência de compra (global: Risco Inatividade Segunda, Risco Inatividade Terca, Risco Inatividade Quarta; grupo: Inativos Segunda, Inativos Terca, Inativos Quarta; vendedor: Alta Frequencia Segunda, Regularidade Segunda, Alta Frequencia Terca); faixas de escopos diferentes não se excluem automaticamente e podem se sobrepor ou deixar lacunas."
+  ],
+  "numeros_obrigatorios": [
+    7,
+    14,
+    15,
+    21,
+    30,
+    45,
+    60,
+    70,
+    90,
+    120,
+    180
+  ],
+  "numeros_permitidos": [
+    1,
+    2,
+    7,
+    14,
+    15,
+    21,
+    30,
+    45,
+    60,
+    70,
+    90,
+    120,
+    180
+  ],
+  "premissas_usadas": [
+    "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+    "P2: Escopos de recência (grupo, vendedor, global) são medidas distintas, ordenadas: global <= grupo <= vendedor.",
+    "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado.",
+    "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores.",
+    "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+  ]
+}

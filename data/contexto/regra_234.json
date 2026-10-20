@@ -1,0 +1,320 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_234.gobr",
+  "sha256": "3d6de492f5c711c8ee6b4f54959c30edb979a09a59f078eacb2bd6d30705eea6",
+  "comentarios": [],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "empresa toda",
+      "definicao": "todos os vendedores",
+      "filtros": []
+    }
+  ],
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "empresa toda",
+      "definicao": "carteira fixa dos vendedores do time empresa toda",
+      "filtros": [],
+      "livre": false,
+      "exceto_alocados_em": []
+    }
+  ],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Regra Padrao do goVendas - Customizavel: Nao agendar quem esta a mais de 1138 dias sem comprar"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Regra Padrao do goVendas: 3 dias para clientes em queda de faturamento",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira empresa toda",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "queda de faturamento maior que 5%",
+          "significado": "queda de faturamento maior que 5%",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 3 dias",
+          "significado": "frequência de 3 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "queda de faturamento maior que 5%",
+      "condicao_efetiva": "queda de faturamento maior que 5%",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        3,
+        5
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Regra Padrao do goVendas - Customizavel: Nao agendar quem esta a mais de 1138 dias sem comprar",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira empresa toda",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao entre 1138 dias e 9999 dias",
+          "significado": "compraram nos últimos 9999 dias, mas estão há pelo menos 1138 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "compraram nos últimos 9999 dias, mas estão há pelo menos 1138 dias sem comprar",
+      "condicao_efetiva": "compraram nos últimos 9999 dias, mas estão há pelo menos 1138 dias sem comprar e não (queda de faturamento maior que 5%)",
+      "tratados_antes_por": [
+        "R1"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        1138,
+        9999
+      ],
+      "alertas": [
+        "Bloqueio depois de regras de frequência: clientes já parametrizados por \"Regra Padrao do goVendas: 3 dias para clientes em queda de faturamento\" não serão bloqueados por esta regra."
+      ]
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Regra Padrao do goVendas Customizável - Teste cidade goiania",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira empresa toda",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "nome da cidade igual(\"GOIANIA\")",
+          "significado": "cidade igual a GOIANIA",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de inativos da empresa",
+          "significado": "frequência média dos clientes inativos da empresa",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis e no sabado e no domingo",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado, domingo; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "cidade igual a GOIANIA",
+      "condicao_efetiva": "cidade igual a GOIANIA e não (queda de faturamento maior que 5%)",
+      "tratados_antes_por": [
+        "R1"
+      ],
+      "bloqueios_anteriores": [
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Regra Padrao do goVendas Customizável - Clientes ativos",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira empresa toda",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de ativos da empresa",
+          "significado": "frequência média dos clientes ativos da empresa",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis e no sabado e no domingo",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado, domingo; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ativos para o vendedor",
+      "condicao_efetiva": "cidade diferente de GOIANIA e não (queda de faturamento maior que 5%) e ativos para o vendedor",
+      "tratados_antes_por": [
+        "R1",
+        "R3"
+      ],
+      "bloqueios_anteriores": [
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Regra Padrao do goVendas Customizável - Clientes inativos",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira empresa toda",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inativos para o vendedor",
+          "significado": "inativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de inativos da empresa",
+          "significado": "frequência média dos clientes inativos da empresa",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis e no sabado e no domingo",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado, domingo; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "inativos para o vendedor",
+      "condicao_efetiva": "cidade diferente de GOIANIA e não (queda de faturamento maior que 5%) e inativos para o vendedor",
+      "tratados_antes_por": [
+        "R1",
+        "R3"
+      ],
+      "bloqueios_anteriores": [
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Regra Padrao do goVendas Customizável - Clientes sem vendas",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira empresa toda",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "sem vendas",
+          "significado": "sem vendas para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de inativos da empresa",
+          "significado": "frequência média dos clientes inativos da empresa",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis e no sabado e no domingo",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado, domingo; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem vendas para o vendedor",
+      "condicao_efetiva": "cidade diferente de GOIANIA e não (queda de faturamento maior que 5%) e sem vendas para o vendedor",
+      "tratados_antes_por": [
+        "R1",
+        "R3"
+      ],
+      "bloqueios_anteriores": [
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Regra Padrao - default",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira empresa toda",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": null,
+      "tratados_antes_por": [
+        "R1",
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "bloqueios_anteriores": [
+        "R2"
+      ],
+      "inalcancavel": true,
+      "numeros": [
+        7
+      ],
+      "alertas": [
+        "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Regra Padrao do goVendas: 3 dias para clientes em queda de faturamento\", \"Regra Padrao do goVendas - Customizavel: Nao agendar quem esta a mais de 1138 dias sem comprar\", \"Regra Padrao do goVendas Customizável - Teste cidade goiania\", \"Regra Padrao do goVendas Customizável - Clientes ativos\", \"Regra Padrao do goVendas Customizável - Clientes inativos\", \"Regra Padrao do goVendas Customizável - Clientes sem vendas\"."
+      ]
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    3,
+    5,
+    7,
+    1138,
+    9999
+  ],
+  "numeros_permitidos": [
+    3,
+    5,
+    7,
+    1138,
+    9999
+  ],
+  "premissas_usadas": [
+    "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+    "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+  ]
+}

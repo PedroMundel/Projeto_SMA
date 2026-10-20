@@ -1,0 +1,202 @@
+{
+ "arquivo": "regra_190.gobr",
+ "comentarios": [
+  "Regras do time \"Televendas\":"
+ ],
+ "times": [
+  {
+   "nome": "Televendas",
+   "definicao": "todos os vendedores habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Ases: Freq. de 21d para 'PROSPECT: FAZER O PRIMEIRO PEDIDO'",
+   "fonte": "do time Televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa"
+  },
+  {
+   "id": "R2",
+   "nome": "Ases: Freq. de 10d para 'ATIVADO: BOAS VINDAS AO CLIENTE COM O PRIMEIRO PEDIDO'",
+   "fonte": "do time Televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 10 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e cadastrados no ERP há pelo menos 30 dias e com uma única compra na empresa",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R3",
+   "nome": "Ases: Freq. de 7d para 'EM RUPTURA: RISCO DE INATIVIDADE'",
+   "fonte": "do time Televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "(compraram nos últimos 90 dias, mas estão há pelo menos 61 dias sem comprar e adimplentes e sem ser de compra única na empresa) OU (compraram nos últimos 90 dias, mas estão há pelo menos 61 dias sem comprar e não (cadastrados no ERP há pelo menos 30 dias) e adimplentes e com uma única compra na empresa)",
+   "tratados_antes_por": [
+    "R2"
+   ]
+  },
+  {
+   "id": "R4",
+   "nome": "Ases: Freq. de 14d 'INATIVOS: RESGATE DE CLIENTES SEM COMPRA'",
+   "fonte": "do time Televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "(já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 60 dias ou sem comprar no grupo de vendedores há mais de 90 dias) e no ciclo de vida inativo com a empresa e adimplentes e sem ser de compra única na empresa) OU (já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 60 dias ou sem comprar no grupo de vendedores há mais de 90 dias) e no ciclo de vida inativo com a empresa e não (cadastrados no ERP há pelo menos 30 dias) e adimplentes e com uma única compra na empresa)",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3"
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Ases: Freq. do histórico para 'ATIVO: COMPRA REGULARMENTE Curva A (com compra no mês)'",
+   "fonte": "do time Televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 30 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "curva A com a empresa e com compra no mês atual",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3",
+    "R4"
+   ],
+   "alertas": [
+    "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Ases: Freq. de 7d para 'ATIVO: COMPRA REGULARMENTE Curva A (sem compra no mês)'",
+   "fonte": "do time Televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "curva A com a empresa",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5"
+   ],
+   "alertas": [
+    "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Ases: Freq. do histórico para 'ATIVO: COMPRA REGULARMENTE Curva B (com compra no mês)'",
+   "fonte": "do time Televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 30 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "curva B com a empresa e com compra no mês atual",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3",
+    "R4"
+   ],
+   "alertas": [
+    "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+   ]
+  },
+  {
+   "id": "R8",
+   "nome": "Ases: Freq. de 14d para 'ATIVO: COMPRA REGULARMENTE Curva B (sem compra no mês)'",
+   "fonte": "do time Televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "curva B com a empresa",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R7"
+   ],
+   "alertas": [
+    "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+   ]
+  },
+  {
+   "id": "R9",
+   "nome": "Ases: Freq. do histórico para 'ATIVO: COMPRA REGULARMENTE Curva C (com compra no mês)'",
+   "fonte": "do time Televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 30 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "com compra no mês atual",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5",
+    "R7"
+   ],
+   "alertas": [
+    "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+   ]
+  },
+  {
+   "id": "R10",
+   "nome": "Ases: Freq. de 21d para 'ATIVO: COMPRA REGULARMENTE Curva C (sem compra no mês)'",
+   "fonte": "do time Televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "todos os clientes da fonte (sem filtro)",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9"
+   ],
+   "alertas": [
+    "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+ ]
+}

@@ -1,0 +1,556 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_246.gobr",
+  "sha256": "a2a35299f9f0d41acd35c2589c92ccb5bedfa820a0d40fcea61ca095bf90a4f8",
+  "comentarios": [
+    "TIMES",
+    "REGRAS PARA CARTEIRAS POR RAMOS DE ATIVIDADE",
+    "REGRAS DE PLANEJAMENTO",
+    "Regra Catch all"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "televendas",
+      "definicao": "todos os vendedores de televendas habilitados no Govendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "ramos_1",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"101009\",\"101016\",\"101025\",\"101101\",\"101102\",\"101103\",\"101104\",\"101105\",\"201008\",\"201009\",\"201018\",\"201099\")",
+          "significado": "ramo de atividade (id) em: 101009, 101016, 101025, 101101, 101102, 101103 e mais 6",
+          "reconhecida": true
+        }
+      ],
+      "livre": true
+    },
+    {
+      "id": "C2",
+      "nome": "ramos_2",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"101001\",\"101002\",\"101003\",\"101004\",\"101005\",\"101006\",\"101007\",\"101011\",\"101012\",\"101014\",\"101015\",\"101027\",\"101028\",\"101029\",\"101032\",\"…",
+          "significado": "ramo de atividade (id) em: 101001, 101002, 101003, 101004, 101005, 101006 e mais 20",
+          "reconhecida": true
+        }
+      ],
+      "livre": true
+    },
+    {
+      "id": "C3",
+      "nome": "ramos_3",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"101008\",\"101010\",\"101017\",\"101018\",\"101019\",\"101020\",\"101021\",\"101022\",\"101023\",\"101024\",\"101026\",\"101031\",\"101033\",\"101034\",\"101036\",\"…",
+          "significado": "ramo de atividade (id) em: 101008, 101010, 101017, 101018, 101019, 101020 e mais 28",
+          "reconhecida": true
+        }
+      ],
+      "livre": true
+    },
+    {
+      "id": "C4",
+      "nome": "ramos_4",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"101013\",\"101040\",\"102001\",\"102002\",\"201011\",\"201021\",\"201025\",\"999999\")",
+          "significado": "ramo de atividade (id) em: 101013, 101040, 102001, 102002, 201011, 201021 e mais 2",
+          "reconhecida": true
+        }
+      ],
+      "livre": true
+    }
+  ],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Baixados na Receita Federal",
+    "Clientes que hoje não se enquadraram nas regras padrão"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Baixados na Receita Federal",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "status na receita federal definido como baixada",
+          "significado": "com situação baixada na Receita Federal",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "com situação baixada na Receita Federal",
+      "condicao_efetiva": "com situação baixada na Receita Federal",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Prospects",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "no ciclo de vida prospect com a empresa",
+          "significado": "prospects (nunca compraram com qualquer vendedor da empresa)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "nunca compraram com qualquer vendedor da empresa",
+      "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Ativos dos ramos de atividade POSTO DE COMBUSTIVEL, FARMACIA E DROGARIA, SUPERMERCADO, REDE DE FAST FOOD, REDE DE POSTO DE COMBUSTIVEL, REDE DE DROGARIA, REDE DE SUPERMERCADO, REDE DE HIPERMERCADO, EMPRESA DE ONIBUS, TRANSPORTADORA, LOGISTICA, POSTO DE SERVICO - VDO",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira ramos_1",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao global em 45 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 45 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 45 dias",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 45 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        45
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Inativos dos ramos de atividade POSTO DE COMBUSTIVEL, FARMACIA E DROGARIA, SUPERMERCADO, REDE DE FAST FOOD, REDE DE POSTO DE COMBUSTIVEL, REDE DE DROGARIA, REDE DE SUPERMERCADO, REDE DE HIPERMERCADO, EMPRESA DE ONIBUS, TRANSPORTADORA, LOGISTICA, POSTO DE SERVICO - VDO",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira ramos_1",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 45 dias",
+      "tratados_antes_por": [
+        "R2",
+        "R3"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Ativos dos ramos de atividade DISTRIB. AUTOPECAS, DISTRIB. PECAS MECANICAS, DISTRIB. PECAS ELETRICAS, DISTRIB. PECAS E ACESSORIOS, DISTRIB. ACESSORIOS, DISTRIB. FILTROS/LUBRIFICANTES, CONCESSIONARIAS, AUTOMACAO, SUPRIMENTO DE INFORMATICA, GRAFICA, EMBALAGEM E DESCARTAVEL, MATERIAL DE LIMPEZA, MATERIAL DE ESCRITORIO, MATERIAL HOSPITALAR, PAPELARIA, COOPERATIVA, MAGAZINES, E-COMERCE, REDE DE MAGAZINE, REDE LOJA VAREJISTA, HOSPITAL, LABORATORIO, IND. ALIMENTICIA, IND. DE BEBIDAS, IND. FARMACEUTICA, IND. FRIGORIFICA",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira ramos_2",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao global em 60 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21,
+        60
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Inativos dos ramos de atividade DISTRIB. AUTOPECAS, DISTRIB. PECAS MECANICAS, DISTRIB. PECAS ELETRICAS, DISTRIB. PECAS E ACESSORIOS, DISTRIB. ACESSORIOS, DISTRIB. FILTROS/LUBRIFICANTES, CONCESSIONARIAS, AUTOMACAO, SUPRIMENTO DE INFORMATICA, GRAFICA, EMBALAGEM E DESCARTAVEL, MATERIAL DE LIMPEZA, MATERIAL DE ESCRITORIO, MATERIAL HOSPITALAR, PAPELARIA, COOPERATIVA, MAGAZINES, E-COMERCE, REDE DE MAGAZINE, REDE LOJA VAREJISTA, HOSPITAL, LABORATORIO, IND. ALIMENTICIA, IND. DE BEBIDAS, IND. FARMACEUTICA, IND. FRIGORIFICA",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira ramos_2",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 10 dias",
+          "significado": "frequência de 10 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 60 dias",
+      "tratados_antes_por": [
+        "R2",
+        "R5"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        10
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Ativos dos ramos de atividade IMPLEMENTOS RODOVIARIOS, LOJA DE CONVENIENCIA, FARMACIA DE MANIPULACAO, ACOUGUE, PEIXARIA, HORTIFRUTI, PADARIA E CONFEITARIA, LANCHONETE, PIZZARIA, RESTAURANTE, MATERIAL DE CONSTRUCAO, JOALHERIA, LIVRARIA, FLORICULTURA, ARMARINHOS E MIUDEZAS, COSMETICOS, PERFUMARIA, HIGIENE PESSOAL, CIA DE GAS, ADMINISTRADORA DE CARTOES, ESTACIONAMENTO, HOTEL, INST. DE ENSINO, INST. FINANCEIRA, OFICINA, SHOPPING, ENTRETERIMENTO, IND. AUTOMOBILISTICA, IND. DE CALCADOS, IND. DE COSMETICOS, IND. PAPEL, IND. QUIMICA, IND. TEXTIL, IND. BRINQUEDOS, IND. MANUFATURAS, IND. ELETRONICOS",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira ramos_3",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao global em 75 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 75 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 28 dias",
+          "significado": "frequência de 28 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 75 dias",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 75 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        28,
+        75
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R8",
+      "posicao": 8,
+      "nome": "Inativos dos ramos de atividade IMPLEMENTOS RODOVIARIOS, LOJA DE CONVENIENCIA, FARMACIA DE MANIPULACAO, ACOUGUE, PEIXARIA, HORTIFRUTI, PADARIA E CONFEITARIA, LANCHONETE, PIZZARIA, RESTAURANTE, MATERIAL DE CONSTRUCAO, JOALHERIA, LIVRARIA, FLORICULTURA, ARMARINHOS E MIUDEZAS, COSMETICOS, PERFUMARIA, HIGIENE PESSOAL, CIA DE GAS, ADMINISTRADORA DE CARTOES, ESTACIONAMENTO, HOTEL, INST. DE ENSINO, INST. FINANCEIRA, OFICINA, SHOPPING, ENTRETERIMENTO, IND. AUTOMOBILISTICA, IND. DE CALCADOS, IND. DE COSMETICOS, IND. PAPEL, IND. QUIMICA, IND. TEXTIL, IND. BRINQUEDOS, IND. MANUFATURAS, IND. ELETRONICOS",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira ramos_3",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 75 dias",
+      "tratados_antes_por": [
+        "R2",
+        "R7"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R9",
+      "posicao": 9,
+      "nome": "Ativos dos ramos de atividade RECARGA CELULAR, VIDRACARIA, EXPORTACAO DIRETA, EXPORTACAO TRADE, EVENTOS E SHOWS, REPRESENTANTE, PROMOTOR DE VENDA, OUTROS",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira ramos_4",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao global em 90 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 28 dias",
+          "significado": "frequência de 28 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        28,
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R10",
+      "posicao": 10,
+      "nome": "Inativos dos ramos de atividade RECARGA CELULAR, VIDRACARIA, EXPORTACAO DIRETA, EXPORTACAO TRADE, EVENTOS E SHOWS, REPRESENTANTE, PROMOTOR DE VENDA, OUTROS",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira ramos_4",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 90 dias",
+      "tratados_antes_por": [
+        "R2",
+        "R9"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R11",
+      "posicao": 11,
+      "nome": "Clientes que hoje não se enquadraram nas regras padrão",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "já compraram com qualquer vendedor da empresa e fora da carteira ramos_1, ramos_2, ramos_3, ramos_4",
+      "tratados_antes_por": [
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9",
+        "R10"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    7,
+    10,
+    14,
+    21,
+    28,
+    45,
+    60,
+    75,
+    90
+  ],
+  "numeros_permitidos": [
+    1,
+    2,
+    3,
+    4,
+    7,
+    10,
+    14,
+    21,
+    28,
+    45,
+    60,
+    75,
+    90,
+    101001,
+    101002,
+    101003,
+    101004,
+    101005,
+    101006,
+    101007,
+    101008,
+    101009,
+    101010,
+    101011,
+    101012,
+    101013,
+    101014,
+    101015,
+    101016,
+    101017,
+    101018,
+    101019,
+    101020,
+    101021,
+    101022,
+    101023,
+    101024,
+    101025,
+    101026,
+    101027,
+    101028,
+    101029,
+    101031,
+    101032,
+    101033,
+    101034,
+    101035,
+    101036,
+    101037,
+    101038,
+    101039,
+    101040,
+    101101,
+    101102,
+    101103,
+    101104,
+    101105,
+    101106,
+    101107,
+    102001,
+    102002,
+    201003,
+    201004,
+    201008,
+    201009,
+    201010,
+    201011,
+    201012,
+    201013,
+    201014,
+    201015,
+    201016,
+    201018,
+    201019,
+    201021,
+    201022,
+    201023,
+    201025,
+    201099,
+    301001,
+    301002,
+    301004,
+    301005,
+    301006,
+    301007,
+    301009,
+    301010,
+    301011,
+    301012,
+    301013,
+    301014,
+    301015,
+    999999
+  ],
+  "premissas_usadas": [
+    "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado.",
+    "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+  ]
+}

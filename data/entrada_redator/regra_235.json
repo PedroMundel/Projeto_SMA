@@ -1,0 +1,229 @@
+{
+ "arquivo": "regra_235.gobr",
+ "comentarios": [
+  "Definição de times",
+  "Regras de bloqueios",
+  "Regras de parametrização",
+  "Regras complementares",
+  "Regra catch all"
+ ],
+ "times": [
+  {
+   "nome": "felipe",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas, exceto os de id 503, 518, 519, 521, 623, 624, 626"
+  },
+  {
+   "nome": "paola_1",
+   "definicao": "os vendedores de id 519"
+  },
+  {
+   "nome": "paola_2",
+   "definicao": "os vendedores de id 503, 518, 521, 623, 624, 626"
+  },
+  {
+   "nome": "temporario_2meses",
+   "definicao": "os vendedores de id 521, 623, 624"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Nao agendar - clientes baixados na receita",
+  "Nao agendar - clientes com rota futura em 7 dias",
+  "Nao agendar - clientes com recencia de positivacao em 7 dias",
+  "Clientes com compra em 30 dias",
+  "Clientes que hoje não se enquadraram nas regras padrão"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Nao agendar - clientes baixados na receita",
+   "fonte": "do time felipe, paola_1, paola_2, temporario_2meses",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "com situação baixada na Receita Federal"
+  },
+  {
+   "id": "R2",
+   "nome": "Nao agendar - clientes com rota futura em 7 dias",
+   "fonte": "do time paola_1, paola_2",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "com data de rota futura nos últimos 7 dias"
+  },
+  {
+   "id": "R3",
+   "nome": "Nao agendar - clientes com recencia de positivacao em 7 dias",
+   "fonte": "do time paola_1, paola_2",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "compraram nos últimos 7 dias"
+  },
+  {
+   "id": "R4",
+   "nome": "Clientes com compra em 30 dias",
+   "fonte": "do time felipe",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "compraram nos últimos 30 dias"
+  },
+  {
+   "id": "R5",
+   "nome": "Cobertura de rota de visita exatamente 14 dias depois",
+   "fonte": "do time temporario_2meses",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 1 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "com data de rota há 14 dias e com pelo menos 5% do limite de crédito disponível"
+  },
+  {
+   "id": "R6",
+   "nome": "Clientes com compra entre 30 e 90 dias",
+   "fonte": "do time felipe",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 15 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram nos últimos 90 dias, mas estão há mais de 30 dias sem comprar"
+  },
+  {
+   "id": "R7",
+   "nome": "Clientes sem compra em 90 dias",
+   "fonte": "do time felipe",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 10 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "(nunca compraram ou sem comprar há mais de 90 dias)",
+   "tratados_antes_por": [
+    "R6"
+   ]
+  },
+  {
+   "id": "R8",
+   "nome": "Clientes com rota ha 7 dias ou mais",
+   "fonte": "do time paola_1, paola_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "(nunca compraram ou sem comprar há mais de 7 dias) e com data de rota nos últimos 7 dias e com pelo menos 5% do limite de crédito disponível"
+  },
+  {
+   "id": "R9",
+   "nome": "Clientes com compra entre 7 e 30 dias",
+   "fonte": "do time paola_1, paola_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 30 dias, mas estão há pelo menos 7 dias sem comprar e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 7 dias) e não (com data de rota nos últimos 7 dias) e com pelo menos 5% do limite de crédito disponível",
+   "tratados_antes_por": [
+    "R8"
+   ]
+  },
+  {
+   "id": "R10",
+   "nome": "Clientes com compra entre 31 e 60 dias",
+   "fonte": "do time paola_1, paola_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e não (com data de rota nos últimos 7 dias) e com pelo menos 5% do limite de crédito disponível",
+   "tratados_antes_por": [
+    "R8"
+   ]
+  },
+  {
+   "id": "R11",
+   "nome": "Clientes com compra entre 61 e 89 dias",
+   "fonte": "do time paola_1, paola_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 89 dias, mas estão há mais de 60 dias sem comprar e não (com data de rota nos últimos 7 dias) e com pelo menos 5% do limite de crédito disponível",
+   "tratados_antes_por": [
+    "R8"
+   ]
+  },
+  {
+   "id": "R12",
+   "nome": "Clientes com compra entre 90 e 179 dias",
+   "fonte": "do time paola_1, paola_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 179 dias, mas estão há mais de 89 dias sem comprar e não (com data de rota nos últimos 7 dias) e com pelo menos 5% do limite de crédito disponível",
+   "tratados_antes_por": [
+    "R8"
+   ]
+  },
+  {
+   "id": "R13",
+   "nome": "Clientes sem compra em 180 dias",
+   "fonte": "do time paola_1, paola_2",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "(nunca compraram com qualquer vendedor da empresa ou compraram com qualquer vendedor da empresa nos últimos 6 dias ou sem comprar com qualquer vendedor da empresa há mais de 179 dias) e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 7 dias) e não (com data de rota nos últimos 7 dias) e com pelo menos 5% do limite de crédito disponível",
+   "tratados_antes_por": [
+    "R8",
+    "R9",
+    "R10",
+    "R11",
+    "R12"
+   ]
+  },
+  {
+   "id": "R14",
+   "nome": "Clientes que hoje não se enquadraram nas regras padrão",
+   "fonte": "do time felipe, paola_1, paola_2, temporario_2meses",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "(do time temporario_2meses e não (com data de rota há 14 dias)) OU (do time temporario_2meses e com data de rota há 14 dias e não (com pelo menos 5% do limite de crédito disponível)) OU (do time paola_1, paola_2 e (nunca compraram ou sem comprar há mais de 7 dias) e não (com pelo menos 5% do limite de crédito disponível))",
+   "tratados_antes_por": [
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9",
+    "R10",
+    "R11",
+    "R12",
+    "R13"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [
+  "A cascata mistura escopos de recência de compra (global: Clientes com compra entre 7 e 30 dias, Clientes com compra entre 31 e 60 dias, Clientes com compra entre 61 e 89 dias; grupo: Nao agendar - clientes com recencia de positivacao em 7 dias, Clientes com compra em 30 dias, Clientes com compra entre 30 e 90 dias); faixas de escopos diferentes não se excluem automaticamente e podem se sobrepor ou deixar lacunas."
+ ],
+ "premissas_usadas": [
+  "P2: Escopos de recência (grupo, vendedor, global) são medidas distintas, ordenadas: global <= grupo <= vendedor.",
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+ ]
+}

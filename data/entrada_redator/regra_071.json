@@ -1,0 +1,217 @@
+{
+ "arquivo": "regra_071.gobr",
+ "comentarios": [
+  "Regras dinâmicas para Palmed",
+  "time televendas da paraiba e do piaui",
+  "Time Paraiba e Piaui",
+  "parametrizacao dos televendas da paraiba e piaui com 14 dias para inadimplentes",
+  "parametrizacao dos televendas da paraiba e piaui com no máximo 7 dias",
+  "Time Tocantins",
+  "Time Televendas",
+  "preferencia na terca e na quarta e na quinta e na sexta",
+  "preferencia na terca e na quarta e na quinta e na sexta",
+  "preferencia na terca e na quarta e na quinta e na sexta",
+  "Time campo"
+ ],
+ "times": [
+  {
+   "nome": "televendas pi",
+   "definicao": "todos os vendedores de televendas dos supervisores de id 2736"
+  },
+  {
+   "nome": "televendas pb",
+   "definicao": "todos os vendedores de televendas dos supervisores de id 2731"
+  },
+  {
+   "nome": "tocantins",
+   "definicao": "os vendedores de id 435, 261, 385, 276, 438, 63, 164"
+  },
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas"
+  },
+  {
+   "nome": "campo",
+   "definicao": "todos os vendedores de campo"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "carteira televendas pi",
+   "definicao": "carteira fixa dos vendedores do time televendas pi",
+   "filtros": []
+  },
+  {
+   "id": "C2",
+   "nome": "carteira televendas pb",
+   "definicao": "carteira fixa dos vendedores do time televendas pb",
+   "filtros": []
+  },
+  {
+   "id": "C3",
+   "nome": "carteira tocantins",
+   "definicao": "carteira fixa dos vendedores do time tocantins",
+   "filtros": []
+  },
+  {
+   "id": "C4",
+   "nome": "carteira televendas",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": []
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Regra Padrao da Palmed: 14 dias para inativos e inadimplentes",
+   "fonte": "da carteira carteira televendas pi, carteira televendas pb",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+    "evitar que os dias de atendimento coincidam com os do time campo (apenas clientes roteirizáveis)"
+   ],
+   "condicao_efetiva": "inadimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R2",
+   "nome": "Regra Padrao da Palmed: Maximo 7 dias - PI",
+   "fonte": "da carteira carteira televendas pi",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 7 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento",
+    "evitar que os dias de atendimento coincidam com os do time campo (apenas clientes roteirizáveis)"
+   ],
+   "condicao_efetiva": "(não inativos para o vendedor) OU (adimplentes e inativos para o vendedor)",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R3",
+   "nome": "Regra Padrao da Palmed: maximo 7 dias - PB",
+   "fonte": "da carteira carteira televendas pb",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 7 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+    "evitar que os dias de atendimento coincidam com os do time campo (apenas clientes roteirizáveis)"
+   ],
+   "condicao_efetiva": "(não inativos para o vendedor) OU (adimplentes e inativos para o vendedor)",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R4",
+   "nome": "Regra Padrao da Palmed: 14 dias para inativos e inadimplentes - Tocantins",
+   "fonte": "da carteira carteira tocantins",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+    "evitar que os dias de atendimento coincidam com os do time campo (apenas clientes roteirizáveis)"
+   ],
+   "condicao_efetiva": "inadimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R5",
+   "nome": "Regra Padrao da Palmed: semanal para ativos",
+   "fonte": "da carteira carteira tocantins",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 7 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento",
+    "evitar que os dias de atendimento coincidam com os do time campo (apenas clientes roteirizáveis)"
+   ],
+   "condicao_efetiva": "(não inativos para o vendedor) OU (adimplentes e inativos para o vendedor)",
+   "tratados_antes_por": [
+    "R4"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Regra Padrao da Palmed: semanal para ativos e adimplentes (segunda a sexta) - Time Televendas",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 7 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "adimplentes e ativos para o vendedor"
+  },
+  {
+   "id": "R7",
+   "nome": "Regra Padrao da Palmed: quinzenal para ativos e inadimplente (segunda a sexta) - Time Televendas",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "inadimplentes e ativos para o vendedor"
+  },
+  {
+   "id": "R8",
+   "nome": "Regra Padrao da Palmed: semanal exceto na segunda para inativos adimplentes (terca a sexta) - Time Televendas",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 7 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "adimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R9",
+   "nome": "Regra Padrao da Palmed: 30 dias para inativos e inadimplentes (terca a sexta) - Time Televendas",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "inadimplentes e inativos para o vendedor"
+  },
+  {
+   "id": "R10",
+   "nome": "Regra Padrao da Palmed: 7 dias de terca a sexta - Time Televendas",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 7 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor",
+   "tratados_antes_por": [
+    "R6",
+    "R7",
+    "R8",
+    "R9"
+   ]
+  },
+  {
+   "id": "R11",
+   "nome": "Regra Padrao da Palmed: 7 dias para todos os clientes - Time de Campo",
+   "fonte": "do time campo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)"
+   ],
+   "condicao_efetiva": "todos os clientes"
+  }
+ ],
+ "nao_cobertos": {
+  "da carteira carteira televendas pi, carteira televendas pb": "várias combinações de clientes não são cobertas por nenhuma regra"
+ },
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores.",
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

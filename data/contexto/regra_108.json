@@ -1,0 +1,441 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_108.gobr",
+  "sha256": "68f2ef443fa380c876329627fd219c0c3b573d62ca02e6e086b816a2f10699d1",
+  "comentarios": [
+    "Definição de times"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "televendas",
+      "definicao": "todos os vendedores habilitados no Govendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Diferpan: Não agendar inadimplentes"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Diferpan: Não agendar inadimplentes",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "inadimplentes",
+      "condicao_efetiva": "inadimplentes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Diferpan: Freq. de 7d para cliente que nunca tirou com o vendedor",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "no ciclo de vida prospect com o vendedor",
+          "significado": "prospects (nunca compraram com o próprio vendedor)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "nunca compraram com o próprio vendedor",
+      "condicao_efetiva": "nunca compraram com o próprio vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Diferpan: Freq. de 21d para construtora que comprou uma unica vez com o vendedor",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "unica compra com o vendedor",
+          "significado": "com uma única compra com o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "ramo de atividade igual(\"37\")",
+          "significado": "ramo de atividade (id) igual a 37",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ramo de atividade (id) igual a 37 e com uma única compra com o vendedor",
+      "condicao_efetiva": "já compraram com o próprio vendedor e ramo de atividade (id) igual a 37 e com uma única compra com o vendedor",
+      "tratados_antes_por": [
+        "R2"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Diferpan: Freq. de 7d para cliente que comprou uma unica vez com o vendedor",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "unica compra com o vendedor",
+          "significado": "com uma única compra com o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "com uma única compra com o vendedor",
+      "condicao_efetiva": "já compraram com o próprio vendedor e ramo de atividade (id) diferente de 37 e com uma única compra com o vendedor",
+      "tratados_antes_por": [
+        "R2",
+        "R3"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Diferpan: Freq. de 7d para clientes com frequência histórica menor do que 11 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "frequencia historica menor que 11 dias",
+          "significado": "frequência histórica de compra de menos de 11 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "frequência histórica de compra de menos de 11 dias",
+      "condicao_efetiva": "já compraram com o próprio vendedor e frequência histórica de compra de menos de 11 dias e sem ser de compra única com o vendedor",
+      "tratados_antes_por": [
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7,
+        11
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Diferpan: Freq. de 14d para construtora que comprou com o vendedor entre 60 dias e 89 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao do vendedor entre 60 dias e 89 dias",
+          "significado": "(compraram com o próprio vendedor nos últimos 59 dias ou sem comprar com o próprio vendedor há mais de 89 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "ramo de atividade igual(\"37\")",
+          "significado": "ramo de atividade (id) igual a 37",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "(compraram com o próprio vendedor nos últimos 59 dias ou sem comprar com o próprio vendedor há mais de 89 dias) e ramo de atividade (id) igual a 37",
+      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 59 dias ou sem comprar com o próprio vendedor há mais de 89 dias) e ramo de atividade (id) igual a 37 e frequência histórica indefinida ou frequência histórica de compra de pelo menos 11 dias e sem ser de compra única com o vendedor",
+      "tratados_antes_por": [
+        "R3",
+        "R5"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        60,
+        89
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Diferpan: Freq. de 21d para construtora que comprou com o vendedor entre 11 dias e 59 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao do vendedor entre 11 dias e 59 dias",
+          "significado": "(compraram com o próprio vendedor nos últimos 10 dias ou sem comprar com o próprio vendedor há mais de 59 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "ramo de atividade igual(\"37\")",
+          "significado": "ramo de atividade (id) igual a 37",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "(compraram com o próprio vendedor nos últimos 10 dias ou sem comprar com o próprio vendedor há mais de 59 dias) e ramo de atividade (id) igual a 37",
+      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 89 dias, mas estão há mais de 59 dias sem comprar e ramo de atividade (id) igual a 37 e frequência histórica indefinida ou frequência histórica de compra de pelo menos 11 dias e sem ser de compra única com o vendedor",
+      "tratados_antes_por": [
+        "R3",
+        "R5",
+        "R6"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        11,
+        21,
+        59
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R8",
+      "posicao": 8,
+      "nome": "Diferpan: Freq. de 21d para clientes que comprou ultima vez com o vendedor a mais de 90 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "no ciclo de vida inativo com o vendedor",
+          "significado": "no ciclo de vida inativo com o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "no ciclo de vida inativo com o vendedor",
+      "condicao_efetiva": "já compraram com o próprio vendedor e ramo de atividade (id) diferente de 37 e no ciclo de vida inativo com o vendedor e frequência histórica indefinida ou frequência histórica de compra de pelo menos 11 dias e sem ser de compra única com o vendedor",
+      "tratados_antes_por": [
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21
+      ],
+      "alertas": [
+        "O nome da regra cita 90 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+      ]
+    },
+    {
+      "id": "R9",
+      "posicao": 9,
+      "nome": "Diferpan: Freq. de 7d para clientes que comprou com o vendedor entre 11 dias e 89 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao do vendedor em 90 dias",
+          "significado": "sem comprar com o próprio vendedor há mais de 90 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar com o próprio vendedor há mais de 90 dias",
+      "condicao_efetiva": "sem comprar com o próprio vendedor há mais de 90 dias e ramo de atividade (id) diferente de 37 e fora do ciclo de vida inativo com o vendedor e frequência histórica indefinida ou frequência histórica de compra de pelo menos 11 dias e sem ser de compra única com o vendedor",
+      "tratados_antes_por": [
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R8"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7,
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R10",
+      "posicao": 10,
+      "nome": "Diferpan: Freq. de 7d para demais clientes",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 90 dias e ramo de atividade (id) diferente de 37 e fora do ciclo de vida inativo com o vendedor e frequência histórica indefinida ou frequência histórica de compra de pelo menos 11 dias e sem ser de compra única com o vendedor",
+      "tratados_antes_por": [
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+        "R9"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    7,
+    11,
+    14,
+    21,
+    59,
+    60,
+    89,
+    90
+  ],
+  "numeros_permitidos": [
+    7,
+    11,
+    14,
+    21,
+    37,
+    59,
+    60,
+    89,
+    90
+  ],
+  "premissas_usadas": [
+    "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+    "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+  ]
+}

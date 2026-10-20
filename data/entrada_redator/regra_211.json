@@ -1,0 +1,44 @@
+{
+ "arquivo": "regra_211.gobr",
+ "comentarios": [
+  "Definição de times",
+  "Definição de regras"
+ ],
+ "times": [
+  {
+   "nome": "ativacao",
+   "definicao": "os vendedores de id 965, 945"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Cliente com pedido nos últimos 30 dias",
+   "fonte": "do time ativacao",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 30 dias"
+  },
+  {
+   "id": "R2",
+   "nome": "Cliente sem pedido nos últimos 30 dias",
+   "fonte": "do time ativacao",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 15 dias"
+   ],
+   "condicao_efetiva": "(nunca compraram ou sem comprar há mais de 30 dias)",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": []
+}

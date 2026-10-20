@@ -1,0 +1,701 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_142.gobr",
+  "sha256": "ad7b98b19207008790dce1f9ca97935cffb1d859a09278b761ef08d169a1afc4",
+  "comentarios": [
+    "Regras padrão",
+    "time \"Larissa\":",
+    "vendedores porid (\"12\")",
+    "Regras da Yara",
+    "Regras da Lúcia",
+    "Regras do Wanderson",
+    "Código dentro de Ramo de atividades",
+    "001 Hospital/Home Care/OS",
+    "002 Clínicas",
+    "003 Distribuidora",
+    "004 Farmácia/Drogaria",
+    "005 ORGAO Público",
+    "006 REPRESENTANTES (MEI)",
+    "100 FORNECEDOR DE USO E CONSUMO",
+    "Regras padrão"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "todos",
+      "definicao": "todos os vendedores habilitados no Govendas, exceto os de id 10, 5, 3",
+      "filtros": []
+    },
+    {
+      "id": "T2",
+      "nome": "Yara",
+      "definicao": "os vendedores de id 10",
+      "filtros": []
+    },
+    {
+      "id": "T3",
+      "nome": "Lúcia",
+      "definicao": "os vendedores de id 5",
+      "filtros": []
+    },
+    {
+      "id": "T4",
+      "nome": "Wanderson",
+      "definicao": "os vendedores de id 3",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Regra Padrão da Dispomed: Não liguar para inadimplente",
+    "Regra Padrão da Dispomed: Não liguar para Fornecedor de uso e consumo, Orgão público e Representantes"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Dispomed: Frequência de 3 dias para clientes curva A (Yara)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time Yara",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "curva a com a empresa",
+          "significado": "curva A com a empresa",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 3 dias",
+          "significado": "frequência de 3 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "curva A com a empresa",
+      "condicao_efetiva": "curva A com a empresa",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        3
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Dispomed: Frequência de 7 dias para clientes curva B (Yara)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time Yara",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "curva b com a empresa",
+          "significado": "curva B com a empresa",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "curva B com a empresa",
+      "condicao_efetiva": "curva B com a empresa",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Dispomed: Frequência de 14 dias para clientes curva C (Yara)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time Yara",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "curva c com a empresa",
+          "significado": "curva C com a empresa",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "curva C com a empresa",
+      "condicao_efetiva": "curva C com a empresa",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Dispomed: Frequência de 14 dias para clientes sem classificação de curva (Yara)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time Yara",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "fora da curva A nem B nem C com a empresa",
+      "tratados_antes_por": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Dispomed: Frequência de 2 dias para clientes curva A (Lúcia)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time Lúcia",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "curva a com a empresa",
+          "significado": "curva A com a empresa",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 2 dias",
+          "significado": "frequência de 2 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "curva A com a empresa",
+      "condicao_efetiva": "curva A com a empresa",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        2
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Dispomed: Frequência de 7 dias para clientes curva B (Lúcia)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time Lúcia",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "curva b com a empresa",
+          "significado": "curva B com a empresa",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "curva B com a empresa",
+      "condicao_efetiva": "curva B com a empresa",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Dispomed: Frequência de 14 dias para clientes curva C (Lúcia)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time Lúcia",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "curva c com a empresa",
+          "significado": "curva C com a empresa",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "curva C com a empresa",
+      "condicao_efetiva": "curva C com a empresa",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R8",
+      "posicao": 8,
+      "nome": "Dispomed: Frequência de 7 dias para clientes sem classificação de curva (Lúcia)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time Lúcia",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "fora da curva A nem B nem C com a empresa",
+      "tratados_antes_por": [
+        "R5",
+        "R6",
+        "R7"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R9",
+      "posicao": 9,
+      "nome": "Dispomed: Frequência de 4 dias para clientes curva A (Wanderson)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time Wanderson",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "curva a com a empresa",
+          "significado": "curva A com a empresa",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 4 dias",
+          "significado": "frequência de 4 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "curva A com a empresa",
+      "condicao_efetiva": "curva A com a empresa",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        4
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R10",
+      "posicao": 10,
+      "nome": "Dispomed: Frequência de 7 dias para clientes curva B (Wanderson)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time Wanderson",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "curva b com a empresa",
+          "significado": "curva B com a empresa",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "curva B com a empresa",
+      "condicao_efetiva": "curva B com a empresa",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R11",
+      "posicao": 11,
+      "nome": "Dispomed: Frequência de 9 dias para clientes curva C (Wanderson)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time Wanderson",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "curva c com a empresa",
+          "significado": "curva C com a empresa",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 9 dias",
+          "significado": "frequência de 9 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "curva C com a empresa",
+      "condicao_efetiva": "curva C com a empresa",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        9
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R12",
+      "posicao": 12,
+      "nome": "Dispomed: Frequência de 14 dias para clientes sem classificação de curva (Wanderson)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time Wanderson",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "fora da curva A nem B nem C com a empresa",
+      "tratados_antes_por": [
+        "R9",
+        "R10",
+        "R11"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R13",
+      "posicao": 13,
+      "nome": "Regra Padrão da Dispomed: Não liguar para inadimplente",
+      "tipo_bloco": "parametros",
+      "fonte": "do time todos",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "inadimplentes",
+      "condicao_efetiva": "inadimplentes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R14",
+      "posicao": 14,
+      "nome": "Regra Padrão da Dispomed: Frequência de 14 dias para Hospitais e Clínicas",
+      "tipo_bloco": "parametros",
+      "fonte": "do time todos",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"001\",\"002\")",
+          "significado": "ramo de atividade (id) em: 001, 002",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ramo de atividade (id) em: 001, 002",
+      "condicao_efetiva": "ramo de atividade (id) em: 001, 002",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R13"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R15",
+      "posicao": 15,
+      "nome": "Regra Padrão da Dispomed: Frequência de 7 dias para Distribuidora",
+      "tipo_bloco": "parametros",
+      "fonte": "do time todos",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"003\")",
+          "significado": "ramo de atividade (id) igual a 003",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ramo de atividade (id) igual a 003",
+      "condicao_efetiva": "ramo de atividade (id) igual a 003",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R13"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R16",
+      "posicao": 16,
+      "nome": "Regra Padrão da Dispomed: Frequência de 21 dias para Farmácias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time todos",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"004\")",
+          "significado": "ramo de atividade (id) igual a 004",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ramo de atividade (id) igual a 004",
+      "condicao_efetiva": "ramo de atividade (id) igual a 004",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R13"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R17",
+      "posicao": 17,
+      "nome": "Regra Padrão da Dispomed: Não liguar para Fornecedor de uso e consumo, Orgão público e Representantes",
+      "tipo_bloco": "parametros",
+      "fonte": "do time todos",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"005\",\"006\",\"100\")",
+          "significado": "ramo de atividade (id) em: 005, 006, 100",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "ramo de atividade (id) em: 005, 006, 100",
+      "condicao_efetiva": "ramo de atividade (id) em: 005, 006, 100",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R13"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R18",
+      "posicao": 18,
+      "nome": "Regra Padrão da Dispomed: Frequência semanal para clientes ativos",
+      "tipo_bloco": "parametros",
+      "fonte": "do time todos",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ativos para o vendedor",
+      "condicao_efetiva": "ramo de atividade (id) fora de: 001, 002, 003, 004, 005, 006 e mais 1 e ativos para o vendedor",
+      "tratados_antes_por": [
+        "R14",
+        "R15",
+        "R16"
+      ],
+      "bloqueios_anteriores": [
+        "R13",
+        "R17"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R19",
+      "posicao": 19,
+      "nome": "Regra Padrao do goVendas: Frequência quinzenal para clientes inativos",
+      "tipo_bloco": "parametros",
+      "fonte": "do time todos",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 15 dias",
+          "significado": "frequência de 15 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "ramo de atividade (id) fora de: 001, 002, 003, 004, 005, 006 e mais 1 e não ativos para o vendedor",
+      "tratados_antes_por": [
+        "R14",
+        "R15",
+        "R16",
+        "R18"
+      ],
+      "bloqueios_anteriores": [
+        "R13",
+        "R17"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        15
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    2,
+    3,
+    4,
+    7,
+    9,
+    14,
+    15,
+    21
+  ],
+  "numeros_permitidos": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    9,
+    10,
+    14,
+    15,
+    21,
+    100
+  ],
+  "premissas_usadas": [
+    "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+  ]
+}

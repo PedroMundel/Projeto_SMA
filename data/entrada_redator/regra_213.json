@@ -1,0 +1,257 @@
+{
+ "arquivo": "regra_213.gobr",
+ "comentarios": [
+  "Definição de times",
+  "Definição de carteiras",
+  "Parâmetros de atendimento"
+ ],
+ "times": [
+  {
+   "nome": "time televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "carteira_segunda",
+   "definicao": "carteira fixa dos vendedores do time time televendas",
+   "filtros": [
+    "código da rota em: 24, 523, 524, 525, 526"
+   ]
+  },
+  {
+   "id": "C2",
+   "nome": "carteira_terca",
+   "definicao": "carteira fixa dos vendedores do time time televendas",
+   "filtros": [
+    "código da rota em: 17, 3, 4, 500, 512, 514 e mais 1"
+   ],
+   "exceto_alocados_em": [
+    "carteira_segunda"
+   ]
+  },
+  {
+   "id": "C3",
+   "nome": "carteira_quarta",
+   "definicao": "carteira fixa dos vendedores do time time televendas",
+   "filtros": [
+    "código da rota em: 502, 530, 531"
+   ],
+   "exceto_alocados_em": [
+    "carteira_segunda",
+    "carteira_terca"
+   ]
+  },
+  {
+   "id": "C4",
+   "nome": "carteira_quinta",
+   "definicao": "carteira fixa dos vendedores do time time televendas",
+   "filtros": [
+    "código da rota em: 20, 501, 504, 505, 506, 508 e mais 4"
+   ],
+   "exceto_alocados_em": [
+    "carteira_segunda",
+    "carteira_terca",
+    "carteira_quarta"
+   ]
+  },
+  {
+   "id": "C5",
+   "nome": "carteira_sexta",
+   "definicao": "carteira fixa dos vendedores do time time televendas",
+   "filtros": [
+    "código da rota em: 19, 5, 510, 511, 521"
+   ],
+   "exceto_alocados_em": [
+    "carteira_segunda",
+    "carteira_terca",
+    "carteira_quarta",
+    "carteira_quinta"
+   ]
+  },
+  {
+   "id": "C6",
+   "nome": "carteira_curitiba",
+   "definicao": "carteira fixa dos vendedores do time time televendas",
+   "filtros": [
+    "código da rota em: 10, 11"
+   ],
+   "exceto_alocados_em": [
+    "carteira_segunda",
+    "carteira_terca",
+    "carteira_quarta",
+    "carteira_quinta",
+    "carteira_sexta"
+   ]
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Não agendar Clientes Filiais"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Não agendar Clientes Filiais",
+   "fonte": "do time time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "filiais"
+  },
+  {
+   "id": "R2",
+   "nome": "Clientes Ativos (segunda)",
+   "fonte": "da carteira carteira_segunda",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: segunda; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "ativos para o vendedor"
+  },
+  {
+   "id": "R3",
+   "nome": "Clientes Inativos (segunda)",
+   "fonte": "da carteira carteira_segunda",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias",
+    "dias de atendimento - preferência: segunda; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "não ativos para o vendedor",
+   "tratados_antes_por": [
+    "R2"
+   ]
+  },
+  {
+   "id": "R4",
+   "nome": "Clientes Ativos (terça)",
+   "fonte": "da carteira carteira_terca",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: terça; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "ativos para o vendedor"
+  },
+  {
+   "id": "R5",
+   "nome": "Clientes Inativos (terça)",
+   "fonte": "da carteira carteira_terca",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias",
+    "dias de atendimento - preferência: terça; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "não ativos para o vendedor",
+   "tratados_antes_por": [
+    "R4"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Clientes Ativos (quarta)",
+   "fonte": "da carteira carteira_quarta",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: quarta; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "ativos para o vendedor"
+  },
+  {
+   "id": "R7",
+   "nome": "Clientes Inativos (quarta)",
+   "fonte": "da carteira carteira_quarta",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias",
+    "dias de atendimento - preferência: quarta; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "não ativos para o vendedor",
+   "tratados_antes_por": [
+    "R6"
+   ]
+  },
+  {
+   "id": "R8",
+   "nome": "Clientes Ativos (quinta)",
+   "fonte": "da carteira carteira_quinta",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: quinta; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "ativos para o vendedor"
+  },
+  {
+   "id": "R9",
+   "nome": "Clientes Inativos (quinta)",
+   "fonte": "da carteira carteira_quinta",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias",
+    "dias de atendimento - preferência: quinta; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "não ativos para o vendedor",
+   "tratados_antes_por": [
+    "R8"
+   ]
+  },
+  {
+   "id": "R10",
+   "nome": "Clientes Ativos (sexta)",
+   "fonte": "da carteira carteira_sexta",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: sexta; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "ativos para o vendedor"
+  },
+  {
+   "id": "R11",
+   "nome": "Clientes Inativos (sexta)",
+   "fonte": "da carteira carteira_sexta",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias",
+    "dias de atendimento - preferência: sexta; demais dias sem atendimento",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "não ativos para o vendedor",
+   "tratados_antes_por": [
+    "R10"
+   ]
+  },
+  {
+   "id": "R12",
+   "nome": "Clientes sem dia específico",
+   "fonte": "da carteira carteira_curitiba",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)"
+   ],
+   "condicao_efetiva": "todos os clientes"
+  }
+ ],
+ "nao_cobertos": {
+  "do time time televendas": "fora da carteira carteira_curitiba, carteira_quarta, carteira_quinta, carteira_segunda, carteira_sexta, carteira_terca"
+ },
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

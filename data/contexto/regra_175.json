@@ -1,0 +1,352 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_175.gobr",
+  "sha256": "4e40284921ed06009c29caab3404cbbd7ac70312282a4c802e5f739707c9d0dc",
+  "comentarios": [
+    "Definição de Times",
+    "Definição de carteiras por ramo de atividade",
+    "Parâmetros de atendimento"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "televendas",
+      "definicao": "todos os vendedores de televendas habilitados no Govendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "activity_in",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"1\",\"2\",\"3\",\"4\",\"8\",\"18\",\"23\")",
+          "significado": "ramo de atividade (id) em: 1, 18, 2, 23, 3, 4 e mais 1",
+          "reconhecida": true
+        }
+      ],
+      "livre": true
+    }
+  ],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Não agendar clientes filiais",
+    "Não agendar clientes inadimplentes",
+    "Não agendar clientes com compra em 30d",
+    "Não agendar clientes fora das regras solicitadas"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Não agendar clientes filiais",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira activity_in",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "o cliente filial",
+          "significado": "filiais",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "filiais",
+      "condicao_efetiva": "filiais",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Não agendar clientes inadimplentes",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira activity_in",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "inadimplentes",
+      "condicao_efetiva": "inadimplentes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Não agendar clientes com compra em 30d",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira activity_in",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao em 30 dias",
+          "significado": "compraram nos últimos 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "compraram nos últimos 30 dias",
+      "condicao_efetiva": "compraram nos últimos 30 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Clientes ativos na empresa",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira activity_in",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para a empresa",
+          "significado": "ativos para a empresa",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "ativos para a empresa",
+      "condicao_efetiva": "ativos para a empresa",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Clientes inativos na empresa",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira activity_in",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inativos para a empresa",
+          "significado": "inativos para a empresa",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "inativos para a empresa",
+      "condicao_efetiva": "inativos para a empresa",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Clientes que compraram em 2024 e estão sem vendas em 2025",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira activity_in",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "tem venda da empresa no ano anterior",
+          "significado": "com compra com a empresa no ano anterior",
+          "reconhecida": true
+        },
+        {
+          "codigo": "nao tem venda da empresa no ano",
+          "significado": "sem compra com a empresa no ano atual",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "com compra com a empresa no ano anterior e sem compra com a empresa no ano atual",
+      "condicao_efetiva": "com compra com a empresa no ano anterior e sem compra com a empresa no ano atual e sem vendas para a empresa",
+      "tratados_antes_por": [
+        "R4",
+        "R5"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Clientes que compraram em 2023 e não compraram mais",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira activity_in",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao entre <d0> e <d1>",
+          "significado": "com compra no intervalo entre <d0> e <d1>",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "com compra no intervalo entre <d0> e <d1>",
+      "condicao_efetiva": "(não (com compra com a empresa no ano anterior) e com compra no intervalo entre <d0> e <d1> e sem vendas para a empresa) OU (com compra com a empresa no ano anterior e com compra no intervalo entre <d0> e <d1> e não (sem compra com a empresa no ano atual) e sem vendas para a empresa)",
+      "tratados_antes_por": [
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R8",
+      "posicao": 8,
+      "nome": "Não agendar clientes fora das regras solicitadas",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "(fora da carteira activity_in) OU (da carteira activity_in e não (com compra com a empresa no ano anterior) e não (com compra no intervalo entre <d0> e <d1>) e sem vendas para a empresa) OU (da carteira activity_in e com compra com a empresa no ano anterior e não (com compra no intervalo entre <d0> e <d1>) e não (sem compra com a empresa no ano atual) e sem vendas para a empresa)",
+      "tratados_antes_por": [
+        "R4",
+        "R5",
+        "R6",
+        "R7"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    14,
+    21,
+    30
+  ],
+  "numeros_permitidos": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    8,
+    14,
+    18,
+    21,
+    23,
+    30
+  ],
+  "premissas_usadas": [
+    "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+    "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+  ]
+}

@@ -1,0 +1,312 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_231.gobr",
+  "sha256": "1454c013ecb2fde2f937d1fb7523471e4109616020eab171c4dfe524cd612ef2",
+  "comentarios": [
+    "Solicitação:",
+    "Definição de times",
+    "Parâmetros",
+    "TODOS",
+    "CARTEIRA REGIONAL",
+    "CARTEIRA REATIVAÇÃO",
+    "CARTEIRA DIRETA"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "carteira_regional",
+      "definicao": "os vendedores de id 200, 382, 677, 631, 686, 731, 789",
+      "filtros": []
+    },
+    {
+      "id": "T2",
+      "nome": "carteira_reativacao",
+      "definicao": "os vendedores de id 706, 763",
+      "filtros": []
+    },
+    {
+      "id": "T3",
+      "nome": "carteira_direta",
+      "definicao": "os vendedores de id 708, 736, 737, 755",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Baixados na receita",
+    "Clientes com compra nos últimos 30 dias",
+    "Clientes com compra em 150 dias"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Baixados na receita",
+      "tipo_bloco": "parametros",
+      "fonte": "do time carteira_regional, carteira_reativacao, carteira_direta",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "status na receita federal definido como baixada",
+          "significado": "com situação baixada na Receita Federal",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "com situação baixada na Receita Federal",
+      "condicao_efetiva": "com situação baixada na Receita Federal",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Clientes com compra nos últimos 30 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time carteira_regional",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao global em 30 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 30 dias",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 30 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Clientes com compra entre 30 e 150 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time carteira_regional",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao global entre 30 dias e 150 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 150 dias, mas estão há pelo menos 30 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 150 dias, mas estão há pelo menos 30 dias sem comprar",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 150 dias, mas estão há mais de 30 dias sem comprar",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7,
+        30,
+        150
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Clientes com compra em 150 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time carteira_reativacao",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao global em 150 dias",
+          "significado": "compraram com qualquer vendedor da empresa nos últimos 150 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 150 dias",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 150 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        150
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Clientes sem compra",
+      "tipo_bloco": "parametros",
+      "fonte": "do time carteira_reativacao",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "no ciclo de vida prospect com a empresa",
+          "significado": "prospects (nunca compraram com qualquer vendedor da empresa)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "nunca compraram com qualquer vendedor da empresa",
+      "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Clientes sem compra em 150 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time carteira_reativacao",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inatividade global maior que 149 dias",
+          "significado": "sem comprar com qualquer vendedor da empresa há mais de 149 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar com qualquer vendedor da empresa há mais de 149 dias",
+      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 150 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R4"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        149
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Freq. de 7d para todos os clientes",
+      "tipo_bloco": "parametros",
+      "fonte": "do time carteira_direta",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "todos os clientes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {
+    "do time carteira_regional, carteira_reativacao, carteira_direta": "todos os clientes",
+    "do time carteira_regional": "todos os clientes"
+  },
+  "alertas": [],
+  "numeros_obrigatorios": [
+    7,
+    14,
+    30,
+    149,
+    150
+  ],
+  "numeros_permitidos": [
+    7,
+    14,
+    30,
+    149,
+    150,
+    200,
+    382,
+    631,
+    677,
+    686,
+    706,
+    708,
+    731,
+    736,
+    737,
+    755,
+    763,
+    789
+  ],
+  "premissas_usadas": [
+    "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado.",
+    "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+  ]
+}

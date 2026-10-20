@@ -1,0 +1,125 @@
+{
+ "arquivo": "regra_130.gobr",
+ "comentarios": [
+  "Parametrização time interno",
+  "Parametrização time externo"
+ ],
+ "times": [
+  {
+   "nome": "time interno",
+   "definicao": "todos os vendedores de televendas"
+  },
+  {
+   "nome": "time externo",
+   "definicao": "todos os vendedores de campo"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Regra Padrao da Macropac: Não agendar clientes CPF (Televendas)",
+  "Regra Padrao da Macropac: Não agendar clientes inativos inadimplentes (Televendas)",
+  "Regra Padrao da Macropac: Não agendar clientes sem compra e CPF (Televendas)"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Regra Padrao da Macropac: Não agendar clientes CPF (Televendas)",
+   "fonte": "do time time interno",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "pessoa física"
+  },
+  {
+   "id": "R2",
+   "nome": "Regra Padrao da Macropac: Frequencia de 7 dias para ativos (Televendas)",
+   "fonte": "do time time interno",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "pessoa jurídica e ativos para o vendedor"
+  },
+  {
+   "id": "R3",
+   "nome": "Regra Padrao da Macropac: Frequencia de 15 dias para inativos adimplentes (Televendas)",
+   "fonte": "do time time interno",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 15 dias"
+   ],
+   "condicao_efetiva": "adimplentes e pessoa jurídica e inativos para o vendedor"
+  },
+  {
+   "id": "R4",
+   "nome": "Regra Padrao da Macropac: Não agendar clientes inativos inadimplentes (Televendas)",
+   "fonte": "do time time interno",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes e pessoa jurídica e inativos para o vendedor"
+  },
+  {
+   "id": "R5",
+   "nome": "Regra Padrao da Macropac: Não agendar clientes sem compra e CPF (Televendas)",
+   "fonte": "do time time interno",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "pessoa física e sem vendas para o vendedor",
+   "inalcancavel": true,
+   "alertas": [
+    "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Regra Padrao da Macropac: Não agendar clientes CPF (Televendas)\"."
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Regra Padrao da Macropac: Frequencia de 20 dias para clientes sem compra e CNPJ (Televendas)",
+   "fonte": "do time time interno",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 20 dias"
+   ],
+   "condicao_efetiva": "pessoa jurídica e sem vendas para o vendedor"
+  },
+  {
+   "id": "R7",
+   "nome": "Regra Padrao da Macropac: Frequencia de 7 dias para clientes ativos (campo)",
+   "fonte": "do time time externo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "ativos para o vendedor"
+  },
+  {
+   "id": "R8",
+   "nome": "Regra Padrao da Macropac: Frequencia de 14 dias para clientes inativos (campo)",
+   "fonte": "do time time externo",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 15 dias",
+    "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
+   ],
+   "condicao_efetiva": "não ativos para o vendedor",
+   "tratados_antes_por": [
+    "R7"
+   ],
+   "alertas": [
+    "O nome da regra cita 14 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+ ]
+}

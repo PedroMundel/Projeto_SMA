@@ -1,0 +1,519 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_214.gobr",
+  "sha256": "c02ebe049568c3042b55218116976b8ac3da30b331f9498c7bd6a2470ab89843",
+  "comentarios": [
+    "Definição de times:",
+    "Regras de não agendamento:",
+    "Regras de agendamento:"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "televendas",
+      "definicao": "todos os vendedores de televendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Não agendar inadimplentes"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Não agendar inadimplentes",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "inadimplentes",
+      "condicao_efetiva": "inadimplentes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Freq. de 14d para 'Cliente sem pedido com o vendedor'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "unica compra com o vendedor",
+          "significado": "com uma única compra com o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis e no sabado",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "com uma única compra com o vendedor",
+      "condicao_efetiva": "com uma única compra com o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Freq. de 21d para 'Ativado: fez um pedido e ainda não comprou mais'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "unica compra com o vendedor",
+          "significado": "com uma única compra com o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao em 30 dias",
+          "significado": "compraram nos últimos 30 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "ramo de atividade igual(\"29\")",
+          "significado": "ramo de atividade (id) igual a 29",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis e no sabado",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 30 dias e ramo de atividade (id) igual a 29 e com uma única compra com o vendedor",
+      "condicao_efetiva": null,
+      "tratados_antes_por": [
+        "R2"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": true,
+      "numeros": [
+        21,
+        30
+      ],
+      "alertas": [
+        "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Não agendar inadimplentes\", \"Freq. de 14d para 'Cliente sem pedido com o vendedor'\"."
+      ]
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Freq. de 14d para 'Ativado: fez um pedido e ainda não comprou mais'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "unica compra com o vendedor",
+          "significado": "com uma única compra com o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao em 30 dias",
+          "significado": "compraram nos últimos 30 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "ramo de atividade diferente(\"29\")",
+          "significado": "ramo de atividade (id) diferente de 29",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis e no sabado",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 30 dias e ramo de atividade (id) diferente de 29 e com uma única compra com o vendedor",
+      "condicao_efetiva": null,
+      "tratados_antes_por": [
+        "R2"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": true,
+      "numeros": [
+        14,
+        30
+      ],
+      "alertas": [
+        "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Não agendar inadimplentes\", \"Freq. de 14d para 'Cliente sem pedido com o vendedor'\"."
+      ]
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Freq. de 10d para 'Ativo: compra regularmente'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "ativos para o vendedor",
+          "significado": "ativos para o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "frequencia historica menor que 14 dias",
+          "significado": "frequência histórica de compra de menos de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 10 dias",
+          "significado": "frequência de 10 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis e no sabado",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "frequência histórica de compra de menos de 14 dias e ativos para o vendedor",
+      "condicao_efetiva": "frequência histórica de compra de menos de 14 dias e ativos para o vendedor e sem ser de compra única com o vendedor",
+      "tratados_antes_por": [
+        "R2"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        10,
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Freq. de 30d para 'Ativo: estimular a regularidade de compra'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao do vendedor entre 21 dias e 59 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 59 dias, mas estão há pelo menos 21 dias sem comprar",
+          "reconhecida": true
+        },
+        {
+          "codigo": "ramo de atividade igual(\"29\")",
+          "significado": "ramo de atividade (id) igual a 29",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis e no sabado",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 59 dias, mas estão há pelo menos 21 dias sem comprar e ramo de atividade (id) igual a 29",
+      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 59 dias, mas estão há pelo menos 21 dias sem comprar e ramo de atividade (id) igual a 29 e não ativos para o vendedor e sem ser de compra única com o vendedor) OU (compraram com o próprio vendedor nos últimos 59 dias, mas estão há pelo menos 21 dias sem comprar e ramo de atividade (id) igual a 29 e frequência histórica indefinida ou frequência histórica de compra de pelo menos 14 dias e ativos para o vendedor e sem ser de compra única com o vendedor)",
+      "tratados_antes_por": [
+        "R2",
+        "R5"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21,
+        30,
+        59
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Freq. de 14d para 'Ativo: estimular a regularidade de compra'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao do vendedor entre 21 dias e 59 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 59 dias, mas estão há pelo menos 21 dias sem comprar",
+          "reconhecida": true
+        },
+        {
+          "codigo": "ramo de atividade diferente(\"29\")",
+          "significado": "ramo de atividade (id) diferente de 29",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis e no sabado",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 59 dias, mas estão há pelo menos 21 dias sem comprar e ramo de atividade (id) diferente de 29",
+      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 59 dias, mas estão há pelo menos 21 dias sem comprar e ramo de atividade (id) diferente de 29 e não ativos para o vendedor e sem ser de compra única com o vendedor) OU (compraram com o próprio vendedor nos últimos 59 dias, mas estão há pelo menos 21 dias sem comprar e ramo de atividade (id) diferente de 29 e frequência histórica indefinida ou frequência histórica de compra de pelo menos 14 dias e ativos para o vendedor e sem ser de compra única com o vendedor)",
+      "tratados_antes_por": [
+        "R2",
+        "R5"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        21,
+        59
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R8",
+      "posicao": 8,
+      "nome": "Freq. de 14d para 'Em ruptura: risco de ficar inativo' (RA 29)",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao do vendedor entre 60 dias e 89 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 89 dias, mas estão há pelo menos 60 dias sem comprar",
+          "reconhecida": true
+        },
+        {
+          "codigo": "ramo de atividade igual(\"29\")",
+          "significado": "ramo de atividade (id) igual a 29",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis e no sabado",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 89 dias, mas estão há mais de 59 dias sem comprar e ramo de atividade (id) igual a 29",
+      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 89 dias, mas estão há mais de 59 dias sem comprar e ramo de atividade (id) igual a 29 e não ativos para o vendedor e sem ser de compra única com o vendedor) OU (compraram com o próprio vendedor nos últimos 89 dias, mas estão há mais de 59 dias sem comprar e ramo de atividade (id) igual a 29 e frequência histórica indefinida ou frequência histórica de compra de pelo menos 14 dias e ativos para o vendedor e sem ser de compra única com o vendedor)",
+      "tratados_antes_por": [
+        "R2",
+        "R5"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        60,
+        89
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R9",
+      "posicao": 9,
+      "nome": "Freq. de 14d para 'Em ruptura: risco de ficar inativo'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao do vendedor entre 60 dias e 89 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 89 dias, mas estão há pelo menos 60 dias sem comprar",
+          "reconhecida": true
+        },
+        {
+          "codigo": "ramo de atividade diferente(\"29\")",
+          "significado": "ramo de atividade (id) diferente de 29",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis e no sabado",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 89 dias, mas estão há mais de 59 dias sem comprar e ramo de atividade (id) diferente de 29",
+      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 89 dias, mas estão há mais de 59 dias sem comprar e ramo de atividade (id) diferente de 29 e não ativos para o vendedor e sem ser de compra única com o vendedor) OU (compraram com o próprio vendedor nos últimos 89 dias, mas estão há mais de 59 dias sem comprar e ramo de atividade (id) diferente de 29 e frequência histórica indefinida ou frequência histórica de compra de pelo menos 14 dias e ativos para o vendedor e sem ser de compra única com o vendedor)",
+      "tratados_antes_por": [
+        "R2",
+        "R5"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        60,
+        89
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R10",
+      "posicao": 10,
+      "nome": "Freq. de 10d para 'Resgate de cliente sem compra'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao do vendedor em 90 dias",
+          "significado": "sem comprar com o próprio vendedor há mais de 90 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 10 dias",
+          "significado": "frequência de 10 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "preferencia nos dias uteis e no sabado",
+          "significado": "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar com o próprio vendedor há mais de 90 dias",
+      "condicao_efetiva": "(sem comprar com o próprio vendedor há mais de 90 dias e não ativos para o vendedor e sem ser de compra única com o vendedor) OU (sem comprar com o próprio vendedor há mais de 90 dias e frequência histórica indefinida ou frequência histórica de compra de pelo menos 14 dias e ativos para o vendedor e sem ser de compra única com o vendedor)",
+      "tratados_antes_por": [
+        "R2",
+        "R5"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        10,
+        90
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {
+    "do time televendas": "((nunca compraram com o próprio vendedor ou compraram com o próprio vendedor nos últimos 20 dias ou compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 89 dias sem comprar) e não ativos para o vendedor e sem ser de compra única com o vendedor) OU ((nunca compraram com o próprio vendedor ou compraram com o próprio vendedor nos últimos 20 dias ou compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 89 dias sem comprar) e frequência histórica indefinida ou frequência histórica de compra de pelo menos 14 dias e ativos para o vendedor e sem ser de compra única com o vendedor)"
+  },
+  "alertas": [
+    "A cascata mistura escopos de recência de compra (grupo: Freq. de 21d para 'Ativado: fez um pedido e ainda não comprou mais', Freq. de 14d para 'Ativado: fez um pedido e ainda não comprou mais'; vendedor: Freq. de 30d para 'Ativo: estimular a regularidade de compra', Freq. de 14d para 'Ativo: estimular a regularidade de compra', Freq. de 14d para 'Em ruptura: risco de ficar inativo' (RA 29)); faixas de escopos diferentes não se excluem automaticamente e podem se sobrepor ou deixar lacunas."
+  ],
+  "numeros_obrigatorios": [
+    10,
+    14,
+    21,
+    30,
+    59,
+    60,
+    89,
+    90
+  ],
+  "numeros_permitidos": [
+    10,
+    14,
+    21,
+    29,
+    30,
+    59,
+    60,
+    89,
+    90
+  ],
+  "premissas_usadas": [
+    "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+    "P2: Escopos de recência (grupo, vendedor, global) são medidas distintas, ordenadas: global <= grupo <= vendedor."
+  ]
+}

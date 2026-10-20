@@ -1,0 +1,125 @@
+{
+ "arquivo": "regra_221.gobr",
+ "comentarios": [
+  "Definição de times",
+  "Regras de agendamento"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Este cliente foi pré-qualificado! Aproveite a oportunidade e ative este novo cliente!!!",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "sem vendas para o vendedor"
+  },
+  {
+   "id": "R2",
+   "nome": "Este cliente foi ativado! Mantenha ele ativo em sua carteira!!!",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "sem comprar há mais de 30 dias e com alguma venda (ativos ou inativos) para o vendedor e com uma única compra com o vendedor",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R3",
+   "nome": "Cliente com compra regular e com bom histórico de compra!!!",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram nos últimos 30 dias, mas estão há mais de 21 dias sem comprar e com alguma venda (ativos ou inativos) para o vendedor",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R4",
+   "nome": "Estimule a regularidade de compra deste cliente, pois ele está entre 30 e 60 dias sem comprar!!!",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "((compraram nos últimos 21 dias ou sem comprar há mais de 60 dias) e com alguma venda (ativos ou inativos) para o vendedor e sem ser de compra única com o vendedor) OU (compraram nos últimos 21 dias e com alguma venda (ativos ou inativos) para o vendedor e com uma única compra com o vendedor)",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3"
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Atenção!!! Cliente deixando de comprar com você! Ele está entre 60 e 90 dias sem comprar!",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias",
+    "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e com alguma venda (ativos ou inativos) para o vendedor e sem ser de compra única com o vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3",
+    "R4"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Atenção!!! Resgate este cliente caso ele seja perfil!",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias",
+    "[não traduzido: preferencia nos dias uteis e no sabado\"]"
+   ],
+   "condicao_efetiva": null,
+   "condicao_propria": "(compraram nos últimos 90 dias ou sem comprar há mais de 360 dias)",
+   "tratados_antes_por": [
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5"
+   ],
+   "inalcancavel": true,
+   "clausulas_desconhecidas": [
+    "preferencia nos dias uteis e no sabado\""
+   ],
+   "alertas": [
+    "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Este cliente foi pré-qualificado! Aproveite a oportunidade e ative este novo cliente!!!\", \"Este cliente foi ativado! Mantenha ele ativo em sua carteira!!!\", \"Cliente com compra regular e com bom histórico de compra!!!\", \"Estimule a regularidade de compra deste cliente, pois ele está entre 30 e 60 dias sem comprar!!!\", \"Atenção!!! Cliente deixando de comprar com você! Ele está entre 60 e 90 dias sem comprar!\".",
+    "Trecho não reconhecido (possível erro de sintaxe): preferencia nos dias uteis e no sabado\""
+   ]
+  }
+ ],
+ "nao_cobertos": {
+  "do time televendas": "nunca compraram e com alguma venda (ativos ou inativos) para o vendedor"
+ },
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'."
+ ]
+}

@@ -1,0 +1,524 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_163.gobr",
+  "sha256": "4b9ebdcbbc1f8eb2d6797107dbea2be29cf919366bee9b1922282f88f58dd82c",
+  "comentarios": [
+    "Definição de times",
+    "Definição de carteiras por ramo de atividade",
+    "Definição de parâmetros",
+    "CONSTRUTORAS",
+    "MATCOM"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "televendas",
+      "definicao": "todos os vendedores de televendas habilitados no Govendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "construtora",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [
+        {
+          "codigo": "ramo de atividade igual(\"3\",\"6\",\"15\",\"16\")",
+          "significado": "ramo de atividade (id) em: 15, 16, 3, 6",
+          "reconhecida": true
+        }
+      ],
+      "livre": true
+    },
+    {
+      "id": "C2",
+      "nome": "matcom",
+      "definicao": "carteira fixa dos vendedores do time televendas",
+      "filtros": [
+        {
+          "codigo": "ramo de atividade diferente(\"3\",\"6\",\"15\",\"16\")",
+          "significado": "ramo de atividade (id) fora de: 15, 16, 3, 6",
+          "reconhecida": true
+        }
+      ],
+      "livre": true
+    }
+  ],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Não agendar clientes com venda em 30d (Construtoras)"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Não agendar clientes com venda em 30d (Construtoras)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira construtora",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao em 30 dias",
+          "significado": "compraram nos últimos 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "compraram nos últimos 30 dias",
+      "condicao_efetiva": "compraram nos últimos 30 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Ative um novo cliente em sua carteira (Construtoras)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira construtora",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "sem venda do vendedor",
+          "significado": "sem vendas para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 30 dias",
+          "significado": "frequência de 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem vendas para o vendedor",
+      "condicao_efetiva": "(nunca compraram ou sem comprar há mais de 30 dias) e sem vendas para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Estabeleça relacionamento com seu novo cliente (Construtoras)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira construtora",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "unica compra com o vendedor",
+          "significado": "com uma única compra com o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fora da recencia de positivacao em 60 dias",
+          "significado": "sem comprar há mais de 60 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar há mais de 60 dias e com uma única compra com o vendedor",
+      "condicao_efetiva": "sem comprar há mais de 60 dias e com alguma venda (ativos ou inativos) para o vendedor e com uma única compra com o vendedor",
+      "tratados_antes_por": [
+        "R2"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        21,
+        60
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Estimule a regularidade de compra do seu cliente (Construtoras)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira construtora",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao do vendedor entre 31 dias e 60 dias",
+          "significado": "(compraram com o próprio vendedor nos últimos 30 dias ou sem comprar com o próprio vendedor há mais de 60 dias)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 28 dias",
+          "significado": "frequência de 28 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "(compraram com o próprio vendedor nos últimos 30 dias ou sem comprar com o próprio vendedor há mais de 60 dias)",
+      "condicao_efetiva": "(sem comprar no grupo de vendedores há mais de 30 dias e (compraram com o próprio vendedor nos últimos 30 dias ou sem comprar com o próprio vendedor há mais de 60 dias) e com alguma venda (ativos ou inativos) para o vendedor e sem ser de compra única com o vendedor) OU (compraram no grupo de vendedores nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e (compraram com o próprio vendedor nos últimos 30 dias ou sem comprar com o próprio vendedor há mais de 60 dias) e com alguma venda (ativos ou inativos) para o vendedor e com uma única compra com o vendedor)",
+      "tratados_antes_por": [
+        "R2",
+        "R3"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        28,
+        31,
+        60
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Cliente entrando em ruptura (Construtoras)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira construtora",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao do vendedor entre 61 dias e 90 dias",
+          "significado": "(compraram com o próprio vendedor nos últimos 60 dias ou sem comprar com o próprio vendedor há mais de 90 dias)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "(compraram com o próprio vendedor nos últimos 60 dias ou sem comprar com o próprio vendedor há mais de 90 dias)",
+      "condicao_efetiva": "(sem comprar no grupo de vendedores há mais de 30 dias e compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e com alguma venda (ativos ou inativos) para o vendedor e sem ser de compra única com o vendedor) OU (compraram no grupo de vendedores nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e com alguma venda (ativos ou inativos) para o vendedor e com uma única compra com o vendedor)",
+      "tratados_antes_por": [
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        61,
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Garanta que este cliente se mantenha ativo, pois ele está perdendo relacionamento com você! (Construtoras)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira construtora",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "((nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 30 dias) e nunca compraram com o próprio vendedor e com alguma venda (ativos ou inativos) para o vendedor e sem ser de compra única com o vendedor) OU ((nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 60 dias, mas estão há mais de 30 dias sem comprar) e nunca compraram com o próprio vendedor e com alguma venda (ativos ou inativos) para o vendedor e com uma única compra com o vendedor)",
+      "tratados_antes_por": [
+        "R2",
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Ative um novo cliente em sua carteira (Matcom)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira matcom",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "sem venda do vendedor",
+          "significado": "sem vendas para o vendedor",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem vendas para o vendedor",
+      "condicao_efetiva": "sem vendas para o vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R8",
+      "posicao": 8,
+      "nome": "Estabeleça relacionamento com seu novo cliente (Matcom)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira matcom",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "unica compra com o vendedor",
+          "significado": "com uma única compra com o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fora da recencia de positivacao em 30 dias",
+          "significado": "sem comprar há mais de 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar há mais de 30 dias e com uma única compra com o vendedor",
+      "condicao_efetiva": "sem comprar há mais de 30 dias e com alguma venda (ativos ou inativos) para o vendedor e com uma única compra com o vendedor",
+      "tratados_antes_por": [
+        "R7"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R9",
+      "posicao": 9,
+      "nome": "Cliente que compra com regularidade (Matcom)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira matcom",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao entre 7 dias e 30 dias",
+          "significado": "compraram nos últimos 30 dias, mas estão há pelo menos 7 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia do historico ou no minimo de 7 dias e no maximo de 30 dias",
+          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no mínimo 7 dias e no máximo 30 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 30 dias, mas estão há mais de 6 dias sem comprar",
+      "condicao_efetiva": "compraram nos últimos 30 dias, mas estão há mais de 6 dias sem comprar e com alguma venda (ativos ou inativos) para o vendedor",
+      "tratados_antes_por": [
+        "R7"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        7,
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R10",
+      "posicao": 10,
+      "nome": "Estimule a regularidade de compra do seu cliente (Matcom)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira matcom",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao do vendedor entre 31 dias e 60 dias",
+          "significado": "(compraram com o próprio vendedor nos últimos 30 dias ou sem comprar com o próprio vendedor há mais de 60 dias)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "(compraram com o próprio vendedor nos últimos 30 dias ou sem comprar com o próprio vendedor há mais de 60 dias)",
+      "condicao_efetiva": "((compraram no grupo de vendedores nos últimos 6 dias ou sem comprar no grupo de vendedores há mais de 30 dias) e (compraram com o próprio vendedor nos últimos 30 dias ou sem comprar com o próprio vendedor há mais de 60 dias) e com alguma venda (ativos ou inativos) para o vendedor e sem ser de compra única com o vendedor) OU (compraram no grupo de vendedores nos últimos 6 dias e (compraram com o próprio vendedor nos últimos 30 dias ou sem comprar com o próprio vendedor há mais de 60 dias) e com alguma venda (ativos ou inativos) para o vendedor e com uma única compra com o vendedor)",
+      "tratados_antes_por": [
+        "R7",
+        "R8",
+        "R9"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        31,
+        60
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R11",
+      "posicao": 11,
+      "nome": "Cliente entrando em ruptura (Matcom)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira matcom",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao do vendedor entre 61 dias e 90 dias",
+          "significado": "(compraram com o próprio vendedor nos últimos 60 dias ou sem comprar com o próprio vendedor há mais de 90 dias)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "(compraram com o próprio vendedor nos últimos 60 dias ou sem comprar com o próprio vendedor há mais de 90 dias)",
+      "condicao_efetiva": "((compraram no grupo de vendedores nos últimos 6 dias ou sem comprar no grupo de vendedores há mais de 30 dias) e compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e com alguma venda (ativos ou inativos) para o vendedor e sem ser de compra única com o vendedor) OU (compraram no grupo de vendedores nos últimos 6 dias e compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e com alguma venda (ativos ou inativos) para o vendedor e com uma única compra com o vendedor)",
+      "tratados_antes_por": [
+        "R7",
+        "R8",
+        "R9",
+        "R10"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        7,
+        61,
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R12",
+      "posicao": 12,
+      "nome": "Garanta que este cliente se mantenha ativo, pois ele está perdendo relacionamento com você! (Matcom)",
+      "tipo_bloco": "parametros",
+      "fonte": "da carteira matcom",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 7 dias",
+          "significado": "frequência de 7 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "((nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 6 dias ou sem comprar no grupo de vendedores há mais de 30 dias) e nunca compraram com o próprio vendedor e com alguma venda (ativos ou inativos) para o vendedor e sem ser de compra única com o vendedor) OU ((nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 6 dias) e nunca compraram com o próprio vendedor e com alguma venda (ativos ou inativos) para o vendedor e com uma única compra com o vendedor)",
+      "tratados_antes_por": [
+        "R7",
+        "R8",
+        "R9",
+        "R10",
+        "R11"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        7
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [
+    "A cascata mistura escopos de recência de compra (grupo: Não agendar clientes com venda em 30d (Construtoras), Estabeleça relacionamento com seu novo cliente (Construtoras), Estabeleça relacionamento com seu novo cliente (Matcom); vendedor: Estimule a regularidade de compra do seu cliente (Construtoras), Cliente entrando em ruptura (Construtoras), Estimule a regularidade de compra do seu cliente (Matcom)); faixas de escopos diferentes não se excluem automaticamente e podem se sobrepor ou deixar lacunas."
+  ],
+  "numeros_obrigatorios": [
+    7,
+    14,
+    21,
+    28,
+    30,
+    31,
+    60,
+    61,
+    90
+  ],
+  "numeros_permitidos": [
+    3,
+    6,
+    7,
+    14,
+    15,
+    16,
+    21,
+    28,
+    30,
+    31,
+    60,
+    61,
+    90
+  ],
+  "premissas_usadas": [
+    "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+    "P2: Escopos de recência (grupo, vendedor, global) são medidas distintas, ordenadas: global <= grupo <= vendedor.",
+    "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+    "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+  ]
+}

@@ -1,0 +1,336 @@
+{
+ "arquivo": "regra_245.gobr",
+ "comentarios": [
+  "Obs.: Em teste!",
+  "TIMES",
+  "REGRAS PARA CARTEIRAS DE ROTAS POR CIDADE",
+  "PARÂMETROS DE PLANEJAMENTO",
+  "NÃO AGENDAMENTO",
+  "AGENDAMENTO PARA ROTA TODOS OS DIAS",
+  "(D+2)",
+  "AGENDAMENTO PARA SEGUNDA",
+  "AGENDAMENTO PARA TERÇA",
+  "AGENDAMENTO PARA QUARTA",
+  "AGENDAMENTO PARA QUINTA",
+  "AGENDAMENTO PARA SEXTA",
+  "DEMAIS CIDADES - NÃO INFORMADAS NAS ROTAS",
+  "(D-1)"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "rota_todo_dia",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": [
+    "cidade em: AMERICANA, ATIBAIA, BOM JESUS DOS PERDOES, CAMPINAS, HORTOLANDIA, INDAIATUBA e mais 13"
+   ],
+   "livre": true
+  },
+  {
+   "id": "C2",
+   "nome": "rota_segunda",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": [
+    "cidade em: AGUAS DE LINDOIA, AGUAS DE SANTA BARBARA, AMPARO, ARACOIABA DA SERRA, BRAGANCA PAULISTA, CAMPO LIMPO PAULISTA e mais 12"
+   ],
+   "livre": true
+  },
+  {
+   "id": "C3",
+   "nome": "rota_terca",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": [
+    "cidade em: ARTUR NOGUEIRA, BRAGANCA PAULISTA, CABREUVA, CAPIVARI, CONCHAL, CONCHAS e mais 33"
+   ],
+   "livre": true
+  },
+  {
+   "id": "C4",
+   "nome": "rota_quarta",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": [
+    "cidade em: AGUAI, AGUAS DE LINDOIA, AGUAS DE SAO PEDRO, AMPARO, ARACOIABA DA SERRA, ARARAS e mais 29"
+   ],
+   "livre": true
+  },
+  {
+   "id": "C5",
+   "nome": "rota_quinta",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": [
+    "cidade em: AGUAS DE SANTA BARBARA, ARANDU, ARTUR NOGUEIRA, AVARE, BOTUCATU, BRAGANCA PAULISTA e mais 25"
+   ],
+   "livre": true
+  },
+  {
+   "id": "C6",
+   "nome": "rota_sexta",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": [
+    "cidade em: AGUAI, AGUAS DE SAO PEDRO, ARACOIABA DA SERRA, ARARAS, BOITUVA, CAMPO LIMPO PAULISTA e mais 29"
+   ],
+   "livre": true
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Não agendar Inadimplentes",
+  "Não agendar baixados na Receita",
+  "Não agendar sem crédito",
+  "Não agendar clientes com compra em 60d"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Não agendar Inadimplentes",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "inadimplentes"
+  },
+  {
+   "id": "R2",
+   "nome": "Não agendar baixados na Receita",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "com situação baixada na Receita Federal"
+  },
+  {
+   "id": "R3",
+   "nome": "Não agendar sem crédito",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "sem crédito disponível"
+  },
+  {
+   "id": "R4",
+   "nome": "Não agendar clientes com compra em 60d",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "compraram nos últimos 60 dias"
+  },
+  {
+   "id": "R5",
+   "nome": "Com atendimento/venda na semana / Rota: Todos os dias - Agendar para semana seguinte (freq. do hist.)",
+   "fonte": "da carteira rota_todo_dia",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência calculada pelo histórico de compras; se não houver, limitada a no mínimo 7 dias e no máximo 14 dias"
+   ],
+   "condicao_efetiva": "com visita na semana atual"
+  },
+  {
+   "id": "R6",
+   "nome": "Sem atendimento/venda na semana / Rota: Todos os dias - Agendar para semana corrente (freq. do hist. +2)",
+   "fonte": "da carteira rota_todo_dia",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência calculada pelo histórico de compras mais 2 dias; se não houver, limitada a no mínimo 3 dias e no máximo 7 dias"
+   ],
+   "condicao_efetiva": "não (com visita na semana atual)",
+   "tratados_antes_por": [
+    "R5"
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Com atendimento/venda na semana / Rota: Ter / Pref. de agend.: Seg",
+   "fonte": "da carteira rota_terca",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias",
+    "dias de atendimento - maior preferência: segunda; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "com visita na semana atual"
+  },
+  {
+   "id": "R8",
+   "nome": "Sem atendimento/venda na semana / Rota: Ter / Pref. de agend.: Seg",
+   "fonte": "da carteira rota_terca",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias",
+    "dias de atendimento - maior preferência: segunda; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "não (com visita na semana atual)",
+   "tratados_antes_por": [
+    "R7"
+   ]
+  },
+  {
+   "id": "R9",
+   "nome": "Com atendimento/venda na semana / Rota: Qua / Pref. de agend.: Ter",
+   "fonte": "da carteira rota_quarta",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias",
+    "dias de atendimento - maior preferência: terça; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "com visita na semana atual"
+  },
+  {
+   "id": "R10",
+   "nome": "Sem atendimento/venda na semana / Rota: Qua / Pref. de agend.: Ter",
+   "fonte": "da carteira rota_quarta",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias",
+    "dias de atendimento - maior preferência: terça; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "não (com visita na semana atual)",
+   "tratados_antes_por": [
+    "R9"
+   ]
+  },
+  {
+   "id": "R11",
+   "nome": "Com atendimento/venda na semana / Rota: Qui / Pref. de agend.: Qua",
+   "fonte": "da carteira rota_quinta",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias",
+    "dias de atendimento - maior preferência: quarta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "com visita na semana atual"
+  },
+  {
+   "id": "R12",
+   "nome": "Sem atendimento/venda na semana / Rota: Qui / Pref. de agend.: Qua",
+   "fonte": "da carteira rota_quinta",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias",
+    "dias de atendimento - maior preferência: quarta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "não (com visita na semana atual)",
+   "tratados_antes_por": [
+    "R11"
+   ]
+  },
+  {
+   "id": "R13",
+   "nome": "Com atendimento/venda na semana / Rota: Sex / Pref. de agend.: Qui",
+   "fonte": "da carteira rota_sexta",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias",
+    "dias de atendimento - maior preferência: quinta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "com visita na semana atual"
+  },
+  {
+   "id": "R14",
+   "nome": "Sem atendimento/venda na semana / Rota: Sex / Pref. de agend.: Qui",
+   "fonte": "da carteira rota_sexta",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias",
+    "dias de atendimento - maior preferência: quinta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "não (com visita na semana atual)",
+   "tratados_antes_por": [
+    "R13"
+   ]
+  },
+  {
+   "id": "R15",
+   "nome": "Com atendimento/venda na semana / Rota: Seg / Pref. de agend.: Sex",
+   "fonte": "da carteira rota_segunda",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias",
+    "dias de atendimento - maior preferência: sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "com visita na semana atual"
+  },
+  {
+   "id": "R16",
+   "nome": "Sem atendimento/venda na semana / Rota: Seg / Pref. de agend.: Sex",
+   "fonte": "da carteira rota_segunda",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias",
+    "dias de atendimento - maior preferência: sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "não (com visita na semana atual)",
+   "tratados_antes_por": [
+    "R15"
+   ]
+  },
+  {
+   "id": "R17",
+   "nome": "Com atendimento/venda na semana - Cidades não informadas nas rotas - Agendar para semana seguinte (freq. do hist.)",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência calculada pelo histórico de compras; se não houver, limitada a no mínimo 7 dias e no máximo 14 dias"
+   ],
+   "condicao_efetiva": "fora da carteira rota_quarta, rota_quinta, rota_segunda, rota_sexta, rota_terca, rota_todo_dia e com visita na semana atual",
+   "tratados_antes_por": [
+    "R5",
+    "R7",
+    "R9",
+    "R11",
+    "R13",
+    "R15"
+   ]
+  },
+  {
+   "id": "R18",
+   "nome": "Sem atendimento/venda na semana - Cidades não informadas nas rotas - Agendar para semana corrente (freq. do hist. -1)",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência calculada pelo histórico de compras menos 1 dias; se não houver, limitada a no mínimo 1 dias e no máximo 7 dias"
+   ],
+   "condicao_efetiva": "fora da carteira rota_quarta, rota_quinta, rota_segunda, rota_sexta, rota_terca, rota_todo_dia e não (com visita na semana atual)",
+   "tratados_antes_por": [
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9",
+    "R10",
+    "R11",
+    "R12",
+    "R13",
+    "R14",
+    "R15",
+    "R16",
+    "R17"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [
+  "As carteiras \"rota_segunda\" e \"rota_terca\" compartilham 2 valor(es) de nome da cidade (BRAGANCA PAULISTA, PIRACAIA): esses clientes aparecem nas duas.",
+  "As carteiras \"rota_segunda\" e \"rota_quarta\" compartilham 15 valor(es) de nome da cidade (AGUAS DE LINDOIA, AMPARO, ARACOIABA DA SERRA, BRAGANCA PAULISTA, CAMPO LIMPO PAULISTA...): esses clientes aparecem nas duas.",
+  "As carteiras \"rota_segunda\" e \"rota_quinta\" compartilham 4 valor(es) de nome da cidade (AGUAS DE SANTA BARBARA, BRAGANCA PAULISTA, ITATINGA, PIRACAIA): esses clientes aparecem nas duas.",
+  "As carteiras \"rota_segunda\" e \"rota_sexta\" compartilham 3 valor(es) de nome da cidade (ARACOIABA DA SERRA, CAMPO LIMPO PAULISTA, SAO PEDRO): esses clientes aparecem nas duas.",
+  "As carteiras \"rota_terca\" e \"rota_quarta\" compartilham 4 valor(es) de nome da cidade (BRAGANCA PAULISTA, PIRACAIA, SOROCABA, VOTORANTIM): esses clientes aparecem nas duas.",
+  "As carteiras \"rota_terca\" e \"rota_quinta\" compartilham 25 valor(es) de nome da cidade (ARTUR NOGUEIRA, BRAGANCA PAULISTA, CABREUVA, CAPIVARI, CONCHAL...): esses clientes aparecem nas duas.",
+  "As carteiras \"rota_terca\" e \"rota_sexta\" compartilham 14 valor(es) de nome da cidade (CORDEIROPOLIS, IRACEMAPOLIS, LIMEIRA, MAIRIPORA, NAZARE PAULISTA...): esses clientes aparecem nas duas.",
+  "As carteiras \"rota_quarta\" e \"rota_quinta\" compartilham 2 valor(es) de nome da cidade (BRAGANCA PAULISTA, PIRACAIA): esses clientes aparecem nas duas.",
+  "As carteiras \"rota_quarta\" e \"rota_sexta\" compartilham 23 valor(es) de nome da cidade (AGUAI, AGUAS DE SAO PEDRO, ARACOIABA DA SERRA, ARARAS, BOITUVA...): esses clientes aparecem nas duas."
+ ],
+ "premissas_usadas": [
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

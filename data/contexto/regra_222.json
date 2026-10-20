@@ -1,0 +1,367 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_222.gobr",
+  "sha256": "06e5aa5d9c7cd4ad3601196a5806670e7abcdbc6ad64391d5b534f12238cf2e5",
+  "comentarios": [
+    "Definição dos times:",
+    "Regras do time \"ruptura_global\":",
+    "Regras do time \"carteira\":"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "ruptura_global",
+      "definicao": "os vendedores de id 8506, 8507, 8508, 8509, 8512",
+      "filtros": []
+    },
+    {
+      "id": "T2",
+      "nome": "carteira",
+      "definicao": "os vendedores de id 602, 607, 8406",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [],
+  "bloqueios": [],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Freq. de 14d para 'Sem venda há mais de 30d'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time ruptura_global",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "adimplentes",
+          "significado": "adimplentes",
+          "reconhecida": true
+        },
+        {
+          "codigo": "nao tem venda em 30 dias",
+          "significado": "(nunca compraram ou sem comprar há mais de 30 dias)",
+          "reconhecida": true
+        },
+        {
+          "codigo": "ramo de atividade igual(\"6\",\"7\",\"8\",\"10\",\"28\",\"32\",\"33\",\"37\",\"38\",\"40\",\"41\",\"42\")",
+          "significado": "ramo de atividade (id) em: 10, 28, 32, 33, 37, 38 e mais 6",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "(nunca compraram ou sem comprar há mais de 30 dias) e ramo de atividade (id) em: 10, 28, 32, 33, 37, 38 e mais 6 e adimplentes",
+      "condicao_efetiva": "(nunca compraram ou sem comprar há mais de 30 dias) e ramo de atividade (id) em: 10, 28, 32, 33, 37, 38 e mais 6 e adimplentes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Freq. de 14d para 'Sem venda há mais de 45d'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time ruptura_global",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "adimplentes",
+          "significado": "adimplentes",
+          "reconhecida": true
+        },
+        {
+          "codigo": "fora da recencia de positivacao em 45 dias",
+          "significado": "sem comprar há mais de 45 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "ramo de atividade igual(\"1\",\"2\",\"3\",\"4\",\"11\",\"12\",\"13\",\"14\",\"15\",\"16\",\"17\",\"18\",\"19\",\"20\",\"21\",\"22\",\"23\",\"24\",\"25\",\"26\",\"27\",\"29\",\"30\",\"31\",\"34\",\"35\",\"36\",\"39\",…",
+          "significado": "ramo de atividade (id) em: 1, 11, 12, 13, 14, 15 e mais 24",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar há mais de 45 dias e ramo de atividade (id) em: 1, 11, 12, 13, 14, 15 e mais 24 e adimplentes",
+      "condicao_efetiva": "sem comprar há mais de 45 dias e ramo de atividade (id) em: 1, 11, 12, 13, 14, 15 e mais 24 e adimplentes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        45
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Freq. de 14d para curva A e com compra em 90 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time carteira",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao em 90 dias",
+          "significado": "compraram nos últimos 90 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "curva a com a empresa",
+          "significado": "curva A com a empresa",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 90 dias e curva A com a empresa",
+      "condicao_efetiva": "compraram nos últimos 90 dias e curva A com a empresa",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Freq. de 21d para curva B e com compra em 90 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time carteira",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao em 90 dias",
+          "significado": "compraram nos últimos 90 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "curva b com a empresa",
+          "significado": "curva B com a empresa",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 90 dias e curva B com a empresa",
+      "condicao_efetiva": "compraram nos últimos 90 dias e curva B com a empresa",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        21,
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Freq. de 28d para curva C e com compra em 90 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time carteira",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao em 90 dias",
+          "significado": "compraram nos últimos 90 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "curva c com a empresa",
+          "significado": "curva C com a empresa",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 28 dias",
+          "significado": "frequência de 28 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 90 dias e curva C com a empresa",
+      "condicao_efetiva": "compraram nos últimos 90 dias e curva C com a empresa",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        28,
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Freq. de 21d para sem classificação de curva e com compra em 90 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time carteira",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao em 90 dias",
+          "significado": "compraram nos últimos 90 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 90 dias",
+      "condicao_efetiva": "compraram nos últimos 90 dias e fora da curva A nem B nem C com a empresa",
+      "tratados_antes_por": [
+        "R3",
+        "R4",
+        "R5"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        21,
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Freq. de 21d para sem compra há mais de 90 dias",
+      "tipo_bloco": "parametros",
+      "fonte": "do time carteira",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "(nunca compraram ou sem comprar há mais de 90 dias)",
+      "tratados_antes_por": [
+        "R3",
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        21
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {
+    "do time ruptura_global": "várias combinações de clientes não são cobertas por nenhuma regra"
+  },
+  "alertas": [],
+  "numeros_obrigatorios": [
+    14,
+    21,
+    28,
+    30,
+    45,
+    90
+  ],
+  "numeros_permitidos": [
+    1,
+    2,
+    3,
+    4,
+    6,
+    7,
+    8,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    45,
+    50,
+    90,
+    99,
+    602,
+    607,
+    8406,
+    8506,
+    8507,
+    8508,
+    8509,
+    8512
+  ],
+  "premissas_usadas": [
+    "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+    "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+  ]
+}

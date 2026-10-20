@@ -1,0 +1,139 @@
+{
+ "arquivo": "regra_195.gobr",
+ "comentarios": [
+  "Definição de times",
+  "Regras de planejamento"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Não agendar PF",
+  "Não agendar Baixados na Receita",
+  "Não agendar clientes com pedido em 7d"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Não agendar PF",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "pessoa física"
+  },
+  {
+   "id": "R2",
+   "nome": "Não agendar Baixados na Receita",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "com situação baixada na Receita Federal"
+  },
+  {
+   "id": "R3",
+   "nome": "Não agendar clientes com pedido em 7d",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "compraram nos últimos 7 dias"
+  },
+  {
+   "id": "R4",
+   "nome": "Manter contato com cliente que comprou no mês",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "compraram nos últimos 30 dias, mas estão há mais de 7 dias sem comprar"
+  },
+  {
+   "id": "R5",
+   "nome": "Ativação de novos",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa"
+  },
+  {
+   "id": "R6",
+   "nome": "Fazer relacionamento com o cliente",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 30 dias) e com uma única compra na empresa",
+   "tratados_antes_por": [
+    "R4",
+    "R5"
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Manter a regularidade de compra",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "sem comprar no grupo de vendedores há mais de 30 dias e compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e sem ser de compra única na empresa",
+   "tratados_antes_por": [
+    "R4",
+    "R6"
+   ]
+  },
+  {
+   "id": "R8",
+   "nome": "Atuar para que o cliente não fique inativo",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "sem comprar no grupo de vendedores há mais de 30 dias e compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e sem ser de compra única na empresa",
+   "tratados_antes_por": [
+    "R4",
+    "R6"
+   ]
+  },
+  {
+   "id": "R9",
+   "nome": "Resgatar o cliente inativo",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 30 dias) e (nunca compraram com o próprio vendedor ou compraram com o próprio vendedor nos últimos 30 dias ou sem comprar com o próprio vendedor há mais de 90 dias) e sem ser de compra única na empresa",
+   "tratados_antes_por": [
+    "R4",
+    "R5",
+    "R6",
+    "R7",
+    "R8"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [
+  "A cascata mistura escopos de recência de compra (grupo: Não agendar clientes com pedido em 7d, Manter contato com cliente que comprou no mês; vendedor: Manter a regularidade de compra, Atuar para que o cliente não fique inativo); faixas de escopos diferentes não se excluem automaticamente e podem se sobrepor ou deixar lacunas."
+ ],
+ "premissas_usadas": [
+  "P2: Escopos de recência (grupo, vendedor, global) são medidas distintas, ordenadas: global <= grupo <= vendedor.",
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+ ]
+}

@@ -1,0 +1,57 @@
+{
+ "arquivo": "regra_079.gobr",
+ "comentarios": [
+  "Definição dos times:",
+  "Parâmetros de não agendamento:",
+  "Parâmetros de agendamento:"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores habilitados no Govendas"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Girardi: Não agendar ramos de atividade diferente de 12, 13, 14, 15, 16, 17, 18 e 19"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Girardi: Não agendar ramos de atividade diferente de 12, 13, 14, 15, 16, 17, 18 e 19",
+   "fonte": "do time televendas",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "ramo de atividade (id) fora de: 12, 13, 14, 15, 16, 17 e mais 2"
+  },
+  {
+   "id": "R2",
+   "nome": "Girardi: 7d para ramo de atividade 12",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 7 dias"
+   ],
+   "condicao_efetiva": "ramo de atividade (id) igual a 12"
+  },
+  {
+   "id": "R3",
+   "nome": "Girardi: 14d para ramos de atividade 13, 14, 15, 16, 17, 18 e 19",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "ramo de atividade (id) em: 13, 14, 15, 16, 17, 18 e mais 1",
+   "tratados_antes_por": [
+    "R2"
+   ]
+  }
+ ],
+ "nao_cobertos": {},
+ "alertas_do_arquivo": [],
+ "premissas_usadas": []
+}

@@ -1,0 +1,151 @@
+{
+ "arquivo": "regra_139.gobr",
+ "comentarios": [
+  "Definição de times",
+  "Regras de não agendamento (farm_venda na base)",
+  "Regras de não agendamento (todos)",
+  "Regras de agendamento (hunter_ativacao de novos)",
+  "Regras de agendamento (farm_venda na base)"
+ ],
+ "times": [
+  {
+   "nome": "hunter_ativacao de novos",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas, exceto os de id 10185, 1824"
+  },
+  {
+   "nome": "farm_venda na base",
+   "definicao": "os vendedores de id 10185, 1824"
+  }
+ ],
+ "carteiras": [],
+ "segmentacoes": [],
+ "bloqueios": [
+  "Não agendar Prospects",
+  "Não agendar inadimplentes",
+  "Não agendar bloqueados"
+ ],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Não agendar Prospects",
+   "fonte": "do time farm_venda na base",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa"
+  },
+  {
+   "id": "R2",
+   "nome": "Não agendar inadimplentes",
+   "fonte": "do time hunter_ativacao de novos, farm_venda na base",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "(do time hunter_ativacao de novos e inadimplentes) OU (do time farm_venda na base e inadimplentes)"
+  },
+  {
+   "id": "R3",
+   "nome": "Não agendar bloqueados",
+   "fonte": "do time hunter_ativacao de novos, farm_venda na base",
+   "acao_principal": "nao_agendar",
+   "acoes": [
+    "não agendar"
+   ],
+   "condicao_efetiva": "(do time hunter_ativacao de novos e bloqueados para atendimento) OU (do time farm_venda na base e bloqueados para atendimento)"
+  },
+  {
+   "id": "R4",
+   "nome": "Freq. do histórico para 'Padrão de compra em até 30d'",
+   "fonte": "do time hunter_ativacao de novos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 30 dias"
+   ],
+   "condicao_efetiva": "frequência histórica de compra de até 30 dias"
+  },
+  {
+   "id": "R5",
+   "nome": "Freq. de 21d para 'Padrão de compra entre 30d e 90d'",
+   "fonte": "do time hunter_ativacao de novos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "frequência histórica de compra entre 31 e 90 dias"
+  },
+  {
+   "id": "R6",
+   "nome": "Freq. de 30d para 'Padrão de compra maior que 90d'",
+   "fonte": "do time hunter_ativacao de novos",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "frequência histórica indefinida ou frequência histórica de compra de mais de 90 dias",
+   "tratados_antes_por": [
+    "R4",
+    "R5"
+   ]
+  },
+  {
+   "id": "R7",
+   "nome": "Freq. de 30d para 'Estimular regularidade de compra'",
+   "fonte": "do time farm_venda na base",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 30 dias"
+   ],
+   "condicao_efetiva": "compraram com o próprio vendedor nos últimos 90 dias, mas estão há pelo menos 45 dias sem comprar"
+  },
+  {
+   "id": "R8",
+   "nome": "Freq. de 25d para 'Risco de inatividade'",
+   "fonte": "do time farm_venda na base",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 25 dias"
+   ],
+   "condicao_efetiva": "compraram com o próprio vendedor nos últimos 180 dias, mas estão há mais de 90 dias sem comprar"
+  },
+  {
+   "id": "R9",
+   "nome": "Freq. de 21d para 'Resgate de cliente sem compra - Inativos'",
+   "fonte": "do time farm_venda na base",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 21 dias"
+   ],
+   "condicao_efetiva": "(nunca compraram com o próprio vendedor ou compraram com o próprio vendedor nos últimos 44 dias ou sem comprar com o próprio vendedor há mais de 180 dias) e inativos para o vendedor",
+   "tratados_antes_por": [
+    "R7",
+    "R8"
+   ]
+  },
+  {
+   "id": "R10",
+   "nome": "Freq. do histórico para 'Alta frequência de compra'",
+   "fonte": "do time farm_venda na base",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência calculada pelo histórico de compras; se não houver, limitada a no mínimo 40 dias e no máximo 45 dias"
+   ],
+   "condicao_efetiva": "(nunca compraram com o próprio vendedor ou compraram com o próprio vendedor nos últimos 44 dias ou sem comprar com o próprio vendedor há mais de 180 dias) e frequência histórica de compra de menos de 45 dias e não inativos para o vendedor",
+   "tratados_antes_por": [
+    "R7",
+    "R8",
+    "R9"
+   ]
+  }
+ ],
+ "nao_cobertos": {
+  "do time farm_venda na base": "(nunca compraram com o próprio vendedor ou compraram com o próprio vendedor nos últimos 44 dias ou sem comprar com o próprio vendedor há mais de 180 dias) e frequência histórica indefinida ou frequência histórica de compra de pelo menos 45 dias e não inativos para o vendedor",
+  "do time hunter_ativacao de novos, farm_venda na base": "(nunca compraram com o próprio vendedor ou compraram com o próprio vendedor nos últimos 44 dias ou sem comprar com o próprio vendedor há mais de 180 dias) e frequência histórica indefinida ou frequência histórica de compra de pelo menos 45 dias e não inativos para o vendedor"
+ },
+ "alertas_do_arquivo": [],
+ "premissas_usadas": [
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado.",
+  "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+ ]
+}

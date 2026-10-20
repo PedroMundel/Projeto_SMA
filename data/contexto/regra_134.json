@@ -1,0 +1,54 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_134.gobr",
+  "sha256": "97a362a093db4db2ecd31bdce117607cfb7e8cfb8087b0c444b5e982a3e8832e",
+  "comentarios": [],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "toda empresa",
+      "definicao": "todos os vendedores habilitados no Govendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [],
+  "bloqueios": [],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Regra padrão da Linavet: Frequencia de 15 dias para todos os clientes",
+      "tipo_bloco": "parametros",
+      "fonte": "do time toda empresa",
+      "quando_executa": [],
+      "filtros": [],
+      "acoes": [
+        {
+          "codigo": "frequencia de 15 dias",
+          "significado": "frequência de 15 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "todos os clientes da fonte (sem filtro)",
+      "condicao_efetiva": "todos os clientes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        15
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {},
+  "alertas": [],
+  "numeros_obrigatorios": [
+    15
+  ],
+  "numeros_permitidos": [
+    15
+  ],
+  "premissas_usadas": []
+}

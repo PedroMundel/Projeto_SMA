@@ -1,0 +1,157 @@
+{
+ "arquivo": "regra_205.gobr",
+ "comentarios": [
+  "Definição de times",
+  "Definição de carteiras para rotas",
+  "Definição de parâmetros",
+  "POR PERFIL",
+  "POR ROTA",
+  "Quinta ou Segunda",
+  "Terça",
+  "Quarta",
+  "Sexta"
+ ],
+ "times": [
+  {
+   "nome": "televendas",
+   "definicao": "todos os vendedores de televendas habilitados no Govendas"
+  }
+ ],
+ "carteiras": [
+  {
+   "id": "C1",
+   "nome": "rota_quinta_segunda",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": [
+    "cidade igual a PONTA GROSSA"
+   ],
+   "livre": true
+  },
+  {
+   "id": "C2",
+   "nome": "rota_terca",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": [
+    "cidade em: ARAPOTI, GUAMIRANGA, IMBITUVA, IPIRANGA, ITARARe, IVAI e mais 6"
+   ],
+   "livre": true
+  },
+  {
+   "id": "C3",
+   "nome": "rota_quarta",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": [
+    "cidade em: CACADOR, CANDIDO DE ABREU, CANOINHAS, IMBAU, LAPA, ORTIGUEIRA e mais 10"
+   ],
+   "livre": true
+  },
+  {
+   "id": "C4",
+   "nome": "rota_sexta",
+   "definicao": "carteira fixa dos vendedores do time televendas",
+   "filtros": [
+    "cidade em: ADRINOPOLIS, AGUDOS DO SUL, ALMIRANTE TAMANDARE, ARAUCARIA, BALSA NOVA, BOCAIUVA DO SUL e mais 37"
+   ],
+   "livre": true
+  }
+ ],
+ "segmentacoes": [],
+ "bloqueios": [],
+ "regras": [
+  {
+   "id": "R1",
+   "nome": "Freq. de 28d para Prospects",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 28 dias"
+   ],
+   "condicao_efetiva": "nunca compraram com o próprio vendedor"
+  },
+  {
+   "id": "R2",
+   "nome": "Freq. de 14d para Inativos",
+   "fonte": "do time televendas",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência de 14 dias"
+   ],
+   "condicao_efetiva": "sem comprar no grupo de vendedores há mais de 90 dias e já compraram com o próprio vendedor",
+   "tratados_antes_por": [
+    "R1"
+   ]
+  },
+  {
+   "id": "R3",
+   "nome": "Cliente ativo na rota de hoje (Quinta ou Segunda)",
+   "fonte": "da carteira rota_quinta_segunda",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: segunda, quinta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram no grupo de vendedores nos últimos 90 dias e já compraram com o próprio vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R2"
+   ]
+  },
+  {
+   "id": "R4",
+   "nome": "Cliente ativo na rota de hoje (Terça)",
+   "fonte": "da carteira rota_terca",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: terça; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram no grupo de vendedores nos últimos 90 dias e já compraram com o próprio vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R2"
+   ]
+  },
+  {
+   "id": "R5",
+   "nome": "Cliente ativo na rota de hoje (Quarta)",
+   "fonte": "da carteira rota_quarta",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: quarta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram no grupo de vendedores nos últimos 90 dias e já compraram com o próprio vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R2"
+   ]
+  },
+  {
+   "id": "R6",
+   "nome": "Cliente ativo na rota de hoje (Sexta)",
+   "fonte": "da carteira rota_sexta",
+   "acao_principal": "frequencia",
+   "acoes": [
+    "frequência semanal (7 dias)",
+    "dias de atendimento - preferência: sexta; demais dias sem atendimento"
+   ],
+   "condicao_efetiva": "compraram no grupo de vendedores nos últimos 90 dias e já compraram com o próprio vendedor",
+   "tratados_antes_por": [
+    "R1",
+    "R2"
+   ]
+  }
+ ],
+ "nao_cobertos": {
+  "do time televendas": "compraram no grupo de vendedores nos últimos 90 dias e já compraram com o próprio vendedor e fora da carteira rota_quarta, rota_quinta_segunda, rota_sexta, rota_terca"
+ },
+ "alertas_do_arquivo": [
+  "As carteiras \"rota_terca\" e \"rota_sexta\" compartilham 4 valor(es) de nome da cidade (IMBITUVA, IPIRANGA, IVAI, PRUDENTOPOLIS): esses clientes aparecem nas duas.",
+  "As carteiras \"rota_quarta\" e \"rota_sexta\" compartilham 1 valor(es) de nome da cidade (LAPA): esses clientes aparecem nas duas."
+ ],
+ "premissas_usadas": [
+  "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado.",
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+ ]
+}

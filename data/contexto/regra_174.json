@@ -1,0 +1,562 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_174.gobr",
+  "sha256": "6172bf6fc521f952e3138f9b5f1dbbcb6a1a75920f6afbde49af6c914d13a7f5",
+  "comentarios": [
+    "Definição de times:",
+    "Regras de não agendamento:",
+    "Regras de agendamento:"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "televendas",
+      "definicao": "todos os vendedores de televendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [],
+  "bloqueios": [
+    "Não agendar inadimplentes",
+    "Não agendar Baixados na Receita"
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Não agendar inadimplentes",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "inadimplentes",
+          "significado": "inadimplentes",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "inadimplentes",
+      "condicao_efetiva": "inadimplentes",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Não agendar Baixados na Receita",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "status na receita federal definido como baixada",
+          "significado": "com situação baixada na Receita Federal",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "nao agendar",
+          "significado": "não agendar",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "nao_agendar",
+      "condicao_propria": "com situação baixada na Receita Federal",
+      "condicao_efetiva": "com situação baixada na Receita Federal",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1"
+      ],
+      "inalcancavel": false,
+      "numeros": [],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Freq. de 14d para 'Prospect: Cliente potencial'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "no ciclo de vida prospect com o vendedor",
+          "significado": "prospects (nunca compraram com o próprio vendedor)",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "nunca compraram com o próprio vendedor",
+      "condicao_efetiva": "nunca compraram com o próprio vendedor",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Freq. de 21d para 'Ativado: fez um pedido e ainda não comprou mais'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "unica compra com o vendedor",
+          "significado": "com uma única compra com o vendedor",
+          "reconhecida": true
+        },
+        {
+          "codigo": "cadastrado faz 60 dias",
+          "significado": "cadastrados no ERP há pelo menos 60 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "cadastrados no ERP há pelo menos 60 dias e com uma única compra com o vendedor",
+      "condicao_efetiva": "já compraram com o próprio vendedor e cadastrados no ERP há pelo menos 60 dias e com uma única compra com o vendedor",
+      "tratados_antes_por": [
+        "R3"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21,
+        60
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Freq. do histórico para 'Ativo: Alta frequência de compra'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao do vendedor em 30 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 30 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "frequencia historica menor que 14 dias",
+          "significado": "frequência histórica de compra de menos de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia do historico ou no minimo de 10 dias e no maximo de 14 dias",
+          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no mínimo 10 dias e no máximo 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 30 dias e frequência histórica de compra de menos de 14 dias",
+      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 30 dias e frequência histórica de compra de menos de 14 dias e sem ser de compra única com o vendedor) OU (compraram com o próprio vendedor nos últimos 30 dias e não (cadastrados no ERP há pelo menos 60 dias) e frequência histórica de compra de menos de 14 dias e com uma única compra com o vendedor)",
+      "tratados_antes_por": [
+        "R4"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        10,
+        14,
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Freq. do histórico para 'Ativo: compra regularmente'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao do vendedor em 60 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 60 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "frequencia historica menor que 30 dias",
+          "significado": "frequência histórica de compra de menos de 30 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "ramo de atividade igual(\"9\",\"18\")",
+          "significado": "ramo de atividade (id) em: 18, 9",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia do historico ou no minimo de 14 dias e no maximo de 21 dias",
+          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no mínimo 14 dias e no máximo 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 60 dias e ramo de atividade (id) em: 18, 9 e frequência histórica de compra de menos de 30 dias",
+      "condicao_efetiva": null,
+      "tratados_antes_por": [
+        "R4",
+        "R5"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        21,
+        30,
+        60
+      ],
+      "alertas": [
+        "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+      ]
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Freq. de 28d para 'Ativo: compra regularmente'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao do vendedor em 60 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 60 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "frequencia historica menor que 30 dias",
+          "significado": "frequência histórica de compra de menos de 30 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "ramo de atividade diferente(\"9\",\"18\")",
+          "significado": "ramo de atividade (id) fora de: 18, 9",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 28 dias",
+          "significado": "frequência de 28 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 60 dias e ramo de atividade (id) fora de: 18, 9 e frequência histórica de compra de menos de 30 dias",
+      "condicao_efetiva": null,
+      "tratados_antes_por": [
+        "R4",
+        "R5"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        28,
+        30,
+        60
+      ],
+      "alertas": [
+        "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+      ]
+    },
+    {
+      "id": "R8",
+      "posicao": 8,
+      "nome": "Freq. de 14d para 'Ativo: estimular a regularidade de compra'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao do vendedor entre 21 dias e 60 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 60 dias, mas estão há pelo menos 21 dias sem comprar",
+          "reconhecida": true
+        },
+        {
+          "codigo": "ramo de atividade igual(\"9\",\"18\")",
+          "significado": "ramo de atividade (id) em: 18, 9",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 60 dias, mas estão há pelo menos 21 dias sem comprar e ramo de atividade (id) em: 18, 9",
+      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 60 dias, mas estão há pelo menos 21 dias sem comprar e ramo de atividade (id) em: 18, 9 e frequência histórica indefinida ou frequência histórica de compra de pelo menos 30 dias e sem ser de compra única com o vendedor) OU (compraram com o próprio vendedor nos últimos 60 dias, mas estão há pelo menos 21 dias sem comprar e ramo de atividade (id) em: 18, 9 e não (cadastrados no ERP há pelo menos 60 dias) e frequência histórica indefinida ou frequência histórica de compra de pelo menos 30 dias e com uma única compra com o vendedor)",
+      "tratados_antes_por": [
+        "R4",
+        "R5",
+        "R6"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        21,
+        60
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R9",
+      "posicao": 9,
+      "nome": "Freq. de 21d para 'Ativo: estimular a regularidade de compra'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao do vendedor entre 21 dias e 60 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 60 dias, mas estão há pelo menos 21 dias sem comprar",
+          "reconhecida": true
+        },
+        {
+          "codigo": "ramo de atividade diferente(\"9\",\"18\")",
+          "significado": "ramo de atividade (id) fora de: 18, 9",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 60 dias, mas estão há pelo menos 21 dias sem comprar e ramo de atividade (id) fora de: 18, 9",
+      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 60 dias, mas estão há pelo menos 21 dias sem comprar e ramo de atividade (id) fora de: 18, 9 e frequência histórica indefinida ou frequência histórica de compra de pelo menos 30 dias e sem ser de compra única com o vendedor) OU (compraram com o próprio vendedor nos últimos 60 dias, mas estão há pelo menos 21 dias sem comprar e ramo de atividade (id) fora de: 18, 9 e não (cadastrados no ERP há pelo menos 60 dias) e frequência histórica indefinida ou frequência histórica de compra de pelo menos 30 dias e com uma única compra com o vendedor)",
+      "tratados_antes_por": [
+        "R4",
+        "R5",
+        "R7"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21,
+        60
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R10",
+      "posicao": 10,
+      "nome": "Freq. de 14d para 'Em ruptura: risco de ficar inativo para os ramos 9 e 18'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao do vendedor entre 61 dias e 90 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 90 dias, mas estão há pelo menos 61 dias sem comprar",
+          "reconhecida": true
+        },
+        {
+          "codigo": "ramo de atividade igual(\"9\",\"18\")",
+          "significado": "ramo de atividade (id) em: 18, 9",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e ramo de atividade (id) em: 18, 9",
+      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e ramo de atividade (id) em: 18, 9 e sem ser de compra única com o vendedor) OU (compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e ramo de atividade (id) em: 18, 9 e não (cadastrados no ERP há pelo menos 60 dias) e com uma única compra com o vendedor)",
+      "tratados_antes_por": [
+        "R4"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        61,
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R11",
+      "posicao": 11,
+      "nome": "Freq. de 14d para 'Em ruptura: risco de ficar inativo'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "recencia de positivacao do vendedor entre 61 dias e 90 dias",
+          "significado": "compraram com o próprio vendedor nos últimos 90 dias, mas estão há pelo menos 61 dias sem comprar",
+          "reconhecida": true
+        },
+        {
+          "codigo": "ramo de atividade diferente(\"9\",\"18\")",
+          "significado": "ramo de atividade (id) fora de: 18, 9",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 14 dias",
+          "significado": "frequência de 14 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e ramo de atividade (id) fora de: 18, 9",
+      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e ramo de atividade (id) fora de: 18, 9 e sem ser de compra única com o vendedor) OU (compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e ramo de atividade (id) fora de: 18, 9 e não (cadastrados no ERP há pelo menos 60 dias) e com uma única compra com o vendedor)",
+      "tratados_antes_por": [
+        "R4"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        14,
+        61,
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R12",
+      "posicao": 12,
+      "nome": "Freq. de 21d para 'Inativo: reativar cliente sem compra'",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "fora da recencia de positivacao do vendedor em 90 dias",
+          "significado": "sem comprar com o próprio vendedor há mais de 90 dias",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "sem comprar com o próprio vendedor há mais de 90 dias",
+      "condicao_efetiva": "(sem comprar com o próprio vendedor há mais de 90 dias e sem ser de compra única com o vendedor) OU (sem comprar com o próprio vendedor há mais de 90 dias e não (cadastrados no ERP há pelo menos 60 dias) e com uma única compra com o vendedor)",
+      "tratados_antes_por": [
+        "R4"
+      ],
+      "bloqueios_anteriores": [
+        "R1",
+        "R2"
+      ],
+      "inalcancavel": false,
+      "numeros": [
+        21,
+        90
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {
+    "do time televendas": "(compraram com o próprio vendedor nos últimos 20 dias e frequência histórica indefinida ou frequência histórica de compra de pelo menos 30 dias e sem ser de compra única com o vendedor) OU (compraram com o próprio vendedor nos últimos 20 dias e não (cadastrados no ERP há pelo menos 60 dias) e frequência histórica indefinida ou frequência histórica de compra de pelo menos 30 dias e com uma única compra com o vendedor)"
+  },
+  "alertas": [],
+  "numeros_obrigatorios": [
+    10,
+    14,
+    21,
+    28,
+    30,
+    60,
+    61,
+    90
+  ],
+  "numeros_permitidos": [
+    9,
+    10,
+    14,
+    18,
+    21,
+    28,
+    30,
+    60,
+    61,
+    90
+  ],
+  "premissas_usadas": [
+    "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
+    "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+  ]
+}

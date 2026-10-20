@@ -1,0 +1,346 @@
+{
+  "versao_pacote": "2",
+  "arquivo": "regra_242.gobr",
+  "sha256": "e654a5bfb82445903c3cd0e4d7f1907c261cb9a29c95fe0e40047e0b00f1c050",
+  "comentarios": [
+    "Definição de times",
+    "Parâmetros de planejamento"
+  ],
+  "times": [
+    {
+      "id": "T1",
+      "nome": "televendas",
+      "definicao": "todos os vendedores de televendas habilitados no Govendas",
+      "filtros": []
+    }
+  ],
+  "carteiras": [],
+  "segmentacoes": [],
+  "bloqueios": [],
+  "regras": [
+    {
+      "id": "R1",
+      "posicao": 1,
+      "nome": "Freq. hist. de 0 a 30d - sem compra em 20d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "frequencia historica entre 0 dias e 30 dias",
+          "significado": "frequência histórica de compra de até 30 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao entre 20 dias e 30 dias",
+          "significado": "compraram nos últimos 30 dias, mas estão há pelo menos 20 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 30 dias, mas estão há pelo menos 20 dias sem comprar e frequência histórica de compra de até 30 dias",
+      "condicao_efetiva": "compraram nos últimos 30 dias, mas estão há pelo menos 20 dias sem comprar e frequência histórica de compra de até 30 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        0,
+        20,
+        21,
+        30
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R2",
+      "posicao": 2,
+      "nome": "Freq. hist. de 31 a 60d - sem compra em 29d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "frequencia historica entre 31 dias e 60 dias",
+          "significado": "frequência histórica de compra entre 31 e 60 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao entre 29 dias e 44 dias",
+          "significado": "compraram nos últimos 44 dias, mas estão há pelo menos 29 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 44 dias, mas estão há pelo menos 29 dias sem comprar e frequência histórica de compra entre 31 e 60 dias",
+      "condicao_efetiva": "compraram nos últimos 44 dias, mas estão há pelo menos 29 dias sem comprar e frequência histórica de compra entre 31 e 60 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        21,
+        29,
+        31,
+        44,
+        60
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R3",
+      "posicao": 3,
+      "nome": "Freq. hist. de 31 a 60d - sem compra em 44d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "frequencia historica entre 31 dias e 60 dias",
+          "significado": "frequência histórica de compra entre 31 e 60 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao entre 44 dias e 60 dias",
+          "significado": "compraram nos últimos 60 dias, mas estão há pelo menos 44 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 60 dias, mas estão há pelo menos 44 dias sem comprar e frequência histórica de compra entre 31 e 60 dias",
+      "condicao_efetiva": "compraram nos últimos 60 dias, mas estão há mais de 44 dias sem comprar e frequência histórica de compra entre 31 e 60 dias",
+      "tratados_antes_por": [
+        "R2"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        21,
+        31,
+        44,
+        60
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R4",
+      "posicao": 4,
+      "nome": "Freq. hist. de 61 a 90d - sem compra em 60d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "frequencia historica entre 61 dias e 90 dias",
+          "significado": "frequência histórica de compra entre 61 e 90 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao entre 61 dias e 90 dias",
+          "significado": "compraram nos últimos 90 dias, mas estão há pelo menos 61 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 15 dias",
+          "significado": "frequência de 15 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e frequência histórica de compra entre 61 e 90 dias",
+      "condicao_efetiva": "compraram nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e frequência histórica de compra entre 61 e 90 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        15,
+        61,
+        90
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R5",
+      "posicao": 5,
+      "nome": "Freq. hist. de 61 a 90d - sem compra em 90d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "frequencia historica entre 61 dias e 90 dias",
+          "significado": "frequência histórica de compra entre 61 e 90 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao entre 90 dias e 180 dias",
+          "significado": "compraram nos últimos 180 dias, mas estão há pelo menos 90 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 180 dias, mas estão há pelo menos 90 dias sem comprar e frequência histórica de compra entre 61 e 90 dias",
+      "condicao_efetiva": "compraram nos últimos 180 dias, mas estão há mais de 90 dias sem comprar e frequência histórica de compra entre 61 e 90 dias",
+      "tratados_antes_por": [
+        "R4"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        21,
+        61,
+        90,
+        180
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R6",
+      "posicao": 6,
+      "nome": "Freq. hist. de 91 a 180d - sem compra em 44d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "frequencia historica entre 91 dias e 180 dias",
+          "significado": "frequência histórica de compra entre 91 e 180 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao entre 44 dias e 120 dias",
+          "significado": "compraram nos últimos 120 dias, mas estão há pelo menos 44 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 21 dias",
+          "significado": "frequência de 21 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 120 dias, mas estão há pelo menos 44 dias sem comprar e frequência histórica de compra entre 91 e 180 dias",
+      "condicao_efetiva": "compraram nos últimos 120 dias, mas estão há pelo menos 44 dias sem comprar e frequência histórica de compra entre 91 e 180 dias",
+      "tratados_antes_por": [],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        21,
+        44,
+        91,
+        120,
+        180
+      ],
+      "alertas": []
+    },
+    {
+      "id": "R7",
+      "posicao": 7,
+      "nome": "Freq. hist. de 91 a 180d - sem compra em 120d",
+      "tipo_bloco": "parametros",
+      "fonte": "do time televendas",
+      "quando_executa": [],
+      "filtros": [
+        {
+          "codigo": "frequencia historica entre 91 dias e 180 dias",
+          "significado": "frequência histórica de compra entre 91 e 180 dias",
+          "reconhecida": true
+        },
+        {
+          "codigo": "recencia de positivacao entre 120 dias e 180 dias",
+          "significado": "compraram nos últimos 180 dias, mas estão há pelo menos 120 dias sem comprar",
+          "reconhecida": true
+        }
+      ],
+      "acoes": [
+        {
+          "codigo": "frequencia de 15 dias",
+          "significado": "frequência de 15 dias",
+          "reconhecida": true
+        }
+      ],
+      "acao_principal": "frequencia",
+      "condicao_propria": "compraram nos últimos 180 dias, mas estão há pelo menos 120 dias sem comprar e frequência histórica de compra entre 91 e 180 dias",
+      "condicao_efetiva": "compraram nos últimos 180 dias, mas estão há mais de 120 dias sem comprar e frequência histórica de compra entre 91 e 180 dias",
+      "tratados_antes_por": [
+        "R6"
+      ],
+      "bloqueios_anteriores": [],
+      "inalcancavel": false,
+      "numeros": [
+        15,
+        91,
+        120,
+        180
+      ],
+      "alertas": []
+    }
+  ],
+  "nao_cobertos": {
+    "do time televendas": "várias combinações de clientes não são cobertas por nenhuma regra"
+  },
+  "alertas": [],
+  "numeros_obrigatorios": [
+    0,
+    15,
+    20,
+    21,
+    29,
+    30,
+    31,
+    44,
+    60,
+    61,
+    90,
+    91,
+    120,
+    180
+  ],
+  "numeros_permitidos": [
+    0,
+    15,
+    20,
+    21,
+    29,
+    30,
+    31,
+    44,
+    60,
+    61,
+    90,
+    91,
+    120,
+    180
+  ],
+  "premissas_usadas": []
+}
