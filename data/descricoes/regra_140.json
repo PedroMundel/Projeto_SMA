@@ -1,0 +1,349 @@
+{
+  "resumo": "Regra de agendamento do time de televendas organizada por carteiras de rotas: uma de rotas em dias variáveis (10, 11, 8 e 9) e quatro de rotas fixas (3 e 4 na segunda, 5 na terça, 6 na quarta e 7 na sexta). Em cada carteira há cinco faixas por histórico de compra (primeira compra, compra regularmente, estimular a regularidade, risco de inatividade e sem compra há mais de 90 dias), todas com frequência de 7 dias. Deixam de ser agendados os clientes pessoa física, as filiais, os inadimplentes e os visitados nos últimos 3 dias. A regra final atende com 7 dias os clientes sem rota associada.",
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "rotas_dias_variaveis",
+      "descricao": "Carteira fixa dos vendedores de televendas com clientes das rotas 10, 11, 8 e 9"
+    },
+    {
+      "id": "C2",
+      "nome": "rotas 3 e 4",
+      "descricao": "Carteira fixa dos vendedores de televendas com clientes das rotas 3 e 4, exceto os já alocados em rotas_dias_variaveis"
+    },
+    {
+      "id": "C3",
+      "nome": "rota 5",
+      "descricao": "Carteira fixa dos vendedores de televendas com clientes da rota 5, exceto os já alocados em rotas_dias_variaveis e rotas 3 e 4"
+    },
+    {
+      "id": "C4",
+      "nome": "rota 6",
+      "descricao": "Carteira fixa dos vendedores de televendas com clientes da rota 6, exceto os já alocados em rotas_dias_variaveis, rotas 3 e 4 e rota 5"
+    },
+    {
+      "id": "C5",
+      "nome": "rota 7",
+      "descricao": "Carteira fixa dos vendedores de televendas com clientes da rota 7, exceto os já alocados em rotas_dias_variaveis, rotas 3 e 4, rota 5 e rota 6"
+    }
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Não agendar CPF",
+      "segmento": "Bloqueio: pessoa física",
+      "criterio": "Clientes pessoa física",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Não agendar Filiais",
+      "segmento": "Bloqueio: filiais",
+      "criterio": "Clientes que são filiais",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Não agendar Inadimplentes",
+      "segmento": "Bloqueio: inadimplentes",
+      "criterio": "Clientes inadimplentes",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Não agendar com visita recente",
+      "segmento": "Bloqueio: visita recente",
+      "criterio": "Clientes das carteiras de rotas que foram visitados nos últimos 3 dias",
+      "frequencia": "Não agendar",
+      "observacao": "Vale para as cinco carteiras de rotas",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Rotas 008, 009, 010 e 011 - Primeira compra",
+      "segmento": "Rotas dias variáveis: primeira compra",
+      "criterio": "Clientes da carteira de rotas em dias variáveis sem vendas para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Rotas 008, 009, 010 e 011 - Compra regularmente",
+      "segmento": "Rotas dias variáveis: compra regularmente",
+      "criterio": "Clientes que compraram com o próprio vendedor nos últimos 21 dias e têm alguma venda (ativos ou inativos) para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Rotas 008, 009, 010 e 011 - Estimular a regularidade de compra",
+      "segmento": "Rotas dias variáveis: estimular regularidade",
+      "criterio": "Clientes que compraram no grupo de vendedores nos últimos 41 dias, sem comprar há pelo menos 21 dias, e há mais de 21 dias sem comprar com o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "Inclui quem nunca comprou com o vendedor; exige alguma venda para o vendedor",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R8",
+      "nome": "Rotas 008, 009, 010 e 011 - Risco de inatividade",
+      "segmento": "Rotas dias variáveis: risco de inatividade",
+      "criterio": "Clientes que compraram nos últimos 90 dias, mas estão há mais de 41 dias sem comprar, com alguma venda (ativos ou inativos) para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R9",
+      "nome": "Rotas 008, 009, 010 e 011 - Cliente sem compra há mais de 90d",
+      "segmento": "Rotas dias variáveis: sem compra há mais de 90 dias",
+      "criterio": "Clientes há mais de 90 dias sem comprar, com alguma venda (ativos ou inativos) para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R10",
+      "nome": "Rotas 003 e 004 - Primeira compra",
+      "segmento": "Rotas 3 e 4: primeira compra",
+      "criterio": "Clientes da carteira das rotas 3 e 4 sem vendas para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "Preferência: segunda; demais dias sem atendimento; parametrização fixa",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R11",
+      "nome": "Rotas 003 e 004 - Compra regularmente",
+      "segmento": "Rotas 3 e 4: compra regularmente",
+      "criterio": "Clientes que compraram com o próprio vendedor nos últimos 21 dias e têm alguma venda (ativos ou inativos) para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "Preferência: segunda; demais dias sem atendimento; parametrização fixa",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R12",
+      "nome": "Rotas 003 e 004 - Estimular a regularidade de compra",
+      "segmento": "Rotas 3 e 4: estimular regularidade",
+      "criterio": "Clientes que compraram no grupo de vendedores nos últimos 41 dias, sem comprar há pelo menos 21 dias, e há mais de 21 dias sem comprar com o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "Preferência: segunda; fixo. Inclui quem nunca comprou com o vendedor; exige alguma venda para ele",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R13",
+      "nome": "Rotas 003 e 004 - Risco de inatividade",
+      "segmento": "Rotas 3 e 4: risco de inatividade",
+      "criterio": "Clientes que compraram nos últimos 90 dias, mas estão há mais de 41 dias sem comprar, com alguma venda (ativos ou inativos) para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "Preferência: segunda; demais dias sem atendimento; parametrização fixa",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R14",
+      "nome": "Rotas 003 e 004 - Cliente sem compra há mais de 90d",
+      "segmento": "Rotas 3 e 4: sem compra há mais de 90 dias",
+      "criterio": "Clientes há mais de 90 dias sem comprar, com alguma venda (ativos ou inativos) para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "Preferência: segunda; demais dias sem atendimento; parametrização fixa",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R15",
+      "nome": "Rota 005 - Primeira compra",
+      "segmento": "Rota 5: primeira compra",
+      "criterio": "Clientes da carteira da rota 5 sem vendas para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "Preferência: terça; demais dias sem atendimento; parametrização fixa",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R16",
+      "nome": "Rota 005 - Compra regularmente",
+      "segmento": "Rota 5: compra regularmente",
+      "criterio": "Clientes que compraram com o próprio vendedor nos últimos 21 dias e têm alguma venda (ativos ou inativos) para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "Preferência: terça; demais dias sem atendimento; parametrização fixa",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R17",
+      "nome": "Rota 005 - Estimular a regularidade de compra",
+      "segmento": "Rota 5: estimular regularidade",
+      "criterio": "Clientes que compraram no grupo de vendedores nos últimos 41 dias, sem comprar há pelo menos 21 dias, e há mais de 21 dias sem comprar com o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "Preferência: terça; fixo. Inclui quem nunca comprou com o vendedor; exige alguma venda para ele",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R18",
+      "nome": "Rota 005 - Risco de inatividade",
+      "segmento": "Rota 5: risco de inatividade",
+      "criterio": "Clientes que compraram nos últimos 90 dias, mas estão há mais de 41 dias sem comprar, com alguma venda (ativos ou inativos) para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "Preferência: terça; demais dias sem atendimento; parametrização fixa",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R19",
+      "nome": "Rota 005 - Cliente sem compra há mais de 90d",
+      "segmento": "Rota 5: sem compra há mais de 90 dias",
+      "criterio": "Clientes há mais de 90 dias sem comprar, com alguma venda (ativos ou inativos) para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "Preferência: terça; demais dias sem atendimento; parametrização fixa",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R20",
+      "nome": "Rota 006 - Primeira compra",
+      "segmento": "Rota 6: primeira compra",
+      "criterio": "Clientes da carteira da rota 6 sem vendas para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "Preferência: quarta; demais dias sem atendimento; parametrização fixa",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R21",
+      "nome": "Rota 006 - Compra regularmente",
+      "segmento": "Rota 6: compra regularmente",
+      "criterio": "Clientes que compraram com o próprio vendedor nos últimos 21 dias e têm alguma venda (ativos ou inativos) para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "Preferência: quarta; demais dias sem atendimento; parametrização fixa",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R22",
+      "nome": "Rota 006 - Estimular a regularidade de compra",
+      "segmento": "Rota 6: estimular regularidade",
+      "criterio": "Clientes que compraram no grupo de vendedores nos últimos 41 dias, sem comprar há pelo menos 21 dias, e há mais de 21 dias sem comprar com o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "Preferência: quarta; fixo. Inclui quem nunca comprou com o vendedor; exige alguma venda para ele",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R23",
+      "nome": "Rota 006 - Risco de inatividade",
+      "segmento": "Rota 6: risco de inatividade",
+      "criterio": "Clientes que compraram nos últimos 90 dias, mas estão há mais de 41 dias sem comprar, com alguma venda (ativos ou inativos) para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "Preferência: quarta; demais dias sem atendimento; parametrização fixa",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R24",
+      "nome": "Rota 006 - Cliente sem compra há mais de 90d",
+      "segmento": "Rota 6: sem compra há mais de 90 dias",
+      "criterio": "Clientes há mais de 90 dias sem comprar, com alguma venda (ativos ou inativos) para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "Preferência: quarta; demais dias sem atendimento; parametrização fixa",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R25",
+      "nome": "Rota 007 - Primeira compra",
+      "segmento": "Rota 7: primeira compra",
+      "criterio": "Clientes da carteira da rota 7 sem vendas para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "Preferência: sexta; demais dias sem atendimento; parametrização fixa",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R26",
+      "nome": "Rota 007 - Compra regularmente",
+      "segmento": "Rota 7: compra regularmente",
+      "criterio": "Clientes que compraram com o próprio vendedor nos últimos 21 dias e têm alguma venda (ativos ou inativos) para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "Preferência: sexta; demais dias sem atendimento; parametrização fixa",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R27",
+      "nome": "Rota 007 - Estimular a regularidade de compra",
+      "segmento": "Rota 7: estimular regularidade",
+      "criterio": "Clientes que compraram no grupo de vendedores nos últimos 41 dias, sem comprar há pelo menos 21 dias, e há mais de 21 dias sem comprar com o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "Preferência: sexta; fixo. Inclui quem nunca comprou com o vendedor; exige alguma venda para ele",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R28",
+      "nome": "Rota 007 - Risco de inatividade",
+      "segmento": "Rota 7: risco de inatividade",
+      "criterio": "Clientes que compraram nos últimos 90 dias, mas estão há mais de 41 dias sem comprar, com alguma venda (ativos ou inativos) para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "Preferência: sexta; demais dias sem atendimento; parametrização fixa",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R29",
+      "nome": "Rota 007 - Cliente sem compra há mais de 90d",
+      "segmento": "Rota 7: sem compra há mais de 90 dias",
+      "criterio": "Clientes há mais de 90 dias sem comprar, com alguma venda (ativos ou inativos) para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "Preferência: sexta; demais dias sem atendimento; parametrização fixa",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R30",
+      "nome": "CLIENTES SEM ROTAS ASSOCIADAS",
+      "segmento": "Clientes sem rota associada",
+      "criterio": "Clientes sem rota associada ou, em rota, que nunca compraram no grupo ou compraram nos últimos 20 dias, e estão há mais de 21 dias sem comprar com o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "Inclui quem nunca comprou com o vendedor; em rota, exige alguma venda para o vendedor",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [
+    "A sequência de regras mistura medidas de recência de compra (no grupo de vendedores e com o próprio vendedor) nas faixas de estimular a regularidade, risco de inatividade, sem compra há mais de 90 dias e compra regularmente; faixas de medidas diferentes não se excluem automaticamente e podem se sobrepor ou deixar lacunas.",
+    "O arquivo contém caracteres de controle invisíveis, possível erro de digitação."
+  ],
+  "consultas_hipoteticas": [
+    "Televendas: rotas 8, 9, 10 e 11 em dias variáveis, 7 dias; rotas 3 e 4 na segunda, rota 5 na terça, rota 6 na quarta, rota 7 na sexta, todas com 7 dias; faixas por compra: primeira compra, 21, 41 e 90 dias; não agendar CPF, filiais, inadimplentes e visita nos últimos 3 dias",
+    "A gente atende toda semana os clientes das rotas do televendas: as rotas 3 e 4 na segunda, a 5 na terça, a 6 na quarta e a 7 na sexta, e as demais rotas em dias variáveis. Não entram na agenda pessoa física, filial, inadimplente e quem foi visitado nos últimos 3 dias",
+    "Quero uma agenda semanal do televendas por rota, com dia fixo para algumas rotas, separando quem compra regularmente de quem está em risco, e sem agendar pessoa física nem inadimplente"
+  ],
+  "_meta": {
+    "arquivo": "regra_140.gobr",
+    "sha256_gobr": "608502f120b13ab385e337d6785c87c49d8de4934ab02af4b5664595ad96a05f",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:29+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_5.json",
+    "concordancia": 0.703
+  }
+}

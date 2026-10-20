@@ -1,0 +1,110 @@
+{
+  "resumo": "Regra de agendamento do time de televendas, com frequências de 7, 14, 21 e 28 dias conforme o histórico do cliente com o vendedor e o tempo desde a última compra. O atendimento tem preferência de segunda a sábado, e os demais dias ficam sem atendimento. Não há bloqueios de agenda, e a última regra nunca é aplicada.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Este cliente foi pré-qualificado! Aproveite a oportunidade e ative este novo cliente!!!",
+      "segmento": "Pré-qualificados",
+      "criterio": "Clientes sem vendas para o vendedor",
+      "frequencia": "21 dias",
+      "observacao": "Preferência de segunda a sábado; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Este cliente foi ativado! Mantenha ele ativo em sua carteira!!!",
+      "segmento": "Clientes ativados",
+      "criterio": "Clientes que estão há mais de 30 dias sem comprar, com alguma venda para o vendedor e uma única compra com ele",
+      "frequencia": "14 dias",
+      "observacao": "Preferência de segunda a sábado; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Cliente com compra regular e com bom histórico de compra!!!",
+      "segmento": "Compra regular",
+      "criterio": "Clientes que compraram nos últimos 30 dias, mas estão há mais de 21 dias sem comprar, e têm alguma venda para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "Preferência de segunda a sábado; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Estimule a regularidade de compra deste cliente, pois ele está entre 30 e 60 dias sem comprar!!!",
+      "segmento": "Estimular regularidade",
+      "criterio": "Clientes com venda para o vendedor que compraram nos últimos 21 dias ou, se não são de compra única, estão há mais de 60 dias sem comprar",
+      "frequencia": "14 dias",
+      "observacao": "Preferência de segunda a sábado; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Atenção!!! Cliente deixando de comprar com você! Ele está entre 60 e 90 dias sem comprar!",
+      "segmento": "Deixando de comprar",
+      "criterio": "Clientes que compraram nos últimos 60 dias, mas estão há mais de 30 dias sem comprar, com venda para o vendedor e sem ser de compra única",
+      "frequencia": "7 dias",
+      "observacao": "Preferência de segunda a sábado; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Atenção!!! Resgate este cliente caso ele seja perfil!",
+      "segmento": "Resgate de clientes",
+      "criterio": "Clientes que compraram nos últimos 90 dias ou estão há mais de 360 dias sem comprar [não traduzido: preferencia nos dias uteis e no sabado\"]",
+      "frequencia": "28 dias",
+      "observacao": "Nunca é aplicada: todos esses clientes já foram tratados antes",
+      "clausulas_nao_traduzidas": [
+        "preferencia nos dias uteis e no sabado\""
+      ]
+    }
+  ],
+  "pontos_de_atencao": [
+    "A regra 'Resgate este cliente caso ele seja perfil' nunca é aplicada: todos os clientes dela já são tratados por regras anteriores.",
+    "A regra 'Resgate este cliente caso ele seja perfil' tem um trecho não reconhecido, com possível erro de sintaxe: preferencia nos dias uteis e no sabado\"",
+    "Clientes do time televendas que nunca compraram e têm alguma venda (ativos ou inativos) para o vendedor não se enquadram em nenhuma regra e ficam sem parametrização."
+  ],
+  "consultas_hipoteticas": [
+    "Televendas: sem venda ao vendedor 21 dias; compra única parada há mais de 30 dias 14 dias; compra regular 14 dias; entre 30 e 60 dias 14 dias; entre 60 e 90 dias 7 dias; resgate 28 dias. Atendimento de segunda a sábado",
+    "A gente liga para clientes novos a cada 21 dias e para os que estão esfriando toda semana, quando passam de 60 dias sem comprar. Quem compra bem fica a cada 14 dias, e os de resgate a cada 28 dias. Pode ligar de segunda a sábado",
+    "Quero uma regra para o televendas com mensagens diferentes por situação do cliente: novo, ativado, regular, esfriando e resgate, com frequências de 7 a 28 dias"
+  ],
+  "_meta": {
+    "arquivo": "regra_221.gobr",
+    "sha256_gobr": "b2e50de1f8689e97b575cb6cf278a49699fe6f839d5958ef28e692a5556a58b1",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:31+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_3.json",
+    "concordancia": 0.712
+  }
+}

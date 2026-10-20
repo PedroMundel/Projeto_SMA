@@ -1,0 +1,150 @@
+{
+  "resumo": "Regra de agendamento do time televendas. Primeiro deixam de ser agendados os clientes que compraram com o próprio vendedor nos últimos 7 dias e os que têm rota nos próximos 7 dias. Depois vêm as faixas por tempo sem comprar (nunca compraram, 180 a 360 dias, compra entre 7 e 60 dias com rota e visita, até 90 e até 180 dias), e a regra final atende todos os demais clientes.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Não agendar clientes que compraram com o televendas em 7d.",
+      "segmento": "Bloqueio: compra recente com o vendedor",
+      "criterio": "Clientes que compraram com o próprio vendedor nos últimos 7 dias",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Não agendar clientes que tem rota em 7 dias à frente.",
+      "segmento": "Bloqueio: rota nos próximos dias",
+      "criterio": "Clientes com data de rota futura nos próximos 7 dias",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Ative este cliente! (Nunca tirou pedido)",
+      "segmento": "Nunca tirou pedido",
+      "criterio": "Clientes sem vendas para a empresa",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Ative este cliente!",
+      "segmento": "Ativar cliente",
+      "criterio": "Clientes que compraram nos últimos 360 dias, mas estão há pelo menos 180 dias sem comprar, com compra no ano anterior e alguma venda para a empresa",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Restabeleça relacionamento com este cliente que foi ativado!",
+      "segmento": "Restabelecer relacionamento",
+      "criterio": "Clientes que compraram com qualquer vendedor da empresa nos últimos 14 dias, com compra na empresa entre 181 e 360 dias atrás e sem compra entre 15 e 180 dias atrás",
+      "frequencia": "14 dias",
+      "observacao": "Com compra no ano anterior, exige: nunca comprou no grupo, comprou nele nos últimos 179 dias ou está há mais de 360 dias sem comprar.",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Mantenha a regularidade de compra do cliente que teve pedido detectado nos últimos 30d e foi visitado na semana anterior!",
+      "segmento": "Compra entre 7 e 30 dias, com rota e visita",
+      "criterio": "Clientes com compra na empresa entre 7 e 30 dias atrás, com data de rota há 7 dias e visita na semana anterior, exceto os já tratados pelas regras anteriores",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Garanta regularidade de compra e relacionamento com este cliente! Seu último pedido foi entre 30d e 60d atrás.",
+      "segmento": "Compra entre 31 e 60 dias, com rota e visita",
+      "criterio": "Clientes com compra na empresa entre 31 e 60 dias atrás, com data de rota há 7 dias e visita na semana anterior, exceto os já tratados pelas regras anteriores",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R8",
+      "nome": "Cliente caminhando para INATIVIDADE! Seu último pedido foi entre 60d e 90d atrás.",
+      "segmento": "Caminhando para inatividade",
+      "criterio": "Clientes que compraram com qualquer vendedor da empresa nos últimos 90 dias, mas estão há mais de 60 dias sem comprar, exceto os já tratados pelas regras anteriores",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R9",
+      "nome": "Resgaste este cliente! Seu último pedido foi entre 90d e 180d atrás.",
+      "segmento": "Resgate de inativos",
+      "criterio": "Clientes que compraram com qualquer vendedor da empresa nos últimos 180 dias, mas estão há mais de 90 dias sem comprar, exceto os já tratados pelas regras anteriores",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R10",
+      "nome": "Atendimento ao cliente que não se enquadrou nas demais regras.",
+      "segmento": "Demais clientes",
+      "criterio": "Todos os clientes do time televendas, exceto os já tratados pelas regras anteriores",
+      "frequencia": "28 dias",
+      "observacao": "Regra final: vale para quem sobrou das faixas anteriores",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [
+    "As faixas misturam medidas diferentes de última compra: na empresa toda ('Restabeleça relacionamento com este cliente que foi ativado!', 'Cliente caminhando para INATIVIDADE!...' e 'Resgaste este cliente!...'), no grupo de vendedores ('Ative este cliente!') e no próprio vendedor ('Não agendar clientes que compraram com o televendas em 7d.'). Por isso as faixas podem se sobrepor ou deixar lacunas."
+  ],
+  "consultas_hipoteticas": [
+    "Televendas: não agendar compra com o vendedor em 7 dias nem rota nos próximos 7 dias; sem vendas 14 dias; 180 a 360 dias 14 dias; inatividade 90 e resgate 180 dias a cada 7 dias; demais clientes 28 dias",
+    "A gente não liga pra quem comprou com o vendedor na última semana nem pra quem tem rota nos próximos 7 dias. Quem nunca comprou entra a cada 14 dias, quem está esfriando a cada 7 dias, e o resto a cada 28 dias",
+    "Quero agendar o televendas por tempo sem comprar, bloqueando clientes com compra ou rota recente, e com uma regra final para os demais"
+  ],
+  "_meta": {
+    "arquivo": "regra_186.gobr",
+    "sha256_gobr": "30580e8c4285a3ddab77a5428cb2f559f9711350ce6de899ae534d6134c51324",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:30+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": false,
+        "erros": [
+          "R5: faltam os números [179]"
+        ],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": false,
+        "erros": [
+          "R5: faltam os números [179]"
+        ],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": false,
+        "erros": [
+          "R5: faltam os números [179]"
+        ],
+        "avisos": []
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": false,
+        "erros": [
+          "R5: faltam os números [179]"
+        ],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_4.json",
+    "concordancia": 1.0
+  }
+}

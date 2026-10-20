@@ -1,0 +1,96 @@
+{
+  "resumo": "Regra de agendamento do time de televendas com três frequências: 7 dias para clientes novos e para os que compram com regularidade, e 17 dias para os que precisam de acompanhamento. Deixam de ser agendados os inadimplentes, as filiais e os clientes sem comprar com o próprio vendedor há mais de 90 dias.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Não agendar Inadimplentes",
+      "segmento": "Bloqueio: inadimplentes",
+      "criterio": "Clientes inadimplentes",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Não agendar filiais",
+      "segmento": "Bloqueio: filiais",
+      "criterio": "Clientes que são filiais",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "não agendar clientes fora de recencia em 90 dias",
+      "segmento": "Bloqueio: fora de recência (90 dias)",
+      "criterio": "Clientes que estão há mais de 90 dias sem comprar com o próprio vendedor",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Ative este novo cliente e aumente sua carteira!!!",
+      "segmento": "Novos clientes",
+      "criterio": "Clientes que nunca compraram com o próprio vendedor",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Cliente compra com regularidade!",
+      "segmento": "Compra com regularidade",
+      "criterio": "Clientes que compraram com o próprio vendedor nos últimos 30 dias e têm frequência histórica de compra de até 30 dias",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Cliente precisa de acompanhamento!",
+      "segmento": "Precisa de acompanhamento",
+      "criterio": "Clientes que compraram com o próprio vendedor nos últimos 30 dias e têm frequência histórica indefinida ou de mais de 30 dias",
+      "frequencia": "17 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [
+    "Todos os clientes do time televendas ficam fora de qualquer regra e sem parametrização, segundo a análise do pacote."
+  ],
+  "consultas_hipoteticas": [
+    "Televendas: novos clientes a cada 7 dias; compraram em 30 dias com frequência histórica até 30 dias a cada 7 dias; demais compradores de 30 dias a cada 17 dias; não agendar inadimplentes, filiais e sem compra há mais de 90 dias",
+    "A gente liga toda semana para cliente novo e para quem compra com regularidade, e de 17 em 17 dias para quem precisa de acompanhamento. Inadimplente, filial e quem está há mais de 90 dias sem comprar não entra na agenda",
+    "Quero agendar os clientes do televendas conforme a regularidade de compra com o vendedor, sem agendar inadimplentes nem filiais"
+  ],
+  "_meta": {
+    "arquivo": "regra_209.gobr",
+    "sha256_gobr": "db8058929224db435384fcf387ccc23d6872297ae29ee469a2df7a98337adf4b",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:30+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_1.json",
+    "concordancia": 0.917
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "resumo": "Regra de agendamento para dois times, televendas e campo, cada um com sua carteira fixa. Os clientes inadimplentes não são agendados. No televendas, clientes ativos para o vendedor têm frequência de 7 dias e os demais de 14 dias. No campo, ativos têm 7 dias e os não ativos 15 dias, com parametrização fixa de frequência e dias.",
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "carteira televendas",
+      "descricao": "Carteira fixa dos vendedores do time televendas"
+    },
+    {
+      "id": "C2",
+      "nome": "carteira campo",
+      "descricao": "Carteira fixa dos vendedores do time campo"
+    }
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Regra Padrao da Casa Cardao: nao agendar inadimplentes",
+      "segmento": "Bloqueio: inadimplentes",
+      "criterio": "Clientes inadimplentes",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Regra Padrao da Casa Cardao: 7 dias para clintes ativos",
+      "segmento": "Ativos (televendas)",
+      "criterio": "Clientes ativos para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Regra Padrao da Casa Cardao: 14 dias clintes inativos",
+      "segmento": "Inativos (televendas)",
+      "criterio": "Clientes que não estão ativos para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Regra Padrao da Casa Cardao - Frequencia 7 dias para clientes ativos (campo)",
+      "segmento": "Ativos (campo)",
+      "criterio": "Clientes ativos para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "Parametrização fixa: restrição rígida de frequência e dias para o gerador de agendas",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Regra Padrao da Casa Cardao - Frequencia de 15 dias para clientes inativos (campo)",
+      "segmento": "Inativos (campo)",
+      "criterio": "Clientes que não estão ativos para o vendedor",
+      "frequencia": "15 dias",
+      "observacao": "Parametrização fixa: restrição rígida de frequência e dias para o gerador de agendas",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Televendas: ativos 7 dias, inativos 14 dias; campo (carteira fixa): ativos 7 dias, inativos 15 dias; não agendar inadimplentes",
+    "Quero que o televendas ligue toda semana para quem está ativo e a cada 14 dias para o resto, e que o campo visite os ativos a cada 7 dias e os inativos a cada 15, com agenda fixa. Inadimplente fica fora",
+    "Frequência por time, separando clientes ativos e inativos, e sem agendar inadimplentes"
+  ],
+  "_meta": {
+    "arquivo": "regra_133.gobr",
+    "sha256_gobr": "c55c0c03ebd225be8b6a2c4cefe056a5743c2a194cb9d9b4f7bc7d8fafdf35c2",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:29+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_2.json",
+    "concordancia": 0.826
+  }
+}

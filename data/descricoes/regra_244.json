@@ -1,0 +1,116 @@
+{
+  "resumo": "Regra de agendamento do time de televendas por situação de compra do cliente com o próprio vendedor, em seis faixas: prospect, compra única, ativo com frequência histórica de até 7 dias, regularidade, ruptura e inativo. Não são agendadas as filiais e os inadimplentes. Parte dos clientes com compra recente não cai em nenhuma faixa.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Não agendar filiais",
+      "segmento": "Bloqueio: filiais",
+      "criterio": "Clientes que são filiais",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Não agendar inadimplentes",
+      "segmento": "Bloqueio: inadimplentes",
+      "criterio": "Clientes inadimplentes",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Prospect: Cliente potencial",
+      "segmento": "Prospects",
+      "criterio": "Clientes que nunca compraram com o próprio vendedor",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Ativado: Fez um pedido e ainda não comprou mais",
+      "segmento": "Ativados (compra única)",
+      "criterio": "Clientes que já compraram com o próprio vendedor, mas apenas uma vez",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Freq. histórica para Ativo: compra regularmente",
+      "segmento": "Ativos de compra regular",
+      "criterio": "Clientes ativos para o vendedor, com mais de uma compra e frequência histórica de compra de até 7 dias",
+      "frequencia": "Pelo histórico; sem histórico, entre 5 e 7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Estimular a regularidade de compra",
+      "segmento": "Estimular regularidade",
+      "criterio": "Clientes com mais de uma compra com o próprio vendedor, que compraram nos últimos 30 dias, mas estão há mais de 7 dias sem comprar",
+      "frequencia": "14 dias",
+      "observacao": "Não inclui ativos com frequência histórica de até 7 dias, tratados antes",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Em ruptura: risco de ficar inativo",
+      "segmento": "Em ruptura",
+      "criterio": "Clientes com mais de uma compra com o próprio vendedor, que compraram nos últimos 60 dias, mas estão há mais de 30 dias sem comprar",
+      "frequencia": "7 dias",
+      "observacao": "Não inclui ativos com frequência histórica de até 7 dias, tratados antes",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R8",
+      "nome": "Inativo: reativar cliente sem compra",
+      "segmento": "Inativos",
+      "criterio": "Clientes com mais de uma compra com o próprio vendedor, que estão há mais de 60 dias sem comprar",
+      "frequencia": "14 dias",
+      "observacao": "Não inclui ativos com frequência histórica de até 7 dias, tratados antes",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [
+    "Clientes que compraram com o próprio vendedor nos últimos 7 dias, sem ser de compra única, e que não são ativos ou têm frequência histórica indefinida ou de mais de 7 dias não se enquadram em nenhuma regra e ficam sem parametrização."
+  ],
+  "consultas_hipoteticas": [
+    "Televendas: prospect 14 dias; compra única 7 dias; ativo com frequência histórica até 7 dias pelo histórico (mín. 5, máx. 7); comprou em até 30 dias e parado há mais de 7 dias 14 dias; ruptura (60 dias, parado há mais de 30) 7 dias; inativo há mais de 60 dias 14 dias; não agendar filiais e inadimplentes",
+    "A gente quer ligar a cada 14 dias para quem nunca comprou com o vendedor e toda semana para quem fez só um pedido. Quem compra com regularidade segue o ritmo do histórico, e quem esfriou volta para a agenda de acordo com o tempo parado. Filial e inadimplente ficam fora",
+    "Agenda do televendas pelo ciclo de vida do cliente com o vendedor: prospect, primeira compra, ativo regular, em risco e inativo, sem filiais nem inadimplentes"
+  ],
+  "_meta": {
+    "arquivo": "regra_244.gobr",
+    "sha256_gobr": "f677bd3951f17bac678df1e9c5560fd735b90dc36dd5dff2983931276dfe1a3c",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:31+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": false,
+        "erros": [
+          "R8: faltam os números [7]"
+        ],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_1.json",
+    "concordancia": 0.802
+  }
+}

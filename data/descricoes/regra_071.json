@@ -1,0 +1,172 @@
+{
+  "resumo": "Regras de frequência por região e time: televendas PI, televendas PB, Tocantins, televendas geral e campo. Inativos inadimplentes têm frequência de 14 dias nas carteiras de PI, PB e Tocantins e de 30 dias no televendas geral; os demais clientes seguem o histórico de compras, limitado a no máximo 7 dias quando não há histórico. O time de campo atende todos os clientes a cada 7 dias. Não há regras de bloqueio.",
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "carteira televendas pi",
+      "descricao": "Carteira fixa dos vendedores do time televendas pi"
+    },
+    {
+      "id": "C2",
+      "nome": "carteira televendas pb",
+      "descricao": "Carteira fixa dos vendedores do time televendas pb"
+    },
+    {
+      "id": "C3",
+      "nome": "carteira tocantins",
+      "descricao": "Carteira fixa dos vendedores do time tocantins"
+    },
+    {
+      "id": "C4",
+      "nome": "carteira televendas",
+      "descricao": "Carteira fixa dos vendedores do time televendas"
+    }
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Regra Padrao da Palmed: 14 dias para inativos e inadimplentes",
+      "segmento": "Inativos inadimplentes (PI e PB)",
+      "criterio": "Clientes inadimplentes e inativos para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "Carteiras televendas pi e pb; atendimento de segunda a sexta; evita dias do time campo (só roteirizáveis)",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Regra Padrao da Palmed: Maximo 7 dias - PI",
+      "segmento": "Demais clientes (PI)",
+      "criterio": "Clientes que não são inativos para o vendedor ou que são adimplentes e inativos",
+      "frequencia": "Pelo histórico de compras; sem histórico, no máximo 7 dias",
+      "observacao": "Carteira televendas pi; atendimento de segunda a sábado; evita dias do time campo (só roteirizáveis)",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Regra Padrao da Palmed: maximo 7 dias - PB",
+      "segmento": "Demais clientes (PB)",
+      "criterio": "Clientes que não são inativos para o vendedor ou que são adimplentes e inativos",
+      "frequencia": "Pelo histórico de compras; sem histórico, no máximo 7 dias",
+      "observacao": "Carteira televendas pb; atendimento de segunda a sexta; evita dias do time campo (só roteirizáveis)",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Regra Padrao da Palmed: 14 dias para inativos e inadimplentes - Tocantins",
+      "segmento": "Inativos inadimplentes (Tocantins)",
+      "criterio": "Clientes inadimplentes e inativos para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "Carteira tocantins; atendimento de segunda a sexta; evita dias do time campo (só roteirizáveis)",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Regra Padrao da Palmed: semanal para ativos",
+      "segmento": "Demais clientes (Tocantins)",
+      "criterio": "Clientes que não são inativos para o vendedor ou que são adimplentes e inativos",
+      "frequencia": "Pelo histórico de compras; sem histórico, no máximo 7 dias",
+      "observacao": "Carteira tocantins; atendimento de segunda a sábado; evita dias do time campo (só roteirizáveis)",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Regra Padrao da Palmed: semanal para ativos e adimplentes (segunda a sexta) - Time Televendas",
+      "segmento": "Ativos adimplentes (televendas)",
+      "criterio": "Clientes adimplentes e ativos para o vendedor",
+      "frequencia": "Pelo histórico de compras; sem histórico, no máximo 7 dias",
+      "observacao": "Atendimento de segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Regra Padrao da Palmed: quinzenal para ativos e inadimplente (segunda a sexta) - Time Televendas",
+      "segmento": "Ativos inadimplentes (televendas)",
+      "criterio": "Clientes inadimplentes e ativos para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "Atendimento de segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R8",
+      "nome": "Regra Padrao da Palmed: semanal exceto na segunda para inativos adimplentes (terca a sexta) - Time Televendas",
+      "segmento": "Inativos adimplentes (televendas)",
+      "criterio": "Clientes adimplentes e inativos para o vendedor",
+      "frequencia": "Pelo histórico de compras; sem histórico, no máximo 7 dias",
+      "observacao": "Atendimento de segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R9",
+      "nome": "Regra Padrao da Palmed: 30 dias para inativos e inadimplentes (terca a sexta) - Time Televendas",
+      "segmento": "Inativos inadimplentes (televendas)",
+      "criterio": "Clientes inadimplentes e inativos para o vendedor",
+      "frequencia": "30 dias",
+      "observacao": "Atendimento de segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R10",
+      "nome": "Regra Padrao da Palmed: 7 dias de terca a sexta - Time Televendas",
+      "segmento": "Sem vendas (televendas)",
+      "criterio": "Clientes que nunca compraram com o vendedor",
+      "frequencia": "Pelo histórico de compras; sem histórico, no máximo 7 dias",
+      "observacao": "Atendimento de segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R11",
+      "nome": "Regra Padrao da Palmed: 7 dias para todos os clientes - Time de Campo",
+      "segmento": "Todos os clientes (campo)",
+      "criterio": "Todos os clientes do time de campo",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [
+    "Nas carteiras televendas pi e televendas pb, várias combinações de clientes não se enquadram em nenhuma regra e ficam sem parametrização."
+  ],
+  "consultas_hipoteticas": [
+    "PI e PB: inativos inadimplentes 14 dias; demais pelo histórico, máximo 7 dias. Tocantins: igual. Televendas: ativos adimplentes pelo histórico, ativos inadimplentes 14 dias, inativos adimplentes pelo histórico, inativos inadimplentes 30 dias. Campo: 7 dias para todos",
+    "Cada região do televendas tem sua regra: quem está inativo e inadimplente é visto a cada 14 dias no Piauí, na Paraíba e no Tocantins e a cada 30 dias no televendas geral. O resto segue o histórico de compras com teto de 7 dias, e o campo visita todo mundo toda semana",
+    "Quero frequência pelo histórico de compras, com máximo de 7 dias, para os clientes do televendas e frequência fixa maior para inadimplentes, evitando choque com os dias do campo"
+  ],
+  "_meta": {
+    "arquivo": "regra_071.gobr",
+    "sha256_gobr": "4bc279e2ff5f4c7fabfc8f8c63d029531a6ef6875a588c9dfb442b31d175095e",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:28+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_2.json",
+    "concordancia": 0.623
+  }
+}

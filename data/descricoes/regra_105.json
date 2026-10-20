@@ -1,0 +1,91 @@
+{
+  "resumo": "Regra de agendamento da carteira fixa de todos os vendedores da empresa, organizada por situação do cliente (ativo, inativo ou sem vendas) e por adimplência. Ativos adimplentes têm frequência de 7 dias; os demais grupos agendados têm frequência de 14 dias, com atendimento de segunda a sexta. Inativos inadimplentes não são agendados.",
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "empresa toda",
+      "descricao": "Carteira fixa de todos os vendedores da empresa"
+    }
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Regra Padrao da Empresa Customizavel: semanal para ativos adimplentes",
+      "segmento": "Ativos adimplentes",
+      "criterio": "Clientes adimplentes e ativos para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "Dias de preferência: segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Regra Padrao da Empresa Customizavel: 14 dias para ativos inadimplentes",
+      "segmento": "Ativos inadimplentes",
+      "criterio": "Clientes inadimplentes e ativos para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "Dias de preferência: segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Regra Padrao da Empresa Customizavel: 14 dias para inativos adimplentes",
+      "segmento": "Inativos adimplentes",
+      "criterio": "Clientes adimplentes e inativos para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "Dias de preferência: segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Regra Padrao da Empresa Customizavel: nao agendar inativos inadimpletes",
+      "segmento": "Bloqueio: inativos inadimplentes",
+      "criterio": "Clientes inadimplentes e inativos para o vendedor",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Regra Padrao da Empresa Customizavel: 14 dias para clientes sem vendas",
+      "segmento": "Sem vendas",
+      "criterio": "Clientes sem vendas para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "Dias de preferência: segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Empresa toda: ativos adimplentes a cada 7 dias; ativos inadimplentes, inativos adimplentes e sem vendas a cada 14 dias, de segunda a sexta; não agendar inativos inadimplentes",
+    "A gente visita toda semana os clientes ativos que estão em dia e a cada 14 dias os ativos inadimplentes, os inativos em dia e quem nunca comprou. Inativo inadimplente fica fora da agenda, e só atendemos de segunda a sexta",
+    "Frequência por situação do cliente e adimplência, atendimento em dias úteis, sem agendar inativos inadimplentes"
+  ],
+  "_meta": {
+    "arquivo": "regra_105.gobr",
+    "sha256_gobr": "d3171bc1b7236919728ba5ad2b75339e4d365b8f30e4bdcb74f25169547829f3",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:28+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_3.json",
+    "concordancia": 0.87
+  }
+}

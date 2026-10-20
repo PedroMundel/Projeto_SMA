@@ -1,0 +1,154 @@
+{
+  "resumo": "Regra de agendamento do time de televendas por tempo desde a última compra com o vendedor e por frequência histórica de compra, com faixas de 10, 14, 21 e 30 dias. Antes das faixas, deixam de ser agendados os inadimplentes. As faixas separam o ramo de atividade 29 dos demais, e duas faixas de clientes recém-ativados nunca são aplicadas.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Não agendar inadimplentes",
+      "segmento": "Bloqueio: inadimplentes",
+      "criterio": "Clientes inadimplentes",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Freq. de 14d para 'Cliente sem pedido com o vendedor'",
+      "segmento": "Compra única",
+      "criterio": "Clientes com uma única compra com o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "Preferência: segunda a sábado; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Freq. de 21d para 'Ativado: fez um pedido e ainda não comprou mais'",
+      "segmento": "Ativado (ramo 29)",
+      "criterio": "Clientes que compraram nos últimos 30 dias, do ramo de atividade 29, com uma única compra com o vendedor",
+      "frequencia": "21 dias",
+      "observacao": "Nunca é aplicada: todos esses clientes já foram tratados antes. Preferência: segunda a sábado",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Freq. de 14d para 'Ativado: fez um pedido e ainda não comprou mais'",
+      "segmento": "Ativado (demais ramos)",
+      "criterio": "Clientes que compraram nos últimos 30 dias, de ramo de atividade diferente de 29, com uma única compra com o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "Nunca é aplicada: todos esses clientes já foram tratados antes. Preferência: segunda a sábado",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Freq. de 10d para 'Ativo: compra regularmente'",
+      "segmento": "Ativo: compra regularmente",
+      "criterio": "Clientes ativos para o vendedor, com frequência histórica de compra de menos de 14 dias, que não têm compra única com o vendedor",
+      "frequencia": "10 dias",
+      "observacao": "Preferência: segunda a sábado; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Freq. de 30d para 'Ativo: estimular a regularidade de compra'",
+      "segmento": "Estimular regularidade (ramo 29)",
+      "criterio": "Clientes do ramo 29 que compraram com o vendedor nos últimos 59 dias, estão há pelo menos 21 dias sem comprar e não são de compra única",
+      "frequencia": "30 dias",
+      "observacao": "Não ativos, ou ativos com frequência histórica indefinida ou de pelo menos 14 dias. Preferência: segunda a sábado",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Freq. de 14d para 'Ativo: estimular a regularidade de compra'",
+      "segmento": "Estimular regularidade (demais ramos)",
+      "criterio": "Clientes de ramo diferente de 29 que compraram com o vendedor nos últimos 59 dias, estão há pelo menos 21 dias sem comprar e não são de compra única",
+      "frequencia": "14 dias",
+      "observacao": "Não ativos, ou ativos com frequência histórica indefinida ou de pelo menos 14 dias. Preferência: segunda a sábado",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R8",
+      "nome": "Freq. de 14d para 'Em ruptura: risco de ficar inativo' (RA 29)",
+      "segmento": "Em ruptura (ramo 29)",
+      "criterio": "Clientes do ramo 29 que compraram com o vendedor nos últimos 89 dias, estão há mais de 59 dias sem comprar e não são de compra única",
+      "frequencia": "14 dias",
+      "observacao": "Não ativos, ou ativos com frequência histórica indefinida ou de pelo menos 14 dias. Preferência: segunda a sábado",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R9",
+      "nome": "Freq. de 14d para 'Em ruptura: risco de ficar inativo'",
+      "segmento": "Em ruptura (demais ramos)",
+      "criterio": "Clientes de ramo diferente de 29 que compraram com o vendedor nos últimos 89 dias, estão há mais de 59 dias sem comprar e não são de compra única",
+      "frequencia": "14 dias",
+      "observacao": "Não ativos, ou ativos com frequência histórica indefinida ou de pelo menos 14 dias. Preferência: segunda a sábado",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R10",
+      "nome": "Freq. de 10d para 'Resgate de cliente sem compra'",
+      "segmento": "Resgate",
+      "criterio": "Clientes sem comprar com o vendedor há mais de 90 dias e que não são de compra única",
+      "frequencia": "10 dias",
+      "observacao": "Não ativos, ou ativos com frequência histórica indefinida ou de pelo menos 14 dias. Preferência: segunda a sábado",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [
+    "A regra 'Freq. de 21d para Ativado: fez um pedido e ainda não comprou mais' nunca é aplicada: todos os clientes dela já são tratados por regras anteriores.",
+    "A regra 'Freq. de 14d para Ativado: fez um pedido e ainda não comprou mais' nunca é aplicada: todos os clientes dela já são tratados por regras anteriores.",
+    "As faixas misturam medidas de recência de compra de escopos diferentes (grupo de vendedores e próprio vendedor), então podem se sobrepor ou deixar lacunas.",
+    "Clientes que nunca compraram com o vendedor, compraram nos últimos 20 dias ou compraram nos últimos 90 dias mas estão há mais de 89 dias sem comprar, e que não são de compra única, não se enquadram em nenhuma regra e ficam sem parametrização (se ativos, apenas os de frequência histórica indefinida ou de pelo menos 14 dias)."
+  ],
+  "consultas_hipoteticas": [
+    "Televendas: compra única a cada 14 dias; ativos de compra regular (histórico abaixo de 14 dias) a cada 10 dias; estimular regularidade a cada 30 dias no ramo 29 e 14 dias nos demais; em ruptura a cada 14 dias; resgate acima de 90 dias a cada 10 dias; não agendar inadimplentes",
+    "A gente atende o televendas de segunda a sábado. Quem comprou uma vez só volta a cada 14 dias, quem compra bem regularmente a cada 10 dias, e quem passou de 90 dias sem comprar a cada 10 dias também. O ramo 29 tem um tratamento à parte e inadimplente não entra na agenda",
+    "Quero agendar o televendas conforme o estágio do cliente (compra única, ativo, em ruptura e resgate), com frequências diferentes por estágio e tratamento especial para um ramo de atividade"
+  ],
+  "_meta": {
+    "arquivo": "regra_214.gobr",
+    "sha256_gobr": "c02ebe049568c3042b55218116976b8ac3da30b331f9498c7bd6a2470ab89843",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:30+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": false,
+        "erros": [
+          "R6: faltam os números [14]",
+          "R10: faltam os números [14]"
+        ],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": false,
+        "erros": [
+          "R6: faltam os números [14]",
+          "R10: faltam os números [14]"
+        ],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_4.json": {
+        "valido": false,
+        "erros": [
+          "R6: faltam os números [14]",
+          "R10: faltam os números [14]"
+        ],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_3.json",
+    "concordancia": 0.764
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "resumo": "Regra de frequência por faturamento anual do cliente com a empresa, em três curvas (A, B e C), para os times baby e pet, cada um com seus valores de corte. Para todos os vendedores há ainda a regra padrão: clientes ativos a cada 7 dias e os demais a cada 15 dias. Não há bloqueios de agenda.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Brasgroup: 45d para clientes Curva C (Segmento Baby)",
+      "segmento": "Curva C (Baby)",
+      "criterio": "Clientes com total faturado no ano com a empresa menor que R$ 10000 ou valor desconhecido",
+      "frequencia": "45 dias",
+      "observacao": "Vale para o time baby",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Brasgroup: 15d para clientes Curva A (Segmento Baby)",
+      "segmento": "Curva A (Baby)",
+      "criterio": "Clientes com total faturado no ano com a empresa maior que R$ 30000",
+      "frequencia": "15 dias",
+      "observacao": "Vale para o time baby",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Brasgroup: 30d para clientes Curva B (Segmento Baby)",
+      "segmento": "Curva B (Baby)",
+      "criterio": "Clientes com total faturado no ano com a empresa entre R$ 10000 e R$ 30000",
+      "frequencia": "30 dias",
+      "observacao": "Vale para o time baby",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Brasgroup: 45d para clientes Curva C (Segmento Pet)",
+      "segmento": "Curva C (Pet)",
+      "criterio": "Clientes com total faturado no ano com a empresa menor que R$ 5000 ou valor desconhecido",
+      "frequencia": "45 dias",
+      "observacao": "Vale para o time pet",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Brasgroup: 15d para clientes Curva A (Segmento Pet)",
+      "segmento": "Curva A (Pet)",
+      "criterio": "Clientes com total faturado no ano com a empresa maior que R$ 20000",
+      "frequencia": "15 dias",
+      "observacao": "Vale para o time pet",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Brasgroup: 30d para clientes Curva B (Segmento Pet)",
+      "segmento": "Curva B (Pet)",
+      "criterio": "Clientes com total faturado no ano com a empresa entre R$ 5000 e R$ 20000",
+      "frequencia": "30 dias",
+      "observacao": "Vale para o time pet",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Regra Padrao do goVendas: Frequencia semanal para clientes ativos",
+      "segmento": "Ativos",
+      "criterio": "Clientes ativos para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "Regra padrão para todos os vendedores",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R8",
+      "nome": "Regra Padrao do goVendas: Frequencia quinzenal para clientes inativos",
+      "segmento": "Inativos",
+      "criterio": "Clientes que não estão ativos para o vendedor",
+      "frequencia": "15 dias",
+      "observacao": "Regra padrão para todos os vendedores",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Baby: curva C (abaixo de R$ 10000) 45 dias, curva B 30 dias, curva A (acima de R$ 30000) 15 dias. Pet: curva C (abaixo de R$ 5000) 45 dias, curva B 30 dias, curva A (acima de R$ 20000) 15 dias. Demais: ativos 7 dias, inativos 15 dias",
+    "Os times baby e pet são atendidos conforme quanto o cliente faturou no ano: quem fatura pouco a cada 45 dias, o médio a cada 30 e o grande a cada 15. Para o resto dos vendedores, ativo toda semana e inativo a cada 15 dias",
+    "Frequência por curva de faturamento anual para dois times de segmento, mais uma regra padrão de ativos e inativos para todos"
+  ],
+  "_meta": {
+    "arquivo": "regra_159.gobr",
+    "sha256_gobr": "365f7c6401db0884130c088fc1ce1a73e22fbcaa658444a9e3fdd5991ad0b8bd",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:29+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_5.json",
+    "concordancia": 0.763
+  }
+}

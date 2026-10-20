@@ -1,0 +1,85 @@
+{
+  "resumo": "Regra de agendamento do time de televendas por situação do cliente: prospects com frequência de 40 dias, ativos com 15 dias e inativos com 20 dias. Antes das faixas, deixam de ser agendados os inadimplentes e os clientes da cidade de Fortaleza que compraram nos últimos 60 dias. A faixa de inativos funciona como regra final para quem já comprou e não está ativo para o vendedor.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Não agendar Inadimplentes",
+      "segmento": "Bloqueio: inadimplentes",
+      "criterio": "Clientes inadimplentes",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Não agendar cidade de Fortaleza e com compra em 60d",
+      "segmento": "Bloqueio: Fortaleza com compra recente",
+      "criterio": "Clientes da cidade de Fortaleza que compraram nos últimos 60 dias",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Freq. de 40d para Prospects",
+      "segmento": "Prospects",
+      "criterio": "Clientes que nunca compraram com qualquer vendedor da empresa",
+      "frequencia": "40 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Freq. de 15d para Ativos Adimplentes",
+      "segmento": "Ativos adimplentes",
+      "criterio": "Clientes que já compraram na empresa e estão ativos para o vendedor",
+      "frequencia": "15 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Freq. de 20d para Inativos Adimplentes",
+      "segmento": "Inativos adimplentes",
+      "criterio": "Clientes que já compraram na empresa e não estão ativos para o vendedor",
+      "frequencia": "20 dias",
+      "observacao": "Regra final: vale para quem sobrou das faixas anteriores",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Televendas: prospects a cada 40 dias; ativos a cada 15 dias; inativos a cada 20 dias; não agendar inadimplentes nem clientes de Fortaleza com compra em 60 dias",
+    "A gente liga a cada 40 dias para quem nunca comprou, a cada 15 dias para os ativos e a cada 20 dias para os inativos. Inadimplente fica de fora, e cliente de Fortaleza que comprou nos últimos 60 dias também",
+    "Quero agendar o televendas com frequências diferentes para prospects, ativos e inativos, sem agendar inadimplentes"
+  ],
+  "_meta": {
+    "arquivo": "regra_196.gobr",
+    "sha256_gobr": "c3e73ef5461164a2e4459a6dc9d7dfeb2dee077d9a12b259643432be77caff41",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:30+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_1.json",
+    "concordancia": 0.87
+  }
+}

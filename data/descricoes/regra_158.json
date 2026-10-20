@@ -1,0 +1,139 @@
+{
+  "resumo": "Regra de agendamento do time de televendas por tempo desde a última compra, frequência histórica de compra e número de compras: prospects, cinco faixas de clientes com compra recente e os inativos há mais de 120 dias. Antes das faixas, deixam de ser agendados os clientes inadimplentes e os baixados na Receita Federal. Alguns clientes com compra recente ficam fora de todas as faixas.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Não agendar inadimplentes",
+      "segmento": "Bloqueio: inadimplentes",
+      "criterio": "Clientes inadimplentes",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Não agendar Baixados na Receita",
+      "segmento": "Bloqueio: baixados na Receita",
+      "criterio": "Clientes com situação baixada na Receita Federal",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Freq. de 30d para 'Prospect: Cliente potencial'",
+      "segmento": "Prospect: cliente potencial",
+      "criterio": "Clientes que nunca compraram com nenhum vendedor da empresa",
+      "frequencia": "30 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Freq. de 21d para 'Ativado: fez um pedido e ainda não comprou mais'",
+      "segmento": "Ativado: um pedido",
+      "criterio": "Clientes que compraram nos últimos 45 dias, estão cadastrados no ERP há pelo menos 120 dias e têm uma única compra na empresa",
+      "frequencia": "21 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Freq. de 14d para 'Ativo: Alta frequência de compra'",
+      "segmento": "Ativo: alta frequência de compra",
+      "criterio": "Clientes que compraram nos últimos 45 dias com frequência histórica de compra de menos de 30 dias, exceto os de compra única cadastrados há pelo menos 120 dias",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Freq. de 30d para 'Ativo: compra regularmente'",
+      "segmento": "Ativo: compra regularmente",
+      "criterio": "Clientes que compraram nos últimos 120 dias, mas estão há mais de 45 dias sem comprar, com frequência histórica de compra de menos de 120 dias",
+      "frequencia": "30 dias",
+      "observacao": "Também entram os que compraram nos últimos 45 dias com frequência histórica de compra entre 30 e 119 dias",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Freq. de 30d para 'Ativo: estimular a regularidade de compra'",
+      "segmento": "Ativo: estimular regularidade",
+      "criterio": "Clientes que compraram nos últimos 70 dias, mas estão há mais de 45 dias sem comprar, com frequência histórica indefinida ou de pelo menos 120 dias",
+      "frequencia": "30 dias",
+      "observacao": "Inclui também quem comprou nos últimos 45 dias e está há pelo menos 45 dias sem comprar",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R8",
+      "nome": "Freq. de 21d para 'Em ruptura: risco de ficar inativo'",
+      "segmento": "Em ruptura: risco de ficar inativo",
+      "criterio": "Clientes que compraram nos últimos 120 dias, mas estão há mais de 70 dias sem comprar, com frequência histórica indefinida ou de pelo menos 120 dias",
+      "frequencia": "21 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R9",
+      "nome": "Freq. de 30d para 'Inativo: reativar cliente sem compra'",
+      "segmento": "Inativo: reativar cliente sem compra",
+      "criterio": "Clientes que estão há mais de 120 dias sem comprar com qualquer vendedor da empresa",
+      "frequencia": "30 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [
+    "Clientes que compraram nos últimos 44 dias, com frequência histórica indefinida ou de pelo menos 120 dias, e que não são de compra única (ou são de compra única e cadastrados no ERP há menos de 120 dias) não se enquadram em nenhuma regra e ficam sem parametrização."
+  ],
+  "consultas_hipoteticas": [
+    "Televendas: não agendar inadimplentes e baixados na Receita; prospects 30 dias; ativados 21 dias; ativos de alta frequência 14 dias; ativos regulares 30 dias; em ruptura 21 dias; inativos há mais de 120 dias 30 dias",
+    "No televendas a gente não agenda inadimplente nem cliente baixado na Receita. Prospect é a cada 30 dias, quem compra com muita frequência a cada 14 dias, e quem está em ruptura a cada 21 dias",
+    "Quero agendar o televendas por perfil do cliente, com frequência diferente para prospects, ativos, em ruptura e inativos há mais de 120 dias"
+  ],
+  "_meta": {
+    "arquivo": "regra_158.gobr",
+    "sha256_gobr": "5290cc0a6255853f8dbee54ccfa51bda1de09ceb0be6eddfbc81dd1d68f360ba",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:29+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": false,
+        "erros": [
+          "R5: faltam os números [120]"
+        ],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": false,
+        "erros": [
+          "R5: faltam os números [120]"
+        ],
+        "avisos": []
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": false,
+        "erros": [
+          "R5: faltam os números [120]"
+        ],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_1.json",
+    "concordancia": 0.765
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "resumo": "Regra de agendamento do time de televendas por ramo de atividade e situação do cliente (prospects, ativos e inativos), com frequências de 5, 7, 10, 15, 20 e 30 dias. Antes das faixas, deixam de ser agendados os clientes de ramos de atividade fora da lista permitida. A última regra reúne os inativos dos ramos 12, 14, 2, 5 e 7 e os casos do ramo 5 que sobraram das faixas anteriores.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Hospidrogas: Não agendar ramos de atividade específicos",
+      "segmento": "Bloqueio: ramos de atividade específicos",
+      "criterio": "Clientes de ramos de atividade (id) fora de: 10, 11, 12, 14, 15, 17 e mais 9",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Hospidrogas: Freq. 30d para prospects e ramos de atividade igual 2, 7, 11, 12, 14 ou 19",
+      "segmento": "Prospects dos ramos 2, 7, 11, 12, 14 e 19",
+      "criterio": "Clientes que nunca compraram na empresa e são dos ramos de atividade 11, 12, 14, 19, 2 e 7",
+      "frequencia": "30 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Hospidrogas: Freq. 30d para ativos e ramos de atividade igual 3, 4, 6, 8, 15 ou 18",
+      "segmento": "Ativos dos ramos 3, 4, 6, 8, 15 e 18",
+      "criterio": "Clientes ativos para o vendedor dos ramos de atividade 15, 18, 3, 4, 6 e 8",
+      "frequencia": "30 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Hospidrogas: Freq. 15d para ativos e ramos de atividade igual 7 ou 17",
+      "segmento": "Ativos dos ramos 7 e 17",
+      "criterio": "Clientes ativos para o vendedor que já compraram na empresa e são dos ramos 17 e 7, ou que nunca compraram e são do ramo 17",
+      "frequencia": "15 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Hospidrogas: Freq. 7d para ativos e ramos de atividade igual 10, 11, 14 ou 19",
+      "segmento": "Ativos dos ramos 10, 11, 14 e 19",
+      "criterio": "Clientes ativos para o vendedor que já compraram na empresa e são dos ramos 10, 11, 14 e 19, ou que nunca compraram e são do ramo 10",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Hospidrogas: Freq. 5d para ativos e ramos de atividade igual 2 ou 12",
+      "segmento": "Ativos dos ramos 2 e 12",
+      "criterio": "Clientes ativos para o vendedor que já compraram na empresa e são dos ramos de atividade 12 e 2",
+      "frequencia": "5 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Hospidrogas: Freq. 30d para inativos e ramos de atividade igual 3, 4, 6, 8, 15 ou 18",
+      "segmento": "Inativos dos ramos 3, 4, 6, 8, 15 e 18",
+      "criterio": "Clientes inativos para o vendedor dos ramos de atividade 15, 18, 3, 4, 6 e 8",
+      "frequencia": "30 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R8",
+      "nome": "Hospidrogas: Freq. 20d para inativos e ramos de atividade igual 17",
+      "segmento": "Inativos do ramo 17",
+      "criterio": "Clientes inativos para o vendedor do ramo de atividade 17",
+      "frequencia": "20 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R9",
+      "nome": "Hospidrogas: Freq. 15d para inativos e ramos de atividade igual 10",
+      "segmento": "Inativos do ramo 10",
+      "criterio": "Clientes inativos para o vendedor do ramo de atividade 10",
+      "frequencia": "15 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R10",
+      "nome": "Hospidrogas: Freq. 10d para inativos e ramos de atividade igual 11 ou 19",
+      "segmento": "Inativos dos ramos 11 e 19",
+      "criterio": "Clientes inativos para o vendedor que já compraram na empresa e são dos ramos de atividade 11 e 19",
+      "frequencia": "10 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R11",
+      "nome": "Hospidrogas: Freq. 5d para inativos e ramos de atividade igual 2, 7, 12 ou 14",
+      "segmento": "Inativos dos ramos 2, 7, 12 e 14",
+      "criterio": "Clientes inativos que já compraram dos ramos 12, 14, 2, 5 e 7; clientes ativos do ramo 5; e inativos do ramo 5 que nunca compraram",
+      "frequencia": "5 dias",
+      "observacao": "Regra final: vale para quem sobrou das faixas anteriores",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Televendas por ramo: prospects, ativos e inativos a cada 30 dias nos ramos 2, 3, 4, 6, 7, 8, 11, 12, 14, 15, 18 e 19; ramos 17 e 7 ativos a cada 15 dias; ramos 10, 11, 14 e 19 ativos a cada 7 dias; ramos 2 e 12 ativos a cada 5 dias; não agendar ramos fora da lista",
+    "A gente liga pros clientes do televendas conforme o ramo de atividade: quem é ativo nos ramos 2 e 12 a cada 5 dias, ativos dos ramos 10, 11, 14 e 19 toda semana, e os inativos dos ramos 11 e 19 a cada 10 dias. Ramo que não está na lista não entra na agenda",
+    "Quero frequências diferentes para o televendas de acordo com o ramo de atividade e se o cliente é prospect, ativo ou inativo"
+  ],
+  "_meta": {
+    "arquivo": "regra_059.gobr",
+    "sha256_gobr": "6781af05840724fcb632d459a063c15bb1f622534fa63bbe5bee4b8e43da2927",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:27+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_5.json",
+    "concordancia": 0.828
+  }
+}

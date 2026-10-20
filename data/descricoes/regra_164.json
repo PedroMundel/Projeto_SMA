@@ -1,0 +1,216 @@
+{
+  "resumo": "Regras de agendamento por rótulo de cliente (condomínio para o time da vendedora Bruna, construtora e um grupo de segmentos como shopping, supermercado e indústria) para o time todos e o time bruna. Prospects e novos cadastros entram primeiro, com 7 ou 14 dias; depois vêm as faixas de construtora e as de novos cadastros dos demais segmentos, com frequências de 7 a 45 dias. A regra final bloqueia a agenda de todo cliente não coberto por regra comercial.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Freq. 14 dias para novos cadastros 'Condomínio' vendedora Bruna",
+      "segmento": "Novos cadastros: Condomínio (Bruna)",
+      "criterio": "Clientes com rótulo condominio cadastrados a partir de 2024-10-03",
+      "frequencia": "14 dias",
+      "observacao": "Vale para o time bruna",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Freq. de 7 dias para compra detectada com a empresa entre 0 e 30 dias 'Condomínio' vendedora Bruna",
+      "segmento": "Condomínio com compra recente (Bruna)",
+      "criterio": "Clientes com rótulo condominio, cadastrados antes de 2024-10-03, que compraram com qualquer vendedor da empresa nos últimos 30 dias",
+      "frequencia": "7 dias",
+      "observacao": "Vale para o time bruna",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Freq. de 30 dias para não tem compra com a empresa nos últimos 90 dias 'Condomínio' vendedora Bruna",
+      "segmento": "Condomínio sem compra (Bruna)",
+      "criterio": "Clientes com rótulo condominio, cadastrados antes de 2024-10-03, que estão há mais de 90 dias sem comprar com qualquer vendedor da empresa",
+      "frequencia": "30 dias",
+      "observacao": "Vale para o time bruna",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Freq. de 7d para: 'Ativar prospects'",
+      "segmento": "Prospects",
+      "criterio": "Clientes cadastrados a partir de 2024-08-01 e sem vendas para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "Vale para o time todos",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Boas vindas: Frequência de 14d para construtora",
+      "segmento": "Boas-vindas: construtora",
+      "criterio": "Clientes com rótulo construtora, uma única compra na empresa e mais de 60 dias sem comprar",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Compra com regularidade no RJ - Curva A: Frequência de 7d para construtora",
+      "segmento": "Construtora RJ, curva A",
+      "criterio": "Clientes de construtora no RJ, curva A, com frequência histórica de compra de menos de 30 dias e mais de 14 dias sem comprar, exceto os já tratados pelas regras anteriores",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Compra com regularidade no RJ - Curva B: Frequência de 10d para construtora",
+      "segmento": "Construtora RJ, curva B",
+      "criterio": "Clientes de construtora no RJ, curva B, com frequência histórica de compra de menos de 30 dias e mais de 14 dias sem comprar, exceto os já tratados pelas regras anteriores",
+      "frequencia": "10 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R8",
+      "nome": "Compra com regularidade no RJ - Curva C: Frequência de 14d para construtora",
+      "segmento": "Construtora RJ, curva C",
+      "criterio": "Clientes de construtora no RJ, curva C, com frequência histórica de compra de menos de 30 dias e mais de 14 dias sem comprar, exceto os já tratados pelas regras anteriores",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R9",
+      "nome": "Compra com regularidade: Frequência de 14d para construtora",
+      "segmento": "Construtora com regularidade",
+      "criterio": "Clientes de construtora com frequência histórica de compra de menos de 30 dias e mais de 14 dias sem comprar, exceto os já tratados pelas regras anteriores",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R10",
+      "nome": "Estimular regularidade: Frequência de 10d para construtora",
+      "segmento": "Construtora: estimular regularidade",
+      "criterio": "Clientes de construtora ativos com a empresa e mais de 45 dias sem comprar com qualquer vendedor da empresa, exceto os já tratados pelas regras anteriores",
+      "frequencia": "10 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R11",
+      "nome": "Risco de ficar inativo: Frequência de 14d para construtora",
+      "segmento": "Construtora: risco de inatividade",
+      "criterio": "Clientes de construtora com mais de 60 dias sem comprar, exceto os já tratados pelas regras anteriores",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R12",
+      "nome": "Ativar novos clientes: Frequência de 7d para construtora",
+      "segmento": "Construtora: novos clientes",
+      "criterio": "Clientes de construtora cadastrados a partir de 2024-10-03, exceto os já tratados pelas regras anteriores",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R13",
+      "nome": "Resgate de inativos: Frequência de 45d para construtora",
+      "segmento": "Construtora: resgate de inativos",
+      "criterio": "Clientes de construtora, exceto os já tratados pelas regras anteriores",
+      "frequencia": "45 dias",
+      "observacao": "Última faixa das construtoras: vale para quem sobrou das anteriores",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R14",
+      "nome": "Freq. de 14 dias para Novos cadastros shopping, supermercado, industria, estaleiro, clube, escolas, universidade, igreja, hotel, hospital, clínica, restaurantes, condominio",
+      "segmento": "Novos cadastros: shopping, supermercado e outros",
+      "criterio": "Clientes com rótulo shopping, supermercado, industria, estaleiro, clube, escolas e mais 7, sem rótulo construtora, cadastrados a partir de 2024-10-03",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R15",
+      "nome": "Freq. de 7 dias para Novos cadastros shopping, supermercado, industria, estaleiro, clube, escolas, universidade, igreja, hotel, hospital, clínica, restaurantes, condominio",
+      "segmento": "Compra recente: shopping, supermercado e outros",
+      "criterio": "Clientes com rótulo shopping, supermercado, industria, estaleiro, clube, escolas e mais 7, sem rótulo construtora, cadastrados antes de 2024-10-03, que compraram com a empresa nos últimos 30 dias",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R16",
+      "nome": "Freq. de 30 dias para Novos cadastros shopping, supermercado, industria, estaleiro, clube, escolas, universidade, igreja, hotel, hospital, clínica, restaurantes, condominio",
+      "segmento": "Compra recente: shopping, supermercado e outros (30 dias)",
+      "criterio": "Clientes que compraram com qualquer vendedor da empresa nos últimos 30 dias e têm rótulo shopping, supermercado, industria, estaleiro, clube, escolas e mais 7",
+      "frequencia": "30 dias",
+      "observacao": "Nunca é aplicada: todos esses clientes já foram tratados antes",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R17",
+      "nome": "Isocom: Não agendar - cliente não coberto por regra comercial",
+      "segmento": "Bloqueio: cliente não coberto por regra comercial",
+      "criterio": "Clientes de todo o time todos, exceto os já tratados pelas regras anteriores",
+      "frequencia": "Não agendar",
+      "observacao": "Regra final: vale para quem sobrou das faixas anteriores",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [
+    "A recência de compra é medida em escopos diferentes ao longo das regras (empresa toda e grupo de vendedores); faixas de escopos diferentes não se excluem automaticamente e podem se sobrepor ou deixar lacunas.",
+    "A regra 'Compra com regularidade no RJ - Curva A' tem condição complexa demais para resumir: vale para o critério dela exceto os clientes já tratados pelas regras anteriores.",
+    "A regra 'Compra com regularidade no RJ - Curva B' tem condição complexa demais para resumir: vale para o critério dela exceto os clientes já tratados pelas regras anteriores.",
+    "A regra 'Compra com regularidade no RJ - Curva C' tem condição complexa demais para resumir: vale para o critério dela exceto os clientes já tratados pelas regras anteriores.",
+    "A regra 'Compra com regularidade' tem condição complexa demais para resumir: vale para o critério dela exceto os clientes já tratados pelas regras anteriores.",
+    "A regra 'Estimular regularidade' tem condição complexa demais para resumir: vale para o critério dela exceto os clientes já tratados pelas regras anteriores.",
+    "A regra 'Risco de ficar inativo' tem condição complexa demais para resumir: vale para o critério dela exceto os clientes já tratados pelas regras anteriores.",
+    "A regra 'Ativar novos clientes' tem condição complexa demais para resumir: vale para o critério dela exceto os clientes já tratados pelas regras anteriores.",
+    "A regra 'Resgate de inativos' tem condição complexa demais para resumir: vale para o critério dela exceto os clientes já tratados pelas regras anteriores.",
+    "A regra 'Freq. de 30 dias para Novos cadastros shopping, supermercado e outros' nunca é aplicada: todos os clientes dela já são tratados por regras anteriores.",
+    "A regra 'Isocom: Não agendar' tem condição complexa demais para resumir: vale para todos os clientes exceto os já tratados pelas regras anteriores.",
+    "Clientes do time bruna que não têm rótulo condominio, ou que têm rótulo condominio, foram cadastrados antes de 2024-10-03 e nunca compraram com a empresa ou compraram nos últimos 90 dias, mas estão há mais de 30 dias sem comprar, não se enquadram em nenhuma regra e ficam sem parametrização."
+  ],
+  "consultas_hipoteticas": [
+    "Time todos e time bruna por rótulo. Bruna, condomínio: novos cadastros 14 dias, compra em 30 dias 7 dias, sem compra há 90 dias 30 dias. Prospects 7 dias. Construtora: 7, 10, 14 e 45 dias conforme o perfil. Demais segmentos: novos cadastros 14 dias, compra recente 7 dias. Resto não agendar",
+    "A gente cuida dos prospects ligando toda semana, e as construtoras entram em faixas de 7 a 45 dias conforme o jeito que compram, com mais atenção no RJ. Os condomínios da Bruna têm regra própria. Cliente que não cai em nada disso fica fora da agenda",
+    "Quero regras de frequência por tipo de cliente, como construtora, condomínio, shopping e supermercado, com prospects e novos cadastros primeiro e bloqueio para quem não for coberto"
+  ],
+  "_meta": {
+    "arquivo": "regra_164.gobr",
+    "sha256_gobr": "e036078569b2d5a98776ce2f03c0da5a11d95fb084554c9e69458b9b625c292d",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:29+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_2.json",
+    "concordancia": 0.659
+  }
+}

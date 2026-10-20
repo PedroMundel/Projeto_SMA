@@ -1,78 +1,78 @@
 {
-  "resumo": "Regras de agendamento para três times: carteira regional, carteira reativacao e carteira direta. A regional agenda a cada 7 dias os clientes com mais de 30 dias sem comprar; a reativação agenda a cada 14 dias quem está há mais de 149 dias sem comprar ou não tem venda para o vendedor; a direta agenda todos a cada 7 dias. Bloqueiam a agenda a compra na empresa nos últimos 30 dias (regional) e, na reativação, os clientes com compra recente que já tiveram venda para o vendedor.",
+  "resumo": "Regra padrão de frequência para três times: carteira regional, carteira reativação e carteira direta. A carteira regional não agenda quem comprou na empresa nos últimos 30 dias e atende os demais a cada 7 dias. A carteira reativação atende com 14 dias quem está há mais de 149 dias sem comprar e quem não tem vendas para o vendedor, e não agenda quem tem alguma venda para o vendedor e comprou recentemente na empresa. A carteira direta atende todos os clientes a cada 7 dias.",
   "carteiras": [],
   "regras": [
     {
       "id": "R1",
       "nome": "Não agendar clientes com compra na empresa nos últimos 30 dias - Carteira Regional",
-      "segmento": "Bloqueio: compra nos últimos 30 dias",
+      "segmento": "Bloqueio: compra recente (Regional)",
       "criterio": "Clientes que compraram com qualquer vendedor da empresa nos últimos 30 dias",
       "frequencia": "Não agendar",
-      "observacao": "Time carteira regional",
+      "observacao": "Vale para o time carteira regional",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R2",
       "nome": "Regra Padrao da Girobem: Frequênicia de 7 dias para clientes sem comprar entre 30 e 150 dias - Carteira Regional",
-      "segmento": "Regional: mais de 30 dias sem comprar",
-      "criterio": "Clientes que nunca compraram ou estão há mais de 30 dias sem comprar com qualquer vendedor da empresa",
+      "segmento": "Sem comprar há mais de 30 dias (Regional)",
+      "criterio": "Clientes que nunca compraram na empresa ou estão há mais de 30 dias sem comprar",
       "frequencia": "7 dias",
-      "observacao": "Time carteira regional",
+      "observacao": "Vale para o time carteira regional",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R3",
       "nome": "Regra Padrao da Girobem: 14 dias para clientes com mais de 150 dias sem compra  - Carteira Reativação",
-      "segmento": "Reativação: mais de 149 dias sem comprar",
+      "segmento": "Mais de 149 dias sem comprar (Reativação)",
       "criterio": "Clientes que estão há mais de 149 dias sem comprar com qualquer vendedor da empresa",
       "frequencia": "14 dias",
-      "observacao": "Time carteira reativacao",
+      "observacao": "Vale para o time carteira reativação",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R4",
       "nome": "Regra Padrao da Girobem: 14 dias para clientes sem compra  - Carteira Reativação",
-      "segmento": "Reativação: sem venda para o vendedor",
-      "criterio": "Clientes que nunca compraram ou compraram na empresa nos últimos 149 dias, sem nenhuma venda para o vendedor",
+      "segmento": "Sem vendas para o vendedor (Reativação)",
+      "criterio": "Clientes sem vendas para o vendedor que nunca compraram na empresa ou compraram nos últimos 149 dias",
       "frequencia": "14 dias",
-      "observacao": "Time carteira reativacao",
+      "observacao": "Vale para o time carteira reativação",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R5",
       "nome": "Regra Padrao da Girobem: Não agendar clientes com menos de 150 dias sem compra  - Carteira Reativação",
-      "segmento": "Bloqueio: compra recente com venda para o vendedor",
-      "criterio": "Clientes que nunca compraram ou compraram na empresa nos últimos 149 dias, com alguma venda (ativos ou inativos) para o vendedor",
+      "segmento": "Bloqueio: compra recente (Reativação)",
+      "criterio": "Clientes com alguma venda para o vendedor que nunca compraram na empresa ou compraram nos últimos 149 dias",
       "frequencia": "Não agendar",
-      "observacao": "Time carteira reativacao",
+      "observacao": "Vale para o time carteira reativação",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R6",
       "nome": "Regra Padrao da Girobem: 7 dias para todos os clientes - Carteira Direta",
-      "segmento": "Carteira direta",
-      "criterio": "Clientes em geral, sem nenhum filtro",
+      "segmento": "Todos os clientes (Direta)",
+      "criterio": "Todos os clientes do time carteira direta",
       "frequencia": "7 dias",
-      "observacao": "Time carteira direta",
+      "observacao": "",
       "clausulas_nao_traduzidas": []
     }
   ],
   "pontos_de_atencao": [
-    "O nome da regra 'Regional: mais de 30 dias sem comprar' fala em 150 dias, mas a regra usa outro valor."
+    "O nome da regra 'Frequência de 7 dias (Carteira Regional)' fala em 150 dias, mas a regra usa outro valor."
   ],
   "consultas_hipoteticas": [
-    "Regional: compra nos últimos 30 dias não agendar; mais de 30 dias sem comprar 7 dias. Reativação: mais de 150 dias sem comprar 14 dias; sem venda para o vendedor 14 dias; demais não agendar. Direta: todos 7 dias",
-    "A carteira regional não liga pra quem comprou nos últimos 30 dias e atende toda semana quem passou disso. A reativação chama de 14 em 14 dias quem está há mais de 150 dias parado, e a direta atende todo mundo a cada 7 dias",
-    "Três carteiras com frequência por tempo sem comprar, sem agendar quem comprou há pouco tempo"
+    "Carteira regional: não agendar compra na empresa em 30 dias, demais 7 dias; carteira reativação: mais de 150 dias sem compra 14 dias, sem compra 14 dias, menos de 150 dias não agendar; carteira direta: 7 dias para todos",
+    "Temos três carteiras. Na regional a gente não liga pra quem comprou nos últimos 30 dias e o resto é toda semana. Na reativação é a cada 14 dias pra quem está parado há muito tempo, e na direta todo mundo toda semana",
+    "Quero uma regra padrão de frequência por carteira, com um time de reativação para clientes parados há mais de 150 dias e outro de carteira direta"
   ],
   "_meta": {
     "arquivo": "regra_220.gobr",
     "sha256_gobr": "2fa1f273540834192b7ee03f3ff7ed1644aac7717a882342a47f3af52a8b0106",
-    "versao_pacote": "1",
-    "prompt_sha256": "fd3b943ec528",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T15:22:22+00:00",
+    "gerado_em": "2026-10-20T16:12:30+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,
@@ -88,9 +88,19 @@
         "valido": true,
         "erros": [],
         "avisos": []
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
       }
     },
-    "escolhido": "agente_1.json",
-    "concordancia": 0.729
+    "escolhido": "agente_5.json",
+    "concordancia": 0.699
   }
 }

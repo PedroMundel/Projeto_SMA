@@ -1,0 +1,92 @@
+{
+  "resumo": "Regra padrão do time de televendas aplicada à carteira fixa dos vendedores do time. Clientes inadimplentes não são agendados. Entre os adimplentes, ativos para o vendedor têm frequência de 14 dias, inativos de 30 dias e os sem vendas de 14 dias.",
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "carteira televendas",
+      "descricao": "Carteira fixa dos vendedores do time televendas"
+    }
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Regra Padrao da Empresa Customizavel: Não agendar inadimplentes (televendas)",
+      "segmento": "Bloqueio: inadimplentes",
+      "criterio": "Clientes inadimplentes",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Regra Padrao da Empresa Customizavel: 14 dias para ativos adimplentes (televendas)",
+      "segmento": "Ativos adimplentes",
+      "criterio": "Clientes adimplentes e ativos para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Regra Padrao da Empresa Customizavel: 30 dias para inativos adimplentes (televendas)",
+      "segmento": "Inativos adimplentes",
+      "criterio": "Clientes adimplentes e inativos para o vendedor",
+      "frequencia": "30 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Regra Padrao da Empresa Customizavel: 14 dias para clientes sem vendas (televendas)",
+      "segmento": "Sem vendas adimplentes",
+      "criterio": "Clientes adimplentes e sem vendas para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Televendas: inadimplentes não agendar; ativos adimplentes 14 dias; inativos adimplentes 30 dias; sem vendas adimplentes 14 dias",
+    "No televendas a gente não liga pra inadimplente. Quem está em dia e ativo é a cada 14 dias, o inativo em dia a cada 30, e quem nunca comprou com o vendedor também a cada 14",
+    "Frequência da carteira do televendas por situação do cliente, deixando de fora os inadimplentes"
+  ],
+  "_meta": {
+    "arquivo": "regra_122.gobr",
+    "sha256_gobr": "e7b52e9b290f463f1a8197f8410057d70ca8dcec8eeac66000431b84fd0da398",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:28+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_3.json",
+    "concordancia": 0.791
+  }
+}

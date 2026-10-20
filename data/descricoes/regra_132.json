@@ -1,0 +1,103 @@
+{
+  "resumo": "Regra de agendamento do time de televendas pelo histórico de compra com o próprio vendedor, em seis faixas: prospect, ativado, ativo regular, ativo a estimular, em ruptura e inativo. As frequências são de 7, 10 e 14 dias. Clientes inadimplentes não são agendados, e a última faixa, de inativos, fecha a regra.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Não agendar 'Inadimplentes'",
+      "segmento": "Bloqueio: inadimplentes",
+      "criterio": "Clientes inadimplentes",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Freq. de 7d para 'Prospect - Cliente potencial'",
+      "segmento": "Prospect - Cliente potencial",
+      "criterio": "Clientes que nunca compraram com o próprio vendedor",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Freq. de 7d para 'Ativado - Fez um pedido e não comprou mais'",
+      "segmento": "Ativado - Fez um pedido e não comprou mais",
+      "criterio": "Clientes que já compraram com o próprio vendedor, mas só uma única vez",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Freq. de 14d para 'Ativo - Compra regularmente'",
+      "segmento": "Ativo - Compra regularmente",
+      "criterio": "Clientes que já compraram com o próprio vendedor, com frequência histórica de compra de até 10 dias e sem ser de compra única",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Freq. de 10d para 'Ativo - Estimular a regularidade de compra'",
+      "segmento": "Ativo - Estimular a regularidade",
+      "criterio": "Clientes que compraram nos últimos 59 dias, mas estão há mais de 10 dias sem comprar, com frequência histórica indefinida ou acima de 10 dias, e não de compra única",
+      "frequencia": "10 dias",
+      "observacao": "Considera as compras com o próprio vendedor",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Freq. de 7d para 'Em ruptura - Risco de ficar inativo'",
+      "segmento": "Em ruptura - Risco de ficar inativo",
+      "criterio": "Clientes que compraram nos últimos 89 dias, mas estão há mais de 59 dias sem comprar, com frequência histórica indefinida ou acima de 10 dias, e não de compra única",
+      "frequencia": "7 dias",
+      "observacao": "Considera as compras com o próprio vendedor",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Freq. de 10d para 'Inativo - Reativar cliente sem compra'",
+      "segmento": "Inativo - Reativar cliente sem compra",
+      "criterio": "Clientes que compraram nos últimos 10 dias ou estão há mais de 89 dias sem comprar, com frequência histórica indefinida ou acima de 10 dias, e não de compra única",
+      "frequencia": "10 dias",
+      "observacao": "Considera as compras com o próprio vendedor",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Televendas: prospect 7 dias; ativado (compra única) 7 dias; ativo regular (até 10 dias de histórico) 14 dias; estimular 10 dias; ruptura 7 dias; inativo 10 dias; não agendar inadimplentes",
+    "A gente liga toda semana pra quem nunca comprou e pra quem fez um pedido só. Quem compra regularmente a cada 14 dias, quem está caindo a cada 10, quem está em ruptura toda semana, e inadimplente fica de fora",
+    "Quero separar o televendas por ciclo de vida do cliente, de prospect a inativo, cada um com a sua frequência"
+  ],
+  "_meta": {
+    "arquivo": "regra_132.gobr",
+    "sha256_gobr": "d1505dbfc74a12a94eaf8a73726e9f5a2c7b8241ffabe970400fe80922ee6874",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:29+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_2.json",
+    "concordancia": 0.809
+  }
+}

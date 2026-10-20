@@ -1,0 +1,95 @@
+{
+  "resumo": "Regra de agendamento do time de televendas por frequência, em cinco faixas: prospects, clientes com primeira compra, clientes que compraram recentemente com o próprio vendedor, ativos e inativos. Prospects são visitados a cada 25 dias, recém-ativados a cada 14 dias, ativos a cada 14 dias e inativos a cada 21 dias. Quem compra com frequência segue o ritmo do histórico de compras. Não há regras de bloqueio na agenda.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Freq. de 25d para Prospects",
+      "segmento": "Prospects",
+      "criterio": "Clientes que nunca compraram com qualquer vendedor da empresa",
+      "frequencia": "25 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Freq. de 14d para 'Ativado: Boas vindas ao cliente com primeiro pedido'",
+      "segmento": "Ativado: primeiro pedido",
+      "criterio": "Clientes que estão há mais de 30 dias sem comprar com o próprio vendedor e têm uma única compra na empresa",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Freq. do histórico para 'Alta frequência de compra'",
+      "segmento": "Alta frequência de compra",
+      "criterio": "Clientes que compraram com o próprio vendedor nos últimos 30 dias",
+      "frequencia": "Pelo histórico, entre 7 e 30 dias",
+      "observacao": "Frequência calculada pelo histórico de compras; sem histórico, fica entre 7 dias e 30 dias",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Freq. de 14d para Ativos",
+      "segmento": "Ativos",
+      "criterio": "Clientes ativos na empresa que já compraram e nunca compraram com o próprio vendedor ou estão há mais de 30 dias sem comprar com ele",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Freq. de 21d para Inativos",
+      "segmento": "Inativos",
+      "criterio": "Clientes fora do ciclo de vida ativo da empresa que já compraram e nunca compraram com o próprio vendedor ou estão há mais de 30 dias sem comprar com ele",
+      "frequencia": "21 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Televendas: prospects a cada 25 dias; primeiro pedido sem compra há mais de 30 dias a cada 14 dias; alta frequência (compra nos últimos 30 dias) pelo histórico, de 7 a 30 dias; ativos 14 dias; inativos 21 dias",
+    "A gente liga pros prospects a cada 25 dias, pro cliente que fez só um pedido a cada 14 dias, e quem compra sempre com o vendedor segue o ritmo do histórico. Ativo a cada 14 dias e inativo a cada 21 dias",
+    "Quero agendar o televendas por perfil do cliente: prospect, primeiro pedido, alta frequência, ativos e inativos, cada um com sua frequência"
+  ],
+  "_meta": {
+    "arquivo": "regra_198.gobr",
+    "sha256_gobr": "369f1f725b029b22c3722c9a0b0bce22916848911d31bd37afed16bfc4d6eee0",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:30+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_3.json",
+    "concordancia": 0.711
+  }
+}

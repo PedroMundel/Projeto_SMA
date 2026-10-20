@@ -1,0 +1,123 @@
+{
+  "resumo": "Regra de agendamento do time de televendas por tempo sem comprar, ciclo de vida e curva de clientes. Não são agendadas as filiais e os clientes que compraram com a empresa nos últimos 30 dias. Prospects têm frequência de 28 dias; ativos com mais de 45 dias sem comprar são divididos por curva A, B e demais, há faixas para ativos com compra recente e uma faixa final para inativos.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Não agendar filiais",
+      "segmento": "Bloqueio: filiais",
+      "criterio": "Clientes que são filiais",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Não agendar clientes com compra em 30d",
+      "segmento": "Bloqueio: compra nos últimos 30 dias",
+      "criterio": "Clientes que compraram com qualquer vendedor da empresa nos últimos 30 dias",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Freq. de 28d para 'Prospects'",
+      "segmento": "Prospects",
+      "criterio": "Clientes que nunca compraram com a empresa",
+      "frequencia": "28 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Freq. de 7d para 'Ativos sem compra com a empresa há mais de 30d (Curva A)'",
+      "segmento": "Ativos sem compra (Curva A)",
+      "criterio": "Clientes ativos na empresa, curva A, que estão há mais de 45 dias sem comprar com a empresa",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Freq. de 14d para 'Ativos sem compra com a empresa há mais de 30d (Curva B)'",
+      "segmento": "Ativos sem compra (Curva B)",
+      "criterio": "Clientes ativos na empresa, curva B, que estão há mais de 45 dias sem comprar com a empresa",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Freq. de 21d para 'Ativos sem compra com a empresa há mais de 30d (Curva C)'",
+      "segmento": "Ativos sem compra (Curva C)",
+      "criterio": "Clientes ativos na empresa, fora das curvas A e B, que estão há mais de 45 dias sem comprar com a empresa",
+      "frequencia": "21 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Freq. de 14d para 'Ativos sem compra com a empresa há mais de 45d'",
+      "segmento": "Ativos sem compra (até 44 dias)",
+      "criterio": "Clientes ativos na empresa que compraram nos últimos 44 dias, mas estão há mais de 30 dias sem comprar",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R8",
+      "nome": "Freq. de 7d para 'Ativos sem compra com a empresa há mais de 60d'",
+      "segmento": "Ativos sem compra (45 dias)",
+      "criterio": "Clientes ativos na empresa que compraram nos últimos 45 dias, mas estão há pelo menos 45 dias sem comprar",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R9",
+      "nome": "Freq. de 7d para 'Inativos'",
+      "segmento": "Inativos",
+      "criterio": "Clientes fora do ciclo de vida ativo na empresa que estão há mais de 30 dias sem comprar com a empresa",
+      "frequencia": "7 dias",
+      "observacao": "Regra final: vale para quem sobrou das faixas anteriores",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [
+    "O nome da regra 'Ativos sem compra com a empresa há mais de 60d' fala em 60 dias, mas a regra usa outro valor."
+  ],
+  "consultas_hipoteticas": [
+    "Televendas: prospects a cada 28 dias; ativos sem compra há mais de 45 dias, curva A 7 dias, curva B 14 dias, curva C 21 dias; ativos entre 30 e 45 dias 14 dias; inativos 7 dias; não agendar filiais nem compra em 30 dias",
+    "A gente liga para os prospects a cada 28 dias e, para os ativos que ficaram mais de 45 dias sem comprar, a cada 7, 14 ou 21 dias conforme a curva. Filial e cliente que comprou nos últimos 30 dias ficam fora da agenda",
+    "Quero agendar o televendas por ciclo de vida e curva, com prospects, ativos sem comprar e inativos, sem agendar filiais"
+  ],
+  "_meta": {
+    "arquivo": "regra_143.gobr",
+    "sha256_gobr": "ab27f0d3c40789be9326e40d24822edc346e04c9433f844723c40ccecfc2ec53",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:29+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_2.json",
+    "concordancia": 0.854
+  }
+}

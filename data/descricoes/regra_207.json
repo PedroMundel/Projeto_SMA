@@ -1,0 +1,105 @@
+{
+  "resumo": "Regra de agendamento do time de televendas por tempo desde a última compra, em cinco faixas, mais uma regra para clientes sem pedido com a empresa. Deixam de ser agendados os clientes pessoa física. Uma regra final de resgate atende os clientes que estão há mais de 90 dias sem comprar.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Não agendar CPF",
+      "segmento": "Bloqueio: pessoa física",
+      "criterio": "Clientes pessoa física",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Clientes sem pedido com a empresa",
+      "segmento": "Sem pedido com a empresa",
+      "criterio": "Clientes que nunca compraram com o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Clientes ativos com alta regularidade",
+      "segmento": "Ativos com alta regularidade",
+      "criterio": "Clientes que compraram nos últimos 14 dias e têm alguma venda (ativos ou inativos) para o vendedor",
+      "frequencia": "Pelo histórico de compras mais 7 dias",
+      "observacao": "Se não houver histórico, limitada a no máximo 14 dias",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Manter a regularidade",
+      "segmento": "Manter a regularidade",
+      "criterio": "Clientes que compraram nos últimos 30 dias, mas estão há mais de 14 dias sem comprar, e têm alguma venda (ativos ou inativos) para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Sem pedido entre 30 a 45d",
+      "segmento": "Sem pedido de 30 a 45 dias",
+      "criterio": "Clientes que compraram nos últimos 45 dias, mas estão há mais de 30 dias sem comprar, e têm alguma venda (ativos ou inativos) para o vendedor",
+      "frequencia": "21 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Risco de ficar inativo",
+      "segmento": "Risco de ficar inativo",
+      "criterio": "Clientes que compraram nos últimos 90 dias, mas estão há mais de 45 dias sem comprar, e têm alguma venda (ativos ou inativos) para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Resgate de inativos",
+      "segmento": "Resgate de inativos",
+      "criterio": "Clientes que estão há mais de 90 dias sem comprar e têm alguma venda (ativos ou inativos) para o vendedor",
+      "frequencia": "28 dias",
+      "observacao": "Regra final do time",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [
+    "Clientes que nunca compraram e têm alguma venda (ativos ou inativos) para o vendedor não se enquadram em nenhuma regra e ficam sem parametrização."
+  ],
+  "consultas_hipoteticas": [
+    "Televendas: não agendar CPF; sem pedido a cada 14 dias; ativos até 14 dias pelo histórico mais 7 dias, máximo 14; 14 a 30 dias a cada 14; 30 a 45 dias a cada 21; 45 a 90 dias a cada 14; inativos acima de 90 dias a cada 28",
+    "A gente não agenda pessoa física. Quem nunca pediu liga a cada 14 dias, e quem compra com regularidade segue o ritmo do histórico mais uns 7 dias. Quem está há mais de 90 dias sem comprar a gente tenta resgatar a cada 28 dias",
+    "Quero agendar o televendas por tempo sem comprar, com regra própria para clientes regulares, resgate de inativos e bloqueio de CPF"
+  ],
+  "_meta": {
+    "arquivo": "regra_207.gobr",
+    "sha256_gobr": "a1dd357ecf0f1ca4c073f811801c66d86d0a2a80039d61b6b62a307e24d202f3",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:30+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_3.json",
+    "concordancia": 0.831
+  }
+}

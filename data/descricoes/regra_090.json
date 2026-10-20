@@ -1,0 +1,83 @@
+{
+  "resumo": "Regra de frequência aplicada à carteira fixa dos vendedores do time empresa toda, organizada por situação do cliente. Clientes ativos para o vendedor são atendidos a cada 7 dias; inativos e clientes sem venda a cada 14 dias. Todas as faixas atendem de segunda a sábado e não há bloqueios de agenda.",
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "carteira fixa",
+      "descricao": "Carteira fixa dos vendedores do time empresa toda"
+    }
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Regra Padrao da Empresa Customizavel: semanal para ativos",
+      "segmento": "Ativos",
+      "criterio": "Clientes ativos para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "Atendimento de segunda a sábado; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Regra Padrao da Empresa Customizavel: 14 dias para inativos",
+      "segmento": "Inativos",
+      "criterio": "Clientes inativos para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "Atendimento de segunda a sábado; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Regra Padrao da Empresa Customizavel: 14 dias para clientes sem venda",
+      "segmento": "Sem venda",
+      "criterio": "Clientes que nunca compraram com o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "Atendimento de segunda a sábado; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Carteira fixa: ativos a cada 7 dias, inativos 14 dias, sem venda 14 dias; atendimento de segunda a sábado",
+    "Quero que os vendedores visitem toda semana os clientes ativos e de 14 em 14 dias os inativos e quem nunca comprou, podendo atender até no sábado",
+    "Frequência por situação do cliente na carteira fixa dos vendedores, mais frequente para os ativos"
+  ],
+  "_meta": {
+    "arquivo": "regra_090.gobr",
+    "sha256_gobr": "9fe19cc5f2d0b9b6a0f2fdc8a1b2c761566da610c6331f1920f152c291db29db",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:28+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_5.json",
+    "concordancia": 0.759
+  }
+}

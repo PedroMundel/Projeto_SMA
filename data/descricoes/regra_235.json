@@ -1,0 +1,180 @@
+{
+  "resumo": "Regra de agendamento de quatro times de televendas (felipe, paola_1, paola_2 e temporario_2meses), organizada por tempo desde a última compra e por data de rota. Não são agendados os baixados na Receita Federal, os clientes com rota futura ou compra nos últimos 7 dias (paola_1 e paola_2) e os com compra nos últimos 30 dias (felipe). O time felipe tem duas faixas de frequência, o paola_1 e paola_2 têm seis, e o temporario_2meses tem uma. Quem não se enquadra em nenhuma faixa também não é agendado.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Nao agendar - clientes baixados na receita",
+      "segmento": "Bloqueio: baixados na Receita",
+      "criterio": "Clientes com situação baixada na Receita Federal",
+      "frequencia": "Não agendar",
+      "observacao": "Vale para os times felipe, paola_1, paola_2 e temporario_2meses",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Nao agendar - clientes com rota futura em 7 dias",
+      "segmento": "Bloqueio: rota futura em 7 dias",
+      "criterio": "Clientes com data de rota futura nos últimos 7 dias",
+      "frequencia": "Não agendar",
+      "observacao": "Times paola_1 e paola_2",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Nao agendar - clientes com recencia de positivacao em 7 dias",
+      "segmento": "Bloqueio: compra em 7 dias",
+      "criterio": "Clientes que compraram nos últimos 7 dias",
+      "frequencia": "Não agendar",
+      "observacao": "Times paola_1 e paola_2",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Clientes com compra em 30 dias",
+      "segmento": "Bloqueio: compra em 30 dias",
+      "criterio": "Clientes que compraram nos últimos 30 dias",
+      "frequencia": "Não agendar",
+      "observacao": "Time felipe",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Cobertura de rota de visita exatamente 14 dias depois",
+      "segmento": "Cobertura de rota (14 dias depois)",
+      "criterio": "Clientes com data de rota há 14 dias e com pelo menos 5% do limite de crédito disponível",
+      "frequencia": "1 dia",
+      "observacao": "Time temporario_2meses; preferência segunda a sábado",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Clientes com compra entre 30 e 90 dias",
+      "segmento": "Compra entre 30 e 90 dias",
+      "criterio": "Clientes que compraram nos últimos 90 dias, mas estão há mais de 30 dias sem comprar",
+      "frequencia": "15 dias",
+      "observacao": "Time felipe; preferência segunda a sábado",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Clientes sem compra em 90 dias",
+      "segmento": "Sem compra em 90 dias",
+      "criterio": "Clientes que nunca compraram ou estão há mais de 90 dias sem comprar",
+      "frequencia": "10 dias",
+      "observacao": "Time felipe; preferência segunda a sábado",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R8",
+      "nome": "Clientes com rota ha 7 dias ou mais",
+      "segmento": "Rota há 7 dias ou mais",
+      "criterio": "Clientes que nunca compraram ou estão há mais de 7 dias sem comprar, com rota nos últimos 7 dias e pelo menos 5% do limite de crédito disponível",
+      "frequencia": "14 dias",
+      "observacao": "Times paola_1 e paola_2; preferência segunda a sábado",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R9",
+      "nome": "Clientes com compra entre 7 e 30 dias",
+      "segmento": "Compra entre 7 e 30 dias",
+      "criterio": "Clientes que compraram na empresa nos últimos 30 dias, há pelo menos 7 dias sem comprar, sem rota nos últimos 7 dias, com pelo menos 5% do limite de crédito",
+      "frequencia": "14 dias",
+      "observacao": "Times paola_1 e paola_2; segunda a sábado; também considera recência no grupo (nunca compraram ou mais de 7 dias)",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R10",
+      "nome": "Clientes com compra entre 31 e 60 dias",
+      "segmento": "Compra entre 31 e 60 dias",
+      "criterio": "Clientes que compraram na empresa nos últimos 60 dias, há mais de 30 dias sem comprar, sem rota nos últimos 7 dias, com pelo menos 5% do limite de crédito",
+      "frequencia": "14 dias",
+      "observacao": "Times paola_1 e paola_2; preferência segunda a sábado",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R11",
+      "nome": "Clientes com compra entre 61 e 89 dias",
+      "segmento": "Compra entre 61 e 89 dias",
+      "criterio": "Clientes que compraram na empresa nos últimos 89 dias, há mais de 60 dias sem comprar, sem rota nos últimos 7 dias, com pelo menos 5% do limite de crédito",
+      "frequencia": "7 dias",
+      "observacao": "Times paola_1 e paola_2; preferência segunda a sábado",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R12",
+      "nome": "Clientes com compra entre 90 e 179 dias",
+      "segmento": "Compra entre 90 e 179 dias",
+      "criterio": "Clientes que compraram na empresa nos últimos 179 dias, há mais de 89 dias sem comprar, sem rota nos últimos 7 dias, com pelo menos 5% do limite de crédito",
+      "frequencia": "14 dias",
+      "observacao": "Times paola_1 e paola_2; preferência segunda a sábado",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R13",
+      "nome": "Clientes sem compra em 180 dias",
+      "segmento": "Sem compra em 180 dias",
+      "criterio": "Clientes que nunca compraram, compraram nos últimos 6 dias ou estão há mais de 179 dias sem comprar, sem rota nos últimos 7 dias, com 5% ou mais de crédito",
+      "frequencia": "21 dias",
+      "observacao": "Times paola_1 e paola_2; preferência segunda a sábado; no grupo, nunca compraram ou há mais de 7 dias sem comprar",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R14",
+      "nome": "Clientes que hoje não se enquadraram nas regras padrão",
+      "segmento": "Demais clientes",
+      "criterio": "Clientes do temporario_2meses sem rota há 14 dias ou com menos de 5% de crédito, e de paola_1/paola_2 com menos de 5% e sem comprar há mais de 7 dias",
+      "frequencia": "Não agendar",
+      "observacao": "Regra final: vale para quem sobrou das faixas anteriores; nos times paola inclui quem nunca comprou",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [
+    "As regras misturam recência de compra medida na empresa toda ('Clientes com compra entre 7 e 30 dias', 'Clientes com compra entre 31 e 60 dias' e 'Clientes com compra entre 61 e 89 dias') e no grupo de vendedores ('Nao agendar - clientes com recencia de positivacao em 7 dias', 'Clientes com compra em 30 dias' e 'Clientes com compra entre 30 e 90 dias'); faixas de escopos diferentes não se excluem automaticamente e podem se sobrepor ou deixar lacunas."
+  ],
+  "consultas_hipoteticas": [
+    "Felipe: não agendar compra em 30 dias; 30 a 90 dias a cada 15 dias; sem compra em 90 dias a cada 10 dias. Paola: não agendar rota em 7 dias nem compra em 7 dias; faixas de 7, 14 e 21 dias por tempo de compra. Temporário: rota há 14 dias a cada 1 dia; não agendar baixados",
+    "Tenho três times: o felipe liga a cada 15 dias pra quem comprou entre 30 e 90 dias e a cada 10 pra quem passou de 90 sem comprar. O das paolas usa faixas de 7, 14 e 21 dias, e o temporário cobre a rota de 14 dias atrás todo dia",
+    "Quero agendar os times de televendas por tempo desde a última compra e por data de rota, sem agendar baixados na Receita e quem comprou recentemente"
+  ],
+  "_meta": {
+    "arquivo": "regra_235.gobr",
+    "sha256_gobr": "899d1c3ed5bdabe3af0995900cf2be88a6ace508089f7cc131dd97020c60bc96",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:31+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": false,
+        "erros": [
+          "R14: faltam os números [7]"
+        ],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_2.json",
+    "concordancia": 0.745
+  }
+}

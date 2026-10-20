@@ -1,0 +1,73 @@
+{
+  "resumo": "Regra de frequência da carteira fixa dos vendedores de televendas, organizada pelo tempo desde a última compra em três faixas: quem comprou nos últimos 30 dias, quem está há mais de 30 dias sem comprar e quem nunca comprou. O atendimento é preferencialmente de segunda a sexta. Não há bloqueios de agenda.",
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "televendas",
+      "descricao": "Carteira fixa dos vendedores de televendas"
+    }
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Regra Padrao da Empresa Customizavel: quinzenal para clientes que compram até 30 dias",
+      "segmento": "Compraram até 30 dias",
+      "criterio": "Clientes que compraram nos últimos 30 dias",
+      "frequencia": "14 dias",
+      "observacao": "Preferência de atendimento de segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Regra Padrao da Empresa Customizavel: mensal para clientes que não compram a mais de 30 dias",
+      "segmento": "Sem comprar há mais de 30 dias",
+      "criterio": "Clientes que estão há mais de 30 dias sem comprar",
+      "frequencia": "28 dias",
+      "observacao": "Preferência de atendimento de segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Regra Padrao da Empresa Customizavel: mensal para clientes que nunca comprou",
+      "segmento": "Nunca compraram",
+      "criterio": "Clientes que nunca compraram",
+      "frequencia": "28 dias",
+      "observacao": "Preferência de atendimento de segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Televendas: compraram até 30 dias a cada 14 dias; sem comprar há mais de 30 dias a cada 28 dias; nunca compraram a cada 28 dias; atendimento de segunda a sexta",
+    "A gente liga a cada 14 dias para quem comprou no último mês e a cada 28 dias para quem parou de comprar ou nunca comprou, sempre em dia útil",
+    "Quero uma agenda do televendas por tempo desde a última compra, com frequência quinzenal para os recentes e mensal para os demais"
+  ],
+  "_meta": {
+    "arquivo": "regra_065.gobr",
+    "sha256_gobr": "b91ab1981da608c8bf3dcefaba34af60ce9649ceb792efb4622cc37dcdde44ca",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:28+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_2.json",
+    "concordancia": 0.886
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "resumo": "Regra de frequência para dois times, com uma carteira fixa para cada: televendas e campo. Na carteira televendas, as faixas combinam adimplência e situação de compra (14, 30 e 60 dias), mais os clientes sem venda com 30 dias. Na carteira campo, a frequência depende só da adimplência: 14 dias para adimplentes e 30 dias para inadimplentes. A regra final do campo, para clientes sem venda, nunca é aplicada.",
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "carteira televendas",
+      "descricao": "Carteira fixa dos vendedores do time televendas"
+    },
+    {
+      "id": "C2",
+      "nome": "carteira campo",
+      "descricao": "Carteira fixa dos vendedores do time campo"
+    }
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Regra Padrao da Empresa Customizavel: 14 dias para ativos adimplentes (televendas)",
+      "segmento": "Televendas: ativos adimplentes",
+      "criterio": "Clientes adimplentes e ativos para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "Dias de preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Regra Padrao do Empresa Customizavel: 30 dias para ativos inadimplentes (televendas)",
+      "segmento": "Televendas: ativos inadimplentes",
+      "criterio": "Clientes inadimplentes e ativos para o vendedor",
+      "frequencia": "30 dias",
+      "observacao": "Dias de preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Regra Padrao do Empresa Customizavel: 30 dias para inativos adimplentes (televendas)",
+      "segmento": "Televendas: inativos adimplentes",
+      "criterio": "Clientes adimplentes e inativos para o vendedor",
+      "frequencia": "30 dias",
+      "observacao": "Dias de preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Regra Padrao do Empresa Customizavel: 60 dias para inativos inadimplentes (televendas)",
+      "segmento": "Televendas: inativos inadimplentes",
+      "criterio": "Clientes inadimplentes e inativos para o vendedor",
+      "frequencia": "60 dias",
+      "observacao": "Dias de preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Regra Padrao do Empresa Customizavel: 30 dias para clientes sem venda (televendas)",
+      "segmento": "Televendas: sem venda",
+      "criterio": "Clientes que nunca compraram com o vendedor",
+      "frequencia": "30 dias",
+      "observacao": "Dias de preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Regra Padrao do Empresa Customizavel: 14 dias para adimplentes (campo)",
+      "segmento": "Campo: adimplentes",
+      "criterio": "Clientes adimplentes",
+      "frequencia": "14 dias",
+      "observacao": "Dias de preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Regra Padrao do Empresa Customizavel: 30 dias para clientes inadimplentes (campo)",
+      "segmento": "Campo: inadimplentes",
+      "criterio": "Clientes inadimplentes",
+      "frequencia": "30 dias",
+      "observacao": "Dias de preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R8",
+      "nome": "Regra Padrao do Empresa Customizavel: 30 dias para clientes sem venda (campo)",
+      "segmento": "Campo: sem venda",
+      "criterio": "Clientes que nunca compraram com o vendedor, exceto os já tratados pelas regras anteriores",
+      "frequencia": "30 dias",
+      "observacao": "Nunca é aplicada: todos esses clientes já foram tratados antes",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [
+    "A regra '30 dias para clientes sem venda (campo)' nunca é aplicada: todos os clientes dela já são tratados por regras anteriores."
+  ],
+  "consultas_hipoteticas": [
+    "Televendas: ativos adimplentes 14 dias; ativos inadimplentes 30; inativos adimplentes 30; inativos inadimplentes 60; sem venda 30. Campo: adimplentes 14 dias, inadimplentes 30 dias. Atendimento de segunda a sexta",
+    "Temos dois times, televendas e campo, cada um com sua carteira. No televendas a frequência muda conforme o cliente compra e paga em dia, de 14 a 60 dias; no campo é 14 dias pra quem paga em dia e 30 pra inadimplente",
+    "Frequência por adimplência para televendas e campo, com 14, 30 e 60 dias, atendendo de segunda a sexta"
+  ],
+  "_meta": {
+    "arquivo": "regra_087.gobr",
+    "sha256_gobr": "b19c3f7578032801456202cbfe2fb1fd80d5be8021b1317d5ea77e73ebaad283",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:28+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_2.json",
+    "concordancia": 0.873
+  }
+}

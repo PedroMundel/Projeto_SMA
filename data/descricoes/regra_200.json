@@ -1,0 +1,106 @@
+{
+  "resumo": "Regra de agendamento do time de televendas, exceto o vendedor de id 1, por perfil e tempo desde a última compra, em sete regras: prospects, primeiro pedido, alta frequência, compra regular, estímulo, risco de inatividade e resgate de inativos. Não há regras de bloqueio. A última regra atende os inativos com mais de uma compra, com frequência de 21 dias.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Freq. de 21d para 'Prospect: Fazer o primeiro pedido'",
+      "segmento": "Prospect: primeiro pedido",
+      "criterio": "Clientes que nunca compraram com qualquer vendedor da empresa",
+      "frequencia": "21 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Freq. de 10d para 'Ativado: Boas vindas ao cliente com primeiro pedido'",
+      "segmento": "Ativado: primeiro pedido",
+      "criterio": "Clientes que já compraram na empresa e têm uma única compra",
+      "frequencia": "10 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Freq. do histórico para 'Alta frequência de compra'",
+      "segmento": "Alta frequência de compra",
+      "criterio": "Clientes que compraram nos últimos 30 dias e têm mais de uma compra na empresa",
+      "frequencia": "Pelo histórico, mais 5 dias",
+      "observacao": "Histórico de compras mais 5 dias; sem histórico, limitada a no máximo 30 dias",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Freq. de 14d para 'Compra regularmente'",
+      "segmento": "Compra regularmente",
+      "criterio": "Clientes que compraram com o próprio vendedor nos últimos 30 dias",
+      "frequencia": "14 dias",
+      "observacao": "Nunca é aplicada: todos esses clientes já foram tratados antes",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Freq. de 7d para 'Estimular regularidade de compra'",
+      "segmento": "Estimular regularidade",
+      "criterio": "Clientes que compraram nos últimos 60 dias, mas estão há mais de 30 dias sem comprar, com mais de uma compra na empresa",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Freq. de 7d para 'Risco de inatividade'",
+      "segmento": "Risco de inatividade",
+      "criterio": "Clientes que compraram nos últimos 90 dias, mas estão há mais de 60 dias sem comprar, com mais de uma compra na empresa",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Freq. de 21d para 'Resgate de cliente sem compra' (Inativos)",
+      "segmento": "Resgate de inativos",
+      "criterio": "Clientes com mais de uma compra na empresa que nunca compraram no grupo de vendedores ou estão há mais de 90 dias sem comprar nele",
+      "frequencia": "21 dias",
+      "observacao": "Regra final: vale para quem sobrou das regras anteriores",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [
+    "A regra 'Compra regularmente' nunca é aplicada: todos os clientes dela já são tratados por regras anteriores.",
+    "As faixas de recência misturam escopos diferentes (grupo de vendedores e vendedor) nas regras 'Alta frequência de compra', 'Estimular regularidade de compra', 'Risco de inatividade' e 'Compra regularmente'; por isso podem se sobrepor ou deixar lacunas."
+  ],
+  "consultas_hipoteticas": [
+    "Televendas (exceto id 1): prospects 21 dias; primeiro pedido 10 dias; alta frequência pelo histórico mais 5 dias, máx. 30; compra regular 14 dias; estímulo e risco de inatividade 7 dias; inativos 21 dias",
+    "A gente liga a cada 21 dias pra quem nunca comprou, de 10 em 10 dias pro cliente do primeiro pedido e toda semana pra quem está esfriando, entre 30 e 90 dias sem comprar. Quem compra muito segue o histórico mais 5 dias",
+    "Quero agendar o televendas por fase do cliente, de prospect a resgate de inativos, com frequências diferentes e uma regra para quem compra com muita frequência"
+  ],
+  "_meta": {
+    "arquivo": "regra_200.gobr",
+    "sha256_gobr": "9684df135094f823efd986dcb95c7a0b19b89e008b40f54d286c9c955124e89d",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:30+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_1.json",
+    "concordancia": 0.83
+  }
+}

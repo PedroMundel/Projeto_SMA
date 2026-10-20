@@ -1,0 +1,109 @@
+{
+  "resumo": "Regra de agendamento para os times televendas (com carteira fixa) e campo, por situação do cliente: ativos, inativos e sem venda, com preferência de atendimento de segunda a sexta. Os ativos têm frequência de 14 dias e os inativos e sem venda do televendas, de 30 dias; no campo, os inativos seguem 30 dias. Não são agendados os inadimplentes inativos do televendas e os clientes sem venda do campo.",
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "carteira televendas",
+      "descricao": "Carteira fixa dos vendedores do time televendas"
+    }
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Regra Padrao da Tripet - Customizavel: Nao agendar clientes inativos inadimplentes (televendas)",
+      "segmento": "Bloqueio: inativos inadimplentes (televendas)",
+      "criterio": "Clientes inadimplentes e inativos para o vendedor",
+      "frequencia": "Não agendar",
+      "observacao": "Carteira televendas",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Regra Padrao da Tripet - Customizavel: 14 dias para clientes ativos (televendas)",
+      "segmento": "Ativos (televendas)",
+      "criterio": "Clientes ativos para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "Carteira televendas; preferência de atendimento de segunda a sexta, demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Regra Padrao da Tripet - Customizavel: 30 dias para clientes inativos adimplentes (televendas)",
+      "segmento": "Inativos adimplentes (televendas)",
+      "criterio": "Clientes adimplentes e inativos para o vendedor",
+      "frequencia": "30 dias",
+      "observacao": "Carteira televendas; preferência de atendimento de segunda a sexta, demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Regra Padrao da Tripet - Customizavel: 30 dias para clientes sem venda (televendas)",
+      "segmento": "Sem venda (televendas)",
+      "criterio": "Clientes que nunca compraram com o vendedor",
+      "frequencia": "30 dias",
+      "observacao": "Carteira televendas; preferência de atendimento de segunda a sexta, demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Regra Padrao da Tripet - Customizavel: 14 dias para clientes ativos (campo)",
+      "segmento": "Ativos (campo)",
+      "criterio": "Clientes ativos para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "Time campo; preferência de atendimento de segunda a sexta, demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Regra Padrao da Tripet - Customizavel: 30 dias para clientes inativos (campo)",
+      "segmento": "Inativos (campo)",
+      "criterio": "Clientes inativos para o vendedor",
+      "frequencia": "30 dias",
+      "observacao": "Time campo; preferência de atendimento de segunda a sexta, demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Regra Padrao da Tripet - Customizavel: nao agendar clientes sem venda (campo)",
+      "segmento": "Bloqueio: sem venda (campo)",
+      "criterio": "Clientes que nunca compraram com o vendedor",
+      "frequencia": "Não agendar",
+      "observacao": "Time campo",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Televendas: ativos 14 dias; inativos adimplentes 30 dias; sem venda 30 dias; inativos inadimplentes não agendar. Campo: ativos 14 dias; inativos 30 dias; sem venda não agendar. Atendimento de segunda a sexta",
+    "No televendas a gente liga a cada 14 dias pros ativos e a cada 30 pros inativos em dia e pros que nunca compraram, mas não agenda inativo inadimplente. No campo é igual, só que quem nunca comprou fica fora. Sempre de segunda a sexta",
+    "Quero frequência por situação do cliente (ativo, inativo, sem venda) para televendas e campo, com atendimento de segunda a sexta"
+  ],
+  "_meta": {
+    "arquivo": "regra_070.gobr",
+    "sha256_gobr": "6cb9bd75da2cde51ebd6b429b35148caab3c36a6bf31149598cc20c51b7dae75",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:28+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_3.json",
+    "concordancia": 0.849
+  }
+}

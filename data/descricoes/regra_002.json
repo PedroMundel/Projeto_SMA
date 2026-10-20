@@ -38,18 +38,18 @@
   ],
   "pontos_de_atencao": [],
   "consultas_hipoteticas": [
-    "Carteira de todos os vendedores: ativos com frequência média dos ativos; inativos e sem vendas com frequência média dos inativos",
-    "A gente quer que todo vendedor atenda a carteira da empresa inteira, com a frequência média dos ativos pra quem está comprando e a dos inativos pra quem parou ou nunca comprou",
-    "Frequência padrão por situação do cliente, para toda a empresa"
+    "Frequência padrão para toda a carteira: ativos com a média dos ativos da empresa; inativos e sem venda com a média dos inativos",
+    "Quero que cada vendedor atenda a carteira inteira na frequência média da empresa, separando quem está comprando de quem está parado",
+    "Regra padrão de frequência por situação do cliente, para todos os vendedores"
   ],
   "_meta": {
     "arquivo": "regra_002.gobr",
     "sha256_gobr": "53ba462f6408874f33d61f025b4a551e88c8a8ca9cbad43ae9bcead2b658d136",
-    "versao_pacote": "1",
-    "prompt_sha256": "fd3b943ec528",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T15:22:22+00:00",
+    "gerado_em": "2026-10-20T16:12:27+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,
@@ -67,7 +67,7 @@
         "avisos": []
       }
     },
-    "escolhido": "agente_3.json",
-    "concordancia": 0.978
+    "escolhido": "agente_1.json",
+    "concordancia": 1.0
   }
 }

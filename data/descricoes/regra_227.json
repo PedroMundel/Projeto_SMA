@@ -1,0 +1,97 @@
+{
+  "resumo": "Regra de agendamento do time felipe, de televendas, que começa pela cobertura fixa de clientes com data de rota há 7 dias. Os demais seguem faixas por tempo sem comprar: prospects, compra entre 30 e 90 dias e sem compra há mais de 90 dias. Não são agendados os clientes com compra nos últimos 30 dias, e a regra final, que bloquearia os clientes não cobertos, nunca é aplicada.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Cobertura de rota de visita exatamente 7 dias depois",
+      "segmento": "Cobertura de rota",
+      "criterio": "Clientes com data de rota há 7 dias",
+      "frequencia": "1 dia",
+      "observacao": "Parametrização fixa: frequência e dias são restrição rígida para o gerador de agendas",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Não agendar clientes com compra em 30 dias (Ativos)",
+      "segmento": "Bloqueio: compra em 30 dias",
+      "criterio": "Clientes que compraram com qualquer vendedor da empresa nos últimos 30 dias, exceto os com data de rota há 7 dias",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Freq. de 60d para clientes que nunca compraram (Prospects)",
+      "segmento": "Prospects",
+      "criterio": "Clientes que nunca compraram com qualquer vendedor da empresa, exceto os com data de rota há 7 dias",
+      "frequencia": "60 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Freq. de 15d para clientes com compra entre 30 e 90 dias (Ativos)",
+      "segmento": "Compra entre 30 e 90 dias",
+      "criterio": "Clientes que compraram nos últimos 90 dias, mas estão há mais de 30 dias sem comprar, exceto os com data de rota há 7 dias",
+      "frequencia": "15 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Freq. de 10d para clientes sem compra em 90 dias (Inativos)",
+      "segmento": "Inativos há mais de 90 dias",
+      "criterio": "Clientes que estão há mais de 90 dias sem comprar com qualquer vendedor da empresa, exceto os com data de rota há 7 dias",
+      "frequencia": "10 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Nao agendar clientes nao cobertos pelas regras",
+      "segmento": "Bloqueio: clientes não cobertos",
+      "criterio": "Todos os clientes do time, sem filtro",
+      "frequencia": "Não agendar",
+      "observacao": "Nunca é aplicada: todos esses clientes já foram tratados antes",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [
+    "O bloqueio 'Não agendar clientes com compra em 30 dias' vem depois da regra de cobertura de rota, então não bloqueia clientes que já entraram nela.",
+    "A regra 'Nao agendar clientes nao cobertos pelas regras' nunca é aplicada: todos os clientes dela já são tratados por regras anteriores."
+  ],
+  "consultas_hipoteticas": [
+    "Time felipe: rota há 7 dias fixa a cada 1 dia; compra em 30 dias não agendar; prospects 60 dias; compra entre 30 e 90 dias 15 dias; sem compra há mais de 90 dias 10 dias; demais não agendar",
+    "A gente cobre primeiro quem tem rota marcada para 7 dias atrás, todo dia. Quem comprou nos últimos 30 dias não entra na agenda; prospect a cada 60 dias, quem está entre 30 e 90 dias a cada 15 e os parados acima de 90 dias a cada 10",
+    "Quero agendar os clientes do televendas por tempo sem comprar, com prospects, ativos e inativos, uma cobertura fixa para clientes de rota e bloqueio de quem comprou recentemente"
+  ],
+  "_meta": {
+    "arquivo": "regra_227.gobr",
+    "sha256_gobr": "db66e0f1e61631b2b78aeecb69baf893e3396b4da576a94fa29ddb4d62052212",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:31+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_3.json",
+    "concordancia": 0.872
+  }
+}

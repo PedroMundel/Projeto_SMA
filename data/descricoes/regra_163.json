@@ -1,0 +1,173 @@
+{
+  "resumo": "Regra de agendamento do time de televendas dividida em duas carteiras fixas por ramo de atividade: construtora (ramos 15, 16, 3 e 6) e matcom (demais ramos). Em cada carteira, as faixas seguem o relacionamento do cliente com o vendedor: cliente novo, novo relacionamento, regularidade de compra, ruptura e perda de relacionamento. Na carteira construtora, clientes que compraram nos últimos 30 dias deixam de ser agendados. As frequências vão de 7 a 30 dias.",
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "construtora",
+      "descricao": "Carteira fixa dos vendedores do time televendas, com os ramos de atividade 15, 16, 3 e 6"
+    },
+    {
+      "id": "C2",
+      "nome": "matcom",
+      "descricao": "Carteira fixa dos vendedores do time televendas, com os ramos de atividade fora de 15, 16, 3 e 6"
+    }
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Não agendar clientes com venda em 30d (Construtoras)",
+      "segmento": "Bloqueio: venda em 30 dias (Construtoras)",
+      "criterio": "Clientes que compraram nos últimos 30 dias",
+      "frequencia": "Não agendar",
+      "observacao": "Vale para a carteira construtora",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Ative um novo cliente em sua carteira (Construtoras)",
+      "segmento": "Novo cliente (Construtoras)",
+      "criterio": "Clientes que nunca compraram ou estão há mais de 30 dias sem comprar e não têm vendas para o vendedor",
+      "frequencia": "30 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Estabeleça relacionamento com seu novo cliente (Construtoras)",
+      "segmento": "Novo relacionamento (Construtoras)",
+      "criterio": "Clientes com vendas para o vendedor, uma única compra com ele e mais de 60 dias sem comprar",
+      "frequencia": "21 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Estimule a regularidade de compra do seu cliente (Construtoras)",
+      "segmento": "Regularidade de compra (Construtoras)",
+      "criterio": "Clientes com vendas para o vendedor e mais de 30 dias sem comprar no grupo, que compraram com ele há até 30 dias ou há mais de 60 dias",
+      "frequencia": "28 dias",
+      "observacao": "Quem tem compra única com o vendedor entra só se comprou no grupo entre 30 e 60 dias atrás",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Cliente entrando em ruptura (Construtoras)",
+      "segmento": "Ruptura (Construtoras)",
+      "criterio": "Clientes com mais de 30 dias sem comprar no grupo, que compraram com o vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar com ele",
+      "frequencia": "14 dias",
+      "observacao": "Quem tem compra única com o vendedor entra só se comprou no grupo entre 30 e 60 dias atrás",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Garanta que este cliente se mantenha ativo, pois ele está perdendo relacionamento com você! (Construtoras)",
+      "segmento": "Perdendo relacionamento (Construtoras)",
+      "criterio": "Clientes que nunca compraram com o vendedor e nunca compraram no grupo ou estão há mais de 30 dias sem comprar no grupo",
+      "frequencia": "21 dias",
+      "observacao": "Compra única com o vendedor: entra também quem comprou no grupo há mais de 30 e até 60 dias",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Ative um novo cliente em sua carteira (Matcom)",
+      "segmento": "Novo cliente (Matcom)",
+      "criterio": "Clientes sem vendas para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R8",
+      "nome": "Estabeleça relacionamento com seu novo cliente (Matcom)",
+      "segmento": "Novo relacionamento (Matcom)",
+      "criterio": "Clientes com vendas para o vendedor, uma única compra com ele e mais de 30 dias sem comprar",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R9",
+      "nome": "Cliente que compra com regularidade (Matcom)",
+      "segmento": "Compra com regularidade (Matcom)",
+      "criterio": "Clientes com vendas para o vendedor que compraram nos últimos 30 dias, mas estão há mais de 6 dias sem comprar",
+      "frequencia": "Pelo histórico de compras, entre 7 e 30 dias",
+      "observacao": "Sem histórico de compras, a frequência fica limitada a no mínimo 7 e no máximo 30 dias",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R10",
+      "nome": "Estimule a regularidade de compra do seu cliente (Matcom)",
+      "segmento": "Regularidade de compra (Matcom)",
+      "criterio": "Clientes com vendas para o vendedor que compraram no grupo nos últimos 6 dias e compraram com ele há até 30 dias ou há mais de 60 dias",
+      "frequencia": "14 dias",
+      "observacao": "Se não for compra única, entra também quem está há mais de 30 dias sem comprar no grupo",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R11",
+      "nome": "Cliente entrando em ruptura (Matcom)",
+      "segmento": "Ruptura (Matcom)",
+      "criterio": "Clientes que compraram no grupo nos últimos 6 dias e com o vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar com ele",
+      "frequencia": "7 dias",
+      "observacao": "Se não for compra única, entra também quem está há mais de 30 dias sem comprar no grupo",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R12",
+      "nome": "Garanta que este cliente se mantenha ativo, pois ele está perdendo relacionamento com você! (Matcom)",
+      "segmento": "Perdendo relacionamento (Matcom)",
+      "criterio": "Clientes que nunca compraram com o vendedor e nunca compraram no grupo ou compraram no grupo nos últimos 6 dias",
+      "frequencia": "7 dias",
+      "observacao": "Se não for compra única, entra também quem está há mais de 30 dias sem comprar no grupo",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [
+    "As regras misturam a recência de compra medida no grupo de vendedores (como 'Não agendar clientes com venda em 30d (Construtoras)' e 'Estabeleça relacionamento com seu novo cliente (Matcom)') e a medida com o próprio vendedor (como 'Cliente entrando em ruptura (Construtoras)'); faixas de escopos diferentes não se excluem automaticamente e podem se sobrepor ou deixar lacunas."
+  ],
+  "consultas_hipoteticas": [
+    "Televendas, 2 carteiras por ramo: construtora (ramos 15, 16, 3, 6) e matcom (demais). Construtora: não agendar quem comprou em 30 dias; novo cliente 30 dias; relacionamento 21; regularidade 28; ruptura 14. Matcom: novo cliente 7; relacionamento 14; regularidade pelo histórico entre 7 e 30; ruptura 7",
+    "Eu separo os clientes do televendas em construtoras e matcom pelo ramo de atividade. Na construtora, quem comprou nos últimos 30 dias fica fora da agenda e os outros eu ligo a cada 14 a 30 dias, conforme o relacionamento com o vendedor. Na matcom o contato é mais curto, em geral 7 ou 14 dias",
+    "Quero agendar o televendas por ramo de atividade, separando construtoras dos demais, com frequência diferente conforme o relacionamento do cliente com o vendedor"
+  ],
+  "_meta": {
+    "arquivo": "regra_163.gobr",
+    "sha256_gobr": "4b9ebdcbbc1f8eb2d6797107dbea2be29cf919366bee9b1922282f88f58dd82c",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:29+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": [
+          "consulta 1: números fora do pacote [2]"
+        ]
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_2.json",
+    "concordancia": 0.628
+  }
+}

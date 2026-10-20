@@ -1,0 +1,105 @@
+{
+  "resumo": "Regras de frequência para dois times. O time ruptura_global atende clientes adimplentes de grupos de ramos de atividade, conforme o tempo sem comprar. O time carteira organiza os clientes que compraram nos últimos 90 dias por curva A, B, C ou sem classificação, e trata à parte quem está sem comprar há mais de 90 dias. Não há regras de bloqueio.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Freq. de 14d para 'Sem venda há mais de 30d'",
+      "segmento": "Ruptura: sem venda há mais de 30 dias",
+      "criterio": "Clientes adimplentes que nunca compraram ou estão há mais de 30 dias sem comprar, dos ramos de atividade 10, 28, 32, 33, 37, 38 e mais 6",
+      "frequencia": "14 dias",
+      "observacao": "Time ruptura_global",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Freq. de 14d para 'Sem venda há mais de 45d'",
+      "segmento": "Ruptura: sem venda há mais de 45 dias",
+      "criterio": "Clientes adimplentes que estão há mais de 45 dias sem comprar, dos ramos de atividade 1, 11, 12, 13, 14, 15 e mais 24",
+      "frequencia": "14 dias",
+      "observacao": "Time ruptura_global",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Freq. de 14d para curva A e com compra em 90 dias",
+      "segmento": "Curva A",
+      "criterio": "Clientes que compraram nos últimos 90 dias e são curva A com a empresa",
+      "frequencia": "14 dias",
+      "observacao": "Time carteira",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Freq. de 21d para curva B e com compra em 90 dias",
+      "segmento": "Curva B",
+      "criterio": "Clientes que compraram nos últimos 90 dias e são curva B com a empresa",
+      "frequencia": "21 dias",
+      "observacao": "Time carteira",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Freq. de 28d para curva C e com compra em 90 dias",
+      "segmento": "Curva C",
+      "criterio": "Clientes que compraram nos últimos 90 dias e são curva C com a empresa",
+      "frequencia": "28 dias",
+      "observacao": "Time carteira",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Freq. de 21d para sem classificação de curva e com compra em 90 dias",
+      "segmento": "Sem classificação de curva",
+      "criterio": "Clientes que compraram nos últimos 90 dias e não são curva A, B nem C com a empresa",
+      "frequencia": "21 dias",
+      "observacao": "Time carteira",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Freq. de 21d para sem compra há mais de 90 dias",
+      "segmento": "Sem compra há mais de 90 dias",
+      "criterio": "Clientes que nunca compraram ou estão há mais de 90 dias sem comprar",
+      "frequencia": "21 dias",
+      "observacao": "Time carteira",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [
+    "No time ruptura_global, várias combinações de clientes não se enquadram em nenhuma regra e ficam sem parametrização."
+  ],
+  "consultas_hipoteticas": [
+    "Ruptura global: sem venda há mais de 30 dias 14 dias e há mais de 45 dias 14 dias, por ramo, só adimplentes. Carteira: compra em 90 dias curva A 14 dias, B 21 dias, C 28 dias, sem curva 21 dias; mais de 90 dias sem comprar 21 dias",
+    "No time carteira, quem comprou nos últimos 90 dias é atendido por curva: A a cada 14 dias, B a cada 21 e C a cada 28. Já o ruptura global liga a cada 14 dias para adimplentes parados de certos ramos de atividade",
+    "Quero frequências por curva ABC para clientes com compra recente em um time, e frequência por ramo de atividade e tempo sem compra em outro"
+  ],
+  "_meta": {
+    "arquivo": "regra_222.gobr",
+    "sha256_gobr": "06e5aa5d9c7cd4ad3601196a5806670e7abcdbc6ad64391d5b534f12238cf2e5",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:31+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_2.json",
+    "concordancia": 0.813
+  }
+}

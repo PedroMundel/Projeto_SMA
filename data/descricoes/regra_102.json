@@ -1,0 +1,83 @@
+{
+  "resumo": "Regra de frequência com dois grupos: a carteira fixa do time televendas, dividida em duas faixas, e o time campo, com faixa única. No televendas, inativos inadimplentes são atendidos a cada 30 dias e os demais clientes a cada 14 dias. Todos os clientes do campo são atendidos a cada 30 dias. Todas as faixas atendem de segunda a sexta e não há bloqueios de agenda.",
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "carteira televendas",
+      "descricao": "Carteira fixa dos vendedores do time televendas"
+    }
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Regra Padrao da Alianca Distribuidora - Customizavel: 30 dias para clientes inativos inadimplentes (televendas)",
+      "segmento": "Televendas: inativos inadimplentes",
+      "criterio": "Clientes inadimplentes e inativos para o vendedor",
+      "frequencia": "30 dias",
+      "observacao": "Atendimento de segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Regra Padrao da Alianca Distribuidora - Customizavel: 14 dias para clientes ativos ou adimplentes (televendas)",
+      "segmento": "Televendas: ativos ou adimplentes",
+      "criterio": "Clientes que não são inativos para o vendedor, ou que são inativos e adimplentes",
+      "frequencia": "14 dias",
+      "observacao": "Atendimento de segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Regra Padrao da Alianca Distribuidora - Customizavel: 30 dias para todos os clientes (campo)",
+      "segmento": "Campo: todos os clientes",
+      "criterio": "Clientes de qualquer perfil atendidos pelo time campo",
+      "frequencia": "30 dias",
+      "observacao": "Atendimento de segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Televendas: inativos inadimplentes 30 dias, demais clientes 14 dias; campo: todos os clientes 30 dias; atendimento de segunda a sexta",
+    "No televendas a gente liga a cada 14 dias para a maioria e só a cada 30 dias para inativo inadimplente. O pessoal de campo visita todos os clientes uma vez por mês, de segunda a sexta",
+    "Quero uma frequência para a carteira do televendas separando os inativos inadimplentes, e outra única para o time de campo"
+  ],
+  "_meta": {
+    "arquivo": "regra_102.gobr",
+    "sha256_gobr": "88988f650daabf9b08b015665e382bb0d65f58748c1743c6acf76a1cd02fc7f1",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:28+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_5.json",
+    "concordancia": 0.689
+  }
+}

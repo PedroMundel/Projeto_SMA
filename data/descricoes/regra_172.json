@@ -1,0 +1,76 @@
+{
+  "resumo": "Regra simples de frequência para o time de televendas, separando clientes ativos e não ativos para o vendedor. Os ativos são agendados a cada 7 dias e os não ativos a cada 14 dias. Antes disso, deixam de ser agendados os inadimplentes e as filiais.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Não agendar inadimplentes",
+      "segmento": "Bloqueio: inadimplentes",
+      "criterio": "Clientes inadimplentes",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Não agendar filiais",
+      "segmento": "Bloqueio: filiais",
+      "criterio": "Clientes que são filiais",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Ativo:'Freq. de 7 dias'",
+      "segmento": "Ativos",
+      "criterio": "Clientes ativos para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Inativo:'Freq. de 14 dias'",
+      "segmento": "Inativos",
+      "criterio": "Clientes não ativos para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "Regra final: vale para quem sobrou dos ativos",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Televendas: ativos a cada 7 dias; inativos a cada 14 dias; não agendar inadimplentes e filiais",
+    "A gente liga toda semana para os clientes ativos e a cada 14 dias para os inativos. Inadimplente e filial não entram na agenda",
+    "Quero uma frequência para o televendas que separe cliente ativo de inativo"
+  ],
+  "_meta": {
+    "arquivo": "regra_172.gobr",
+    "sha256_gobr": "2e42a569ce61650cbe6253b7216556230c51e8551ca3a1039c92e25bbbff749b",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:29+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_1.json",
+    "concordancia": 0.822
+  }
+}

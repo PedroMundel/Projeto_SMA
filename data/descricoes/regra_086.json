@@ -1,0 +1,91 @@
+{
+  "resumo": "Regra de frequência aplicada à carteira fixa de todos os vendedores da empresa, organizada por adimplência e situação de compra do cliente. Ativos adimplentes têm 10 dias, ativos inadimplentes e inativos adimplentes têm 14 dias, e inativos inadimplentes têm 90 dias. A regra final cobre clientes sem vendas, com 21 dias.",
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "empresa toda",
+      "descricao": "Carteira fixa de todos os vendedores da empresa"
+    }
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Regra Padrao da Taiken Customizavel: 10 dias para ativos adimplentes",
+      "segmento": "Ativos adimplentes",
+      "criterio": "Clientes adimplentes e ativos para o vendedor",
+      "frequencia": "10 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Regra Padrao da Taiken Customizavel: 14 dias para ativos inadimplentes",
+      "segmento": "Ativos inadimplentes",
+      "criterio": "Clientes inadimplentes e ativos para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Regra Padrao da Taiken Customizavel: 14 dias para inativos adimplentes",
+      "segmento": "Inativos adimplentes",
+      "criterio": "Clientes adimplentes e inativos para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Regra Padrao da Taiken Customizavel: 90 dias para inativos inadimplentes",
+      "segmento": "Inativos inadimplentes",
+      "criterio": "Clientes inadimplentes e inativos para o vendedor",
+      "frequencia": "90 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Regra Padrao da Taiken Customizavel: 21 dias para clientes sem vendas",
+      "segmento": "Sem vendas",
+      "criterio": "Clientes que nunca compraram com o vendedor",
+      "frequencia": "21 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Empresa toda: ativos adimplentes 10 dias; ativos inadimplentes 14 dias; inativos adimplentes 14 dias; inativos inadimplentes 90 dias; sem vendas 21 dias",
+    "A gente atende os ativos que pagam em dia a cada 10 dias, os ativos inadimplentes e os inativos adimplentes a cada 14, os inativos inadimplentes só a cada 90, e quem nunca comprou a cada 21 dias",
+    "Frequência por situação de compra e adimplência do cliente, de 10 até 90 dias, para todos os vendedores"
+  ],
+  "_meta": {
+    "arquivo": "regra_086.gobr",
+    "sha256_gobr": "d1f7898116536771f700603d5e9e6dbd3a3fcfbb4e2039890cf0b2489aeba9b8",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:28+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_2.json",
+    "concordancia": 0.913
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "resumo": "Regra única de frequência para o time com todos os vendedores habilitados no Govendas. Todos os clientes são agendados com a mesma frequência de 15 dias, sem faixas e sem regras de bloqueio.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Regra padrão da Linavet: Frequencia de 15 dias para todos os clientes",
+      "segmento": "Todos os clientes",
+      "criterio": "Clientes em geral, sem distinção de situação",
+      "frequencia": "15 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Toda empresa: todos os clientes a cada 15 dias",
+    "A gente quer que todo cliente seja visitado a cada 15 dias, não importa se é ativo ou inativo, e vale para todos os vendedores",
+    "Regra padrão com uma única frequência para a base inteira"
+  ],
+  "_meta": {
+    "arquivo": "regra_134.gobr",
+    "sha256_gobr": "97a362a093db4db2ecd31bdce117607cfb7e8cfb8087b0c444b5e982a3e8832e",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:29+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_3.json",
+    "concordancia": 0.671
+  }
+}

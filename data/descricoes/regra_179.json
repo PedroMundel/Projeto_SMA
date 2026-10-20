@@ -1,0 +1,227 @@
+{
+  "resumo": "Regra de agendamento do time televendas, dividida em três carteiras fixas por ramo de atividade: construtora, matcon e demais_segment. Os clientes são organizados em novos (nunca compraram com o vendedor ou com uma única compra), clientes com mais de uma compra com o vendedor por tempo sem comprar na empresa (até 60, 89 e 179 dias) e os parados há mais de 180 dias. Não há bloqueios de agenda, e as regras finais de cada carteira são de requalificação e resgate.",
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "construtora",
+      "descricao": "Carteira fixa dos vendedores do time televendas, com clientes de uma lista de ramos de atividade"
+    },
+    {
+      "id": "C2",
+      "nome": "matcon",
+      "descricao": "Carteira fixa dos vendedores do time televendas, com clientes de uma lista de ramos de atividade"
+    },
+    {
+      "id": "C3",
+      "nome": "demais_segment",
+      "descricao": "Carteira fixa dos vendedores do time televendas, com clientes de ramos de atividade fora de uma lista definida"
+    }
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Ative um novo cliente em sua carteira! (Todos os segmentos)",
+      "segmento": "Novos clientes (todos os segmentos)",
+      "criterio": "Clientes que nunca compraram com o próprio vendedor",
+      "frequencia": "7 dias",
+      "observacao": "Carteiras construtora, matcon e demais_segment",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Estabeleça relacionamento com seu novo cliente! (Construtoras)",
+      "segmento": "Novos clientes (construtoras)",
+      "criterio": "Clientes que já compraram com o próprio vendedor, em uma única compra",
+      "frequencia": "14 dias",
+      "observacao": "Carteira construtora",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Estabeleça relacionamento com seu novo cliente! (Exceto Construtoras)",
+      "segmento": "Novos clientes (exceto construtoras)",
+      "criterio": "Clientes que já compraram com o próprio vendedor, em uma única compra",
+      "frequencia": "7 dias",
+      "observacao": "Carteiras matcon e demais_segment",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Cliente que compra com regularidade! (Exceto Construtoras)",
+      "segmento": "Compra regular (exceto construtoras)",
+      "criterio": "Clientes com mais de uma compra com o vendedor que compraram no grupo de vendedores nos últimos 30 dias, mas estão há pelo menos 7 dias sem comprar",
+      "frequencia": "Pelo histórico, entre 7 e 30 dias",
+      "observacao": "Carteiras matcon e demais_segment",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Cliente que compra com regularidade! (Construtoras com venda em 30d)",
+      "segmento": "Compra regular (construtoras, com venda em 30 dias)",
+      "criterio": "Clientes com mais de uma compra com o vendedor que compraram no grupo de vendedores nos últimos 30 dias",
+      "frequencia": "7 dias",
+      "observacao": "Carteira construtora",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Cliente que compra com regularidade! (Construtoras sem venda em 30d)",
+      "segmento": "Compra regular (construtoras, sem venda em 30 dias)",
+      "criterio": "Clientes com mais de uma compra com o vendedor que estão há mais de 30 dias sem comprar no grupo de vendedores",
+      "frequencia": "14 dias",
+      "observacao": "Carteira construtora",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Estimule a regularidade de compra do seu cliente! (Matcon)",
+      "segmento": "Estimular regularidade (matcon)",
+      "criterio": "Clientes com mais de uma compra com o vendedor que compraram na empresa nos últimos 60 dias, mas estão há pelo menos 30 dias sem comprar",
+      "frequencia": "7 dias",
+      "observacao": "Carteira matcon; exige compra no grupo nos últimos 6 dias ou mais de 30 dias sem comprar no grupo",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R8",
+      "nome": "Estimule a regularidade de compra do seu cliente! (Exceto Matcon)",
+      "segmento": "Estimular regularidade (exceto matcon)",
+      "criterio": "Clientes com mais de uma compra com o vendedor que compraram na empresa nos últimos 60 dias, mas estão há pelo menos 30 dias sem comprar",
+      "frequencia": "14 dias",
+      "observacao": "Carteira demais_segment; exige compra no grupo nos últimos 6 dias ou mais de 30 dias sem comprar no grupo",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R9",
+      "nome": "Atenção!!! Cliente caminhando para inatividade! (Matcon)",
+      "segmento": "Caminhando para inatividade (matcon)",
+      "criterio": "Clientes com mais de uma compra com o vendedor que compraram na empresa nos últimos 89 dias, mas estão há mais de 60 dias sem comprar",
+      "frequencia": "7 dias",
+      "observacao": "Carteira matcon",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R10",
+      "nome": "Atenção!!! Cliente caminhando para inatividade! (Construtoras)",
+      "segmento": "Caminhando para inatividade (construtoras)",
+      "criterio": "Clientes que compraram na empresa nos últimos 89 dias, mas estão há pelo menos 60 dias sem comprar",
+      "frequencia": "14 dias",
+      "observacao": "Nunca é aplicada: todos esses clientes já foram tratados antes",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R11",
+      "nome": "Atenção!!! Cliente caminhando para inatividade! (Exceto Matcon e Construtoras)",
+      "segmento": "Caminhando para inatividade (demais)",
+      "criterio": "Clientes com mais de uma compra com o vendedor que compraram na empresa nos últimos 89 dias, mas estão há mais de 60 dias sem comprar",
+      "frequencia": "21 dias",
+      "observacao": "Carteira demais_segment",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R12",
+      "nome": "Resgate este cliente inativo! (Matcon)",
+      "segmento": "Resgate de inativos (matcon)",
+      "criterio": "Clientes com mais de uma compra com o vendedor que compraram na empresa nos últimos 179 dias, mas estão há mais de 89 dias sem comprar",
+      "frequencia": "7 dias",
+      "observacao": "Carteira matcon",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R13",
+      "nome": "Resgate este cliente inativo! (Construtoras)",
+      "segmento": "Resgate de inativos (construtoras)",
+      "criterio": "Clientes que compraram na empresa nos últimos 179 dias, mas estão há mais de 89 dias sem comprar",
+      "frequencia": "21 dias",
+      "observacao": "Nunca é aplicada: todos esses clientes já foram tratados antes",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R14",
+      "nome": "Resgate este cliente inativo! (Exceto Matcon e Construtoras)",
+      "segmento": "Resgate de inativos (demais)",
+      "criterio": "Clientes com mais de uma compra com o vendedor que compraram na empresa nos últimos 179 dias, mas estão há mais de 89 dias sem comprar",
+      "frequencia": "14 dias",
+      "observacao": "Carteira demais_segment",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R15",
+      "nome": "Requalifique e resgate este cliente! (Exceto Construtoras)",
+      "segmento": "Requalificar e resgatar (exceto construtoras)",
+      "criterio": "Clientes com mais de uma compra com o vendedor que estão há mais de 180 dias sem comprar na empresa",
+      "frequencia": "14 dias",
+      "observacao": "Carteiras matcon e demais_segment",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R16",
+      "nome": "Requalifique e resgate este cliente! (Construtoras)",
+      "segmento": "Requalificar e resgatar (construtoras)",
+      "criterio": "Clientes que estão há mais de 180 dias sem comprar na empresa",
+      "frequencia": "28 dias",
+      "observacao": "Nunca é aplicada: todos esses clientes já foram tratados antes",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [
+    "A regra 'Atenção!!! Cliente caminhando para inatividade! (Construtoras)' nunca é aplicada: todos os clientes dela já são tratados por regras anteriores ('Ative um novo cliente em sua carteira! (Todos os segmentos)', 'Estabeleça relacionamento com seu novo cliente! (Construtoras)' e 'Cliente que compra com regularidade! (Construtoras sem venda em 30d)').",
+    "A regra 'Resgate este cliente inativo! (Construtoras)' nunca é aplicada: todos os clientes dela já são tratados por regras anteriores ('Ative um novo cliente em sua carteira! (Todos os segmentos)', 'Estabeleça relacionamento com seu novo cliente! (Construtoras)' e 'Cliente que compra com regularidade! (Construtoras sem venda em 30d)').",
+    "A regra 'Requalifique e resgate este cliente! (Construtoras)' nunca é aplicada: todos os clientes dela já são tratados por regras anteriores ('Ative um novo cliente em sua carteira! (Todos os segmentos)', 'Estabeleça relacionamento com seu novo cliente! (Construtoras)' e 'Cliente que compra com regularidade! (Construtoras sem venda em 30d)').",
+    "As faixas misturam medidas diferentes de última compra: na empresa toda ('Estimule a regularidade de compra do seu cliente! (Matcon)', '... (Exceto Matcon)' e 'Atenção!!! Cliente caminhando para inatividade! (Matcon)') e no grupo de vendedores ('Cliente que compra com regularidade! (Exceto Construtoras)', '... (Construtoras com venda em 30d)' e '... (Construtoras sem venda em 30d)'). Por isso as faixas podem se sobrepor ou deixar lacunas.",
+    "Clientes das carteiras construtora, matcon e demais_segment (entre eles os das carteiras demais_segment e matcon) com mais de uma compra com o vendedor, que compraram na empresa nos últimos 29 dias ou que compraram nos últimos 180 dias mas estão há mais de 179 dias sem comprar, e que compraram no grupo de vendedores nos últimos 6 dias ou estão há mais de 30 dias sem comprar no grupo, não se enquadram em nenhuma regra e ficam sem parametrização.",
+    "Clientes das carteiras matcon e demais_segment com mais de uma compra com o vendedor, que compraram na empresa nos últimos 29 dias ou que compraram nos últimos 180 dias mas estão há mais de 179 dias sem comprar, e que compraram no grupo de vendedores nos últimos 6 dias ou estão há mais de 30 dias sem comprar no grupo, não se enquadram em nenhuma regra e ficam sem parametrização.",
+    "Clientes da carteira matcon com mais de uma compra com o vendedor, que compraram na empresa nos últimos 29 dias ou que compraram nos últimos 180 dias mas estão há mais de 179 dias sem comprar, e que compraram no grupo de vendedores nos últimos 6 dias ou estão há mais de 30 dias sem comprar no grupo, não se enquadram em nenhuma regra e ficam sem parametrização.",
+    "Clientes das carteiras construtora e demais_segment (entre eles os da carteira demais_segment) com mais de uma compra com o vendedor, que compraram na empresa nos últimos 29 dias ou que compraram nos últimos 180 dias mas estão há mais de 179 dias sem comprar, e que compraram no grupo de vendedores nos últimos 6 dias ou estão há mais de 30 dias sem comprar no grupo, não se enquadram em nenhuma regra e ficam sem parametrização.",
+    "Clientes da carteira demais_segment com mais de uma compra com o vendedor, que compraram na empresa nos últimos 29 dias ou que compraram nos últimos 180 dias mas estão há mais de 179 dias sem comprar, e que compraram no grupo de vendedores nos últimos 6 dias ou estão há mais de 30 dias sem comprar no grupo, não se enquadram em nenhuma regra e ficam sem parametrização."
+  ],
+  "consultas_hipoteticas": [
+    "Televendas por carteira (construtora, matcon, demais_segment): nunca comprou com o vendedor 7 dias; compra única 14 dias construtoras e 7 dias demais; regulares 7 a 30 dias; inatividade 60 e 89 dias; resgate 179 dias; acima de 180 dias requalificar a cada 14 dias (construtoras 28)",
+    "Separamos os clientes do televendas em construtoras, matcon e os demais segmentos. Cliente novo, que nunca comprou com o vendedor, a gente liga toda semana. Depois vai por tempo sem comprar: 60 dias, 89 dias, 179 dias, e acima de 180 dias é requalificação, com frequências diferentes por carteira",
+    "Quero regras de frequência para o televendas separando construtoras, matcon e os outros segmentos, com faixas para clientes novos, regulares e inativos"
+  ],
+  "_meta": {
+    "arquivo": "regra_179.gobr",
+    "sha256_gobr": "4427fa706c03f145217ab78fb9a201bf9a74bb66d19e47900b58a56e79af33d3",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:30+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": [
+          "consulta 1: números fora do pacote [3]"
+        ]
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": [
+          "R7: critério com mais de 40 palavras",
+          "R8: critério com mais de 40 palavras"
+        ]
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": [
+          "consulta 1: números fora do pacote [3]"
+        ]
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_4.json",
+    "concordancia": 0.709
+  }
+}

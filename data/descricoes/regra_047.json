@@ -1,0 +1,100 @@
+{
+  "resumo": "Regra padrão de frequência aplicada à carteira fixa de todos os vendedores habilitados. Os clientes são organizados por situação: ativos adimplentes, ativos inadimplentes, inativos adimplentes e sem vendas, com frequências de 7 e 14 dias. Deixam de ser agendados os clientes pessoa física e os inativos inadimplentes.",
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "regra padrao",
+      "descricao": "Carteira fixa de todos os vendedores habilitados no Govendas"
+    }
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Regra Padrao da STO Customizavel: nao agendar CPF",
+      "segmento": "Bloqueio: pessoa física",
+      "criterio": "Clientes pessoa física",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Regra Padrao da STO Customizavel: 7 dias para ativos adimplentes",
+      "segmento": "Ativos adimplentes",
+      "criterio": "Clientes adimplentes e ativos para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Regra Padrao da STO Customizavel: 14 dias para ativos inadimplentes",
+      "segmento": "Ativos inadimplentes",
+      "criterio": "Clientes inadimplentes e ativos para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Regra Padrao da STO Customizavel: 14 dias para inativos adimplentes",
+      "segmento": "Inativos adimplentes",
+      "criterio": "Clientes adimplentes e inativos para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Regra Padrao da STO Customizavel: nao agendar inativos inadimplentes",
+      "segmento": "Bloqueio: inativos inadimplentes",
+      "criterio": "Clientes inadimplentes e inativos para o vendedor",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Regra Padrao da STO Customizavel: 14 dias para clientes sem vendas",
+      "segmento": "Sem vendas",
+      "criterio": "Clientes sem vendas para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Todos os vendedores: não agendar pessoa física e inativos inadimplentes; ativos adimplentes 7 dias; ativos inadimplentes 14 dias; inativos adimplentes 14 dias; sem vendas 14 dias",
+    "A gente não agenda cliente pessoa física nem inativo inadimplente. Ativo em dia é toda semana, e ativo inadimplente, inativo em dia e quem nunca comprou ficam a cada 14 dias",
+    "Frequência por situação do cliente com bloqueio de pessoa física e de inativos inadimplentes"
+  ],
+  "_meta": {
+    "arquivo": "regra_047.gobr",
+    "sha256_gobr": "634cc2d512d43763e5366b1d74c12933749f1a11836f6e290931a35e2b89ce85",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:27+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_2.json",
+    "concordancia": 0.927
+  }
+}

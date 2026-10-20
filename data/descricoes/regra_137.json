@@ -1,0 +1,77 @@
+{
+  "resumo": "Regras de agendamento para todos os vendedores da empresa, organizadas em três grupos de clientes. Prospects e inativos para o vendedor são atendidos a cada 14 dias, e os ativos para o vendedor, a cada 21 dias. Não há bloqueios de agenda, e a última regra cobre os demais clientes que já compraram na empresa.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Fênix distribuidora: 14d para prospects",
+      "segmento": "Prospects",
+      "criterio": "Clientes que nunca compraram com qualquer vendedor da empresa",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Fênix distribuidora: 21d para ativos/adimplentes",
+      "segmento": "Ativos",
+      "criterio": "Clientes que já compraram na empresa e são ativos para o vendedor",
+      "frequencia": "21 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Fênix distribuidora: 14d para inativos/adimplentes",
+      "segmento": "Inativos",
+      "criterio": "Clientes que já compraram na empresa e não são ativos para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "Regra final: vale para quem sobrou das anteriores",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Empresa toda: prospects a cada 14 dias, ativos a cada 21 dias, inativos a cada 14 dias",
+    "A gente atende prospect de 14 em 14 dias, cliente ativo a cada 21 dias e cliente inativo de novo a cada 14 dias, para todos os vendedores",
+    "Quero uma regra de frequência por perfil do cliente: prospect, ativo e inativo"
+  ],
+  "_meta": {
+    "arquivo": "regra_137.gobr",
+    "sha256_gobr": "89261accc1c74d81d458197d55b8be192bb09a0ec23cdcb493eda7087854843a",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:29+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_1.json",
+    "concordancia": 0.745
+  }
+}

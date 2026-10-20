@@ -1,0 +1,112 @@
+{
+  "resumo": "Regra de frequência aplicada à carteira fixa de todos os vendedores da empresa. Clientes com queda de faturamento maior que 5% têm frequência de 3 dias; os demais seguem a média da empresa para ativos ou inativos, com atendimento em todos os dias da semana. Deixa de ser agendado quem está há pelo menos 1138 dias sem comprar. A regra final, de 7 dias, nunca é aplicada.",
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "empresa toda",
+      "descricao": "Carteira fixa de todos os vendedores da empresa"
+    }
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Regra Padrao do goVendas: 3 dias para clientes em queda de faturamento",
+      "segmento": "Queda de faturamento",
+      "criterio": "Clientes com queda de faturamento maior que 5%",
+      "frequencia": "3 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Regra Padrao do goVendas - Customizavel: Nao agendar quem esta a mais de 1138 dias sem comprar",
+      "segmento": "Bloqueio: mais de 1138 dias sem comprar",
+      "criterio": "Clientes que compraram nos últimos 9999 dias, mas estão há pelo menos 1138 dias sem comprar, exceto os com queda de faturamento maior que 5%",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Regra Padrao do goVendas Customizável - Teste cidade goiania",
+      "segmento": "Teste cidade Goiânia",
+      "criterio": "Clientes da cidade de GOIANIA, exceto os com queda de faturamento maior que 5%",
+      "frequencia": "Média dos inativos da empresa",
+      "observacao": "Dias de preferência: segunda a domingo",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Regra Padrao do goVendas Customizável - Clientes ativos",
+      "segmento": "Clientes ativos",
+      "criterio": "Clientes ativos para o vendedor, de cidades diferentes de GOIANIA, exceto os com queda de faturamento maior que 5%",
+      "frequencia": "Média dos ativos da empresa",
+      "observacao": "Dias de preferência: segunda a domingo",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Regra Padrao do goVendas Customizável - Clientes inativos",
+      "segmento": "Clientes inativos",
+      "criterio": "Clientes inativos para o vendedor, de cidades diferentes de GOIANIA, exceto os com queda de faturamento maior que 5%",
+      "frequencia": "Média dos inativos da empresa",
+      "observacao": "Dias de preferência: segunda a domingo",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Regra Padrao do goVendas Customizável - Clientes sem vendas",
+      "segmento": "Clientes sem vendas",
+      "criterio": "Clientes sem vendas para o vendedor, de cidades diferentes de GOIANIA, exceto os com queda de faturamento maior que 5%",
+      "frequencia": "Média dos inativos da empresa",
+      "observacao": "Dias de preferência: segunda a domingo",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Regra Padrao - default",
+      "segmento": "Regra padrão (default)",
+      "criterio": "Clientes de todos os grupos (sem filtro)",
+      "frequencia": "7 dias",
+      "observacao": "Nunca é aplicada: todos esses clientes já foram tratados antes. Atendimento preferencial de segunda a sexta.",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [
+    "O bloqueio 'Nao agendar quem esta a mais de 1138 dias sem comprar' vem depois da regra de 3 dias para queda de faturamento, então não bloqueia clientes que já entraram nela.",
+    "A regra 'Regra Padrao - default' nunca é aplicada: todos os clientes dela já são tratados por regras anteriores."
+  ],
+  "consultas_hipoteticas": [
+    "Carteira empresa toda: queda de faturamento maior que 5% a cada 3 dias; Goiânia e demais cidades pela média da empresa (ativos e inativos), todos os dias; não agendar quem está há 1138 dias ou mais sem comprar",
+    "Pra todos os vendedores da empresa, quem está com queda de faturamento acima de 5% a gente atende a cada 3 dias. O resto segue a média da empresa, e quem passou de 1138 dias sem comprar sai da agenda",
+    "Quero uma regra padrão com frequência maior para clientes em queda de faturamento e a média da empresa para ativos e inativos"
+  ],
+  "_meta": {
+    "arquivo": "regra_234.gobr",
+    "sha256_gobr": "3d6de492f5c711c8ee6b4f54959c30edb979a09a59f078eacb2bd6d30705eea6",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:31+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_2.json",
+    "concordancia": 0.865
+  }
+}

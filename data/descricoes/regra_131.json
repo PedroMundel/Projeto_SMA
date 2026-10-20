@@ -1,5 +1,5 @@
 {
-  "resumo": "Regras de agendamento para os times de televendas e de campo, organizadas por CNAE, crédito disponível e situação de ativo ou inativo para o vendedor. Antes das frequências, deixam de ser agendados os clientes inadimplentes e os com CNAE de administração pública em geral e segurança e ordem pública. Clientes sem crédito disponível têm frequência de 7 dias nos dois times. Com crédito, há três modelos por CNAE (ativos e inativos nos modelos 1 e 2, e um modelo único para os demais), e o time de campo atende apenas em dias de preferência.",
+  "resumo": "Regra de agendamento para os times de televendas e de campo. Não são agendados os inadimplentes e os clientes de dois CNAEs (administração pública em geral e segurança e ordem pública). Clientes sem crédito disponível ficam em 7 dias; os demais seguem três modelos por CNAE, com frequências de 7 e 14, 21 e 30, e 30 dias, e o campo tem dias de preferência.",
   "carteiras": [],
   "regras": [
     {
@@ -8,16 +8,16 @@
       "segmento": "Bloqueio: inadimplentes",
       "criterio": "Clientes inadimplentes",
       "frequencia": "Não agendar",
-      "observacao": "Vale para os times televendas e campo",
+      "observacao": "Vale para televendas e campo",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R2",
       "nome": "Labtech: Não agendar 'Administração pública em geral' e 'Segurança e ordem pública'",
-      "segmento": "Bloqueio: administração e segurança pública",
-      "criterio": "Clientes com CNAE (id) em 8411600 ou 8424800",
+      "segmento": "Bloqueio: administração pública e segurança",
+      "criterio": "Clientes com CNAE em 8411600 ou 8424800",
       "frequencia": "Não agendar",
-      "observacao": "Vale para os times televendas e campo",
+      "observacao": "Vale para televendas e campo",
       "clausulas_nao_traduzidas": []
     },
     {
@@ -26,14 +26,14 @@
       "segmento": "Sem crédito",
       "criterio": "Clientes com CNAE fora de 8411600 e 8424800 e sem crédito disponível",
       "frequencia": "7 dias",
-      "observacao": "Vale para os times televendas e campo",
+      "observacao": "Vale para televendas e campo",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R4",
       "nome": "Labtech: Frequência de 7 dias para clientes ativos - Modelo 1 - Televendas",
-      "segmento": "Modelo 1 - ativos (televendas)",
-      "criterio": "Clientes com CNAE (id) em 7500100, 8610101, 8610102, 8630501, 8630502, 8630503 e mais 2, com crédito disponível e ativos para o vendedor",
+      "segmento": "Modelo 1 ativos (televendas)",
+      "criterio": "Clientes com CNAE em 7500100, 8610101, 8610102, 8630501, 8630502, 8630503 e mais 2, com crédito disponível e ativos para o vendedor",
       "frequencia": "7 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -41,8 +41,8 @@
     {
       "id": "R5",
       "nome": "Labtech: Frequência de 14 dias para clientes inativos - Modelo 1 - Televendas",
-      "segmento": "Modelo 1 - inativos (televendas)",
-      "criterio": "Clientes com CNAE (id) em 7500100, 8610101, 8610102, 8630501, 8630502, 8630503 e mais 2, com crédito disponível e não ativos para o vendedor",
+      "segmento": "Modelo 1 inativos (televendas)",
+      "criterio": "Clientes com CNAE em 7500100, 8610101, 8610102, 8630501, 8630502, 8630503 e mais 2, com crédito disponível e não ativos para o vendedor",
       "frequencia": "14 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -50,8 +50,8 @@
     {
       "id": "R6",
       "nome": "Labtech: Frequência de 21 dias para clientes ativos - Modelo 2 - Televendas",
-      "segmento": "Modelo 2 - ativos (televendas)",
-      "criterio": "Clientes com CNAE (id) em 3250705, 4645101, 4773300, 8532500, 8533300, com crédito disponível e ativos para o vendedor",
+      "segmento": "Modelo 2 ativos (televendas)",
+      "criterio": "Clientes com CNAE em 3250705, 4645101, 4773300, 8532500, 8533300, com crédito disponível e ativos para o vendedor",
       "frequencia": "21 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -59,8 +59,8 @@
     {
       "id": "R7",
       "nome": "Labtech: Frequência de 30 dias para clientes inativos - Modelo 2 - Televendas",
-      "segmento": "Modelo 2 - inativos (televendas)",
-      "criterio": "Clientes com CNAE (id) em 3250705, 4645101, 4773300, 8532500, 8533300, com crédito disponível e não ativos para o vendedor",
+      "segmento": "Modelo 2 inativos (televendas)",
+      "criterio": "Clientes com CNAE em 3250705, 4645101, 4773300, 8532500, 8533300, com crédito disponível e não ativos para o vendedor",
       "frequencia": "30 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -69,7 +69,7 @@
       "id": "R8",
       "nome": "Labtech: Frequência de 30 dias - Modelo 3 - Televendas",
       "segmento": "Modelo 3 (televendas)",
-      "criterio": "Clientes com CNAE (id) fora de 3250705, 4645101, 4773300, 7500100, 8411600, 8424800 e mais 9, com crédito disponível",
+      "criterio": "Clientes com CNAE fora de 3250705, 4645101, 4773300, 7500100, 8411600, 8424800 e mais 9 e com crédito disponível",
       "frequencia": "30 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -77,63 +77,63 @@
     {
       "id": "R9",
       "nome": "Labtech: Frequência de 7 dias para clientes ativos - Modelo 1 - Externos",
-      "segmento": "Modelo 1 - ativos (externos)",
-      "criterio": "Clientes com CNAE (id) em 7500100, 8610101, 8610102, 8630501, 8630502, 8630503 e mais 2, com crédito disponível e ativos para o vendedor",
+      "segmento": "Modelo 1 ativos (campo)",
+      "criterio": "Clientes com CNAE em 7500100, 8610101, 8610102, 8630501, 8630502, 8630503 e mais 2, com crédito disponível e ativos para o vendedor",
       "frequencia": "7 dias",
-      "observacao": "Preferência: segunda, quarta e sexta; demais dias sem atendimento",
+      "observacao": "Dias de atendimento: preferência segunda, quarta e sexta; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R10",
       "nome": "Labtech: Frequência de 14 dias para clientes inativos - Modelo 1 - Externos",
-      "segmento": "Modelo 1 - inativos (externos)",
-      "criterio": "Clientes com CNAE (id) em 7500100, 8610101, 8610102, 8630501, 8630502, 8630503 e mais 2, com crédito disponível e não ativos para o vendedor",
+      "segmento": "Modelo 1 inativos (campo)",
+      "criterio": "Clientes com CNAE em 7500100, 8610101, 8610102, 8630501, 8630502, 8630503 e mais 2, com crédito disponível e não ativos para o vendedor",
       "frequencia": "14 dias",
-      "observacao": "Preferência: segunda, quarta e sexta; demais dias sem atendimento",
+      "observacao": "Dias de atendimento: preferência segunda, quarta e sexta; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R11",
       "nome": "Labtech: Frequência de 21 dias para clientes ativos - Modelo 2 - Externos",
-      "segmento": "Modelo 2 - ativos (externos)",
-      "criterio": "Clientes com CNAE (id) em 3250705, 4645101, 4773300, 8532500, 8533300, com crédito disponível e ativos para o vendedor",
+      "segmento": "Modelo 2 ativos (campo)",
+      "criterio": "Clientes com CNAE em 3250705, 4645101, 4773300, 8532500, 8533300, com crédito disponível e ativos para o vendedor",
       "frequencia": "21 dias",
-      "observacao": "Preferência: segunda, quarta e sexta; demais dias sem atendimento",
+      "observacao": "Dias de atendimento: preferência segunda, quarta e sexta; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R12",
       "nome": "Labtech: Frequência de 30 dias para clientes inativos - Modelo 2 - Externos",
-      "segmento": "Modelo 2 - inativos (externos)",
-      "criterio": "Clientes com CNAE (id) em 3250705, 4645101, 4773300, 8532500, 8533300, com crédito disponível e não ativos para o vendedor",
+      "segmento": "Modelo 2 inativos (campo)",
+      "criterio": "Clientes com CNAE em 3250705, 4645101, 4773300, 8532500, 8533300, com crédito disponível e não ativos para o vendedor",
       "frequencia": "30 dias",
-      "observacao": "Preferência: segunda, quarta e sexta; demais dias sem atendimento",
+      "observacao": "Dias de atendimento: preferência segunda, quarta e sexta; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R13",
       "nome": "Labtech: Frequência de 30 dias - Modelo 3 - Externos",
-      "segmento": "Modelo 3 (externos)",
-      "criterio": "Clientes com CNAE (id) fora de 3250705, 4645101, 4773300, 7500100, 8411600, 8424800 e mais 9, com crédito disponível",
+      "segmento": "Modelo 3 (campo)",
+      "criterio": "Clientes com CNAE fora de 3250705, 4645101, 4773300, 7500100, 8411600, 8424800 e mais 9 e com crédito disponível",
       "frequencia": "30 dias",
-      "observacao": "Preferência: segunda, quarta e sexta; demais dias sem atendimento",
+      "observacao": "Dias de atendimento: preferência segunda, quarta e sexta; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     }
   ],
   "pontos_de_atencao": [],
   "consultas_hipoteticas": [
-    "Televendas e campo: não agendar inadimplentes nem CNAE 8411600 e 8424800; sem crédito 7 dias; Modelo 1 ativos 7 dias e inativos 14 dias; Modelo 2 ativos 21 dias e inativos 30 dias; Modelo 3 30 dias; campo segunda, quarta e sexta",
-    "A gente quer que quem está sem crédito seja visitado toda semana, e que quem tem crédito siga um de três modelos por tipo de atividade, com ativos atendidos com mais frequência que inativos. Inadimplente e administração pública ficam fora, e o time de campo só atende segunda, quarta e sexta",
-    "Regra por CNAE e crédito disponível para televendas e campo, separando ativos e inativos, sem agendar inadimplentes"
+    "Televendas e campo: não agendar inadimplentes e CNAE 8411600/8424800; sem crédito 7 dias; Modelo 1 ativos 7 e inativos 14; Modelo 2 ativos 21 e inativos 30; Modelo 3 30 dias; campo seg/qua/sex",
+    "Pra televendas e campo, a gente não agenda inadimplente nem administração pública e segurança. Quem está sem crédito é visto a cada 7 dias, e o resto vai por ramo de atividade, de 7 a 30 dias, com o campo indo só segunda, quarta e sexta",
+    "Frequência por CNAE e por situação de crédito para os times de televendas e campo, sem agendar inadimplentes"
   ],
   "_meta": {
     "arquivo": "regra_131.gobr",
     "sha256_gobr": "c45c0462b86cfb41662a6499ba59b8dec25683cef887ca3f8369d66da1902e53",
-    "versao_pacote": "1",
-    "prompt_sha256": "fd3b943ec528",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T15:22:22+00:00",
+    "gerado_em": "2026-10-20T16:12:29+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,
@@ -149,9 +149,19 @@
         "valido": true,
         "erros": [],
         "avisos": []
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
       }
     },
-    "escolhido": "agente_1.json",
-    "concordancia": 0.675
+    "escolhido": "agente_2.json",
+    "concordancia": 0.751
   }
 }

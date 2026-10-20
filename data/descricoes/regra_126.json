@@ -1,0 +1,142 @@
+{
+  "resumo": "Regra padrão de frequência para três grupos: o time ruptura global, a carteira de televendas e a carteira de campo. O ruptura global atende a cada 14 dias quem está há mais de 31 dias sem comprar com a empresa e não agenda os demais. Em televendas, as faixas combinam ativos, inativos e adimplência, com frequências de 14, 21 e 30 dias, e os inativos inadimplentes não são agendados. O campo atende ativos a cada 7 dias e os demais a cada 15 dias, com parametrização fixa.",
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "carteira televendas",
+      "descricao": "Carteira fixa dos vendedores do time de televendas"
+    },
+    {
+      "id": "C2",
+      "nome": "carteira campo",
+      "descricao": "Carteira fixa dos vendedores do time de campo"
+    }
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Regra Padrao da Femac: 14 dias para clientes com mais de 31 dias sem compra com a empresa (ruptura global)",
+      "segmento": "Mais de 31 dias sem comprar (ruptura global)",
+      "criterio": "Clientes que estão há mais de 31 dias sem comprar com qualquer vendedor da empresa",
+      "frequencia": "14 dias",
+      "observacao": "Preferência de segunda a sexta, demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Regra Padrao da Femac: Não agendar cliente que compraram a menos de 31 dias (ruptura global)",
+      "segmento": "Bloqueio: compraram nos últimos 31 dias",
+      "criterio": "Clientes que nunca compraram na empresa ou compraram nos últimos 31 dias, exceto os já tratados pelas regras anteriores",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Regra Padrao da Femac: 14 dias para ativos adimplentes (televendas)",
+      "segmento": "Ativos adimplentes (televendas)",
+      "criterio": "Clientes adimplentes e ativos para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "Preferência de segunda a sexta, demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Regra Padrao da Femac: 21 dias para ativos inadimplentes (televendas)",
+      "segmento": "Ativos inadimplentes (televendas)",
+      "criterio": "Clientes inadimplentes e ativos para o vendedor",
+      "frequencia": "21 dias",
+      "observacao": "Preferência de segunda a sexta, demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Regra Padrao da Femac: 30 dias para inativos adimplentes (televendas)",
+      "segmento": "Inativos adimplentes (televendas)",
+      "criterio": "Clientes adimplentes e inativos para o vendedor",
+      "frequencia": "30 dias",
+      "observacao": "Preferência de segunda a sexta, demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Regra Padrao da Femac: Nao agendar inativos inadimplentes (televendas)",
+      "segmento": "Bloqueio: inativos inadimplentes (televendas)",
+      "criterio": "Clientes inadimplentes e inativos para o vendedor",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Regra Padrao da Femac: 30 dias para clientes sem venda (televendas)",
+      "segmento": "Sem vendas (televendas)",
+      "criterio": "Clientes sem vendas para o vendedor",
+      "frequencia": "30 dias",
+      "observacao": "Preferência de segunda a sexta, demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R8",
+      "nome": "Regra Padrao da Femac - Frequencia de 7 dias para clientes ativos (campo)",
+      "segmento": "Ativos (campo)",
+      "criterio": "Clientes ativos para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "Parametrização fixa: restrição rígida de frequência e dias para o gerador de agendas",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R9",
+      "nome": "Regra Padrao da Femac - Frequencia de 15 dias para clientes inativos (campo)",
+      "segmento": "Inativos (campo)",
+      "criterio": "Clientes não ativos para o vendedor, exceto os já tratados pelas regras anteriores",
+      "frequencia": "15 dias",
+      "observacao": "Parametrização fixa: restrição rígida de frequência e dias para o gerador de agendas",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Ruptura global: mais de 31 dias sem compra a cada 14 dias, demais não agendar; televendas: ativos adimplentes 14 dias, ativos inadimplentes 21, inativos adimplentes 30, sem venda 30, inativos inadimplentes não agendar; campo: ativos 7 dias, inativos 15 dias fixos",
+    "Para o time de ruptura global só agendamos quem está há mais de 31 dias sem comprar, a cada 14 dias. No televendas a frequência muda conforme o cliente está ativo ou inativo e se paga em dia, e o campo é fixo, toda semana para ativos e a cada 15 dias para o resto",
+    "Frequências por time e por carteira, considerando se o cliente é ativo, inativo ou sem venda e se é adimplente, com bloqueio para inativos inadimplentes"
+  ],
+  "_meta": {
+    "arquivo": "regra_126.gobr",
+    "sha256_gobr": "3d3ddbfdc778f28c9c2e9868fd8cd6fdc2340e40b1394e422d50bfde13a715b1",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:28+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_3.json",
+    "concordancia": 0.797
+  }
+}

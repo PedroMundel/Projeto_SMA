@@ -1,0 +1,68 @@
+{
+  "resumo": "Regra do time de todos os vendedores habilitados. Clientes inadimplentes não são agendados. Todos os demais clientes são atendidos a cada 7 dias, sem separar ativos, inativos e prospects.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "American Farma: Não agendar clientes inadimplentes (televendas)",
+      "segmento": "Bloqueio: inadimplentes",
+      "criterio": "Clientes inadimplentes",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "American Farma: Freq. 7d para clientes ativos/inativos/prospects adimplentes (televendas)",
+      "segmento": "Demais clientes",
+      "criterio": "Todos os clientes",
+      "frequencia": "7 dias",
+      "observacao": "Regra final: vale para quem sobrou do bloqueio de inadimplentes",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Todos os vendedores: inadimplentes não agendar; demais clientes (ativos, inativos e prospects) a cada 7 dias",
+    "A gente liga toda semana, a cada 7 dias, para todo mundo, menos para quem está inadimplente, que fica fora da agenda",
+    "Frequência única para todos os clientes e bloqueio de inadimplentes"
+  ],
+  "_meta": {
+    "arquivo": "regra_138.gobr",
+    "sha256_gobr": "fd74a7614e40a0a7476cb6812bc90675fa4424a67263f103e47991ebdaa99401",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:29+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_4.json",
+    "concordancia": 0.637
+  }
+}

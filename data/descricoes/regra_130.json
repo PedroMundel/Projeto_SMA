@@ -1,0 +1,115 @@
+{
+  "resumo": "Regra padrão com parametrização separada para o time interno (televendas) e para o time externo (campo). No televendas, deixam de ser agendados os clientes pessoa física, os inativos inadimplentes e os pessoa física sem compra; pessoas jurídicas são atendidas a cada 7, 15 ou 20 dias conforme estejam ativas, inativas adimplentes ou sem vendas. No campo, ativos têm frequência de 7 dias e os demais de 15 dias, com parametrização fixa.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Regra Padrao da Macropac: Não agendar clientes CPF (Televendas)",
+      "segmento": "Bloqueio: pessoa física (Televendas)",
+      "criterio": "Clientes pessoa física",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Regra Padrao da Macropac: Frequencia de 7 dias para ativos (Televendas)",
+      "segmento": "Ativos (Televendas)",
+      "criterio": "Clientes pessoa jurídica ativos para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Regra Padrao da Macropac: Frequencia de 15 dias para inativos adimplentes (Televendas)",
+      "segmento": "Inativos adimplentes (Televendas)",
+      "criterio": "Clientes pessoa jurídica adimplentes e inativos para o vendedor",
+      "frequencia": "15 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Regra Padrao da Macropac: Não agendar clientes inativos inadimplentes (Televendas)",
+      "segmento": "Bloqueio: inativos inadimplentes (Televendas)",
+      "criterio": "Clientes pessoa jurídica inadimplentes e inativos para o vendedor",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Regra Padrao da Macropac: Não agendar clientes sem compra e CPF (Televendas)",
+      "segmento": "Bloqueio: sem compra e pessoa física (Televendas)",
+      "criterio": "Clientes pessoa física sem vendas para o vendedor",
+      "frequencia": "Não agendar",
+      "observacao": "Nunca é aplicada: todos esses clientes já foram tratados antes",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Regra Padrao da Macropac: Frequencia de 20 dias para clientes sem compra e CNPJ (Televendas)",
+      "segmento": "Sem compra e CNPJ (Televendas)",
+      "criterio": "Clientes pessoa jurídica sem vendas para o vendedor",
+      "frequencia": "20 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Regra Padrao da Macropac: Frequencia de 7 dias para clientes ativos (campo)",
+      "segmento": "Ativos (campo)",
+      "criterio": "Clientes ativos para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "Parametrização fixa: restrição rígida de frequência e dias para o gerador de agendas",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R8",
+      "nome": "Regra Padrao da Macropac: Frequencia de 14 dias para clientes inativos (campo)",
+      "segmento": "Inativos (campo)",
+      "criterio": "Clientes que não estão ativos para o vendedor",
+      "frequencia": "15 dias",
+      "observacao": "Parametrização fixa: restrição rígida de frequência e dias para o gerador de agendas",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [
+    "A regra 'Não agendar clientes sem compra e CPF (Televendas)' nunca é aplicada: todos os clientes dela já são tratados por regras anteriores ('Não agendar clientes CPF (Televendas)').",
+    "O nome da regra 'Frequencia de 14 dias para clientes inativos (campo)' fala em 14 dias, mas a regra usa outro valor (15 dias)."
+  ],
+  "consultas_hipoteticas": [
+    "Time interno: não agendar pessoa física; PJ ativo 7 dias; PJ inativo adimplente 15 dias; PJ sem compra 20 dias; inativo inadimplente não agendar. Time externo: ativo 7 dias, inativo 15 dias, fixo",
+    "No televendas a gente só agenda empresa: ativa a cada 7 dias, inativa em dia a cada 15 e as sem compra a cada 20. Pessoa física e inativo inadimplente ficam de fora. No campo, ativo toda semana e inativo a cada 15 dias",
+    "Regra padrão por time, televendas e campo, com frequência conforme o cliente seja ativo ou inativo e sem agendar pessoa física"
+  ],
+  "_meta": {
+    "arquivo": "regra_130.gobr",
+    "sha256_gobr": "dd15d2a262fb6890640137a53f441009c73915be05f7a31edd23a02c170a166d",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:28+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_1.json",
+    "concordancia": 0.869
+  }
+}

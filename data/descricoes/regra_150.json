@@ -1,0 +1,76 @@
+{
+  "resumo": "Regra de agendamento do time de televendas por tempo desde a última compra na empresa, com prospects, clientes caminhando para a inatividade e inativos. Antes das faixas, deixam de ser agendados os clientes que compraram nos últimos 45 dias. A última regra faz o resgate de quem está há mais de 89 dias sem comprar.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Não agendar clientes com compra da empresa nos últimos 45d",
+      "segmento": "Bloqueio: compra nos últimos 45 dias",
+      "criterio": "Clientes que compraram com qualquer vendedor da empresa nos últimos 45 dias",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Ative este cliente na sua carteira",
+      "segmento": "Prospects",
+      "criterio": "Clientes que nunca compraram com qualquer vendedor da empresa",
+      "frequencia": "28 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Cliente está caminhando para inatividade",
+      "segmento": "Caminhando para inatividade",
+      "criterio": "Clientes que compraram com qualquer vendedor da empresa nos últimos 89 dias, mas estão há mais de 45 dias sem comprar",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Cliente inativo - Resgate este cliente",
+      "segmento": "Inativos (resgate)",
+      "criterio": "Clientes que estão há mais de 89 dias sem comprar com qualquer vendedor da empresa",
+      "frequencia": "21 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Televendas: não agendar quem comprou em 45 dias; prospects a cada 28 dias; entre 45 e 89 dias sem comprar a cada 14 dias; mais de 89 dias a cada 21 dias",
+    "Quem comprou na empresa nos últimos 45 dias fica fora da agenda. Prospects a cada 28 dias, quem está caminhando para inatividade a cada 14 e os inativos a cada 21 dias",
+    "Quero agendar o televendas por tempo sem comprar, com prospects e resgate de inativos, sem agendar quem comprou recentemente"
+  ],
+  "_meta": {
+    "arquivo": "regra_150.gobr",
+    "sha256_gobr": "6125b995f01cf3c5f290b5c1c8e7246c32efb6745c886ac79b81be8ef85d1413",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:29+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_2.json",
+    "concordancia": 0.88
+  }
+}

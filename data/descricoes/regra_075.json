@@ -1,10 +1,10 @@
 {
-  "resumo": "Regra padrão do time de televendas, aplicada à carteira fixa dos vendedores do time. Primeiro deixam de ser agendados os clientes inadimplentes; entre os adimplentes, os ativos são atendidos a cada 7 dias e os inativos e os sem vendas a cada 14 dias.",
+  "resumo": "Regra de agendamento da carteira fixa dos vendedores de televendas, por situação do cliente. Antes das faixas, deixam de ser agendados os clientes inadimplentes. Os clientes adimplentes são organizados em três faixas: ativos a cada 7 dias, inativos e sem vendas a cada 14 dias.",
   "carteiras": [
     {
       "id": "C1",
       "nome": "carteira televendas",
-      "descricao": "Carteira fixa de todos os vendedores do time de televendas"
+      "descricao": "Carteira fixa dos vendedores de televendas"
     }
   ],
   "regras": [
@@ -38,8 +38,8 @@
     {
       "id": "R4",
       "nome": "Regra Padrao da Empresa Customizavel: 14 dias para sem venda",
-      "segmento": "Sem vendas adimplentes",
-      "criterio": "Clientes adimplentes que nunca compraram com o vendedor",
+      "segmento": "Sem venda adimplentes",
+      "criterio": "Clientes adimplentes e sem vendas para o vendedor",
       "frequencia": "14 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -47,18 +47,18 @@
   ],
   "pontos_de_atencao": [],
   "consultas_hipoteticas": [
-    "Televendas: não agendar inadimplentes; adimplentes ativos a cada 7 dias; adimplentes inativos e sem venda a cada 14 dias",
-    "Pro pessoal do televendas, quem está inadimplente a gente não agenda. Quem paga em dia e está comprando é visitado toda semana, e quem está parado ou nunca comprou, a cada 14 dias",
-    "Regra do televendas por situação do cliente, com bloqueio de inadimplentes"
+    "Televendas: não agendar inadimplentes; adimplentes ativos 7 dias; adimplentes inativos 14 dias; adimplentes sem venda 14 dias",
+    "Na carteira do televendas a gente não agenda quem está inadimplente. Para os outros, liga a cada 7 dias se está ativo e a cada 14 dias se está inativo ou nunca comprou com o vendedor",
+    "Frequência para a carteira de televendas por situação do cliente, sem agendar inadimplentes"
   ],
   "_meta": {
     "arquivo": "regra_075.gobr",
     "sha256_gobr": "065cff673f607e6d62e35edc1a077d6f9a65a87c1fe7c30ab55caecaca38387c",
-    "versao_pacote": "1",
-    "prompt_sha256": "fd3b943ec528",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T15:22:22+00:00",
+    "gerado_em": "2026-10-20T16:12:28+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,
@@ -76,7 +76,7 @@
         "avisos": []
       }
     },
-    "escolhido": "agente_3.json",
-    "concordancia": 0.879
+    "escolhido": "agente_2.json",
+    "concordancia": 0.809
   }
 }

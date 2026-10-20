@@ -1,25 +1,25 @@
 {
-  "resumo": "Regra de agendamento do time de televendas por ramo de atividade, em quatro carteiras, cada uma com uma faixa de clientes ativos e outra de inativos. Prospects são atendidos a cada 7 dias. O limite entre ativo e inativo é de 45, 60, 75 ou 90 dias sem comprar, conforme a carteira, com frequências entre 7 e 28 dias. Deixam de ser agendados os clientes baixados na Receita Federal e, na regra final, os que já compraram e não estão em nenhuma das carteiras.",
+  "resumo": "Regra de agendamento do time de televendas por ramo de atividade, com quatro carteiras de ramos e, em cada uma, uma faixa de ativos e uma de inativos (corte em 45, 60, 75 e 90 dias sem comprar), mais os prospects. Não são agendados os clientes baixados na Receita Federal. A regra final também não agenda quem já comprou e ficou fora de todas as carteiras.",
   "carteiras": [
     {
       "id": "C1",
       "nome": "ramos_1",
-      "descricao": "Carteira fixa dos vendedores de televendas com clientes de ramos como postos de combustível, farmácias, supermercados, redes, transporte e logística"
+      "descricao": "Carteira fixa dos vendedores do televendas, filtrada por ramos de atividade (ids 101009, 101016, 101025, 101101, 101102, 101103 e mais 6)"
     },
     {
       "id": "C2",
       "nome": "ramos_2",
-      "descricao": "Carteira fixa dos vendedores de televendas com clientes de ramos como distribuidoras, materiais, gráficas, hospitais, laboratórios e indústrias"
+      "descricao": "Carteira fixa dos vendedores do televendas, filtrada por ramos de atividade (ids 101001, 101002, 101003, 101004, 101005, 101006 e mais 20)"
     },
     {
       "id": "C3",
       "nome": "ramos_3",
-      "descricao": "Carteira fixa dos vendedores de televendas com clientes de ramos como alimentação, comércio, hotéis, oficinas, instituições e indústrias"
+      "descricao": "Carteira fixa dos vendedores do televendas, filtrada por ramos de atividade (ids 101008, 101010, 101017, 101018, 101019, 101020 e mais 28)"
     },
     {
       "id": "C4",
       "nome": "ramos_4",
-      "descricao": "Carteira fixa dos vendedores de televendas com clientes de ramos como recarga de celular, vidraçaria, exportação, eventos, representantes e outros"
+      "descricao": "Carteira fixa dos vendedores do televendas, filtrada por ramos de atividade (ids 101013, 101040, 102001, 102002, 201011, 201021 e mais 2)"
     }
   ],
   "regras": [
@@ -44,7 +44,7 @@
     {
       "id": "R3",
       "nome": "Ativos dos ramos de atividade POSTO DE COMBUSTIVEL, FARMACIA E DROGARIA, SUPERMERCADO, REDE DE FAST FOOD, REDE DE POSTO DE COMBUSTIVEL, REDE DE DROGARIA, REDE DE SUPERMERCADO, REDE DE HIPERMERCADO, EMPRESA DE ONIBUS, TRANSPORTADORA, LOGISTICA, POSTO DE SERVICO - VDO",
-      "segmento": "Ativos da carteira ramos_1",
+      "segmento": "Ativos - ramos_1",
       "criterio": "Clientes da carteira ramos_1 que compraram com qualquer vendedor da empresa nos últimos 45 dias",
       "frequencia": "14 dias",
       "observacao": "",
@@ -53,7 +53,7 @@
     {
       "id": "R4",
       "nome": "Inativos dos ramos de atividade POSTO DE COMBUSTIVEL, FARMACIA E DROGARIA, SUPERMERCADO, REDE DE FAST FOOD, REDE DE POSTO DE COMBUSTIVEL, REDE DE DROGARIA, REDE DE SUPERMERCADO, REDE DE HIPERMERCADO, EMPRESA DE ONIBUS, TRANSPORTADORA, LOGISTICA, POSTO DE SERVICO - VDO",
-      "segmento": "Inativos da carteira ramos_1",
+      "segmento": "Inativos - ramos_1",
       "criterio": "Clientes da carteira ramos_1 que estão há mais de 45 dias sem comprar com qualquer vendedor da empresa",
       "frequencia": "7 dias",
       "observacao": "",
@@ -62,7 +62,7 @@
     {
       "id": "R5",
       "nome": "Ativos dos ramos de atividade DISTRIB. AUTOPECAS, DISTRIB. PECAS MECANICAS, DISTRIB. PECAS ELETRICAS, DISTRIB. PECAS E ACESSORIOS, DISTRIB. ACESSORIOS, DISTRIB. FILTROS/LUBRIFICANTES, CONCESSIONARIAS, AUTOMACAO, SUPRIMENTO DE INFORMATICA, GRAFICA, EMBALAGEM E DESCARTAVEL, MATERIAL DE LIMPEZA, MATERIAL DE ESCRITORIO, MATERIAL HOSPITALAR, PAPELARIA, COOPERATIVA, MAGAZINES, E-COMERCE, REDE DE MAGAZINE, REDE LOJA VAREJISTA, HOSPITAL, LABORATORIO, IND. ALIMENTICIA, IND. DE BEBIDAS, IND. FARMACEUTICA, IND. FRIGORIFICA",
-      "segmento": "Ativos da carteira ramos_2",
+      "segmento": "Ativos - ramos_2",
       "criterio": "Clientes da carteira ramos_2 que compraram com qualquer vendedor da empresa nos últimos 60 dias",
       "frequencia": "21 dias",
       "observacao": "",
@@ -71,7 +71,7 @@
     {
       "id": "R6",
       "nome": "Inativos dos ramos de atividade DISTRIB. AUTOPECAS, DISTRIB. PECAS MECANICAS, DISTRIB. PECAS ELETRICAS, DISTRIB. PECAS E ACESSORIOS, DISTRIB. ACESSORIOS, DISTRIB. FILTROS/LUBRIFICANTES, CONCESSIONARIAS, AUTOMACAO, SUPRIMENTO DE INFORMATICA, GRAFICA, EMBALAGEM E DESCARTAVEL, MATERIAL DE LIMPEZA, MATERIAL DE ESCRITORIO, MATERIAL HOSPITALAR, PAPELARIA, COOPERATIVA, MAGAZINES, E-COMERCE, REDE DE MAGAZINE, REDE LOJA VAREJISTA, HOSPITAL, LABORATORIO, IND. ALIMENTICIA, IND. DE BEBIDAS, IND. FARMACEUTICA, IND. FRIGORIFICA",
-      "segmento": "Inativos da carteira ramos_2",
+      "segmento": "Inativos - ramos_2",
       "criterio": "Clientes da carteira ramos_2 que estão há mais de 60 dias sem comprar com qualquer vendedor da empresa",
       "frequencia": "10 dias",
       "observacao": "",
@@ -80,7 +80,7 @@
     {
       "id": "R7",
       "nome": "Ativos dos ramos de atividade IMPLEMENTOS RODOVIARIOS, LOJA DE CONVENIENCIA, FARMACIA DE MANIPULACAO, ACOUGUE, PEIXARIA, HORTIFRUTI, PADARIA E CONFEITARIA, LANCHONETE, PIZZARIA, RESTAURANTE, MATERIAL DE CONSTRUCAO, JOALHERIA, LIVRARIA, FLORICULTURA, ARMARINHOS E MIUDEZAS, COSMETICOS, PERFUMARIA, HIGIENE PESSOAL, CIA DE GAS, ADMINISTRADORA DE CARTOES, ESTACIONAMENTO, HOTEL, INST. DE ENSINO, INST. FINANCEIRA, OFICINA, SHOPPING, ENTRETERIMENTO, IND. AUTOMOBILISTICA, IND. DE CALCADOS, IND. DE COSMETICOS, IND. PAPEL, IND. QUIMICA, IND. TEXTIL, IND. BRINQUEDOS, IND. MANUFATURAS, IND. ELETRONICOS",
-      "segmento": "Ativos da carteira ramos_3",
+      "segmento": "Ativos - ramos_3",
       "criterio": "Clientes da carteira ramos_3 que compraram com qualquer vendedor da empresa nos últimos 75 dias",
       "frequencia": "28 dias",
       "observacao": "",
@@ -89,7 +89,7 @@
     {
       "id": "R8",
       "nome": "Inativos dos ramos de atividade IMPLEMENTOS RODOVIARIOS, LOJA DE CONVENIENCIA, FARMACIA DE MANIPULACAO, ACOUGUE, PEIXARIA, HORTIFRUTI, PADARIA E CONFEITARIA, LANCHONETE, PIZZARIA, RESTAURANTE, MATERIAL DE CONSTRUCAO, JOALHERIA, LIVRARIA, FLORICULTURA, ARMARINHOS E MIUDEZAS, COSMETICOS, PERFUMARIA, HIGIENE PESSOAL, CIA DE GAS, ADMINISTRADORA DE CARTOES, ESTACIONAMENTO, HOTEL, INST. DE ENSINO, INST. FINANCEIRA, OFICINA, SHOPPING, ENTRETERIMENTO, IND. AUTOMOBILISTICA, IND. DE CALCADOS, IND. DE COSMETICOS, IND. PAPEL, IND. QUIMICA, IND. TEXTIL, IND. BRINQUEDOS, IND. MANUFATURAS, IND. ELETRONICOS",
-      "segmento": "Inativos da carteira ramos_3",
+      "segmento": "Inativos - ramos_3",
       "criterio": "Clientes da carteira ramos_3 que estão há mais de 75 dias sem comprar com qualquer vendedor da empresa",
       "frequencia": "14 dias",
       "observacao": "",
@@ -98,7 +98,7 @@
     {
       "id": "R9",
       "nome": "Ativos dos ramos de atividade RECARGA CELULAR, VIDRACARIA, EXPORTACAO DIRETA, EXPORTACAO TRADE, EVENTOS E SHOWS, REPRESENTANTE, PROMOTOR DE VENDA, OUTROS",
-      "segmento": "Ativos da carteira ramos_4",
+      "segmento": "Ativos - ramos_4",
       "criterio": "Clientes da carteira ramos_4 que compraram com qualquer vendedor da empresa nos últimos 90 dias",
       "frequencia": "28 dias",
       "observacao": "",
@@ -107,7 +107,7 @@
     {
       "id": "R10",
       "nome": "Inativos dos ramos de atividade RECARGA CELULAR, VIDRACARIA, EXPORTACAO DIRETA, EXPORTACAO TRADE, EVENTOS E SHOWS, REPRESENTANTE, PROMOTOR DE VENDA, OUTROS",
-      "segmento": "Inativos da carteira ramos_4",
+      "segmento": "Inativos - ramos_4",
       "criterio": "Clientes da carteira ramos_4 que estão há mais de 90 dias sem comprar com qualquer vendedor da empresa",
       "frequencia": "14 dias",
       "observacao": "",
@@ -125,18 +125,18 @@
   ],
   "pontos_de_atencao": [],
   "consultas_hipoteticas": [
-    "Televendas por ramo (4 carteiras): prospects 7 dias; ramos_1 ativos 45 dias a cada 14 e inativos a cada 7; ramos_2 60 dias, 21 e 10; ramos_3 75 dias, 28 e 14; ramos_4 90 dias, 28 e 14; não agendar baixados na Receita e demais",
-    "A gente agrupa os clientes em quatro carteiras por ramo de atividade. Em cada uma, quem comprou recentemente tem uma frequência e quem está parado tem outra, e o corte vai de 45 a 90 dias. Prospect é toda semana e baixado na Receita não entra",
-    "Quero agendar o televendas por ramo de atividade, separando clientes ativos e inativos em cada carteira, e deixando de fora quem não se encaixa"
+    "Televendas por ramo: prospects a cada 7 dias; ramos_1 ativos 45 dias a cada 14 e inativos a cada 7; ramos_2 60 dias, 21 e 10; ramos_3 75 dias, 28 e 14; ramos_4 90 dias, 28 e 14; não agendar baixados na Receita",
+    "A gente separa os clientes por ramo de atividade em quatro grupos. Quem comprou dentro do prazo de cada grupo (45, 60, 75 ou 90 dias) tem uma frequência, e quem passou do prazo tem outra. Prospects a cada 7 dias e baixados na Receita ficam fora",
+    "Quero frequências diferentes para ativos e inativos do televendas, conforme o ramo de atividade do cliente, e uma regra para quem não se encaixa em nenhum grupo"
   ],
   "_meta": {
     "arquivo": "regra_246.gobr",
     "sha256_gobr": "a2a35299f9f0d41acd35c2589c92ccb5bedfa820a0d40fcea61ca095bf90a4f8",
-    "versao_pacote": "1",
-    "prompt_sha256": "fd3b943ec528",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T15:22:22+00:00",
+    "gerado_em": "2026-10-20T16:12:31+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,
@@ -155,6 +155,6 @@
       }
     },
     "escolhido": "agente_3.json",
-    "concordancia": 0.913
+    "concordancia": 0.941
   }
 }

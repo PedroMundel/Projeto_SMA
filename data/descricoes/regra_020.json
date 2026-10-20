@@ -1,0 +1,65 @@
+{
+  "resumo": "Regra padrão de frequência aplicada à carteira fixa de todos os vendedores da empresa. Todos os clientes são atendidos com a mesma frequência de 7 dias, sem separação por faixas e sem bloqueios.",
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "empresa toda",
+      "descricao": "Carteira fixa de todos os vendedores da empresa"
+    }
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Regra Padrao da Trenas - Customizavel: Frequencia de 7 dias para todos os clientes",
+      "segmento": "Todos os clientes",
+      "criterio": "Clientes de toda a carteira, sem distinção",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Frequência de 7 dias para todos os clientes, carteira fixa da empresa toda",
+    "Quero que todos os vendedores atendam todos os clientes da carteira a cada 7 dias, sem separar ativo de inativo",
+    "Regra padrão com a mesma frequência para todos os clientes, sem faixas"
+  ],
+  "_meta": {
+    "arquivo": "regra_020.gobr",
+    "sha256_gobr": "ed79166da41820ad490a2e7973bcd073efcda1a8ad57cd7fda6858323ec39f64",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:27+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_5.json",
+    "concordancia": 0.748
+  }
+}

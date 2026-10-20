@@ -1,0 +1,138 @@
+{
+  "resumo": "Regra com três carteiras fixas: televendas, interior e capital. No televendas, adimplentes têm frequência de 14 dias, inadimplentes ativos e sem vendas de 30 dias, e inativos inadimplentes não são agendados. Na capital, clientes sem vendas e inadimplentes ficam em 30 dias e adimplentes em 14 dias. No interior, todos os clientes têm frequência de 30 dias.",
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "carteira televendas",
+      "descricao": "Carteira fixa dos vendedores de televendas"
+    },
+    {
+      "id": "C2",
+      "nome": "carteira interior",
+      "descricao": "Carteira fixa dos vendedores do time interior"
+    },
+    {
+      "id": "C3",
+      "nome": "carteira capital",
+      "descricao": "Carteira fixa dos vendedores de campo do time capital"
+    }
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Regra Padrao da NB Distribuidora Customizavel: 14 dias para adimplentes",
+      "segmento": "Televendas: adimplentes",
+      "criterio": "Clientes adimplentes",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Regra Padrao da NB Distribuidora: 30 dias para ativos inadimplentes",
+      "segmento": "Televendas: ativos inadimplentes",
+      "criterio": "Clientes inadimplentes e ativos para o vendedor",
+      "frequencia": "30 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Regra Padrao da NB Distribuidora: 30 dias para clientes sem venda",
+      "segmento": "Televendas: sem vendas inadimplentes",
+      "criterio": "Clientes inadimplentes e sem vendas para o vendedor, exceto os já tratados pelas regras anteriores",
+      "frequencia": "30 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Regra Padrao da NB Distribuidora: nao agendar inativos inadimplentes",
+      "segmento": "Bloqueio: inativos inadimplentes",
+      "criterio": "Clientes inadimplentes e inativos para o vendedor",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Regra Padrao da NB Distribuidora Customizavel: 30 dias para clientes sem venda (capital)",
+      "segmento": "Capital: sem vendas",
+      "criterio": "Clientes sem vendas para o vendedor",
+      "frequencia": "30 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Regra Padrao da NB Distribuidora Customizavel: 30 dias para clientes inadimplentes (capital)",
+      "segmento": "Capital: inadimplentes",
+      "criterio": "Clientes inadimplentes e com alguma venda (ativos ou inativos) para o vendedor, exceto os já tratados pelas regras anteriores",
+      "frequencia": "30 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Regra Padrao da NB Distribuidora Customizavel: 14 dias para clientes adimplentes (capital)",
+      "segmento": "Capital: adimplentes",
+      "criterio": "Clientes adimplentes e com alguma venda (ativos ou inativos) para o vendedor, exceto os já tratados pelas regras anteriores",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R8",
+      "nome": "Regra Padrao da NB Distribuidora Customizavel: 30 dias para todos os clientes (interior)",
+      "segmento": "Interior: todos os clientes",
+      "criterio": "Todos os clientes",
+      "frequencia": "30 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Televendas: adimplentes 14 dias, ativos inadimplentes 30 dias, sem vendas inadimplentes 30 dias, inativos inadimplentes não agendar. Capital: sem vendas 30 dias, inadimplentes 30 dias, adimplentes 14 dias. Interior: todos 30 dias",
+    "No televendas ligamos a cada 14 dias pra quem está em dia e a cada 30 pra inadimplente ativo ou sem compras, e inativo inadimplente fica de fora. A capital segue 14 dias pra adimplentes e 30 pros demais, e o interior liga pra todo mundo a cada 30 dias",
+    "Regra padrão da distribuidora separada por televendas, capital e interior, com frequência por situação de adimplência"
+  ],
+  "_meta": {
+    "arquivo": "regra_055.gobr",
+    "sha256_gobr": "bcb0e0a02a1168a0f1a7ac89bd6642bdddd2b9a5040f0c31cab6b282c097e0a8",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:27+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_2.json",
+    "concordancia": 0.736
+  }
+}

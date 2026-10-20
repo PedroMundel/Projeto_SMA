@@ -1,0 +1,159 @@
+{
+  "resumo": "Regra de agendamento do time de televendas organizada em sete carteiras fixas por UF, cidade e bairro, com rotas todos os dias, às segundas, quartas e sextas, e às terças e quintas. Nas carteiras de rota diária a frequência é de 7 dias para quem comprou recentemente e de 2 dias para os demais; nas outras, a frequência é semanal para quem não comprou na semana atual. Não são agendados os baixados na Receita, e a regra final bloqueia quem está fora das carteiras ou já comprou na semana.",
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "cidades_todo_dia",
+      "descricao": "Carteira fixa do time televendas: UF RJ e cidades como BARRA MANSA, BELFORD ROXO, ITATIAIA, MESQUITA, NOVA IGUAÇU, PORTO REAL e mais 4"
+    },
+    {
+      "id": "C2",
+      "nome": "bairros_todo_dia",
+      "descricao": "Carteira fixa do time televendas: UF RJ, cidade RIO DE JANEIRO e bairros como CENTRO e PAVUNA"
+    },
+    {
+      "id": "C3",
+      "nome": "cidades_seg_qua_sex",
+      "descricao": "Carteira fixa do time televendas: UF RJ e cidades ITAGUAI, SEROPEDICA e VISCONDE DE MAUA"
+    },
+    {
+      "id": "C4",
+      "nome": "bairros_seg_qua_sex",
+      "descricao": "Carteira fixa do time televendas: UF RJ, cidade RIO DE JANEIRO e bairros como BANGU, BARRA DA TIJUCA, CACHAMBI, CAMPO GRANDE e mais 69"
+    },
+    {
+      "id": "C5",
+      "nome": "cidades_rj_ter_qui",
+      "descricao": "Carteira fixa do time televendas: UF RJ e cidades como BANANAL, BARRA DO PIRAI, MANGARATIBA, MENDES, MIGUEL PEREIRA e mais 12"
+    },
+    {
+      "id": "C6",
+      "nome": "bairros_rj_ter_qui",
+      "descricao": "Carteira fixa do time televendas: UF RJ, cidades ANGRA DOS REIS e RIO DE JANEIRO, e bairros como GUARATIBA e PARQUE PEREQUE e mais 3"
+    },
+    {
+      "id": "C7",
+      "nome": "cidades_sp_ter_qui",
+      "descricao": "Carteira fixa do time televendas: UF SP e cidade SAO PAULO"
+    }
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Não agendar baixados na Receita",
+      "segmento": "Bloqueio: baixados na Receita",
+      "criterio": "Clientes com situação baixada na Receita Federal",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Rota todos os dias (com venda recente)",
+      "segmento": "Rota todo dia, com venda recente",
+      "criterio": "Clientes das carteiras cidades_todo_dia e bairros_todo_dia que compraram no último dia (1 dia)",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Rota todos os dias",
+      "segmento": "Rota todo dia",
+      "criterio": "Clientes das carteiras cidades_todo_dia e bairros_todo_dia que nunca compraram ou estão há mais de 1 dia sem comprar",
+      "frequencia": "2 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Rota segunda, quarta e sexta",
+      "segmento": "Rota segunda, quarta e sexta",
+      "criterio": "Clientes das carteiras cidades_seg_qua_sex e bairros_seg_qua_sex que não compraram na semana atual",
+      "frequencia": "7 dias",
+      "observacao": "Dias de preferência: segunda, quarta, sexta",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Rota terça e quinta",
+      "segmento": "Rota terça e quinta",
+      "criterio": "Clientes das carteiras cidades_rj_ter_qui, bairros_rj_ter_qui e cidades_sp_ter_qui que não compraram na semana atual",
+      "frequencia": "7 dias",
+      "observacao": "Dias de preferência: terça, quinta",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Não agendar clientes fora das regras padrão",
+      "segmento": "Demais clientes",
+      "criterio": "Clientes fora das carteiras de rota ou, nas carteiras de segunda, quarta e sexta e de terça e quinta, que já compraram na semana atual",
+      "frequencia": "Não agendar",
+      "observacao": "Regra final: vale para quem sobrou das regras anteriores",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [
+    "As carteiras 'cidades_todo_dia' e 'bairros_todo_dia' têm o estado RJ em comum, então os mesmos clientes aparecem nas duas.",
+    "As carteiras 'cidades_todo_dia' e 'cidades_seg_qua_sex' têm o estado RJ em comum, então os mesmos clientes aparecem nas duas.",
+    "As carteiras 'cidades_todo_dia' e 'bairros_seg_qua_sex' têm o estado RJ em comum, então os mesmos clientes aparecem nas duas.",
+    "As carteiras 'cidades_todo_dia' e 'cidades_rj_ter_qui' têm o estado RJ em comum, então os mesmos clientes aparecem nas duas.",
+    "As carteiras 'cidades_todo_dia' e 'bairros_rj_ter_qui' têm o estado RJ em comum, então os mesmos clientes aparecem nas duas.",
+    "As carteiras 'bairros_todo_dia' e 'cidades_seg_qua_sex' têm o estado RJ em comum, então os mesmos clientes aparecem nas duas.",
+    "As carteiras 'bairros_todo_dia' e 'bairros_seg_qua_sex' têm o estado RJ em comum, então os mesmos clientes aparecem nas duas.",
+    "As carteiras 'bairros_todo_dia' e 'bairros_seg_qua_sex' têm a cidade RIO DE JANEIRO em comum, então os mesmos clientes aparecem nas duas.",
+    "As carteiras 'bairros_todo_dia' e 'cidades_rj_ter_qui' têm o estado RJ em comum, então os mesmos clientes aparecem nas duas.",
+    "As carteiras 'bairros_todo_dia' e 'bairros_rj_ter_qui' têm o estado RJ em comum, então os mesmos clientes aparecem nas duas.",
+    "As carteiras 'bairros_todo_dia' e 'bairros_rj_ter_qui' têm a cidade RIO DE JANEIRO em comum, então os mesmos clientes aparecem nas duas.",
+    "As carteiras 'cidades_seg_qua_sex' e 'bairros_seg_qua_sex' têm o estado RJ em comum, então os mesmos clientes aparecem nas duas.",
+    "As carteiras 'cidades_seg_qua_sex' e 'cidades_rj_ter_qui' têm o estado RJ em comum, então os mesmos clientes aparecem nas duas.",
+    "As carteiras 'cidades_seg_qua_sex' e 'bairros_rj_ter_qui' têm o estado RJ em comum, então os mesmos clientes aparecem nas duas.",
+    "As carteiras 'bairros_seg_qua_sex' e 'cidades_rj_ter_qui' têm o estado RJ em comum, então os mesmos clientes aparecem nas duas.",
+    "As carteiras 'bairros_seg_qua_sex' e 'bairros_rj_ter_qui' têm o estado RJ em comum, então os mesmos clientes aparecem nas duas.",
+    "As carteiras 'bairros_seg_qua_sex' e 'bairros_rj_ter_qui' têm a cidade RIO DE JANEIRO em comum, então os mesmos clientes aparecem nas duas.",
+    "As carteiras 'cidades_rj_ter_qui' e 'bairros_rj_ter_qui' têm o estado RJ em comum, então os mesmos clientes aparecem nas duas."
+  ],
+  "consultas_hipoteticas": [
+    "Televendas por carteira: rota todo dia (7 dias com venda recente, 2 dias sem), seg/qua/sex e ter/qui semanal para quem não comprou na semana; não agendar baixados na Receita e clientes fora das carteiras",
+    "A gente atende o Rio por rotas: algumas cidades e bairros todo dia, outros na segunda, quarta e sexta, e outros na terça e quinta. Quem já comprou na semana não precisa ser agendado, e baixado na Receita fica de fora",
+    "Quero agendar o televendas por carteiras de cidades e bairros do RJ e de São Paulo, com dias de rota diferentes para cada carteira"
+  ],
+  "_meta": {
+    "arquivo": "regra_236.gobr",
+    "sha256_gobr": "d0be51c40a420e43dbef4d1ecbf19b0b5bf1a24cb8c7dd9665d1f216afd10994",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:31+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_1.json",
+    "concordancia": 0.721
+  }
+}

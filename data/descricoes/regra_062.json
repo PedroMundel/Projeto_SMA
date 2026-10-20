@@ -1,0 +1,141 @@
+{
+  "resumo": "Regra de frequência para duas carteiras fixas, a de televendas e a de campo, separando clientes por adimplência e por situação de atividade. Ativos adimplentes são atendidos a cada 7 dias, ativos inadimplentes e inativos adimplentes a cada 14 dias, e clientes sem vendas a cada 14 dias. Em televendas, inativos inadimplentes não são agendados; em campo, eles têm frequência de 30 dias.",
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "carteira televendas",
+      "descricao": "Carteira fixa dos vendedores do time de televendas"
+    },
+    {
+      "id": "C2",
+      "nome": "carteira campo",
+      "descricao": "Carteira fixa dos vendedores do time de campo"
+    }
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Regra Padrao da Royal Pet - Customizavel: Frequencia de 7 dias para ativos adimplentes (televendas)",
+      "segmento": "Ativos adimplentes (televendas)",
+      "criterio": "Clientes adimplentes e ativos para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Regra Padrao da Royal Pet -  Customizavel: Frequencia de 14 dias para ativos inadimplentes (televendas)",
+      "segmento": "Ativos inadimplentes (televendas)",
+      "criterio": "Clientes inadimplentes e ativos para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Regra Padrao da Royal Pet - Customizavel: Frequencia de 14 dias para inativos adimplentes (televendas)",
+      "segmento": "Inativos adimplentes (televendas)",
+      "criterio": "Clientes adimplentes e inativos para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Regra Padrao da Royal Pet - Customizavel: Não agendar inativos inadimplentes (televendas)",
+      "segmento": "Bloqueio: inativos inadimplentes (televendas)",
+      "criterio": "Clientes inadimplentes e inativos para o vendedor",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Regra Padrao da Royal Pet - Customizavel: Frequencia de 14 dias para clientes sem vendas (televendas)",
+      "segmento": "Sem vendas (televendas)",
+      "criterio": "Clientes que nunca compraram com o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Regra Padrao da Royal Pet - Customizavel: Frequencia de 7 dias para ativos adimplentes (campo)",
+      "segmento": "Ativos adimplentes (campo)",
+      "criterio": "Clientes adimplentes e ativos para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Regra Padrao da Royal Pet -  Customizavel: Frequencia de 14 dias para ativos inadimplentes (campo)",
+      "segmento": "Ativos inadimplentes (campo)",
+      "criterio": "Clientes inadimplentes e ativos para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R8",
+      "nome": "Regra Padrao da Royal Pet - Customizavel: Frequencia de 14 dias para inativos adimplentes (campo)",
+      "segmento": "Inativos adimplentes (campo)",
+      "criterio": "Clientes adimplentes e inativos para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R9",
+      "nome": "Regra Padrao da Royal Pet - Customizavel: Frequencia de 30 dias para inativos adimplentes (campo)",
+      "segmento": "Inativos inadimplentes (campo)",
+      "criterio": "Clientes inadimplentes e inativos para o vendedor",
+      "frequencia": "30 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R10",
+      "nome": "Regra Padrao da Royal Pet - Customizavel: Frequencia de 14 dias para clientes sem vendas (campo)",
+      "segmento": "Sem vendas (campo)",
+      "criterio": "Clientes que nunca compraram com o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Televendas e campo: ativos adimplentes 7 dias; ativos inadimplentes 14 dias; inativos adimplentes 14 dias; sem vendas 14 dias. Inativos inadimplentes: televendas não agendar, campo 30 dias",
+    "A gente atende toda semana o cliente ativo que paga em dia e a cada 14 dias quem está inadimplente ou inativo. No televendas, inativo inadimplente não entra na agenda; no campo, entra a cada 30 dias",
+    "Quero frequências por adimplência e atividade do cliente para televendas e campo, bloqueando no televendas os inativos inadimplentes"
+  ],
+  "_meta": {
+    "arquivo": "regra_062.gobr",
+    "sha256_gobr": "a1e5b101f69da57611cb79a987b5014d5d4161bc501f7e3bd31deef5df60d5ce",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:27+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_3.json",
+    "concordancia": 0.862
+  }
+}

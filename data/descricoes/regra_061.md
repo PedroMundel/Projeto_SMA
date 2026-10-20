@@ -1,12 +1,12 @@
 # regra_061.gobr
 
-Regra padrão aplicada a três carteiras fixas: a da vendedora Gesiane, a do time de campo e a do time de televendas. A carteira da Gesiane agenda ativos, inativos e clientes sem venda a cada 14 dias. Campo e televendas também usam 14 dias para os clientes que não são bloqueados. Deixam de ser agendados os inativos inadimplentes de campo e de televendas e, em televendas, os clientes sem venda.
+Regra de frequência aplicada a três carteiras fixas: Gesiane, campo e televendas. Todas as faixas de frequência usam 14 dias. Nas carteiras de campo e de televendas, não são agendados os inativos inadimplentes, e em televendas também os clientes sem vendas. A última regra de campo e a de televendas cobrem os demais clientes, ativos ou inativos.
 
 ## Carteiras
 
 | Carteira | Descrição |
 |---|---|
-| carteira Gesiane | Carteira fixa da vendedora Gesiane |
+| carteira Gesiane | Carteira fixa dos vendedores do time Gesiane (vendedor de id 16) |
 | carteira campo | Carteira fixa de todos os vendedores de campo |
 | carteira televendas | Carteira fixa de todos os vendedores de televendas |
 
@@ -15,10 +15,10 @@ Regra padrão aplicada a três carteiras fixas: a da vendedora Gesiane, a do tim
 | Segmento | Critério | Frequência | Observação |
 |---|---|---|---|
 | Inativos (Gesiane) | Clientes inativos para o vendedor | 14 dias |  |
-| Sem venda (Gesiane) | Clientes sem vendas para o vendedor | 14 dias |  |
+| Sem venda (Gesiane) | Clientes que nunca compraram com o vendedor | 14 dias |  |
 | Ativos (Gesiane) | Clientes ativos para o vendedor | 14 dias |  |
 | Bloqueio: inativos inadimplentes (campo) | Clientes inadimplentes e inativos para o vendedor | Não agendar |  |
-| Demais clientes (campo) | Clientes que não são inativos para o vendedor ou que são inativos para o vendedor | 14 dias | Regra final de campo: vale para quem sobrou do bloqueio anterior |
+| Demais clientes (campo) | Clientes ativos ou inativos para o vendedor | 14 dias | Regra final da carteira de campo: vale para quem sobrou da regra anterior |
 | Bloqueio: inativos inadimplentes (televendas) | Clientes inadimplentes e inativos para o vendedor | Não agendar |  |
-| Bloqueio: sem venda (televendas) | Clientes sem vendas para o vendedor | Não agendar |  |
-| Demais clientes (televendas) | Clientes ativos ou inativos para o vendedor | 14 dias | Regra final de televendas: vale para quem sobrou dos bloqueios anteriores |
+| Bloqueio: sem venda (televendas) | Clientes que nunca compraram com o vendedor | Não agendar |  |
+| Demais clientes (televendas) | Clientes ativos ou inativos para o vendedor | 14 dias | Regra final da carteira de televendas: vale para quem sobrou das regras anteriores |

@@ -1,0 +1,58 @@
+{
+  "resumo": "Regra de agendamento do time de ativação, formado pelos vendedores de id 965 e 945, em duas faixas conforme haja ou não pedido nos últimos 30 dias. Quem comprou nos últimos 30 dias tem frequência de 21 dias; os demais, de 15 dias. Não há regras de bloqueio.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Cliente com pedido nos últimos 30 dias",
+      "segmento": "Com pedido nos últimos 30 dias",
+      "criterio": "Clientes que compraram nos últimos 30 dias",
+      "frequencia": "21 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Cliente sem pedido nos últimos 30 dias",
+      "segmento": "Sem pedido nos últimos 30 dias",
+      "criterio": "Clientes que nunca compraram ou estão há mais de 30 dias sem comprar",
+      "frequencia": "15 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Ativação (vendedores 965 e 945): pedido nos últimos 30 dias a cada 21 dias; sem pedido nos últimos 30 dias a cada 15 dias",
+    "O time de ativação liga a cada 21 dias para quem comprou no último mês e a cada 15 dias para quem não comprou nesse período, incluindo quem nunca comprou",
+    "Quero duas frequências para o time de ativação, uma para quem tem pedido recente e outra para quem não tem"
+  ],
+  "_meta": {
+    "arquivo": "regra_211.gobr",
+    "sha256_gobr": "9da6480ae74f161f7606a21e5c8de84c30b5b76502784ed0931392a4dd4cbdf5",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:30+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_1.json",
+    "concordancia": 0.807
+  }
+}

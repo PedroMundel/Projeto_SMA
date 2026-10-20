@@ -1,6 +1,6 @@
 # regra_119.gobr
 
-Parametrização do time de televendas por situação de compra e de pagamento do cliente. Ativos adimplentes são atendidos a cada 15 dias, ativos inadimplentes a cada 30 dias, inativos adimplentes a cada 7 dias e clientes sem compra a cada 15 dias. Inativos inadimplentes não são agendados.
+Regra de agendamento do time de televendas por situação do cliente no vendedor (ativo, inativo ou sem compra) e por adimplência. Ativos têm frequência de 15 dias se adimplentes e de 30 dias se inadimplentes; inativos adimplentes têm 7 dias; clientes sem compra têm 15 dias. Clientes inativos inadimplentes não são agendados.
 
 ## Regras
 
@@ -10,4 +10,4 @@ Parametrização do time de televendas por situação de compra e de pagamento d
 | Ativos inadimplentes | Clientes inadimplentes e ativos para o vendedor | 30 dias |  |
 | Inativos adimplentes | Clientes adimplentes e inativos para o vendedor | 7 dias |  |
 | Bloqueio: inativos inadimplentes | Clientes inadimplentes e inativos para o vendedor | Não agendar |  |
-| Sem compra | Clientes que nunca compraram com o vendedor | 15 dias |  |
+| Sem compra | Clientes sem vendas para o vendedor | 15 dias |  |

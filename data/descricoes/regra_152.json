@@ -1,0 +1,103 @@
+{
+  "resumo": "Regra de agendamento do time de televendas por histórico de compra com o próprio vendedor e por tempo desde a última compra no grupo de vendedores, em faixas de 7, 30, 60 e 90 dias. Prospects e clientes com uma única compra com o vendedor são atendidos a cada 7 dias. Não há regras de bloqueio. A última regra atende quem está há mais de 90 dias sem comprar no grupo.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Nunca fez pedido com o vendedor (prospect)",
+      "segmento": "Prospects",
+      "criterio": "Clientes que nunca compraram com o próprio vendedor",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Tirou o primeiro pedido com o vendedor",
+      "segmento": "Primeiro pedido",
+      "criterio": "Clientes que já compraram com o próprio vendedor, mas em uma única compra",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Teve pedido entre 0 e 7 dias",
+      "segmento": "Pedido entre 0 e 7 dias",
+      "criterio": "Clientes que compraram no grupo de vendedores nos últimos 7 dias e têm mais de uma compra com o próprio vendedor",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Teve pedido entre 7 e 30 dias",
+      "segmento": "Pedido entre 7 e 30 dias",
+      "criterio": "Clientes que compraram no grupo nos últimos 30 dias, mas estão há mais de 7 dias sem comprar, com mais de uma compra com o próprio vendedor",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Teve pedido entre 30 e 60 dias",
+      "segmento": "Pedido entre 30 e 60 dias",
+      "criterio": "Clientes que compraram no grupo nos últimos 60 dias, mas estão há mais de 30 dias sem comprar, com mais de uma compra com o próprio vendedor",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Teve pedido entre 60 e 90 dias",
+      "segmento": "Pedido entre 60 e 90 dias",
+      "criterio": "Clientes que compraram no grupo nos últimos 90 dias, mas estão há mais de 60 dias sem comprar, com mais de uma compra com o próprio vendedor",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Teve pedido há 90 dias ou mais",
+      "segmento": "Pedido há 90 dias ou mais",
+      "criterio": "Clientes que estão há mais de 90 dias sem comprar no grupo de vendedores, com mais de uma compra com o próprio vendedor",
+      "frequencia": "7 dias",
+      "observacao": "Regra final: vale para quem sobrou das faixas anteriores",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Televendas: prospects e primeiro pedido 7 dias; pedido até 7, 7 a 30 e 30 a 60 dias 14 dias; 60 a 90 dias e acima de 90 dias 7 dias",
+    "A gente atende a cada 7 dias quem nunca comprou ou só comprou uma vez com o vendedor, a cada 14 dias quem comprou recentemente e volta para 7 dias quando passa de 60 dias sem comprar",
+    "Quero agendar o televendas pelo histórico com o próprio vendedor e por faixas de tempo desde a última compra, sem bloqueios"
+  ],
+  "_meta": {
+    "arquivo": "regra_152.gobr",
+    "sha256_gobr": "42c28a67c5fdd028b2187212a97e16a0e28db779c28dfdc390865594ec8a13e1",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:29+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_1.json",
+    "concordancia": 0.822
+  }
+}

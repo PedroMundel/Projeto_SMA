@@ -1,0 +1,55 @@
+{
+  "resumo": "Regra única de frequência aplicada à carteira fixa de todos os vendedores da empresa. Todos os clientes são atendidos na mesma frequência de 14 dias. Não há bloqueios de agenda.",
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "empresa toda",
+      "descricao": "Carteira fixa de todos os vendedores da empresa"
+    }
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Regra Padrao do goVendas Customizavel: Frequencia de inativos",
+      "segmento": "Todos os clientes",
+      "criterio": "Clientes de toda a carteira, sem distinção de situação",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Empresa toda: todos os clientes a cada 14 dias",
+    "Quero que todos os vendedores atendam todos os clientes da carteira a cada 14 dias, sem separar por tipo de cliente",
+    "Frequência única para a carteira inteira, sem bloqueios"
+  ],
+  "_meta": {
+    "arquivo": "regra_043.gobr",
+    "sha256_gobr": "4aca811d51fc97b360cbf8bf216bc011e13bf767f5907ef7291064bac0b7b409",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:27+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_3.json",
+    "concordancia": 0.817
+  }
+}

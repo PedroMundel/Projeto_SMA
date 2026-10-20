@@ -1,0 +1,76 @@
+{
+  "resumo": "Regra de frequência para todos os vendedores habilitados, organizada pela curva do cliente na empresa (A, B e C) e pela condição de ativo para o vendedor. Clientes ativos das curvas A e C ficam a cada 15 dias e os da curva B a cada 7 dias. A regra final, de 7 dias, trata os clientes não ativos e os ativos fora das curvas. Não há bloqueios de agenda.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Freq. de 15d para 'Ativos Curva A'",
+      "segmento": "Ativos Curva A",
+      "criterio": "Clientes da curva A com a empresa e ativos para o vendedor",
+      "frequencia": "15 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Freq. de 7d para 'Ativos Curva B'",
+      "segmento": "Ativos Curva B",
+      "criterio": "Clientes da curva B com a empresa e ativos para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Freq. de 15d para 'Ativos Curva C'",
+      "segmento": "Ativos Curva C",
+      "criterio": "Clientes da curva C com a empresa e ativos para o vendedor",
+      "frequencia": "15 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Freq. de 7d para 'Inativos'",
+      "segmento": "Inativos",
+      "criterio": "Clientes não ativos para o vendedor ou ativos fora das curvas A, B e C com a empresa",
+      "frequencia": "7 dias",
+      "observacao": "Regra final: vale para quem sobrou das faixas anteriores",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Todos os vendedores: ativos curva A 15 dias; ativos curva B 7 dias; ativos curva C 15 dias; inativos 7 dias",
+    "A gente atende os clientes ativos da curva A e da curva C a cada 15 dias e os da curva B toda semana. Quem está inativo também entra toda semana",
+    "Quero frequência por curva de clientes ativos para todos os vendedores, com uma regra para os inativos"
+  ],
+  "_meta": {
+    "arquivo": "regra_161.gobr",
+    "sha256_gobr": "269b87e6923e462e7a8f4d351e4405d3ca6a2a5b0641cfe3f794571556b7f69a",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:29+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_2.json",
+    "concordancia": 0.825
+  }
+}

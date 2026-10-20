@@ -1,22 +1,22 @@
 {
-  "resumo": "Regra padrão de frequência para dois times externos, cada um com sua carteira fixa: capital (todos os vendedores de campo, exceto os de id 35 e 34) e interior (vendedores de id 35 e 34). Na capital, adimplentes e inadimplentes sem vendas são agendados a cada 14 dias e inadimplentes com alguma venda a cada 30 dias; no interior, todos a cada 30 dias. Não há bloqueios de agenda.",
+  "resumo": "Regra de frequência de agendamento do time de campo, dividido em capital e interior, cada um com sua carteira fixa. Na carteira da capital, adimplentes e inadimplentes sem vendas são atendidos a cada 14 dias, e inadimplentes que já compraram a cada 30 dias. Na carteira do interior, todos os clientes são atendidos a cada 30 dias. Não há regras de bloqueio.",
   "carteiras": [
     {
       "id": "C1",
       "nome": "carteira capital",
-      "descricao": "Carteira fixa dos vendedores do time capital"
+      "descricao": "Carteira fixa dos vendedores de campo do time capital"
     },
     {
       "id": "C2",
       "nome": "carteira interior",
-      "descricao": "Carteira fixa dos vendedores do time interior"
+      "descricao": "Carteira fixa dos vendedores do time interior (ids 35 e 34)"
     }
   ],
   "regras": [
     {
       "id": "R1",
       "nome": "Regra Padrao da NB PI Customizavel: 14 dias para adimplentes (Capital)",
-      "segmento": "Capital: adimplentes",
+      "segmento": "Adimplentes (Capital)",
       "criterio": "Clientes adimplentes da carteira capital",
       "frequencia": "14 dias",
       "observacao": "",
@@ -25,8 +25,8 @@
     {
       "id": "R2",
       "nome": "Regra Padrao da NB PI Customizavel: 14 dias para clientes sem venda (Capital)",
-      "segmento": "Capital: inadimplentes sem venda",
-      "criterio": "Clientes inadimplentes que nunca compraram com o vendedor, exceto os já tratados pela regra anterior",
+      "segmento": "Inadimplentes sem vendas (Capital)",
+      "criterio": "Clientes inadimplentes da carteira capital que nunca compraram com o vendedor",
       "frequencia": "14 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -34,8 +34,8 @@
     {
       "id": "R3",
       "nome": "Regra Padrao da NB PI Customizavel: 30 dias para inadimplentes (Capital)",
-      "segmento": "Capital: inadimplentes com venda",
-      "criterio": "Clientes inadimplentes que já compraram com o vendedor, ativos ou inativos",
+      "segmento": "Inadimplentes com vendas (Capital)",
+      "criterio": "Clientes inadimplentes da carteira capital que já compraram com o vendedor, ativos ou inativos",
       "frequencia": "30 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -43,7 +43,7 @@
     {
       "id": "R4",
       "nome": "Regra Padrao da NB PI Customizavel: 30 dias para todos os clientes (Interior)",
-      "segmento": "Interior: todos os clientes",
+      "segmento": "Todos os clientes (Interior)",
       "criterio": "Todos os clientes da carteira interior",
       "frequencia": "30 dias",
       "observacao": "",
@@ -53,17 +53,17 @@
   "pontos_de_atencao": [],
   "consultas_hipoteticas": [
     "Capital: adimplentes 14 dias; inadimplentes sem venda 14 dias; inadimplentes com venda 30 dias. Interior: todos os clientes 30 dias",
-    "Tenho dois times externos: na capital ligo a cada 14 dias pra quem está em dia e pra quem nunca comprou, e a cada 30 dias pro inadimplente que já comprou. No interior é a cada 30 dias pra todo mundo",
-    "Regra de frequência para o time da capital e o do interior, com prazo maior para inadimplentes e para o interior"
+    "No time da capital a gente visita a cada 14 dias quem está em dia e quem nunca comprou, e a cada 30 dias o inadimplente que já comprou. O pessoal do interior vai a cada 30 dias em todo mundo",
+    "Quero uma regra por carteira para o time de campo, separando capital e interior, com frequência de 14 e 30 dias"
   ],
   "_meta": {
     "arquivo": "regra_008.gobr",
     "sha256_gobr": "3106789d3aa8f6000be3c1bc96d3c768b150fe79872aee505c0a5ac7ef252ad6",
-    "versao_pacote": "1",
-    "prompt_sha256": "fd3b943ec528",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T15:22:22+00:00",
+    "gerado_em": "2026-10-20T16:12:27+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,
@@ -82,6 +82,6 @@
       }
     },
     "escolhido": "agente_1.json",
-    "concordancia": 0.728
+    "concordancia": 0.849
   }
 }

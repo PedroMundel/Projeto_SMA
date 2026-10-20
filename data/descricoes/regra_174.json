@@ -1,0 +1,188 @@
+{
+  "resumo": "Regra de agendamento do time de televendas por situação do cliente com o próprio vendedor: prospects, ativados, ativos, em ruptura e inativos. Antes das faixas, deixam de ser agendados os inadimplentes e os baixados na Receita Federal. As frequências são de 14, 21 e 28 dias ou calculadas pelo histórico de compras, e os ramos de atividade 18 e 9 têm faixas próprias. A última regra reativa os clientes há mais de 90 dias sem comprar com o próprio vendedor.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Não agendar inadimplentes",
+      "segmento": "Bloqueio: inadimplentes",
+      "criterio": "Clientes inadimplentes",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Não agendar Baixados na Receita",
+      "segmento": "Bloqueio: baixados na Receita",
+      "criterio": "Clientes com situação baixada na Receita Federal",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Freq. de 14d para 'Prospect: Cliente potencial'",
+      "segmento": "Prospects",
+      "criterio": "Clientes que nunca compraram com o próprio vendedor",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Freq. de 21d para 'Ativado: fez um pedido e ainda não comprou mais'",
+      "segmento": "Ativados",
+      "criterio": "Clientes que já compraram com o próprio vendedor, com uma única compra, cadastrados no ERP há pelo menos 60 dias",
+      "frequencia": "21 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Freq. do histórico para 'Ativo: Alta frequência de compra'",
+      "segmento": "Ativos de alta frequência",
+      "criterio": "Clientes que compraram com o próprio vendedor nos últimos 30 dias, com frequência histórica de compra de menos de 14 dias, exceto os de compra única cadastrados no ERP há pelo menos 60 dias",
+      "frequencia": "Pelo histórico, limitada entre 10 e 14 dias",
+      "observacao": "Se não houver histórico, vale no mínimo 10 dias e no máximo 14 dias",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Freq. do histórico para 'Ativo: compra regularmente'",
+      "segmento": "Ativos que compram regularmente (ramos 18 e 9)",
+      "criterio": "Clientes dos ramos de atividade 18 e 9 que compraram com o próprio vendedor nos últimos 60 dias, com frequência histórica de menos de 30 dias, exceto os já tratados pelas regras anteriores",
+      "frequencia": "Pelo histórico, limitada entre 14 e 21 dias",
+      "observacao": "Se não houver histórico, vale no mínimo 14 dias e no máximo 21 dias",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Freq. de 28d para 'Ativo: compra regularmente'",
+      "segmento": "Ativos que compram regularmente (demais ramos)",
+      "criterio": "Clientes de ramos de atividade fora de 18 e 9 que compraram com o próprio vendedor nos últimos 60 dias, com frequência histórica de menos de 30 dias, exceto os já tratados pelas regras anteriores",
+      "frequencia": "28 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R8",
+      "nome": "Freq. de 14d para 'Ativo: estimular a regularidade de compra'",
+      "segmento": "Estimular regularidade (ramos 18 e 9)",
+      "criterio": "Clientes dos ramos de atividade 18 e 9 que compraram com o próprio vendedor nos últimos 60 dias, mas estão há pelo menos 21 dias sem comprar, com frequência histórica indefinida ou de pelo menos 30 dias",
+      "frequencia": "14 dias",
+      "observacao": "Exclui compra única com cadastro no ERP há pelo menos 60 dias",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R9",
+      "nome": "Freq. de 21d para 'Ativo: estimular a regularidade de compra'",
+      "segmento": "Estimular regularidade (demais ramos)",
+      "criterio": "Clientes de ramos de atividade fora de 18 e 9 que compraram com o próprio vendedor nos últimos 60 dias, mas estão há pelo menos 21 dias sem comprar, com frequência histórica indefinida ou de pelo menos 30 dias",
+      "frequencia": "21 dias",
+      "observacao": "Exclui compra única com cadastro no ERP há pelo menos 60 dias",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R10",
+      "nome": "Freq. de 14d para 'Em ruptura: risco de ficar inativo para os ramos 9 e 18'",
+      "segmento": "Em ruptura (ramos 9 e 18)",
+      "criterio": "Clientes dos ramos de atividade 18 e 9 que compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar",
+      "frequencia": "14 dias",
+      "observacao": "Exclui compra única com cadastro no ERP há pelo menos 60 dias",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R11",
+      "nome": "Freq. de 14d para 'Em ruptura: risco de ficar inativo'",
+      "segmento": "Em ruptura (demais ramos)",
+      "criterio": "Clientes de ramos de atividade fora de 18 e 9 que compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar",
+      "frequencia": "14 dias",
+      "observacao": "Exclui compra única com cadastro no ERP há pelo menos 60 dias",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R12",
+      "nome": "Freq. de 21d para 'Inativo: reativar cliente sem compra'",
+      "segmento": "Inativos",
+      "criterio": "Clientes que estão há mais de 90 dias sem comprar com o próprio vendedor",
+      "frequencia": "21 dias",
+      "observacao": "Exclui compra única com cadastro no ERP há pelo menos 60 dias",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [
+    "A condição da regra R6 (Ativo: compra regularmente, frequência do histórico) é fragmentada demais para resumir; foi descrita pela condição própria, exceto os clientes já tratados pelas regras anteriores.",
+    "A condição da regra R7 (Ativo: compra regularmente, 28 dias) é fragmentada demais para resumir; foi descrita pela condição própria, exceto os clientes já tratados pelas regras anteriores.",
+    "Clientes que compraram com o próprio vendedor nos últimos 20 dias, com frequência histórica indefinida ou de pelo menos 30 dias, exceto os de compra única cadastrados no ERP há pelo menos 60 dias, não se enquadram em nenhuma regra e ficam sem parametrização."
+  ],
+  "consultas_hipoteticas": [
+    "Televendas: prospects 14 dias; ativados 21 dias; ativos de alta frequência pelo histórico (10 a 14 dias); compra regular 28 dias, ramos 18 e 9 pelo histórico; ruptura 14 dias; inativos 21 dias; não agendar inadimplentes e baixados na Receita",
+    "A gente liga a cada 14 dias pros prospects e a cada 21 dias pra quem fez só um pedido e pra quem passou de 90 dias sem comprar. Quem compra bem tem a frequência calculada pelo histórico. Inadimplente e cliente baixado na Receita não entram na agenda",
+    "Quero uma regra pro televendas que separe prospects, ativos, clientes em ruptura e inativos, com tratamento diferente pros ramos 18 e 9 e sem agendar inadimplentes"
+  ],
+  "_meta": {
+    "arquivo": "regra_174.gobr",
+    "sha256_gobr": "6172bf6fc521f952e3138f9b5f1dbbcb6a1a75920f6afbde49af6c914d13a7f5",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:30+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": false,
+        "erros": [
+          "R5: faltam os números [60]",
+          "R12: faltam os números [60]"
+        ],
+        "avisos": [
+          "consulta 1: números fora do pacote [1]"
+        ]
+      },
+      "agente_2.json": {
+        "valido": false,
+        "erros": [
+          "R5: faltam os números [60]",
+          "R12: faltam os números [60]"
+        ],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": false,
+        "erros": [
+          "R5: faltam os números [60]"
+        ],
+        "avisos": []
+      },
+      "agente_4.json": {
+        "valido": false,
+        "erros": [
+          "R5: faltam os números [60]",
+          "R12: faltam os números [60]"
+        ],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": false,
+        "erros": [
+          "R5: faltam os números [60]",
+          "R12: faltam os números [60]"
+        ],
+        "avisos": []
+      },
+      "agente_6.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_7.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_6.json",
+    "concordancia": 0.809
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "resumo": "Regra única de frequência aplicada ao time com todos os vendedores habilitados. Todos os clientes são atendidos a cada 1 dia, sem faixas, carteiras ou bloqueios de agenda.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Teste CCN 11: 1d para todos os clientes",
+      "segmento": "Todos os clientes",
+      "criterio": "Clientes de qualquer perfil, sem distinção",
+      "frequencia": "1 dia",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Todos os vendedores: todos os clientes a cada 1 dia",
+    "A gente quer agendar todo cliente todo dia, sem separar por faixa nenhuma, para todos os vendedores",
+    "Uma regra de teste com frequência diária para todos os clientes"
+  ],
+  "_meta": {
+    "arquivo": "regra_098.gobr",
+    "sha256_gobr": "0865e60cafd61a3b31378f212915acdec12e8a172f071964e3fcbf355c503584",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:28+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_5.json",
+    "concordancia": 0.787
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "resumo": "Regra de agendamento do time de televendas por tempo desde a última compra, em quatro faixas (até 30, 60 e 90 dias e acima de 90 dias, incluindo quem nunca comprou). Antes das faixas, deixam de ser agendados os clientes que compraram nos últimos 7 dias. A última faixa cobre todos os clientes que sobram das anteriores.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Clientes com compra em 7d",
+      "segmento": "Bloqueio: compra nos últimos 7 dias",
+      "criterio": "Clientes que compraram nos últimos 7 dias",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Manter a regularidade de compra!",
+      "segmento": "Compra regular",
+      "criterio": "Clientes que compraram nos últimos 30 dias, mas estão há mais de 7 dias sem comprar",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Garantir a positivação da carteira!",
+      "segmento": "Positivação da carteira",
+      "criterio": "Clientes que compraram nos últimos 60 dias, mas estão há mais de 30 dias sem comprar",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Cliente com risco de inatividade!",
+      "segmento": "Risco de inatividade",
+      "criterio": "Clientes que compraram nos últimos 90 dias, mas estão há mais de 60 dias sem comprar",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Clientes inativos",
+      "segmento": "Clientes inativos",
+      "criterio": "Clientes que nunca compraram ou estão há mais de 90 dias sem comprar",
+      "frequencia": "21 dias",
+      "observacao": "Regra final: vale para quem sobrou das faixas anteriores",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Televendas: não agendar quem comprou em 7 dias; 7 a 30 dias sem comprar, 14 dias; 30 a 60 dias, 14 dias; 60 a 90 dias, 7 dias; inativos e prospects acima de 90 dias, 21 dias",
+    "A gente não liga pra quem comprou nos últimos 7 dias. Depois disso, liga a cada 14 dias até 60 dias sem comprar, toda semana de 60 a 90 dias, e a cada 21 dias pra quem passou de 90 dias ou nunca comprou",
+    "Quero agendar o televendas por tempo sem comprar, em faixas até 90 dias, sem agendar quem acabou de comprar"
+  ],
+  "_meta": {
+    "arquivo": "regra_240.gobr",
+    "sha256_gobr": "639d60e24c3c10fada4817580d25c9da27ecc8e7a855f444ad3d8ca5e866d3f7",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:31+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_1.json",
+    "concordancia": 0.882
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "resumo": "Regras de frequência para duas carteiras fixas: a de todos os vendedores, exceto a vendedora Sandra, e a carteira da Sandra. Todos os clientes da Sandra são atendidos a cada 7 dias. Na carteira da empresa, a frequência depende da situação do cliente: inativos inadimplentes a cada 30 dias, inativos adimplentes a cada 7 dias e os demais a cada 14 dias. Todas as faixas atendem apenas de segunda a sexta, e não há regra de não agendar.",
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "empresa toda",
+      "descricao": "Carteira fixa de todos os vendedores, exceto a vendedora Sandra"
+    },
+    {
+      "id": "C2",
+      "nome": "carteira sandra",
+      "descricao": "Carteira fixa da vendedora Sandra"
+    }
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Regra Padrao da Empresa Customizavel: frequencia semanal para clientes da sandra",
+      "segmento": "Clientes da Sandra",
+      "criterio": "Todos os clientes da carteira da Sandra",
+      "frequencia": "7 dias",
+      "observacao": "Atende de segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Regra Padrao da Empresa Customisavel: 30 dias para clientes inativos inadimplentes",
+      "segmento": "Inativos inadimplentes",
+      "criterio": "Clientes inadimplentes e inativos para o vendedor",
+      "frequencia": "30 dias",
+      "observacao": "Atende de segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Regra Padrao da Empresa Customisavel: 7 dias para clientes inativos adiplentes",
+      "segmento": "Inativos adimplentes",
+      "criterio": "Clientes adimplentes e inativos para o vendedor, exceto os já tratados pelas regras anteriores",
+      "frequencia": "7 dias",
+      "observacao": "Atende de segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Regra Padrao da Empresa Customisavel: 14 dias para clientes ativos ou adimplentes ou sem venda",
+      "segmento": "Demais clientes (não inativos)",
+      "criterio": "Clientes que não são inativos para o vendedor, exceto os já tratados pelas regras anteriores",
+      "frequencia": "14 dias",
+      "observacao": "Atende de segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Sandra: todos os clientes a cada 7 dias. Demais vendedores: inativos inadimplentes 30 dias, inativos adimplentes 7 dias, não inativos 14 dias. Atendimento de segunda a sexta",
+    "A vendedora Sandra visita a carteira dela toda semana. Os outros vendedores veem os inativos inadimplentes a cada 30 dias, os inativos que pagam em dia toda semana e o resto de 14 em 14 dias, sempre em dia útil",
+    "Frequência por situação do cliente para a empresa, com uma regra semanal separada para a carteira de uma vendedora, atendendo só em dias úteis"
+  ],
+  "_meta": {
+    "arquivo": "regra_045.gobr",
+    "sha256_gobr": "111568d128c667fdd5819c5702928f371993c758ef503d5a7fb19498fd4d2a95",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:27+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_5.json",
+    "concordancia": 0.686
+  }
+}

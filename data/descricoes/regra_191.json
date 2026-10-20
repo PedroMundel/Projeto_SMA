@@ -1,0 +1,112 @@
+{
+  "resumo": "Regra de agendamento do time de televendas por tempo desde a última compra, em faixas de pós-venda, alta regularidade, estímulo de regularidade, risco de inatividade e inativos, mais os prospects. Antes das faixas, deixam de ser agendados os clientes baixados na Receita Federal e os inadimplentes. A regra final de clientes inativos cobre quem já comprou na empresa e está parado no grupo de vendedores.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Não agendar clientes baixados na receita",
+      "segmento": "Bloqueio: baixados na Receita",
+      "criterio": "Clientes com situação baixada na Receita Federal",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Não agendar inadimplentes",
+      "segmento": "Bloqueio: inadimplentes",
+      "criterio": "Clientes inadimplentes",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Clientes Prospects",
+      "segmento": "Prospects",
+      "criterio": "Clientes que nunca compraram com qualquer vendedor da empresa",
+      "frequencia": "21 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Pós-venda",
+      "segmento": "Pós-venda",
+      "criterio": "Clientes que compraram nos últimos 7 dias",
+      "frequencia": "21 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Alta regularidade",
+      "segmento": "Alta regularidade",
+      "criterio": "Clientes que compraram nos últimos 30 dias, mas estão há mais de 7 dias sem comprar",
+      "frequencia": "Pelo histórico mais 3 dias, entre 14 e 30 dias",
+      "observacao": "Sem histórico de compras, a frequência fica limitada a no mínimo 14 e no máximo 30 dias",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Estimular regularidade",
+      "segmento": "Estimular regularidade",
+      "criterio": "Clientes que compraram nos últimos 45 dias, mas estão há mais de 30 dias sem comprar",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Risco de inatividade",
+      "segmento": "Risco de inatividade",
+      "criterio": "Clientes que compraram nos últimos 60 dias, mas estão há mais de 45 dias sem comprar",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R8",
+      "nome": "Clientes Inativos",
+      "segmento": "Clientes inativos",
+      "criterio": "Clientes que já compraram na empresa e nunca compraram no grupo de vendedores ou estão há mais de 60 dias sem comprar nele",
+      "frequencia": "7 dias",
+      "observacao": "Regra final: vale para quem sobrou das faixas anteriores",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Televendas: prospects e pós-venda (até 7 dias) a cada 21 dias; alta regularidade pelo histórico mais 3 dias (mín. 14, máx. 30); 30 a 45 dias, risco de inatividade e inativos a cada 7 dias; não agendar inadimplentes e baixados na Receita",
+    "A gente liga a cada 21 dias para prospect e para quem acabou de comprar, até 7 dias. Quem compra com regularidade segue o histórico mais 3 dias, e quem está esfriando ou inativo entra toda semana. Inadimplente e baixado na Receita não entra na agenda",
+    "Quero agendar os clientes do televendas por tempo sem comprar, com pós-venda, alta regularidade, risco de inatividade e inativos, sem agendar inadimplentes"
+  ],
+  "_meta": {
+    "arquivo": "regra_191.gobr",
+    "sha256_gobr": "2fc7c5eeebf66435fda575e7a963606923dafa47c409c48a992bd9b40925b72e",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:30+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_1.json",
+    "concordancia": 0.934
+  }
+}

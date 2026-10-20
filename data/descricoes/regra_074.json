@@ -1,0 +1,73 @@
+{
+  "resumo": "Regra padrão de frequência aplicada à carteira fixa de todos os vendedores da empresa. Clientes ativos para o vendedor são atendidos a cada 21 dias; inativos e clientes sem vendas, a cada 45 dias. Todas as faixas respeitam a preferência de dias configurada pelo vendedor.",
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "empresa toda",
+      "descricao": "Carteira fixa de todos os vendedores da empresa"
+    }
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Regra Padrao da Empresa Customizavel: 45 dias para inativos",
+      "segmento": "Inativos",
+      "criterio": "Clientes inativos para o vendedor",
+      "frequencia": "45 dias",
+      "observacao": "Respeita a preferência de dias configurada pelo vendedor",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Regra Padrao da Empresa Customizavel: 21 dias para ativos",
+      "segmento": "Ativos",
+      "criterio": "Clientes ativos para o vendedor",
+      "frequencia": "21 dias",
+      "observacao": "Respeita a preferência de dias configurada pelo vendedor",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Regra Padrao da Empresa Customizavel: 45 dias quando sem vendas",
+      "segmento": "Sem vendas",
+      "criterio": "Clientes que nunca compraram com o vendedor",
+      "frequencia": "45 dias",
+      "observacao": "Respeita a preferência de dias configurada pelo vendedor",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Carteira de todos os vendedores: ativos a cada 21 dias; inativos e sem venda a cada 45 dias; respeitar preferência de dias do vendedor",
+    "Quero que cada vendedor visite os clientes ativos a cada 21 dias e os inativos ou que nunca compraram a cada 45 dias, nos dias que ele preferir",
+    "Frequência por situação do cliente para a carteira da empresa toda, com a preferência de dias do vendedor"
+  ],
+  "_meta": {
+    "arquivo": "regra_074.gobr",
+    "sha256_gobr": "1b7f96d4fef125cd061c85b14aa0ff0ba0780d167b6469541aaa2a38f35479c7",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:28+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_1.json",
+    "concordancia": 0.878
+  }
+}

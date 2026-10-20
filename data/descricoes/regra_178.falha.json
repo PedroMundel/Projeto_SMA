@@ -1,0 +1,74 @@
+{
+  "_meta": {
+    "arquivo": "regra_178.gobr",
+    "sha256_gobr": "1a7d314a6e07ad6bfcea5457eb260cfb47e16ae485fda6060a8bb9009a15b900",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:30+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": false,
+        "erros": [
+          "R5: faltam os números [60]",
+          "R6: faltam os números [30, 60]",
+          "R7: faltam os números [30, 60]"
+        ],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": false,
+        "erros": [
+          "R6: faltam os números [60]",
+          "R7: faltam os números [30, 60]"
+        ],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": false,
+        "erros": [
+          "R6: faltam os números [60]",
+          "R7: faltam os números [30, 60]"
+        ],
+        "avisos": []
+      },
+      "agente_4.json": {
+        "valido": false,
+        "erros": [
+          "R6: faltam os números [60]",
+          "R7: faltam os números [30, 60]"
+        ],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": false,
+        "erros": [
+          "R6: faltam os números [60]",
+          "R7: faltam os números [30, 60]"
+        ],
+        "avisos": []
+      },
+      "agente_6.json": {
+        "valido": false,
+        "erros": [
+          "R6: faltam os números [60]",
+          "R7: faltam os números [30, 60]"
+        ],
+        "avisos": []
+      },
+      "agente_7.json": {
+        "valido": false,
+        "erros": [
+          "R6: faltam os números [60]",
+          "R7: faltam os números [30, 60]"
+        ],
+        "avisos": [
+          "consulta 1: números fora do pacote [14, 29, 59]"
+        ]
+      }
+    },
+    "escolhido": null,
+    "concordancia": 0.0
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "resumo": "Regra de agendamento do time de televendas com frequência única de 30 dias para quatro grupos: clientes com uma única compra, esquecidos, inativos sem compra e ativos fidelizados. Deixam de ser agendados as filiais, os inadimplentes e os clientes bloqueados para atendimento.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Não agendar Filiais",
+      "segmento": "Bloqueio: filiais",
+      "criterio": "Clientes que são filiais",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Não agendar Inadimplentes",
+      "segmento": "Bloqueio: inadimplentes",
+      "criterio": "Clientes inadimplentes",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Não agendar Bloqueados",
+      "segmento": "Bloqueio: bloqueados",
+      "criterio": "Clientes bloqueados para atendimento",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Freq. de 30d para 'Ativado: fez um pedido e ainda não comprou mais'",
+      "segmento": "Ativado",
+      "criterio": "Clientes com uma única compra com o vendedor",
+      "frequencia": "30 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Freq. de 30d para 'Esquecido'",
+      "segmento": "Esquecido",
+      "criterio": "Clientes que compraram nos últimos 365 dias, mas estão há pelo menos 181 dias sem comprar, com mais de uma compra com o vendedor",
+      "frequencia": "30 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Freq. de 30d 'Inativo: Reativar cliente sem compra'",
+      "segmento": "Inativo",
+      "criterio": "Clientes que estão há mais de 365 dias sem comprar, com mais de uma compra com o vendedor",
+      "frequencia": "30 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Freq. de 30d para 'Ativo fidelizado'",
+      "segmento": "Ativo fidelizado",
+      "criterio": "Clientes que nunca compraram ou compraram nos últimos 180 dias, com mais de uma compra com o vendedor",
+      "frequencia": "30 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Televendas: ativado (compra única), esquecido (181 a 365 dias), inativo (mais de 365 dias) e ativo fidelizado (até 180 dias), todos a cada 30 dias; não agendar filiais, inadimplentes e bloqueados",
+    "A gente liga a cada 30 dias para todo mundo: quem fez uma compra só, quem está esquecido há mais de 180 dias, o inativo de mais de 365 dias e o cliente fiel que comprou nos últimos 180 dias. Filial, inadimplente e bloqueado fica de fora",
+    "Quero uma frequência de 30 dias para o televendas, separando os clientes por tempo sem comprar, sem agendar filiais e inadimplentes"
+  ],
+  "_meta": {
+    "arquivo": "regra_210.gobr",
+    "sha256_gobr": "21eb9a21248be29bee1b0d4664b74cdbc3d3e494b54a73ca1bd48cb5c1a20ad7",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:30+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_3.json",
+    "concordancia": 0.905
+  }
+}

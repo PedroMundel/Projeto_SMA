@@ -1,0 +1,132 @@
+{
+  "resumo": "Regra de agendamento com duas carteiras fixas: a do time campo e a do time televendas. No campo, não são agendados clientes do ramo de atividade de id 17, pessoas físicas e, ao final, inativos e inadimplentes ativos; os ativos adimplentes têm frequência de 30 dias e os sem venda, de 21 dias. No televendas, inadimplentes não são agendados, e os adimplentes seguem 14 dias (ativos e sem venda) ou 30 dias (inativos).",
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "carteira campo",
+      "descricao": "Carteira fixa dos vendedores do time campo"
+    },
+    {
+      "id": "C2",
+      "nome": "carteira televendas",
+      "descricao": "Carteira fixa dos vendedores do time televendas"
+    }
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Regra Padrao da Playpet Customizavel: nao agendar plano veterinario",
+      "segmento": "Bloqueio: plano veterinário",
+      "criterio": "Clientes com ramo de atividade de id 17",
+      "frequencia": "Não agendar",
+      "observacao": "Carteira campo",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Regra Padrao da Playpet Customizavel: nao agendar clientes pessoa fisica",
+      "segmento": "Bloqueio: pessoa física",
+      "criterio": "Clientes pessoa física",
+      "frequencia": "Não agendar",
+      "observacao": "Carteira campo",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Regra Padrao da Playpet Customizavel: 30 dias para ativos adimplentes",
+      "segmento": "Ativos adimplentes (campo)",
+      "criterio": "Clientes adimplentes e ativos para o vendedor",
+      "frequencia": "30 dias",
+      "observacao": "Carteira campo",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Regra Padrao da Playpet Customizavel: 21 dias para clientes sem venda",
+      "segmento": "Sem venda (campo)",
+      "criterio": "Clientes que nunca compraram com o vendedor",
+      "frequencia": "21 dias",
+      "observacao": "Carteira campo",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Regra Padrao da Playpet Customizavel: nao agendar inadimplentes ou inativos",
+      "segmento": "Bloqueio: inadimplentes ou inativos",
+      "criterio": "Clientes inativos para o vendedor ou inadimplentes que sejam ativos para o vendedor",
+      "frequencia": "Não agendar",
+      "observacao": "Carteira campo; vale para quem não entrou nas regras de 30 e 21 dias",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Regra Padrao da Playpet Customizavel: Nao agendar inadimplentes",
+      "segmento": "Bloqueio: inadimplentes",
+      "criterio": "Clientes inadimplentes",
+      "frequencia": "Não agendar",
+      "observacao": "Carteira televendas",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Regra Padrao da Playpet Customizavel: 14 dias para ativos adimplentes",
+      "segmento": "Ativos adimplentes (televendas)",
+      "criterio": "Clientes adimplentes e ativos para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "Carteira televendas",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R8",
+      "nome": "Regra Padrao da Playpet Customizavel: 30 dias quando inativos adimplentes",
+      "segmento": "Inativos adimplentes (televendas)",
+      "criterio": "Clientes adimplentes e inativos para o vendedor",
+      "frequencia": "30 dias",
+      "observacao": "Carteira televendas",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R9",
+      "nome": "Regra Padrao da Playpet Customizavel: 14 dias para sem venda",
+      "segmento": "Sem venda (televendas)",
+      "criterio": "Clientes adimplentes que nunca compraram com o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "Carteira televendas",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Campo: não agendar ramo 17 e pessoa física; ativos adimplentes 30 dias; sem venda 21 dias; inativos e inadimplentes não agendar. Televendas: inadimplente não agenda; ativos 14 dias; inativos 30 dias; sem venda 14 dias",
+    "No campo a gente não agenda plano veterinário nem pessoa física, visita ativo em dia a cada 30 dias e quem nunca comprou a cada 21. No televendas, inadimplente fica de fora, ativo e sem venda a cada 14 dias e inativo a cada 30",
+    "Quero regra para campo e televendas com frequência por situação do cliente (ativo, inativo, sem venda), sem agendar inadimplentes"
+  ],
+  "_meta": {
+    "arquivo": "regra_068.gobr",
+    "sha256_gobr": "e894956f1db2d16bbe3144cbe5d9f525d6b16261c7247e5cfd0b90200fadd67e",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:28+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_3.json",
+    "concordancia": 0.874
+  }
+}

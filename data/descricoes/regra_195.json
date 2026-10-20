@@ -1,0 +1,123 @@
+{
+  "resumo": "Regra de agendamento do time de televendas com faixas por tempo desde a última compra e por histórico de compras na empresa, no grupo de vendedores e com o próprio vendedor. Antes das faixas, deixam de ser agendados pessoas físicas, baixados na Receita Federal e clientes que compraram nos últimos 7 dias. São seis faixas de frequência, de 7, 14 e 21 dias; a última atende quem sobrou das anteriores.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Não agendar PF",
+      "segmento": "Bloqueio: pessoa física",
+      "criterio": "Clientes pessoa física",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Não agendar Baixados na Receita",
+      "segmento": "Bloqueio: baixados na Receita",
+      "criterio": "Clientes com situação baixada na Receita Federal",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Não agendar clientes com pedido em 7d",
+      "segmento": "Bloqueio: pedido nos últimos 7 dias",
+      "criterio": "Clientes que compraram nos últimos 7 dias",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Manter contato com cliente que comprou no mês",
+      "segmento": "Comprou no mês",
+      "criterio": "Clientes que compraram nos últimos 30 dias, mas estão há mais de 7 dias sem comprar",
+      "frequencia": "21 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Ativação de novos",
+      "segmento": "Novos",
+      "criterio": "Clientes que nunca compraram na empresa",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Fazer relacionamento com o cliente",
+      "segmento": "Relacionamento",
+      "criterio": "Clientes com uma única compra na empresa, que nunca compraram no grupo de vendedores ou estão há mais de 30 dias sem comprar nele",
+      "frequencia": "21 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Manter a regularidade de compra",
+      "segmento": "Regularidade de compra",
+      "criterio": "Clientes com mais de uma compra, sem comprar no grupo há mais de 30 dias, que compraram com o próprio vendedor nos últimos 60 dias, mas não nos últimos 30",
+      "frequencia": "21 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R8",
+      "nome": "Atuar para que o cliente não fique inativo",
+      "segmento": "Risco de inatividade",
+      "criterio": "Clientes com mais de uma compra, sem comprar no grupo há mais de 30 dias, que compraram com o próprio vendedor nos últimos 90 dias, mas não nos últimos 60",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R9",
+      "nome": "Resgatar o cliente inativo",
+      "segmento": "Resgate de inativos",
+      "criterio": "Clientes com mais de uma compra, parados no grupo há mais de 30 dias, que nunca compraram com o próprio vendedor, compraram nos últimos 30 dias ou não compram com ele há mais de 90",
+      "frequencia": "14 dias",
+      "observacao": "Regra final: vale para quem sobrou das faixas anteriores",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [
+    "As faixas misturam escopos de recência de compra (grupo de vendedores em 'Não agendar clientes com pedido em 7d' e 'Manter contato com cliente que comprou no mês'; próprio vendedor em 'Manter a regularidade de compra' e 'Atuar para que o cliente não fique inativo'), então podem se sobrepor ou deixar lacunas."
+  ],
+  "consultas_hipoteticas": [
+    "Televendas: comprou nos últimos 30 dias (mais de 7 sem comprar) 21 dias; novos 14 dias; compra única 21 dias; risco de inatividade 7 dias; resgate de inativos 14 dias; não agendar PF, baixados na Receita e pedido em 7 dias",
+    "A gente não agenda pessoa física, baixado na Receita nem quem comprou nos últimos 7 dias. Quem nunca comprou é contatado a cada 14 dias, quem comprou no mês a cada 21 dias, e quem está quase inativo toda semana",
+    "Quero faixas de contato do televendas considerando o histórico de compra do cliente com o próprio vendedor, com ativação de novos e resgate de inativos"
+  ],
+  "_meta": {
+    "arquivo": "regra_195.gobr",
+    "sha256_gobr": "cacb426897a2da433ee3c7da81d4f955a6648679a2a132eb1517d9c683d375df",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:30+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_2.json",
+    "concordancia": 0.811
+  }
+}

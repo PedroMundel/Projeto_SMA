@@ -1,0 +1,176 @@
+{
+  "resumo": "Regra de agendamento do time de todos os vendedores de televendas, organizada primeiro por cidade e depois por perfil de compra. Nove rotas por cidade têm frequência semanal de 7 dias, quatro delas fixas por dia da semana e cinco dinâmicas. Para as demais cidades, as faixas são prospects, ativos por curva A, B e C, e inativos.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Rota fixa de segunda-feira",
+      "segmento": "Rota fixa de segunda",
+      "criterio": "Clientes das cidades BALNEARIO BARRA DO S, BELA VISTA, CAMPO ALEGRE, CANOINHAS, CORUPA, ITAIOPOLIS e mais 8",
+      "frequencia": "7 dias",
+      "observacao": "Fixo, restrição rígida de frequência e dias; preferência segunda, demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Rota fixa de terça-feira",
+      "segmento": "Rota fixa de terça",
+      "criterio": "Clientes das cidades APIUNA, ASCURRA, BENEDITO NOVO, BLUMENAU, DOUTOR PEDRINHO, GASPAR e mais 6",
+      "frequencia": "7 dias",
+      "observacao": "Fixo, restrição rígida de frequência e dias; preferência terça, demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Rota fixa de quarta-feira",
+      "segmento": "Rota fixa de quarta",
+      "criterio": "Clientes das cidades ARARANGUA, BIGUACU, BRACO DO NORTE, CAPIVARI DE BAIXO, COCAL DO SUL, CRICIUMA e mais 23",
+      "frequencia": "7 dias",
+      "observacao": "Fixo, restrição rígida de frequência e dias; preferência quarta, demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Rota fixa de quinta-feira",
+      "segmento": "Rota fixa de quinta",
+      "criterio": "Clientes das cidades ARAQUARI, MASSARANDUBA, PIRABEIRABA e SAO JOAO DO ITAPERIU",
+      "frequencia": "7 dias",
+      "observacao": "Fixo, restrição rígida de frequência e dias; preferência quinta, demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Rota dinâmica de segunda, terça ou sexta",
+      "segmento": "Rota dinâmica segunda, terça ou sexta",
+      "criterio": "Clientes da cidade de BRUSQUE",
+      "frequencia": "7 dias",
+      "observacao": "Preferência segunda, terça e sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Rota dinâmica para terça ou sexta",
+      "segmento": "Rota dinâmica terça ou sexta",
+      "criterio": "Clientes da cidade de NOVA TRENTO",
+      "frequencia": "7 dias",
+      "observacao": "Preferência terça e sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Rota dinâmica de segunda ou quinta",
+      "segmento": "Rota dinâmica segunda ou quinta",
+      "criterio": "Clientes das cidades GUARAMIRIM, JARAGUA DO SUL, JOINVILLE e SCHROEDER",
+      "frequencia": "7 dias",
+      "observacao": "Preferência segunda e quinta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R8",
+      "nome": "Rota dinâmica de terça ou quinta",
+      "segmento": "Rota dinâmica terça ou quinta",
+      "criterio": "Clientes das cidades BALNEARIO PICARRAS, BARRA VELHA, NAVEGANTES e PENHA",
+      "frequencia": "7 dias",
+      "observacao": "Preferência terça e quinta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R9",
+      "nome": "Rota dinâmica para dias variados",
+      "segmento": "Rota dinâmica de dias variados",
+      "criterio": "Clientes das cidades BALNEARIO CAMBORIU, CAMBORIU, CANELINHA, ITAJAI, ITAPEMA, PORTO BELO e mais 2",
+      "frequencia": "7 dias",
+      "observacao": "Sem dias de preferência definidos",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R10",
+      "nome": "Freq. de 30d para 'Prospects'",
+      "segmento": "Prospects",
+      "criterio": "Clientes que nunca compraram na empresa, fora das cidades das rotas anteriores",
+      "frequencia": "30 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R11",
+      "nome": "Freq. de 14d para 'Ativos - Curva A'",
+      "segmento": "Ativos - Curva A",
+      "criterio": "Clientes ativos para o vendedor, curva A na empresa, fora das cidades das rotas anteriores",
+      "frequencia": "14 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R12",
+      "nome": "Freq. de 21d para 'Ativos - Curva B'",
+      "segmento": "Ativos - Curva B",
+      "criterio": "Clientes ativos para o vendedor, curva B na empresa, fora das cidades das rotas anteriores",
+      "frequencia": "21 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R13",
+      "nome": "Freq. de 28d para 'Ativos - Curva C'",
+      "segmento": "Ativos - Curva C",
+      "criterio": "Clientes ativos para o vendedor, fora das curvas A e B na empresa, fora das cidades das rotas anteriores",
+      "frequencia": "28 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R14",
+      "nome": "Freq. de 30d para 'Inativos'",
+      "segmento": "Inativos",
+      "criterio": "Clientes que já compraram na empresa e não são ativos para o vendedor, fora das cidades das rotas anteriores",
+      "frequencia": "30 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Todos: rotas por cidade a cada 7 dias (fixas seg, ter, qua, qui; dinâmicas seg/ter/sex, ter/sex, seg/qui, ter/qui e variados); demais cidades: prospects 30 dias, ativos curva A 14, B 21, C 28, inativos 30",
+    "A gente atende as cidades em rotas semanais, algumas com dia fixo e outras com dias que variam. Para os clientes de fora das rotas, prospect e inativo a cada 30 dias, e os ativos mais rápido conforme a curva",
+    "Agenda do time de televendas por cidade com frequência semanal e, para o restante, por curva ABC e prospects"
+  ],
+  "_meta": {
+    "arquivo": "regra_154.gobr",
+    "sha256_gobr": "ecf1d4bd0df4fda5b48bf87e8fbe6e89d5a93bd1e98ad2c2c09821ef5261f9d9",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:29+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_2.json",
+    "concordancia": 0.709
+  }
+}

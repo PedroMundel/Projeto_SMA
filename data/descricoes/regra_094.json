@@ -1,0 +1,89 @@
+{
+  "resumo": "Regra padrão de frequência para os times de televendas e de campo, cada um com a sua carteira fixa. Em televendas, os clientes adimplentes têm frequência de 30 dias e os inadimplentes de 60 dias; a faixa de clientes sem venda de televendas nunca chega a ser aplicada. No campo, todos os clientes seguem a frequência de 30 dias. Não há regras de bloqueio.",
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "carteira televendas",
+      "descricao": "Carteira fixa dos vendedores do time televendas"
+    },
+    {
+      "id": "C2",
+      "nome": "carteira campo",
+      "descricao": "Carteira fixa dos vendedores do time campo"
+    }
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Regra Padrao da AHL Customizavel: 30 dias para clientes adimplentes (televendas)",
+      "segmento": "Televendas: adimplentes",
+      "criterio": "Clientes adimplentes",
+      "frequencia": "30 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Regra Padrao da AHL Customizavel: 60 dias para clientes inadimplentes (televendas)",
+      "segmento": "Televendas: inadimplentes",
+      "criterio": "Clientes inadimplentes",
+      "frequencia": "60 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Regra Padrao da AHL Customizavel: 30 dias para clientes sem venda (televendas)",
+      "segmento": "Televendas: sem venda",
+      "criterio": "Clientes que nunca compraram com o vendedor",
+      "frequencia": "30 dias",
+      "observacao": "Nunca é aplicada: todos esses clientes já foram tratados antes",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Regra Padrao da AHL Customizavel: 30 dias para todos os clientes (campo)",
+      "segmento": "Campo: todos os clientes",
+      "criterio": "Clientes de todos os perfis da carteira campo",
+      "frequencia": "30 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [
+    "A regra '30 dias para clientes sem venda (televendas)' nunca é aplicada: todos os clientes dela já são tratados por regras anteriores."
+  ],
+  "consultas_hipoteticas": [
+    "Televendas: adimplentes 30 dias, inadimplentes 60 dias, sem venda 30 dias. Campo: todos os clientes 30 dias",
+    "O televendas liga a cada 30 dias para quem está em dia e a cada 60 dias para quem está inadimplente, e o time de campo visita todo mundo a cada 30 dias, cada time com a sua carteira fixa",
+    "Frequência padrão por time com carteira fixa, com prazo diferente para adimplentes e inadimplentes no televendas"
+  ],
+  "_meta": {
+    "arquivo": "regra_094.gobr",
+    "sha256_gobr": "b84bfd5cd905aaa9a7ad8eb3a38c50179dbb75e37c5f33ed1185ebe346be6a5a",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:28+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_3.json",
+    "concordancia": 0.84
+  }
+}

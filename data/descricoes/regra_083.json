@@ -1,5 +1,5 @@
 {
-  "resumo": "Regra padrão de frequência aplicada à carteira fixa de todos os vendedores da empresa. Clientes ativos para o vendedor seguem a frequência média dos ativos da empresa; inativos e clientes sem vendas seguem a frequência média dos inativos da empresa. Não há bloqueios de agenda.",
+  "resumo": "Regra padrão de frequência aplicada à carteira fixa de todos os vendedores da empresa. Clientes ativos para o vendedor seguem a frequência média dos ativos da empresa; inativos e clientes sem vendas seguem a frequência média dos inativos da empresa.",
   "carteiras": [
     {
       "id": "C1",
@@ -39,17 +39,17 @@
   "pontos_de_atencao": [],
   "consultas_hipoteticas": [
     "Frequência padrão para toda a carteira: ativos com a média dos ativos da empresa; inativos e sem venda com a média dos inativos",
-    "Quero que todos os vendedores atendam a carteira inteira na frequência média da empresa, separando quem está comprando de quem está parado ou nunca comprou",
+    "Quero que todos os vendedores atendam a carteira da empresa na frequência média, separando quem está comprando de quem está parado e de quem nunca comprou",
     "Regra padrão de frequência por situação do cliente, para todos os vendedores"
   ],
   "_meta": {
     "arquivo": "regra_083.gobr",
     "sha256_gobr": "74b1e786fd85b5202aab8736726307f1aca6d6a7c8527ab1d9bebab3384e811d",
-    "versao_pacote": "1",
-    "prompt_sha256": "fd3b943ec528",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T15:22:22+00:00",
+    "gerado_em": "2026-10-20T16:12:28+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,
@@ -68,6 +68,6 @@
       }
     },
     "escolhido": "agente_1.json",
-    "concordancia": 0.976
+    "concordancia": 0.945
   }
 }

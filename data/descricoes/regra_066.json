@@ -1,0 +1,132 @@
+{
+  "resumo": "Regras padrão de frequência para as carteiras fixas dos times de televendas (internos) e de campo (externos), por situação do cliente e adimplência, com atendimento de segunda a sexta. Ficam sem agenda, nas duas carteiras, os clientes inativos inadimplentes e os clientes sem vendas. Nas duas carteiras, clientes inativos adimplentes seguem 30 dias.",
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "carteira campo",
+      "descricao": "Carteira fixa de todos os vendedores de campo"
+    },
+    {
+      "id": "C2",
+      "nome": "carteira televendas",
+      "descricao": "Carteira fixa de todos os vendedores de televendas"
+    }
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Regra Padrao da Sul Frios - Customizavel: 7 dias para clientes ativos adimplentes (Internos)",
+      "segmento": "Ativos adimplentes (internos)",
+      "criterio": "Clientes adimplentes e ativos para o vendedor, na carteira televendas",
+      "frequencia": "7 dias",
+      "observacao": "Preferência de segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Regra Padrao da Sul Frios - Customizavel: 14 dias para clientes ativos inadimplentes (Internos)",
+      "segmento": "Ativos inadimplentes (internos)",
+      "criterio": "Clientes inadimplentes e ativos para o vendedor, na carteira televendas",
+      "frequencia": "14 dias",
+      "observacao": "Preferência de segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Regra Padrao da Sul Frios - Customizavel: 30 dias para clientes inativos adimplentes (Internos)",
+      "segmento": "Inativos adimplentes (internos)",
+      "criterio": "Clientes adimplentes e inativos para o vendedor, na carteira televendas",
+      "frequencia": "30 dias",
+      "observacao": "Preferência de segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Regra Padrao da Sul Frios - Customizavel: Nao agendar clientes inativos inadimplentes (Internos)",
+      "segmento": "Bloqueio: inativos inadimplentes (internos)",
+      "criterio": "Clientes inadimplentes e inativos para o vendedor, na carteira televendas",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Regra Padrao da Sul Frios - Customizavel: Nao agendar clientes sem vendas (Internos)",
+      "segmento": "Bloqueio: sem vendas (internos)",
+      "criterio": "Clientes que nunca compraram com o vendedor, na carteira televendas",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Regra Padrao da Sul Frios - Customizavel: 7 dias para clientes ativos (Externos)",
+      "segmento": "Ativos (externos)",
+      "criterio": "Clientes ativos para o vendedor, na carteira campo",
+      "frequencia": "7 dias",
+      "observacao": "Preferência de segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Regra Padrao da Sul Frios - Customizavel: 30 dias para clientes inativos adimplentes (Externos)",
+      "segmento": "Inativos adimplentes (externos)",
+      "criterio": "Clientes adimplentes e inativos para o vendedor, na carteira campo",
+      "frequencia": "30 dias",
+      "observacao": "Preferência de segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R8",
+      "nome": "Regra Padrao da Sul Frios - Customizavel: Nao agendar clientes inativos inadimplentes (Externos)",
+      "segmento": "Bloqueio: inativos inadimplentes (externos)",
+      "criterio": "Clientes inadimplentes e inativos para o vendedor, na carteira campo",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R9",
+      "nome": "Regra Padrao da Sul Frios - Customizavel: Nao agendar clientes sem vendas (Externos)",
+      "segmento": "Bloqueio: sem vendas (externos)",
+      "criterio": "Clientes que nunca compraram com o vendedor, na carteira campo",
+      "frequencia": "Não agendar",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Internos (televendas): ativos adimplentes 7 dias, ativos inadimplentes 14 dias, inativos adimplentes 30 dias; externos (campo): ativos 7 dias, inativos adimplentes 30 dias; não agendar inativos inadimplentes nem sem vendas",
+    "Ativo que paga em dia a gente atende toda semana, e o inadimplente ativo a cada 14 dias no interno. Inativo em dia, a cada 30 dias. Inativo inadimplente e cliente que nunca comprou ficam fora da agenda",
+    "Frequência por situação do cliente e adimplência para televendas e campo, de segunda a sexta, sem agendar inativos inadimplentes e sem vendas"
+  ],
+  "_meta": {
+    "arquivo": "regra_066.gobr",
+    "sha256_gobr": "c9b4f0d3e7c7504b9848d5348ed7d1c7a5f41f3ad93b75b0c6dd60db52cf5995",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:28+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_1.json",
+    "concordancia": 0.843
+  }
+}

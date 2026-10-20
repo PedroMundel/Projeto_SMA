@@ -1,0 +1,22 @@
+# regra_160.gobr
+
+Regra de agendamento de dois times de televendas, vendedores_ativos e vendedores_prospects, sem carteiras. As seis primeiras regras tratam o fechamento de rota, com frequência de 1 dias para clientes pessoa jurídica com data de rota nos próximos 1 dia e mais de 3 dias sem visita. As demais regras organizam os clientes pelo tempo desde a última compra com o próprio vendedor (30, 60 e 90 dias), com primeira compra, resgate de clientes sem compra e pessoa física. Não há regras de bloqueio.
+
+## Regras
+
+| Segmento | Critério | Frequência | Observação |
+|---|---|---|---|
+| Fechamento de rota: primeira compra | Clientes pessoa jurídica sem vendas para o vendedor, com data de rota nos próximos 1 dia | 1 dias | Visitados nos últimos 3000 dias, mas há mais de 3 dias sem receber visita |
+| Fechamento de rota: estimular regularidade | Clientes pessoa jurídica que compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar, com data de rota nos próximos 1 dia | 1 dias | Visitados nos últimos 3000 dias, mas há mais de 3 dias sem receber visita |
+| Fechamento de rota: risco de inatividade | Clientes pessoa jurídica que compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar, com data de rota nos próximos 1 dia | 1 dias | Visitados nos últimos 3000 dias, mas há mais de 3 dias sem receber visita |
+| Fechamento de rota: compra regularmente | Clientes pessoa jurídica que compraram com o próprio vendedor nos últimos 30 dias, com data de rota nos próximos 1 dia | 1 dias | Visitados nos últimos 3000 dias, mas há mais de 3 dias sem receber visita |
+| Fechamento de rota: resgate sem compra | Clientes pessoa jurídica inativos para o vendedor, que nunca compraram com ele ou estão há mais de 90 dias sem comprar, com data de rota nos próximos 1 dia | 1 dias | Visitados nos últimos 3000 dias, mas há mais de 3 dias sem receber visita |
+| Fechamento de rota: demais | Clientes pessoa jurídica ativos para o vendedor, que nunca compraram com ele ou estão há mais de 90 dias sem comprar, com data de rota nos próximos 1 dia | 1 dias | Visitados nos últimos 3000 dias, mas há mais de 3 dias sem receber visita |
+| Primeira compra (prospects) | Clientes pessoa jurídica sem vendas para o vendedor que não entram no fechamento de rota | 7 dias | Fora do fechamento de rota: sem rota nos próximos 1 dia, ou nunca visitados, visitados nos últimos 3 dias ou sem visita há mais de 3000 dias |
+| Primeira compra (ativos) | Clientes pessoa jurídica sem vendas para o vendedor que não entram no fechamento de rota | 14 dias | Fora do fechamento de rota: sem rota nos próximos 1 dia, ou nunca visitados, visitados nos últimos 3 dias ou sem visita há mais de 3000 dias |
+| Risco de inatividade | Clientes pessoa jurídica que compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar, fora do fechamento de rota | 7 dias | Fora do fechamento de rota: sem rota nos próximos 1 dia, ou nunca visitados, visitados nos últimos 3 dias ou sem visita há mais de 3000 dias |
+| Estimular regularidade | Clientes pessoa jurídica que compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar, fora do fechamento de rota | 14 dias | Fora do fechamento de rota: sem rota nos próximos 1 dia, ou nunca visitados, visitados nos últimos 3 dias ou sem visita há mais de 3000 dias |
+| Compra regularmente | Clientes pessoa jurídica que compraram com o próprio vendedor nos últimos 30 dias, fora do fechamento de rota | 14 dias | Fora do fechamento de rota: sem rota nos próximos 1 dia, ou nunca visitados, visitados nos últimos 3 dias ou sem visita há mais de 3000 dias |
+| Resgate sem compra | Clientes pessoa jurídica inativos para o vendedor, que nunca compraram com ele ou estão há mais de 90 dias sem comprar, fora do fechamento de rota | 21 dias | Fora do fechamento de rota: sem rota nos próximos 1 dia, ou nunca visitados, visitados nos últimos 3 dias ou sem visita há mais de 3000 dias |
+| Pessoa física | Clientes pessoa física | 14 dias |  |
+| Pessoa física/jurídica (indefinido) | Clientes pessoa jurídica ativos para o vendedor, que nunca compraram com ele ou estão há mais de 90 dias sem comprar, fora do fechamento de rota | 14 dias | Fora do fechamento de rota: sem rota nos próximos 1 dia, ou nunca visitados, visitados nos últimos 3 dias ou sem visita há mais de 3000 dias |

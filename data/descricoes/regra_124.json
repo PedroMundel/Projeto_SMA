@@ -1,0 +1,95 @@
+{
+  "resumo": "Regra de frequência para os times de campo e de televendas. O time de campo atende todos os clientes a cada 30 dias. O televendas atende a cada 25 dias ativos, inativos adimplentes, inativos inadimplentes e clientes sem vendas, de segunda a sexta e evitando coincidir os dias com o time de campo.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Regra Padrao da Roda Viva: 30 dias para todos os clientes (time externo)",
+      "segmento": "Todos os clientes (campo)",
+      "criterio": "Todos os clientes do time de campo",
+      "frequencia": "30 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Regra Padrao da Roda Viva: 25 dias para clientes ativos (televendas)",
+      "segmento": "Ativos (televendas)",
+      "criterio": "Clientes ativos para o vendedor",
+      "frequencia": "25 dias",
+      "observacao": "Preferência de segunda a sexta; evita coincidir os dias de atendimento com os do time campo",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Regra Padrao da Roda Viva: 25 dias para clientes inativos adimplentes (televendas)",
+      "segmento": "Inativos adimplentes (televendas)",
+      "criterio": "Clientes adimplentes e inativos para o vendedor",
+      "frequencia": "25 dias",
+      "observacao": "Preferência de segunda a sexta; evita coincidir os dias de atendimento com os do time campo",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Regra Padrao da Roda Viva: 25 dias para clientes inativos inadimplentes (televendas)",
+      "segmento": "Inativos inadimplentes (televendas)",
+      "criterio": "Clientes inadimplentes e inativos para o vendedor",
+      "frequencia": "25 dias",
+      "observacao": "Preferência de segunda a sexta; evita coincidir os dias de atendimento com os do time campo",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Regra Padrao da Roda Viva: 25 dias para clientes sem vendas (televendas)",
+      "segmento": "Sem vendas (televendas)",
+      "criterio": "Clientes que nunca compraram com o vendedor",
+      "frequencia": "25 dias",
+      "observacao": "Preferência de segunda a sexta; evita coincidir os dias de atendimento com os do time campo",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Campo: todos os clientes 30 dias. Televendas: ativos, inativos adimplentes, inativos inadimplentes e sem vendas 25 dias, segunda a sexta, sem coincidir com o campo",
+    "O time de campo visita todo mundo a cada 30 dias. O televendas liga a cada 25 dias pra ativos, inativos e quem nunca comprou, de segunda a sexta, evitando bater com os dias do campo",
+    "Quero frequência de 30 dias para o campo e de 25 dias para o televendas, separando ativos, inativos e sem vendas"
+  ],
+  "_meta": {
+    "arquivo": "regra_124.gobr",
+    "sha256_gobr": "8aebf060f6d8f4e2f8a51030b4a4231a109f61c5277d0811d507ecd48673b8f6",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:28+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_4.json",
+    "concordancia": 0.73
+  }
+}

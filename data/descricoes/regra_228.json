@@ -1,5 +1,5 @@
 {
-  "resumo": "Regra de atendimento do time de televendas, organizada pelo histórico de compra do cliente com o próprio vendedor e no grupo de vendedores. Há seis faixas: clientes que nunca compraram, de compra única, regulares das curvas C e A/B, em risco de inatividade e inativos, com frequências de 7 a 45 dias. Não há bloqueios de agenda, e a última faixa resgata quem está há mais de 180 dias sem comprar.",
+  "resumo": "Regra de agendamento do time de televendas, organizada pela relação do cliente com o próprio vendedor e pelo tempo sem comprar no grupo de vendedores. São seis faixas: clientes que nunca compraram com o vendedor, clientes de compra única, clientes que compram com regularidade (separados por curva C e demais curvas), clientes caminhando para inatividade e clientes inativos há mais de 180 dias. Não há regras de não agendar; a última faixa resgata os inativos.",
   "carteiras": [],
   "regras": [
     {
@@ -15,7 +15,7 @@
       "id": "R2",
       "nome": "Cliente ativado!",
       "segmento": "Clientes ativados",
-      "criterio": "Clientes que já compraram com o próprio vendedor, mas apenas uma vez",
+      "criterio": "Clientes que já compraram com o próprio vendedor, mas com uma única compra",
       "frequencia": "21 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -23,8 +23,8 @@
     {
       "id": "R3",
       "nome": "Compra com regularidade! (Curva C)",
-      "segmento": "Compra regular (Curva C)",
-      "criterio": "Clientes curva C na empresa que compraram no grupo de vendedores nos últimos 90 dias e já compraram mais de uma vez com o próprio vendedor",
+      "segmento": "Compra com regularidade (Curva C)",
+      "criterio": "Clientes da curva C que compraram no grupo de vendedores nos últimos 90 dias, com mais de uma compra com o próprio vendedor",
       "frequencia": "7 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -32,8 +32,8 @@
     {
       "id": "R4",
       "nome": "Compra com regularidade! (Curva A e B)",
-      "segmento": "Compra regular (Curva A e B)",
-      "criterio": "Clientes fora da curva C na empresa que compraram no grupo de vendedores nos últimos 90 dias e já compraram mais de uma vez com o próprio vendedor",
+      "segmento": "Compra com regularidade (Curva A e B)",
+      "criterio": "Clientes fora da curva C que compraram no grupo de vendedores nos últimos 90 dias, com mais de uma compra com o próprio vendedor",
       "frequencia": "14 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -42,7 +42,7 @@
       "id": "R5",
       "nome": "Cliente caminhando para inatividade!",
       "segmento": "Caminhando para inatividade",
-      "criterio": "Clientes que compraram no grupo de vendedores nos últimos 180 dias, mas estão há mais de 90 dias sem comprar, e não são de compra única com o vendedor",
+      "criterio": "Clientes que compraram no grupo de vendedores nos últimos 180 dias, mas estão há mais de 90 dias sem comprar, com mais de uma compra com o próprio vendedor",
       "frequencia": "28 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -50,27 +50,27 @@
     {
       "id": "R6",
       "nome": "Resgatar cliente inativo!",
-      "segmento": "Resgate de inativos",
-      "criterio": "Clientes que estão há mais de 180 dias sem comprar no grupo de vendedores e não são de compra única com o vendedor",
+      "segmento": "Clientes inativos",
+      "criterio": "Clientes que estão há mais de 180 dias sem comprar no grupo de vendedores, com mais de uma compra com o próprio vendedor",
       "frequencia": "45 dias",
-      "observacao": "Última faixa: atende quem passou de 180 dias sem comprar",
+      "observacao": "Regra final: resgate dos inativos que sobraram das faixas anteriores",
       "clausulas_nao_traduzidas": []
     }
   ],
   "pontos_de_atencao": [],
   "consultas_hipoteticas": [
-    "Televendas: nunca comprou com o vendedor 28 dias; compra única 21 dias; compra nos últimos 90 dias curva C 7 dias, curvas A e B 14 dias; de 90 a 180 dias sem comprar 28 dias; mais de 180 dias 45 dias",
-    "A gente liga a cada 28 dias pra cliente novo que nunca comprou comigo e a cada 21 dias pra quem comprou uma vez só. Quem compra direto vai a cada 7 ou 14 dias, conforme a curva, e quem sumiu há mais de 180 dias a cada 45 dias",
-    "Quero frequências diferentes no televendas conforme o cliente é novo, compra com regularidade (por curva), está esfriando ou já está inativo"
+    "Televendas: nunca comprou com o vendedor 28 dias; compra única 21 dias; curva C comprando nos últimos 90 dias 7 dias; demais curvas 14 dias; sem comprar entre 90 e 180 dias 28 dias; acima de 180 dias 45 dias",
+    "A gente liga a cada 28 dias para quem nunca comprou com o próprio vendedor e a cada 21 dias para quem fez uma única compra. Quem compra com regularidade fica a cada 7 dias se for curva C e a cada 14 dias nas outras curvas, e quem sumiu há mais de 180 dias volta a cada 45 dias",
+    "Quero agendar o televendas pela relação do cliente com o vendedor e pelo tempo sem comprar, com frequências menores para quem compra com regularidade"
   ],
   "_meta": {
     "arquivo": "regra_228.gobr",
     "sha256_gobr": "f9de548ddf01743b402eceb1dbf15bf969118a38f07bd83e87cb674bdfe69406",
-    "versao_pacote": "1",
-    "prompt_sha256": "fd3b943ec528",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T15:22:22+00:00",
+    "gerado_em": "2026-10-20T16:12:31+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,
@@ -86,9 +86,19 @@
         "valido": true,
         "erros": [],
         "avisos": []
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
       }
     },
-    "escolhido": "agente_3.json",
-    "concordancia": 0.692
+    "escolhido": "agente_2.json",
+    "concordancia": 0.721
   }
 }

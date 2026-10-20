@@ -1,0 +1,155 @@
+{
+  "resumo": "Regra padrão de frequência com três carteiras fixas, uma para cada time: televendas, campo capital e campo interior. Televendas e campo capital separam ativos adimplentes (7 dias), ativos inadimplentes (14 dias), inativos (30 dias) e clientes sem vendas (30 dias). O campo interior usa só ativos (14 dias), inativos (30 dias) e sem vendas (30 dias). Não há regras de bloqueio, e todas atendem de segunda a sexta.",
+  "carteiras": [
+    {
+      "id": "C1",
+      "nome": "carteira fixa time interior",
+      "descricao": "Carteira fixa dos vendedores do time campo interior"
+    },
+    {
+      "id": "C2",
+      "nome": "carteira fixa time campo capital",
+      "descricao": "Carteira fixa dos vendedores do time campo capital"
+    },
+    {
+      "id": "C3",
+      "nome": "carteira fixa time televendas",
+      "descricao": "Carteira fixa dos vendedores do time televendas"
+    }
+  ],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Regra Padrao da Empresa Customizavel - Semanal para ativos adimplentes (time televendas)",
+      "segmento": "Televendas: ativos adimplentes",
+      "criterio": "Clientes adimplentes e ativos para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "Preferência de segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Regra Padrao da Empresa Customizavel - 14 dias para ativos inadimplentes (time televendas)",
+      "segmento": "Televendas: ativos inadimplentes",
+      "criterio": "Clientes inadimplentes e ativos para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "Preferência de segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R3",
+      "nome": "Regra Padrao da Empresa Customizavel - 30 dias para inativos (time televendas)",
+      "segmento": "Televendas: inativos",
+      "criterio": "Clientes inativos para o vendedor",
+      "frequencia": "30 dias",
+      "observacao": "Preferência de segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R4",
+      "nome": "Regra Padrao da Empresa Customizavel - 30 dias pra clientes sem vendas (time televendas)",
+      "segmento": "Televendas: sem vendas",
+      "criterio": "Clientes que nunca compraram com o vendedor",
+      "frequencia": "30 dias",
+      "observacao": "Preferência de segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R5",
+      "nome": "Regra Padrao da Empresa Customizavel - semanal para ativos adimplentes (time campo capital)",
+      "segmento": "Campo capital: ativos adimplentes",
+      "criterio": "Clientes adimplentes e ativos para o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "Preferência de segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R6",
+      "nome": "Regra Padrao da Empresa Customizavel - 14 dias para ativos inadimplentes (time campo capital)",
+      "segmento": "Campo capital: ativos inadimplentes",
+      "criterio": "Clientes inadimplentes e ativos para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "Preferência de segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R7",
+      "nome": "Regra Padrao da Empresa Customizavel - 30 dias para inativos (time campo capital)",
+      "segmento": "Campo capital: inativos",
+      "criterio": "Clientes inativos para o vendedor",
+      "frequencia": "30 dias",
+      "observacao": "Preferência de segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R8",
+      "nome": "Regra Padrao da Empresa Customizavel - 30 dias pra clientes sem vendas (time campo capital)",
+      "segmento": "Campo capital: sem vendas",
+      "criterio": "Clientes que nunca compraram com o vendedor",
+      "frequencia": "30 dias",
+      "observacao": "Preferência de segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R9",
+      "nome": "Regra Padrao da Empresa Customizavel - 14 dias para ativos (time campo interior)",
+      "segmento": "Campo interior: ativos",
+      "criterio": "Clientes ativos para o vendedor",
+      "frequencia": "14 dias",
+      "observacao": "Preferência de segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R10",
+      "nome": "Regra Padrao da Empresa Customizavel - 30 dias para inativos (time campo interior)",
+      "segmento": "Campo interior: inativos",
+      "criterio": "Clientes inativos para o vendedor",
+      "frequencia": "30 dias",
+      "observacao": "Preferência de segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R11",
+      "nome": "Regra Padrao da Empresa Customizavel - 30 dias pra clientes sem vendas (time campo interior)",
+      "segmento": "Campo interior: sem vendas",
+      "criterio": "Clientes que nunca compraram com o vendedor",
+      "frequencia": "30 dias",
+      "observacao": "Preferência de segunda a sexta; demais dias sem atendimento",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [],
+  "consultas_hipoteticas": [
+    "Televendas e campo capital: ativos adimplentes 7 dias, ativos inadimplentes 14 dias, inativos 30 dias, sem venda 30 dias; campo interior: ativos 14 dias, inativos e sem venda 30 dias; atendimento de segunda a sexta",
+    "Temos três times, televendas, campo capital e campo interior, cada um com sua carteira fixa. Nos dois primeiros, quem está ativo e em dia é visto toda semana e o inadimplente a cada 14 dias. Inativo e quem nunca comprou, a cada 30 dias, sempre de segunda a sexta",
+    "Frequência padrão por time e por situação do cliente, com carteira fixa para televendas, campo capital e campo interior, atendendo só em dias úteis"
+  ],
+  "_meta": {
+    "arquivo": "regra_093.gobr",
+    "sha256_gobr": "f822cc71e45458847a2c52a4768faea680e99b92d35d8f7553b440c6b623ff6f",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:28+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_2.json",
+    "concordancia": 0.834
+  }
+}

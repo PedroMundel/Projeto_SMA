@@ -1,0 +1,70 @@
+{
+  "resumo": "Regra de planejamento do time de televendas em duas faixas. Clientes com uma única compra com o vendedor são atendidos a cada 7 dias, e os que compraram nos últimos 30 dias e não são de compra única seguem uma frequência calculada pelo histórico de compras. Não há bloqueios de agenda.",
+  "carteiras": [],
+  "regras": [
+    {
+      "id": "R1",
+      "nome": "Fazer relacionamento com o cliente",
+      "segmento": "Relacionamento",
+      "criterio": "Clientes com uma única compra com o vendedor",
+      "frequencia": "7 dias",
+      "observacao": "",
+      "clausulas_nao_traduzidas": []
+    },
+    {
+      "id": "R2",
+      "nome": "Manter a regularidade de compra",
+      "segmento": "Regularidade de compra",
+      "criterio": "Clientes que compraram nos últimos 30 dias, mas estão há pelo menos 7 dias sem comprar, e não são de compra única com o vendedor",
+      "frequencia": "Pelo histórico, entre 14 e 28 dias",
+      "observacao": "Frequência calculada pelo histórico de compras; sem histórico, vale o mínimo de 14 e o máximo de 28 dias",
+      "clausulas_nao_traduzidas": []
+    }
+  ],
+  "pontos_de_atencao": [
+    "Clientes que nunca compraram, compraram nos últimos 6 dias ou estão há mais de 30 dias sem comprar, e que não são de compra única, não se enquadram em nenhuma regra e ficam sem parametrização."
+  ],
+  "consultas_hipoteticas": [
+    "Televendas: compra única a cada 7 dias; compraram nos últimos 30 dias e há pelo menos 7 dias sem comprar, frequência pelo histórico, entre 14 e 28 dias",
+    "A gente liga toda semana para o cliente que comprou uma vez só, e para quem compra com regularidade a frequência vem do histórico de compras, nunca menos de 14 nem mais de 28 dias",
+    "Quero duas regras para o televendas: uma de relacionamento com cliente de compra única e outra para manter a regularidade de quem comprou recentemente"
+  ],
+  "_meta": {
+    "arquivo": "regra_217.gobr",
+    "sha256_gobr": "3f48e6f154cc9c0724de5106338ea155b46076ebfed49354e7bba689fd4eba0c",
+    "versao_pacote": "2",
+    "prompt_sha256": "51c624fe9f9f",
+    "modelo": "claude-sonnet-5-5",
+    "gerador": "claude-code-subagent",
+    "gerado_em": "2026-10-20T16:12:30+00:00",
+    "candidatos": {
+      "agente_1.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_2.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_3.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      }
+    },
+    "escolhido": "agente_3.json",
+    "concordancia": 0.62
+  }
+}
