@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "4",
+  "versao_pacote": "5",
   "arquivo": "regra_183.gobr",
   "sha256": "3827edd4f7f6580076a5aa3cf4007d92e296f65f6e5ed6d8149bfad457eae3aa",
   "comentarios": [
@@ -110,7 +110,7 @@
       "acoes": [
         {
           "codigo": "frequencia do historico ou no minimo de 5 dias e no maximo de 30 dias",
-          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no mínimo 5 dias e no máximo 30 dias",
+          "significado": "frequência calculada pelo histórico de visitas, limitada a no mínimo 5 dias e no máximo 30 dias",
           "reconhecida": true
         }
       ],
@@ -297,6 +297,7 @@
     523
   ],
   "premissas_usadas": [
-    "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+    "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado.",
+    "P9: Em 'frequencia do historico ou no minimo/no maximo ...', os limites restringem a frequência do histórico."
   ]
 }

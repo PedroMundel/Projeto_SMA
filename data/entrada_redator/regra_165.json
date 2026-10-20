@@ -85,7 +85,7 @@
    "acoes": [
     "frequência de 14 dias"
    ],
-   "condicao_efetiva": "(compraram nos últimos 7 dias ou compraram nos últimos 90 dias, mas estão há mais de 15 dias sem comprar)",
+   "condicao_efetiva": "(compraram nos últimos 7 dias ou compraram nos últimos 90 dias, mas estão há mais de 15 dias sem comprar) e na segmentação \"freq_hist_1a7\"",
    "tratados_antes_por": [
     "R2"
    ]
@@ -98,7 +98,7 @@
    "acoes": [
     "frequência de 28 dias"
    ],
-   "condicao_efetiva": "((compraram nos últimos 30 dias ou compraram nos últimos 90 dias, mas estão há mais de 45 dias sem comprar) e fora da segmentação \"freq_hist_1a7\") OU (compraram nos últimos 15 dias, mas estão há mais de 7 dias sem comprar e na segmentação \"freq_hist_1a7\")",
+   "condicao_efetiva": "((compraram nos últimos 30 dias ou compraram nos últimos 90 dias, mas estão há mais de 45 dias sem comprar) e na segmentação \"freq_hist_16a30\" e fora da segmentação \"freq_hist_1a7\") OU (compraram nos últimos 15 dias, mas estão há mais de 7 dias sem comprar e na segmentação \"freq_hist_16a30\" e na segmentação \"freq_hist_1a7\")",
    "tratados_antes_por": [
     "R2",
     "R3"
@@ -112,7 +112,7 @@
    "acoes": [
     "frequência de 21 dias"
    ],
-   "condicao_efetiva": "((compraram nos últimos 45 dias ou compraram nos últimos 90 dias, mas estão há mais de 60 dias sem comprar) e fora da segmentação \"freq_hist_16a30\" e fora da segmentação \"freq_hist_1a7\") OU (compraram nos últimos 45 dias, mas estão há mais de 30 dias sem comprar e na segmentação \"freq_hist_16a30\" e fora da segmentação \"freq_hist_1a7\") OU (compraram nos últimos 15 dias, mas estão há mais de 7 dias sem comprar e fora da segmentação \"freq_hist_16a30\" e na segmentação \"freq_hist_1a7\")",
+   "condicao_efetiva": "((compraram nos últimos 45 dias ou compraram nos últimos 90 dias, mas estão há mais de 60 dias sem comprar) e fora da segmentação \"freq_hist_16a30\" e fora da segmentação \"freq_hist_1a7\" e na segmentação \"freq_hist_31a45\") OU (compraram nos últimos 45 dias, mas estão há mais de 30 dias sem comprar e na segmentação \"freq_hist_16a30\" e fora da segmentação \"freq_hist_1a7\" e na segmentação \"freq_hist_31a45\") OU (compraram nos últimos 15 dias, mas estão há mais de 7 dias sem comprar e fora da segmentação \"freq_hist_16a30\" e na segmentação \"freq_hist_1a7\" e na segmentação \"freq_hist_31a45\")",
    "tratados_antes_por": [
     "R2",
     "R3",
@@ -128,7 +128,7 @@
     "frequência de 15 dias"
    ],
    "condicao_efetiva": null,
-   "condicao_propria": "sem comprar há mais de 90 dias",
+   "condicao_propria": "sem comprar há mais de 90 dias e na segmentação \"freq_hist_61a90\"",
    "tratados_antes_por": [
     "R2"
    ],

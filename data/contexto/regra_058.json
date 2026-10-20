@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "4",
+  "versao_pacote": "5",
   "arquivo": "regra_058.gobr",
   "sha256": "5388eba33dd17fb0b96caaabc77de49fe5e42ff8050be73150cab63f497a59d8",
   "comentarios": [
@@ -86,7 +86,7 @@
       "acoes": [
         {
           "codigo": "frequencia do historico ou no maximo de 14 dias",
-          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 14 dias",
+          "significado": "frequência calculada pelo histórico de visitas, limitada a no máximo 14 dias",
           "reconhecida": true
         }
       ],
@@ -274,6 +274,7 @@
   "premissas_usadas": [
     "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
     "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores.",
-    "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+    "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b.",
+    "P9: Em 'frequencia do historico ou no minimo/no maximo ...', os limites restringem a frequência do histórico."
   ]
 }

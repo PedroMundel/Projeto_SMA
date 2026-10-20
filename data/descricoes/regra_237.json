@@ -1,5 +1,5 @@
 {
-  "resumo": "Regra de agendamento do time de televendas por situação de compra e frequência histórica do cliente, em cinco regras. Clientes sem vendas para o vendedor têm frequência de 14 dias; quem compra com regularidade segue a frequência calculada pelo histórico, limitada entre 0 e 30 dias. As demais regras de estímulo e resgate usam 14 dias. Não há regras de bloqueio, e há combinações de clientes sem nenhuma regra.",
+  "resumo": "Regra de agendamento do time de televendas por tempo sem comprar e frequência histórica de compra, sem carteiras nem bloqueios. Clientes sem vendas para o vendedor têm frequência fixa de 14 dias. Quem compra com regularidade segue o histórico, e as faixas de estímulo e resgate usam 14 dias.",
   "carteiras": [],
   "regras": [
     {
@@ -15,25 +15,25 @@
       "id": "R2",
       "nome": "Compra com regularidade",
       "segmento": "Compra com regularidade",
-      "criterio": "Clientes com alguma venda para o vendedor que compraram nos últimos 30 dias e têm frequência histórica de compra de menos de 30 dias",
+      "criterio": "Clientes com alguma venda para o vendedor que compraram nos últimos 30 dias, com frequência histórica de compra de menos de 30 dias",
       "frequencia": "Pelo histórico, entre 0 e 30 dias",
-      "observacao": "Frequência calculada pelo histórico de compras; se não houver, limitada a no mínimo 0 e no máximo 30 dias",
+      "observacao": "",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R3",
       "nome": "Estimular a regularidade",
       "segmento": "Estimular a regularidade",
-      "criterio": "Clientes com alguma venda para o vendedor que compraram nos últimos 60 dias e estão há mais de 30 dias sem comprar",
+      "criterio": "Clientes com alguma venda para o vendedor que compraram nos últimos 60 dias, mas estão há mais de 30 dias sem comprar, exceto os já tratados pelas regras anteriores",
       "frequencia": "14 dias",
-      "observacao": "Também: compra nos últimos 30 dias, parado há pelo menos 30 dias, histórico indefinido ou de pelo menos 30 dias",
+      "observacao": "Compraram nos últimos 30 dias, há pelo menos 30 dias sem comprar, com histórico indefinido ou de pelo menos 30 dias",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R4",
       "nome": "Clientes resgatados",
       "segmento": "Clientes resgatados",
-      "criterio": "Clientes com alguma venda para o vendedor que estão há mais de 60 dias sem comprar e têm frequência histórica de compra de mais de 30 dias",
+      "criterio": "Clientes com alguma venda para o vendedor, sem comprar há mais de 60 dias e com frequência histórica de compra de mais de 30 dias",
       "frequencia": "14 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -42,28 +42,28 @@
       "id": "R5",
       "nome": "Resgatar inativos",
       "segmento": "Resgatar inativos",
-      "criterio": "Clientes com alguma venda para o vendedor que estão há mais de 60 dias sem comprar e têm frequência histórica indefinida ou de até 30 dias",
+      "criterio": "Clientes com alguma venda para o vendedor, sem comprar há mais de 60 dias e com frequência histórica indefinida ou de até 30 dias",
       "frequencia": "14 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
     }
   ],
   "pontos_de_atencao": [
-    "Clientes que nunca compraram e têm alguma venda (ativos ou inativos) para o vendedor, ou que compraram nos últimos 29 dias com frequência histórica indefinida ou de pelo menos 30 dias e têm alguma venda para o vendedor, não se enquadram em nenhuma regra e ficam sem parametrização."
+    "Clientes que nunca compraram e têm alguma venda para o vendedor, ou que compraram nos últimos 29 dias com frequência histórica indefinida ou de pelo menos 30 dias, não se enquadram em nenhuma regra e ficam sem parametrização."
   ],
   "consultas_hipoteticas": [
-    "Televendas: sem vendas 14 dias; compra com regularidade pelo histórico, entre 0 e 30 dias; estimular regularidade, resgatados e inativos a cada 14 dias",
-    "No televendas, cliente novo sem venda a gente liga a cada 14 dias. Quem compra com regularidade segue o ritmo do histórico, até 30 dias, e quem passou de 60 dias sem comprar é resgatado a cada 14 dias",
-    "Quero agendar o televendas por regularidade de compra: ativados, quem compra com regularidade, a estimular, resgatados e inativos"
+    "Televendas: sem vendas 14d; compra regular nos últimos 30 dias pelo histórico entre 0 e 30 dias; estimular 14d; resgatados e inativos há mais de 60 dias 14d",
+    "A gente liga a cada 14 dias para quem ainda não vendeu, segue o histórico de quem compra com regularidade no último mês e resgata a cada 14 dias quem está há mais de 60 dias parado",
+    "Quero uma regra de televendas que separe clientes ativados, regulares, a estimular e a resgatar, usando a frequência histórica de compra"
   ],
   "_meta": {
     "arquivo": "regra_237.gobr",
     "sha256_gobr": "0e754c9699c8cdb84ce0b06c14abf4bc77daf601a0e23b2531bcc2ca73ac7f11",
-    "versao_pacote": "4",
+    "versao_pacote": "5",
     "prompt_sha256": "fd3b943ec528",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T16:43:33+00:00",
+    "gerado_em": "2026-10-20T17:54:58+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,
@@ -76,16 +76,16 @@
         "avisos": []
       },
       "agente_3.json": {
-        "valido": true,
-        "erros": [],
+        "valido": false,
+        "erros": [
+          "R2: faltam os números [0]"
+        ],
         "avisos": []
       },
       "agente_4.json": {
         "valido": true,
         "erros": [],
-        "avisos": [
-          "R3: critério com mais de 40 palavras"
-        ]
+        "avisos": []
       },
       "agente_5.json": {
         "valido": true,
@@ -93,7 +93,7 @@
         "avisos": []
       }
     },
-    "escolhido": "agente_2.json",
-    "concordancia": 0.667
+    "escolhido": "agente_5.json",
+    "concordancia": 0.686
   }
 }

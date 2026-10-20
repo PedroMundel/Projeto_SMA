@@ -1,5 +1,5 @@
 {
-  "resumo": "Regras de frequência para dois times de televendas: televendas_1 e televendas_2. O primeiro time organiza os clientes por tempo desde a última compra (mais de 7 dias, últimos 7 dias e quem nunca comprou). O segundo organiza por compra no grupo de vendedores em 30 dias e pela relação com o próprio vendedor. Não há bloqueios de agenda.",
+  "resumo": "Regra de agendamento com dois times de televendas: televendas_1 (todos os vendedores habilitados, exceto os de id 4504) e televendas_2 (os vendedores de id 4504). O primeiro time organiza os clientes por tempo sem comprar, com frequência de 5 dias, pelo histórico ou de 14 dias; o segundo, por compra com o próprio vendedor e no grupo de vendedores. Não há bloqueios nem carteiras.",
   "carteiras": [],
   "regras": [
     {
@@ -15,15 +15,15 @@
       "id": "R2",
       "nome": "Freq. do histórico para clientes com recência de compra entre 0 e 14d",
       "segmento": "Compra recente",
-      "criterio": "Clientes que compraram nos últimos 7 dias, exceto os já tratados pela regra anterior",
-      "frequencia": "Pelo histórico de compras",
-      "observacao": "Sem histórico, limitada a no máximo 14 dias. Time televendas_1",
+      "criterio": "Clientes que compraram nos últimos 7 dias",
+      "frequencia": "Pelo histórico, no máximo 14 dias",
+      "observacao": "Time televendas_1",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R3",
       "nome": "Freq. de 14d para clientes sem compra em 14d",
-      "segmento": "Nunca compraram",
+      "segmento": "Sem compra",
       "criterio": "Clientes que nunca compraram",
       "frequencia": "14 dias",
       "observacao": "Time televendas_1",
@@ -32,7 +32,7 @@
     {
       "id": "R4",
       "nome": "Freq. de 14d para clientes sem pedido",
-      "segmento": "Sem pedido com o vendedor",
+      "segmento": "Sem pedido",
       "criterio": "Clientes que nunca compraram com o próprio vendedor",
       "frequencia": "14 dias",
       "observacao": "Time televendas_2",
@@ -41,7 +41,7 @@
     {
       "id": "R5",
       "nome": "Freq. de 14d para clientes com compra em 30d",
-      "segmento": "Compra em 30 dias",
+      "segmento": "Com compra em 30 dias",
       "criterio": "Clientes que compraram no grupo de vendedores nos últimos 30 dias e já compraram com o próprio vendedor",
       "frequencia": "14 dias",
       "observacao": "Time televendas_2",
@@ -59,18 +59,18 @@
   ],
   "pontos_de_atencao": [],
   "consultas_hipoteticas": [
-    "Televendas 1: sem compra há mais de 7 dias a cada 5 dias; comprou em 7 dias pelo histórico (máx. 14 dias); nunca comprou a cada 14 dias. Televendas 2: sem pedido 14 dias; compra em 30 dias 14 dias; sem compra há mais de 30 dias 7 dias",
-    "Tenho dois times de televendas. No primeiro, quem está parado há mais de 7 dias é ligado a cada 5 dias e quem comprou agora segue o histórico. No segundo, quem comprou em até 30 dias é ligado a cada 14 dias e quem passou disso, toda semana",
-    "Quero frequências diferentes para dois times de televendas, conforme o tempo sem comprar e se o cliente já comprou com o vendedor"
+    "Televendas_1: sem compra há mais de 7 dias a cada 5 dias; compraram nos últimos 7 dias pelo histórico, máximo 14 dias; nunca compraram 14 dias. Televendas_2 (id 4504): sem pedido 14 dias; compra em 30 dias 14 dias; sem compra em 30 dias 7 dias",
+    "Tenho dois times de televendas: o do vendedor 4504 e o resto. No resto, quem está há mais de 7 dias sem comprar é visitado a cada 5 dias. No 4504, quem parou de comprar há mais de 30 dias é visitado toda semana",
+    "Quero frequências diferentes para os dois times de televendas conforme o tempo desde a última compra"
   ],
   "_meta": {
     "arquivo": "regra_218.gobr",
     "sha256_gobr": "c4518d61130ca500a9d236a4fa1bc54d37d7767188386541d3b91a2e4d16f291",
-    "versao_pacote": "4",
+    "versao_pacote": "5",
     "prompt_sha256": "fd3b943ec528",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T16:43:33+00:00",
+    "gerado_em": "2026-10-20T17:54:58+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,
@@ -88,7 +88,7 @@
         "avisos": []
       }
     },
-    "escolhido": "agente_3.json",
-    "concordancia": 0.817
+    "escolhido": "agente_1.json",
+    "concordancia": 0.862
   }
 }

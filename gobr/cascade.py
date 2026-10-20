@@ -15,6 +15,9 @@ Box = dict
 # Narrow to wide: the last purchase with the seller is never more recent than the last purchase in the
 # seller's group, which is never more recent than the last purchase with anyone in the company.
 SCOPES_NARROW_TO_WIDE = ("vendedor", "grupo", "global")
+# P4/P5: 'ativos'/'inativos' for a scope imply a recorded purchase in it; 'sem venda' implies none.
+STATUS_RECENCY = (("situacao:vendedor", "rec:compra:vendedor"), ("situacao:empresa", "rec:compra:global"))
+BOUGHT = frozenset({"ativo", "inativo"})
 MAX_RENDERED_BOXES = 3
 SOURCE_PREFIXES = ("time", "carteira", "segmentacao:")
 
@@ -55,6 +58,12 @@ class Space:
                 floor = _smallest_at_least(self.value(box, f"rec:{event}:{scope}"), floor)
                 if floor is None:
                     return False
+        for status_key, recency_key in STATUS_RECENCY:
+            status, recency = self.value(box, status_key), self.value(box, recency_key)
+            never_possible = any(lo == NEVER for lo, _ in recency.spans)
+            record_possible = any(hi > NEVER for _, hi in recency.spans)
+            if not (("sem_venda" in status and never_possible) or (status & BOUGHT and record_possible)):
+                return False
         return True
 
     def subtract(self, a: Box, b: Box) -> list[Box]:
@@ -98,6 +107,13 @@ class Space:
                 for wide in keys[index + 1:]:
                     if wide in box:
                         box[wide] = box[wide] - IntervalSet.of(NEVER, NEVER)
+        for status_key, recency_key in STATUS_RECENCY:
+            if recency_key not in box or status_key not in box:
+                continue
+            if "sem_venda" not in box[status_key]:
+                box[recency_key] = box[recency_key] - IntervalSet.of(NEVER, NEVER)
+            elif not box[status_key] & BOUGHT:
+                box[recency_key] = box[recency_key] & IntervalSet.of(NEVER, NEVER)
         return box
 
     def _merge(self, a: Box, b: Box) -> Box | None:
@@ -158,7 +174,7 @@ def compute(file: GobrFile) -> list[Effective]:
             effective.boxes = subtract_all(space, effective.boxes, boxes)
         results.append(effective)
         # P3: 'limpar parametros' resets parameters but parametrizes nobody, so it never consumes clients.
-        if block.kind == "parametros" and own:
+        if block.kind == "parametros" and block.actions and own:
             consumers.append((block, own))
     return results
 
@@ -169,43 +185,40 @@ def subtract_all(space: Space, boxes: list[Box], removed: list[Box]) -> list[Box
     return boxes
 
 
-def source_box(box: Box) -> Box:
-    return {k: v for k, v in box.items() if k.startswith(SOURCE_PREFIXES)}
-
-
 def uncovered(effectives: list[Effective]) -> list[tuple[Effective, list[Box]]]:
     """Per distinct rule source (first rule that uses it): clients that no always-running block parametrizes."""
     space = Space()
     gaps, seen = [], []
     for first in effectives:
-        universe = sources_of(first.own)
-        if not universe or universe in seen:
+        universe = source_boxes(first.block)
+        if not first.own or universe in seen:
             continue
         seen.append(universe)
         rest = universe
         for e in effectives:
-            if e.own and not temporal_key(e.block) and e.block.kind == "parametros":
+            if e.own and not temporal_key(e.block) and e.block.kind == "parametros" and e.block.actions:
                 rest = subtract_all(space, rest, e.own)
         if rest:
             gaps.append((first, rest))
     return gaps
 
 
-def sources_of(boxes: list[Box]) -> list[Box]:
-    unique: list[Box] = []
-    for box in map(source_box, boxes):
-        if box not in unique:
-            unique.append(box)
-    return unique
+def source_boxes(block: Block) -> list[Box]:
+    """The populations named by the block's source clauses (do time / da carteira / da segmentacao)."""
+    space, boxes = Space(), [{}]
+    for clause in block.sources:
+        options = clause.detail.get("alternativas", [clause.constraint])
+        boxes = [box for b in boxes for o in options if (box := space.intersect(b, o)) is not None]
+    return boxes
 
 
-def render_boxes(boxes: list[Box], own: list[Box], numbers: set[int], hidden: set[str]) -> str | None:
+def render_boxes(boxes: list[Box], sources: list[Box], numbers: set[int], hidden: set[str]) -> str | None:
     """pt-BR text for a union of boxes; None when it is too fragmented to be readable."""
     rendered = []
     for box in boxes:
         explicit_group = sum(k.startswith("rec:compra:") for k in box) > 1
         rendered.append([dims.render(k, v, numbers, explicit_group) for k, v in sorted(box.items(), key=_dimension_order)
-                         if k not in hidden and not _is_own_source(k, v, own)])
+                         if k not in hidden and not _is_declared_source(k, v, sources)])
     # Absorption (A or (A and B) = A): once source dimensions are hidden, a box whose visible parts
     # include all parts of another adds nothing to the text.
     kept = [parts for i, parts in enumerate(rendered)
@@ -217,8 +230,8 @@ def render_boxes(boxes: list[Box], own: list[Box], numbers: set[int], hidden: se
     return " OU ".join(f"({t})" for t in texts) if len(texts) > 1 else texts[0]
 
 
-def _is_own_source(key: str, value, own: list[Box]) -> bool:
-    return key.startswith(SOURCE_PREFIXES) and any(box.get(key) == value for box in own)
+def _is_declared_source(key: str, value, sources: list[Box]) -> bool:
+    return key.startswith(SOURCE_PREFIXES) and any(box.get(key) == value for box in sources)
 
 
 def _dimension_order(item) -> tuple[int, str]:

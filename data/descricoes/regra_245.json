@@ -1,35 +1,35 @@
 {
-  "resumo": "Regra de agendamento do time de televendas por carteiras de rota por cidade (todos os dias, segunda, terça, quarta, quinta e sexta). Em cada carteira, os clientes são separados entre com e sem visita na semana atual, e as rotas de dia específico têm dia de preferência de agendamento. Deixam de ser agendados os inadimplentes, os baixados na Receita Federal, os sem crédito e os que compraram nos últimos 60 dias. As duas últimas regras tratam as cidades não informadas nas rotas.",
+  "resumo": "Regra de agendamento do time de televendas organizada em carteiras de rota por cidade: rota de todos os dias e rotas de segunda a sexta. Antes das rotas, deixam de ser agendados os inadimplentes, os baixados na Receita, os sem crédito e quem comprou nos últimos 60 dias. Cada rota tem duas regras, para clientes com e sem visita na semana atual; as rotas de dia fixo usam 7 dias, com um dia de preferência por rota. As cidades fora das rotas seguem a frequência pelo histórico, também separada por visita na semana.",
   "carteiras": [
     {
       "id": "C1",
       "nome": "rota_todo_dia",
-      "descricao": "Carteira fixa do time televendas com clientes das cidades da rota de todos os dias"
+      "descricao": "Carteira fixa do televendas com clientes das cidades da rota de todos os dias"
     },
     {
       "id": "C2",
       "nome": "rota_segunda",
-      "descricao": "Carteira fixa do time televendas com clientes das cidades da rota de segunda"
+      "descricao": "Carteira fixa do televendas com clientes das cidades da rota de segunda"
     },
     {
       "id": "C3",
       "nome": "rota_terca",
-      "descricao": "Carteira fixa do time televendas com clientes das cidades da rota de terça"
+      "descricao": "Carteira fixa do televendas com clientes das cidades da rota de terça"
     },
     {
       "id": "C4",
       "nome": "rota_quarta",
-      "descricao": "Carteira fixa do time televendas com clientes das cidades da rota de quarta"
+      "descricao": "Carteira fixa do televendas com clientes das cidades da rota de quarta"
     },
     {
       "id": "C5",
       "nome": "rota_quinta",
-      "descricao": "Carteira fixa do time televendas com clientes das cidades da rota de quinta"
+      "descricao": "Carteira fixa do televendas com clientes das cidades da rota de quinta"
     },
     {
       "id": "C6",
       "nome": "rota_sexta",
-      "descricao": "Carteira fixa do time televendas com clientes das cidades da rota de sexta"
+      "descricao": "Carteira fixa do televendas com clientes das cidades da rota de sexta"
     }
   ],
   "regras": [
@@ -73,153 +73,153 @@
       "id": "R5",
       "nome": "Com atendimento/venda na semana / Rota: Todos os dias - Agendar para semana seguinte (freq. do hist.)",
       "segmento": "Rota todos os dias, com visita na semana",
-      "criterio": "Clientes da carteira rota_todo_dia com visita na semana atual",
+      "criterio": "Clientes da rota de todos os dias com visita na semana atual",
       "frequencia": "Pelo histórico, entre 7 e 14 dias",
-      "observacao": "Agenda para a semana seguinte; sem histórico, limitada a no mínimo 7 e no máximo 14 dias",
+      "observacao": "Agendados para a semana seguinte",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R6",
       "nome": "Sem atendimento/venda na semana / Rota: Todos os dias - Agendar para semana corrente (freq. do hist. +2)",
       "segmento": "Rota todos os dias, sem visita na semana",
-      "criterio": "Clientes da carteira rota_todo_dia sem visita na semana atual",
+      "criterio": "Clientes da rota de todos os dias sem visita na semana atual",
       "frequencia": "Pelo histórico mais 2 dias, entre 3 e 7 dias",
-      "observacao": "Agenda para a semana corrente; sem histórico, limitada a no mínimo 3 e no máximo 7 dias",
+      "observacao": "Agendados para a semana corrente",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R7",
       "nome": "Com atendimento/venda na semana / Rota: Ter / Pref. de agend.: Seg",
       "segmento": "Rota terça, com visita na semana",
-      "criterio": "Clientes da carteira rota_terca com visita na semana atual",
+      "criterio": "Clientes da rota de terça com visita na semana atual",
       "frequencia": "7 dias",
-      "observacao": "Maior preferência de atendimento na segunda; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na segunda; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R8",
       "nome": "Sem atendimento/venda na semana / Rota: Ter / Pref. de agend.: Seg",
       "segmento": "Rota terça, sem visita na semana",
-      "criterio": "Clientes da carteira rota_terca sem visita na semana atual",
+      "criterio": "Clientes da rota de terça sem visita na semana atual",
       "frequencia": "7 dias",
-      "observacao": "Maior preferência de atendimento na segunda; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na segunda; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R9",
       "nome": "Com atendimento/venda na semana / Rota: Qua / Pref. de agend.: Ter",
       "segmento": "Rota quarta, com visita na semana",
-      "criterio": "Clientes da carteira rota_quarta com visita na semana atual",
+      "criterio": "Clientes da rota de quarta com visita na semana atual",
       "frequencia": "7 dias",
-      "observacao": "Maior preferência de atendimento na terça; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na terça; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R10",
       "nome": "Sem atendimento/venda na semana / Rota: Qua / Pref. de agend.: Ter",
       "segmento": "Rota quarta, sem visita na semana",
-      "criterio": "Clientes da carteira rota_quarta sem visita na semana atual",
+      "criterio": "Clientes da rota de quarta sem visita na semana atual",
       "frequencia": "7 dias",
-      "observacao": "Maior preferência de atendimento na terça; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na terça; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R11",
       "nome": "Com atendimento/venda na semana / Rota: Qui / Pref. de agend.: Qua",
       "segmento": "Rota quinta, com visita na semana",
-      "criterio": "Clientes da carteira rota_quinta com visita na semana atual",
+      "criterio": "Clientes da rota de quinta com visita na semana atual",
       "frequencia": "7 dias",
-      "observacao": "Maior preferência de atendimento na quarta; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na quarta; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R12",
       "nome": "Sem atendimento/venda na semana / Rota: Qui / Pref. de agend.: Qua",
       "segmento": "Rota quinta, sem visita na semana",
-      "criterio": "Clientes da carteira rota_quinta sem visita na semana atual",
+      "criterio": "Clientes da rota de quinta sem visita na semana atual",
       "frequencia": "7 dias",
-      "observacao": "Maior preferência de atendimento na quarta; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na quarta; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R13",
       "nome": "Com atendimento/venda na semana / Rota: Sex / Pref. de agend.: Qui",
       "segmento": "Rota sexta, com visita na semana",
-      "criterio": "Clientes da carteira rota_sexta com visita na semana atual",
+      "criterio": "Clientes da rota de sexta com visita na semana atual",
       "frequencia": "7 dias",
-      "observacao": "Maior preferência de atendimento na quinta; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na quinta; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R14",
       "nome": "Sem atendimento/venda na semana / Rota: Sex / Pref. de agend.: Qui",
       "segmento": "Rota sexta, sem visita na semana",
-      "criterio": "Clientes da carteira rota_sexta sem visita na semana atual",
+      "criterio": "Clientes da rota de sexta sem visita na semana atual",
       "frequencia": "7 dias",
-      "observacao": "Maior preferência de atendimento na quinta; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na quinta; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R15",
       "nome": "Com atendimento/venda na semana / Rota: Seg / Pref. de agend.: Sex",
       "segmento": "Rota segunda, com visita na semana",
-      "criterio": "Clientes da carteira rota_segunda com visita na semana atual",
+      "criterio": "Clientes da rota de segunda com visita na semana atual",
       "frequencia": "7 dias",
-      "observacao": "Maior preferência de atendimento na sexta; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na sexta; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R16",
       "nome": "Sem atendimento/venda na semana / Rota: Seg / Pref. de agend.: Sex",
       "segmento": "Rota segunda, sem visita na semana",
-      "criterio": "Clientes da carteira rota_segunda sem visita na semana atual",
+      "criterio": "Clientes da rota de segunda sem visita na semana atual",
       "frequencia": "7 dias",
-      "observacao": "Maior preferência de atendimento na sexta; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na sexta; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R17",
       "nome": "Com atendimento/venda na semana - Cidades não informadas nas rotas - Agendar para semana seguinte (freq. do hist.)",
-      "segmento": "Cidades fora das rotas, com visita na semana",
-      "criterio": "Clientes fora de todas as carteiras de rota (todo dia, segunda a sexta) com visita na semana atual",
+      "segmento": "Fora das rotas, com visita na semana",
+      "criterio": "Clientes de cidades fora das rotas, com visita na semana atual",
       "frequencia": "Pelo histórico, entre 7 e 14 dias",
-      "observacao": "Agenda para a semana seguinte; sem histórico, limitada a no mínimo 7 e no máximo 14 dias",
+      "observacao": "Agendados para a semana seguinte",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R18",
       "nome": "Sem atendimento/venda na semana - Cidades não informadas nas rotas - Agendar para semana corrente (freq. do hist. -1)",
-      "segmento": "Cidades fora das rotas, sem visita na semana",
-      "criterio": "Clientes fora de todas as carteiras de rota (todo dia, segunda a sexta) sem visita na semana atual",
+      "segmento": "Fora das rotas, sem visita na semana",
+      "criterio": "Clientes de cidades fora das rotas, sem visita na semana atual",
       "frequencia": "Pelo histórico menos 1 dia, entre 1 e 7 dias",
-      "observacao": "Agenda para a semana corrente; sem histórico, limitada a no mínimo 1 e no máximo 7 dias",
+      "observacao": "Agendados para a semana corrente",
       "clausulas_nao_traduzidas": []
     }
   ],
   "pontos_de_atencao": [
-    "As carteiras 'rota_segunda' e 'rota_terca' compartilham 2 cidades (BRAGANCA PAULISTA, PIRACAIA): esses clientes aparecem nas duas.",
-    "As carteiras 'rota_segunda' e 'rota_quarta' compartilham 15 cidades (AGUAS DE LINDOIA, AMPARO, ARACOIABA DA SERRA, BRAGANCA PAULISTA, CAMPO LIMPO PAULISTA e outras): esses clientes aparecem nas duas.",
-    "As carteiras 'rota_segunda' e 'rota_quinta' compartilham 4 cidades (AGUAS DE SANTA BARBARA, BRAGANCA PAULISTA, ITATINGA, PIRACAIA): esses clientes aparecem nas duas.",
-    "As carteiras 'rota_segunda' e 'rota_sexta' compartilham 3 cidades (ARACOIABA DA SERRA, CAMPO LIMPO PAULISTA, SAO PEDRO): esses clientes aparecem nas duas.",
-    "As carteiras 'rota_terca' e 'rota_quarta' compartilham 4 cidades (BRAGANCA PAULISTA, PIRACAIA, SOROCABA, VOTORANTIM): esses clientes aparecem nas duas.",
-    "As carteiras 'rota_terca' e 'rota_quinta' compartilham 25 cidades (ARTUR NOGUEIRA, BRAGANCA PAULISTA, CABREUVA, CAPIVARI, CONCHAL e outras): esses clientes aparecem nas duas.",
-    "As carteiras 'rota_terca' e 'rota_sexta' compartilham 14 cidades (CORDEIROPOLIS, IRACEMAPOLIS, LIMEIRA, MAIRIPORA, NAZARE PAULISTA e outras): esses clientes aparecem nas duas.",
-    "As carteiras 'rota_quarta' e 'rota_quinta' compartilham 2 cidades (BRAGANCA PAULISTA, PIRACAIA): esses clientes aparecem nas duas.",
-    "As carteiras 'rota_quarta' e 'rota_sexta' compartilham 23 cidades (AGUAI, AGUAS DE SAO PEDRO, ARACOIABA DA SERRA, ARARAS, BOITUVA e outras): esses clientes aparecem nas duas."
+    "As carteiras 'rota_segunda' e 'rota_terca' compartilham 2 cidades (BRAGANCA PAULISTA, PIRACAIA): os clientes dessas cidades aparecem nas duas.",
+    "As carteiras 'rota_segunda' e 'rota_quarta' compartilham 15 cidades (entre elas AGUAS DE LINDOIA, AMPARO, ARACOIABA DA SERRA, BRAGANCA PAULISTA, CAMPO LIMPO PAULISTA): os clientes dessas cidades aparecem nas duas.",
+    "As carteiras 'rota_segunda' e 'rota_quinta' compartilham 4 cidades (AGUAS DE SANTA BARBARA, BRAGANCA PAULISTA, ITATINGA, PIRACAIA): os clientes dessas cidades aparecem nas duas.",
+    "As carteiras 'rota_segunda' e 'rota_sexta' compartilham 3 cidades (ARACOIABA DA SERRA, CAMPO LIMPO PAULISTA, SAO PEDRO): os clientes dessas cidades aparecem nas duas.",
+    "As carteiras 'rota_terca' e 'rota_quarta' compartilham 4 cidades (BRAGANCA PAULISTA, PIRACAIA, SOROCABA, VOTORANTIM): os clientes dessas cidades aparecem nas duas.",
+    "As carteiras 'rota_terca' e 'rota_quinta' compartilham 25 cidades (entre elas ARTUR NOGUEIRA, BRAGANCA PAULISTA, CABREUVA, CAPIVARI, CONCHAL): os clientes dessas cidades aparecem nas duas.",
+    "As carteiras 'rota_terca' e 'rota_sexta' compartilham 14 cidades (entre elas CORDEIROPOLIS, IRACEMAPOLIS, LIMEIRA, MAIRIPORA, NAZARE PAULISTA): os clientes dessas cidades aparecem nas duas.",
+    "As carteiras 'rota_quarta' e 'rota_quinta' compartilham 2 cidades (BRAGANCA PAULISTA, PIRACAIA): os clientes dessas cidades aparecem nas duas.",
+    "As carteiras 'rota_quarta' e 'rota_sexta' compartilham 23 cidades (entre elas AGUAI, AGUAS DE SAO PEDRO, ARACOIABA DA SERRA, ARARAS, BOITUVA): os clientes dessas cidades aparecem nas duas."
   ],
   "consultas_hipoteticas": [
-    "Televendas por rota de cidade: todo dia, pelo histórico entre 7 e 14 dias; terça, quarta, quinta, sexta e segunda a cada 7 dias com preferência no dia anterior; cidades fora das rotas pelo histórico menos 1 dia; não agendar inadimplentes, baixados, sem crédito e compra em 60 dias",
-    "Temos rotas por cidade, uma para cada dia da semana e uma para todo dia. Quem já foi visitado na semana entra na semana seguinte, quem não foi entra nesta semana, e não agendamos inadimplente, baixado, sem crédito ou quem comprou nos últimos 60 dias",
-    "Agendar o televendas conforme a rota da cidade do cliente, separando quem teve visita na semana de quem não teve, com dia de preferência por rota"
+    "Televendas por rota de cidade: rota todo dia pelo histórico entre 7 e 14 dias; rotas de segunda a sexta a cada 7 dias com dia de preferência; não agendar inadimplentes, baixados na Receita, sem crédito e compra em 60 dias",
+    "A gente separa os clientes do televendas por rota de cidade, de segunda a sexta e uma rota de todo dia. Quem já teve visita na semana vai pra semana seguinte e quem não teve entra na semana corrente. Quem comprou nos últimos 60 dias ou está inadimplente não entra na agenda",
+    "Quero agendar o televendas por carteiras de rota por cidade, com tratamento diferente para quem já foi visitado na semana e para as cidades que ficam fora das rotas"
   ],
   "_meta": {
     "arquivo": "regra_245.gobr",
     "sha256_gobr": "6f64138b8f5115ef2f1a10bb4ae513fdf043429e5d3f980c5e08d0bb0f11ae97",
-    "versao_pacote": "4",
+    "versao_pacote": "5",
     "prompt_sha256": "fd3b943ec528",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T16:43:33+00:00",
+    "gerado_em": "2026-10-20T17:54:58+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,
@@ -238,6 +238,6 @@
       }
     },
     "escolhido": "agente_2.json",
-    "concordancia": 0.82
+    "concordancia": 0.865
   }
 }

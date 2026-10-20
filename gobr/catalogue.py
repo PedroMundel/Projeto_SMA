@@ -174,7 +174,6 @@ def _revenue_status(text: str, ctx: Context) -> Clause | None:
 
 BOOLEAN_FILTERS = {
     "adimplentes": ("inadimplente", False), "inadimplentes": ("inadimplente", True),
-    "pessoa fisica": ("pessoa_juridica", False), "pessoa juridica": ("pessoa_juridica", True),
     "cliente filial": ("filial", True), "o cliente filial": ("filial", True),
     "eh o cliente filial": ("filial", True), "e o cliente filial": ("filial", True),
     "cliente principal": ("filial", False), "o cliente principal": ("filial", False),
@@ -187,6 +186,14 @@ BOOLEAN_FILTERS = {
     "unica compra com o vendedor": ("unica_compra:vendedor", True),
     "data da rota na semana": ("rota_semana", True),
 }
+
+
+def _person_type(text: str, ctx: Context) -> Clause | None:
+    m = re.fullmatch(r"pessoa (fisica|juridica)", text)
+    if not m:
+        return None
+    value = frozenset({m.group(1)})
+    return Clause(text, dims.render("pessoa", value, set()), constraint={"pessoa": value})
 
 
 def _boolean(text: str, ctx: Context) -> Clause | None:
@@ -300,7 +307,7 @@ def _fact(text: str, gloss: str) -> Clause:
 
 
 FILTER_MATCHERS: list[Matcher] = [
-    _recency, _activity, _situation, _lifecycle, _curve, _revenue_status, _boolean, _field,
+    _recency, _activity, _situation, _lifecycle, _curve, _revenue_status, _person_type, _boolean, _field,
     _segment_membership, _historical_frequency, _registration_age, _fact_catalogue,
 ]
 
@@ -395,10 +402,14 @@ def _frequency(text: str, ctx: Context) -> Clause | None:
     m = re.fullmatch(r"frequencia (.+)", text)
     if not m:
         return None
-    alternatives = [_frequency_option(opt.strip()) for opt in re.split(r" ou ", m.group(1))]
+    options = [opt.strip() for opt in re.split(r" ou ", m.group(1))]
+    alternatives = [_frequency_option(opt) for opt in options]
     if any(a is None for a in alternatives):
         return None
-    gloss = "frequência " + "; se não houver, ".join(alternatives)
+    gloss = "frequência " + alternatives[0]
+    for option, phrase in zip(options[1:], alternatives[1:]):
+        # P9: "ou no minimo/no maximo" bounds the frequency computed so far; any other "ou" is a fallback.
+        gloss += f", {phrase}" if option.startswith(("no minimo", "no maximo")) else f"; se não houver, {phrase}"
     numbers = ints(text)
     days = [FIXED_FREQUENCIES[k] for k in re.findall(r"(\w+)\(", text) if k in FIXED_FREQUENCIES]
     return Clause(ctx.unmask(text), gloss, numbers=numbers,
@@ -416,7 +427,7 @@ def _frequency_option(option: str) -> str | None:
         return f"média dos clientes {m.group(1)} {m.group(2)}"
     if m := re.fullmatch(r"do (vendedor|govendas|historico)(?: (mais|menos) (\d+) dias?)?", option):
         base = {"vendedor": "configurada pelo vendedor", "govendas": "padrão do Govendas",
-                "historico": "calculada pelo histórico de compras"}[m.group(1)]
+                "historico": "calculada pelo histórico de visitas"}[m.group(1)]
         return f"{base}{f' {m.group(2)} {m.group(3)} dias' if m.group(2) else ''}"
     if option == "de qualquer vendedor":
         return "configurada por qualquer vendedor"
@@ -528,7 +539,7 @@ def parse_rule_source(text: str, ctx: Context) -> Clause:
                 constraint[f"segmentacao:{name}"] = frozenset({True})
         alternatives.append(constraint)
         glosses.append(f"{'do time' if kind == 'time' else 'da ' + kind} {', '.join(names)}")
-    detail = {"fontes_nao_declaradas": undeclared}
+    detail = {"fontes_nao_declaradas": undeclared, "fontes": ctx.literals.strings_in(text)}
     if len(alternatives) > 1:
         # P8: 'da segmentacao("x") e da carteira("y")' lists two client sources; the rule covers both (a union).
         detail["alternativas"] = alternatives

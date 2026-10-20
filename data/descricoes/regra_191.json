@@ -1,5 +1,5 @@
 {
-  "resumo": "Regra de agendamento do time de televendas por tempo desde a última compra, em faixas de pós-venda, alta regularidade, estímulo de regularidade, risco de inatividade e inativos, mais os prospects. Antes das faixas, deixam de ser agendados os clientes baixados na Receita Federal e os inadimplentes. A regra final de clientes inativos cobre quem já comprou na empresa e está parado no grupo de vendedores.",
+  "resumo": "Regra de agendamento do time televendas por tempo desde a última compra, com prospects, pós-venda, faixas até 30, 45 e 60 dias e os inativos. Antes das faixas, deixam de ser agendados os clientes baixados na Receita Federal e os inadimplentes.",
   "carteiras": [],
   "regras": [
     {
@@ -44,7 +44,7 @@
       "segmento": "Alta regularidade",
       "criterio": "Clientes que compraram nos últimos 30 dias, mas estão há mais de 7 dias sem comprar",
       "frequencia": "Pelo histórico mais 3 dias, entre 14 e 30 dias",
-      "observacao": "Sem histórico de compras, a frequência fica limitada a no mínimo 14 e no máximo 30 dias",
+      "observacao": "",
       "clausulas_nao_traduzidas": []
     },
     {
@@ -68,27 +68,27 @@
     {
       "id": "R8",
       "nome": "Clientes Inativos",
-      "segmento": "Clientes inativos",
-      "criterio": "Clientes que já compraram na empresa e nunca compraram no grupo de vendedores ou estão há mais de 60 dias sem comprar nele",
+      "segmento": "Inativos",
+      "criterio": "Clientes que já compraram na empresa, mas nunca compraram no grupo de vendedores ou estão há mais de 60 dias sem comprar nele",
       "frequencia": "7 dias",
-      "observacao": "Regra final: vale para quem sobrou das faixas anteriores",
+      "observacao": "",
       "clausulas_nao_traduzidas": []
     }
   ],
   "pontos_de_atencao": [],
   "consultas_hipoteticas": [
-    "Televendas: prospects e pós-venda (até 7 dias) a cada 21 dias; alta regularidade pelo histórico mais 3 dias (mín. 14, máx. 30); 30 a 45 dias, risco de inatividade e inativos a cada 7 dias; não agendar inadimplentes e baixados na Receita",
-    "A gente liga a cada 21 dias para prospect e para quem acabou de comprar, até 7 dias. Quem compra com regularidade segue o histórico mais 3 dias, e quem está esfriando ou inativo entra toda semana. Inadimplente e baixado na Receita não entra na agenda",
-    "Quero agendar os clientes do televendas por tempo sem comprar, com pós-venda, alta regularidade, risco de inatividade e inativos, sem agendar inadimplentes"
+    "Televendas: não agendar baixados na Receita e inadimplentes; prospects e pós-venda a cada 21 dias; alta regularidade pelo histórico mais 3 dias, entre 14 e 30 dias; demais faixas e inativos a cada 7 dias",
+    "A gente liga a cada 21 dias para prospect e para quem comprou nos últimos 7 dias. Quem compra com regularidade segue o histórico, e quem está parando de comprar ou inativo entra toda semana. Inadimplente e baixado na Receita fica de fora",
+    "Quero agendar o televendas por tempo desde a última compra, com acompanhamento semanal para quem está em risco de inatividade"
   ],
   "_meta": {
     "arquivo": "regra_191.gobr",
     "sha256_gobr": "2fc7c5eeebf66435fda575e7a963606923dafa47c409c48a992bd9b40925b72e",
-    "versao_pacote": "4",
+    "versao_pacote": "5",
     "prompt_sha256": "fd3b943ec528",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T16:43:32+00:00",
+    "gerado_em": "2026-10-20T17:54:58+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,
@@ -107,6 +107,6 @@
       }
     },
     "escolhido": "agente_1.json",
-    "concordancia": 0.934
+    "concordancia": 0.879
   }
 }

@@ -70,7 +70,7 @@
    "fonte": "do time Televendas",
    "acao_principal": "frequencia",
    "acoes": [
-    "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 30 dias"
+    "frequência calculada pelo histórico de visitas, limitada a no máximo 30 dias"
    ],
    "condicao_efetiva": null,
    "condicao_propria": "curva A com a empresa e com compra no mês atual",
@@ -111,7 +111,7 @@
    "fonte": "do time Televendas",
    "acao_principal": "frequencia",
    "acoes": [
-    "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 30 dias"
+    "frequência calculada pelo histórico de visitas, limitada a no máximo 30 dias"
    ],
    "condicao_efetiva": null,
    "condicao_propria": "curva B com a empresa e com compra no mês atual",
@@ -152,7 +152,7 @@
    "fonte": "do time Televendas",
    "acao_principal": "frequencia",
    "acoes": [
-    "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 30 dias"
+    "frequência calculada pelo histórico de visitas, limitada a no máximo 30 dias"
    ],
    "condicao_efetiva": null,
    "condicao_propria": "com compra no mês atual",
@@ -197,6 +197,7 @@
  "nao_cobertos": {},
  "alertas_do_arquivo": [],
  "premissas_usadas": [
-  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado.",
+  "P9: Em 'frequencia do historico ou no minimo/no maximo ...', os limites restringem a frequência do histórico."
  ]
 }

@@ -68,9 +68,8 @@
    "acoes": [
     "frequência de 14 dias"
    ],
-   "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 14 dias e com compra com a empresa entre 181 e 360 dias atrás e não (com compra no ano anterior) e sem compra com a empresa entre 15 e 180 dias atrás e com alguma venda (ativos ou inativos) para a empresa) OU (compraram com qualquer vendedor da empresa nos últimos 14 dias e (nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 179 dias ou sem comprar no grupo de vendedores há mais de 360 dias) e com compra com a empresa entre 181 e 360 dias atrás e com compra no ano anterior e sem compra com a empresa entre 15 e 180 dias atrás e com alguma venda (ativos ou inativos) para a empresa)",
+   "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 14 dias e com compra com a empresa entre 181 e 360 dias atrás e não (com compra no ano anterior) e sem compra com a empresa entre 15 e 180 dias atrás) OU (compraram com qualquer vendedor da empresa nos últimos 14 dias e (nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 179 dias ou sem comprar no grupo de vendedores há mais de 360 dias) e com compra com a empresa entre 181 e 360 dias atrás e com compra no ano anterior e sem compra com a empresa entre 15 e 180 dias atrás)",
    "tratados_antes_por": [
-    "R3",
     "R4"
    ]
   },
@@ -124,7 +123,6 @@
    "condicao_efetiva": null,
    "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 90 dias, mas estão há mais de 60 dias sem comprar",
    "tratados_antes_por": [
-    "R3",
     "R4",
     "R6",
     "R7"
@@ -144,7 +142,6 @@
    "condicao_efetiva": null,
    "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 180 dias, mas estão há mais de 90 dias sem comprar",
    "tratados_antes_por": [
-    "R3",
     "R4",
     "R6",
     "R7"

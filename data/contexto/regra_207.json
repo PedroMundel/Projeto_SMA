@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "4",
+  "versao_pacote": "5",
   "arquivo": "regra_207.gobr",
   "sha256": "a1dd357ecf0f1ca4c073f811801c66d86d0a2a80039d61b6b62a307e24d202f3",
   "comentarios": [
@@ -105,7 +105,7 @@
       "acoes": [
         {
           "codigo": "frequencia do historico mais 7 dias ou no maximo de 14 dias",
-          "significado": "frequência calculada pelo histórico de compras mais 7 dias; se não houver, limitada a no máximo 14 dias",
+          "significado": "frequência calculada pelo histórico de visitas mais 7 dias, limitada a no máximo 14 dias",
           "reconhecida": true
         }
       ],

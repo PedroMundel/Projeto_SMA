@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "4",
+  "versao_pacote": "5",
   "arquivo": "regra_145.gobr",
   "sha256": "cf8120f991ad51145363806c976809da5e278f7ceb92bd03a38fe68153320a31",
   "comentarios": [
@@ -136,21 +136,23 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "ramo de atividade (id) igual a 2 e pessoa jurídica e sem vendas para o vendedor",
-      "condicao_efetiva": "já compraram com o próprio vendedor e ramo de atividade (id) igual a 2 e pessoa jurídica e sem vendas para o vendedor",
+      "condicao_efetiva": null,
       "tratados_antes_por": [
         "R2"
       ],
       "bloqueios_anteriores": [
         "R1"
       ],
-      "inalcancavel": false,
+      "inalcancavel": true,
       "numeros": [
         14
       ],
       "numeros_exigidos": [
         14
       ],
-      "alertas": []
+      "alertas": [
+        "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Não agendar Filiais\", \"Freq. de 10d para 'Ativação de Prospects'\"."
+      ]
     },
     {
       "id": "R4",
@@ -185,21 +187,23 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "ramo de atividade (id) igual a 1 e pessoa jurídica e sem vendas para o vendedor",
-      "condicao_efetiva": "já compraram com o próprio vendedor e ramo de atividade (id) igual a 1 e pessoa jurídica e sem vendas para o vendedor",
+      "condicao_efetiva": null,
       "tratados_antes_por": [
         "R2"
       ],
       "bloqueios_anteriores": [
         "R1"
       ],
-      "inalcancavel": false,
+      "inalcancavel": true,
       "numeros": [
         7
       ],
       "numeros_exigidos": [
         7
       ],
-      "alertas": []
+      "alertas": [
+        "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Não agendar Filiais\", \"Freq. de 10d para 'Ativação de Prospects'\"."
+      ]
     },
     {
       "id": "R5",
@@ -234,11 +238,8 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e adimplentes e pessoa jurídica",
-      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e adimplentes e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor) OU (compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e ramo de atividade (id) fora de: 1, 2 e adimplentes e pessoa jurídica e sem vendas para o vendedor)",
-      "tratados_antes_por": [
-        "R3",
-        "R4"
-      ],
+      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e adimplentes e pessoa jurídica",
+      "tratados_antes_por": [],
       "bloqueios_anteriores": [
         "R1"
       ],
@@ -288,11 +289,8 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram com o próprio vendedor nos últimos 30 dias e adimplentes e pessoa jurídica",
-      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 30 dias e adimplentes e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor) OU (compraram com o próprio vendedor nos últimos 30 dias e ramo de atividade (id) fora de: 1, 2 e adimplentes e pessoa jurídica e sem vendas para o vendedor)",
-      "tratados_antes_por": [
-        "R3",
-        "R4"
-      ],
+      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 30 dias e adimplentes e pessoa jurídica",
+      "tratados_antes_por": [],
       "bloqueios_anteriores": [
         "R1"
       ],
@@ -340,11 +338,8 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e adimplentes e pessoa jurídica",
-      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e adimplentes e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor) OU (compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e ramo de atividade (id) fora de: 1, 2 e adimplentes e pessoa jurídica e sem vendas para o vendedor)",
-      "tratados_antes_por": [
-        "R3",
-        "R4"
-      ],
+      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e adimplentes e pessoa jurídica",
+      "tratados_antes_por": [],
       "bloqueios_anteriores": [
         "R1"
       ],
@@ -384,11 +379,9 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "pessoa jurídica",
-      "condicao_efetiva": null,
+      "condicao_efetiva": "(já compraram com o próprio vendedor e inadimplentes e pessoa jurídica) OU (sem comprar com o próprio vendedor há mais de 90 dias e adimplentes e pessoa jurídica)",
       "tratados_antes_por": [
         "R2",
-        "R3",
-        "R4",
         "R5",
         "R6",
         "R7"
@@ -403,13 +396,11 @@
       "numeros_exigidos": [
         21
       ],
-      "alertas": [
-        "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
-      ]
+      "alertas": []
     }
   ],
   "nao_cobertos": {
-    "do time empresa toda": "pessoa física"
+    "do time empresa toda": "pessoa física ou sem tipo de pessoa definido"
   },
   "alertas": [],
   "numeros_obrigatorios": [

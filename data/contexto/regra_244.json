@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "4",
+  "versao_pacote": "5",
   "arquivo": "regra_244.gobr",
   "sha256": "f677bd3951f17bac678df1e9c5560fd735b90dc36dd5dff2983931276dfe1a3c",
   "comentarios": [
@@ -185,15 +185,14 @@
       "acoes": [
         {
           "codigo": "frequencia do historico ou no minimo de 5 dias e no maximo de 7 dias",
-          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no mínimo 5 dias e no máximo 7 dias",
+          "significado": "frequência calculada pelo histórico de visitas, limitada a no mínimo 5 dias e no máximo 7 dias",
           "reconhecida": true
         }
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "frequência histórica de compra de até 7 dias e ativos para o vendedor",
-      "condicao_efetiva": "já compraram com o próprio vendedor e frequência histórica de compra de até 7 dias e ativos para o vendedor e sem ser de compra única com o vendedor",
+      "condicao_efetiva": "frequência histórica de compra de até 7 dias e ativos para o vendedor e sem ser de compra única com o vendedor",
       "tratados_antes_por": [
-        "R3",
         "R4"
       ],
       "bloqueios_anteriores": [
@@ -370,6 +369,7 @@
   ],
   "premissas_usadas": [
     "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
-    "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+    "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado.",
+    "P9: Em 'frequencia do historico ou no minimo/no maximo ...', os limites restringem a frequência do histórico."
   ]
 }

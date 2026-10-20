@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "4",
+  "versao_pacote": "5",
   "arquivo": "regra_156.gobr",
   "sha256": "8e10fbde2bd43f4ff6c94504580940700ce15779dd53146606c4814f4e114dd6",
   "comentarios": [
@@ -151,9 +151,8 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "ativos para o vendedor",
-      "condicao_efetiva": "já compraram com o próprio vendedor e ativos para o vendedor e sem ser de compra única com o vendedor",
+      "condicao_efetiva": "ativos para o vendedor e sem ser de compra única com o vendedor",
       "tratados_antes_por": [
-        "R2",
         "R3"
       ],
       "bloqueios_anteriores": [

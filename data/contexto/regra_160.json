@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "4",
+  "versao_pacote": "5",
   "arquivo": "regra_160.gobr",
   "sha256": "9dc5c53b3f2fa95e7a64d3d4286da2083e9a9816c04c6a50faf67c7071fe56c5",
   "comentarios": [
@@ -120,10 +120,8 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e foram visitados nos últimos 3000 dias, mas estão há mais de 3 dias sem receber visita e com data de rota nos próximos 1 dia e pessoa jurídica",
-      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e foram visitados nos últimos 3000 dias, mas estão há mais de 3 dias sem receber visita e com data de rota nos próximos 1 dia e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor",
-      "tratados_antes_por": [
-        "R1"
-      ],
+      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e foram visitados nos últimos 3000 dias, mas estão há mais de 3 dias sem receber visita e com data de rota nos próximos 1 dia e pessoa jurídica",
+      "tratados_antes_por": [],
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
@@ -180,10 +178,8 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e foram visitados nos últimos 3000 dias, mas estão há mais de 3 dias sem receber visita e com data de rota nos próximos 1 dia e pessoa jurídica",
-      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e foram visitados nos últimos 3000 dias, mas estão há mais de 3 dias sem receber visita e com data de rota nos próximos 1 dia e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor",
-      "tratados_antes_por": [
-        "R1"
-      ],
+      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e foram visitados nos últimos 3000 dias, mas estão há mais de 3 dias sem receber visita e com data de rota nos próximos 1 dia e pessoa jurídica",
+      "tratados_antes_por": [],
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
@@ -240,10 +236,8 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram com o próprio vendedor nos últimos 30 dias e foram visitados nos últimos 3000 dias, mas estão há mais de 3 dias sem receber visita e com data de rota nos próximos 1 dia e pessoa jurídica",
-      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 30 dias e foram visitados nos últimos 3000 dias, mas estão há mais de 3 dias sem receber visita e com data de rota nos próximos 1 dia e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor",
-      "tratados_antes_por": [
-        "R1"
-      ],
+      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 30 dias e foram visitados nos últimos 3000 dias, mas estão há mais de 3 dias sem receber visita e com data de rota nos próximos 1 dia e pessoa jurídica",
+      "tratados_antes_por": [],
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
@@ -298,7 +292,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "foram visitados nos últimos 3000 dias, mas estão há mais de 3 dias sem receber visita e com data de rota nos próximos 1 dia e pessoa jurídica e inativos para o vendedor",
-      "condicao_efetiva": "(nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 90 dias) e foram visitados nos últimos 3000 dias, mas estão há mais de 3 dias sem receber visita e com data de rota nos próximos 1 dia e pessoa jurídica e inativos para o vendedor",
+      "condicao_efetiva": "sem comprar com o próprio vendedor há mais de 90 dias e foram visitados nos últimos 3000 dias, mas estão há mais de 3 dias sem receber visita e com data de rota nos próximos 1 dia e pessoa jurídica e inativos para o vendedor",
       "tratados_antes_por": [
         "R2",
         "R3",
@@ -352,7 +346,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "foram visitados nos últimos 3000 dias, mas estão há mais de 3 dias sem receber visita e com data de rota nos próximos 1 dia e pessoa jurídica",
-      "condicao_efetiva": "(nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 90 dias) e foram visitados nos últimos 3000 dias, mas estão há mais de 3 dias sem receber visita e com data de rota nos próximos 1 dia e pessoa jurídica e ativos para o vendedor",
+      "condicao_efetiva": "sem comprar com o próprio vendedor há mais de 90 dias e foram visitados nos últimos 3000 dias, mas estão há mais de 3 dias sem receber visita e com data de rota nos próximos 1 dia e pessoa jurídica e ativos para o vendedor",
       "tratados_antes_por": [
         "R1",
         "R2",
@@ -487,12 +481,9 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e pessoa jurídica",
-      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e não (com data de rota nos próximos 1 dia) e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor) OU (compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e (nunca foram visitados ou foram visitados nos últimos 3 dias ou sem receber visita há mais de 3000 dias) e com data de rota nos próximos 1 dia e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor)",
+      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e não (com data de rota nos próximos 1 dia) e pessoa jurídica) OU (compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e (nunca foram visitados ou foram visitados nos últimos 3 dias ou sem receber visita há mais de 3000 dias) e com data de rota nos próximos 1 dia e pessoa jurídica)",
       "tratados_antes_por": [
-        "R1",
-        "R3",
-        "R7",
-        "R8"
+        "R3"
       ],
       "bloqueios_anteriores": [],
       "inalcancavel": false,
@@ -536,12 +527,9 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e pessoa jurídica",
-      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e não (com data de rota nos próximos 1 dia) e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor) OU (compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e (nunca foram visitados ou foram visitados nos últimos 3 dias ou sem receber visita há mais de 3000 dias) e com data de rota nos próximos 1 dia e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor)",
+      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e não (com data de rota nos próximos 1 dia) e pessoa jurídica) OU (compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e (nunca foram visitados ou foram visitados nos últimos 3 dias ou sem receber visita há mais de 3000 dias) e com data de rota nos próximos 1 dia e pessoa jurídica)",
       "tratados_antes_por": [
-        "R1",
-        "R2",
-        "R7",
-        "R8"
+        "R2"
       ],
       "bloqueios_anteriores": [],
       "inalcancavel": false,
@@ -585,12 +573,9 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram com o próprio vendedor nos últimos 30 dias e pessoa jurídica",
-      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 30 dias e não (com data de rota nos próximos 1 dia) e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor) OU (compraram com o próprio vendedor nos últimos 30 dias e (nunca foram visitados ou foram visitados nos últimos 3 dias ou sem receber visita há mais de 3000 dias) e com data de rota nos próximos 1 dia e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor)",
+      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 30 dias e não (com data de rota nos próximos 1 dia) e pessoa jurídica) OU (compraram com o próprio vendedor nos últimos 30 dias e (nunca foram visitados ou foram visitados nos últimos 3 dias ou sem receber visita há mais de 3000 dias) e com data de rota nos próximos 1 dia e pessoa jurídica)",
       "tratados_antes_por": [
-        "R1",
-        "R4",
-        "R7",
-        "R8"
+        "R4"
       ],
       "bloqueios_anteriores": [],
       "inalcancavel": false,
@@ -632,7 +617,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "pessoa jurídica e inativos para o vendedor",
-      "condicao_efetiva": "((nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 90 dias) e não (com data de rota nos próximos 1 dia) e pessoa jurídica e inativos para o vendedor) OU ((nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 90 dias) e (nunca foram visitados ou foram visitados nos últimos 3 dias ou sem receber visita há mais de 3000 dias) e com data de rota nos próximos 1 dia e pessoa jurídica e inativos para o vendedor)",
+      "condicao_efetiva": "(sem comprar com o próprio vendedor há mais de 90 dias e não (com data de rota nos próximos 1 dia) e pessoa jurídica e inativos para o vendedor) OU (sem comprar com o próprio vendedor há mais de 90 dias e (nunca foram visitados ou foram visitados nos últimos 3 dias ou sem receber visita há mais de 3000 dias) e com data de rota nos próximos 1 dia e pessoa jurídica e inativos para o vendedor)",
       "tratados_antes_por": [
         "R2",
         "R3",
@@ -704,7 +689,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "todos os clientes da fonte (sem filtro)",
-      "condicao_efetiva": "((nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 90 dias) e não (com data de rota nos próximos 1 dia) e pessoa jurídica e ativos para o vendedor) OU ((nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 90 dias) e (nunca foram visitados ou foram visitados nos últimos 3 dias ou sem receber visita há mais de 3000 dias) e com data de rota nos próximos 1 dia e pessoa jurídica e ativos para o vendedor)",
+      "condicao_efetiva": "(sem tipo de pessoa definido) OU (sem comprar com o próprio vendedor há mais de 90 dias e não (com data de rota nos próximos 1 dia) e pessoa jurídica e ativos para o vendedor) OU (sem comprar com o próprio vendedor há mais de 90 dias e (nunca foram visitados ou foram visitados nos últimos 3 dias ou sem receber visita há mais de 3000 dias) e com data de rota nos próximos 1 dia e pessoa jurídica e ativos para o vendedor)",
       "tratados_antes_por": [
         "R1",
         "R2",

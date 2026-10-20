@@ -1,11 +1,11 @@
 {
-  "resumo": "Regra de atendimento do time de televendas por situação de compra do cliente, em seis regras. Começa pelos clientes sem vendas para a empresa, passando por recém-ativados, regulares, compradores intercalados e inativos há mais de 120 e de 180 dias. Não há regras de bloqueio da agenda. A última regra, para clientes há mais de 180 dias sem comprar, nunca é aplicada.",
+  "resumo": "Regra de agendamento do time de televendas por relacionamento do cliente com a empresa: sem vendas, recém-ativados, compradores mensais, compradores com intervalo maior e clientes parados há mais de 120 dias. As frequências são de 7, 14 e 28 dias, ou o histórico de visitas com limite de 60 dias. Não há bloqueios; a última faixa, de mais de 180 dias, está sobreposta à anterior.",
   "carteiras": [],
   "regras": [
     {
       "id": "R1",
       "nome": "Ative essa oportunidade",
-      "segmento": "Sem vendas para a empresa",
+      "segmento": "Sem vendas",
       "criterio": "Clientes sem vendas para a empresa",
       "frequencia": "7 dias",
       "observacao": "",
@@ -15,7 +15,7 @@
       "id": "R2",
       "nome": "Cliente ativado! Crie relacionamento com seu cliente!",
       "segmento": "Cliente ativado",
-      "criterio": "Clientes que compraram com qualquer vendedor da empresa nos últimos 30 dias, têm alguma venda para a empresa e uma única compra",
+      "criterio": "Clientes que compraram com qualquer vendedor da empresa nos últimos 30 dias e têm uma única compra na empresa",
       "frequencia": "14 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -23,8 +23,8 @@
     {
       "id": "R3",
       "nome": "Clientes que compram mensalmente (clientes regulares)",
-      "segmento": "Clientes regulares (mensais)",
-      "criterio": "Clientes com frequência histórica de 30 dias, compraram nos últimos 120 dias e há mais de 30 dias sem comprar, ou nos últimos 30 dias com mais de uma compra",
+      "segmento": "Compradores mensais",
+      "criterio": "Clientes com frequência histórica de compra de 30 dias, que compraram na empresa nos últimos 120 dias, mas estão há mais de 30 dias sem comprar, ou compraram nos últimos 30 dias sem ser de compra única",
       "frequencia": "28 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -33,16 +33,16 @@
       "id": "R4",
       "nome": "Recência de atendimento igual a recência de compra (clientes que compram mês sim, mês não)",
       "segmento": "Compram mês sim, mês não",
-      "criterio": "Clientes que compraram na empresa e com o próprio vendedor nos últimos 30 dias, há pelo menos 20 dias sem comprar, com frequência histórica diferente de 30 dias ou indefinida",
-      "frequencia": "Pelo histórico de compras, no máximo 60 dias",
-      "observacao": "Sem histórico de compras, a frequência fica limitada a no máximo 60 dias",
+      "criterio": "Clientes que compraram na empresa e com o próprio vendedor nos últimos 30 dias, mas estão há pelo menos 20 dias sem comprar, sem ser de compra única",
+      "frequencia": "Pelo histórico, no máximo 60 dias",
+      "observacao": "Vale para frequência histórica indefinida, de menos de 30 dias, ou de mais de 30 dias com alguma venda para a empresa",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R5",
       "nome": "Mantenha seu cliente ativo! Ele está há 120 dias sem comprar com a empresa",
       "segmento": "Sem comprar há mais de 120 dias",
-      "criterio": "Clientes que estão há mais de 120 dias sem comprar com qualquer vendedor da empresa e têm alguma venda para a empresa",
+      "criterio": "Clientes que estão há mais de 120 dias sem comprar com qualquer vendedor da empresa",
       "frequencia": "14 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -50,7 +50,7 @@
     {
       "id": "R6",
       "nome": "Resgate seu cliente inativo! Ele está há mais de 180 dias sem comprar com a empresa",
-      "segmento": "Inativos há mais de 180 dias",
+      "segmento": "Sem comprar há mais de 180 dias",
       "criterio": "Clientes que estão há mais de 180 dias sem comprar com qualquer vendedor da empresa",
       "frequencia": "28 dias",
       "observacao": "Nunca é aplicada: todos esses clientes já foram tratados antes",
@@ -58,23 +58,23 @@
     }
   ],
   "pontos_de_atencao": [
-    "A regra 'Resgate seu cliente inativo!' nunca é aplicada: todos os clientes dela já são tratados por regras anteriores ('Ative essa oportunidade' e 'Mantenha seu cliente ativo!').",
-    "As regras 'Cliente ativado!', 'Clientes regulares', 'Mantenha seu cliente ativo!' e 'Compram mês sim, mês não' misturam medidas de recência de compra de escopos diferentes (empresa e vendedor), então as faixas podem se sobrepor ou deixar lacunas.",
-    "Clientes que nunca compraram ou que compraram nos últimos 120 dias, mas estão há mais de 30 dias sem comprar, com frequência histórica indefinida ou diferente de 30 dias, não se enquadram em nenhuma regra e ficam sem parametrização. O mesmo vale para clientes com compra nos últimos 30 dias que compraram com o próprio vendedor nos últimos 19 dias ou estão há mais de 30 dias sem comprar com ele."
+    "A regra 'Resgate seu cliente inativo! Ele está há mais de 180 dias sem comprar com a empresa' nunca é aplicada: todos os clientes dela já são tratados pela regra anterior 'Mantenha seu cliente ativo! Ele está há 120 dias sem comprar com a empresa'.",
+    "A sequência mistura medidas diferentes de tempo sem comprar (na empresa e com o próprio vendedor); faixas assim podem se sobrepor ou deixar clientes sem regra.",
+    "Clientes que compraram na empresa nos últimos 120 dias, mas estão há mais de 30 dias sem comprar, ou que compraram nos últimos 30 dias sem comprar com o próprio vendedor no período exigido, e que têm frequência histórica indefinida, de menos de 30 dias ou de mais de 30 dias com venda para a empresa, não se enquadram em nenhuma regra e ficam sem parametrização."
   ],
   "consultas_hipoteticas": [
-    "Televendas: sem vendas 7 dias; ativado (uma compra em 30 dias) 14 dias; regulares mensais 28 dias; mês sim, mês não pelo histórico, máx. 60 dias; sem comprar há mais de 120 dias 14 dias; mais de 180 dias 28 dias",
-    "No televendas a gente liga toda semana pra quem nunca vendeu, de 14 em 14 dias pra quem acabou de fazer a primeira compra e de 28 em 28 pros clientes que compram todo mês. Quem passou de 120 dias sem comprar entra de 14 em 14 e quem passou de 180 volta pra 28 dias",
-    "Quero frequências diferentes para o televendas conforme o histórico do cliente: oportunidade sem vendas, cliente recém-ativado, clientes regulares, quem compra em meses alternados e inativos para resgatar"
+    "Televendas: sem vendas 7 dias; ativado (1 compra em 30 dias) 14 dias; compradores mensais 28 dias; mês sim, mês não pelo histórico até 60 dias; mais de 120 dias sem comprar 14 dias; mais de 180 dias 28 dias",
+    "A gente liga toda semana para quem nunca comprou, a cada 14 dias para quem acabou de fazer o primeiro pedido, e a cada 28 dias para quem compra todo mês. Quem passou de 120 dias parado volta para 14 dias",
+    "Quero uma regra de televendas por perfil de compra do cliente na empresa, com resgate de inativos e frequência pelo histórico para quem compra de forma espaçada"
   ],
   "_meta": {
     "arquivo": "regra_226.gobr",
     "sha256_gobr": "d0badb40e720e3e2c173e34ad2e607a65806fc91a63216a936cbfbb866781292",
-    "versao_pacote": "4",
+    "versao_pacote": "5",
     "prompt_sha256": "fd3b943ec528",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T16:43:33+00:00",
+    "gerado_em": "2026-10-20T17:54:58+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,
@@ -84,25 +84,17 @@
       "agente_2.json": {
         "valido": true,
         "erros": [],
-        "avisos": []
+        "avisos": [
+          "consulta 1: números fora do pacote [1]"
+        ]
       },
       "agente_3.json": {
         "valido": true,
         "erros": [],
         "avisos": []
-      },
-      "agente_4.json": {
-        "valido": true,
-        "erros": [],
-        "avisos": []
-      },
-      "agente_5.json": {
-        "valido": true,
-        "erros": [],
-        "avisos": []
       }
     },
-    "escolhido": "agente_4.json",
-    "concordancia": 0.669
+    "escolhido": "agente_2.json",
+    "concordancia": 0.801
   }
 }

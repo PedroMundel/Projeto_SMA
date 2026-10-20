@@ -1,12 +1,12 @@
 {
-  "resumo": "Regra de agendamento do time televendas por tempo sem comprar e por frequência histórica de compra, usando segmentações da carteira fixa dos vendedores do time campo (1 a 7, 16 a 30, 31 a 45 e 61 a 90 dias). Quem está há mais de 90 dias sem comprar é agendado a cada 7 dias, e as demais faixas usam 14, 21 e 28 dias. Deixam de ser agendados os clientes inativos inadimplentes e, na regra final, os que não se enquadram em nenhuma regra padrão.",
+  "resumo": "Regra de agendamento do time televendas por tempo sem comprar e por faixas de frequência histórica de compra (1 a 7, 16 a 30, 31 a 45 e 61 a 90 dias), definidas sobre carteiras do time campo. Clientes inativos inadimplentes não são agendados. A regra final também não agenda quem não se enquadra em nenhuma das anteriores.",
   "carteiras": [],
   "regras": [
     {
       "id": "R1",
       "nome": "Não agendar clientes inativos inadimplentes",
       "segmento": "Bloqueio: inativos inadimplentes",
-      "criterio": "Clientes inativos e inadimplentes",
+      "criterio": "Clientes inativos com a empresa e inadimplentes",
       "frequencia": "Não agendar",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -24,7 +24,7 @@
       "id": "R3",
       "nome": "Clientes com frequência histórica de pedidos entre 1 e 7 dias, e sem compra entre 8 e 15 dias.",
       "segmento": "Frequência histórica de 1 a 7 dias",
-      "criterio": "Clientes que compraram nos últimos 7 dias ou compraram nos últimos 90 dias, mas estão há mais de 15 dias sem comprar",
+      "criterio": "Clientes com frequência histórica de 1 a 7 dias que compraram nos últimos 7 dias, ou nos últimos 90 dias mas estão há mais de 15 dias sem comprar",
       "frequencia": "14 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -33,25 +33,25 @@
       "id": "R4",
       "nome": "Clientes com frequência histórica de pedidos entre 16 e 30 dias, e sem compra entre 31 e 45 dias.",
       "segmento": "Frequência histórica de 16 a 30 dias",
-      "criterio": "Clientes fora da segmentação freq_hist_1a7 que compraram nos últimos 30 dias, ou nos últimos 90 dias mas estão há mais de 45 dias sem comprar",
+      "criterio": "Clientes de frequência histórica 16 a 30 dias (não 1 a 7) com compra nos últimos 30 dias, ou nos últimos 90 dias mas há mais de 45 dias sem comprar",
       "frequencia": "28 dias",
-      "observacao": "Também clientes da freq_hist_1a7 que compraram nos últimos 15 dias, mas estão há mais de 7 dias sem comprar",
+      "observacao": "Quem está também na faixa 1 a 7 entra se comprou nos últimos 15 dias e está há mais de 7 dias sem comprar",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R5",
       "nome": "Clientes com frequência histórica de pedidos entre 31 e 45 dias, e sem compra entre 46 e 60 dias.",
       "segmento": "Frequência histórica de 31 a 45 dias",
-      "criterio": "Clientes fora das segmentações freq_hist_16a30 e freq_hist_1a7 que compraram nos últimos 45 dias, ou nos últimos 90 dias mas estão há mais de 60 dias sem comprar",
+      "criterio": "Clientes de frequência histórica 31 a 45 dias com compra nos últimos 45 dias, ou nos últimos 90 dias mas há mais de 60 dias sem comprar",
       "frequencia": "21 dias",
-      "observacao": "Também freq_hist_16a30 (compra em 45 dias, mais de 30 sem comprar) e freq_hist_1a7 (compra em 15 dias, mais de 7 sem comprar)",
+      "observacao": "Vale para quem está fora das faixas 1 a 7 e 16 a 30; nelas há variações com janelas de 15 e 45 dias",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R6",
       "nome": "Clientes com frequência histórica de pedidos entre 61 e 90 dias, e sem compra há 90 dias.",
       "segmento": "Frequência histórica de 61 a 90 dias",
-      "criterio": "Clientes que estão há mais de 90 dias sem comprar",
+      "criterio": "Clientes com frequência histórica de 61 a 90 dias que estão há mais de 90 dias sem comprar",
       "frequencia": "15 dias",
       "observacao": "Nunca é aplicada: todos esses clientes já foram tratados antes",
       "clausulas_nao_traduzidas": []
@@ -59,34 +59,37 @@
     {
       "id": "R7",
       "nome": "Não agendar clientes que não se enquadrem em nenhuma regra padrão",
-      "segmento": "Bloqueio: fora das regras padrão",
-      "criterio": "Clientes de todo o time televendas, exceto os já tratados pelas regras anteriores",
+      "segmento": "Demais clientes",
+      "criterio": "Todos os clientes do time, exceto os já tratados pelas regras anteriores",
       "frequencia": "Não agendar",
-      "observacao": "Regra final: vale para quem sobrou das faixas anteriores",
+      "observacao": "Regra final: vale para quem sobrou das anteriores",
       "clausulas_nao_traduzidas": []
     }
   ],
   "pontos_de_atencao": [
-    "A regra 'Clientes com frequência histórica de pedidos entre 61 e 90 dias, e sem compra há 90 dias.' nunca é aplicada: todos os clientes dela já são tratados por regras anteriores."
+    "A regra 'Clientes com frequência histórica de pedidos entre 61 e 90 dias' nunca é aplicada: todos os clientes dela já são tratados por regras anteriores.",
+    "A condição da regra 'Não agendar clientes que não se enquadrem em nenhuma regra padrão' é complexa demais para resumir; ela foi descrita como todos os clientes, exceto os já tratados pelas regras anteriores."
   ],
   "consultas_hipoteticas": [
-    "Televendas: sem compra há mais de 90 dias 7 dias; faixas por frequência histórica (1 a 7, 16 a 30, 31 a 45, 61 a 90 dias) com 14, 28, 21 e 15 dias; não agendar inativos inadimplentes e quem não se encaixa",
-    "A gente liga toda semana para quem está há mais de 90 dias sem comprar. Para os outros, a frequência depende de quanto o cliente costuma comprar: a cada 14, 21 ou 28 dias. Inativo inadimplente fica fora da agenda",
-    "Quero agendar o televendas por frequência histórica de pedidos e tempo sem comprar, com faixas de 1 a 7, 16 a 30 e 31 a 45 dias, e não agendar inadimplentes inativos"
+    "Televendas: não agendar inativos inadimplentes; mais de 90 dias sem comprar a cada 7 dias; frequência histórica 1 a 7 dias a cada 14, 16 a 30 a cada 28, 31 a 45 a cada 21, 61 a 90 a cada 15; demais não agendar",
+    "A gente liga toda semana para quem está há mais de 90 dias sem comprar e, para os outros, depende de quanto o cliente costuma comprar: quem compra a cada 1 a 7 dias é a cada 14 dias, de 16 a 30 dias é a cada 28. Inativo inadimplente não entra",
+    "Quero agendar o televendas conforme a frequência histórica de compra do cliente, com faixas de 1 a 7, 16 a 30 e 31 a 45 dias, e quem estiver há muito tempo sem comprar com contato semanal"
   ],
   "_meta": {
     "arquivo": "regra_165.gobr",
     "sha256_gobr": "bc61014bea041dbf9709dcd573fe2732ac929060104cbd07bcc087f86a1012f1",
-    "versao_pacote": "4",
+    "versao_pacote": "5",
     "prompt_sha256": "fd3b943ec528",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T16:43:32+00:00",
+    "gerado_em": "2026-10-20T17:54:57+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,
         "erros": [],
-        "avisos": []
+        "avisos": [
+          "R4: critério com mais de 40 palavras"
+        ]
       },
       "agente_2.json": {
         "valido": true,
@@ -97,9 +100,19 @@
         "valido": true,
         "erros": [],
         "avisos": []
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
       }
     },
     "escolhido": "agente_3.json",
-    "concordancia": 0.822
+    "concordancia": 0.746
   }
 }

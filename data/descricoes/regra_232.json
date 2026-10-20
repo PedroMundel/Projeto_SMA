@@ -1,5 +1,5 @@
 {
-  "resumo": "Regra de agendamento do time de televendas por tempo desde a última compra, em faixas de 29, 59 e 89 dias, mais os prospects e os clientes que compraram na empresa mas não no grupo de vendedores. Deixam de ser agendadas as filiais e os clientes inadimplentes. A última regra atende quem sobrou das faixas anteriores.",
+  "resumo": "Regra de agendamento do time de televendas por tempo desde a última compra, com os prospects e quatro faixas de recência. Deixam de ser agendadas as filiais e os clientes inadimplentes. A faixa final cobre quem está há mais de 89 dias sem comprar no grupo de vendedores, com frequência de 21 dias.",
   "carteiras": [],
   "regras": [
     {
@@ -34,7 +34,7 @@
       "nome": "Freq. do histórico para clientes com compra entre 1 e 29 dias",
       "segmento": "Compra entre 1 e 29 dias",
       "criterio": "Clientes que compraram nos últimos 29 dias",
-      "frequencia": "Pelo histórico de compras; sem histórico, entre 14 e 30 dias",
+      "frequencia": "Pelo histórico, entre 14 e 30 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
     },
@@ -60,7 +60,7 @@
       "id": "R7",
       "nome": "Freq. de 21d para clientes sem compra em 90 dias",
       "segmento": "Sem compra em 90 dias",
-      "criterio": "Clientes que já compraram com qualquer vendedor da empresa, mas nunca compraram no grupo de vendedores ou estão há mais de 89 dias sem comprar nele",
+      "criterio": "Clientes sem comprar no grupo de vendedores há mais de 89 dias ou que só compraram com vendedores de outros grupos",
       "frequencia": "21 dias",
       "observacao": "Regra final: vale para quem sobrou das faixas anteriores",
       "clausulas_nao_traduzidas": []
@@ -68,18 +68,18 @@
   ],
   "pontos_de_atencao": [],
   "consultas_hipoteticas": [
-    "Televendas: não agendar filiais nem inadimplentes; prospects 21 dias; compra em até 29 dias pelo histórico (14 a 30 dias); 30 a 59 dias 21 dias; 60 a 89 dias 21 dias; sem compra em 90 dias 21 dias",
-    "A gente não agenda filial nem inadimplente. Prospect e quem está entre 30 e 89 dias sem comprar a cada 21 dias, e quem comprou nos últimos 29 dias segue a frequência do histórico de compras",
-    "Quero agendar o televendas por faixas de tempo desde a última compra, com frequência do histórico para quem comprou recentemente e sem agendar filiais e inadimplentes"
+    "Televendas: prospects a cada 21 dias; compra até 29 dias, frequência do histórico entre 14 e 30 dias; faixas de 30 a 59, 60 a 89 e acima de 89 dias a cada 21 dias; não agendar filiais nem inadimplentes",
+    "A gente liga a cada 21 dias pra quem nunca comprou e pra quem está há mais de 29 dias sem comprar. Quem comprou nos últimos 29 dias segue o histórico de visitas, no mínimo 14 e no máximo 30 dias. Filial e inadimplente ficam fora",
+    "Quero agendar os clientes do televendas por tempo sem comprar, com prospects e faixas de 29, 59 e 89 dias, sem agendar filiais e inadimplentes"
   ],
   "_meta": {
     "arquivo": "regra_232.gobr",
     "sha256_gobr": "46a66834eb61d23bf1054281b6221200e6fedfc883a17beceafd0558e7683597",
-    "versao_pacote": "4",
+    "versao_pacote": "5",
     "prompt_sha256": "fd3b943ec528",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T16:43:33+00:00",
+    "gerado_em": "2026-10-20T17:54:58+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,
@@ -97,7 +97,7 @@
         "avisos": []
       }
     },
-    "escolhido": "agente_3.json",
-    "concordancia": 0.831
+    "escolhido": "agente_1.json",
+    "concordancia": 0.881
   }
 }

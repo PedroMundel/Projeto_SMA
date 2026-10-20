@@ -1,40 +1,39 @@
 {
-  "resumo": "Regra de não agendamento da carteira fixa do televendas com clientes em ruptura do time de campo, transferidos para o televendas. Há uma única regra, que bloqueia a agenda de todos os clientes dessa carteira e é executada somente na última semana do mês. A segmentação 'cliente de ruptura' reúne a carteira fixa dos vendedores do time de campo que compraram nos últimos 60 dias.",
+  "resumo": "Regra de não agendamento para clientes de campo em ruptura (sem compra há entre 7 e 60 dias) transferidos para o time de televendas. A única regra bloqueia os clientes da segmentação de ruptura que compraram nos últimos 60 dias e só é executada na última semana do mês. O arquivo não traz regra de frequência.",
   "carteiras": [
     {
       "id": "C1",
       "nome": "televendas fixa com ruptura de campo",
-      "descricao": "Carteira fixa de clientes do time de campo em ruptura, sem compra há entre 7 e 60 dias, transferidos para o televendas"
+      "descricao": "Clientes do time de campo em ruptura, sem compra há entre 7 e 60 dias, transferidos para televendas"
     }
   ],
   "regras": [
     {
       "id": "R1",
       "nome": "Não agendar Ativos de campo com vendas em 60 dias",
-      "segmento": "Bloqueio: ativos de campo",
-      "criterio": "Clientes de todos os tipos da carteira televendas fixa com ruptura de campo",
+      "segmento": "Bloqueio: ativos de campo com vendas em 60 dias",
+      "criterio": "Clientes da segmentação 'cliente de ruptura', que compraram nos últimos 60 dias",
       "frequencia": "Não agendar",
       "observacao": "Executada somente na última semana do mês",
       "clausulas_nao_traduzidas": []
     }
   ],
   "pontos_de_atencao": [
-    "O nome da regra 'Não agendar Ativos de campo com vendas em 60 dias' fala em 60 dias, mas a regra usa outro valor.",
-    "Clientes da carteira 'televendas fixa com ruptura de campo' (todos os clientes) não se enquadram em nenhuma regra de frequência e ficam sem parametrização."
+    "Todos os clientes da carteira 'televendas fixa com ruptura de campo' não se enquadram em nenhuma regra e ficam sem parametrização."
   ],
   "consultas_hipoteticas": [
-    "Carteira televendas fixa com ruptura de campo (clientes do campo sem compra entre 7 e 60 dias): não agendar, só na última semana do mês",
-    "A gente passou pro televendas os clientes do campo que pararam de comprar entre 7 e 60 dias, e na última semana do mês não quer agendar nenhum deles",
-    "Quero bloquear a agenda dos clientes de ruptura do campo que foram para o televendas"
+    "Carteira televendas fixa com ruptura de campo: não agendar clientes de campo com compra nos últimos 60 dias, somente na última semana do mês",
+    "Os clientes de campo que entraram em ruptura e foram para o televendas não devem ser agendados se compraram nos últimos 60 dias, e isso vale só na última semana do mês",
+    "Bloquear a agenda de clientes de ruptura de campo transferidos para televendas, com compra recente"
   ],
   "_meta": {
     "arquivo": "regra_151.gobr",
     "sha256_gobr": "1fed3ec8cee93c762eac8a1355752c8fb8c88644148184f61b044e448e7cb0b8",
-    "versao_pacote": "4",
+    "versao_pacote": "5",
     "prompt_sha256": "fd3b943ec528",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T16:43:31+00:00",
+    "gerado_em": "2026-10-20T17:54:57+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,
@@ -63,6 +62,6 @@
       }
     },
     "escolhido": "agente_3.json",
-    "concordancia": 0.539
+    "concordancia": 0.562
   }
 }

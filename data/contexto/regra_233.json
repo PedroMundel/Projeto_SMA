@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "4",
+  "versao_pacote": "5",
   "arquivo": "regra_233.gobr",
   "sha256": "0e8b10b1a777dc6faae670d8fe60e97434fe48954c2daf51056f55fd5aed03c0",
   "comentarios": [
@@ -56,7 +56,9 @@
       "inalcancavel": false,
       "numeros": [],
       "numeros_exigidos": [],
-      "alertas": []
+      "alertas": [
+        "O nome da regra cita R$ 0, valor que não aparece no código: nome e código podem estar divergentes."
+      ]
     },
     {
       "id": "R2",
@@ -94,7 +96,9 @@
         199
       ],
       "numeros_exigidos": [],
-      "alertas": []
+      "alertas": [
+        "O nome da regra cita R$ 200, valor que não aparece no código: nome e código podem estar divergentes."
+      ]
     },
     {
       "id": "R3",

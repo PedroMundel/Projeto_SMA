@@ -137,6 +137,36 @@ class CascadeRegressionTest(unittest.TestCase):
                                + params("b", "quando recencia de positivacao em 30 dias", "frequencia de 14 dias"))
         self.assertEqual(rule(package, "b")["numeros_exigidos"], [14, 30])
 
+    def test_catch_all_after_both_person_types_keeps_undefined_type(self):
+        package = build_source(params("pj", "quando pessoa juridica", "frequencia de 7 dias")
+                               + params("pf", "quando pessoa fisica", "frequencia de 14 dias")
+                               + params("resto", "frequencia de 21 dias"))
+        self.assertEqual(rule(package, "resto")["condicao_efetiva"], "sem tipo de pessoa definido")
+
+    def test_segment_filter_is_shown_even_when_it_matches_the_source(self):
+        body = ('segmentacao "s":\n    clientes carteirafixa("tv")\n\n'
+                + params("r", 'quando contido na segmentacao("s")', "nao agendar", source='da carteira("c")')
+                + 'carteira "c":\n    clientes carteirafixa("tv")\n\n')
+        self.assertIn('segmentação "s"', rule(build_source(body), "r")["condicao_efetiva"])
+
+    def test_rule_without_action_does_not_consume_clients(self):
+        package = build_source(params("quebrada", "quando ativos") + params("b", "quando ativos", "frequencia de 7 dias"))
+        self.assertFalse(rule(package, "b")["inalcancavel"])
+
+    def test_inactive_for_seller_implies_a_purchase_with_the_seller(self):
+        package = build_source(params("nunca", "quando sem venda do vendedor", "frequencia de 7 dias")
+                               + params("inat", "quando inativos para o vendedor", "e fora da recencia de positivacao do vendedor em 90 dias", "frequencia de 14 dias"))
+        self.assertNotIn("nunca", rule(package, "inat")["condicao_efetiva"])
+
+    def test_money_value_in_name_must_match_code(self):
+        package = build_source(params("Credito menor que R$200,00", "quando com menos de R$ 199 de credito disponivel", "nao agendar"))
+        self.assertTrue(any("R$ 200" in a for a in rule(package, "Credito menor que R$200,00")["alertas"]))
+
+    def test_historical_frequency_bounds_limit_it_instead_of_replacing_it(self):
+        package = build_source(params("h", "frequencia do historico ou no minimo de 14 dias e no maximo de 28 dias"))
+        self.assertEqual(rule(package, "h")["acoes"][0]["significado"],
+                         "frequência calculada pelo histórico de visitas, limitada a no mínimo 14 dias e no máximo 28 dias")
+
     def test_contradictory_recency_scopes_make_rule_unreachable(self):
         package = build_source(params("x", "quando recencia de positivacao do vendedor em 30 dias",
                                       "e fora da recencia de positivacao global em 60 dias", "frequencia de 7 dias"))

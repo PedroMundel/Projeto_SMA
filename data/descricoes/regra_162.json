@@ -1,11 +1,11 @@
 {
-  "resumo": "Regra de agendamento do time de televendas por histórico de compra do cliente. Antes das faixas, deixam de ser agendados os clientes pessoa física (CPF) e os inadimplentes. Clientes sem histórico e inativos têm 14 dias, quem está há mais de 45 dias sem comprar tem 30 dias, e a regra final usa a frequência do histórico de compras.",
+  "resumo": "Regra de agendamento do time televendas por histórico de compra. Clientes pessoa física e inadimplentes não são agendados. Clientes sem histórico de compra e inativos têm frequência de 14 dias, quem está há mais de 45 dias sem comprar tem 30 dias, e a regra final segue o histórico de visitas, entre 14 e 45 dias.",
   "carteiras": [],
   "regras": [
     {
       "id": "R1",
       "nome": "Não agendar 'CPF'",
-      "segmento": "Bloqueio: pessoa física (CPF)",
+      "segmento": "Bloqueio: pessoa física",
       "criterio": "Clientes pessoa física",
       "frequencia": "Não agendar",
       "observacao": "",
@@ -33,7 +33,7 @@
       "id": "R4",
       "nome": "Freq. de 14d para 'Inativos'",
       "segmento": "Inativos",
-      "criterio": "Clientes que já compraram com qualquer vendedor da empresa e estão inativos para o vendedor",
+      "criterio": "Clientes que já compraram com a empresa e estão inativos para o vendedor",
       "frequencia": "14 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -41,8 +41,8 @@
     {
       "id": "R5",
       "nome": "Freq. de 30d para 'Mais de 45d sem compra'",
-      "segmento": "Mais de 45 dias sem compra",
-      "criterio": "Clientes que estão há mais de 45 dias sem comprar e não estão inativos para o vendedor",
+      "segmento": "Mais de 45 dias sem comprar",
+      "criterio": "Clientes que estão há mais de 45 dias sem comprar e não são inativos para o vendedor",
       "frequencia": "30 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -50,27 +50,27 @@
     {
       "id": "R6",
       "nome": "Freq. do histórico ou no mínimo de 14 dias e no máximo de 45 dias",
-      "segmento": "Frequência do histórico",
-      "criterio": "Clientes que já compraram na empresa, não estão inativos para o vendedor e nunca compraram no grupo de vendedores ou compraram nele nos últimos 45 dias",
-      "frequencia": "Pelo histórico; se não houver, no mínimo 14 e no máximo 45 dias",
-      "observacao": "Regra final: vale para quem sobrou das faixas anteriores",
+      "segmento": "Frequência pelo histórico",
+      "criterio": "Clientes que já compraram com a empresa e não são inativos para o vendedor, e que nunca compraram no grupo de vendedores ou compraram nele nos últimos 45 dias",
+      "frequencia": "Pelo histórico, entre 14 e 45 dias",
+      "observacao": "",
       "clausulas_nao_traduzidas": []
     }
   ],
   "pontos_de_atencao": [],
   "consultas_hipoteticas": [
-    "Televendas: não agendar CPF nem inadimplentes; sem histórico de compra 14 dias; inativos 14 dias; mais de 45 dias sem comprar 30 dias; demais pela frequência do histórico, entre 14 e 45 dias",
-    "O televendas não liga para pessoa física nem para inadimplente. Quem nunca comprou e quem está inativo a gente liga a cada 14 dias, e quem está há mais de 45 dias sem comprar a cada 30 dias",
-    "Agenda do televendas por histórico de compra, bloqueando pessoa física e inadimplentes, com frequência do histórico para os demais"
+    "Televendas: não agendar CPF e inadimplentes; sem histórico de compra 14 dias; inativos 14 dias; mais de 45 dias sem comprar 30 dias; demais pelo histórico, mínimo 14 e máximo 45 dias",
+    "A gente não agenda pessoa física nem inadimplente. Quem nunca comprou ou está inativo é a cada 14 dias, quem passou de 45 dias sem comprar é a cada 30, e os outros seguem o histórico entre 14 e 45 dias",
+    "Quero uma regra para o televendas que bloqueie CPF e inadimplentes e defina a frequência pelo tempo sem comprar, com limites para quem segue o histórico"
   ],
   "_meta": {
     "arquivo": "regra_162.gobr",
     "sha256_gobr": "c426849477087f568935997b7ea4401acb32e51329e5da2582a52297d1651801",
-    "versao_pacote": "4",
+    "versao_pacote": "5",
     "prompt_sha256": "fd3b943ec528",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T16:43:32+00:00",
+    "gerado_em": "2026-10-20T17:54:57+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,
@@ -89,6 +89,6 @@
       }
     },
     "escolhido": "agente_3.json",
-    "concordancia": 0.801
+    "concordancia": 0.837
   }
 }

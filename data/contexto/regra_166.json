@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "4",
+  "versao_pacote": "5",
   "arquivo": "regra_166.gobr",
   "sha256": "2b1fbc87a9b519de87d62a502dc1e51b2df71cd2e280bb74c7f6c0703a7c3503",
   "comentarios": [
@@ -65,7 +65,9 @@
       "inalcancavel": false,
       "numeros": [],
       "numeros_exigidos": [],
-      "alertas": []
+      "alertas": [
+        "O nome da regra cita R$ 0, valor que não aparece no código: nome e código podem estar divergentes."
+      ]
     },
     {
       "id": "R2",
@@ -103,7 +105,9 @@
         199
       ],
       "numeros_exigidos": [],
-      "alertas": []
+      "alertas": [
+        "O nome da regra cita R$ 200, valor que não aparece no código: nome e código podem estar divergentes."
+      ]
     },
     {
       "id": "R3",

@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "4",
+  "versao_pacote": "5",
   "arquivo": "regra_189.gobr",
   "sha256": "9edc86ced43a78da5a53afa459fa70bda6fa4a2d5ed664a1eeac7af4ababc26a",
   "comentarios": [
@@ -262,7 +262,7 @@
       "acoes": [
         {
           "codigo": "frequencia do historico ou no minimo de 4 dias e no maximo de 6 dias",
-          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no mínimo 4 dias e no máximo 6 dias",
+          "significado": "frequência calculada pelo histórico de visitas, limitada a no mínimo 4 dias e no máximo 6 dias",
           "reconhecida": true
         }
       ],
@@ -314,12 +314,11 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "(compraram com o próprio vendedor nos últimos 24 dias ou sem comprar com o próprio vendedor há mais de 30 dias)",
-      "condicao_efetiva": "((compraram com o próprio vendedor nos últimos 24 dias ou sem comprar com o próprio vendedor há mais de 30 dias) e não (sem compra com a empresa no ano atual) e frequência histórica indefinida ou frequência histórica de compra de mais de 14 dias e com alguma venda (ativos ou inativos) para o vendedor e sem ser de compra única com o vendedor) OU ((compraram com o próprio vendedor nos últimos 24 dias ou sem comprar com o próprio vendedor há mais de 30 dias) e não (com compra com a empresa no ano anterior) e sem compra com a empresa no ano atual e não (ticket médio maior que R$ 4999) e não (ticket médio menor que R$ 4999) e frequência histórica indefinida ou frequência histórica de compra de mais de 14 dias e com alguma venda (ativos ou inativos) para o vendedor e sem ser de compra única com o vendedor)",
+      "condicao_efetiva": "((compraram com o próprio vendedor nos últimos 24 dias ou sem comprar com o próprio vendedor há mais de 30 dias) e não (sem compra com a empresa no ano atual) e frequência histórica indefinida ou frequência histórica de compra de mais de 14 dias e sem ser de compra única com o vendedor) OU ((compraram com o próprio vendedor nos últimos 24 dias ou sem comprar com o próprio vendedor há mais de 30 dias) e não (com compra com a empresa no ano anterior) e sem compra com a empresa no ano atual e não (ticket médio maior que R$ 4999) e não (ticket médio menor que R$ 4999) e frequência histórica indefinida ou frequência histórica de compra de mais de 14 dias e sem ser de compra única com o vendedor)",
       "tratados_antes_por": [
         "R1",
         "R2",
         "R3",
-        "R4",
         "R5",
         "R6"
       ],
@@ -339,7 +338,7 @@
     }
   ],
   "nao_cobertos": {
-    "do time televendas": "((nunca compraram com o próprio vendedor ou compraram com o próprio vendedor nos últimos 30 dias, mas estão há pelo menos 25 dias sem comprar) e não (sem compra com a empresa no ano atual) e frequência histórica indefinida ou frequência histórica de compra de mais de 14 dias e com alguma venda (ativos ou inativos) para o vendedor e sem ser de compra única com o vendedor) OU ((nunca compraram com o próprio vendedor ou compraram com o próprio vendedor nos últimos 30 dias, mas estão há pelo menos 25 dias sem comprar) e não (com compra com a empresa no ano anterior) e sem compra com a empresa no ano atual e não (ticket médio maior que R$ 4999) e não (ticket médio menor que R$ 4999) e frequência histórica indefinida ou frequência histórica de compra de mais de 14 dias e com alguma venda (ativos ou inativos) para o vendedor e sem ser de compra única com o vendedor)"
+    "do time televendas": "(compraram com o próprio vendedor nos últimos 30 dias, mas estão há pelo menos 25 dias sem comprar e não (sem compra com a empresa no ano atual) e frequência histórica indefinida ou frequência histórica de compra de mais de 14 dias e com alguma venda (ativos ou inativos) para o vendedor e sem ser de compra única com o vendedor) OU (compraram com o próprio vendedor nos últimos 30 dias, mas estão há pelo menos 25 dias sem comprar e não (com compra com a empresa no ano anterior) e sem compra com a empresa no ano atual e não (ticket médio maior que R$ 4999) e não (ticket médio menor que R$ 4999) e frequência histórica indefinida ou frequência histórica de compra de mais de 14 dias e com alguma venda (ativos ou inativos) para o vendedor e sem ser de compra única com o vendedor)"
   },
   "alertas": [],
   "numeros_obrigatorios": [
@@ -364,6 +363,7 @@
   ],
   "premissas_usadas": [
     "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
-    "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'."
+    "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+    "P9: Em 'frequencia do historico ou no minimo/no maximo ...', os limites restringem a frequência do histórico."
   ]
 }

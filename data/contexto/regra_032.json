@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "4",
+  "versao_pacote": "5",
   "arquivo": "regra_032.gobr",
   "sha256": "599e19af41a7c2972337a19e241d6dfa32c699957f0c6c348af47062e138cd44",
   "comentarios": [
@@ -3803,7 +3803,7 @@
       ],
       "acao_principal": "nao_agendar",
       "condicao_propria": "todos os clientes da fonte (sem filtro)",
-      "condicao_efetiva": null,
+      "condicao_efetiva": "(fora da carteira norte_nordeste, sul_sudeste_centrooeste) OU (já compraram com qualquer vendedor da empresa e ramo de atividade (id) fora de: AGROPECUARIA, ATACADO, CONS. FINAL, EPI, FERRAGISTA, HOME CENTER e mais 2 e da carteira norte_nordeste, sul_sudeste_centrooeste) OU (sem comprar com qualquer vendedor da empresa há mais de 180 dias e ramo de atividade (id) igual a CONS. FINAL e da carteira norte_nordeste e não (faturamento médio mensal no ano com a empresa maior que R$ 10000) e não (faturamento médio mensal no ano com a empresa maior que R$ 15000))",
       "tratados_antes_por": [
         "R2",
         "R3",
@@ -3876,8 +3876,7 @@
         "R70",
         "R71",
         "R72",
-        "R73",
-        "R74"
+        "R73"
       ],
       "bloqueios_anteriores": [
         "R1"
@@ -3885,9 +3884,7 @@
       "inalcancavel": false,
       "numeros": [],
       "numeros_exigidos": [],
-      "alertas": [
-        "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
-      ]
+      "alertas": []
     }
   ],
   "nao_cobertos": {},

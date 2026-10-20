@@ -1,5 +1,5 @@
 {
-  "resumo": "Regra de agendamento do time de televendas pelo histórico de compras do cliente: primeira compra, quem tirou o primeiro pedido, clientes ativos e faixas de inatividade de 30, 90 e 120 dias, com frequências de 7 a 60 dias. Antes das faixas, deixam de ser agendados os clientes baixados na Receita Federal. A última faixa resgata quem está há mais de 120 dias sem comprar.",
+  "resumo": "Regra de agendamento do time de televendas por tempo desde a última compra, com frequências de 7 a 60 dias. Primeiro vêm os clientes sem nenhuma compra e os de compra única; depois, os que têm mais de uma compra, separados em quatro faixas (até 30, 90, 120 e mais de 120 dias sem comprar). Só os clientes baixados na Receita Federal deixam de ser agendados.",
   "carteiras": [],
   "regras": [
     {
@@ -15,7 +15,7 @@
       "id": "R2",
       "nome": "Primeira compra",
       "segmento": "Primeira compra",
-      "criterio": "Clientes que nunca compraram com qualquer vendedor da empresa",
+      "criterio": "Clientes que nunca compraram na empresa",
       "frequencia": "7 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -23,8 +23,8 @@
     {
       "id": "R3",
       "nome": "Tirou o primeiro pedido",
-      "segmento": "Primeiro pedido",
-      "criterio": "Clientes que já compraram com qualquer vendedor da empresa e têm uma única compra na empresa",
+      "segmento": "Tirou o primeiro pedido",
+      "criterio": "Clientes que já compraram na empresa e têm uma única compra",
       "frequencia": "15 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -32,17 +32,17 @@
     {
       "id": "R4",
       "nome": "Ativo: cliente que tem compra com a empresa em 30 dias",
-      "segmento": "Ativos",
-      "criterio": "Clientes que compraram nos últimos 30 dias e não têm compra única na empresa",
-      "frequencia": "Pelo histórico de compras, entre 7 e 21 dias",
-      "observacao": "Sem histórico de compras, a frequência fica limitada a no mínimo 7 e no máximo 21 dias",
+      "segmento": "Ativo: compra em 30 dias",
+      "criterio": "Clientes que compraram nos últimos 30 dias e têm mais de uma compra na empresa",
+      "frequencia": "Pelo histórico, entre 7 e 21 dias",
+      "observacao": "",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R5",
       "nome": "Aumentar a regularidade de compra",
-      "segmento": "Regularidade de compra",
-      "criterio": "Clientes que compraram nos últimos 90 dias, mas estão há mais de 30 dias sem comprar, sem compra única na empresa",
+      "segmento": "Aumentar a regularidade de compra",
+      "criterio": "Clientes que compraram nos últimos 90 dias, mas estão há mais de 30 dias sem comprar, e têm mais de uma compra na empresa",
       "frequencia": "28 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -51,7 +51,7 @@
       "id": "R6",
       "nome": "Cliente caminhando para inatividade",
       "segmento": "Caminhando para inatividade",
-      "criterio": "Clientes que compraram nos últimos 120 dias, mas estão há mais de 90 dias sem comprar, sem compra única na empresa",
+      "criterio": "Clientes que compraram nos últimos 120 dias, mas estão há mais de 90 dias sem comprar, e têm mais de uma compra na empresa",
       "frequencia": "45 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -60,29 +60,29 @@
       "id": "R7",
       "nome": "Resgate de inativos",
       "segmento": "Resgate de inativos",
-      "criterio": "Clientes que estão há mais de 120 dias sem comprar com qualquer vendedor da empresa e não têm compra única na empresa",
+      "criterio": "Clientes que estão há mais de 120 dias sem comprar na empresa e têm mais de uma compra",
       "frequencia": "60 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
     }
   ],
   "pontos_de_atencao": [
-    "As regras 'Ativo: cliente que tem compra com a empresa em 30 dias', 'Aumentar a regularidade de compra' e 'Cliente caminhando para inatividade' medem a recência de compra no grupo de vendedores, e 'Resgate de inativos' mede na empresa toda; faixas de escopos diferentes não se excluem automaticamente e podem se sobrepor ou deixar lacunas.",
-    "Clientes que compraram com a empresa nos últimos 120 dias, não têm compra única e nunca compraram no grupo de vendedores ou estão há mais de 120 dias sem comprar no grupo não se enquadram em nenhuma regra e ficam sem parametrização."
+    "As faixas misturam medidas de tempo sem compra de escopos diferentes: 'Resgate de inativos' olha a empresa toda, enquanto 'Ativo: cliente que tem compra com a empresa em 30 dias', 'Aumentar a regularidade de compra' e 'Cliente caminhando para inatividade' olham o grupo de vendedores. Por isso as faixas podem se sobrepor ou deixar lacunas.",
+    "Clientes que compraram na empresa nos últimos 120 dias, mas nunca compraram com o grupo de vendedores ou estão há mais de 120 dias sem comprar com ele, e têm mais de uma compra, não se enquadram em nenhuma regra e ficam sem parametrização."
   ],
   "consultas_hipoteticas": [
-    "Televendas: primeira compra 7 dias; único pedido 15 dias; ativos 30 dias pelo histórico entre 7 e 21 dias; 30 a 90 dias 28 dias; 90 a 120 dias 45 dias; mais de 120 dias 60 dias. Não agendar baixados na Receita",
-    "A gente liga toda semana pra quem nunca comprou e a cada 15 dias pra quem fez só um pedido. Pros clientes que já compram com regularidade o intervalo vai aumentando conforme ficam sem comprar, até 60 dias pros inativos. Baixado na Receita não entra",
-    "Quero agendar o televendas pela fase do cliente, de primeira compra até resgate de inativos, com frequência maior para quem está parado há mais tempo e sem agendar os baixados na Receita"
+    "Televendas: primeira compra a cada 7 dias; compra única a cada 15; ativos até 30 dias pelo histórico, entre 7 e 21 dias; 28 dias até 90; 45 dias até 120; resgate de inativos a cada 60 dias; não agendar baixados na Receita",
+    "A gente liga toda semana pra quem nunca comprou e de 15 em 15 dias pra quem fez só um pedido. Quem compra com frequência segue o ritmo do histórico, e quem vai ficando parado é chamado a cada 28, 45 e depois 60 dias. Baixado na Receita fica de fora",
+    "Quero agendar o televendas por tempo sem comprar, com frequência menor para clientes novos e maior para os inativos, sem agendar baixados na Receita"
   ],
   "_meta": {
     "arquivo": "regra_167.gobr",
     "sha256_gobr": "1ab4f60701581bba79b89e9b4def7adc89cae242ce0e2f410b9a772388accd28",
-    "versao_pacote": "4",
+    "versao_pacote": "5",
     "prompt_sha256": "fd3b943ec528",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T16:43:32+00:00",
+    "gerado_em": "2026-10-20T17:54:57+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,
@@ -100,7 +100,7 @@
         "avisos": []
       }
     },
-    "escolhido": "agente_2.json",
-    "concordancia": 0.826
+    "escolhido": "agente_1.json",
+    "concordancia": 0.807
   }
 }

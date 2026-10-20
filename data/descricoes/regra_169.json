@@ -1,10 +1,10 @@
 {
-  "resumo": "Regra de agendamento dos times de televendas por tempo desde a última compra, em faixas de até 30, 60, 90 e 180 dias mais os prospects, todas com frequência de 14 dias, para a carteira televendas consumidor e a segmentação de ruptura de fornecedor. O time televendas_2 tem ainda uma regra própria de 14 dias para quem nunca comprou ou está há mais de 7 dias sem comprar. Deixam de ser agendados os ativos com compra em 7 dias, os inadimplentes e os clientes em choque de agendas.",
+  "resumo": "Regra para dois times de televendas. Os clientes da carteira televendas consumidor e da segmentação de ruptura de fornecedor entram em cinco faixas de 14 dias (prospects e compras em até 30, 60, 90 e 180 dias). Não são agendados os ativos com compra em 7 dias, os inadimplentes e os clientes em choque de agendas. O time televendas_2 tem uma regra final de 14 dias para quem não comprou nos últimos 7 dias.",
   "carteiras": [
     {
       "id": "C1",
       "nome": "televendas consumidor",
-      "descricao": "Carteira fixa dos vendedores de televendas, com clientes adimplentes que nunca compraram ou estão há mais de 7 dias sem comprar, fora da segmentação de ruptura de fornecedor"
+      "descricao": "Carteira fixa dos vendedores do time televendas, com clientes adimplentes que nunca compraram ou estão há mais de 7 dias sem comprar, fora da segmentação de ruptura de fornecedor"
     }
   ],
   "regras": [
@@ -21,7 +21,7 @@
       "id": "R2",
       "nome": "Ativos com compra entre 7d e 30d",
       "segmento": "Ativos até 30 dias",
-      "criterio": "Clientes que compraram nos últimos 30 dias",
+      "criterio": "Clientes que compraram com qualquer vendedor da empresa nos últimos 30 dias",
       "frequencia": "14 dias",
       "observacao": "Vale para a segmentação de ruptura de fornecedor e para a carteira televendas consumidor",
       "clausulas_nao_traduzidas": []
@@ -29,7 +29,7 @@
     {
       "id": "R3",
       "nome": "Ativos com compra entre 30d e 60d",
-      "segmento": "Ativos entre 30 e 60 dias",
+      "segmento": "Ativos de 30 a 60 dias",
       "criterio": "Clientes que compraram nos últimos 60 dias, mas estão há mais de 30 dias sem comprar",
       "frequencia": "14 dias",
       "observacao": "Vale para a segmentação de ruptura de fornecedor e para a carteira televendas consumidor",
@@ -38,7 +38,7 @@
     {
       "id": "R4",
       "nome": "Ativos com compra entre 60d e 90d",
-      "segmento": "Ativos entre 60 e 90 dias",
+      "segmento": "Ativos de 60 a 90 dias",
       "criterio": "Clientes que compraram nos últimos 90 dias, mas estão há mais de 60 dias sem comprar",
       "frequencia": "14 dias",
       "observacao": "Vale para a segmentação de ruptura de fornecedor e para a carteira televendas consumidor",
@@ -47,7 +47,7 @@
     {
       "id": "R5",
       "nome": "Clientes inativos",
-      "segmento": "Clientes inativos",
+      "segmento": "Inativos",
       "criterio": "Clientes que compraram nos últimos 180 dias, mas estão há mais de 90 dias sem comprar",
       "frequencia": "14 dias",
       "observacao": "Vale para a segmentação de ruptura de fornecedor e para a carteira televendas consumidor",
@@ -57,57 +57,56 @@
       "id": "R6",
       "nome": "Ativos com compra em 7 dias",
       "segmento": "Bloqueio: ativos com compra em 7 dias",
-      "criterio": "Clientes que compraram nos últimos 7 dias: do time televendas_2, ou do televendas fora da carteira televendas consumidor e da segmentação de ruptura de fornecedor",
+      "criterio": "Clientes dos times televendas_2 e televendas que compraram nos últimos 7 dias; no televendas, só os de fora da carteira consumidor e da segmentação de ruptura",
       "frequencia": "Não agendar",
-      "observacao": "Vale para os times televendas e televendas_2",
+      "observacao": "",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R7",
       "nome": "Não agendar Inadimplentes",
       "segmento": "Bloqueio: inadimplentes",
-      "criterio": "Clientes inadimplentes, exceto os já tratados pelas regras anteriores",
+      "criterio": "Clientes inadimplentes dos times televendas e televendas_2, exceto os já tratados pelas regras anteriores",
       "frequencia": "Não agendar",
-      "observacao": "Vale para os times televendas e televendas_2",
+      "observacao": "",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R8",
       "nome": "Não agendar - choque de agendas",
       "segmento": "Bloqueio: choque de agendas",
-      "criterio": "Clientes que nunca compraram ou estão há mais de 7 dias sem comprar, fora da carteira consumidor e da segmentação de ruptura; ou com mais de 180 dias sem comprar",
+      "criterio": "Clientes do televendas que nunca compraram ou estão há mais de 7 dias sem comprar, fora da carteira e da segmentação; ou há mais de 180 dias sem comprar, nelas",
       "frequencia": "Não agendar",
-      "observacao": "Vale para o time televendas",
+      "observacao": "A carteira é a televendas consumidor e a segmentação é a ruptura de fornecedor",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R9",
       "nome": "Freq. de 14 dias para clientes sem venda em 8 dias",
-      "segmento": "Sem venda recente (televendas_2)",
+      "segmento": "Sem compra recente (televendas_2)",
       "criterio": "Clientes do time televendas_2 que nunca compraram ou estão há mais de 7 dias sem comprar",
       "frequencia": "14 dias",
-      "observacao": "Vale para o time televendas_2",
+      "observacao": "",
       "clausulas_nao_traduzidas": []
     }
   ],
   "pontos_de_atencao": [
-    "O nome da regra 'Ativos com compra entre 7d e 30d' fala em 7 dias, mas a regra usa outro valor: ela considera quem comprou nos últimos 30 dias.",
     "O bloqueio 'Ativos com compra em 7 dias' vem depois das faixas de frequência, então não bloqueia clientes que já entraram em 'Ativos com compra entre 7d e 30d'.",
     "O bloqueio 'Não agendar Inadimplentes' vem depois das faixas de frequência, então não bloqueia clientes que já entraram em 'Clientes Prospects', 'Ativos com compra entre 7d e 30d', 'Ativos com compra entre 30d e 60d', 'Ativos com compra entre 60d e 90d' e 'Clientes inativos'."
   ],
   "consultas_hipoteticas": [
-    "Televendas: prospects, ativos até 30, 60 e 90 dias e inativos até 180 dias a cada 14 dias; não agendar ativos com compra em 7 dias, inadimplentes e choque de agendas; televendas_2 a cada 14 dias para quem está há mais de 7 dias sem comprar",
-    "A gente agenda a cada 14 dias os prospects e quem comprou nos últimos 180 dias, em faixas de 30, 60, 90 dias. Quem comprou nos últimos 7 dias, inadimplente e cliente que choca com outra agenda ficam de fora, e quem passou de 180 dias sem comprar sai",
-    "Quero uma regra de televendas com frequência de 14 dias por faixa de tempo sem comprar, com carteira de consumidor, segmentação de ruptura de fornecedor e bloqueio de inadimplentes"
+    "Televendas consumidor e ruptura de fornecedor: prospects e ativos até 30, 60 e 90 dias e inativos até 180 dias a cada 14 dias; não agendar compra em 7 dias, inadimplentes e choque de agendas; televendas_2 sem compra há 7 dias a cada 14 dias",
+    "A gente liga a cada 14 dias para prospects e para quem comprou nos últimos 180 dias, na carteira de consumidor e nos clientes em ruptura de fornecedor. Quem comprou nos últimos 7 dias e os inadimplentes ficam fora da agenda",
+    "Quero uma agenda de 14 dias para prospects, ativos e inativos do televendas, sem agendar inadimplentes nem quem acabou de comprar"
   ],
   "_meta": {
     "arquivo": "regra_169.gobr",
     "sha256_gobr": "3b14794143b1e84bd2c4b44f4c61e555851867a71d70f51099f494f8af54faaa",
-    "versao_pacote": "4",
+    "versao_pacote": "5",
     "prompt_sha256": "fd3b943ec528",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T16:43:32+00:00",
+    "gerado_em": "2026-10-20T17:54:58+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,
@@ -123,9 +122,19 @@
         "valido": true,
         "erros": [],
         "avisos": []
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
       }
     },
     "escolhido": "agente_2.json",
-    "concordancia": 0.852
+    "concordancia": 0.727
   }
 }

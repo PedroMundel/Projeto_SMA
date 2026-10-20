@@ -48,7 +48,7 @@
    "fonte": "do time televendas",
    "acao_principal": "frequencia",
    "acoes": [
-    "frequência calculada pelo histórico de compras mais 2 dias; se não houver, limitada a no mínimo 20 dias e no máximo 33 dias",
+    "frequência calculada pelo histórico de visitas mais 2 dias, limitada a no mínimo 20 dias e no máximo 33 dias",
     "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta, sábado; demais dias sem atendimento"
    ],
    "condicao_efetiva": "compraram nos últimos 33 dias, mas estão há mais de 20 dias sem comprar e pessoa jurídica e com alguma venda (ativos ou inativos) para o vendedor",
@@ -83,7 +83,7 @@
    "acoes": [
     "não agendar"
    ],
-   "condicao_efetiva": "pessoa física",
+   "condicao_efetiva": "pessoa física ou sem tipo de pessoa definido",
    "tratados_antes_por": [
     "R1",
     "R2",

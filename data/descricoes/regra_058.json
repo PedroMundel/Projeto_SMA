@@ -1,5 +1,5 @@
 {
-  "resumo": "Regra de frequência para duas carteiras fixas: a de televendas e a de campo. Em televendas, inadimplentes são atendidos a cada 14 dias e os adimplentes seguem a frequência calculada pelo histórico de compras, limitada a no máximo 14 dias. Em campo, adimplentes são atendidos a cada 7 dias; entre os inadimplentes, ativos têm 14 dias, inativos 60 dias e clientes sem vendas 14 dias. Não há regras de bloqueio.",
+  "resumo": "Regra padrão de frequência para duas carteiras fixas, a de televendas e a de campo. No televendas, inadimplentes são atendidos a cada 14 dias e adimplentes seguem o histórico, limitado a 14 dias. No campo, adimplentes são atendidos a cada 7 dias, e os inadimplentes variam: ativos 14 dias, inativos 60 dias e sem vendas 14 dias. Não há regras de bloqueio.",
   "carteiras": [
     {
       "id": "C1",
@@ -17,27 +17,27 @@
       "id": "R1",
       "nome": "Regra Padrao da Otima Atacado: 14 dias para clientes inadimplentes (televendas)",
       "segmento": "Inadimplentes (televendas)",
-      "criterio": "Clientes inadimplentes da carteira de televendas",
+      "criterio": "Clientes inadimplentes",
       "frequencia": "14 dias",
-      "observacao": "",
+      "observacao": "Carteira televendas",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R2",
       "nome": "Regra Padrao da Otima Atacado: Frequência de atendimento baseada no histórico de vendas, ou até de 14 dias (televendas)",
       "segmento": "Adimplentes (televendas)",
-      "criterio": "Clientes adimplentes da carteira de televendas",
-      "frequencia": "Pelo histórico de compras, no máximo 14 dias",
-      "observacao": "Se não houver histórico, a frequência fica limitada a no máximo 14 dias",
+      "criterio": "Clientes adimplentes",
+      "frequencia": "Pelo histórico, no máximo 14 dias",
+      "observacao": "Carteira televendas",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R3",
       "nome": "Regra Padrao da Otima Atacado: 7 dias para clientes adimplentes",
       "segmento": "Adimplentes (campo)",
-      "criterio": "Clientes adimplentes da carteira de campo",
+      "criterio": "Clientes adimplentes",
       "frequencia": "7 dias",
-      "observacao": "",
+      "observacao": "Carteira campo",
       "clausulas_nao_traduzidas": []
     },
     {
@@ -46,7 +46,7 @@
       "segmento": "Ativos inadimplentes (campo)",
       "criterio": "Clientes inadimplentes e ativos para o vendedor",
       "frequencia": "14 dias",
-      "observacao": "",
+      "observacao": "Carteira campo",
       "clausulas_nao_traduzidas": []
     },
     {
@@ -55,33 +55,33 @@
       "segmento": "Inativos inadimplentes (campo)",
       "criterio": "Clientes inadimplentes e inativos para o vendedor",
       "frequencia": "60 dias",
-      "observacao": "",
+      "observacao": "Carteira campo",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R6",
       "nome": "Regra Padrao dda Otima Atacado: 14 dias para clientes sem venda (campo)",
-      "segmento": "Sem venda inadimplentes (campo)",
+      "segmento": "Sem vendas inadimplentes (campo)",
       "criterio": "Clientes inadimplentes que nunca compraram com o vendedor",
       "frequencia": "14 dias",
-      "observacao": "",
+      "observacao": "Carteira campo",
       "clausulas_nao_traduzidas": []
     }
   ],
   "pontos_de_atencao": [],
   "consultas_hipoteticas": [
-    "Televendas: inadimplentes a cada 14 dias; adimplentes pelo histórico de compras, até 14 dias. Campo: adimplentes 7 dias; inadimplentes ativos 14 dias, inativos 60 dias, sem venda 14 dias",
-    "No televendas a gente visita inadimplente a cada 14 dias e o resto pelo histórico de compras, com teto de 14 dias. No campo, quem paga em dia é toda semana e quem deve vai espaçando conforme está ativo, inativo ou sem venda",
-    "Quero frequências diferentes para televendas e campo, separando clientes por adimplência e, no campo, também por estarem ativos ou inativos"
+    "Televendas: inadimplentes 14 dias, adimplentes pelo histórico no máximo 14 dias. Campo: adimplentes 7 dias, inadimplentes ativos 14 dias, inativos 60 dias, sem vendas 14 dias",
+    "No televendas a gente atende inadimplente a cada 14 dias e o resto pelo histórico de vendas, até 14 dias. No campo é toda semana pra quem paga em dia, e quem está inadimplente depende se é ativo, inativo ou nunca comprou",
+    "Quero uma frequência padrão para televendas e campo que mude conforme o cliente seja inadimplente ou não"
   ],
   "_meta": {
     "arquivo": "regra_058.gobr",
     "sha256_gobr": "5388eba33dd17fb0b96caaabc77de49fe5e42ff8050be73150cab63f497a59d8",
-    "versao_pacote": "4",
+    "versao_pacote": "5",
     "prompt_sha256": "fd3b943ec528",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T16:43:30+00:00",
+    "gerado_em": "2026-10-20T17:54:57+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,
@@ -97,9 +97,19 @@
         "valido": true,
         "erros": [],
         "avisos": []
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
       }
     },
-    "escolhido": "agente_3.json",
-    "concordancia": 0.877
+    "escolhido": "agente_5.json",
+    "concordancia": 0.764
   }
 }

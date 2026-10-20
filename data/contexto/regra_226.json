@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "4",
+  "versao_pacote": "5",
   "arquivo": "regra_226.gobr",
   "sha256": "d0badb40e720e3e2c173e34ad2e607a65806fc91a63216a936cbfbb866781292",
   "comentarios": [
@@ -81,10 +81,8 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 30 dias e com uma única compra na empresa",
-      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 30 dias e com alguma venda (ativos ou inativos) para a empresa e com uma única compra na empresa",
-      "tratados_antes_por": [
-        "R1"
-      ],
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 30 dias e com uma única compra na empresa",
+      "tratados_antes_por": [],
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
@@ -125,9 +123,8 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 120 dias e frequência histórica de compra de 30 dias",
-      "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 120 dias, mas estão há mais de 30 dias sem comprar e frequência histórica de compra de 30 dias e com alguma venda (ativos ou inativos) para a empresa) OU (compraram com qualquer vendedor da empresa nos últimos 30 dias e frequência histórica de compra de 30 dias e com alguma venda (ativos ou inativos) para a empresa e sem ser de compra única na empresa)",
+      "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 120 dias, mas estão há mais de 30 dias sem comprar e frequência histórica de compra de 30 dias) OU (compraram com qualquer vendedor da empresa nos últimos 30 dias e frequência histórica de compra de 30 dias e sem ser de compra única na empresa)",
       "tratados_antes_por": [
-        "R1",
         "R2"
       ],
       "bloqueios_anteriores": [],
@@ -160,7 +157,7 @@
       "acoes": [
         {
           "codigo": "frequencia do historico ou no maximo de 60 dias",
-          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 60 dias",
+          "significado": "frequência calculada pelo histórico de visitas, limitada a no máximo 60 dias",
           "reconhecida": true
         }
       ],
@@ -209,10 +206,8 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "sem comprar com qualquer vendedor da empresa há mais de 120 dias",
-      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 120 dias e com alguma venda (ativos ou inativos) para a empresa",
-      "tratados_antes_por": [
-        "R1"
-      ],
+      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 120 dias",
+      "tratados_antes_por": [],
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
@@ -250,7 +245,6 @@
       "condicao_propria": "sem comprar com qualquer vendedor da empresa há mais de 180 dias",
       "condicao_efetiva": null,
       "tratados_antes_por": [
-        "R1",
         "R5"
       ],
       "bloqueios_anteriores": [],
@@ -264,12 +258,12 @@
         180
       ],
       "alertas": [
-        "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Ative essa oportunidade\", \"Mantenha seu cliente ativo! Ele está há 120 dias sem comprar com a empresa\"."
+        "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Mantenha seu cliente ativo! Ele está há 120 dias sem comprar com a empresa\"."
       ]
     }
   ],
   "nao_cobertos": {
-    "do time televendas": "((nunca compraram com qualquer vendedor da empresa ou compraram com qualquer vendedor da empresa nos últimos 120 dias, mas estão há mais de 30 dias sem comprar) e frequência histórica indefinida ou frequência histórica de compra de menos de 30 dias ou frequência histórica de compra de mais de 30 dias e com alguma venda (ativos ou inativos) para a empresa) OU (nunca compraram com qualquer vendedor da empresa e frequência histórica de compra de 30 dias e com alguma venda (ativos ou inativos) para a empresa) OU (compraram com qualquer vendedor da empresa nos últimos 30 dias e (nunca compraram com o próprio vendedor ou compraram com o próprio vendedor nos últimos 19 dias ou sem comprar com o próprio vendedor há mais de 30 dias) e frequência histórica indefinida ou frequência histórica de compra de menos de 30 dias ou frequência histórica de compra de mais de 30 dias e com alguma venda (ativos ou inativos) para a empresa e sem ser de compra única na empresa)"
+    "do time televendas": "(compraram com qualquer vendedor da empresa nos últimos 120 dias, mas estão há mais de 30 dias sem comprar e frequência histórica indefinida ou frequência histórica de compra de menos de 30 dias ou frequência histórica de compra de mais de 30 dias e com alguma venda (ativos ou inativos) para a empresa) OU (compraram com qualquer vendedor da empresa nos últimos 30 dias e (nunca compraram com o próprio vendedor ou compraram com o próprio vendedor nos últimos 19 dias ou sem comprar com o próprio vendedor há mais de 30 dias) e frequência histórica indefinida ou frequência histórica de compra de menos de 30 dias ou frequência histórica de compra de mais de 30 dias e com alguma venda (ativos ou inativos) para a empresa e sem ser de compra única na empresa)"
   },
   "alertas": [
     "A cascata mistura escopos de recência de compra (global: Cliente ativado! Crie relacionamento com seu cliente!, Clientes que compram mensalmente (clientes regulares), Mantenha seu cliente ativo! Ele está há 120 dias sem comprar com a empresa; vendedor: Recência de atendimento igual a recência de compra (clientes que compram mês sim, mês não)); faixas de escopos diferentes não se excluem automaticamente e podem se sobrepor ou deixar lacunas."
@@ -297,6 +291,7 @@
   "premissas_usadas": [
     "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
     "P2: Escopos de recência (grupo, vendedor, global) são medidas distintas, ordenadas: global <= grupo <= vendedor.",
-    "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'."
+    "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+    "P9: Em 'frequencia do historico ou no minimo/no maximo ...', os limites restringem a frequência do histórico."
   ]
 }

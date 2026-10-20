@@ -1,6 +1,7 @@
 # Correções depois do lote na nuvem
 
-Complementa `RELATORIO_LOTE.md`. Pacote de contexto agora na versão 4.
+Complementa `RELATORIO_LOTE.md`. Pacote de contexto agora na versão 5 (as seções até "Achado novo de
+modelagem" descrevem o v4; o v5 está em "Correções da avaliação (v5)").
 
 ## O que mudou
 
@@ -34,7 +35,35 @@ dias). Pelo manual (§6.11), `cadastrado faz N dias` significa cadastrado há **
 bloqueio pega todos os leads com 7 dias ou mais. A escada inteira nunca é aplicada, e a descrição
 registra isso nos pontos de atenção.
 
+## Correções da avaliação (v5)
+
+A revisão por amostra (`docs/avaliacao/`) achou seis problemas na camada determinística, todos
+corrigidos no pacote v5 (`gobr/catalogue.py`, `gobr/dims.py`, `gobr/cascade.py`, `gobr/context.py`):
+
+1. Pessoa física/jurídica deixou de ser binária: há também "sem tipo de pessoa definido".
+2. O filtro de segmentação fica visível; só as fontes declaradas são ocultadas.
+3. Regra sem ação não consome clientes na cascata.
+4. Ativo/inativo para o vendedor implica compra registrada com ele (P4/P5).
+5. O alerta nome × código olha as definições de origem e também valores em R$.
+6. `do historico` usa o histórico de visitas, e o mínimo/máximo limita a frequência (P9).
+
+As entradas do redator de 51 arquivos mudaram. Eles foram regerados em `candidatos_v5/`: 3 réplicas
+cada (153) e mais 2 em 27 arquivos com concordância abaixo de 0,8 ou sem 2 candidatos válidos (54), num
+total de 207 réplicas, das quais 203 são válidas. A consolidação passa a ser v2 → v3 → v4 → v5.
+
+| | |
+|---|---|
+| Descrições | 249 de 249 (nenhuma falha) |
+| Candidatos finais | 902 de 911 válidos |
+| Concordância | média 0,838, mediana 0,843; 71 arquivos abaixo de 0,8 |
+| Concordância nos 51 do v5 | média 0,787; 25 abaixo de 0,8 (menor: regra_032 e 151, 0,56) |
+| Concordância sem medida | nenhum arquivo |
+
+Nos 198 arquivos fora do v5 só mudou o `_meta` (versão do pacote); o texto escolhido é o mesmo.
+
 ## Arquivos obsoletos
 
-Seis `.falha.json` não valem mais: os 3 do lote na nuvem (regra_178, 184, 208) e 3 de consolidações
-intermediárias (regra_163, 201, 230). Todos têm um `.json` válido ao lado e podem ser apagados.
+Onze `.falha.json` não valem mais: os 3 do lote na nuvem (regra_178, 184, 208), 3 de consolidações
+intermediárias (regra_163, 201, 230) e 5 que a passada do v2 grava com o pacote v5 antes de o v5
+sobrescrever o arquivo (regra_153, 166, 176, 177, 233). Todos tinham um `.json` válido ao lado e foram
+removidos.

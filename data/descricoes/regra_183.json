@@ -1,5 +1,5 @@
 {
-  "resumo": "Regra de agendamento do time de televendas por perfil de compra do cliente. Inadimplentes não são agendados. Prospects têm frequência de 21 dias; quem já comprou segue a frequência pelo histórico de compras ou frequências de 14 e 21 dias, conforme a frequência histórica e a situação de ativo ou inativo. Uma das faixas nunca é aplicada e há clientes sem nenhuma regra.",
+  "resumo": "Regra de agendamento do time de televendas, que deixa de agendar os clientes inadimplentes. Prospects são atendidos a cada 21 dias; quem já comprou segue a frequência do histórico, entre 5 e 30 dias, ou 14 dias, conforme a frequência histórica de compra, e os inativos a cada 21 dias. Há clientes que não se enquadram em nenhuma regra e uma regra que nunca é aplicada.",
   "carteiras": [],
   "regras": [
     {
@@ -15,7 +15,7 @@
       "id": "R2",
       "nome": "Freq. de 21d para prospects",
       "segmento": "Prospects",
-      "criterio": "Clientes que nunca compraram com qualquer vendedor da empresa",
+      "criterio": "Clientes que nunca compraram na empresa",
       "frequencia": "21 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -32,7 +32,7 @@
     {
       "id": "R4",
       "nome": "Freq. de 14d para 'Compra regularmente' (Sem pedido em 30d)",
-      "segmento": "Compra regularmente (sem pedido em 30d)",
+      "segmento": "Compra regularmente (sem pedido em 30 dias)",
       "criterio": "Clientes que já compraram na empresa, ativos para o vendedor e com frequência histórica de compra de mais de 30 dias",
       "frequencia": "14 dias",
       "observacao": "",
@@ -41,7 +41,7 @@
     {
       "id": "R5",
       "nome": "Freq. de 14d para 'Compra regularmente' (Com pedido em 30d)",
-      "segmento": "Compra regularmente (com pedido em 30d)",
+      "segmento": "Compra regularmente (com pedido em 30 dias)",
       "criterio": "Clientes que compraram com o próprio vendedor nos últimos 30 dias, com frequência histórica de compra de mais de 30 dias e ativos para o vendedor",
       "frequencia": "14 dias",
       "observacao": "Nunca é aplicada: todos esses clientes já foram tratados antes",
@@ -51,29 +51,29 @@
       "id": "R6",
       "nome": "Freq. de 21 para inativos",
       "segmento": "Inativos",
-      "criterio": "Clientes inativos da empresa que já compraram e não são ativos para o vendedor, ou ativos com frequência histórica indefinida ou de 30 dias",
+      "criterio": "Clientes inativos no ciclo de vida da empresa que não estão ativos para o vendedor, ou que estão ativos mas têm frequência histórica indefinida ou de 30 dias",
       "frequencia": "21 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
     }
   ],
   "pontos_de_atencao": [
-    "A regra 'Freq. de 14d para Compra regularmente (Com pedido em 30d)' nunca é aplicada: todos os clientes dela já são tratados por regras anteriores.",
-    "Clientes que já compraram, estão fora do ciclo de vida inativo com a empresa e não são ativos para o vendedor, ou são ativos com frequência histórica indefinida ou de 30 dias, não se enquadram em nenhuma regra e ficam sem parametrização."
+    "A regra 'Com pedido em 30d' (Compra regularmente) nunca é aplicada: todos os clientes dela já são tratados por regras anteriores.",
+    "Clientes que já compraram na empresa e não estão inativos no ciclo de vida da empresa, e que não são ativos para o vendedor ou são ativos com frequência histórica indefinida ou de 30 dias, não se enquadram em nenhuma regra e ficam sem parametrização."
   ],
   "consultas_hipoteticas": [
-    "Televendas: não agendar inadimplentes; prospects 21 dias; ativos com histórico de menos de 30 dias pelo histórico (5 a 30 dias); ativos com histórico acima de 30 dias 14 dias; inativos 21 dias",
-    "A gente não liga para inadimplente. Prospect a cada 21 dias, e cliente que compra com frequência segue o ritmo do histórico dele, entre 5 e 30 dias. Quem compra mais devagar a gente chama a cada 14 dias e os inativos a cada 21",
-    "Quero a agenda do televendas separada em prospects, clientes que compram com alta frequência, clientes regulares e inativos, sem agendar inadimplentes"
+    "Televendas: não agendar inadimplentes; prospects 21 dias; alta frequência pelo histórico (5 a 30 dias); compra regularmente 14 dias; inativos 21 dias",
+    "A gente não liga para inadimplente. Cliente novo, que nunca comprou, é a cada 21 dias; quem compra bastante segue o ritmo do histórico, e quem compra com menos frequência é a cada 14 dias",
+    "Regra do televendas por perfil de compra do cliente, com frequência pelo histórico para quem compra muito e bloqueio de inadimplentes"
   ],
   "_meta": {
     "arquivo": "regra_183.gobr",
     "sha256_gobr": "3827edd4f7f6580076a5aa3cf4007d92e296f65f6e5ed6d8149bfad457eae3aa",
-    "versao_pacote": "4",
+    "versao_pacote": "5",
     "prompt_sha256": "fd3b943ec528",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T16:43:32+00:00",
+    "gerado_em": "2026-10-20T17:54:58+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,
@@ -91,7 +91,7 @@
         "avisos": []
       }
     },
-    "escolhido": "agente_1.json",
-    "concordancia": 0.832
+    "escolhido": "agente_2.json",
+    "concordancia": 0.807
   }
 }

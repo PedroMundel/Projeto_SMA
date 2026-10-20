@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "4",
+  "versao_pacote": "5",
   "arquivo": "regra_214.gobr",
   "sha256": "c02ebe049568c3042b55218116976b8ac3da30b331f9498c7bd6a2470ab89843",
   "comentarios": [
@@ -526,7 +526,7 @@
     }
   ],
   "nao_cobertos": {
-    "do time televendas": "((nunca compraram com o próprio vendedor ou compraram com o próprio vendedor nos últimos 20 dias ou compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 89 dias sem comprar) e não ativos para o vendedor e sem ser de compra única com o vendedor) OU ((nunca compraram com o próprio vendedor ou compraram com o próprio vendedor nos últimos 20 dias ou compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 89 dias sem comprar) e frequência histórica indefinida ou frequência histórica de compra de pelo menos 14 dias e ativos para o vendedor e sem ser de compra única com o vendedor)"
+    "do time televendas": "((nunca compraram com o próprio vendedor ou compraram com o próprio vendedor nos últimos 20 dias ou compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 89 dias sem comprar) e não ativos para o vendedor e sem ser de compra única com o vendedor) OU ((compraram com o próprio vendedor nos últimos 20 dias ou compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 89 dias sem comprar) e frequência histórica indefinida ou frequência histórica de compra de pelo menos 14 dias e ativos para o vendedor e sem ser de compra única com o vendedor)"
   },
   "alertas": [
     "A cascata mistura escopos de recência de compra (grupo: Freq. de 21d para 'Ativado: fez um pedido e ainda não comprou mais', Freq. de 14d para 'Ativado: fez um pedido e ainda não comprou mais'; vendedor: Freq. de 30d para 'Ativo: estimular a regularidade de compra', Freq. de 14d para 'Ativo: estimular a regularidade de compra', Freq. de 14d para 'Em ruptura: risco de ficar inativo' (RA 29)); faixas de escopos diferentes não se excluem automaticamente e podem se sobrepor ou deixar lacunas."

@@ -58,9 +58,8 @@
    "acoes": [
     "frequência de 7 dias"
    ],
-   "condicao_efetiva": "já compraram com o próprio vendedor e ativos para o vendedor e sem ser de compra única com o vendedor",
+   "condicao_efetiva": "ativos para o vendedor e sem ser de compra única com o vendedor",
    "tratados_antes_por": [
-    "R2",
     "R3"
    ]
   },

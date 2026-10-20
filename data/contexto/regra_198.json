@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "4",
+  "versao_pacote": "5",
   "arquivo": "regra_198.gobr",
   "sha256": "369f1f725b029b22c3722c9a0b0bce22916848911d31bd37afed16bfc4d6eee0",
   "comentarios": [
@@ -112,7 +112,7 @@
       "acoes": [
         {
           "codigo": "frequencia do historico ou no minimo de 7 dias e no maximo de 30 dias",
-          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no mínimo 7 dias e no máximo 30 dias",
+          "significado": "frequência calculada pelo histórico de visitas, limitada a no mínimo 7 dias e no máximo 30 dias",
           "reconhecida": true
         }
       ],
@@ -224,6 +224,7 @@
   ],
   "premissas_usadas": [
     "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
-    "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+    "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado.",
+    "P9: Em 'frequencia do historico ou no minimo/no maximo ...', os limites restringem a frequência do histórico."
   ]
 }

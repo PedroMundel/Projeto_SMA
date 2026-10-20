@@ -1,5 +1,5 @@
 {
-  "resumo": "Regra de agendamento do time de televendas por ciclo de vida e tempo desde a última compra, em faixas de até 30, 60, 90 e 120 dias, mais reativados, clientes de compra única e uma regra final. Antes das faixas, deixam de ser agendados os clientes baixados na Receita Federal e as filiais. A regra final atende, a cada 7 dias, quem nunca comprou ou está há mais de 120 dias sem comprar.",
+  "resumo": "Agendamento do time de televendas conforme o ciclo de vida e o tempo desde a última compra. Não são agendados os clientes baixados na Receita Federal e as filiais. Clientes reativados e os com apenas uma compra têm frequência de 3 dias; os ativos seguem faixas de até 120 dias, e a regra final cobre quem sobrou das faixas anteriores.",
   "carteiras": [],
   "regras": [
     {
@@ -32,8 +32,8 @@
     {
       "id": "R4",
       "nome": "Clientes com apenas uma compra",
-      "segmento": "Compra única",
-      "criterio": "Clientes com uma única compra na empresa, exceto os já tratados pelas regras anteriores",
+      "segmento": "Uma única compra",
+      "criterio": "Clientes com uma única compra na empresa, fora do ciclo de vida reativado",
       "frequencia": "3 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -41,17 +41,17 @@
     {
       "id": "R5",
       "nome": "Ativos recorrentes (com compra em 30 dias)",
-      "segmento": "Ativos recorrentes (até 30 dias)",
-      "criterio": "Clientes que compraram nos últimos 30 dias, exceto reativados e de compra única",
-      "frequencia": "Pelo histórico de compras",
-      "observacao": "Sem histórico, frequência limitada a no mínimo 3 dias e no máximo 21 dias",
+      "segmento": "Ativos recorrentes",
+      "criterio": "Clientes que compraram nos últimos 30 dias, com mais de uma compra, fora do ciclo de vida reativado",
+      "frequencia": "Pelo histórico, entre 3 e 21 dias",
+      "observacao": "",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R6",
       "nome": "Ativos (com compra entre 30 e 60 dias)",
       "segmento": "Ativos (30 a 60 dias)",
-      "criterio": "Clientes que compraram nos últimos 60 dias, mas estão há mais de 30 dias sem comprar, exceto reativados e de compra única",
+      "criterio": "Clientes que compraram nos últimos 60 dias, mas estão há mais de 30 dias sem comprar, com mais de uma compra, fora do ciclo reativado",
       "frequencia": "14 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -60,7 +60,7 @@
       "id": "R7",
       "nome": "Ativos (com compra entre 60 e 90 dias)",
       "segmento": "Ativos (60 a 90 dias)",
-      "criterio": "Clientes que compraram nos últimos 90 dias, mas estão há mais de 60 dias sem comprar, exceto reativados e de compra única",
+      "criterio": "Clientes que compraram nos últimos 90 dias, mas estão há mais de 60 dias sem comprar, com mais de uma compra, fora do ciclo reativado",
       "frequencia": "21 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -69,7 +69,7 @@
       "id": "R8",
       "nome": "Ativos (com compra entre 90 e 120 dias)",
       "segmento": "Ativos (90 a 120 dias)",
-      "criterio": "Clientes que compraram nos últimos 120 dias, mas estão há mais de 90 dias sem comprar, exceto reativados e de compra única",
+      "criterio": "Clientes que compraram nos últimos 120 dias, mas estão há mais de 90 dias sem comprar, com mais de uma compra, fora do ciclo reativado",
       "frequencia": "14 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -78,7 +78,7 @@
       "id": "R9",
       "nome": "Clientes que hoje não se enquadraram nas regras padrão",
       "segmento": "Demais clientes",
-      "criterio": "Clientes que nunca compraram ou estão há mais de 120 dias sem comprar, exceto reativados e de compra única",
+      "criterio": "Clientes que nunca compraram ou estão há mais de 120 dias sem comprar, com mais de uma compra, fora do ciclo de vida reativado",
       "frequencia": "7 dias",
       "observacao": "Regra final: vale para quem sobrou das faixas anteriores",
       "clausulas_nao_traduzidas": []
@@ -86,18 +86,18 @@
   ],
   "pontos_de_atencao": [],
   "consultas_hipoteticas": [
-    "Televendas: reativados e compra única a cada 3 dias; ativos até 30 dias pelo histórico (mín. 3, máx. 21); 30-60 dias 14 dias; 60-90 dias 21 dias; 90-120 dias 14 dias; demais 7 dias; não agendar baixados na Receita e filiais",
-    "A gente liga a cada 3 dias para quem acabou de reativar ou comprou só uma vez, e depois muda conforme o tempo sem comprar: 14, 21 e 14 dias até os 120 dias. Passou disso, ou nunca comprou, é toda semana. Filial e baixado na Receita fica de fora",
-    "Quero agendar o televendas por tempo desde a última compra, em faixas de 30 dias até 120 dias, com tratamento próprio para reativados e para quem comprou uma vez só"
+    "Televendas: não agendar baixados na Receita e filiais; reativados e uma única compra 3 dias; ativos até 30 dias pelo histórico entre 3 e 21; 30 a 60 dias 14; 60 a 90 dias 21; 90 a 120 dias 14; demais 7 dias",
+    "No televendas, cliente que acabou de reativar ou comprou uma vez só é contatado a cada 3 dias. Quem compra com frequência segue o histórico, e quanto mais tempo sem comprar, até 120 dias, muda a frequência. Filial e baixado na Receita não entram",
+    "Quero uma regra de televendas por ciclo de vida e tempo sem comprar, sem agendar filiais"
   ],
   "_meta": {
     "arquivo": "regra_121.gobr",
     "sha256_gobr": "45fed006255e99b4ac0fcf640ca07964a09db43a5f95c14c1b056b45ce8443be",
-    "versao_pacote": "4",
+    "versao_pacote": "5",
     "prompt_sha256": "fd3b943ec528",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T16:43:31+00:00",
+    "gerado_em": "2026-10-20T17:54:57+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,
@@ -115,7 +115,7 @@
         "avisos": []
       }
     },
-    "escolhido": "agente_2.json",
-    "concordancia": 0.812
+    "escolhido": "agente_1.json",
+    "concordancia": 0.824
   }
 }

@@ -40,7 +40,7 @@
    "acoes": [
     "frequência de 7 dias"
    ],
-   "condicao_efetiva": "pessoa jurídica e ativos para o vendedor"
+   "condicao_efetiva": "pessoa jurídica ou sem tipo de pessoa definido e ativos para o vendedor"
   },
   {
    "id": "R3",
@@ -50,7 +50,7 @@
    "acoes": [
     "frequência de 15 dias"
    ],
-   "condicao_efetiva": "adimplentes e pessoa jurídica e inativos para o vendedor"
+   "condicao_efetiva": "adimplentes e pessoa jurídica ou sem tipo de pessoa definido e inativos para o vendedor"
   },
   {
    "id": "R4",
@@ -60,7 +60,7 @@
    "acoes": [
     "não agendar"
    ],
-   "condicao_efetiva": "inadimplentes e pessoa jurídica e inativos para o vendedor"
+   "condicao_efetiva": "inadimplentes e pessoa jurídica ou sem tipo de pessoa definido e inativos para o vendedor"
   },
   {
    "id": "R5",
@@ -116,7 +116,9 @@
    ]
   }
  ],
- "nao_cobertos": {},
+ "nao_cobertos": {
+  "do time time interno": "todos os clientes"
+ },
  "alertas_do_arquivo": [],
  "premissas_usadas": [
   "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",

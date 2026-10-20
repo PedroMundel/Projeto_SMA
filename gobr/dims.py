@@ -9,7 +9,8 @@ IntervalSet; categorical and boolean dimensions hold a frozenset. Key convention
   situacao:<padrao|vendedor|empresa>            {ativo, inativo, sem_venda}
   curva:<empresa|vendedor>                      {A, B, C}
   ciclo:<empresa|vendedor>                      {ativo, inativo, ativado, reativado}
-  receita                                       {ativa, suspensa, inapta, baixada}
+  receita                                       {ativa, suspensa, inapta, baixada, outro}
+  pessoa                                        {fisica, juridica, outro}
   time                                          ValueSet of team names
   carteira                                      ValueSet of carteira names (the one the client is reached through)
   segmentacao:<nome>                            {True, False}
@@ -59,11 +60,12 @@ CATEGORICAL_DOMAINS = {
     "curva": frozenset({"A", "B", "C", OTHER}),
     "ciclo": frozenset({"ativo", "inativo", "ativado", "reativado", OTHER}),
     "receita": frozenset({"ativa", "suspensa", "inapta", "baixada", OTHER}),
+    "pessoa": frozenset({"fisica", "juridica", OTHER}),
 }
+PERSON_WORDS = {"fisica": "pessoa física", "juridica": "pessoa jurídica", OTHER: "sem tipo de pessoa definido"}
 FACT_SOURCE_SEPARATOR = "\x1f"
 BOOLEAN_GLOSS = {
     "inadimplente": ("inadimplentes", "adimplentes"),
-    "pessoa_juridica": ("pessoa jurídica", "pessoa física"),
     "filial": ("filiais", "clientes principais (não filiais)"),
     "bloqueado": ("bloqueados para atendimento", "não bloqueados"),
     "excluido": ("excluídos do sistema", "não excluídos"),
@@ -124,6 +126,8 @@ def render(key: str, value, numbers: set[int], explicit_group: bool = False) -> 
         return _render_freqhist(value, numbers)
     if key == "cadastro":
         return _render_registration(value, numbers)
+    if family == "pessoa":
+        return " ou ".join(PERSON_WORDS[v] for v in sorted(value))
     if family in CATEGORICAL_DOMAINS and (OTHER in value or len(CATEGORICAL_DOMAINS[family] - value) == 1):
         return _render_categorical_negation(key, sorted(CATEGORICAL_DOMAINS[family] - value))
     if family == "situacao":

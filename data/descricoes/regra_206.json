@@ -1,15 +1,15 @@
 {
-  "resumo": "Regra de agendamento com dois times: ativo_inativo, que atende duas carteiras fixas por tempo desde a última compra (0_90 e 90_180), e prospeccao, que atende leads e prospects. Em cada grupo, a frequência varia conforme o ramo de atividade do cliente: três faixas por carteira ou time. Deixam de ser agendados filiais, inadimplentes e prospects do time ativo_inativo. A regra de ramos não especificados fecha cada grupo.",
+  "resumo": "Planejamento de dois times: ativo_inativo, que atende duas carteiras fixas por tempo desde a última compra (0_90 e 90_180), e prospeccao, que atende leads e prospects. Em todas as faixas a frequência depende do ramo de atividade: 7, 15 ou 28 dias. Não são agendadas filiais e inadimplentes (nos dois times), nem prospects no time ativo_inativo.",
   "carteiras": [
     {
       "id": "C1",
       "nome": "0_90",
-      "descricao": "Carteira fixa dos vendedores do time ativo_inativo com clientes que compraram com qualquer vendedor da empresa nos últimos 90 dias"
+      "descricao": "Carteira fixa dos vendedores do time ativo_inativo com clientes que compraram na empresa nos últimos 90 dias"
     },
     {
       "id": "C2",
       "nome": "90_180",
-      "descricao": "Carteira fixa dos vendedores do time ativo_inativo com clientes que compraram com qualquer vendedor da empresa nos últimos 180 dias, mas estão há pelo menos 91 dias sem comprar"
+      "descricao": "Carteira fixa dos vendedores do time ativo_inativo com clientes que compraram na empresa nos últimos 180 dias, mas estão há pelo menos 91 dias sem comprar"
     }
   ],
   "regras": [
@@ -19,7 +19,7 @@
       "segmento": "Bloqueio: filiais",
       "criterio": "Clientes que são filiais",
       "frequencia": "Não agendar",
-      "observacao": "Vale para os times ativo_inativo e prospeccao",
+      "observacao": "",
       "clausulas_nao_traduzidas": []
     },
     {
@@ -28,23 +28,23 @@
       "segmento": "Bloqueio: inadimplentes",
       "criterio": "Clientes inadimplentes",
       "frequencia": "Não agendar",
-      "observacao": "Vale para os times ativo_inativo e prospeccao",
+      "observacao": "",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R3",
       "nome": "Não agendar Prospects",
       "segmento": "Bloqueio: prospects",
-      "criterio": "Clientes que nunca compraram com qualquer vendedor da empresa",
+      "criterio": "Clientes que nunca compraram na empresa",
       "frequencia": "Não agendar",
-      "observacao": "Vale para o time ativo_inativo",
+      "observacao": "Vale só para o time ativo_inativo",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R4",
       "nome": "Com pedido nos últimos 90d dos segmentos POSTO DE MOLAS, EMPRESA ÔNIBUS, AUTO PEÇAS e MINERAÇÃO.",
-      "segmento": "Com pedido até 90 dias: ramos 1, 2, 4 e 12",
-      "criterio": "Clientes da carteira 0_90 com ramo de atividade (id) 1, 2, 4 ou 12",
+      "segmento": "0_90: posto de molas, ônibus, auto peças e mineração",
+      "criterio": "Clientes da carteira 0_90 com ramo de atividade (id) 1, 12, 2 ou 4",
       "frequencia": "7 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -52,8 +52,8 @@
     {
       "id": "R5",
       "nome": "Com pedido nos últimos 90d do segmento TRANSPORTADORA.",
-      "segmento": "Com pedido até 90 dias: ramo 3",
-      "criterio": "Clientes da carteira 0_90 com ramo de atividade (id) igual a 3",
+      "segmento": "0_90: transportadora",
+      "criterio": "Clientes da carteira 0_90 com ramo de atividade (id) 3",
       "frequencia": "15 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -61,17 +61,17 @@
     {
       "id": "R6",
       "nome": "Com pedido nos últimos 90d de segmentos não especificados",
-      "segmento": "Com pedido até 90 dias: demais ramos",
-      "criterio": "Clientes da carteira 0_90 com ramo de atividade (id) fora de 1, 2, 3, 4 e 12",
+      "segmento": "0_90: demais segmentos",
+      "criterio": "Clientes da carteira 0_90 com ramo de atividade (id) diferente de 1, 12, 2, 3 e 4",
       "frequencia": "28 dias",
-      "observacao": "Fecha a carteira 0_90",
+      "observacao": "",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R7",
       "nome": "Com pedido entre 90d e 180d (clientes em risco) dos segmentos POSTO DE MOLAS, EMPRESA ÔNIBUS, AUTO PEÇAS e MINERAÇÃO.",
-      "segmento": "Em risco, 90 a 180 dias: ramos 1, 2, 4 e 12",
-      "criterio": "Clientes da carteira 90_180 com ramo de atividade (id) 1, 2, 4 ou 12",
+      "segmento": "90_180: posto de molas, ônibus, auto peças e mineração",
+      "criterio": "Clientes da carteira 90_180 com ramo de atividade (id) 1, 12, 2 ou 4",
       "frequencia": "7 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -79,8 +79,8 @@
     {
       "id": "R8",
       "nome": "Com pedido entre 90d e 180d (clientes em risco) do segmento TRANSPORTADORA.",
-      "segmento": "Em risco, 90 a 180 dias: ramo 3",
-      "criterio": "Clientes da carteira 90_180 com ramo de atividade (id) igual a 3",
+      "segmento": "90_180: transportadora",
+      "criterio": "Clientes da carteira 90_180 com ramo de atividade (id) 3",
       "frequencia": "15 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -88,17 +88,17 @@
     {
       "id": "R9",
       "nome": "Com pedido entre 90d e 180d (clientes em risco) de segmentos não especificados",
-      "segmento": "Em risco, 90 a 180 dias: demais ramos",
-      "criterio": "Clientes da carteira 90_180 com ramo de atividade (id) fora de 1, 2, 3, 4 e 12",
+      "segmento": "90_180: demais segmentos",
+      "criterio": "Clientes da carteira 90_180 com ramo de atividade (id) diferente de 1, 12, 2, 3 e 4",
       "frequencia": "28 dias",
-      "observacao": "Fecha a carteira 90_180",
+      "observacao": "",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R10",
       "nome": "Leads e Prospects dos segmentos POSTO DE MOLAS, EMPRESA ÔNIBUS, AUTO PEÇAS e MINERAÇÃO.",
-      "segmento": "Prospecção: ramos 1, 2, 4 e 12",
-      "criterio": "Clientes do time prospeccao com ramo de atividade (id) 1, 2, 4 ou 12",
+      "segmento": "Prospecção: posto de molas, ônibus, auto peças e mineração",
+      "criterio": "Clientes do time prospeccao com ramo de atividade (id) 1, 12, 2 ou 4",
       "frequencia": "7 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -106,8 +106,8 @@
     {
       "id": "R11",
       "nome": "Leads e Prospects do segmento TRANSPORTADORA.",
-      "segmento": "Prospecção: ramo 3",
-      "criterio": "Clientes do time prospeccao com ramo de atividade (id) igual a 3",
+      "segmento": "Prospecção: transportadora",
+      "criterio": "Clientes do time prospeccao com ramo de atividade (id) 3",
       "frequencia": "15 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -115,36 +115,30 @@
     {
       "id": "R12",
       "nome": "Leads e Prospects de segmentos não especificados.",
-      "segmento": "Prospecção: demais ramos",
-      "criterio": "Clientes do time prospeccao com ramo de atividade (id) fora de 1, 2, 3, 4 e 12",
+      "segmento": "Prospecção: demais segmentos",
+      "criterio": "Clientes do time prospeccao com ramo de atividade (id) diferente de 1, 12, 2, 3 e 4",
       "frequencia": "28 dias",
       "observacao": "Regra final do time prospeccao",
       "clausulas_nao_traduzidas": []
     }
   ],
   "pontos_de_atencao": [
-    "O nome da regra 'Com pedido nos últimos 90d dos segmentos POSTO DE MOLAS, EMPRESA ÔNIBUS, AUTO PEÇAS e MINERAÇÃO' fala em 90 dias, mas a regra usa outro valor.",
-    "O nome da regra 'Com pedido nos últimos 90d do segmento TRANSPORTADORA' fala em 90 dias, mas a regra usa outro valor.",
-    "O nome da regra 'Com pedido nos últimos 90d de segmentos não especificados' fala em 90 dias, mas a regra usa outro valor.",
-    "O nome da regra 'Com pedido entre 90d e 180d (clientes em risco) dos segmentos POSTO DE MOLAS, EMPRESA ÔNIBUS, AUTO PEÇAS e MINERAÇÃO' fala em 90 e 180 dias, mas a regra usa outros valores.",
-    "O nome da regra 'Com pedido entre 90d e 180d (clientes em risco) do segmento TRANSPORTADORA' fala em 90 e 180 dias, mas a regra usa outros valores.",
-    "O nome da regra 'Com pedido entre 90d e 180d (clientes em risco) de segmentos não especificados' fala em 90 e 180 dias, mas a regra usa outros valores.",
-    "Clientes dos times ativo_inativo e prospeccao que estão fora das carteiras 0_90 e 90_180 não se enquadram em nenhuma regra e ficam sem parametrização.",
+    "Clientes do time ativo_inativo e do time prospeccao que estão fora das carteiras 0_90 e 90_180 não se enquadram em nenhuma regra e ficam sem parametrização.",
     "Clientes do time ativo_inativo que estão fora das carteiras 0_90 e 90_180 não se enquadram em nenhuma regra e ficam sem parametrização."
   ],
   "consultas_hipoteticas": [
-    "Ativo_inativo: carteira 0_90 e carteira 90_180 por ramo de atividade, com ramos 1, 2, 4 e 12 a cada 7 dias, ramo 3 a cada 15 dias e demais a cada 28 dias; prospecção com as mesmas frequências; não agendar filiais, inadimplentes e prospects",
-    "A gente separa os clientes que compraram nos últimos 90 dias dos que estão entre 91 e 180 dias sem comprar, e muda a frequência pelo ramo: transportadora a cada 15 dias, alguns ramos toda semana e o restante a cada 28 dias. O time de prospecção segue a mesma lógica para leads",
-    "Quero agendar clientes ativos e em risco por ramo de atividade, com um time só de prospecção, e bloquear filiais e inadimplentes"
+    "Carteiras 0_90 e 90_180 por ramo de atividade: ids 1, 12, 2 e 4 a cada 7 dias; id 3 a cada 15; demais a cada 28. Prospecção com as mesmas frequências. Não agendar filiais e inadimplentes",
+    "A gente separa os clientes em quem comprou até 90 dias e quem está entre 91 e 180 dias sem comprar. Transportadora é visitada a cada 15 dias, os ramos principais toda semana e o resto a cada 28 dias. Filial e inadimplente ficam de fora",
+    "Quero frequências por ramo de atividade para duas carteiras por tempo sem comprar e um time só de prospecção"
   ],
   "_meta": {
     "arquivo": "regra_206.gobr",
     "sha256_gobr": "79988d85b1a5178205a77f6ea8c10cd843a29f0912379ce026de308378548442",
-    "versao_pacote": "4",
+    "versao_pacote": "5",
     "prompt_sha256": "fd3b943ec528",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T16:43:33+00:00",
+    "gerado_em": "2026-10-20T17:54:58+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,
@@ -163,6 +157,6 @@
       }
     },
     "escolhido": "agente_3.json",
-    "concordancia": 0.847
+    "concordancia": 0.817
   }
 }

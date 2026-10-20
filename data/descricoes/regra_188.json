@@ -1,5 +1,5 @@
 {
-  "resumo": "Regra de agendamento do time televendas por situação de compra do cliente com o vendedor. Não são agendados os inadimplentes, as filiais e os baixados na Receita Federal. Os demais são separados em sem vendas para o vendedor, compra regular nos últimos 30 dias, faixas de tempo sem comprar (mais de 30 e mais de 45 dias) e quem nunca comprou.",
+  "resumo": "Regra de agendamento do time televendas por tempo sem comprar com o vendedor. Antes das faixas, deixam de ser agendados os inadimplentes, as filiais e os baixados na Receita Federal. Em seguida vêm os clientes sem vendas para o vendedor, a compra regular, as faixas de clientes parando de comprar e, por último, os que nunca compraram mas têm alguma venda para o vendedor.",
   "carteiras": [],
   "regras": [
     {
@@ -60,7 +60,7 @@
       "id": "R7",
       "nome": "Atenção!!! Cliente deixando de comprar com você! Ele está entre 45 e 60 dias sem comprar!",
       "segmento": "Deixando de comprar",
-      "criterio": "Clientes que compraram nos últimos 45 dias, mas estão há mais de 30 dias sem comprar, e têm alguma venda (ativos ou inativos) para o vendedor",
+      "criterio": "Clientes que compraram nos últimos 45 dias, mas estão há mais de 30 dias sem comprar, com alguma venda (ativos ou inativos) para o vendedor",
       "frequencia": "7 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -68,8 +68,8 @@
     {
       "id": "R8",
       "nome": "Atenção!!! Resgate este cliente caso ele seja perfil!",
-      "segmento": "Resgate de perfil",
-      "criterio": "Clientes que nunca compraram e têm alguma venda (ativos ou inativos) para o vendedor",
+      "segmento": "Resgate",
+      "criterio": "Clientes que nunca compraram, mas têm alguma venda (ativos ou inativos) para o vendedor",
       "frequencia": "14 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -77,18 +77,18 @@
   ],
   "pontos_de_atencao": [],
   "consultas_hipoteticas": [
-    "Televendas: não agendar inadimplentes, filiais e baixados na Receita; sem vendas 21 dias; comprou nos últimos 30 dias pelo histórico entre 7 e 30 dias; mais de 30 dias sem comprar 7 dias; mais de 45 dias 14 dias; nunca comprou 14 dias",
-    "No televendas a gente não liga pra inadimplente, filial nem baixado na Receita. Cliente novo sem vendas é a cada 21 dias, quem compra direto segue o ritmo do histórico dele, e quem vai esfriando a gente aperta pra 7 ou 14 dias",
-    "Quero frequências para o televendas conforme o tempo que o cliente está sem comprar com o vendedor, bloqueando inadimplentes, filiais e baixados"
+    "Televendas: não agendar inadimplentes, filiais e baixados na Receita; sem vendas a cada 21 dias; compra nos últimos 30 dias pelo histórico entre 7 e 30 dias; 14 dias e 7 dias nas faixas seguintes",
+    "Quero que o televendas ligue a cada 21 dias para quem ainda não tem vendas, siga o histórico de quem compra regularmente e aperte para 7 dias quem está deixando de comprar. Inadimplente, filial e baixado na Receita fica de fora",
+    "Agenda do televendas por tempo sem comprar, com frequência pelo histórico para quem compra regular e bloqueio de inadimplentes e filiais"
   ],
   "_meta": {
     "arquivo": "regra_188.gobr",
     "sha256_gobr": "a28b7a8fb4becb23bd531fc1359ccd88deda10f3c34cba411d4ac33f2b219bdc",
-    "versao_pacote": "4",
+    "versao_pacote": "5",
     "prompt_sha256": "fd3b943ec528",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T16:43:32+00:00",
+    "gerado_em": "2026-10-20T17:54:58+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,
@@ -104,19 +104,9 @@
         "valido": true,
         "erros": [],
         "avisos": []
-      },
-      "agente_4.json": {
-        "valido": true,
-        "erros": [],
-        "avisos": []
-      },
-      "agente_5.json": {
-        "valido": true,
-        "erros": [],
-        "avisos": []
       }
     },
-    "escolhido": "agente_4.json",
-    "concordancia": 0.816
+    "escolhido": "agente_1.json",
+    "concordancia": 0.867
   }
 }

@@ -33,7 +33,10 @@
    "acoes": [
     "não agendar"
    ],
-   "condicao_efetiva": "tipo de cobrança (id) igual a DH e sem crédito disponível"
+   "condicao_efetiva": "tipo de cobrança (id) igual a DH e sem crédito disponível",
+   "alertas": [
+    "O nome da regra cita R$ 0, valor que não aparece no código: nome e código podem estar divergentes."
+   ]
   },
   {
    "id": "R2",
@@ -43,7 +46,10 @@
    "acoes": [
     "não agendar"
    ],
-   "condicao_efetiva": "tipo de cobrança (id) igual a BK e com menos de R$ 199 de crédito disponível"
+   "condicao_efetiva": "tipo de cobrança (id) igual a BK e com menos de R$ 199 de crédito disponível",
+   "alertas": [
+    "O nome da regra cita R$ 200, valor que não aparece no código: nome e código podem estar divergentes."
+   ]
   },
   {
    "id": "R3",

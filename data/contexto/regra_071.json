@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "4",
+  "versao_pacote": "5",
   "arquivo": "regra_071.gobr",
   "sha256": "4bc279e2ff5f4c7fabfc8f8c63d029531a6ef6875a588c9dfb442b31d175095e",
   "comentarios": [
@@ -145,7 +145,7 @@
       "acoes": [
         {
           "codigo": "frequencia do historico ou no maximo semanal()",
-          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 7 dias",
+          "significado": "frequência calculada pelo histórico de visitas, limitada a no máximo 7 dias",
           "reconhecida": true
         },
         {
@@ -184,7 +184,7 @@
       "acoes": [
         {
           "codigo": "frequencia do historico ou no maximo semanal()",
-          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 7 dias",
+          "significado": "frequência calculada pelo histórico de visitas, limitada a no máximo 7 dias",
           "reconhecida": true
         },
         {
@@ -273,7 +273,7 @@
       "acoes": [
         {
           "codigo": "frequencia do historico ou no maximo semanal()",
-          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 7 dias",
+          "significado": "frequência calculada pelo histórico de visitas, limitada a no máximo 7 dias",
           "reconhecida": true
         },
         {
@@ -323,7 +323,7 @@
       "acoes": [
         {
           "codigo": "frequencia do historico ou no maximo semanal()",
-          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 7 dias",
+          "significado": "frequência calculada pelo histórico de visitas, limitada a no máximo 7 dias",
           "reconhecida": true
         },
         {
@@ -411,7 +411,7 @@
       "acoes": [
         {
           "codigo": "frequencia do historico ou no maximo semanal()",
-          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 7 dias",
+          "significado": "frequência calculada pelo histórico de visitas, limitada a no máximo 7 dias",
           "reconhecida": true
         },
         {
@@ -488,7 +488,7 @@
       "acoes": [
         {
           "codigo": "frequencia do historico ou no maximo semanal()",
-          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 7 dias",
+          "significado": "frequência calculada pelo histórico de visitas, limitada a no máximo 7 dias",
           "reconhecida": true
         },
         {
@@ -567,6 +567,7 @@
   "premissas_usadas": [
     "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
     "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores.",
-    "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+    "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b.",
+    "P9: Em 'frequencia do historico ou no minimo/no maximo ...', os limites restringem a frequência do histórico."
   ]
 }

@@ -63,7 +63,7 @@
    "fonte": "do time televendas",
    "acao_principal": "frequencia",
    "acoes": [
-    "frequência calculada pelo histórico de compras mais 3 dias; se não houver, limitada a no mínimo 14 dias e no máximo 30 dias"
+    "frequência calculada pelo histórico de visitas mais 3 dias, limitada a no mínimo 14 dias e no máximo 30 dias"
    ],
    "condicao_efetiva": "compraram nos últimos 30 dias, mas estão há mais de 7 dias sem comprar",
    "tratados_antes_por": [

@@ -1,64 +1,64 @@
 {
-  "resumo": "Regra de agendamento do time televendas dividida em três carteiras fixas por ramo de atividade: construtora, matcon e demais_segment. Todas começam pelos clientes que nunca compraram com o vendedor e pelos de compra única, seguem com faixas de regularidade, caminho para inatividade, resgate e requalificação, com frequências diferentes por carteira. Não há bloqueios de agenda. Três faixas das construtoras (inatividade, resgate e requalificação) nunca são aplicadas.",
+  "resumo": "Regra de agendamento do time de televendas dividida em três carteiras fixas dos vendedores: construtora, matcon e demais_segment. Os clientes são organizados por compra única, regularidade e tempo sem comprar na empresa, com frequências de 7, 14, 21 e 28 dias, e não há bloqueios. As regras de construtora para inatividade, resgate e requalificação nunca são aplicadas, e a requalificação de quem passou de 180 dias sem comprar é feita pelas demais carteiras.",
   "carteiras": [
     {
       "id": "C1",
       "nome": "construtora",
-      "descricao": "Carteira fixa dos vendedores do time televendas, filtrada por uma lista de ramos de atividade"
+      "descricao": "Carteira fixa dos vendedores do time televendas, filtrada por ramos de atividade"
     },
     {
       "id": "C2",
       "nome": "matcon",
-      "descricao": "Carteira fixa dos vendedores do time televendas, filtrada por uma lista de ramos de atividade"
+      "descricao": "Carteira fixa dos vendedores do time televendas, filtrada por ramos de atividade"
     },
     {
       "id": "C3",
       "nome": "demais_segment",
-      "descricao": "Carteira fixa dos vendedores do time televendas, com os clientes de ramos de atividade fora de uma lista definida"
+      "descricao": "Carteira fixa dos vendedores do time televendas, com os ramos de atividade fora dos listados"
     }
   ],
   "regras": [
     {
       "id": "R1",
       "nome": "Ative um novo cliente em sua carteira! (Todos os segmentos)",
-      "segmento": "Novos clientes (todos os segmentos)",
-      "criterio": "Clientes das carteiras construtora, matcon e demais_segment que nunca compraram com o próprio vendedor",
+      "segmento": "Novo cliente (todos os segmentos)",
+      "criterio": "Clientes que nunca compraram com o próprio vendedor",
       "frequencia": "7 dias",
-      "observacao": "",
+      "observacao": "Vale para as carteiras construtora, matcon e demais_segment",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R2",
       "nome": "Estabeleça relacionamento com seu novo cliente! (Construtoras)",
-      "segmento": "Novo cliente (Construtoras)",
-      "criterio": "Clientes da carteira construtora que já compraram com o próprio vendedor e têm uma única compra com ele",
+      "segmento": "Novo cliente (construtoras)",
+      "criterio": "Clientes que já compraram com o próprio vendedor, mas têm uma única compra com ele",
       "frequencia": "14 dias",
-      "observacao": "",
+      "observacao": "Carteira construtora",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R3",
       "nome": "Estabeleça relacionamento com seu novo cliente! (Exceto Construtoras)",
-      "segmento": "Novo cliente (exceto Construtoras)",
-      "criterio": "Clientes das carteiras matcon e demais_segment que já compraram com o próprio vendedor e têm uma única compra com ele",
+      "segmento": "Novo cliente (exceto construtoras)",
+      "criterio": "Clientes que já compraram com o próprio vendedor, mas têm uma única compra com ele",
       "frequencia": "7 dias",
-      "observacao": "",
+      "observacao": "Carteiras matcon e demais_segment",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R4",
       "nome": "Cliente que compra com regularidade! (Exceto Construtoras)",
-      "segmento": "Compra com regularidade (exceto Construtoras)",
-      "criterio": "Clientes que compraram no grupo de vendedores nos últimos 30 dias, mas estão há pelo menos 7 dias sem comprar, com mais de uma compra com o vendedor",
-      "frequencia": "Pelo histórico, mínimo de 7 e máximo de 30 dias",
+      "segmento": "Compra com regularidade (exceto construtoras)",
+      "criterio": "Clientes com mais de uma compra que compraram no grupo de vendedores nos últimos 30 dias, mas estão há pelo menos 7 dias sem comprar",
+      "frequencia": "Pelo histórico, entre 7 e 30 dias",
       "observacao": "Carteiras matcon e demais_segment",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R5",
       "nome": "Cliente que compra com regularidade! (Construtoras com venda em 30d)",
-      "segmento": "Construtoras com venda em 30 dias",
-      "criterio": "Clientes que compraram no grupo de vendedores nos últimos 30 dias, com mais de uma compra com o vendedor",
+      "segmento": "Compra com regularidade (construtoras, venda em 30 dias)",
+      "criterio": "Clientes com mais de uma compra que compraram no grupo de vendedores nos últimos 30 dias",
       "frequencia": "7 dias",
       "observacao": "Carteira construtora",
       "clausulas_nao_traduzidas": []
@@ -66,8 +66,8 @@
     {
       "id": "R6",
       "nome": "Cliente que compra com regularidade! (Construtoras sem venda em 30d)",
-      "segmento": "Construtoras sem venda em 30 dias",
-      "criterio": "Clientes sem comprar no grupo de vendedores há mais de 30 dias, com mais de uma compra com o vendedor",
+      "segmento": "Compra com regularidade (construtoras, sem venda em 30 dias)",
+      "criterio": "Clientes com mais de uma compra que estão há mais de 30 dias sem comprar no grupo de vendedores",
       "frequencia": "14 dias",
       "observacao": "Carteira construtora",
       "clausulas_nao_traduzidas": []
@@ -75,34 +75,34 @@
     {
       "id": "R7",
       "nome": "Estimule a regularidade de compra do seu cliente! (Matcon)",
-      "segmento": "Estimular regularidade (Matcon)",
-      "criterio": "Clientes que compraram na empresa nos últimos 60 dias, mas estão há pelo menos 30 dias sem comprar, com mais de uma compra com o vendedor",
+      "segmento": "Estimular regularidade (matcon)",
+      "criterio": "Clientes com mais de uma compra que compraram na empresa nos últimos 60 dias, mas estão há pelo menos 30 dias sem comprar",
       "frequencia": "7 dias",
-      "observacao": "Exige compra no grupo de vendedores nos últimos 6 dias ou mais de 30 dias sem comprar no grupo",
+      "observacao": "Exige compra no grupo nos últimos 6 dias ou mais de 30 dias sem comprar nele.",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R8",
       "nome": "Estimule a regularidade de compra do seu cliente! (Exceto Matcon)",
-      "segmento": "Estimular regularidade (exceto Matcon)",
-      "criterio": "Clientes da carteira demais_segment que compraram na empresa nos últimos 60 dias, mas estão há pelo menos 30 dias sem comprar, com mais de uma compra com o vendedor",
+      "segmento": "Estimular regularidade (exceto matcon)",
+      "criterio": "Clientes com mais de uma compra que compraram na empresa nos últimos 60 dias, mas estão há pelo menos 30 dias sem comprar",
       "frequencia": "14 dias",
-      "observacao": "Exige compra no grupo de vendedores nos últimos 6 dias ou mais de 30 dias sem comprar no grupo",
+      "observacao": "Exige compra no grupo nos últimos 6 dias ou mais de 30 dias sem comprar nele. Na prática, só demais_segment.",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R9",
       "nome": "Atenção!!! Cliente caminhando para inatividade! (Matcon)",
-      "segmento": "Caminhando para inatividade (Matcon)",
-      "criterio": "Clientes que compraram na empresa nos últimos 89 dias, mas estão há mais de 60 dias sem comprar, com mais de uma compra com o vendedor",
+      "segmento": "Caminhando para inatividade (matcon)",
+      "criterio": "Clientes com mais de uma compra que compraram na empresa nos últimos 89 dias, mas estão há mais de 60 dias sem comprar",
       "frequencia": "7 dias",
-      "observacao": "",
+      "observacao": "Carteira matcon",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R10",
       "nome": "Atenção!!! Cliente caminhando para inatividade! (Construtoras)",
-      "segmento": "Caminhando para inatividade (Construtoras)",
+      "segmento": "Caminhando para inatividade (construtoras)",
       "criterio": "Clientes que compraram na empresa nos últimos 89 dias, mas estão há pelo menos 60 dias sem comprar",
       "frequencia": "14 dias",
       "observacao": "Nunca é aplicada: todos esses clientes já foram tratados antes",
@@ -111,25 +111,25 @@
     {
       "id": "R11",
       "nome": "Atenção!!! Cliente caminhando para inatividade! (Exceto Matcon e Construtoras)",
-      "segmento": "Caminhando para inatividade (exceto Matcon e Construtoras)",
-      "criterio": "Clientes da carteira demais_segment que compraram na empresa nos últimos 89 dias, mas estão há mais de 60 dias sem comprar, com mais de uma compra com o vendedor",
+      "segmento": "Caminhando para inatividade (demais_segment)",
+      "criterio": "Clientes com mais de uma compra que compraram na empresa nos últimos 89 dias, mas estão há mais de 60 dias sem comprar",
       "frequencia": "21 dias",
-      "observacao": "",
+      "observacao": "Carteira demais_segment",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R12",
       "nome": "Resgate este cliente inativo! (Matcon)",
-      "segmento": "Resgate de inativos (Matcon)",
-      "criterio": "Clientes que compraram na empresa nos últimos 179 dias, mas estão há mais de 89 dias sem comprar, com mais de uma compra com o vendedor",
+      "segmento": "Resgate de inativos (matcon)",
+      "criterio": "Clientes com mais de uma compra que compraram na empresa nos últimos 179 dias, mas estão há mais de 89 dias sem comprar",
       "frequencia": "7 dias",
-      "observacao": "",
+      "observacao": "Carteira matcon",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R13",
       "nome": "Resgate este cliente inativo! (Construtoras)",
-      "segmento": "Resgate de inativos (Construtoras)",
+      "segmento": "Resgate de inativos (construtoras)",
       "criterio": "Clientes que compraram na empresa nos últimos 179 dias, mas estão há mais de 89 dias sem comprar",
       "frequencia": "21 dias",
       "observacao": "Nunca é aplicada: todos esses clientes já foram tratados antes",
@@ -138,17 +138,17 @@
     {
       "id": "R14",
       "nome": "Resgate este cliente inativo! (Exceto Matcon e Construtoras)",
-      "segmento": "Resgate de inativos (exceto Matcon e Construtoras)",
-      "criterio": "Clientes da carteira demais_segment que compraram na empresa nos últimos 179 dias, mas estão há mais de 89 dias sem comprar, com mais de uma compra com o vendedor",
+      "segmento": "Resgate de inativos (demais_segment)",
+      "criterio": "Clientes com mais de uma compra que compraram na empresa nos últimos 179 dias, mas estão há mais de 89 dias sem comprar",
       "frequencia": "14 dias",
-      "observacao": "",
+      "observacao": "Carteira demais_segment",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R15",
       "nome": "Requalifique e resgate este cliente! (Exceto Construtoras)",
-      "segmento": "Requalificar e resgatar (exceto Construtoras)",
-      "criterio": "Clientes sem comprar na empresa há mais de 180 dias, com mais de uma compra com o vendedor",
+      "segmento": "Requalificação (exceto construtoras)",
+      "criterio": "Clientes com mais de uma compra que estão há mais de 180 dias sem comprar na empresa",
       "frequencia": "14 dias",
       "observacao": "Carteiras matcon e demais_segment",
       "clausulas_nao_traduzidas": []
@@ -156,8 +156,8 @@
     {
       "id": "R16",
       "nome": "Requalifique e resgate este cliente! (Construtoras)",
-      "segmento": "Requalificar e resgatar (Construtoras)",
-      "criterio": "Clientes sem comprar na empresa há mais de 180 dias",
+      "segmento": "Requalificação (construtoras)",
+      "criterio": "Clientes que estão há mais de 180 dias sem comprar na empresa",
       "frequencia": "28 dias",
       "observacao": "Nunca é aplicada: todos esses clientes já foram tratados antes",
       "clausulas_nao_traduzidas": []
@@ -167,22 +167,22 @@
     "A regra 'Atenção!!! Cliente caminhando para inatividade! (Construtoras)' nunca é aplicada: todos os clientes dela já são tratados por regras anteriores.",
     "A regra 'Resgate este cliente inativo! (Construtoras)' nunca é aplicada: todos os clientes dela já são tratados por regras anteriores.",
     "A regra 'Requalifique e resgate este cliente! (Construtoras)' nunca é aplicada: todos os clientes dela já são tratados por regras anteriores.",
-    "A sequência de regras mistura escopos de recência de compra (empresa toda: as três faixas 'Estimule a regularidade de compra' (Matcon e Exceto Matcon) e 'Caminhando para inatividade' (Matcon); grupo de vendedores: as três faixas 'Cliente que compra com regularidade'). Faixas de escopos diferentes não se excluem automaticamente e podem se sobrepor ou deixar lacunas.",
-    "Clientes das carteiras construtora, matcon e demais_segment que compraram na empresa nos últimos 29 dias ou compraram nos últimos 180 dias mas estão há mais de 179 dias sem comprar, que compraram no grupo de vendedores nos últimos 6 dias ou estão há mais de 30 dias sem comprar no grupo, e têm mais de uma compra com o vendedor, não se enquadram em nenhuma regra e ficam sem parametrização."
+    "A cascata mistura escopos de recência de compra (empresa nas regras 'Estimule a regularidade...' e 'Atenção!!! ... (Matcon)', grupo de vendedores nas regras 'Cliente que compra com regularidade!'), então as faixas não se excluem automaticamente e podem se sobrepor ou deixar lacunas.",
+    "Nas carteiras construtora, matcon e demais_segment, clientes com mais de uma compra que compraram na empresa nos últimos 29 dias, ou nos últimos 180 dias mas estão há mais de 179 dias sem comprar, e que compraram no grupo nos últimos 6 dias ou estão há mais de 30 dias sem comprar nele, não se enquadram em nenhuma regra e ficam sem parametrização."
   ],
   "consultas_hipoteticas": [
-    "Televendas, 3 carteiras (construtora, matcon, demais_segment): nunca comprou 7 dias; compra única construtora 14 dias, demais 7; regularidade construtora 7 e 14 dias; inatividade matcon 7 dias, demais 21; resgate matcon 7 dias, demais 14; mais de 180 dias 14 dias",
-    "A gente separa os clientes em construtora, matcon e o resto. Cliente novo que nunca comprou é toda semana. Quem está caminhando para inatividade, no matcon é a cada 7 dias e nos demais a cada 21. Quem sumiu há mais de 180 dias a gente requalifica a cada 14 dias",
-    "Frequência do televendas por carteira de ramo de atividade, com faixas de regularidade, inatividade e resgate, e tratamento próprio para clientes novos"
+    "Televendas, três carteiras (construtora, matcon, demais_segment): nunca compraram a cada 7 dias; compra única a cada 7 ou 14 dias; regularidade pelo histórico entre 7 e 30 dias; inativos de 89 e 179 dias a cada 7, 14 ou 21; mais de 180 dias a cada 14",
+    "A gente separa os clientes do televendas em construtoras, matcon e os demais. Novo cliente é contatado toda semana, e quem está caminhando para inatividade ou já inativo entra em faixas de 60, 89 e 179 dias, com frequência de 7 a 21 dias conforme a carteira",
+    "Quero agendar o televendas por carteira de ramo de atividade, com frequência maior para clientes novos e para quem está parado há mais tempo"
   ],
   "_meta": {
     "arquivo": "regra_216.gobr",
     "sha256_gobr": "4427fa706c03f145217ab78fb9a201bf9a74bb66d19e47900b58a56e79af33d3",
-    "versao_pacote": "4",
+    "versao_pacote": "5",
     "prompt_sha256": "fd3b943ec528",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T16:43:33+00:00",
+    "gerado_em": "2026-10-20T17:54:58+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,
@@ -202,17 +202,17 @@
       "agente_4.json": {
         "valido": true,
         "erros": [],
-        "avisos": []
+        "avisos": [
+          "consulta 1: números fora do pacote [3]"
+        ]
       },
       "agente_5.json": {
         "valido": true,
         "erros": [],
-        "avisos": [
-          "consulta 1: números fora do pacote [3]"
-        ]
+        "avisos": []
       }
     },
-    "escolhido": "agente_5.json",
-    "concordancia": 0.71
+    "escolhido": "agente_3.json",
+    "concordancia": 0.753
   }
 }

@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "4",
+  "versao_pacote": "5",
   "arquivo": "regra_206.gobr",
   "sha256": "79988d85b1a5178205a77f6ea8c10cd843a29f0912379ce026de308378548442",
   "comentarios": [
@@ -191,9 +191,7 @@
       "numeros_exigidos": [
         7
       ],
-      "alertas": [
-        "O nome da regra cita 90 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
-      ]
+      "alertas": []
     },
     {
       "id": "R5",
@@ -232,9 +230,7 @@
       "numeros_exigidos": [
         15
       ],
-      "alertas": [
-        "O nome da regra cita 90 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
-      ]
+      "alertas": []
     },
     {
       "id": "R6",
@@ -270,9 +266,7 @@
       "numeros_exigidos": [
         28
       ],
-      "alertas": [
-        "O nome da regra cita 90 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
-      ]
+      "alertas": []
     },
     {
       "id": "R7",
@@ -311,9 +305,7 @@
       "numeros_exigidos": [
         7
       ],
-      "alertas": [
-        "O nome da regra cita 90, 180 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
-      ]
+      "alertas": []
     },
     {
       "id": "R8",
@@ -352,9 +344,7 @@
       "numeros_exigidos": [
         15
       ],
-      "alertas": [
-        "O nome da regra cita 90, 180 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
-      ]
+      "alertas": []
     },
     {
       "id": "R9",
@@ -390,9 +380,7 @@
       "numeros_exigidos": [
         28
       ],
-      "alertas": [
-        "O nome da regra cita 90, 180 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
-      ]
+      "alertas": []
     },
     {
       "id": "R10",

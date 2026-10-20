@@ -1,19 +1,19 @@
 # regra_189.gobr
 
-Regra de agendamento do time de televendas, organizada por compra no ano e ticket médio. As três primeiras faixas atendem semanalmente, em dias de preferência: base de valor alto, base de valor médio e quem teve a última compra no ano anterior. Os demais clientes são separados em ativação de novo cliente, boas-vindas, bom histórico de compra e risco de inatividade. Não há regras de bloqueio.
+Regra de agendamento do time de televendas organizada por ticket médio e ano da última compra. As três primeiras regras tratam a base de valor alto, a de valor médio e quem comprou só no ano anterior, com frequência semanal e dias de preferência. Em seguida vêm as regras de ativação e boas-vindas, de bom histórico de compra e de risco de inatividade. Não há bloqueios nem regra final.
 
 ## Regras
 
 | Segmento | Critério | Frequência | Observação |
 |---|---|---|---|
-| Base de valor alto | Clientes sem compra com a empresa no ano atual e com ticket médio maior que R$ 4999 | 7 dias | Preferência segunda e sexta; demais dias sem atendimento. Parametrização fixa de frequência e dias |
-| Base de valor médio | Clientes sem compra com a empresa no ano atual e com ticket médio menor que R$ 4999 | 7 dias | Preferência terça e sexta; demais dias sem atendimento. Parametrização fixa de frequência e dias |
-| Última compra no ano anterior | Clientes com compra no ano anterior, sem compra no ano atual e com ticket médio nem maior nem menor que R$ 4999 | 7 dias | Preferência quarta e quinta; demais dias sem atendimento |
-| Ativação de novo cliente | Clientes sem vendas para o vendedor, com compra no ano atual ou sem compra nos anos anterior e atual e ticket médio nem acima nem abaixo de R$ 4999 | 7 dias |  |
-| Boas-vindas a cliente ativado | Clientes com compra única com o vendedor, com compra no ano atual ou sem compra nos anos anterior e atual e ticket médio nem acima nem abaixo de R$ 4999 | 7 dias |  |
-| Bom histórico de compra | Clientes com frequência histórica de compra de até 14 dias e mais de uma compra com o vendedor, nas mesmas condições de ano e ticket da regra anterior | Pelo histórico, entre 4 e 6 dias | Se não houver histórico, a frequência fica limitada a no mínimo 4 dias e no máximo 6 dias |
-| Risco de ficar inativo | Clientes de frequência histórica indefinida ou acima de 14 dias, que compraram com o vendedor nos últimos 24 dias ou estão há mais de 30 dias sem comprar com ele | 7 dias | Mesmas condições de ano e ticket da regra anterior; exclui quem tem compra única com o vendedor |
+| Valor alto | Clientes sem compra na empresa no ano atual e com ticket médio maior que R$ 4999 | 7 dias | Preferência na segunda e na sexta; demais dias sem atendimento; parametrização fixa |
+| Valor médio | Clientes sem compra na empresa no ano atual e com ticket médio menor que R$ 4999 | 7 dias | Preferência na terça e na sexta; demais dias sem atendimento; parametrização fixa |
+| Última compra no ano anterior | Clientes com compra na empresa no ano anterior e sem compra no ano atual, fora das faixas de ticket médio maior ou menor que R$ 4999 | 7 dias | Preferência na quarta e na quinta; demais dias sem atendimento |
+| Novo cliente em potencial | Clientes sem vendas para o vendedor, com compra na empresa no ano atual ou sem compra nos dois anos, fora das regras anteriores | 7 dias |  |
+| Novo cliente ativado | Clientes com alguma venda para o vendedor e uma única compra com ele, com compra no ano atual ou sem compra nos dois anos | 7 dias |  |
+| Bom histórico de compra | Clientes com frequência histórica de compra de até 14 dias e mais de uma compra com o vendedor, com compra no ano atual ou sem compra nos dois anos | Pelo histórico, entre 4 e 6 dias |  |
+| Risco de inatividade | Clientes com compra com o vendedor nos últimos 24 dias ou há mais de 30 dias sem comprar, frequência histórica indefinida ou acima de 14 dias, e mais de uma compra | 7 dias |  |
 
 ## Pontos de atenção
 
-- Clientes com compra no ano atual e frequência histórica indefinida ou acima de 14 dias, que nunca compraram com o vendedor ou compraram com ele nos últimos 30 dias mas estão há pelo menos 25 dias sem comprar, e não são de compra única, não se enquadram em nenhuma regra e ficam sem parametrização. O mesmo vale para clientes sem compra nos anos anterior e atual, com ticket médio nem acima nem abaixo de R$ 4999, nessas mesmas condições.
+- Clientes que compraram com o vendedor nos últimos 30 dias, mas estão há pelo menos 25 dias sem comprar, com frequência histórica indefinida ou de mais de 14 dias e mais de uma compra, não se enquadram em nenhuma regra e ficam sem parametrização.

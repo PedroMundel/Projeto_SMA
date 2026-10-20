@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "4",
+  "versao_pacote": "5",
   "arquivo": "regra_121.gobr",
   "sha256": "45fed006255e99b4ac0fcf640ca07964a09db43a5f95c14c1b056b45ce8443be",
   "comentarios": [
@@ -180,7 +180,7 @@
       "acoes": [
         {
           "codigo": "frequencia do historico ou no minimo de 3 dias e no maximo de 21 dias",
-          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no mínimo 3 dias e no máximo 21 dias",
+          "significado": "frequência calculada pelo histórico de visitas, limitada a no mínimo 3 dias e no máximo 21 dias",
           "reconhecida": true
         }
       ],
@@ -409,5 +409,7 @@
     90,
     120
   ],
-  "premissas_usadas": []
+  "premissas_usadas": [
+    "P9: Em 'frequencia do historico ou no minimo/no maximo ...', os limites restringem a frequência do histórico."
+  ]
 }

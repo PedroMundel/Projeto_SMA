@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "4",
+  "versao_pacote": "5",
   "arquivo": "regra_200.gobr",
   "sha256": "9684df135094f823efd986dcb95c7a0b19b89e008b40f54d286c9c955124e89d",
   "comentarios": [
@@ -107,7 +107,7 @@
       "acoes": [
         {
           "codigo": "frequencia do historico mais 5 dias ou no maximo de 30 dias",
-          "significado": "frequência calculada pelo histórico de compras mais 5 dias; se não houver, limitada a no máximo 30 dias",
+          "significado": "frequência calculada pelo histórico de visitas mais 5 dias, limitada a no máximo 30 dias",
           "reconhecida": true
         }
       ],

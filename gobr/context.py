@@ -13,9 +13,10 @@ from gobr.ir import Block, Clause, GobrFile
 from gobr.parser import parse_file, read_source
 from gobr.text import CONTROL_CHARS_RE
 
-PACKAGE_VERSION = "4"  # 2: composite sources as unions (P8); 3: registration age as interval; 4: required numbers
+PACKAGE_VERSION = "5"  # 2: unions (P8); 3: registration age; 4: required numbers; 5: evaluation fixes
 MAX_CODE_CHARS = 160  # long id/city lists are summarized in 'significado'; the full list stays in the .gobr
 DAY_NUMBER_RE = re.compile(r"(\d+)\s*dias?\b")
+MONEY_RE = re.compile(r"r\$\s*(\d{1,3}(?:\.\d{3})+|\d+)", re.IGNORECASE)
 NAME_DAY_NUMBER_RE = re.compile(r"(\d+)\s*(?:d\b|dias?\b)|\bdia (\d+)", re.IGNORECASE)
 PREMISES = {
     "P1": "'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
@@ -26,6 +27,7 @@ PREMISES = {
     "P6": "Times diferentes são tratados como conjuntos disjuntos de vendedores.",
     "P7": "Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b.",
     "P8": "Fonte composta ('da segmentacao(x) e da carteira(y)') é a união das fontes: a regra vale para as duas.",
+    "P9": "Em 'frequencia do historico ou no minimo/no maximo ...', os limites restringem a frequência do histórico.",
 }
 
 
@@ -36,7 +38,7 @@ def build(path: Path) -> dict:
     exclusion_keys = {k for e in effectives if e.block.schedules_nothing and not cascade.temporal_key(e.block)
                       for box in e.own for k in box}
     frequency_keys = {k for e in effectives if not e.block.schedules_nothing for box in e.own for k in box}
-    rules = [_rule(e, numbers, exclusion_keys - frequency_keys) for e in effectives]
+    rules = [_rule(e, file, numbers, exclusion_keys - frequency_keys) for e in effectives]
     uncovered = _uncovered_text(effectives, numbers, exclusion_keys)
     package = {
         "versao_pacote": PACKAGE_VERSION,
@@ -57,11 +59,12 @@ def build(path: Path) -> dict:
     return package
 
 
-def _rule(e: Effective, numbers: set[int], hidden_keys: set[str]) -> dict:
+def _rule(e: Effective, file: GobrFile, numbers: set[int], hidden_keys: set[str]) -> dict:
     block = e.block
-    own_text = cascade.render_boxes(e.own, e.own, numbers, set()) if e.own else None
+    sources = cascade.source_boxes(block)
+    own_text = cascade.render_boxes(e.own, sources, numbers, set()) if e.own else None
     hidden = hidden_keys - {k for box in e.own for k in box}
-    effective_text = cascade.render_boxes(e.boxes, e.own, numbers, hidden) if e.boxes else None
+    effective_text = cascade.render_boxes(e.boxes, sources, numbers, hidden) if e.boxes else None
     if e.own and not block.filters:
         own_text = "todos os clientes da fonte (sem filtro)"
     rule = {
@@ -81,7 +84,7 @@ def _rule(e: Effective, numbers: set[int], hidden_keys: set[str]) -> dict:
         "inalcancavel": e.unreachable,
         "numeros": sorted({n for c in block.filters + block.actions + block.temporal for n in c.numbers}),
         "numeros_exigidos": _required_numbers(e, effective_text, numbers, hidden),
-        "alertas": _rule_alerts(e, effective_text, own_text),
+        "alertas": _rule_alerts(e, effective_text, own_text, _referenced_definitions(block, file)),
     }
     return rule
 
@@ -95,7 +98,8 @@ def _required_numbers(e: Effective, effective_text: str | None, numbers: set[int
     own_keys = {k for box in e.own for k in box}
     per_box = []
     for box in boxes:
-        keys = [k for k in box if k not in hidden and (len(boxes) == 1 or k in own_keys)]
+        keys = [k for k in box if k not in hidden and (len(boxes) == 1 or k in own_keys)
+                and not k.startswith(cascade.SOURCE_PREFIXES)]
         rendered = " ".join(dims.render(k, box[k], numbers) for k in keys)
         per_box.append({int(n) for n in DAY_NUMBER_RE.findall(rendered)})
     shared = set.intersection(*per_box) if per_box else set()
@@ -149,7 +153,8 @@ def _file_numbers(file: GobrFile) -> set[int]:
     return found
 
 
-def _rule_alerts(e: Effective, effective_text: str | None, own_text: str | None) -> list[str]:
+def _rule_alerts(e: Effective, effective_text: str | None, own_text: str | None,
+                 definitions: list[Block]) -> list[str]:
     block, alerts = e.block, []
     if not e.own:
         alerts.append("Os filtros desta regra se contradizem: nenhum cliente pode atendê-los ao mesmo tempo.")
@@ -167,7 +172,7 @@ def _rule_alerts(e: Effective, effective_text: str | None, own_text: str | None)
     if e.boxes and effective_text is None:
         alerts.append("Condição efetiva fragmentada demais para resumir; descreva como a condição própria "
                       "exceto os clientes já tratados pelas regras anteriores.")
-    alerts += _name_mismatch(block, f"{own_text} {effective_text}")
+    alerts += _name_mismatch(block, f"{own_text} {effective_text}", definitions)
     undeclared = sorted({n for c in block.sources for n in c.detail.get("fontes_nao_declaradas", [])})
     if undeclared:
         alerts.append(f"Fonte não declarada no arquivo: {', '.join(undeclared)} (time/carteira/segmentação inexistente "
@@ -179,17 +184,35 @@ def _rule_alerts(e: Effective, effective_text: str | None, own_text: str | None)
     return alerts
 
 
-def _name_mismatch(block: Block, condition_text: str) -> list[str]:
+def _referenced_definitions(block: Block, file: GobrFile) -> list[Block]:
+    """carteira/segmentacao blocks the rule draws on, through its sources or 'contido na segmentacao'."""
+    names = {n for c in block.sources for n in c.detail.get("fontes", [])}
+    names |= {k.split(":", 1)[1] for c in block.filters for k in c.constraint if k.startswith("segmentacao:")}
+    return [b for b in file.of_kind("carteira", "carteira livre", "segmentacao") if b.name in names]
+
+
+def _money_values(text: str) -> set[int]:
+    return {int(v.replace(".", "")) for v in MONEY_RE.findall(text)}
+
+
+def _name_mismatch(block: Block, condition_text: str, definitions: list[Block]) -> list[str]:
     in_name = {int(a or b) for a, b in NAME_DAY_NUMBER_RE.findall(block.name)}
-    in_code = {n for c in block.all_clauses() for n in c.numbers + c.detail.get("dias_equivalentes", [])}
+    clauses = block.all_clauses() + [c for d in definitions for c in d.all_clauses()]
+    in_code = {n for c in clauses for n in c.numbers + c.detail.get("dias_equivalentes", [])}
+    in_code |= {int(n) for c in clauses for n in re.findall(r"\d+", c.text)}
+    money_missing = sorted(_money_values(block.name) - {v for c in clauses for v in _money_values(c.text)})
     boundaries = {int(n) for n in re.findall(r"\d+", condition_text)}
     # A name saying "sem venda em 8 dias" matches the boundary "há mais de 7 dias": off-by-one wording is
     # tolerated for cascade boundaries only, never for the code's own values (14 vs 15 days stays a mismatch).
     missing = sorted(n for n in in_name if n not in in_code and not {n - 1, n, n + 1} & boundaries)
-    if not missing:
-        return []
-    return [f"O nome da regra cita {', '.join(map(str, missing))} dia(s), valor que não aparece no código "
-            "nem na condição efetiva: nome e código podem estar divergentes."]
+    alerts = []
+    if missing:
+        alerts.append(f"O nome da regra cita {', '.join(map(str, missing))} dia(s), valor que não aparece no código "
+                      "nem na condição efetiva: nome e código podem estar divergentes.")
+    if money_missing:
+        alerts.append(f"O nome da regra cita R$ {', '.join(map(str, money_missing))}, valor que não aparece no "
+                      "código: nome e código podem estar divergentes.")
+    return alerts
 
 
 def _file_alerts(file: GobrFile, effectives: list[Effective], path: Path) -> list[str]:
@@ -239,7 +262,7 @@ def _uncovered_text(effectives: list[Effective], numbers: set[int],
                     exclusion_keys: set[str]) -> dict[str, str]:
     texts = {}
     for first, boxes in cascade.uncovered(effectives):
-        text = cascade.render_boxes(boxes, cascade.sources_of(first.own), numbers, exclusion_keys)
+        text = cascade.render_boxes(boxes, cascade.source_boxes(first.block), numbers, exclusion_keys)
         source = " e ".join(c.gloss or c.text for c in first.block.sources) or "(sem fonte declarada)"
         texts[source] = text or "várias combinações de clientes não são cobertas por nenhuma regra"
     return texts
@@ -250,6 +273,8 @@ def _premises_used(package: dict) -> list[str]:
     used = {"P2"} if any("escopos de recência" in a for a in package["alertas"]) else set()
     if "da carteira" in blob:
         used.add("P7")
+    if "do historico ou no m" in blob:
+        used.add("P9")
     if any(" e da " in r["fonte"] or " e do " in r["fonte"] for r in package["regras"]):
         used.add("P8")
     if "fora da recencia" in blob:

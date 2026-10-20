@@ -1,5 +1,5 @@
 {
-  "resumo": "Regra de agendamento da carteira fixa do time de televendas, com frequência de 7 dias para clientes ativos e de 14 dias para inativos e para clientes sem vendas. Antes das faixas, deixam de ser agendados os clientes com tipo de cobrança DH sem crédito disponível, os com tipo de cobrança BK e menos de R$ 199 de crédito disponível e os inadimplentes.",
+  "resumo": "Regra do time de televendas aplicada à carteira fixa de todos os vendedores do time. Deixam de ser agendados os clientes DH sem crédito, os clientes BK com pouco crédito e os inadimplentes. Os demais seguem frequência de 7 dias para ativos e de 14 dias para inativos e para clientes sem vendas.",
   "carteiras": [
     {
       "id": "C1",
@@ -38,7 +38,7 @@
     {
       "id": "R4",
       "nome": "Nordil PB: Frequência de 7d para clientes ativos/adimplentes (televendas)",
-      "segmento": "Clientes ativos",
+      "segmento": "Ativos",
       "criterio": "Clientes ativos para o vendedor",
       "frequencia": "7 dias",
       "observacao": "",
@@ -47,7 +47,7 @@
     {
       "id": "R5",
       "nome": "Nordil PB: Frequência de 14d para clientes inativos/adimplentes (televendas)",
-      "segmento": "Clientes inativos",
+      "segmento": "Inativos",
       "criterio": "Clientes inativos para o vendedor",
       "frequencia": "14 dias",
       "observacao": "",
@@ -56,27 +56,30 @@
     {
       "id": "R6",
       "nome": "Nordil PB: Frequência de 14d para clientes sem venda (televendas)",
-      "segmento": "Clientes sem venda",
-      "criterio": "Clientes sem vendas para o vendedor",
+      "segmento": "Sem vendas",
+      "criterio": "Clientes que nunca compraram com o vendedor",
       "frequencia": "14 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
     }
   ],
-  "pontos_de_atencao": [],
+  "pontos_de_atencao": [
+    "O nome da regra 'DH sem crédito' fala em R$ 0, mas esse valor não aparece no código: nome e código podem estar divergentes.",
+    "O nome da regra 'BK com pouco crédito' fala em R$ 200, mas esse valor não aparece no código, que usa outro limite: nome e código podem estar divergentes."
+  ],
   "consultas_hipoteticas": [
-    "Televendas, carteira fixa: ativos 7 dias; inativos 14 dias; sem venda 14 dias. Não agendar inadimplentes, DH sem crédito e BK com crédito abaixo de R$ 199",
-    "Os vendedores do televendas ligam toda semana pros clientes ativos e a cada 14 dias pros inativos e pra quem nunca comprou. Quem está inadimplente ou sem crédito na cobrança DH ou BK não entra na agenda",
-    "Quero uma frequência para ativos e outra para inativos e clientes sem venda na carteira do televendas, bloqueando inadimplentes e quem não tem crédito"
+    "Televendas: não agendar DH sem crédito, BK com crédito abaixo de R$200 e inadimplentes; ativos a cada 7 dias; inativos e sem venda a cada 14 dias",
+    "Quero que o televendas ligue toda semana para quem está comprando e a cada 14 dias para quem parou ou nunca comprou, sem agendar inadimplente nem cliente com pouco crédito",
+    "Frequência de 7 dias para ativos e 14 dias para inativos, com bloqueio por crédito e inadimplência"
   ],
   "_meta": {
     "arquivo": "regra_166.gobr",
     "sha256_gobr": "2b1fbc87a9b519de87d62a502dc1e51b2df71cd2e280bb74c7f6c0703a7c3503",
-    "versao_pacote": "4",
+    "versao_pacote": "5",
     "prompt_sha256": "fd3b943ec528",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T16:43:32+00:00",
+    "gerado_em": "2026-10-20T17:54:57+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,
@@ -95,6 +98,6 @@
       }
     },
     "escolhido": "agente_2.json",
-    "concordancia": 0.934
+    "concordancia": 0.881
   }
 }

@@ -85,7 +85,7 @@
    "fonte": "da carteira matcon, demais_segment",
    "acao_principal": "frequencia",
    "acoes": [
-    "frequência calculada pelo histórico de compras; se não houver, limitada a no mínimo 7 dias e no máximo 30 dias"
+    "frequência calculada pelo histórico de visitas, limitada a no mínimo 7 dias e no máximo 30 dias"
    ],
    "condicao_efetiva": "compraram no grupo de vendedores nos últimos 30 dias, mas estão há pelo menos 7 dias sem comprar e já compraram com o próprio vendedor e sem ser de compra única com o vendedor",
    "tratados_antes_por": [
@@ -302,6 +302,7 @@
   "P2: Escopos de recência (grupo, vendedor, global) são medidas distintas, ordenadas: global <= grupo <= vendedor.",
   "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
   "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado.",
-  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+  "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b.",
+  "P9: Em 'frequencia do historico ou no minimo/no maximo ...', os limites restringem a frequência do histórico."
  ]
 }

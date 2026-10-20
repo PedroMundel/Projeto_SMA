@@ -42,7 +42,7 @@
    "fonte": "do time toda empresa",
    "acao_principal": "frequencia",
    "acoes": [
-    "frequência calculada pelo histórico de compras; se não houver, limitada a no mínimo 5 dias e no máximo 30 dias",
+    "frequência calculada pelo histórico de visitas, limitada a no mínimo 5 dias e no máximo 30 dias",
     "dias de atendimento - preferência: segunda, terça, quarta, quinta, sexta; demais dias sem atendimento"
    ],
    "condicao_efetiva": "(nunca compraram ou compraram nos últimos 30 dias)",
@@ -56,6 +56,7 @@
  "alertas_do_arquivo": [],
  "premissas_usadas": [
   "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
-  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'."
+  "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
+  "P9: Em 'frequencia do historico ou no minimo/no maximo ...', os limites restringem a frequência do histórico."
  ]
 }

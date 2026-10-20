@@ -1,5 +1,5 @@
 {
-  "resumo": "Regra de agendamento do time de televendas para clientes pessoa jurídica, em três faixas de frequência: sem vendas para o vendedor, compra recente e compra entre 20 e 33 dias atrás. Não são agendados os clientes sem compra em 33 dias e os que não são pessoa jurídica. Todas as faixas atendem de segunda a sábado.",
+  "resumo": "Regra de planejamento do time de televendas voltada a clientes pessoa jurídica: novos clientes a cada 21 dias, pós-vendas a cada 3 dias e clientes engajados pelo histórico de visitas. O atendimento tem preferência de segunda a sábado. Deixam de ser agendados os clientes sem compra recente e os que não são pessoa jurídica.",
   "carteiras": [],
   "regras": [
     {
@@ -8,32 +8,32 @@
       "segmento": "Ative este cliente",
       "criterio": "Clientes pessoa jurídica sem vendas para o vendedor",
       "frequencia": "21 dias",
-      "observacao": "Preferência de atendimento de segunda a sábado; demais dias sem atendimento",
+      "observacao": "Dias de preferência: segunda a sábado; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R2",
       "nome": "Faça seu pós-vendas!",
       "segmento": "Pós-vendas",
-      "criterio": "Clientes pessoa jurídica com alguma venda para o vendedor que compraram nos últimos 20 dias",
+      "criterio": "Clientes pessoa jurídica com venda para o vendedor que compraram nos últimos 20 dias",
       "frequencia": "3 dias",
-      "observacao": "Preferência de atendimento de segunda a sábado; demais dias sem atendimento",
+      "observacao": "Dias de preferência: segunda a sábado; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R3",
       "nome": "Mantenha o cliente engajado!",
       "segmento": "Cliente engajado",
-      "criterio": "Clientes pessoa jurídica com alguma venda para o vendedor que compraram nos últimos 33 dias, mas estão há mais de 20 dias sem comprar",
+      "criterio": "Clientes pessoa jurídica com venda para o vendedor que compraram nos últimos 33 dias, mas estão há mais de 20 dias sem comprar",
       "frequencia": "Pelo histórico mais 2 dias, entre 20 e 33 dias",
-      "observacao": "Preferência de atendimento de segunda a sábado; demais dias sem atendimento",
+      "observacao": "Dias de preferência: segunda a sábado; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R4",
       "nome": "Não agendar clientes sem compra em 33 dias",
       "segmento": "Bloqueio: sem compra em 33 dias",
-      "criterio": "Clientes pessoa jurídica com alguma venda para o vendedor que nunca compraram ou estão há mais de 33 dias sem comprar",
+      "criterio": "Clientes pessoa jurídica com venda para o vendedor que nunca compraram ou estão há mais de 33 dias sem comprar",
       "frequencia": "Não agendar",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -41,29 +41,29 @@
     {
       "id": "R5",
       "nome": "Não agendar se não for PJ",
-      "segmento": "Bloqueio: pessoa física",
-      "criterio": "Clientes pessoa física",
+      "segmento": "Bloqueio: não é PJ",
+      "criterio": "Clientes pessoa física ou sem tipo de pessoa definido",
       "frequencia": "Não agendar",
       "observacao": "",
       "clausulas_nao_traduzidas": []
     }
   ],
   "pontos_de_atencao": [
-    "O bloqueio 'Não agendar clientes sem compra em 33 dias' vem depois das faixas de frequência, então não bloqueia clientes que já entraram em 'Ative este cliente!', 'Faça seu pós-vendas!' e 'Mantenha o cliente engajado!'."
+    "O bloqueio 'Não agendar clientes sem compra em 33 dias' vem depois das faixas de frequência, então não bloqueia clientes que já entraram nelas."
   ],
   "consultas_hipoteticas": [
-    "Televendas PJ: sem vendas para o vendedor a cada 21 dias; comprou nos últimos 20 dias a cada 3 dias; entre 20 e 33 dias pelo histórico mais 2 dias; atender de segunda a sábado; não agendar pessoa física nem sem compra em 33 dias",
-    "A gente liga a cada 3 dias pra quem comprou nos últimos 20 dias e a cada 21 dias pra cliente PJ que ainda não tem venda. Quem está há mais de 33 dias sem comprar e pessoa física não entra na agenda",
-    "Quero agendar só clientes pessoa jurídica do televendas, com frequência menor para quem comprou há pouco e atendimento de segunda a sábado"
+    "Televendas, só PJ: sem vendas 21 dias; compra até 20 dias 3 dias; compra até 33 dias pelo histórico mais 2, entre 20 e 33 dias; não agendar sem compra em 33 dias e não PJ",
+    "A gente liga a cada 21 dias para PJ que ainda não comprou e a cada 3 dias para quem comprou nos últimos 20 dias. Atendemos de segunda a sábado e quem não é PJ fica fora da agenda",
+    "Quero agendar os clientes pessoa jurídica do televendas com pós-vendas e engajamento, sem agendar quem está muito tempo sem comprar"
   ],
   "_meta": {
     "arquivo": "regra_243.gobr",
     "sha256_gobr": "bf45544b7aa91eaaeeba1b86a8d49042107e9711f6971626f2a5c08dcbe8d24c",
-    "versao_pacote": "4",
+    "versao_pacote": "5",
     "prompt_sha256": "fd3b943ec528",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T16:43:33+00:00",
+    "gerado_em": "2026-10-20T17:54:58+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,
@@ -81,7 +81,7 @@
         "avisos": []
       }
     },
-    "escolhido": "agente_3.json",
-    "concordancia": 0.802
+    "escolhido": "agente_2.json",
+    "concordancia": 0.814
   }
 }

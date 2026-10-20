@@ -14,6 +14,7 @@ determinística (`gobr/`) adota as interpretações abaixo. Cada pacote de conte
 | P6 | Times diferentes são conjuntos disjuntos de vendedores. | Um vendedor pode estar em dois times (manual §3.5), mas os arquivos não dão como saber quais. | `cascade` (dimensão `time`) |
 | P7 | Na cascata, cada cliente é alcançado por uma carteira de cada vez; `da carteira("a","b")` significa a **ou** b. | Carteiras exclusivas não compartilham clientes (§4.2). Interseção de carteiras exclusivas seria sempre vazia. Carteiras livres que dividem cidades/bairros geram alerta próprio. | `catalogue.parse_rule_source` (dimensão `carteira`) |
 | P8 | Fonte composta (`da segmentacao("x")` + `e da carteira("y")`) é a **união** das fontes. | Na `regra_169` a carteira "y" é definida com `nao contido na segmentacao("x")`: a interseção seria vazia por construção, então o autor quis "clientes da segmentação e também os da carteira". | `catalogue.parse_rule_source` (`detail["alternativas"]`), `cascade.own_boxes` |
+| P9 | Em `frequencia do historico ou no minimo de X e no maximo de Y`, o mínimo e o máximo **limitam** a frequência calculada pelo histórico. Não são uma alternativa para quando falta histórico. | O manual (§7.4.2) define `no máximo`/`no mínimo` como modificadores de limite. Ler como alternativa deixaria a frequência indefinida sem histórico ("mínimo 14 e máximo 28" não é um valor). `do historico` usa o histórico de **visitas** (§7.4.3). | `catalogue._frequency` |
 
 ## Semântica central (do manual, não é premissa)
 

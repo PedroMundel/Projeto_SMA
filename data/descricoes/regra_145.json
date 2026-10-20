@@ -1,5 +1,5 @@
 {
-  "resumo": "Regra de agendamento do time da empresa toda, voltada a clientes pessoa jurídica, organizada por tempo desde a última compra com o próprio vendedor. Há faixas para prospects, primeira compra (indústria e revenda), regularidade de compra, compra regular e risco de inatividade, e uma regra final de resgate. As filiais não são agendadas.",
+  "resumo": "Regra de agendamento aplicada a todos os vendedores da empresa, com faixas de frequência por tempo desde a última compra com o vendedor: ativação de prospects, compra regular, estímulo à regularidade, risco de inatividade e resgate. Só clientes pessoa jurídica entram nas faixas, e as filiais não são agendadas. A regra final de resgate cobre inadimplentes que já compraram e adimplentes sem compra há mais de 90 dias.",
   "carteiras": [],
   "regras": [
     {
@@ -24,18 +24,18 @@
       "id": "R3",
       "nome": "Freq. de 14d para 'Primeira compra' (Indústria)",
       "segmento": "Primeira compra (Indústria)",
-      "criterio": "Clientes pessoa jurídica do ramo de atividade (id) 2 que já compraram com o próprio vendedor e estão sem vendas para o vendedor",
+      "criterio": "Clientes pessoa jurídica do ramo de atividade 2 sem vendas para o vendedor",
       "frequencia": "14 dias",
-      "observacao": "",
+      "observacao": "Nunca é aplicada: todos esses clientes já foram tratados antes",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R4",
       "nome": "Freq. de 7d para 'Primeira compra' (Revenda)",
       "segmento": "Primeira compra (Revenda)",
-      "criterio": "Clientes pessoa jurídica do ramo de atividade (id) 1 que já compraram com o próprio vendedor e estão sem vendas para o vendedor",
+      "criterio": "Clientes pessoa jurídica do ramo de atividade 1 sem vendas para o vendedor",
       "frequencia": "7 dias",
-      "observacao": "",
+      "observacao": "Nunca é aplicada: todos esses clientes já foram tratados antes",
       "clausulas_nao_traduzidas": []
     },
     {
@@ -69,29 +69,30 @@
       "id": "R8",
       "nome": "Freq. de 21d para 'Resgate de clientes sem compra'",
       "segmento": "Resgate de clientes sem compra",
-      "criterio": "Clientes pessoa jurídica, exceto os já tratados pelas regras anteriores",
+      "criterio": "Clientes pessoa jurídica que já compraram com o vendedor e estão inadimplentes, ou adimplentes há mais de 90 dias sem comprar com ele",
       "frequencia": "21 dias",
       "observacao": "Regra final: vale para quem sobrou das faixas anteriores",
       "clausulas_nao_traduzidas": []
     }
   ],
   "pontos_de_atencao": [
-    "A condição da regra 'Resgate de clientes sem compra' é fragmentada demais para resumir: ela vale para pessoas jurídicas, exceto os clientes já tratados pelas regras anteriores.",
-    "Clientes pessoa física não se enquadram em nenhuma regra e ficam sem parametrização."
+    "A regra 'Freq. de 14d para Primeira compra (Indústria)' nunca é aplicada: todos os clientes dela já são tratados por regras anteriores.",
+    "A regra 'Freq. de 7d para Primeira compra (Revenda)' nunca é aplicada: todos os clientes dela já são tratados por regras anteriores.",
+    "Clientes que são pessoa física ou sem tipo de pessoa definido não se enquadram em nenhuma regra e ficam sem parametrização."
   ],
   "consultas_hipoteticas": [
-    "Empresa toda, só pessoa jurídica: prospects 10 dias; primeira compra indústria 14 dias e revenda 7 dias; regularidade 14 dias; compra regular 21 dias; risco de inatividade 7 dias; resgate 21 dias; não agendar filiais",
-    "A gente liga a cada 10 dias pros prospects e, na primeira compra, a cada 14 dias pra indústria e a cada 7 pra revenda. Quem comprou nos últimos 30 dias é atendido a cada 21 dias e quem está entre 60 e 90 dias sem comprar toda semana. Filial não entra",
-    "Quero agendar os clientes pessoa jurídica da empresa toda por tempo sem comprar, com frequência para prospects, primeira compra e resgate"
+    "Empresa toda, só pessoa jurídica: prospects a cada 10 dias; compra nos últimos 30 dias a cada 21; entre 30 e 60 dias a cada 14; entre 60 e 90 dias a cada 7; resgate a cada 21 dias; não agendar filiais",
+    "A gente quer ligar para os prospects a cada 10 dias e para quem compra com frequência a cada 21. Quem está esfriando entra a cada 14 dias, e quem está em risco de parar de comprar entra toda semana. Filial fica fora",
+    "Frequências por tempo desde a última compra para pessoa jurídica, com ativação de prospects e resgate de clientes sem compra"
   ],
   "_meta": {
     "arquivo": "regra_145.gobr",
     "sha256_gobr": "cf8120f991ad51145363806c976809da5e278f7ceb92bd03a38fe68153320a31",
-    "versao_pacote": "4",
+    "versao_pacote": "5",
     "prompt_sha256": "fd3b943ec528",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T16:43:31+00:00",
+    "gerado_em": "2026-10-20T17:54:57+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,
@@ -110,6 +111,6 @@
       }
     },
     "escolhido": "agente_3.json",
-    "concordancia": 0.832
+    "concordancia": 0.892
   }
 }

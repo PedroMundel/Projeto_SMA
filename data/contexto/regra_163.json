@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "4",
+  "versao_pacote": "5",
   "arquivo": "regra_163.gobr",
   "sha256": "4b9ebdcbbc1f8eb2d6797107dbea2be29cf919366bee9b1922282f88f58dd82c",
   "comentarios": [
@@ -189,9 +189,8 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "(compraram com o próprio vendedor nos últimos 30 dias ou sem comprar com o próprio vendedor há mais de 60 dias)",
-      "condicao_efetiva": "(sem comprar no grupo de vendedores há mais de 30 dias e (compraram com o próprio vendedor nos últimos 30 dias ou sem comprar com o próprio vendedor há mais de 60 dias) e com alguma venda (ativos ou inativos) para o vendedor e sem ser de compra única com o vendedor) OU (compraram no grupo de vendedores nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e (compraram com o próprio vendedor nos últimos 30 dias ou sem comprar com o próprio vendedor há mais de 60 dias) e com alguma venda (ativos ou inativos) para o vendedor e com uma única compra com o vendedor)",
+      "condicao_efetiva": "(sem comprar no grupo de vendedores há mais de 30 dias e (compraram com o próprio vendedor nos últimos 30 dias ou sem comprar com o próprio vendedor há mais de 60 dias) e sem ser de compra única com o vendedor) OU (compraram no grupo de vendedores nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e (compraram com o próprio vendedor nos últimos 30 dias ou sem comprar com o próprio vendedor há mais de 60 dias) e com uma única compra com o vendedor)",
       "tratados_antes_por": [
-        "R2",
         "R3"
       ],
       "bloqueios_anteriores": [
@@ -233,9 +232,8 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "(compraram com o próprio vendedor nos últimos 60 dias ou sem comprar com o próprio vendedor há mais de 90 dias)",
-      "condicao_efetiva": "(sem comprar no grupo de vendedores há mais de 30 dias e compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e com alguma venda (ativos ou inativos) para o vendedor e sem ser de compra única com o vendedor) OU (compraram no grupo de vendedores nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e com alguma venda (ativos ou inativos) para o vendedor e com uma única compra com o vendedor)",
+      "condicao_efetiva": "(sem comprar no grupo de vendedores há mais de 30 dias e compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e sem ser de compra única com o vendedor) OU (compraram no grupo de vendedores nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e com uma única compra com o vendedor)",
       "tratados_antes_por": [
-        "R2",
         "R3",
         "R4"
       ],
@@ -272,7 +270,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "todos os clientes da fonte (sem filtro)",
-      "condicao_efetiva": "((nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 30 dias) e nunca compraram com o próprio vendedor e com alguma venda (ativos ou inativos) para o vendedor e sem ser de compra única com o vendedor) OU ((nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 60 dias, mas estão há mais de 30 dias sem comprar) e nunca compraram com o próprio vendedor e com alguma venda (ativos ou inativos) para o vendedor e com uma única compra com o vendedor)",
+      "condicao_efetiva": null,
       "tratados_antes_por": [
         "R2",
         "R3",
@@ -282,14 +280,16 @@
       "bloqueios_anteriores": [
         "R1"
       ],
-      "inalcancavel": false,
+      "inalcancavel": true,
       "numeros": [
         21
       ],
       "numeros_exigidos": [
         21
       ],
-      "alertas": []
+      "alertas": [
+        "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Não agendar clientes com venda em 30d (Construtoras)\", \"Ative um novo cliente em sua carteira (Construtoras)\", \"Estabeleça relacionamento com seu novo cliente (Construtoras)\", \"Estimule a regularidade de compra do seu cliente (Construtoras)\", \"Cliente entrando em ruptura (Construtoras)\"."
+      ]
     },
     {
       "id": "R7",
@@ -387,7 +387,7 @@
       "acoes": [
         {
           "codigo": "frequencia do historico ou no minimo de 7 dias e no maximo de 30 dias",
-          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no mínimo 7 dias e no máximo 30 dias",
+          "significado": "frequência calculada pelo histórico de visitas, limitada a no mínimo 7 dias e no máximo 30 dias",
           "reconhecida": true
         }
       ],
@@ -433,9 +433,8 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "(compraram com o próprio vendedor nos últimos 30 dias ou sem comprar com o próprio vendedor há mais de 60 dias)",
-      "condicao_efetiva": "((compraram no grupo de vendedores nos últimos 6 dias ou sem comprar no grupo de vendedores há mais de 30 dias) e (compraram com o próprio vendedor nos últimos 30 dias ou sem comprar com o próprio vendedor há mais de 60 dias) e com alguma venda (ativos ou inativos) para o vendedor e sem ser de compra única com o vendedor) OU (compraram no grupo de vendedores nos últimos 6 dias e (compraram com o próprio vendedor nos últimos 30 dias ou sem comprar com o próprio vendedor há mais de 60 dias) e com alguma venda (ativos ou inativos) para o vendedor e com uma única compra com o vendedor)",
+      "condicao_efetiva": "((compraram no grupo de vendedores nos últimos 6 dias ou sem comprar no grupo de vendedores há mais de 30 dias) e (compraram com o próprio vendedor nos últimos 30 dias ou sem comprar com o próprio vendedor há mais de 60 dias) e sem ser de compra única com o vendedor) OU (compraram no grupo de vendedores nos últimos 6 dias e (compraram com o próprio vendedor nos últimos 30 dias ou sem comprar com o próprio vendedor há mais de 60 dias) e com uma única compra com o vendedor)",
       "tratados_antes_por": [
-        "R7",
         "R8",
         "R9"
       ],
@@ -476,9 +475,8 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "(compraram com o próprio vendedor nos últimos 60 dias ou sem comprar com o próprio vendedor há mais de 90 dias)",
-      "condicao_efetiva": "((compraram no grupo de vendedores nos últimos 6 dias ou sem comprar no grupo de vendedores há mais de 30 dias) e compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e com alguma venda (ativos ou inativos) para o vendedor e sem ser de compra única com o vendedor) OU (compraram no grupo de vendedores nos últimos 6 dias e compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e com alguma venda (ativos ou inativos) para o vendedor e com uma única compra com o vendedor)",
+      "condicao_efetiva": "((compraram no grupo de vendedores nos últimos 6 dias ou sem comprar no grupo de vendedores há mais de 30 dias) e compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e sem ser de compra única com o vendedor) OU (compraram no grupo de vendedores nos últimos 6 dias e compraram com o próprio vendedor nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e com uma única compra com o vendedor)",
       "tratados_antes_por": [
-        "R7",
         "R8",
         "R9",
         "R10"
@@ -514,7 +512,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "todos os clientes da fonte (sem filtro)",
-      "condicao_efetiva": "((nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 6 dias ou sem comprar no grupo de vendedores há mais de 30 dias) e nunca compraram com o próprio vendedor e com alguma venda (ativos ou inativos) para o vendedor e sem ser de compra única com o vendedor) OU ((nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 6 dias) e nunca compraram com o próprio vendedor e com alguma venda (ativos ou inativos) para o vendedor e com uma única compra com o vendedor)",
+      "condicao_efetiva": null,
       "tratados_antes_por": [
         "R7",
         "R8",
@@ -523,14 +521,16 @@
         "R11"
       ],
       "bloqueios_anteriores": [],
-      "inalcancavel": false,
+      "inalcancavel": true,
       "numeros": [
         7
       ],
       "numeros_exigidos": [
         7
       ],
-      "alertas": []
+      "alertas": [
+        "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Ative um novo cliente em sua carteira (Matcom)\", \"Estabeleça relacionamento com seu novo cliente (Matcom)\", \"Cliente que compra com regularidade (Matcom)\", \"Estimule a regularidade de compra do seu cliente (Matcom)\", \"Cliente entrando em ruptura (Matcom)\"."
+      ]
     }
   ],
   "nao_cobertos": {},
@@ -567,6 +567,7 @@
     "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
     "P2: Escopos de recência (grupo, vendedor, global) são medidas distintas, ordenadas: global <= grupo <= vendedor.",
     "P4: 'sem venda' sem escopo pertence à mesma partição de 'ativos/inativos para o vendedor'.",
-    "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b."
+    "P7: Na cascata, cada cliente é alcançado por uma carteira de cada vez; 'da carteira(a, b)' = a ou b.",
+    "P9: Em 'frequencia do historico ou no minimo/no maximo ...', os limites restringem a frequência do histórico."
   ]
 }

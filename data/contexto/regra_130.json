@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "4",
+  "versao_pacote": "5",
   "arquivo": "regra_130.gobr",
   "sha256": "dd15d2a262fb6890640137a53f441009c73915be05f7a31edd23a02c170a166d",
   "comentarios": [
@@ -82,7 +82,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "ativos para o vendedor",
-      "condicao_efetiva": "pessoa jurídica e ativos para o vendedor",
+      "condicao_efetiva": "pessoa jurídica ou sem tipo de pessoa definido e ativos para o vendedor",
       "tratados_antes_por": [],
       "bloqueios_anteriores": [
         "R1"
@@ -124,7 +124,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "adimplentes e inativos para o vendedor",
-      "condicao_efetiva": "adimplentes e pessoa jurídica e inativos para o vendedor",
+      "condicao_efetiva": "adimplentes e pessoa jurídica ou sem tipo de pessoa definido e inativos para o vendedor",
       "tratados_antes_por": [],
       "bloqueios_anteriores": [
         "R1"
@@ -166,7 +166,7 @@
       ],
       "acao_principal": "nao_agendar",
       "condicao_propria": "inadimplentes e inativos para o vendedor",
-      "condicao_efetiva": "inadimplentes e pessoa jurídica e inativos para o vendedor",
+      "condicao_efetiva": "inadimplentes e pessoa jurídica ou sem tipo de pessoa definido e inativos para o vendedor",
       "tratados_antes_por": [],
       "bloqueios_anteriores": [
         "R1"
@@ -335,7 +335,9 @@
       ]
     }
   ],
-  "nao_cobertos": {},
+  "nao_cobertos": {
+    "do time time interno": "todos os clientes"
+  },
   "alertas": [],
   "numeros_obrigatorios": [
     7,

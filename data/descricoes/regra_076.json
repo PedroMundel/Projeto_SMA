@@ -1,5 +1,5 @@
 {
-  "resumo": "Regra de agendamento do time de televendas por rota e tempo desde a última compra. Deixam de ser agendados os inadimplentes, os bloqueados para atendimento, os inativos para a empresa e quem comprou nos últimos 20 dias. Depois vêm as faixas: clientes com rota hoje, prospects, clientes ativados, clientes que compram regularmente e clientes em ruptura. A regra final 'Fora de rota' também bloqueia quem sobrou das faixas.",
+  "resumo": "Agendamento do time de televendas por rota e por tempo desde a última compra. Não são agendados os inadimplentes, os bloqueados para atendimento, os inativos para a empresa e quem comprou nos últimos 20 dias. Clientes com data de rota hoje têm frequência de 1 dia; os demais seguem faixas para prospects, cliente ativado, quem compra regularmente e quem está em ruptura. A regra final bloqueia os clientes fora de rota que não entraram em nenhuma faixa.",
   "carteiras": [],
   "regras": [
     {
@@ -33,7 +33,7 @@
       "id": "R4",
       "nome": "Tem compra em até 20 dias atrás",
       "segmento": "Bloqueio: compra recente",
-      "criterio": "Clientes que compraram na empresa nos últimos 20 dias",
+      "criterio": "Clientes que compraram com qualquer vendedor da empresa nos últimos 20 dias",
       "frequencia": "Não agendar",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -41,8 +41,8 @@
     {
       "id": "R5",
       "nome": "Agendamento padrão - Rota",
-      "segmento": "Rota hoje",
-      "criterio": "Clientes que nunca compraram ou estão há mais de 20 dias sem comprar na empresa, com data de rota hoje",
+      "segmento": "Clientes com rota hoje",
+      "criterio": "Clientes com data de rota hoje que nunca compraram ou estão há mais de 20 dias sem comprar",
       "frequencia": "1 dia",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -69,7 +69,7 @@
       "id": "R8",
       "nome": "Compra regularmente",
       "segmento": "Compra regularmente",
-      "criterio": "Clientes que compraram nos últimos 30 dias, mas há mais de 20 dias sem comprar, sem rota hoje, com frequência histórica menor que 30 dias e mais de uma compra",
+      "criterio": "Clientes com mais de uma compra, que compraram nos últimos 30 dias, mas estão há mais de 20 dias sem comprar, sem rota hoje e com frequência histórica de compra de menos de 30 dias",
       "frequencia": "Pelo histórico, entre 5 e 30 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -78,7 +78,7 @@
       "id": "R9",
       "nome": "Em ruptura",
       "segmento": "Em ruptura",
-      "criterio": "Clientes que compraram nos últimos 90 dias, mas estão há mais de 30 dias sem comprar, sem rota hoje e com mais de uma compra",
+      "criterio": "Clientes com mais de uma compra, que compraram nos últimos 90 dias, mas estão há mais de 30 dias sem comprar e sem data de rota hoje",
       "frequencia": "15 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -87,26 +87,26 @@
       "id": "R10",
       "nome": "Fora de rota",
       "segmento": "Bloqueio: fora de rota",
-      "criterio": "Clientes sem rota hoje, parados há mais de 90 dias ou há mais de 20 dias (compra nos últimos 30) com frequência histórica indefinida ou de pelo menos 30 dias",
+      "criterio": "Clientes sem rota hoje e com mais de uma compra, há mais de 90 dias sem comprar, ou que compraram nos últimos 30 dias com frequência histórica indefinida ou de pelo menos 30 dias",
       "frequencia": "Não agendar",
-      "observacao": "Regra final: vale para quem sobrou das faixas anteriores; só clientes com mais de uma compra na empresa",
+      "observacao": "Regra final: vale para quem sobrou das faixas anteriores",
       "clausulas_nao_traduzidas": []
     }
   ],
   "pontos_de_atencao": [],
   "consultas_hipoteticas": [
-    "Televendas: não agendar inadimplentes, bloqueados, inativos e compra nos últimos 20 dias; rota hoje 1 dia; prospects 7 dias; ativado 15 dias; compra regularmente pelo histórico entre 5 e 30 dias; ruptura 15 dias; fora de rota não agenda",
-    "No televendas a gente não liga pra inadimplente, bloqueado, inativo nem pra quem comprou nos últimos 20 dias. Cliente com rota hoje entra todo dia, prospect toda semana, e quem está em ruptura volta a cada 15 dias",
-    "Quero agendar o televendas por situação de compra: prospects, clientes ativados, os que compram regularmente e os em ruptura, bloqueando inadimplentes e quem não está na rota"
+    "Televendas: não agendar inadimplentes, bloqueados, inativos e compra nos últimos 20 dias; rota hoje 1 dia; prospects 7 dias; cliente ativado 15 dias; compra regular pelo histórico entre 5 e 30 dias; ruptura 15 dias; fora de rota não agendar",
+    "No televendas, quem tem rota hoje entra todo dia. Prospect a cada 7 dias, cliente com uma só compra a cada 15, e quem compra regularmente segue o histórico. Inadimplente, bloqueado, inativo e quem comprou há menos de 20 dias fica de fora",
+    "Quero agendar o televendas considerando a rota do dia e o tempo desde a última compra, sem agendar inadimplentes nem inativos"
   ],
   "_meta": {
     "arquivo": "regra_076.gobr",
     "sha256_gobr": "9f0ebfb8eb287c49f5cf31c04f251f00e4f1a0930a8557870d475bab34bf2f6d",
-    "versao_pacote": "4",
+    "versao_pacote": "5",
     "prompt_sha256": "fd3b943ec528",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T16:43:30+00:00",
+    "gerado_em": "2026-10-20T17:54:57+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,
@@ -134,7 +134,7 @@
         "avisos": []
       }
     },
-    "escolhido": "agente_5.json",
-    "concordancia": 0.799
+    "escolhido": "agente_1.json",
+    "concordancia": 0.755
   }
 }

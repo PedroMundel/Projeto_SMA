@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "4",
+  "versao_pacote": "5",
   "arquivo": "regra_128.gobr",
   "sha256": "7041767ef635dad5e8de6cb4c5ee3d29d6043aebcf6055d534ab84ef43c0a3d2",
   "comentarios": [
@@ -188,8 +188,8 @@
         }
       ],
       "acao_principal": "frequencia",
-      "condicao_propria": "nunca compraram com qualquer vendedor da empresa",
-      "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa",
+      "condicao_propria": "nunca compraram com qualquer vendedor da empresa e na segmentação \"ext_niteroi_rio2_para_tmk1\"",
+      "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa e na segmentação \"ext_niteroi_rio2_para_tmk1\"",
       "tratados_antes_por": [],
       "bloqueios_anteriores": [
         "R1"
@@ -236,8 +236,8 @@
         }
       ],
       "acao_principal": "frequencia",
-      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
-      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 60 dias e na segmentação \"ext_niteroi_rio2_para_tmk1\"",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias e na segmentação \"ext_niteroi_rio2_para_tmk1\"",
       "tratados_antes_por": [],
       "bloqueios_anteriores": [
         "R1"
@@ -283,8 +283,8 @@
         }
       ],
       "acao_principal": "frequencia",
-      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
-      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 90 dias e na segmentação \"ext_niteroi_rio2_para_tmk1\"",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 90 dias e na segmentação \"ext_niteroi_rio2_para_tmk1\"",
       "tratados_antes_por": [],
       "bloqueios_anteriores": [
         "R1"
@@ -324,8 +324,8 @@
         }
       ],
       "acao_principal": "frequencia",
-      "condicao_propria": "todos os clientes",
-      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 90 dias",
+      "condicao_propria": "na segmentação \"ext_niteroi_rio2_para_tmk1\"",
+      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 90 dias e na segmentação \"ext_niteroi_rio2_para_tmk1\"",
       "tratados_antes_por": [
         "R2",
         "R4"
@@ -372,8 +372,8 @@
         }
       ],
       "acao_principal": "frequencia",
-      "condicao_propria": "nunca compraram com qualquer vendedor da empresa",
-      "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa",
+      "condicao_propria": "nunca compraram com qualquer vendedor da empresa e na segmentação \"ext_lagos_norte_para_tmk2\"",
+      "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa e na segmentação \"ext_lagos_norte_para_tmk2\"",
       "tratados_antes_por": [],
       "bloqueios_anteriores": [
         "R1"
@@ -420,8 +420,8 @@
         }
       ],
       "acao_principal": "frequencia",
-      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
-      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 60 dias e na segmentação \"ext_lagos_norte_para_tmk2\"",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias e na segmentação \"ext_lagos_norte_para_tmk2\"",
       "tratados_antes_por": [],
       "bloqueios_anteriores": [
         "R1"
@@ -467,8 +467,8 @@
         }
       ],
       "acao_principal": "frequencia",
-      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
-      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 90 dias e na segmentação \"ext_lagos_norte_para_tmk2\"",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 90 dias e na segmentação \"ext_lagos_norte_para_tmk2\"",
       "tratados_antes_por": [],
       "bloqueios_anteriores": [
         "R1"
@@ -508,8 +508,8 @@
         }
       ],
       "acao_principal": "frequencia",
-      "condicao_propria": "todos os clientes",
-      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 90 dias",
+      "condicao_propria": "na segmentação \"ext_lagos_norte_para_tmk2\"",
+      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 90 dias e na segmentação \"ext_lagos_norte_para_tmk2\"",
       "tratados_antes_por": [
         "R6",
         "R8"
@@ -556,8 +556,8 @@
         }
       ],
       "acao_principal": "frequencia",
-      "condicao_propria": "nunca compraram com qualquer vendedor da empresa",
-      "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa",
+      "condicao_propria": "nunca compraram com qualquer vendedor da empresa e na segmentação \"ext_baixada1_baixada3_para_tmk3\"",
+      "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa e na segmentação \"ext_baixada1_baixada3_para_tmk3\"",
       "tratados_antes_por": [],
       "bloqueios_anteriores": [
         "R1"
@@ -604,8 +604,8 @@
         }
       ],
       "acao_principal": "frequencia",
-      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
-      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 60 dias e na segmentação \"ext_baixada1_baixada3_para_tmk3\"",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias e na segmentação \"ext_baixada1_baixada3_para_tmk3\"",
       "tratados_antes_por": [],
       "bloqueios_anteriores": [
         "R1"
@@ -651,8 +651,8 @@
         }
       ],
       "acao_principal": "frequencia",
-      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
-      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 90 dias e na segmentação \"ext_baixada1_baixada3_para_tmk3\"",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 90 dias e na segmentação \"ext_baixada1_baixada3_para_tmk3\"",
       "tratados_antes_por": [],
       "bloqueios_anteriores": [
         "R1"
@@ -692,8 +692,8 @@
         }
       ],
       "acao_principal": "frequencia",
-      "condicao_propria": "todos os clientes",
-      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 90 dias",
+      "condicao_propria": "na segmentação \"ext_baixada1_baixada3_para_tmk3\"",
+      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 90 dias e na segmentação \"ext_baixada1_baixada3_para_tmk3\"",
       "tratados_antes_por": [
         "R10",
         "R12"
@@ -740,8 +740,8 @@
         }
       ],
       "acao_principal": "frequencia",
-      "condicao_propria": "nunca compraram com qualquer vendedor da empresa",
-      "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa",
+      "condicao_propria": "nunca compraram com qualquer vendedor da empresa e na segmentação \"ext_rio1_rio3_para_tmk5\"",
+      "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa e na segmentação \"ext_rio1_rio3_para_tmk5\"",
       "tratados_antes_por": [],
       "bloqueios_anteriores": [
         "R1"
@@ -788,8 +788,8 @@
         }
       ],
       "acao_principal": "frequencia",
-      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
-      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 60 dias e na segmentação \"ext_rio1_rio3_para_tmk5\"",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias e na segmentação \"ext_rio1_rio3_para_tmk5\"",
       "tratados_antes_por": [],
       "bloqueios_anteriores": [
         "R1"
@@ -835,8 +835,8 @@
         }
       ],
       "acao_principal": "frequencia",
-      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
-      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 90 dias e na segmentação \"ext_rio1_rio3_para_tmk5\"",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 90 dias e na segmentação \"ext_rio1_rio3_para_tmk5\"",
       "tratados_antes_por": [],
       "bloqueios_anteriores": [
         "R1"
@@ -876,8 +876,8 @@
         }
       ],
       "acao_principal": "frequencia",
-      "condicao_propria": "todos os clientes",
-      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 90 dias",
+      "condicao_propria": "na segmentação \"ext_rio1_rio3_para_tmk5\"",
+      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 90 dias e na segmentação \"ext_rio1_rio3_para_tmk5\"",
       "tratados_antes_por": [
         "R14",
         "R16"
@@ -924,8 +924,8 @@
         }
       ],
       "acao_principal": "frequencia",
-      "condicao_propria": "nunca compraram com qualquer vendedor da empresa",
-      "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa",
+      "condicao_propria": "nunca compraram com qualquer vendedor da empresa e na segmentação \"ext_sulflu1_sulflu2_para_tmk6\"",
+      "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa e na segmentação \"ext_sulflu1_sulflu2_para_tmk6\"",
       "tratados_antes_por": [],
       "bloqueios_anteriores": [
         "R1"
@@ -972,8 +972,8 @@
         }
       ],
       "acao_principal": "frequencia",
-      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
-      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 60 dias e na segmentação \"ext_sulflu1_sulflu2_para_tmk6\"",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias e na segmentação \"ext_sulflu1_sulflu2_para_tmk6\"",
       "tratados_antes_por": [],
       "bloqueios_anteriores": [
         "R1"
@@ -1019,8 +1019,8 @@
         }
       ],
       "acao_principal": "frequencia",
-      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
-      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 90 dias e na segmentação \"ext_sulflu1_sulflu2_para_tmk6\"",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 90 dias e na segmentação \"ext_sulflu1_sulflu2_para_tmk6\"",
       "tratados_antes_por": [],
       "bloqueios_anteriores": [
         "R1"
@@ -1060,8 +1060,8 @@
         }
       ],
       "acao_principal": "frequencia",
-      "condicao_propria": "todos os clientes",
-      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 90 dias",
+      "condicao_propria": "na segmentação \"ext_sulflu1_sulflu2_para_tmk6\"",
+      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 90 dias e na segmentação \"ext_sulflu1_sulflu2_para_tmk6\"",
       "tratados_antes_por": [
         "R18",
         "R20"
@@ -1108,8 +1108,8 @@
         }
       ],
       "acao_principal": "frequencia",
-      "condicao_propria": "nunca compraram com qualquer vendedor da empresa",
-      "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa",
+      "condicao_propria": "nunca compraram com qualquer vendedor da empresa e na segmentação \"ext_serrana_baixada2_para_tmk7\"",
+      "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa e na segmentação \"ext_serrana_baixada2_para_tmk7\"",
       "tratados_antes_por": [],
       "bloqueios_anteriores": [
         "R1"
@@ -1156,8 +1156,8 @@
         }
       ],
       "acao_principal": "frequencia",
-      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
-      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 60 dias e na segmentação \"ext_serrana_baixada2_para_tmk7\"",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 60 dias e na segmentação \"ext_serrana_baixada2_para_tmk7\"",
       "tratados_antes_por": [],
       "bloqueios_anteriores": [
         "R1"
@@ -1203,8 +1203,8 @@
         }
       ],
       "acao_principal": "frequencia",
-      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
-      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 90 dias",
+      "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 90 dias e na segmentação \"ext_serrana_baixada2_para_tmk7\"",
+      "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 90 dias e na segmentação \"ext_serrana_baixada2_para_tmk7\"",
       "tratados_antes_por": [],
       "bloqueios_anteriores": [
         "R1"
@@ -1244,8 +1244,8 @@
         }
       ],
       "acao_principal": "frequencia",
-      "condicao_propria": "todos os clientes",
-      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 90 dias",
+      "condicao_propria": "na segmentação \"ext_serrana_baixada2_para_tmk7\"",
+      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 90 dias e na segmentação \"ext_serrana_baixada2_para_tmk7\"",
       "tratados_antes_por": [
         "R22",
         "R24"
@@ -1442,8 +1442,8 @@
         }
       ],
       "acao_principal": "frequencia",
-      "condicao_propria": "todos os clientes",
-      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 90 dias",
+      "condicao_propria": "fora da segmentação \"ext_baixada1_baixada3_para_tmk3\" e fora da segmentação \"ext_lagos_norte_para_tmk2\" e fora da segmentação \"ext_niteroi_rio2_para_tmk1\" e fora da segmentação \"ext_rio1_rio3_para_tmk5\" e fora da segmentação \"ext_serrana_baixada2_para_tmk7\" e fora da segmentação \"ext_sulflu1_sulflu2_para_tmk6\"",
+      "condicao_efetiva": "sem comprar com qualquer vendedor da empresa há mais de 90 dias e fora da segmentação \"ext_baixada1_baixada3_para_tmk3\" e fora da segmentação \"ext_lagos_norte_para_tmk2\" e fora da segmentação \"ext_niteroi_rio2_para_tmk1\" e fora da segmentação \"ext_rio1_rio3_para_tmk5\" e fora da segmentação \"ext_serrana_baixada2_para_tmk7\" e fora da segmentação \"ext_sulflu1_sulflu2_para_tmk6\"",
       "tratados_antes_por": [
         "R26",
         "R27",

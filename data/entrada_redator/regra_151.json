@@ -43,12 +43,9 @@
    "acoes": [
     "não agendar"
    ],
-   "condicao_efetiva": "todos os clientes",
+   "condicao_efetiva": "na segmentação \"cliente de ruptura\"",
    "quando_executa": [
     "somente na última semana do mês"
-   ],
-   "alertas": [
-    "O nome da regra cita 60 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
    ]
   }
  ],

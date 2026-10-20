@@ -42,7 +42,7 @@
    "fonte": "do time televendas",
    "acao_principal": "frequencia",
    "acoes": [
-    "frequência calculada pelo histórico de compras mais 7 dias; se não houver, limitada a no máximo 14 dias"
+    "frequência calculada pelo histórico de visitas mais 7 dias, limitada a no máximo 14 dias"
    ],
    "condicao_efetiva": "compraram nos últimos 14 dias e com alguma venda (ativos ou inativos) para o vendedor",
    "tratados_antes_por": [

@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "4",
+  "versao_pacote": "5",
   "arquivo": "regra_146.gobr",
   "sha256": "1655af5f6662050af6d2607955bcd0a1fbaa157d1054161c3bcaff6986fa3e85",
   "comentarios": [
@@ -282,11 +282,10 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram com o próprio vendedor nos últimos 45 dias, mas estão há pelo menos 30 dias sem comprar",
-      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 45 dias, mas estão há pelo menos 30 dias sem comprar e ramo de atividade (id) fora de: 15, 37, 43 e frequência histórica indefinida ou frequência histórica de compra de pelo menos 21 dias e com alguma venda (ativos ou inativos) para o vendedor e sem ser de compra única com o vendedor) OU (sem comprar no grupo de vendedores há mais de 30 dias e compraram com o próprio vendedor nos últimos 45 dias, mas estão há pelo menos 30 dias sem comprar e ramo de atividade (id) fora de: 15, 37, 43 e frequência histórica indefinida ou frequência histórica de compra de pelo menos 21 dias e com alguma venda (ativos ou inativos) para o vendedor e com uma única compra com o vendedor)",
+      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 45 dias, mas estão há pelo menos 30 dias sem comprar e ramo de atividade (id) fora de: 15, 37, 43 e frequência histórica indefinida ou frequência histórica de compra de pelo menos 21 dias e sem ser de compra única com o vendedor) OU (sem comprar no grupo de vendedores há mais de 30 dias e compraram com o próprio vendedor nos últimos 45 dias, mas estão há pelo menos 30 dias sem comprar e ramo de atividade (id) fora de: 15, 37, 43 e frequência histórica indefinida ou frequência histórica de compra de pelo menos 21 dias e com uma única compra com o vendedor)",
       "tratados_antes_por": [
         "R2",
         "R3",
-        "R4",
         "R5",
         "R6"
       ],
@@ -329,11 +328,10 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "sem comprar com o próprio vendedor há mais de 46 dias",
-      "condicao_efetiva": "(sem comprar com o próprio vendedor há mais de 46 dias e ramo de atividade (id) fora de: 15, 37, 43 e frequência histórica indefinida ou frequência histórica de compra de pelo menos 21 dias e com alguma venda (ativos ou inativos) para o vendedor e sem ser de compra única com o vendedor) OU (sem comprar no grupo de vendedores há mais de 30 dias e sem comprar com o próprio vendedor há mais de 46 dias e ramo de atividade (id) fora de: 15, 37, 43 e frequência histórica indefinida ou frequência histórica de compra de pelo menos 21 dias e com alguma venda (ativos ou inativos) para o vendedor e com uma única compra com o vendedor)",
+      "condicao_efetiva": "(sem comprar com o próprio vendedor há mais de 46 dias e ramo de atividade (id) fora de: 15, 37, 43 e frequência histórica indefinida ou frequência histórica de compra de pelo menos 21 dias e sem ser de compra única com o vendedor) OU (sem comprar no grupo de vendedores há mais de 30 dias e sem comprar com o próprio vendedor há mais de 46 dias e ramo de atividade (id) fora de: 15, 37, 43 e frequência histórica indefinida ou frequência histórica de compra de pelo menos 21 dias e com uma única compra com o vendedor)",
       "tratados_antes_por": [
         "R2",
         "R3",
-        "R4",
         "R5",
         "R6"
       ],
@@ -353,7 +351,7 @@
     }
   ],
   "nao_cobertos": {
-    "do time televendas": "((nunca compraram com o próprio vendedor ou compraram com o próprio vendedor nos últimos 29 dias ou compraram com o próprio vendedor nos últimos 46 dias, mas estão há mais de 45 dias sem comprar) e ramo de atividade (id) fora de: 15, 37, 43 e frequência histórica indefinida ou frequência histórica de compra de pelo menos 21 dias e com alguma venda (ativos ou inativos) para o vendedor e sem ser de compra única com o vendedor) OU ((nunca compraram no grupo de vendedores ou sem comprar no grupo de vendedores há mais de 30 dias) e (nunca compraram com o próprio vendedor ou compraram com o próprio vendedor nos últimos 29 dias ou compraram com o próprio vendedor nos últimos 46 dias, mas estão há mais de 45 dias sem comprar) e ramo de atividade (id) fora de: 15, 37, 43 e frequência histórica indefinida ou frequência histórica de compra de pelo menos 21 dias e com alguma venda (ativos ou inativos) para o vendedor e com uma única compra com o vendedor)"
+    "do time televendas": "((compraram com o próprio vendedor nos últimos 29 dias ou compraram com o próprio vendedor nos últimos 46 dias, mas estão há mais de 45 dias sem comprar) e ramo de atividade (id) fora de: 15, 37, 43 e frequência histórica indefinida ou frequência histórica de compra de pelo menos 21 dias e com alguma venda (ativos ou inativos) para o vendedor e sem ser de compra única com o vendedor) OU (sem comprar no grupo de vendedores há mais de 30 dias e (compraram com o próprio vendedor nos últimos 29 dias ou compraram com o próprio vendedor nos últimos 46 dias, mas estão há mais de 45 dias sem comprar) e ramo de atividade (id) fora de: 15, 37, 43 e frequência histórica indefinida ou frequência histórica de compra de pelo menos 21 dias e com alguma venda (ativos ou inativos) para o vendedor e com uma única compra com o vendedor)"
   },
   "alertas": [
     "A cascata mistura escopos de recência de compra (grupo: Ativado: Fez um pedido e ainda não comprou mais; vendedor: Em ruptura: risco de ficar inativo, Inativo: reativar cliente sem compra); faixas de escopos diferentes não se excluem automaticamente e podem se sobrepor ou deixar lacunas."

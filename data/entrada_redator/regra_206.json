@@ -80,10 +80,7 @@
    "acoes": [
     "frequência de 7 dias"
    ],
-   "condicao_efetiva": "ramo de atividade (id) em: 1, 12, 2, 4",
-   "alertas": [
-    "O nome da regra cita 90 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
-   ]
+   "condicao_efetiva": "ramo de atividade (id) em: 1, 12, 2, 4"
   },
   {
    "id": "R5",
@@ -93,10 +90,7 @@
    "acoes": [
     "frequência de 15 dias"
    ],
-   "condicao_efetiva": "ramo de atividade (id) igual a 3",
-   "alertas": [
-    "O nome da regra cita 90 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
-   ]
+   "condicao_efetiva": "ramo de atividade (id) igual a 3"
   },
   {
    "id": "R6",
@@ -110,9 +104,6 @@
    "tratados_antes_por": [
     "R4",
     "R5"
-   ],
-   "alertas": [
-    "O nome da regra cita 90 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
    ]
   },
   {
@@ -123,10 +114,7 @@
    "acoes": [
     "frequência de 7 dias"
    ],
-   "condicao_efetiva": "ramo de atividade (id) em: 1, 12, 2, 4",
-   "alertas": [
-    "O nome da regra cita 90, 180 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
-   ]
+   "condicao_efetiva": "ramo de atividade (id) em: 1, 12, 2, 4"
   },
   {
    "id": "R8",
@@ -136,10 +124,7 @@
    "acoes": [
     "frequência de 15 dias"
    ],
-   "condicao_efetiva": "ramo de atividade (id) igual a 3",
-   "alertas": [
-    "O nome da regra cita 90, 180 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
-   ]
+   "condicao_efetiva": "ramo de atividade (id) igual a 3"
   },
   {
    "id": "R9",
@@ -153,9 +138,6 @@
    "tratados_antes_por": [
     "R7",
     "R8"
-   ],
-   "alertas": [
-    "O nome da regra cita 90, 180 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
    ]
   },
   {

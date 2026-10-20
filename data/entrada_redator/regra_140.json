@@ -144,10 +144,7 @@
    "acoes": [
     "frequência semanal (7 dias)"
    ],
-   "condicao_efetiva": "compraram com o próprio vendedor nos últimos 21 dias e com alguma venda (ativos ou inativos) para o vendedor",
-   "tratados_antes_por": [
-    "R5"
-   ]
+   "condicao_efetiva": "compraram com o próprio vendedor nos últimos 21 dias"
   },
   {
    "id": "R7",
@@ -157,7 +154,7 @@
    "acoes": [
     "frequência semanal (7 dias)"
    ],
-   "condicao_efetiva": "compraram no grupo de vendedores nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar e (nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 21 dias) e com alguma venda (ativos ou inativos) para o vendedor",
+   "condicao_efetiva": "compraram no grupo de vendedores nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar e sem comprar com o próprio vendedor há mais de 21 dias e com alguma venda (ativos ou inativos) para o vendedor",
    "tratados_antes_por": [
     "R5",
     "R6"
@@ -212,10 +209,7 @@
     "dias de atendimento - preferência: segunda; demais dias sem atendimento",
     "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
    ],
-   "condicao_efetiva": "compraram com o próprio vendedor nos últimos 21 dias e com alguma venda (ativos ou inativos) para o vendedor",
-   "tratados_antes_por": [
-    "R10"
-   ]
+   "condicao_efetiva": "compraram com o próprio vendedor nos últimos 21 dias"
   },
   {
    "id": "R12",
@@ -227,7 +221,7 @@
     "dias de atendimento - preferência: segunda; demais dias sem atendimento",
     "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
    ],
-   "condicao_efetiva": "compraram no grupo de vendedores nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar e (nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 21 dias) e com alguma venda (ativos ou inativos) para o vendedor",
+   "condicao_efetiva": "compraram no grupo de vendedores nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar e sem comprar com o próprio vendedor há mais de 21 dias e com alguma venda (ativos ou inativos) para o vendedor",
    "tratados_antes_por": [
     "R10",
     "R11"
@@ -286,10 +280,7 @@
     "dias de atendimento - preferência: terça; demais dias sem atendimento",
     "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
    ],
-   "condicao_efetiva": "compraram com o próprio vendedor nos últimos 21 dias e com alguma venda (ativos ou inativos) para o vendedor",
-   "tratados_antes_por": [
-    "R15"
-   ]
+   "condicao_efetiva": "compraram com o próprio vendedor nos últimos 21 dias"
   },
   {
    "id": "R17",
@@ -301,7 +292,7 @@
     "dias de atendimento - preferência: terça; demais dias sem atendimento",
     "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
    ],
-   "condicao_efetiva": "compraram no grupo de vendedores nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar e (nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 21 dias) e com alguma venda (ativos ou inativos) para o vendedor",
+   "condicao_efetiva": "compraram no grupo de vendedores nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar e sem comprar com o próprio vendedor há mais de 21 dias e com alguma venda (ativos ou inativos) para o vendedor",
    "tratados_antes_por": [
     "R15",
     "R16"
@@ -360,10 +351,7 @@
     "dias de atendimento - preferência: quarta; demais dias sem atendimento",
     "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
    ],
-   "condicao_efetiva": "compraram com o próprio vendedor nos últimos 21 dias e com alguma venda (ativos ou inativos) para o vendedor",
-   "tratados_antes_por": [
-    "R20"
-   ]
+   "condicao_efetiva": "compraram com o próprio vendedor nos últimos 21 dias"
   },
   {
    "id": "R22",
@@ -375,7 +363,7 @@
     "dias de atendimento - preferência: quarta; demais dias sem atendimento",
     "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
    ],
-   "condicao_efetiva": "compraram no grupo de vendedores nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar e (nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 21 dias) e com alguma venda (ativos ou inativos) para o vendedor",
+   "condicao_efetiva": "compraram no grupo de vendedores nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar e sem comprar com o próprio vendedor há mais de 21 dias e com alguma venda (ativos ou inativos) para o vendedor",
    "tratados_antes_por": [
     "R20",
     "R21"
@@ -434,10 +422,7 @@
     "dias de atendimento - preferência: sexta; demais dias sem atendimento",
     "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
    ],
-   "condicao_efetiva": "compraram com o próprio vendedor nos últimos 21 dias e com alguma venda (ativos ou inativos) para o vendedor",
-   "tratados_antes_por": [
-    "R25"
-   ]
+   "condicao_efetiva": "compraram com o próprio vendedor nos últimos 21 dias"
   },
   {
    "id": "R27",
@@ -449,7 +434,7 @@
     "dias de atendimento - preferência: sexta; demais dias sem atendimento",
     "parametrização fixa (restrição rígida de frequência e dias para o gerador de agendas)"
    ],
-   "condicao_efetiva": "compraram no grupo de vendedores nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar e (nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 21 dias) e com alguma venda (ativos ou inativos) para o vendedor",
+   "condicao_efetiva": "compraram no grupo de vendedores nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar e sem comprar com o próprio vendedor há mais de 21 dias e com alguma venda (ativos ou inativos) para o vendedor",
    "tratados_antes_por": [
     "R25",
     "R26"
@@ -494,7 +479,7 @@
    "acoes": [
     "frequência semanal (7 dias)"
    ],
-   "condicao_efetiva": "(fora da carteira rota 5, rota 6, rota 7, rotas 3 e 4, rotas_dias_variaveis) OU ((nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 20 dias) e (nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 21 dias) e da carteira rota 5, rota 6, rota 7, rotas 3 e 4, rotas_dias_variaveis e com alguma venda (ativos ou inativos) para o vendedor)",
+   "condicao_efetiva": "(fora da carteira rota 5, rota 6, rota 7, rotas 3 e 4, rotas_dias_variaveis) OU (compraram no grupo de vendedores nos últimos 20 dias e sem comprar com o próprio vendedor há mais de 21 dias e da carteira rota 5, rota 6, rota 7, rotas 3 e 4, rotas_dias_variaveis e com alguma venda (ativos ou inativos) para o vendedor)",
    "tratados_antes_por": [
     "R5",
     "R6",

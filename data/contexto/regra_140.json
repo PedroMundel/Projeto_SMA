@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "4",
+  "versao_pacote": "5",
   "arquivo": "regra_140.gobr",
   "sha256": "608502f120b13ab385e337d6785c87c49d8de4934ab02af4b5664595ad96a05f",
   "comentarios": [
@@ -314,10 +314,8 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram com o próprio vendedor nos últimos 21 dias",
-      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 21 dias e com alguma venda (ativos ou inativos) para o vendedor",
-      "tratados_antes_por": [
-        "R5"
-      ],
+      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 21 dias",
+      "tratados_antes_por": [],
       "bloqueios_anteriores": [
         "R1",
         "R2",
@@ -357,7 +355,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar",
-      "condicao_efetiva": "compraram no grupo de vendedores nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar e (nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 21 dias) e com alguma venda (ativos ou inativos) para o vendedor",
+      "condicao_efetiva": "compraram no grupo de vendedores nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar e sem comprar com o próprio vendedor há mais de 21 dias e com alguma venda (ativos ou inativos) para o vendedor",
       "tratados_antes_por": [
         "R5",
         "R6"
@@ -550,10 +548,8 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram com o próprio vendedor nos últimos 21 dias",
-      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 21 dias e com alguma venda (ativos ou inativos) para o vendedor",
-      "tratados_antes_por": [
-        "R10"
-      ],
+      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 21 dias",
+      "tratados_antes_por": [],
       "bloqueios_anteriores": [
         "R1",
         "R2",
@@ -603,7 +599,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar",
-      "condicao_efetiva": "compraram no grupo de vendedores nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar e (nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 21 dias) e com alguma venda (ativos ou inativos) para o vendedor",
+      "condicao_efetiva": "compraram no grupo de vendedores nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar e sem comprar com o próprio vendedor há mais de 21 dias e com alguma venda (ativos ou inativos) para o vendedor",
       "tratados_antes_por": [
         "R10",
         "R11"
@@ -816,10 +812,8 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram com o próprio vendedor nos últimos 21 dias",
-      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 21 dias e com alguma venda (ativos ou inativos) para o vendedor",
-      "tratados_antes_por": [
-        "R15"
-      ],
+      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 21 dias",
+      "tratados_antes_por": [],
       "bloqueios_anteriores": [
         "R1",
         "R2",
@@ -869,7 +863,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar",
-      "condicao_efetiva": "compraram no grupo de vendedores nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar e (nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 21 dias) e com alguma venda (ativos ou inativos) para o vendedor",
+      "condicao_efetiva": "compraram no grupo de vendedores nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar e sem comprar com o próprio vendedor há mais de 21 dias e com alguma venda (ativos ou inativos) para o vendedor",
       "tratados_antes_por": [
         "R15",
         "R16"
@@ -1082,10 +1076,8 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram com o próprio vendedor nos últimos 21 dias",
-      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 21 dias e com alguma venda (ativos ou inativos) para o vendedor",
-      "tratados_antes_por": [
-        "R20"
-      ],
+      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 21 dias",
+      "tratados_antes_por": [],
       "bloqueios_anteriores": [
         "R1",
         "R2",
@@ -1135,7 +1127,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar",
-      "condicao_efetiva": "compraram no grupo de vendedores nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar e (nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 21 dias) e com alguma venda (ativos ou inativos) para o vendedor",
+      "condicao_efetiva": "compraram no grupo de vendedores nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar e sem comprar com o próprio vendedor há mais de 21 dias e com alguma venda (ativos ou inativos) para o vendedor",
       "tratados_antes_por": [
         "R20",
         "R21"
@@ -1348,10 +1340,8 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram com o próprio vendedor nos últimos 21 dias",
-      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 21 dias e com alguma venda (ativos ou inativos) para o vendedor",
-      "tratados_antes_por": [
-        "R25"
-      ],
+      "condicao_efetiva": "compraram com o próprio vendedor nos últimos 21 dias",
+      "tratados_antes_por": [],
       "bloqueios_anteriores": [
         "R1",
         "R2",
@@ -1401,7 +1391,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar",
-      "condicao_efetiva": "compraram no grupo de vendedores nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar e (nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 21 dias) e com alguma venda (ativos ou inativos) para o vendedor",
+      "condicao_efetiva": "compraram no grupo de vendedores nos últimos 41 dias, mas estão há pelo menos 21 dias sem comprar e sem comprar com o próprio vendedor há mais de 21 dias e com alguma venda (ativos ou inativos) para o vendedor",
       "tratados_antes_por": [
         "R25",
         "R26"
@@ -1550,7 +1540,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "todos os clientes da fonte (sem filtro)",
-      "condicao_efetiva": "(fora da carteira rota 5, rota 6, rota 7, rotas 3 e 4, rotas_dias_variaveis) OU ((nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 20 dias) e (nunca compraram com o próprio vendedor ou sem comprar com o próprio vendedor há mais de 21 dias) e da carteira rota 5, rota 6, rota 7, rotas 3 e 4, rotas_dias_variaveis e com alguma venda (ativos ou inativos) para o vendedor)",
+      "condicao_efetiva": "(fora da carteira rota 5, rota 6, rota 7, rotas 3 e 4, rotas_dias_variaveis) OU (compraram no grupo de vendedores nos últimos 20 dias e sem comprar com o próprio vendedor há mais de 21 dias e da carteira rota 5, rota 6, rota 7, rotas 3 e 4, rotas_dias_variaveis e com alguma venda (ativos ou inativos) para o vendedor)",
       "tratados_antes_por": [
         "R5",
         "R6",

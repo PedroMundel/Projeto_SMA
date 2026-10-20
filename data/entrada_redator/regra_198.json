@@ -40,7 +40,7 @@
    "fonte": "do time televendas",
    "acao_principal": "frequencia",
    "acoes": [
-    "frequência calculada pelo histórico de compras; se não houver, limitada a no mínimo 7 dias e no máximo 30 dias"
+    "frequência calculada pelo histórico de visitas, limitada a no mínimo 7 dias e no máximo 30 dias"
    ],
    "condicao_efetiva": "compraram com o próprio vendedor nos últimos 30 dias"
   },
@@ -80,6 +80,7 @@
  "alertas_do_arquivo": [],
  "premissas_usadas": [
   "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
-  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado."
+  "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado.",
+  "P9: Em 'frequencia do historico ou no minimo/no maximo ...', os limites restringem a frequência do histórico."
  ]
 }

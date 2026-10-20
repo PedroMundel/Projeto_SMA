@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "4",
+  "versao_pacote": "5",
   "arquivo": "regra_184.gobr",
   "sha256": "f89a5f91e4f82435bbdc9a8c256348ef79528424b935a6e0136545f63d676b6e",
   "comentarios": [
@@ -83,7 +83,7 @@
       "acoes": [
         {
           "codigo": "frequencia do historico ou no minimo de 1 dias e no maximo de 5 dias",
-          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no mínimo 1 dias e no máximo 5 dias",
+          "significado": "frequência calculada pelo histórico de visitas, limitada a no mínimo 1 dias e no máximo 5 dias",
           "reconhecida": true
         },
         {
@@ -129,7 +129,7 @@
       "acoes": [
         {
           "codigo": "frequencia do historico ou no minimo de 7 dias e no maximo de 12 dias",
-          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no mínimo 7 dias e no máximo 12 dias",
+          "significado": "frequência calculada pelo histórico de visitas, limitada a no mínimo 7 dias e no máximo 12 dias",
           "reconhecida": true
         }
       ],
@@ -171,7 +171,7 @@
       "acoes": [
         {
           "codigo": "frequencia do historico ou no minimo de 14 dias e no maximo de 28 dias",
-          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no mínimo 14 dias e no máximo 28 dias",
+          "significado": "frequência calculada pelo histórico de visitas, limitada a no mínimo 14 dias e no máximo 28 dias",
           "reconhecida": true
         }
       ],
@@ -630,6 +630,7 @@
   ],
   "premissas_usadas": [
     "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
-    "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+    "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores.",
+    "P9: Em 'frequencia do historico ou no minimo/no maximo ...', os limites restringem a frequência do histórico."
   ]
 }

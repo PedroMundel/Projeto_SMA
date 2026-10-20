@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "4",
+  "versao_pacote": "5",
   "arquivo": "regra_218.gobr",
   "sha256": "c4518d61130ca500a9d236a4fa1bc54d37d7767188386541d3b91a2e4d16f291",
   "comentarios": [
@@ -78,7 +78,7 @@
       "acoes": [
         {
           "codigo": "frequencia do historico ou no maximo de 14 dias",
-          "significado": "frequência calculada pelo histórico de compras; se não houver, limitada a no máximo 14 dias",
+          "significado": "frequência calculada pelo histórico de visitas, limitada a no máximo 14 dias",
           "reconhecida": true
         }
       ],
@@ -259,6 +259,7 @@
   "premissas_usadas": [
     "P1: 'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
     "P5: Ciclo de vida 'prospect' equivale a 'nunca comprou' no escopo indicado.",
-    "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores."
+    "P6: Times diferentes são tratados como conjuntos disjuntos de vendedores.",
+    "P9: Em 'frequencia do historico ou no minimo/no maximo ...', os limites restringem a frequência do histórico."
   ]
 }

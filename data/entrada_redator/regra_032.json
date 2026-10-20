@@ -1196,8 +1196,7 @@
    "acoes": [
     "não agendar"
    ],
-   "condicao_efetiva": null,
-   "condicao_propria": "todos os clientes da fonte (sem filtro)",
+   "condicao_efetiva": "(fora da carteira norte_nordeste, sul_sudeste_centrooeste) OU (já compraram com qualquer vendedor da empresa e ramo de atividade (id) fora de: AGROPECUARIA, ATACADO, CONS. FINAL, EPI, FERRAGISTA, HOME CENTER e mais 2 e da carteira norte_nordeste, sul_sudeste_centrooeste) OU (sem comprar com qualquer vendedor da empresa há mais de 180 dias e ramo de atividade (id) igual a CONS. FINAL e da carteira norte_nordeste e não (faturamento médio mensal no ano com a empresa maior que R$ 10000) e não (faturamento médio mensal no ano com a empresa maior que R$ 15000))",
    "tratados_antes_por": [
     "R2",
     "R3",
@@ -1270,11 +1269,7 @@
     "R70",
     "R71",
     "R72",
-    "R73",
-    "R74"
-   ],
-   "alertas": [
-    "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
+    "R73"
    ]
   }
  ],

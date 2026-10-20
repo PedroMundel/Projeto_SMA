@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "4",
+  "versao_pacote": "5",
   "arquivo": "regra_169.gobr",
   "sha256": "3b14794143b1e84bd2c4b44f4c61e555851867a71d70f51099f494f8af54faaa",
   "comentarios": [
@@ -144,9 +144,7 @@
         14,
         30
       ],
-      "alertas": [
-        "O nome da regra cita 7 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
-      ]
+      "alertas": []
     },
     {
       "id": "R3",

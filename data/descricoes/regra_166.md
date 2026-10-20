@@ -1,6 +1,6 @@
 # regra_166.gobr
 
-Regra de agendamento da carteira fixa do time de televendas, com frequência de 7 dias para clientes ativos e de 14 dias para inativos e para clientes sem vendas. Antes das faixas, deixam de ser agendados os clientes com tipo de cobrança DH sem crédito disponível, os com tipo de cobrança BK e menos de R$ 199 de crédito disponível e os inadimplentes.
+Regra do time de televendas aplicada à carteira fixa de todos os vendedores do time. Deixam de ser agendados os clientes DH sem crédito, os clientes BK com pouco crédito e os inadimplentes. Os demais seguem frequência de 7 dias para ativos e de 14 dias para inativos e para clientes sem vendas.
 
 ## Carteiras
 
@@ -15,6 +15,11 @@ Regra de agendamento da carteira fixa do time de televendas, com frequência de 
 | Bloqueio: DH sem crédito | Clientes com tipo de cobrança DH e sem crédito disponível | Não agendar |  |
 | Bloqueio: BK com pouco crédito | Clientes com tipo de cobrança BK e com menos de R$ 199 de crédito disponível | Não agendar |  |
 | Bloqueio: inadimplentes | Clientes inadimplentes | Não agendar |  |
-| Clientes ativos | Clientes ativos para o vendedor | 7 dias |  |
-| Clientes inativos | Clientes inativos para o vendedor | 14 dias |  |
-| Clientes sem venda | Clientes sem vendas para o vendedor | 14 dias |  |
+| Ativos | Clientes ativos para o vendedor | 7 dias |  |
+| Inativos | Clientes inativos para o vendedor | 14 dias |  |
+| Sem vendas | Clientes que nunca compraram com o vendedor | 14 dias |  |
+
+## Pontos de atenção
+
+- O nome da regra 'DH sem crédito' fala em R$ 0, mas esse valor não aparece no código: nome e código podem estar divergentes.
+- O nome da regra 'BK com pouco crédito' fala em R$ 200, mas esse valor não aparece no código, que usa outro limite: nome e código podem estar divergentes.

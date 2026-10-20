@@ -66,10 +66,7 @@
    "acoes": [
     "frequência de 14 dias"
    ],
-   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 30 dias",
-   "alertas": [
-    "O nome da regra cita 7 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
-   ]
+   "condicao_efetiva": "compraram com qualquer vendedor da empresa nos últimos 30 dias"
   },
   {
    "id": "R3",
