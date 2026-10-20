@@ -85,7 +85,8 @@ parser não reconheceu.
   e frequência ([docs/avaliacao/gabaritos.md](docs/avaliacao/gabaritos.md)).
 - Na revisão independente por amostra aleatória, 21 de 22 regras estão corretas e nenhuma errada. Na
   amostra dos arquivos de menor concordância havia erros; as seis causas na camada determinística foram
-  corrigidas no pacote v5 e os 51 arquivos afetados foram regerados (relatório, seção 5.3).
+  corrigidas no pacote v5 e os 51 arquivos afetados foram regerados. Na reavaliação cega desses
+  arquivos, as regras erradas caíram de 7 para 1 em 23 (relatório, seções 5.2 e 5.3).
 - 77 dos 246 arquivos do corpus têm algum alerta de modelagem: regras que nunca são aplicadas, nomes
   divergentes do código, escopos misturados, lacunas e outros. São esses achados que o agente vai usar
   para ser proativo.

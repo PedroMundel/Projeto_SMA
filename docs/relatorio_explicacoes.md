@@ -73,11 +73,42 @@ concordância textual pegou justamente a réplica errada.
 (a amostra de menor concordância concentra os problemas), mas é cega a erros que aparecem em todas as
 réplicas e pode escolher a réplica errada.
 
+**Reavaliação depois do v5.** Dois revisores novos, cegos às revisões anteriores, julgaram de forma
+independente as quatro descrições regeradas cujos problemas motivaram o v5. Cada um revisou todas as
+23 regras ([revisao_v5_1.md](avaliacao/revisao_v5_1.md), [revisao_v5_2.md](avaliacao/revisao_v5_2.md)).
+
+| Arquivo | Regras | Antes do v5 (C / I / E) | Revisor 1 | Revisor 2 |
+|---|---|---|---|---|
+| regra_160 | 14 | 5 / 2 / 7 | 13 / 1 / 0 | 14 / 0 / 0 |
+| regra_151 | 1 | 0 / 1 / 0 | 0 / 1 / 0 | 0 / 1 / 0 |
+| regra_217 | 2 | 1 / 1 / 0 | 1 / 0 / 1 | 1 / 0 / 1 |
+| regra_233 | 6 | 6 / 0 / 0 | 6 / 0 / 0 | 6 / 0 / 0 |
+| **Total** | **23** | **12 / 4 / 7** | **20 / 2 / 1** | **21 / 1 / 1** |
+
+C = corretas, I = imprecisas, E = erradas. A linha "antes" junta os veredictos das duas amostras acima
+para esses quatro arquivos.
+
+- **regra_160:** os 7 erros de população sumiram. Os dois revisores reconstruíram a cascata e
+  confirmaram as 13 primeiras regras. A única divergência é a R14: para o revisor 1, o rótulo "tipo de
+  pessoa indefinido" esconde que essa regra final também atende pessoas jurídicas ativas há mais de 90
+  dias sem comprar. O revisor 2 considerou suficiente o que está escrito no critério.
+- **regra_217:** a R2 piorou de imprecisa para errada, mas a causa mudou. O pacote agora está certo ("sem
+  ser de compra única com o vendedor"). O redator reescreveu essa negação como "mais de uma compra com o
+  vendedor", o que exclui quem só comprou com outros vendedores do grupo. O mesmo deslize deixou
+  contraditório o ponto de atenção do arquivo. Os dois revisores apontaram isso.
+- **regra_151:** a R1 continua imprecisa. O filtro de segmentação agora aparece, mas o pacote não
+  cruza a definição da carteira com a da segmentação, e o filtro é praticamente redundante com a fonte.
+- **Pontos de atenção:** é a parte mais fraca. Nenhum dos quatro arquivos ficou totalmente certo para os
+  dois revisores (problemas 8 a 10 da seção 5.3).
+
+As regras erradas caíram de 7 para 1 e as corretas subiram de 52% para 87–91%. O erro que sobrou é do
+redator, não da cascata.
+
 ### 5.3 Problemas encontrados na avaliação
 
 Os problemas 1 a 6 foram corrigidos na camada determinística (pacote v5, premissas P4, P5 e P9). As
 entradas de 51 arquivos mudaram e eles foram regerados em `data/candidatos_v5/`. O problema 7 continua
-em aberto.
+em aberto. A reavaliação depois do v5 (seção 5.2) encontrou os problemas 8 a 11, ainda não corrigidos.
 
 | # | Problema | Camada | Exemplo | Situação |
 |---|---|---|---|---|
@@ -85,13 +116,13 @@ em aberto.
 | 2 | Filtro `contido na segmentacao` sobre a mesma segmentação da fonte fica oculto no texto | determinística | regra_151 R1 | corrigido (v5) |
 | 3 | Regra sem ação (quebrada) consome clientes na cascata | determinística | regra_032 R74 | corrigido (v5) |
 | 4 | "ativos/inativos para o vendedor" não implica "já comprou com ele"; sobra um "nunca compraram" vazio | determinística | regra_160 R5, R6, R12 | corrigido (v5) |
-| 5 | O alerta "nome × código" ignora números das carteiras e segmentações de origem (falso positivo) e só olha dias, não valores em R$ (falso negativo) | determinística | regra_151, regra_233 | corrigido (v5) |
+| 5 | O alerta "nome × código" ignora números das carteiras e segmentações de origem (falso positivo) e só olha dias, não valores em R$ (falso negativo) | determinística | regra_151, regra_233 | corrigido (v5), mas criou o falso positivo 8 |
 | 6 | O significado de `frequencia do historico ou no minimo ... no maximo ...` fala em histórico "de compras" (o manual diz "de visitas") e deixa ambíguo se o mínimo/máximo limita o histórico | determinística | regra_217 R2 | corrigido (v5) |
 | 7 | A escolha por concordância textual pode eleger a réplica errada | redator / consenso | regra_160 | em aberto |
-
-Na `regra_160` regerada, R7 e R8 já valem para quem não tem rota no dia seguinte, R12 diz "inativos
-para o vendedor, há mais de 90 dias sem comprar com ele" e R14 inclui os clientes sem tipo de pessoa
-definido. As amostras da seção 5.2 ainda não foram reavaliadas depois do v5.
+| 8 | O alerta "nome × código" não reconhece que `nao tem credito` equivale a "crédito igual ou menor que R$ 0,00" (falso positivo) | determinística | regra_233 R1 | em aberto |
+| 9 | `nao_cobertos` ignora bloqueios e regras com filtro temporal: diz "todos os clientes" sem cobertura quando o bloqueio da última semana pega a carteira inteira; também não cruza a definição da carteira com a da segmentação | determinística | regra_151 | em aberto |
+| 10 | Não há alerta para faixas consecutivas com a mesma ação, que se absorvem (R1–R5 iguais a R6), nem para uma regra final cujo nome esconde parte da população | determinística | regra_160 | em aberto |
+| 11 | O redator reescreve uma negação do pacote como afirmação ("sem ser de compra única" virou "mais de uma compra") | redator | regra_217 R2 | em aberto |
 
 ## 6. Achados de modelagem no corpus
 
@@ -113,7 +144,8 @@ escada de leads de 8, 15, 30 e 60 dias, e a escada inteira nunca é aplicada.
 
 ## 7. Limitações e próximos passos
 
-- Reavaliar a amostra de menor concordância (regra_160, 151, 217 e 233) depois do v5.
+- Corrigir os problemas 8 a 10 na camada determinística. Para o 11, o validador pode exigir que
+  negações do pacote ("sem ser", "exceto") apareçam no texto.
 - Para o problema 7, trocar a concordância textual por uma comparação estrutural (números e ação por
   regra) ou acrescentar um juiz LLM nos arquivos de concordância baixa.
 - `_meta.modelo` grava uma constante (`claude-sonnet-5-5`), não o modelo que de fato atendeu.
