@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_146.gobr",
   "sha256": "1655af5f6662050af6d2607955bcd0a1fbaa157d1054161c3bcaff6986fa3e85",
   "comentarios": [
@@ -47,6 +47,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -79,6 +80,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        7
+      ],
+      "numeros_exigidos": [
         7
       ],
       "alertas": []
@@ -120,6 +124,9 @@
       "numeros": [
         7
       ],
+      "numeros_exigidos": [
+        7
+      ],
       "alertas": []
     },
     {
@@ -155,6 +162,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        30
+      ],
+      "numeros_exigidos": [
         30
       ],
       "alertas": []
@@ -200,6 +210,9 @@
       "numeros": [
         30
       ],
+      "numeros_exigidos": [
+        30
+      ],
       "alertas": []
     },
     {
@@ -237,6 +250,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        21
+      ],
+      "numeros_exigidos": [
         21
       ],
       "alertas": [
@@ -283,6 +299,11 @@
         30,
         45
       ],
+      "numeros_exigidos": [
+        21,
+        30,
+        45
+      ],
       "alertas": []
     },
     {
@@ -321,6 +342,10 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        45,
+        46
+      ],
+      "numeros_exigidos": [
         45,
         46
       ],

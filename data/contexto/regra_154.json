@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_154.gobr",
   "sha256": "ecf1d4bd0df4fda5b48bf87e8fbe6e89d5a93bd1e98ad2c2c09821ef5261f9d9",
   "comentarios": [
@@ -71,6 +71,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [
+        7
+      ],
       "alertas": []
     },
     {
@@ -111,6 +114,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [
+        7
+      ],
       "alertas": []
     },
     {
@@ -151,6 +157,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [
+        7
+      ],
       "alertas": []
     },
     {
@@ -191,6 +200,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [
+        7
+      ],
       "alertas": []
     },
     {
@@ -226,6 +238,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [
+        7
+      ],
       "alertas": []
     },
     {
@@ -261,6 +276,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [
+        7
+      ],
       "alertas": []
     },
     {
@@ -296,6 +314,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [
+        7
+      ],
       "alertas": []
     },
     {
@@ -331,6 +352,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [
+        7
+      ],
       "alertas": []
     },
     {
@@ -361,6 +385,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [
+        7
+      ],
       "alertas": []
     },
     {
@@ -401,6 +428,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        30
+      ],
+      "numeros_exigidos": [
         30
       ],
       "alertas": []
@@ -451,6 +481,9 @@
       "numeros": [
         14
       ],
+      "numeros_exigidos": [
+        14
+      ],
       "alertas": []
     },
     {
@@ -499,6 +532,9 @@
       "numeros": [
         21
       ],
+      "numeros_exigidos": [
+        21
+      ],
       "alertas": []
     },
     {
@@ -544,6 +580,9 @@
       "numeros": [
         28
       ],
+      "numeros_exigidos": [
+        28
+      ],
       "alertas": []
     },
     {
@@ -582,6 +621,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        30
+      ],
+      "numeros_exigidos": [
         30
       ],
       "alertas": []

@@ -5,6 +5,7 @@ IntervalSet; categorical and boolean dimensions hold a frozenset. Key convention
 
   rec:<compra|visita>:<grupo|vendedor|global>   IntervalSet of days since the last event (-1 = never)
   freqhist                                      IntervalSet of historical purchase frequency (-1 = undefined)
+  cadastro                                      IntervalSet of days since ERP registration
   situacao:<padrao|vendedor|empresa>            {ativo, inativo, sem_venda}
   curva:<empresa|vendedor>                      {A, B, C}
   ciclo:<empresa|vendedor>                      {ativo, inativo, ativado, reativado}
@@ -104,6 +105,8 @@ MAX_LISTED_VALUES = 6
 def domain(key: str):
     if key.startswith("rec:") or key == "freqhist":
         return IntervalSet.full()
+    if key == "cadastro":  # every ERP client has a registration date, so there is no "never" value
+        return IntervalSet.of(0)
     if key in ("time", "carteira") or (key.startswith("campo:") and key.count(":") == 1):
         return ValueSet(excluding=True)
     return CATEGORICAL_DOMAINS.get(key.split(":")[0], BOOL)
@@ -119,6 +122,8 @@ def render(key: str, value, numbers: set[int], explicit_group: bool = False) -> 
         return _render_recency(value, event, suffix, numbers)
     if key == "freqhist":
         return _render_freqhist(value, numbers)
+    if key == "cadastro":
+        return _render_registration(value, numbers)
     if family in CATEGORICAL_DOMAINS and (OTHER in value or len(CATEGORICAL_DOMAINS[family] - value) == 1):
         return _render_categorical_negation(key, sorted(CATEGORICAL_DOMAINS[family] - value))
     if family == "situacao":
@@ -213,6 +218,8 @@ def _render_recency(value: IntervalSet, event: str, suffix: str, numbers: set[in
                 continue
         if lo == 0 and hi == INF:
             parts.append(f"já {verb}{suffix}")
+        elif lo == hi == 0:
+            parts.append(f"{verb}{suffix} hoje")
         elif lo == 0:
             parts.append(f"{verb}{suffix} nos últimos {hi} dias")
         elif hi == INF:
@@ -220,6 +227,18 @@ def _render_recency(value: IntervalSet, event: str, suffix: str, numbers: set[in
         else:
             parts.append(f"{verb}{suffix} nos últimos {hi} dias, mas estão há {_lower(lo, numbers)} dias sem {noun}")
     return " ou ".join(parts) if len(parts) == 1 else "(" + " ou ".join(parts) + ")"
+
+
+def _render_registration(value: IntervalSet, numbers: set[int]) -> str:
+    parts = []
+    for lo, hi in value.spans:
+        if hi == INF:
+            parts.append(f"cadastrados no ERP há {_lower(lo, numbers)} dias")
+        elif lo == 0:
+            parts.append(f"cadastrados no ERP há {_upper(hi, numbers)} dias")
+        else:
+            parts.append(f"cadastrados no ERP há {_lower(lo, numbers)} e {_upper(hi, numbers)} dias")
+    return " ou ".join(parts)
 
 
 def _render_freqhist(value: IntervalSet, numbers: set[int]) -> str:

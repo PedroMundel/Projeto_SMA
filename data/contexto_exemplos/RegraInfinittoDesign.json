@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "RegraInfinittoDesign.gobr",
   "sha256": "1bdb6abdcdfe646b622fe5fa3965153d3cb29622987fbff6ff8446e8990eb548",
   "comentarios": [
@@ -48,6 +48,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -82,6 +83,9 @@
       "numeros": [
         7
       ],
+      "numeros_exigidos": [
+        7
+      ],
       "alertas": []
     },
     {
@@ -114,6 +118,10 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        14,
+        60
+      ],
+      "numeros_exigidos": [
         14,
         60
       ],
@@ -154,6 +162,11 @@
         7,
         90
       ],
+      "numeros_exigidos": [
+        7,
+        60,
+        90
+      ],
       "alertas": []
     },
     {
@@ -185,6 +198,11 @@
       "inalcancavel": false,
       "numeros": [
         28
+      ],
+      "numeros_exigidos": [
+        28,
+        60,
+        90
       ],
       "alertas": []
     }

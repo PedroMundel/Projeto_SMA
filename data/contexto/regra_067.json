@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_067.gobr",
   "sha256": "55ec3f16cc03088a8dbf86ac00f895f78962b05f1845da59a91550e4f2078d5c",
   "comentarios": [
@@ -78,6 +78,9 @@
       "numeros": [
         14
       ],
+      "numeros_exigidos": [
+        14
+      ],
       "alertas": []
     },
     {
@@ -115,6 +118,9 @@
       "numeros": [
         30
       ],
+      "numeros_exigidos": [
+        30
+      ],
       "alertas": []
     },
     {
@@ -150,6 +156,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        7
+      ],
+      "numeros_exigidos": [
         7
       ],
       "alertas": []
@@ -194,6 +203,9 @@
       "numeros": [
         20
       ],
+      "numeros_exigidos": [
+        20
+      ],
       "alertas": []
     },
     {
@@ -234,6 +246,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        20
+      ],
+      "numeros_exigidos": [
         20
       ],
       "alertas": []
@@ -278,6 +293,9 @@
       "numeros": [
         30
       ],
+      "numeros_exigidos": [
+        30
+      ],
       "alertas": []
     },
     {
@@ -313,6 +331,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": [
         "O nome da regra cita 30 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
       ]
@@ -352,6 +371,9 @@
       "numeros": [
         30
       ],
+      "numeros_exigidos": [
+        30
+      ],
       "alertas": [
         "O nome da regra cita 14 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
       ]
@@ -389,6 +411,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        21
+      ],
+      "numeros_exigidos": [
         21
       ],
       "alertas": []
@@ -433,6 +458,9 @@
       "numeros": [
         21
       ],
+      "numeros_exigidos": [
+        21
+      ],
       "alertas": []
     },
     {
@@ -475,6 +503,9 @@
       "numeros": [
         42
       ],
+      "numeros_exigidos": [
+        42
+      ],
       "alertas": []
     },
     {
@@ -512,6 +543,7 @@
       ],
       "inalcancavel": true,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": [
         "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Regra Padrao da NutriPet - Customizavel: 30 dias para clientes inativos inadimplentes (capital)\"."
       ]
@@ -549,6 +581,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        14
+      ],
+      "numeros_exigidos": [
         14
       ],
       "alertas": []

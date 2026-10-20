@@ -61,7 +61,12 @@
    "acoes": [
     "frequência de 30 dias"
    ],
-   "condicao_efetiva": "cadastrados no ERP há pelo menos 60 dias"
+   "condicao_efetiva": null,
+   "condicao_propria": "cadastrados no ERP há pelo menos 60 dias",
+   "inalcancavel": true,
+   "alertas": [
+    "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Clientes que nunca compraram com a empresa\"."
+   ]
   },
   {
    "id": "R5",
@@ -71,9 +76,11 @@
    "acoes": [
     "frequência de 20 dias"
    ],
-   "condicao_efetiva": "cadastrados no ERP há pelo menos 30 dias e não (cadastrados no ERP há pelo menos 60 dias)",
-   "tratados_antes_por": [
-    "R4"
+   "condicao_efetiva": null,
+   "condicao_propria": "cadastrados no ERP há pelo menos 30 dias",
+   "inalcancavel": true,
+   "alertas": [
+    "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Clientes que nunca compraram com a empresa\"."
    ]
   },
   {
@@ -84,10 +91,11 @@
    "acoes": [
     "frequência de 15 dias"
    ],
-   "condicao_efetiva": "cadastrados no ERP há pelo menos 15 dias e não (cadastrados no ERP há pelo menos 30 dias) e não (cadastrados no ERP há pelo menos 60 dias)",
-   "tratados_antes_por": [
-    "R4",
-    "R5"
+   "condicao_efetiva": null,
+   "condicao_propria": "cadastrados no ERP há pelo menos 15 dias",
+   "inalcancavel": true,
+   "alertas": [
+    "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Clientes que nunca compraram com a empresa\"."
    ]
   },
   {
@@ -98,11 +106,11 @@
    "acoes": [
     "frequência de 15 dias"
    ],
-   "condicao_efetiva": "não (cadastrados no ERP há pelo menos 15 dias) e não (cadastrados no ERP há pelo menos 30 dias) e não (cadastrados no ERP há pelo menos 60 dias) e cadastrados no ERP há pelo menos 8 dias",
-   "tratados_antes_por": [
-    "R4",
-    "R5",
-    "R6"
+   "condicao_efetiva": null,
+   "condicao_propria": "cadastrados no ERP há mais de 7 dias",
+   "inalcancavel": true,
+   "alertas": [
+    "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Clientes que nunca compraram com a empresa\"."
    ]
   },
   {
@@ -148,7 +156,7 @@
  ],
  "nao_cobertos": {
   "do time televendas_1": "todos os clientes",
-  "do time televendas_2": "não (cadastrados no ERP há pelo menos 15 dias) e não (cadastrados no ERP há pelo menos 30 dias) e não (cadastrados no ERP há pelo menos 60 dias) e não (cadastrados no ERP há pelo menos 8 dias)"
+  "do time televendas_2": "todos os clientes"
  },
  "alertas_do_arquivo": [],
  "premissas_usadas": [

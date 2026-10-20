@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_125.gobr",
   "sha256": "d38a46cc71d94b21d940e7a07cc2b86c9b6ece50c68e83e7af5a1b70413638b9",
   "comentarios": [],
@@ -56,6 +56,9 @@
       "numeros": [
         7
       ],
+      "numeros_exigidos": [
+        7
+      ],
       "alertas": []
     },
     {
@@ -93,6 +96,9 @@
       "numeros": [
         15
       ],
+      "numeros_exigidos": [
+        15
+      ],
       "alertas": []
     },
     {
@@ -128,6 +134,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -158,6 +165,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        20
+      ],
+      "numeros_exigidos": [
         20
       ],
       "alertas": []

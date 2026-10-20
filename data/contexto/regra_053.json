@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_053.gobr",
   "sha256": "1b7398f9364b5e8b42058f55ee930c6ef3b40d9ccc5a57e90102579ef465e370",
   "comentarios": [
@@ -77,6 +77,9 @@
       "numeros": [
         14
       ],
+      "numeros_exigidos": [
+        14
+      ],
       "alertas": []
     },
     {
@@ -112,6 +115,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        30
+      ],
+      "numeros_exigidos": [
         30
       ],
       "alertas": []
@@ -151,6 +157,9 @@
       "numeros": [
         7
       ],
+      "numeros_exigidos": [
+        7
+      ],
       "alertas": []
     },
     {
@@ -186,6 +195,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -216,6 +226,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        7
+      ],
+      "numeros_exigidos": [
         7
       ],
       "alertas": []
@@ -253,6 +266,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -288,6 +302,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -323,6 +338,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     }
   ],

@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_061.gobr",
   "sha256": "ec3c78b744b20aae98fd92f4859bd0f0a95a81ba00b1561824f56a773b5f7f07",
   "comentarios": [
@@ -91,6 +91,9 @@
       "numeros": [
         14
       ],
+      "numeros_exigidos": [
+        14
+      ],
       "alertas": []
     },
     {
@@ -123,6 +126,9 @@
       "numeros": [
         14
       ],
+      "numeros_exigidos": [
+        14
+      ],
       "alertas": []
     },
     {
@@ -153,6 +159,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        14
+      ],
+      "numeros_exigidos": [
         14
       ],
       "alertas": []
@@ -190,6 +199,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -216,6 +226,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        14
+      ],
+      "numeros_exigidos": [
         14
       ],
       "alertas": []
@@ -253,6 +266,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -283,6 +297,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -310,6 +325,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        14
+      ],
+      "numeros_exigidos": [
         14
       ],
       "alertas": []

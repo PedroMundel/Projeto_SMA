@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_179.gobr",
   "sha256": "4427fa706c03f145217ab78fb9a201bf9a74bb66d19e47900b58a56e79af33d3",
   "comentarios": [
@@ -89,6 +89,9 @@
       "numeros": [
         7
       ],
+      "numeros_exigidos": [
+        7
+      ],
       "alertas": []
     },
     {
@@ -121,6 +124,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        14
+      ],
+      "numeros_exigidos": [
         14
       ],
       "alertas": []
@@ -157,6 +163,9 @@
       "numeros": [
         7
       ],
+      "numeros_exigidos": [
+        7
+      ],
       "alertas": []
     },
     {
@@ -190,6 +199,10 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        7,
+        30
+      ],
+      "numeros_exigidos": [
         7,
         30
       ],
@@ -229,6 +242,10 @@
         7,
         30
       ],
+      "numeros_exigidos": [
+        7,
+        30
+      ],
       "alertas": []
     },
     {
@@ -262,6 +279,10 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        14,
+        30
+      ],
+      "numeros_exigidos": [
         14,
         30
       ],
@@ -299,6 +320,12 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        7,
+        30,
+        60
+      ],
+      "numeros_exigidos": [
+        6,
         7,
         30,
         60
@@ -344,6 +371,12 @@
         30,
         60
       ],
+      "numeros_exigidos": [
+        6,
+        14,
+        30,
+        60
+      ],
       "alertas": []
     },
     {
@@ -382,6 +415,11 @@
         60,
         89
       ],
+      "numeros_exigidos": [
+        7,
+        60,
+        89
+      ],
       "alertas": []
     },
     {
@@ -416,6 +454,11 @@
       "bloqueios_anteriores": [],
       "inalcancavel": true,
       "numeros": [
+        14,
+        60,
+        89
+      ],
+      "numeros_exigidos": [
         14,
         60,
         89
@@ -460,6 +503,11 @@
         60,
         89
       ],
+      "numeros_exigidos": [
+        21,
+        60,
+        89
+      ],
       "alertas": []
     },
     {
@@ -495,6 +543,11 @@
       "numeros": [
         7,
         90,
+        179
+      ],
+      "numeros_exigidos": [
+        7,
+        89,
         179
       ],
       "alertas": []
@@ -533,6 +586,11 @@
       "numeros": [
         21,
         90,
+        179
+      ],
+      "numeros_exigidos": [
+        21,
+        89,
         179
       ],
       "alertas": [
@@ -574,6 +632,11 @@
         90,
         179
       ],
+      "numeros_exigidos": [
+        14,
+        89,
+        179
+      ],
       "alertas": []
     },
     {
@@ -607,6 +670,10 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        14,
+        180
+      ],
+      "numeros_exigidos": [
         14,
         180
       ],
@@ -644,6 +711,10 @@
       "bloqueios_anteriores": [],
       "inalcancavel": true,
       "numeros": [
+        28,
+        180
+      ],
+      "numeros_exigidos": [
         28,
         180
       ],

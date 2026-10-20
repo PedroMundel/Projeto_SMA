@@ -127,6 +127,16 @@ class CascadeRegressionTest(unittest.TestCase):
                 + params("b", "frequencia de 14 dias", source='da carteira("b")'))
         self.assertTrue(rule(build_source(body), "b")["inalcancavel"])
 
+    def test_registration_age_ladder_collapses_to_bands(self):
+        package = build_source(params("a", "quando cadastrado faz 30 dias", "frequencia de 20 dias")
+                               + params("b", "quando cadastrado faz 15 dias", "frequencia de 15 dias"))
+        self.assertEqual(rule(package, "b")["condicao_efetiva"], "cadastrados no ERP há pelo menos 15 e menos de 30 dias")
+
+    def test_cascade_exclusions_in_a_union_are_not_required_numbers(self):
+        package = build_source(params("a", "quando cadastrado faz 60 dias", "e unica compra com o vendedor", "nao agendar")
+                               + params("b", "quando recencia de positivacao em 30 dias", "frequencia de 14 dias"))
+        self.assertEqual(rule(package, "b")["numeros_exigidos"], [14, 30])
+
     def test_contradictory_recency_scopes_make_rule_unreachable(self):
         package = build_source(params("x", "quando recencia de positivacao do vendedor em 30 dias",
                                       "e fora da recencia de positivacao global em 60 dias", "frequencia de 7 dias"))
@@ -173,6 +183,10 @@ class RedatorContractTest(unittest.TestCase):
     def test_renamed_rule_is_an_error(self):
         answer = self.corrupted(0, "nome", "Bloqueio Receita")
         self.assertTrue(any("nome alterado" in e for e in check(answer, self.package).errors))
+
+    def test_single_valid_candidate_has_no_measured_agreement(self):
+        _, agreement = choose([Candidate(Path("agente_1.json"), self.answer, Report())])
+        self.assertIsNone(agreement)
 
     def test_consensus_picks_the_candidate_closest_to_the_others(self):
         outlier = self.corrupted(5, "criterio", "Texto completamente diferente sobre outra coisa, 90 e 60 dias")

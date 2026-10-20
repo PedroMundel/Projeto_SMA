@@ -44,7 +44,7 @@
    "acoes": [
     "frequência de 7 dias"
    ],
-   "condicao_efetiva": "(compraram nos últimos 90 dias, mas estão há pelo menos 61 dias sem comprar e adimplentes e sem ser de compra única na empresa) OU (compraram nos últimos 90 dias, mas estão há pelo menos 61 dias sem comprar e não (cadastrados no ERP há pelo menos 30 dias) e adimplentes e com uma única compra na empresa)",
+   "condicao_efetiva": "(compraram nos últimos 90 dias, mas estão há pelo menos 61 dias sem comprar e adimplentes e sem ser de compra única na empresa) OU (compraram nos últimos 90 dias, mas estão há pelo menos 61 dias sem comprar e cadastrados no ERP há menos de 30 dias e adimplentes e com uma única compra na empresa)",
    "tratados_antes_por": [
     "R2"
    ]
@@ -57,7 +57,7 @@
    "acoes": [
     "frequência de 14 dias"
    ],
-   "condicao_efetiva": "(já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 60 dias ou sem comprar no grupo de vendedores há mais de 90 dias) e no ciclo de vida inativo com a empresa e adimplentes e sem ser de compra única na empresa) OU (já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 60 dias ou sem comprar no grupo de vendedores há mais de 90 dias) e no ciclo de vida inativo com a empresa e não (cadastrados no ERP há pelo menos 30 dias) e adimplentes e com uma única compra na empresa)",
+   "condicao_efetiva": "(já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 60 dias ou sem comprar no grupo de vendedores há mais de 90 dias) e no ciclo de vida inativo com a empresa e adimplentes e sem ser de compra única na empresa) OU (já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 60 dias ou sem comprar no grupo de vendedores há mais de 90 dias) e cadastrados no ERP há menos de 30 dias e no ciclo de vida inativo com a empresa e adimplentes e com uma única compra na empresa)",
    "tratados_antes_por": [
     "R1",
     "R2",

@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_003.gobr",
   "sha256": "b8980d6c8dd09c46cb4c9862a10f043e708775621e03b10dc25a05b7e83d64e8",
   "comentarios": [
@@ -51,6 +51,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -83,6 +84,7 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -116,6 +118,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        7
+      ],
+      "numeros_exigidos": [
         7
       ],
       "alertas": []
@@ -154,6 +159,9 @@
       "numeros": [
         7
       ],
+      "numeros_exigidos": [
+        7
+      ],
       "alertas": []
     },
     {
@@ -188,6 +196,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        14
+      ],
+      "numeros_exigidos": [
         14
       ],
       "alertas": []
@@ -235,6 +246,11 @@
         14,
         60
       ],
+      "numeros_exigidos": [
+        7,
+        14,
+        60
+      ],
       "alertas": []
     },
     {
@@ -260,7 +276,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 30 dias, mas estão há pelo menos 7 dias sem comprar",
-      "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 30 dias, mas estão há mais de 7 dias sem comprar e não (cadastrados no ERP há pelo menos 60 dias)) OU (compraram com qualquer vendedor da empresa nos últimos 30 dias, mas estão há mais de 7 dias sem comprar e cadastrados no ERP há pelo menos 60 dias e sem ser de compra única com o vendedor)",
+      "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 30 dias, mas estão há mais de 7 dias sem comprar e cadastrados no ERP há menos de 60 dias) OU (compraram com qualquer vendedor da empresa nos últimos 30 dias, mas estão há mais de 7 dias sem comprar e cadastrados no ERP há pelo menos 60 dias e sem ser de compra única com o vendedor)",
       "tratados_antes_por": [
         "R6"
       ],
@@ -272,6 +288,11 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        7,
+        14,
+        30
+      ],
+      "numeros_exigidos": [
         7,
         14,
         30
@@ -301,7 +322,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 60 dias, mas estão há mais de 30 dias sem comprar",
-      "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e não (cadastrados no ERP há pelo menos 60 dias)) OU (compraram com qualquer vendedor da empresa nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e cadastrados no ERP há pelo menos 60 dias e sem ser de compra única com o vendedor)",
+      "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e cadastrados no ERP há menos de 60 dias) OU (compraram com qualquer vendedor da empresa nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e cadastrados no ERP há pelo menos 60 dias e sem ser de compra única com o vendedor)",
       "tratados_antes_por": [
         "R6"
       ],
@@ -314,6 +335,11 @@
       "numeros": [
         7,
         31,
+        60
+      ],
+      "numeros_exigidos": [
+        7,
+        30,
         60
       ],
       "alertas": []
@@ -341,7 +367,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 90 dias, mas estão há mais de 60 dias sem comprar",
-      "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e não (cadastrados no ERP há pelo menos 60 dias)) OU (compraram com qualquer vendedor da empresa nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e cadastrados no ERP há pelo menos 60 dias e sem ser de compra única com o vendedor)",
+      "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e cadastrados no ERP há menos de 60 dias) OU (compraram com qualquer vendedor da empresa nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e cadastrados no ERP há pelo menos 60 dias e sem ser de compra única com o vendedor)",
       "tratados_antes_por": [
         "R6"
       ],
@@ -354,6 +380,11 @@
       "numeros": [
         3,
         61,
+        90
+      ],
+      "numeros_exigidos": [
+        3,
+        60,
         90
       ],
       "alertas": []
@@ -403,6 +434,9 @@
         15,
         90
       ],
+      "numeros_exigidos": [
+        14
+      ],
       "alertas": [
         "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Não agendar filiais\", \"Não agendar clientes com visita do externo na semana anterior\", \"Não agendar clientes com rota programada com o externo nos próximos 7d\", \"Não agendar clientes com compra em 7d atrás\", \"Prospect ativado: fez um pedido e não comprou mais\", \"Mantenha a regularidade de compra do cliente que teve pedido detectado nos últimos 30d e não foi visitado na semana anterior\"."
       ]
@@ -430,7 +464,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "sem comprar com qualquer vendedor da empresa há mais de 90 dias",
-      "condicao_efetiva": "(sem comprar com qualquer vendedor da empresa há mais de 90 dias e não (cadastrados no ERP há pelo menos 60 dias)) OU (sem comprar com qualquer vendedor da empresa há mais de 90 dias e cadastrados no ERP há pelo menos 60 dias e sem ser de compra única com o vendedor)",
+      "condicao_efetiva": "(sem comprar com qualquer vendedor da empresa há mais de 90 dias e cadastrados no ERP há menos de 60 dias) OU (sem comprar com qualquer vendedor da empresa há mais de 90 dias e cadastrados no ERP há pelo menos 60 dias e sem ser de compra única com o vendedor)",
       "tratados_antes_por": [
         "R6"
       ],
@@ -441,6 +475,10 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        14,
+        90
+      ],
+      "numeros_exigidos": [
         14,
         90
       ],
@@ -480,6 +518,9 @@
       ],
       "inalcancavel": true,
       "numeros": [
+        21
+      ],
+      "numeros_exigidos": [
         21
       ],
       "alertas": [

@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_148.gobr",
   "sha256": "3810127596243fb61a1423ad587a4266ec94284206463094f23de1873a3c0993",
   "comentarios": [
@@ -48,6 +48,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -80,6 +81,9 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [
+        7
+      ],
       "alertas": []
     },
     {
@@ -112,6 +116,9 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [
+        15
+      ],
       "alertas": []
     },
     {
@@ -144,6 +151,9 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [
+        15
+      ],
       "alertas": [
         "O nome da regra cita 14 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
       ]

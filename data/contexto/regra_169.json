@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_169.gobr",
   "sha256": "3b14794143b1e84bd2c4b44f4c61e555851867a71d70f51099f494f8af54faaa",
   "comentarios": [
@@ -104,6 +104,9 @@
       "numeros": [
         14
       ],
+      "numeros_exigidos": [
+        14
+      ],
       "alertas": []
     },
     {
@@ -134,6 +137,10 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        14,
+        30
+      ],
+      "numeros_exigidos": [
         14,
         30
       ],
@@ -174,6 +181,11 @@
         14,
         60
       ],
+      "numeros_exigidos": [
+        14,
+        30,
+        60
+      ],
       "alertas": []
     },
     {
@@ -208,6 +220,11 @@
       "inalcancavel": false,
       "numeros": [
         14,
+        90
+      ],
+      "numeros_exigidos": [
+        14,
+        60,
         90
       ],
       "alertas": []
@@ -246,6 +263,11 @@
         90,
         180
       ],
+      "numeros_exigidos": [
+        14,
+        90,
+        180
+      ],
       "alertas": []
     },
     {
@@ -278,6 +300,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        7
+      ],
+      "numeros_exigidos": [
         7
       ],
       "alertas": [
@@ -320,6 +345,7 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": [
         "Bloqueio depois de regras de frequência: clientes já parametrizados por \"Clientes Prospects\", \"Ativos com compra entre 7d e 30d\", \"Ativos com compra entre 30d e 60d\", \"Ativos com compra entre 60d e 90d\", \"Clientes inativos\" não serão bloqueados por esta regra.",
         "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
@@ -356,6 +382,7 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -383,6 +410,10 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        14
+      ],
+      "numeros_exigidos": [
+        7,
         14
       ],
       "alertas": []

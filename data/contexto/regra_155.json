@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_155.gobr",
   "sha256": "6a66bbe3a811013d6043f02b788a87c1b46bea69fa27d2f2eec4d4f704ef9f81",
   "comentarios": [
@@ -53,6 +53,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -85,6 +86,7 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -118,6 +120,7 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -152,6 +155,7 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -187,6 +191,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        30
+      ],
+      "numeros_exigidos": [
         30
       ],
       "alertas": []
@@ -232,6 +239,10 @@
         7,
         30
       ],
+      "numeros_exigidos": [
+        7,
+        30
+      ],
       "alertas": []
     },
     {
@@ -257,7 +268,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "nunca compraram com qualquer vendedor da empresa",
-      "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa e não (cadastrados no ERP há pelo menos 30 dias)",
+      "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa e cadastrados no ERP há menos de 30 dias",
       "tratados_antes_por": [
         "R6"
       ],
@@ -270,6 +281,10 @@
       "inalcancavel": false,
       "numeros": [
         21
+      ],
+      "numeros_exigidos": [
+        21,
+        30
       ],
       "alertas": []
     },
@@ -310,6 +325,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        7
+      ],
+      "numeros_exigidos": [
         7
       ],
       "alertas": []
@@ -359,6 +377,11 @@
         30,
         45
       ],
+      "numeros_exigidos": [
+        14,
+        29,
+        45
+      ],
       "alertas": []
     },
     {
@@ -406,6 +429,11 @@
         30,
         45
       ],
+      "numeros_exigidos": [
+        28,
+        29,
+        45
+      ],
       "alertas": []
     },
     {
@@ -447,6 +475,10 @@
       "inalcancavel": false,
       "numeros": [
         30,
+        45
+      ],
+      "numeros_exigidos": [
+        29,
         45
       ],
       "alertas": []
@@ -494,6 +526,11 @@
         46,
         60
       ],
+      "numeros_exigidos": [
+        28,
+        30,
+        45
+      ],
       "alertas": []
     },
     {
@@ -540,6 +577,11 @@
         61,
         90
       ],
+      "numeros_exigidos": [
+        21,
+        60,
+        90
+      ],
       "alertas": [
         "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Não agendar PF\", \"Não agendar filiais\", \"Não agendar baixadas na receita federal\", \"Não agendar Inadimplentes\", \"Não agendar clientes com compra em 30d\", \"Boas vindas a um novo cliente ativado - Conceito: Quando o cliente tirou o primeiro orçamento com o vendedor\", \"Cliente com bom histórico de compra - Conceito: Quando o cliente tem alta recência de compra com a empresa (CURVA A)\", \"Cliente com bom histórico de compra - Conceito: Quando o cliente tem alta recência de compra com a empresa (CURVA B)\", \"Cliente com bom histórico de compra - Conceito: Quando o cliente tem alta recência de compra com a empresa (CURVA C)\", \"Estimular regularidade de compra - Conceito: Quando o cliente está há mais de 45 dias sem orçamento\"."
       ]
@@ -580,6 +622,9 @@
       ],
       "inalcancavel": true,
       "numeros": [
+        14
+      ],
+      "numeros_exigidos": [
         14
       ],
       "alertas": [

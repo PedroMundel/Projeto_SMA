@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_054.gobr",
   "sha256": "228ca08a1ca89cdcc86b70db143b97db95c9ca24e971bf08156b43d200efc394",
   "comentarios": [],
@@ -56,6 +56,9 @@
       "numeros": [
         14
       ],
+      "numeros_exigidos": [
+        14
+      ],
       "alertas": []
     },
     {
@@ -90,6 +93,9 @@
       "numeros": [
         30
       ],
+      "numeros_exigidos": [
+        30
+      ],
       "alertas": []
     },
     {
@@ -122,6 +128,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": [
         "Bloqueio depois de regras de frequência: clientes já parametrizados por \"Regra Padrao da Empresa Customizavel: 14 dias para clientes sem venda\" não serão bloqueados por esta regra."
       ]

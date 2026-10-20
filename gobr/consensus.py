@@ -45,13 +45,14 @@ def _normalized(text: str) -> str:
     return "".join(ch for ch in decomposed if not unicodedata.combining(ch))
 
 
-def choose(candidates: list[Candidate]) -> tuple[Candidate | None, float]:
-    """Medoid of the valid candidates and the mean pairwise agreement among them."""
+def choose(candidates: list[Candidate]) -> tuple[Candidate | None, float | None]:
+    """Medoid of the valid candidates and the mean pairwise agreement among them
+    (None when fewer than two are valid: there is nothing to agree with)."""
     valid = [c for c in candidates if c.report.ok]
     if not valid:
-        return None, 0.0
+        return None, None
     if len(valid) == 1:
-        return valid[0], 1.0
+        return valid[0], None
     scores = {id(c): 0.0 for c in valid}
     pair_scores = []
     for a, b in combinations(valid, 2):
@@ -63,7 +64,7 @@ def choose(candidates: list[Candidate]) -> tuple[Candidate | None, float]:
     return best, sum(pair_scores) / len(pair_scores)
 
 
-def provenance(package: dict, candidates: list[Candidate], chosen: Candidate | None, agreement: float,
+def provenance(package: dict, candidates: list[Candidate], chosen: Candidate | None, agreement: float | None,
                prompt_path: Path, model: str) -> dict:
     return {
         "arquivo": package["arquivo"],
@@ -76,5 +77,5 @@ def provenance(package: dict, candidates: list[Candidate], chosen: Candidate | N
         "candidatos": {c.path.name: {"valido": c.report.ok, "erros": c.report.errors, "avisos": c.report.warnings}
                        for c in candidates},
         "escolhido": chosen.path.name if chosen else None,
-        "concordancia": round(agreement, 3),
+        "concordancia": None if agreement is None else round(agreement, 3),
     }

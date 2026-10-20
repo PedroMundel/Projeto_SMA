@@ -1,11 +1,11 @@
 {
-  "resumo": "Regra de agendamento do time Televendas por ciclo de vida do cliente, em dez regras: prospects, clientes recém-ativados, em ruptura, inativos e ativos separados por curva A, B e C e por compra no mês. Nenhuma regra bloqueia a agenda. As regras de ativos descrevem o critério próprio de cada curva, sem as exceções das regras anteriores, e a última vale para todos os que sobrarem.",
+  "resumo": "Regra de agendamento do time Televendas por ciclo de vida e curva de compra, sem bloqueios. Há faixas para prospects, clientes com uma única compra, clientes em ruptura e inativos, com frequências de 21, 10, 7 e 14 dias. Os clientes ativos das curvas A, B e C têm frequência calculada pelo histórico de compras quando houve compra no mês, ou fixa de 7, 14 e 21 dias quando não houve. A regra final cobre todos os clientes que sobraram, a cada 21 dias.",
   "carteiras": [],
   "regras": [
     {
       "id": "R1",
       "nome": "Ases: Freq. de 21d para 'PROSPECT: FAZER O PRIMEIRO PEDIDO'",
-      "segmento": "Prospects",
+      "segmento": "Prospect: fazer o primeiro pedido",
       "criterio": "Clientes que nunca compraram com qualquer vendedor da empresa",
       "frequencia": "21 dias",
       "observacao": "",
@@ -14,8 +14,8 @@
     {
       "id": "R2",
       "nome": "Ases: Freq. de 10d para 'ATIVADO: BOAS VINDAS AO CLIENTE COM O PRIMEIRO PEDIDO'",
-      "segmento": "Ativados: boas-vindas",
-      "criterio": "Clientes que já compraram na empresa, cadastrados no ERP há pelo menos 30 dias e com uma única compra",
+      "segmento": "Ativado: primeiro pedido",
+      "criterio": "Clientes que já compraram na empresa, estão cadastrados no ERP há pelo menos 30 dias e têm uma única compra",
       "frequencia": "10 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -23,25 +23,25 @@
     {
       "id": "R3",
       "nome": "Ases: Freq. de 7d para 'EM RUPTURA: RISCO DE INATIVIDADE'",
-      "segmento": "Em ruptura",
+      "segmento": "Em ruptura: risco de inatividade",
       "criterio": "Clientes adimplentes que compraram nos últimos 90 dias, mas estão há pelo menos 61 dias sem comprar",
       "frequencia": "7 dias",
-      "observacao": "Compra única só entra se o cliente estiver cadastrado no ERP há menos de 30 dias",
+      "observacao": "Compra única só entra se cadastrada no ERP há menos de 30 dias",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R4",
       "nome": "Ases: Freq. de 14d 'INATIVOS: RESGATE DE CLIENTES SEM COMPRA'",
-      "segmento": "Inativos: resgate",
+      "segmento": "Inativos: resgate de clientes sem compra",
       "criterio": "Clientes adimplentes, inativos na empresa, que nunca compraram no grupo de vendedores, compraram nele nos últimos 60 dias ou estão há mais de 90 dias sem comprar nele",
       "frequencia": "14 dias",
-      "observacao": "Compra única só entra se o cliente estiver cadastrado no ERP há menos de 30 dias",
+      "observacao": "Compra única só entra se cadastrada no ERP há menos de 30 dias",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R5",
       "nome": "Ases: Freq. do histórico para 'ATIVO: COMPRA REGULARMENTE Curva A (com compra no mês)'",
-      "segmento": "Ativos curva A, com compra no mês",
+      "segmento": "Ativo curva A com compra no mês",
       "criterio": "Clientes da curva A com a empresa e com compra no mês atual, exceto os já tratados pelas regras anteriores",
       "frequencia": "Pelo histórico, no máximo 30 dias",
       "observacao": "",
@@ -50,7 +50,7 @@
     {
       "id": "R6",
       "nome": "Ases: Freq. de 7d para 'ATIVO: COMPRA REGULARMENTE Curva A (sem compra no mês)'",
-      "segmento": "Ativos curva A, sem compra no mês",
+      "segmento": "Ativo curva A sem compra no mês",
       "criterio": "Clientes da curva A com a empresa, exceto os já tratados pelas regras anteriores",
       "frequencia": "7 dias",
       "observacao": "",
@@ -59,7 +59,7 @@
     {
       "id": "R7",
       "nome": "Ases: Freq. do histórico para 'ATIVO: COMPRA REGULARMENTE Curva B (com compra no mês)'",
-      "segmento": "Ativos curva B, com compra no mês",
+      "segmento": "Ativo curva B com compra no mês",
       "criterio": "Clientes da curva B com a empresa e com compra no mês atual, exceto os já tratados pelas regras anteriores",
       "frequencia": "Pelo histórico, no máximo 30 dias",
       "observacao": "",
@@ -68,7 +68,7 @@
     {
       "id": "R8",
       "nome": "Ases: Freq. de 14d para 'ATIVO: COMPRA REGULARMENTE Curva B (sem compra no mês)'",
-      "segmento": "Ativos curva B, sem compra no mês",
+      "segmento": "Ativo curva B sem compra no mês",
       "criterio": "Clientes da curva B com a empresa, exceto os já tratados pelas regras anteriores",
       "frequencia": "14 dias",
       "observacao": "",
@@ -77,7 +77,7 @@
     {
       "id": "R9",
       "nome": "Ases: Freq. do histórico para 'ATIVO: COMPRA REGULARMENTE Curva C (com compra no mês)'",
-      "segmento": "Ativos curva C, com compra no mês",
+      "segmento": "Ativo curva C com compra no mês",
       "criterio": "Clientes com compra no mês atual, exceto os já tratados pelas regras anteriores",
       "frequencia": "Pelo histórico, no máximo 30 dias",
       "observacao": "",
@@ -86,48 +86,48 @@
     {
       "id": "R10",
       "nome": "Ases: Freq. de 21d para 'ATIVO: COMPRA REGULARMENTE Curva C (sem compra no mês)'",
-      "segmento": "Ativos curva C, sem compra no mês",
-      "criterio": "Todos os clientes do time Televendas, exceto os já tratados pelas regras anteriores",
+      "segmento": "Ativo curva C sem compra no mês",
+      "criterio": "Todos os clientes do time, exceto os já tratados pelas regras anteriores",
       "frequencia": "21 dias",
-      "observacao": "Regra final: vale para quem sobrou das regras anteriores",
+      "observacao": "Regra final: vale para quem sobrou das anteriores",
       "clausulas_nao_traduzidas": []
     }
   ],
   "pontos_de_atencao": [
-    "A condição da regra 'Curva A (com compra no mês)' é fragmentada demais para resumir: foi descrita como o critério próprio exceto os clientes já tratados pelas regras anteriores.",
-    "A condição da regra 'Curva A (sem compra no mês)' é fragmentada demais para resumir: foi descrita como o critério próprio exceto os clientes já tratados pelas regras anteriores.",
-    "A condição da regra 'Curva B (com compra no mês)' é fragmentada demais para resumir: foi descrita como o critério próprio exceto os clientes já tratados pelas regras anteriores.",
-    "A condição da regra 'Curva B (sem compra no mês)' é fragmentada demais para resumir: foi descrita como o critério próprio exceto os clientes já tratados pelas regras anteriores.",
-    "A condição da regra 'Curva C (com compra no mês)' é fragmentada demais para resumir: foi descrita como o critério próprio exceto os clientes já tratados pelas regras anteriores.",
-    "A condição da regra 'Curva C (sem compra no mês)' é fragmentada demais para resumir: foi descrita como o critério próprio exceto os clientes já tratados pelas regras anteriores."
+    "A condição da regra 'Ativo curva A com compra no mês' é fragmentada demais para resumir: ela vale para os clientes da condição própria, exceto os já tratados pelas regras anteriores.",
+    "A condição da regra 'Ativo curva A sem compra no mês' é fragmentada demais para resumir: ela vale para os clientes da condição própria, exceto os já tratados pelas regras anteriores.",
+    "A condição da regra 'Ativo curva B com compra no mês' é fragmentada demais para resumir: ela vale para os clientes da condição própria, exceto os já tratados pelas regras anteriores.",
+    "A condição da regra 'Ativo curva B sem compra no mês' é fragmentada demais para resumir: ela vale para os clientes da condição própria, exceto os já tratados pelas regras anteriores.",
+    "A condição da regra 'Ativo curva C com compra no mês' é fragmentada demais para resumir: ela vale para os clientes da condição própria, exceto os já tratados pelas regras anteriores.",
+    "A condição da regra 'Ativo curva C sem compra no mês' é fragmentada demais para resumir: ela vale para os clientes da condição própria, exceto os já tratados pelas regras anteriores."
   ],
   "consultas_hipoteticas": [
-    "Televendas: prospects 21 dias; primeira compra com cadastro de 30 dias ou mais 10 dias; ruptura entre 61 e 90 dias sem comprar 7 dias; inativos 14 dias; curva A sem compra no mês 7 dias, curva B 14 dias, curva C 21 dias; com compra no mês pelo histórico, até 30 dias",
-    "A gente quer ligar a cada 21 dias pra quem nunca comprou e a cada 10 dias pra quem fez o primeiro pedido. Cliente que parou de comprar entre 61 e 90 dias entra toda semana, e os ativos seguem a curva A, B ou C, com o histórico de compras quando já comprou no mês",
-    "Quero agendar o televendas por ciclo de vida e por curva ABC, usando a frequência do histórico para quem comprou no mês"
+    "Televendas: prospects 21 dias; compra única com cadastro de 30 dias ou mais 10 dias; ruptura (61 a 90 dias sem comprar) 7 dias; inativos 14 dias; ativos curva A 7 dias, curva B 14 dias, curva C 21 dias sem compra no mês; com compra no mês, pelo histórico até 30 dias",
+    "No televendas a gente liga a cada 21 dias para quem nunca comprou e a cada 10 dias para quem fez só o primeiro pedido. Cliente em risco de inatividade é toda semana. Os ativos variam conforme a curva A, B ou C e se já compraram no mês",
+    "Quero agendar os clientes do televendas por ciclo de vida (prospect, ativado, ruptura, inativo) e por curva ABC, com frequências diferentes para cada grupo"
   ],
   "_meta": {
     "arquivo": "regra_190.gobr",
     "sha256_gobr": "806a45d3b2c76b11c45ff213f6ff4368cc8580d01a88c4f557d6e0d9c5445cef",
-    "versao_pacote": "2",
-    "prompt_sha256": "51c624fe9f9f",
+    "versao_pacote": "4",
+    "prompt_sha256": "fd3b943ec528",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T16:12:30+00:00",
+    "gerado_em": "2026-10-20T16:43:34+00:00",
     "candidatos": {
       "agente_1.json": {
-        "valido": false,
-        "erros": [
-          "R3: faltam os números [30]",
-          "R4: faltam os números [30]",
-          "o pacote tem alertas, mas pontos_de_atencao está vazio"
-        ],
-        "avisos": []
-      },
-      "agente_2.json": {
         "valido": true,
         "erros": [],
         "avisos": []
+      },
+      "agente_2.json": {
+        "valido": false,
+        "erros": [
+          "o pacote tem alertas, mas pontos_de_atencao está vazio"
+        ],
+        "avisos": [
+          "consulta 1: números fora do pacote [1]"
+        ]
       },
       "agente_3.json": {
         "valido": true,
@@ -142,12 +142,16 @@
         "avisos": []
       },
       "agente_5.json": {
-        "valido": true,
-        "erros": [],
-        "avisos": []
+        "valido": false,
+        "erros": [
+          "o pacote tem alertas, mas pontos_de_atencao está vazio"
+        ],
+        "avisos": [
+          "consulta 1: números fora do pacote [1]"
+        ]
       }
     },
-    "escolhido": "agente_3.json",
-    "concordancia": 0.803
+    "escolhido": "agente_1.json",
+    "concordancia": 0.78
   }
 }

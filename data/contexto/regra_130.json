@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_130.gobr",
   "sha256": "dd15d2a262fb6890640137a53f441009c73915be05f7a31edd23a02c170a166d",
   "comentarios": [
@@ -56,6 +56,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -88,6 +89,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        7
+      ],
+      "numeros_exigidos": [
         7
       ],
       "alertas": []
@@ -129,6 +133,9 @@
       "numeros": [
         15
       ],
+      "numeros_exigidos": [
+        15
+      ],
       "alertas": []
     },
     {
@@ -166,6 +173,7 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -203,6 +211,7 @@
       ],
       "inalcancavel": true,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": [
         "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Regra Padrao da Macropac: Não agendar clientes CPF (Televendas)\"."
       ]
@@ -242,6 +251,9 @@
       "numeros": [
         20
       ],
+      "numeros_exigidos": [
+        20
+      ],
       "alertas": []
     },
     {
@@ -279,6 +291,9 @@
       "numeros": [
         7
       ],
+      "numeros_exigidos": [
+        7
+      ],
       "alertas": []
     },
     {
@@ -310,6 +325,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        15
+      ],
+      "numeros_exigidos": [
         15
       ],
       "alertas": [

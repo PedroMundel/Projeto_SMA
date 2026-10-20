@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_144.gobr",
   "sha256": "7f1b52138ba2254ad91c7173f36408e57b653330d33330028d109d720606b674",
   "comentarios": [
@@ -79,6 +79,9 @@
       "numeros": [
         14
       ],
+      "numeros_exigidos": [
+        14
+      ],
       "alertas": []
     },
     {
@@ -111,6 +114,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        21
+      ],
+      "numeros_exigidos": [
         21
       ],
       "alertas": []
@@ -154,6 +160,10 @@
         28,
         30
       ],
+      "numeros_exigidos": [
+        28,
+        30
+      ],
       "alertas": []
     },
     {
@@ -179,7 +189,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram nos últimos 60 dias, mas estão há mais de 30 dias sem comprar",
-      "condicao_efetiva": "(compraram nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e adimplentes e sem ser de compra única na empresa) OU (compraram nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e não (cadastrados no ERP há pelo menos 30 dias) e adimplentes e com uma única compra na empresa)",
+      "condicao_efetiva": "(compraram nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e adimplentes e sem ser de compra única na empresa) OU (compraram nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e cadastrados no ERP há menos de 30 dias e adimplentes e com uma única compra na empresa)",
       "tratados_antes_por": [
         "R2",
         "R3"
@@ -189,6 +199,10 @@
       "numeros": [
         30,
         31,
+        60
+      ],
+      "numeros_exigidos": [
+        30,
         60
       ],
       "alertas": []
@@ -216,7 +230,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram nos últimos 90 dias, mas estão há mais de 60 dias sem comprar",
-      "condicao_efetiva": "(compraram nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e adimplentes e sem ser de compra única na empresa) OU (compraram nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e não (cadastrados no ERP há pelo menos 30 dias) e adimplentes e com uma única compra na empresa)",
+      "condicao_efetiva": "(compraram nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e adimplentes e sem ser de compra única na empresa) OU (compraram nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e cadastrados no ERP há menos de 30 dias e adimplentes e com uma única compra na empresa)",
       "tratados_antes_por": [
         "R2",
         "R3"
@@ -226,6 +240,11 @@
       "numeros": [
         10,
         61,
+        90
+      ],
+      "numeros_exigidos": [
+        10,
+        60,
         90
       ],
       "alertas": []
@@ -253,7 +272,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "no ciclo de vida inativo com a empresa",
-      "condicao_efetiva": "(já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 30 dias ou sem comprar no grupo de vendedores há mais de 90 dias) e no ciclo de vida inativo com a empresa e adimplentes e sem ser de compra única na empresa) OU (já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 30 dias ou sem comprar no grupo de vendedores há mais de 90 dias) e no ciclo de vida inativo com a empresa e não (cadastrados no ERP há pelo menos 30 dias) e adimplentes e com uma única compra na empresa)",
+      "condicao_efetiva": "(já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 30 dias ou sem comprar no grupo de vendedores há mais de 90 dias) e no ciclo de vida inativo com a empresa e adimplentes e sem ser de compra única na empresa) OU (já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 30 dias ou sem comprar no grupo de vendedores há mais de 90 dias) e cadastrados no ERP há menos de 30 dias e no ciclo de vida inativo com a empresa e adimplentes e com uma única compra na empresa)",
       "tratados_antes_por": [
         "R1",
         "R2",
@@ -264,6 +283,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        21
+      ],
+      "numeros_exigidos": [
         21
       ],
       "alertas": []
@@ -296,6 +318,10 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        21,
+        30
+      ],
+      "numeros_exigidos": [
         21,
         30
       ],
@@ -332,11 +358,15 @@
         28,
         30
       ],
+      "numeros_exigidos": [
+        28,
+        30
+      ],
       "alertas": []
     }
   ],
   "nao_cobertos": {
-    "do time todos": "(já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 30 dias ou sem comprar no grupo de vendedores há mais de 90 dias) e fora do ciclo de vida inativo com a empresa e adimplentes e sem ser de compra única na empresa) OU (já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 30 dias ou sem comprar no grupo de vendedores há mais de 90 dias) e fora do ciclo de vida inativo com a empresa e não (cadastrados no ERP há pelo menos 30 dias) e adimplentes e com uma única compra na empresa)",
+    "do time todos": "(já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 30 dias ou sem comprar no grupo de vendedores há mais de 90 dias) e fora do ciclo de vida inativo com a empresa e adimplentes e sem ser de compra única na empresa) OU (já compraram com qualquer vendedor da empresa e (nunca compraram no grupo de vendedores ou compraram no grupo de vendedores nos últimos 30 dias ou sem comprar no grupo de vendedores há mais de 90 dias) e cadastrados no ERP há menos de 30 dias e fora do ciclo de vida inativo com a empresa e adimplentes e com uma única compra na empresa)",
     "do time fabricantes, segmentos de revendas/manutencao": "(nunca compraram ou sem comprar há mais de 30 dias)",
     "do time consumidor final recorrente, compra exporadica, consumidor final - grande porte": "(nunca compraram ou sem comprar há mais de 30 dias)"
   },

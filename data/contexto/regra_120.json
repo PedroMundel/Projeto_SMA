@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_120.gobr",
   "sha256": "6b336dbe98c6838b7963d7f9fed49fe66d907712795f441c3b6e95bc0684468d",
   "comentarios": [
@@ -88,6 +88,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -123,6 +124,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        14
+      ],
+      "numeros_exigidos": [
         14
       ],
       "alertas": []
@@ -162,6 +166,9 @@
       "numeros": [
         30
       ],
+      "numeros_exigidos": [
+        30
+      ],
       "alertas": []
     },
     {
@@ -197,6 +204,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        7
+      ],
+      "numeros_exigidos": [
         7
       ],
       "alertas": []
@@ -241,6 +251,9 @@
       "numeros": [
         20
       ],
+      "numeros_exigidos": [
+        20
+      ],
       "alertas": []
     },
     {
@@ -281,6 +294,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        20
+      ],
+      "numeros_exigidos": [
         20
       ],
       "alertas": []
@@ -325,6 +341,9 @@
       "numeros": [
         30
       ],
+      "numeros_exigidos": [
+        30
+      ],
       "alertas": []
     },
     {
@@ -360,6 +379,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        30
+      ],
+      "numeros_exigidos": [
         30
       ],
       "alertas": [
@@ -399,6 +421,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": [
         "O nome da regra cita 30 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
       ]
@@ -436,6 +459,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        21
+      ],
+      "numeros_exigidos": [
         21
       ],
       "alertas": []
@@ -480,6 +506,9 @@
       "numeros": [
         21
       ],
+      "numeros_exigidos": [
+        21
+      ],
       "alertas": []
     },
     {
@@ -522,6 +551,9 @@
       "numeros": [
         42
       ],
+      "numeros_exigidos": [
+        42
+      ],
       "alertas": [
         "O nome da regra cita 30 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
       ]
@@ -561,6 +593,9 @@
       "numeros": [
         38
       ],
+      "numeros_exigidos": [
+        38
+      ],
       "alertas": []
     },
     {
@@ -598,6 +633,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": true,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": [
         "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Regra Padrao da IdealPet - Customizavel: 30 dias para clientes inativos inadimplentes (interior)\".",
         "Bloqueio depois de regras de frequência: clientes já parametrizados por \"Regra Padrao da IdealPet - Customizavel: 30 dias para clientes inativos inadimplentes (interior)\" não serão bloqueados por esta regra."

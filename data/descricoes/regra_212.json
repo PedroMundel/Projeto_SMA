@@ -1,5 +1,5 @@
 {
-  "resumo": "Regra de agendamento do time de televendas por tempo desde a última compra na empresa, rota do vendedor externo e visita na semana anterior, com faixas de 7, 14 e 20 dias. Deixam de ser agendados os clientes com rota nos próximos 7 dias e os que compraram nos últimos 14 dias. A regra final atende todos os clientes que sobraram das faixas anteriores.",
+  "resumo": "Regra de agendamento do time televendas por tempo desde a última compra, em faixas de até 30, 60, 90, 180 e 360 dias, mais os clientes que nunca compraram. Deixam de ser agendados os clientes com rota nos próximos 7 dias e os que compraram com a empresa nos últimos 14 dias. A regra final atende, a cada 7 dias, quem não se enquadrou nas anteriores.",
   "carteiras": [],
   "regras": [
     {
@@ -23,8 +23,8 @@
     {
       "id": "R3",
       "nome": "Mantenha a regularidade de compra do cliente que teve pedido detectado nos últimos 30d e foi visitado na semana anterior!",
-      "segmento": "Regularidade (pedido em até 30 dias)",
-      "criterio": "Clientes que compraram na empresa nos últimos 30 dias, estão há mais de 14 dias sem comprar, com data de rota há 7 dias e visita na semana anterior",
+      "segmento": "Regularidade de compra",
+      "criterio": "Clientes que compraram nos últimos 30 dias, mas estão há mais de 14 dias sem comprar, com data de rota há 7 dias e visita na semana anterior",
       "frequencia": "7 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -33,7 +33,7 @@
       "id": "R4",
       "nome": "Garanta regularidade de compra e relacionamento com este cliente! Seu último pedido foi entre 30d e 60d atrás.",
       "segmento": "Último pedido entre 30 e 60 dias",
-      "criterio": "Clientes que compraram na empresa nos últimos 60 dias, estão há mais de 30 dias sem comprar, com data de rota há 7 dias e visita na semana anterior",
+      "criterio": "Clientes que compraram nos últimos 60 dias, mas estão há mais de 30 dias sem comprar, com data de rota há 7 dias e visita na semana anterior",
       "frequencia": "20 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -41,17 +41,17 @@
     {
       "id": "R5",
       "nome": "Ative este cliente! (Nunca tirou pedido)",
-      "segmento": "Ativação de clientes sem vendas",
-      "criterio": "Clientes sem vendas para o vendedor que nunca compraram na empresa ou estão há mais de 14 dias sem comprar (mais de 60 dias com rota há 7 dias e visita na semana anterior)",
+      "segmento": "Ativar: sem pedidos",
+      "criterio": "Clientes sem vendas para o vendedor que nunca compraram na empresa ou estão há mais de 14 dias sem comprar",
       "frequencia": "14 dias",
-      "observacao": "",
+      "observacao": "Com rota há 7 dias e visita na semana anterior, vale após mais de 60 dias sem comprar",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R6",
       "nome": "Ative este cliente!",
-      "segmento": "Ativação de clientes antigos",
-      "criterio": "Clientes que compraram na empresa nos últimos 360 dias, estão há pelo menos 180 dias sem comprar, compraram no ano anterior e têm alguma venda para o vendedor",
+      "segmento": "Ativar: inativos",
+      "criterio": "Clientes que compraram nos últimos 360 dias, mas estão há pelo menos 180 dias sem comprar, com compra no ano anterior e alguma venda para o vendedor",
       "frequencia": "14 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -60,7 +60,7 @@
       "id": "R7",
       "nome": "Cliente caminhando para INATIVIDADE! Seu último pedido foi entre 60d e 90d atrás.",
       "segmento": "Caminhando para inatividade",
-      "criterio": "Clientes que compraram na empresa nos últimos 90 dias, estão há mais de 60 dias sem comprar e têm alguma venda para o vendedor",
+      "criterio": "Clientes que compraram nos últimos 90 dias, mas estão há mais de 60 dias sem comprar, com alguma venda para o vendedor",
       "frequencia": "7 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -68,8 +68,8 @@
     {
       "id": "R8",
       "nome": "Resgaste este cliente! Seu último pedido foi entre 90d e 180d atrás.",
-      "segmento": "Resgate (90 a 180 dias)",
-      "criterio": "Clientes que compraram na empresa nos últimos 180 dias, estão há mais de 90 dias sem comprar e têm alguma venda para o vendedor",
+      "segmento": "Resgate: último pedido entre 90 e 180 dias",
+      "criterio": "Clientes que compraram nos últimos 180 dias, mas estão há mais de 90 dias sem comprar, com alguma venda para o vendedor",
       "frequencia": "7 dias",
       "observacao": "Quem comprou no ano anterior entra se comprou nos últimos 179 dias",
       "clausulas_nao_traduzidas": []
@@ -78,28 +78,28 @@
       "id": "R9",
       "nome": "Atendimento ao cliente que não se enquadrou nas demais regras.",
       "segmento": "Demais clientes",
-      "criterio": "Todos os clientes do time, exceto os já tratados pelas regras anteriores",
+      "criterio": "Clientes do time televendas sem outro enquadramento, exceto os já tratados pelas regras anteriores",
       "frequencia": "7 dias",
-      "observacao": "Regra final: vale para quem sobrou das faixas anteriores",
+      "observacao": "Regra final: vale para quem sobrou das anteriores",
       "clausulas_nao_traduzidas": []
     }
   ],
   "pontos_de_atencao": [
-    "A condição da regra 'Atendimento ao cliente que não se enquadrou nas demais regras.' é fragmentada demais para resumir: ela vale para todos os clientes do time, exceto os já tratados pelas regras anteriores."
+    "A regra 'Atendimento ao cliente que não se enquadrou nas demais regras' é descrita pela condição própria, exceto os clientes já tratados pelas regras anteriores, porque a condição efetiva é fragmentada demais para resumir."
   ],
   "consultas_hipoteticas": [
-    "Televendas: não agendar quem tem rota em 7 dias ou comprou em 14 dias; último pedido até 30 dias a cada 7 dias; entre 30 e 60 dias a cada 20 dias; entre 60 e 90 dias a cada 7 dias; resgate de 90 a 180 dias a cada 7 dias; ativação a cada 14 dias; demais a cada 7 dias",
-    "A gente não liga para cliente que tem rota nos próximos 7 dias nem para quem comprou nos últimos 14 dias. Para quem nunca comprou ligamos a cada 14 dias, e quem está caminhando para a inatividade é atendido toda semana",
-    "Quero agendar os clientes do televendas pelo tempo do último pedido e pela rota do externo, com uma regra final para quem não se enquadrar nas faixas"
+    "Televendas: não agendar rota em 7 dias nem compra nos últimos 14 dias; último pedido entre 30 e 60 dias a cada 20 dias; entre 60 e 90 dias a cada 7 dias; entre 90 e 180 dias a cada 7 dias; nunca comprou a cada 14 dias",
+    "A gente não liga pra quem tem rota na próxima semana nem pra quem comprou nos últimos 14 dias. Quem está caminhando pra inatividade a gente liga toda semana, e quem nunca tirou pedido a cada 14 dias",
+    "Quero agendar o televendas por tempo desde o último pedido, com bloqueio para clientes que têm rota próxima e uma regra final para quem não se enquadrou"
   ],
   "_meta": {
     "arquivo": "regra_212.gobr",
     "sha256_gobr": "b68152f82f20c50cdacae335aee8cefa543ecce1316e75f953b97f92f356157c",
-    "versao_pacote": "2",
-    "prompt_sha256": "51c624fe9f9f",
+    "versao_pacote": "4",
+    "prompt_sha256": "fd3b943ec528",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T16:12:30+00:00",
+    "gerado_em": "2026-10-20T16:43:34+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,
@@ -114,28 +114,12 @@
         "avisos": []
       },
       "agente_3.json": {
-        "valido": false,
-        "erros": [
-          "o pacote tem alertas, mas pontos_de_atencao está vazio"
-        ],
-        "avisos": []
-      },
-      "agente_4.json": {
-        "valido": false,
-        "erros": [
-          "R5: faltam os números [7]"
-        ],
-        "avisos": []
-      },
-      "agente_5.json": {
-        "valido": false,
-        "erros": [
-          "o pacote tem alertas, mas pontos_de_atencao está vazio"
-        ],
+        "valido": true,
+        "erros": [],
         "avisos": []
       }
     },
     "escolhido": "agente_1.json",
-    "concordancia": 1.0
+    "concordancia": 0.808
   }
 }

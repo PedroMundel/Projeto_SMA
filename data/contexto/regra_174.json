@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_174.gobr",
   "sha256": "6172bf6fc521f952e3138f9b5f1dbbcb6a1a75920f6afbde49af6c914d13a7f5",
   "comentarios": [
@@ -50,6 +50,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -82,6 +83,7 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -115,6 +117,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        14
+      ],
+      "numeros_exigidos": [
         14
       ],
       "alertas": []
@@ -160,6 +165,10 @@
         21,
         60
       ],
+      "numeros_exigidos": [
+        21,
+        60
+      ],
       "alertas": []
     },
     {
@@ -190,7 +199,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram com o próprio vendedor nos últimos 30 dias e frequência histórica de compra de menos de 14 dias",
-      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 30 dias e frequência histórica de compra de menos de 14 dias e sem ser de compra única com o vendedor) OU (compraram com o próprio vendedor nos últimos 30 dias e não (cadastrados no ERP há pelo menos 60 dias) e frequência histórica de compra de menos de 14 dias e com uma única compra com o vendedor)",
+      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 30 dias e frequência histórica de compra de menos de 14 dias e sem ser de compra única com o vendedor) OU (compraram com o próprio vendedor nos últimos 30 dias e cadastrados no ERP há menos de 60 dias e frequência histórica de compra de menos de 14 dias e com uma única compra com o vendedor)",
       "tratados_antes_por": [
         "R4"
       ],
@@ -200,6 +209,11 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        10,
+        14,
+        30
+      ],
+      "numeros_exigidos": [
         10,
         14,
         30
@@ -250,6 +264,12 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        14,
+        21,
+        30,
+        60
+      ],
+      "numeros_exigidos": [
         14,
         21,
         30,
@@ -307,6 +327,11 @@
         30,
         60
       ],
+      "numeros_exigidos": [
+        28,
+        30,
+        60
+      ],
       "alertas": [
         "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
       ]
@@ -339,7 +364,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram com o próprio vendedor nos últimos 60 dias, mas estão há pelo menos 21 dias sem comprar e ramo de atividade (id) em: 18, 9",
-      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 60 dias, mas estão há pelo menos 21 dias sem comprar e ramo de atividade (id) em: 18, 9 e frequência histórica indefinida ou frequência histórica de compra de pelo menos 30 dias e sem ser de compra única com o vendedor) OU (compraram com o próprio vendedor nos últimos 60 dias, mas estão há pelo menos 21 dias sem comprar e ramo de atividade (id) em: 18, 9 e não (cadastrados no ERP há pelo menos 60 dias) e frequência histórica indefinida ou frequência histórica de compra de pelo menos 30 dias e com uma única compra com o vendedor)",
+      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 60 dias, mas estão há pelo menos 21 dias sem comprar e ramo de atividade (id) em: 18, 9 e frequência histórica indefinida ou frequência histórica de compra de pelo menos 30 dias e sem ser de compra única com o vendedor) OU (compraram com o próprio vendedor nos últimos 60 dias, mas estão há pelo menos 21 dias sem comprar e cadastrados no ERP há menos de 60 dias e ramo de atividade (id) em: 18, 9 e frequência histórica indefinida ou frequência histórica de compra de pelo menos 30 dias e com uma única compra com o vendedor)",
       "tratados_antes_por": [
         "R4",
         "R5",
@@ -351,6 +376,11 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        14,
+        21,
+        60
+      ],
+      "numeros_exigidos": [
         14,
         21,
         60
@@ -385,7 +415,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram com o próprio vendedor nos últimos 60 dias, mas estão há pelo menos 21 dias sem comprar e ramo de atividade (id) fora de: 18, 9",
-      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 60 dias, mas estão há pelo menos 21 dias sem comprar e ramo de atividade (id) fora de: 18, 9 e frequência histórica indefinida ou frequência histórica de compra de pelo menos 30 dias e sem ser de compra única com o vendedor) OU (compraram com o próprio vendedor nos últimos 60 dias, mas estão há pelo menos 21 dias sem comprar e ramo de atividade (id) fora de: 18, 9 e não (cadastrados no ERP há pelo menos 60 dias) e frequência histórica indefinida ou frequência histórica de compra de pelo menos 30 dias e com uma única compra com o vendedor)",
+      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 60 dias, mas estão há pelo menos 21 dias sem comprar e ramo de atividade (id) fora de: 18, 9 e frequência histórica indefinida ou frequência histórica de compra de pelo menos 30 dias e sem ser de compra única com o vendedor) OU (compraram com o próprio vendedor nos últimos 60 dias, mas estão há pelo menos 21 dias sem comprar e cadastrados no ERP há menos de 60 dias e ramo de atividade (id) fora de: 18, 9 e frequência histórica indefinida ou frequência histórica de compra de pelo menos 30 dias e com uma única compra com o vendedor)",
       "tratados_antes_por": [
         "R4",
         "R5",
@@ -397,6 +427,10 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        21,
+        60
+      ],
+      "numeros_exigidos": [
         21,
         60
       ],
@@ -430,7 +464,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e ramo de atividade (id) em: 18, 9",
-      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e ramo de atividade (id) em: 18, 9 e sem ser de compra única com o vendedor) OU (compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e ramo de atividade (id) em: 18, 9 e não (cadastrados no ERP há pelo menos 60 dias) e com uma única compra com o vendedor)",
+      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e ramo de atividade (id) em: 18, 9 e sem ser de compra única com o vendedor) OU (compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e cadastrados no ERP há menos de 60 dias e ramo de atividade (id) em: 18, 9 e com uma única compra com o vendedor)",
       "tratados_antes_por": [
         "R4"
       ],
@@ -442,6 +476,11 @@
       "numeros": [
         14,
         61,
+        90
+      ],
+      "numeros_exigidos": [
+        14,
+        60,
         90
       ],
       "alertas": []
@@ -474,7 +513,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e ramo de atividade (id) fora de: 18, 9",
-      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e ramo de atividade (id) fora de: 18, 9 e sem ser de compra única com o vendedor) OU (compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e ramo de atividade (id) fora de: 18, 9 e não (cadastrados no ERP há pelo menos 60 dias) e com uma única compra com o vendedor)",
+      "condicao_efetiva": "(compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e ramo de atividade (id) fora de: 18, 9 e sem ser de compra única com o vendedor) OU (compraram com o próprio vendedor nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e cadastrados no ERP há menos de 60 dias e ramo de atividade (id) fora de: 18, 9 e com uma única compra com o vendedor)",
       "tratados_antes_por": [
         "R4"
       ],
@@ -486,6 +525,11 @@
       "numeros": [
         14,
         61,
+        90
+      ],
+      "numeros_exigidos": [
+        14,
+        60,
         90
       ],
       "alertas": []
@@ -513,7 +557,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "sem comprar com o próprio vendedor há mais de 90 dias",
-      "condicao_efetiva": "(sem comprar com o próprio vendedor há mais de 90 dias e sem ser de compra única com o vendedor) OU (sem comprar com o próprio vendedor há mais de 90 dias e não (cadastrados no ERP há pelo menos 60 dias) e com uma única compra com o vendedor)",
+      "condicao_efetiva": "(sem comprar com o próprio vendedor há mais de 90 dias e sem ser de compra única com o vendedor) OU (sem comprar com o próprio vendedor há mais de 90 dias e cadastrados no ERP há menos de 60 dias e com uma única compra com o vendedor)",
       "tratados_antes_por": [
         "R4"
       ],
@@ -526,11 +570,15 @@
         21,
         90
       ],
+      "numeros_exigidos": [
+        21,
+        90
+      ],
       "alertas": []
     }
   ],
   "nao_cobertos": {
-    "do time televendas": "(compraram com o próprio vendedor nos últimos 20 dias e frequência histórica indefinida ou frequência histórica de compra de pelo menos 30 dias e sem ser de compra única com o vendedor) OU (compraram com o próprio vendedor nos últimos 20 dias e não (cadastrados no ERP há pelo menos 60 dias) e frequência histórica indefinida ou frequência histórica de compra de pelo menos 30 dias e com uma única compra com o vendedor)"
+    "do time televendas": "(compraram com o próprio vendedor nos últimos 20 dias e frequência histórica indefinida ou frequência histórica de compra de pelo menos 30 dias e sem ser de compra única com o vendedor) OU (compraram com o próprio vendedor nos últimos 20 dias e cadastrados no ERP há menos de 60 dias e frequência histórica indefinida ou frequência histórica de compra de pelo menos 30 dias e com uma única compra com o vendedor)"
   },
   "alertas": [],
   "numeros_obrigatorios": [

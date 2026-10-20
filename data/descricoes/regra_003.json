@@ -1,5 +1,5 @@
 {
-  "resumo": "Regra de agendamento do time de televendas por tempo desde a última compra, em faixas de até 30, 60 e 90 dias, mais prospects, clientes de compra única e inativos há mais de 90 dias. Antes das faixas, deixam de ser agendados filiais, clientes com visita do externo na semana anterior, clientes com rota programada nos próximos 7 dias e clientes com compra nos últimos 7 dias. A regra de reativação e a regra genérica final nunca são aplicadas.",
+  "resumo": "Regra de agendamento do time de televendas por tempo desde a última compra: prospects, prospect ativado, faixas de compra recente (até 30, 60 e 90 dias) e inativos há mais de 90 dias. Antes das faixas, deixam de ser agendadas as filiais e os clientes com visita do externo na semana anterior, com rota programada nos próximos 7 dias ou com compra nos últimos 7 dias. A regra de reativados e a regra genérica final nunca são aplicadas.",
   "carteiras": [],
   "regras": [
     {
@@ -51,7 +51,7 @@
       "id": "R6",
       "nome": "Prospect ativado: fez um pedido e não comprou mais",
       "segmento": "Prospect ativado",
-      "criterio": "Clientes cadastrados no ERP há pelo menos 60 dias, com uma única compra com o vendedor e há mais de 7 dias sem comprar com qualquer vendedor da empresa",
+      "criterio": "Clientes há mais de 7 dias sem comprar com a empresa, cadastrados no ERP há pelo menos 60 dias e com uma única compra com o vendedor",
       "frequencia": "14 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -60,7 +60,7 @@
       "id": "R7",
       "nome": "Mantenha a regularidade de compra do cliente que teve pedido detectado nos últimos 30d e não foi visitado na semana anterior",
       "segmento": "Compra nos últimos 30 dias",
-      "criterio": "Clientes que compraram nos últimos 30 dias, mas estão há mais de 7 dias sem comprar, exceto os cadastrados no ERP há 60 dias ou mais com uma única compra",
+      "criterio": "Clientes que compraram nos últimos 30 dias, mas estão há mais de 7 dias sem comprar, exceto os já tratados pela regra de prospect ativado",
       "frequencia": "14 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -69,7 +69,7 @@
       "id": "R8",
       "nome": "Garanta regularidade de compra e relacionamento com este cliente! Seu último pedido foi entre 31d e 60d atrás",
       "segmento": "Última compra entre 31 e 60 dias",
-      "criterio": "Clientes que compraram nos últimos 60 dias, mas estão há mais de 30 dias sem comprar, exceto os cadastrados no ERP há 60 dias ou mais com uma única compra",
+      "criterio": "Clientes que compraram nos últimos 60 dias, mas estão há mais de 30 dias sem comprar, exceto os já tratados pela regra de prospect ativado",
       "frequencia": "7 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -78,7 +78,7 @@
       "id": "R9",
       "nome": "Cliente a INATIVAR! Seu último pedido foi entre 61d e 90d atrás",
       "segmento": "Última compra entre 61 e 90 dias",
-      "criterio": "Clientes que compraram nos últimos 90 dias, mas estão há mais de 60 dias sem comprar, exceto os cadastrados no ERP há 60 dias ou mais com uma única compra",
+      "criterio": "Clientes que compraram nos últimos 90 dias, mas estão há mais de 60 dias sem comprar, exceto os já tratados pela regra de prospect ativado",
       "frequencia": "3 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -86,7 +86,7 @@
     {
       "id": "R10",
       "nome": "Cliente estava inativo e foi reativado. Restabeleça relacionamento!",
-      "segmento": "Cliente reativado",
+      "segmento": "Reativados",
       "criterio": "Clientes que compraram com qualquer vendedor da empresa nos últimos 14 dias",
       "frequencia": "14 dias",
       "observacao": "Nunca é aplicada: todos esses clientes já foram tratados antes",
@@ -96,7 +96,7 @@
       "id": "R11",
       "nome": "Ative cliente INATIVO",
       "segmento": "Inativos",
-      "criterio": "Clientes que estão há mais de 90 dias sem comprar com qualquer vendedor da empresa, exceto os cadastrados no ERP há 60 dias ou mais com uma única compra",
+      "criterio": "Clientes que estão há mais de 90 dias sem comprar com qualquer vendedor da empresa, exceto os já tratados pela regra de prospect ativado",
       "frequencia": "14 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -105,7 +105,7 @@
       "id": "R12",
       "nome": "REGRA GENÉRICA: Atendimento ao cliente que não se enquadrou nas regras padrão",
       "segmento": "Demais clientes",
-      "criterio": "Todos os clientes do time de televendas, sem filtro",
+      "criterio": "Clientes do time televendas, sem filtro",
       "frequencia": "21 dias",
       "observacao": "Nunca é aplicada: todos esses clientes já foram tratados antes",
       "clausulas_nao_traduzidas": []
@@ -113,21 +113,21 @@
   ],
   "pontos_de_atencao": [
     "A regra 'Cliente estava inativo e foi reativado' nunca é aplicada: todos os clientes dela já são tratados por regras anteriores.",
-    "A regra 'REGRA GENÉRICA' nunca é aplicada: todos os clientes dela já são tratados por regras anteriores."
+    "A regra 'Regra genérica' nunca é aplicada: todos os clientes dela já são tratados por regras anteriores."
   ],
   "consultas_hipoteticas": [
-    "Televendas: prospects a cada 14 dias; compra nos últimos 30 dias a cada 14 dias; última compra entre 31 e 60 dias a cada 7 dias; entre 61 e 90 dias a cada 3 dias; inativos há mais de 90 dias a cada 14 dias; não agendar filiais, visita do externo na semana anterior, rota nos próximos 7 dias e compra nos últimos 7 dias",
-    "A gente não liga para filial nem para cliente que comprou nos últimos 7 dias ou que o externo visitou na semana passada ou vai visitar nos próximos 7 dias. Quem não compra há mais tempo a gente liga com mais frequência, de 7 em 7 dias ou até a cada 3 dias, e os prospects a cada 14 dias",
-    "Quero agendar o televendas por tempo desde a última compra, com prospects, clientes de compra única e inativos, e bloquear filiais e clientes que acabaram de comprar ou de ser visitados"
+    "Televendas: prospects a cada 14 dias; compra até 30 dias a cada 14 dias; compra entre 31 e 60 dias a cada 7 dias; compra entre 61 e 90 dias a cada 3 dias; inativos acima de 90 dias a cada 14 dias; genérica a cada 21 dias; não agendar filiais, visita do externo na semana anterior, rota nos próximos 7 dias e compra nos últimos 7 dias",
+    "A gente liga a cada 14 dias pra prospect e pra quem comprou no último mês, toda semana pra quem comprou há 31 a 60 dias e de 3 em 3 dias pra quem está entre 61 e 90 dias. Filial e cliente que comprou nos últimos 7 dias ficam fora da agenda",
+    "Quero agendar os clientes do televendas por tempo desde a última compra, com frequência maior para quem está perto de inativar e prospects separados"
   ],
   "_meta": {
     "arquivo": "regra_003.gobr",
     "sha256_gobr": "b8980d6c8dd09c46cb4c9862a10f043e708775621e03b10dc25a05b7e83d64e8",
-    "versao_pacote": "2",
-    "prompt_sha256": "51c624fe9f9f",
+    "versao_pacote": "4",
+    "prompt_sha256": "fd3b943ec528",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T16:12:27+00:00",
+    "gerado_em": "2026-10-20T16:43:34+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,
@@ -140,15 +140,12 @@
         "avisos": []
       },
       "agente_3.json": {
-        "valido": false,
-        "erros": [
-          "R7: faltam os números [60]",
-          "R11: faltam os números [60]"
-        ],
+        "valido": true,
+        "erros": [],
         "avisos": []
       }
     },
-    "escolhido": "agente_1.json",
-    "concordancia": 0.821
+    "escolhido": "agente_2.json",
+    "concordancia": 0.845
   }
 }

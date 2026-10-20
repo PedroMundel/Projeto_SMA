@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_237.gobr",
   "sha256": "0e754c9699c8cdb84ce0b06c14abf4bc77daf601a0e23b2531bcc2ca73ac7f11",
   "comentarios": [
@@ -48,6 +48,9 @@
       "numeros": [
         14
       ],
+      "numeros_exigidos": [
+        14
+      ],
       "alertas": []
     },
     {
@@ -88,6 +91,10 @@
         0,
         30
       ],
+      "numeros_exigidos": [
+        0,
+        30
+      ],
       "alertas": []
     },
     {
@@ -124,6 +131,10 @@
         14,
         30,
         60
+      ],
+      "numeros_exigidos": [
+        14,
+        30
       ],
       "alertas": []
     },
@@ -166,6 +177,11 @@
         30,
         60
       ],
+      "numeros_exigidos": [
+        14,
+        30,
+        60
+      ],
       "alertas": []
     },
     {
@@ -200,6 +216,11 @@
       "inalcancavel": false,
       "numeros": [
         14,
+        60
+      ],
+      "numeros_exigidos": [
+        14,
+        30,
         60
       ],
       "alertas": []

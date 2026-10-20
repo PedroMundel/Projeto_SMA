@@ -221,6 +221,15 @@ def _segment_membership(text: str, ctx: Context) -> Clause | None:
     return Clause(ctx.unmask(text), gloss, constraint=constraint)
 
 
+def _registration_age(text: str, ctx: Context) -> Clause | None:
+    m = re.fullmatch(rf"cadastrado (?:faz|ha) {DAYS}", text)
+    if not m:
+        return None
+    n = int(m.group(1))
+    value = IntervalSet.of(n)
+    return Clause(text, dims.render("cadastro", value, {n}), constraint={"cadastro": value}, numbers=[n])
+
+
 def _historical_frequency(text: str, ctx: Context) -> Clause | None:
     if m := re.fullmatch(rf"frequencia historica menor que {DAYS}( ou indefinida)?", text):
         n = int(m.group(1))
@@ -248,7 +257,6 @@ FACT_PATTERNS: list[tuple[str, Callable[[re.Match], str]]] = [
     (r"com menos de r\$ ?([\d.,]+) de credito disponivel", lambda m: f"com menos de R$ {m.group(1)} de crédito disponível"),
     (r"com limite de r\$ ?([\d.,]+) de credito", lambda m: f"com limite de crédito de pelo menos R$ {m.group(1)}"),
     (r"queda de faturamento (maior|menor) que (\d+)%", lambda m: f"queda de faturamento {m.group(1)} que {m.group(2)}%"),
-    (r"cadastrado (?:faz|ha) (\d+) dias?", lambda m: f"cadastrados no ERP há pelo menos {m.group(1)} dias"),
     (r"cadastrado a partir do dia (<d\d+>)", lambda m: f"cadastrados a partir de {m.group(1)}"),
     (r"(nao )?tem (\d+)% de visita (remota|incerta) (.+)",
      lambda m: f"{'sem ' if m.group(1) else ''}pelo menos {m.group(2)}% de visitas {m.group(3)}s {describe_period(m.group(4)) or m.group(4)}"),
@@ -293,7 +301,7 @@ def _fact(text: str, gloss: str) -> Clause:
 
 FILTER_MATCHERS: list[Matcher] = [
     _recency, _activity, _situation, _lifecycle, _curve, _revenue_status, _boolean, _field,
-    _segment_membership, _historical_frequency, _fact_catalogue,
+    _segment_membership, _historical_frequency, _registration_age, _fact_catalogue,
 ]
 
 

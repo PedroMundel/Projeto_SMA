@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_132.gobr",
   "sha256": "d1505dbfc74a12a94eaf8a73726e9f5a2c7b8241ffabe970400fe80922ee6874",
   "comentarios": [
@@ -48,6 +48,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -80,6 +81,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        7
+      ],
+      "numeros_exigidos": [
         7
       ],
       "alertas": []
@@ -118,6 +122,9 @@
       "numeros": [
         7
       ],
+      "numeros_exigidos": [
+        7
+      ],
       "alertas": []
     },
     {
@@ -154,6 +161,10 @@
       "inalcancavel": false,
       "numeros": [
         11,
+        14
+      ],
+      "numeros_exigidos": [
+        10,
         14
       ],
       "alertas": []
@@ -195,6 +206,10 @@
         11,
         59
       ],
+      "numeros_exigidos": [
+        10,
+        59
+      ],
       "alertas": []
     },
     {
@@ -234,6 +249,12 @@
         60,
         89
       ],
+      "numeros_exigidos": [
+        7,
+        10,
+        59,
+        89
+      ],
       "alertas": []
     },
     {
@@ -267,6 +288,10 @@
       "inalcancavel": false,
       "numeros": [
         10
+      ],
+      "numeros_exigidos": [
+        10,
+        89
       ],
       "alertas": []
     }

@@ -1,133 +1,104 @@
 {
-  "resumo": "Regra de agendamento para todos os vendedores, organizada pelo ramo de atividade do cliente, por ele ser ativo ou não para o vendedor e pelo tempo sem comprar. Dois bloqueios impedem o agendamento: distribuidores ativos com vendas no grupo em 60 dias e demais ativos com vendas no grupo em 30 dias. As faixas de frequência são de 15, 21 e 30 dias, e a última regra trata os clientes não ativos e os prospects.",
+  "resumo": "Agendamento para todos os vendedores, organizado por ramo de atividade (distribuidor ou não), situação de ativo para o vendedor, tempo sem comprar e frequência histórica de compra. As frequências são de 15, 21 e 30 dias. Deixam de ser agendados os distribuidores ativos com vendas em 60 dias e os demais ativos com vendas em 30 dias. A regra final atende inativos e prospects a cada 30 dias.",
   "carteiras": [],
   "regras": [
     {
       "id": "R1",
       "nome": "Ramo distribuidor sem vendas em 60 dias",
-      "segmento": "Distribuidor sem vendas em 60 dias",
+      "segmento": "Distribuidores sem vendas em 60 dias",
       "criterio": "Clientes ativos para o vendedor, do ramo DISTRIBUIDOR, que estão há mais de 60 dias sem comprar",
       "frequencia": "15 dias",
-      "observacao": "Frequência quinzenal",
+      "observacao": "",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R2",
       "nome": "Compra com regularidade",
       "segmento": "Compra com regularidade",
-      "criterio": "Clientes com frequência histórica de compra de menos de 7 dias que estão há mais de 10 dias sem comprar com qualquer vendedor da empresa",
+      "criterio": "Clientes sem comprar na empresa há mais de 10 dias e com frequência histórica de compra de menos de 7 dias, exceto os já tratados pela regra anterior",
       "frequencia": "21 dias",
-      "observacao": "Distribuidores ativos só entram se nunca compraram no grupo ou compraram nos últimos 60 dias",
+      "observacao": "",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R3",
       "nome": "Não agendar ramo distribuidor com vendas em 60 dias",
       "segmento": "Bloqueio: distribuidor com vendas em 60 dias",
-      "criterio": "Clientes ativos para o vendedor, do ramo DISTRIBUIDOR, que nunca compraram no grupo de vendedores ou compraram nele nos últimos 60 dias",
+      "criterio": "Clientes ativos para o vendedor, do ramo DISTRIBUIDOR, que nunca compraram ou compraram no grupo de vendedores nos últimos 60 dias, exceto os já tratados pelas regras anteriores",
       "frequencia": "Não agendar",
-      "observacao": "Com mais de 10 dias sem comprar na empresa, só se frequência histórica indefinida ou de pelo menos 7 dias",
+      "observacao": "",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R4",
       "nome": "Ativos e sem vendas em 30 dias",
       "segmento": "Ativos sem vendas em 30 dias",
-      "criterio": "Clientes ativos para o vendedor, de ramo diferente de DISTRIBUIDOR, que estão há mais de 30 dias sem comprar no grupo de vendedores",
+      "criterio": "Clientes ativos para o vendedor, de ramo diferente de DISTRIBUIDOR, sem comprar no grupo de vendedores há mais de 30 dias, exceto os já tratados pelas regras anteriores",
       "frequencia": "15 dias",
-      "observacao": "Com mais de 10 dias sem comprar na empresa, só se frequência histórica indefinida ou de pelo menos 7 dias",
+      "observacao": "",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R5",
       "nome": "Não agendar ativos com vendas em 30 dias",
       "segmento": "Bloqueio: ativos com vendas em 30 dias",
-      "criterio": "Clientes ativos para o vendedor, de ramo diferente de DISTRIBUIDOR, que nunca compraram no grupo de vendedores ou compraram nele nos últimos 30 dias",
+      "criterio": "Clientes ativos para o vendedor, de ramo diferente de DISTRIBUIDOR, que nunca compraram ou compraram no grupo de vendedores nos últimos 30 dias, exceto os já tratados pelas regras anteriores",
       "frequencia": "Não agendar",
-      "observacao": "Com mais de 10 dias sem comprar na empresa, só se frequência histórica indefinida ou de pelo menos 7 dias",
+      "observacao": "",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R6",
       "nome": "Clientes inativos e prospects",
       "segmento": "Inativos e prospects",
-      "criterio": "Clientes não ativos para o vendedor, incluindo os que nunca compraram na empresa",
+      "criterio": "Clientes não ativos para o vendedor, incluindo os que nunca compraram, exceto os já tratados pelas regras anteriores",
       "frequencia": "30 dias",
-      "observacao": "Com mais de 10 dias sem comprar na empresa, só se frequência histórica indefinida ou de pelo menos 7 dias",
+      "observacao": "Regra final: vale para quem sobrou das regras anteriores",
       "clausulas_nao_traduzidas": []
     }
   ],
   "pontos_de_atencao": [
-    "O bloqueio 'Não agendar ramo distribuidor com vendas em 60 dias' vem depois das faixas de frequência, então não bloqueia clientes que já entraram nas regras 'Ramo distribuidor sem vendas em 60 dias' e 'Compra com regularidade'.",
-    "O bloqueio 'Não agendar ativos com vendas em 30 dias' vem depois das faixas de frequência, então não bloqueia clientes que já entraram nas regras 'Ramo distribuidor sem vendas em 60 dias', 'Compra com regularidade' e 'Ativos e sem vendas em 30 dias'.",
-    "A cascata mistura escopos de recência de compra (empresa: Compra com regularidade; grupo: Ramo distribuidor sem vendas em 60 dias e Ativos e sem vendas em 30 dias), então as faixas podem se sobrepor ou deixar lacunas."
+    "O bloqueio 'Não agendar ramo distribuidor com vendas em 60 dias' vem depois das faixas de frequência, então não bloqueia clientes que já entraram em 'Ramo distribuidor sem vendas em 60 dias' e 'Compra com regularidade'.",
+    "O bloqueio 'Não agendar ativos com vendas em 30 dias' vem depois das faixas de frequência, então não bloqueia clientes que já entraram em 'Ramo distribuidor sem vendas em 60 dias', 'Compra com regularidade' e 'Ativos e sem vendas em 30 dias'.",
+    "As faixas misturam escopos de tempo sem compra (na empresa toda em 'Compra com regularidade'; no grupo de vendedores em 'Ramo distribuidor sem vendas em 60 dias' e 'Ativos e sem vendas em 30 dias'), então podem se sobrepor ou deixar lacunas."
   ],
   "consultas_hipoteticas": [
-    "Todos os vendedores: distribuidor ativo sem compra há 60 dias, 15 dias; compra com regularidade (histórico abaixo de 7 dias), 21 dias; ativos sem compra no grupo há 30 dias, 15 dias; inativos e prospects, 30 dias; não agendar quem comprou em 60 dias (distribuidor) ou 30 dias (demais ativos)",
-    "A gente quer ligar quinzenalmente pros ativos que estão há mais de 30 dias sem comprar, e pros distribuidores só depois de 60 dias. Quem já comprou recentemente não entra na agenda, e inativos e prospects a gente chama uma vez por mês",
-    "Quero uma regra pra todos os vendedores que separe distribuidores dos demais ativos, bloqueie quem comprou há pouco tempo e dê uma frequência mensal pros inativos"
+    "Todos os vendedores: distribuidor ativo sem venda em 60 dias a cada 15 dias; compra com regularidade a cada 21 dias; ativos sem venda em 30 dias a cada 15 dias; inativos e prospects a cada 30 dias; não agendar distribuidor com venda em 60 dias e ativos com venda em 30 dias",
+    "Quero que o distribuidor ativo parado há mais de 60 dias seja visitado de 15 em 15 dias, e os outros ativos parados há mais de 30 dias também. Quem compra com regularidade fica em 21 dias, inativo e prospect em 30 dias, e ativo que comprou recentemente não entra na agenda",
+    "Regra de frequência para todos os vendedores por ramo distribuidor, cliente ativo e tempo sem comprar, com bloqueio de quem comprou recentemente"
   ],
   "_meta": {
     "arquivo": "regra_170.gobr",
     "sha256_gobr": "215b3a0564eff22d68849fe47cccf17924ff4375ec302d3404524a071fd070f3",
-    "versao_pacote": "2",
-    "prompt_sha256": "51c624fe9f9f",
+    "versao_pacote": "4",
+    "prompt_sha256": "fd3b943ec528",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T16:12:29+00:00",
+    "gerado_em": "2026-10-20T16:43:32+00:00",
     "candidatos": {
       "agente_1.json": {
-        "valido": false,
-        "erros": [
-          "R3: faltam os números [7, 10]",
-          "R4: faltam os números [7, 10]",
-          "R5: faltam os números [7, 10]",
-          "R6: faltam os números [7, 10]"
-        ],
+        "valido": true,
+        "erros": [],
         "avisos": []
       },
       "agente_2.json": {
-        "valido": false,
-        "erros": [
-          "R2: faltam os números [60]",
-          "R3: faltam os números [7, 10]",
-          "R4: faltam os números [7, 10]",
-          "R5: faltam os números [7, 10]",
-          "R6: faltam os números [7, 10]"
-        ],
+        "valido": true,
+        "erros": [],
         "avisos": []
       },
       "agente_3.json": {
-        "valido": false,
-        "erros": [
-          "R2: faltam os números [60]",
-          "R3: faltam os números [7, 10]",
-          "R4: faltam os números [7, 10]",
-          "R5: faltam os números [7, 10]",
-          "R6: faltam os números [7, 10]"
-        ],
+        "valido": true,
+        "erros": [],
         "avisos": []
       },
       "agente_4.json": {
-        "valido": false,
-        "erros": [
-          "R2: faltam os números [60]",
-          "R3: faltam os números [7, 10]",
-          "R4: faltam os números [7, 10]",
-          "R5: faltam os números [7, 10]",
-          "R6: faltam os números [7, 10]"
-        ],
+        "valido": true,
+        "erros": [],
         "avisos": []
       },
       "agente_5.json": {
-        "valido": false,
-        "erros": [
-          "R2: faltam os números [60]",
-          "R3: faltam os números [7, 10]",
-          "R4: faltam os números [7, 10]",
-          "R5: faltam os números [7, 10]",
-          "R6: faltam os números [7, 10]"
-        ],
+        "valido": true,
+        "erros": [],
         "avisos": []
       },
       "agente_6.json": {
@@ -141,7 +112,7 @@
         "avisos": []
       }
     },
-    "escolhido": "agente_6.json",
-    "concordancia": 0.728
+    "escolhido": "agente_3.json",
+    "concordancia": 0.646
   }
 }

@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_128.gobr",
   "sha256": "7041767ef635dad5e8de6cb4c5ee3d29d6043aebcf6055d534ab84ef43c0a3d2",
   "comentarios": [
@@ -158,6 +158,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -195,6 +196,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        7
+      ],
+      "numeros_exigidos": [
         7
       ],
       "alertas": []
@@ -244,6 +248,10 @@
         16,
         60
       ],
+      "numeros_exigidos": [
+        5,
+        60
+      ],
       "alertas": [
         "O nome da regra cita 20 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
       ]
@@ -286,6 +294,10 @@
         7,
         90
       ],
+      "numeros_exigidos": [
+        7,
+        90
+      ],
       "alertas": [
         "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Niteroi (283) e Rio 2 (279) para Tmk 1 (291)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
       ]
@@ -324,6 +336,10 @@
       "inalcancavel": false,
       "numeros": [
         7
+      ],
+      "numeros_exigidos": [
+        7,
+        90
       ],
       "alertas": [
         "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Niteroi (283) e Rio 2 (279) para Tmk 1 (291)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
@@ -364,6 +380,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        7
+      ],
+      "numeros_exigidos": [
         7
       ],
       "alertas": []
@@ -413,6 +432,10 @@
         16,
         60
       ],
+      "numeros_exigidos": [
+        5,
+        60
+      ],
       "alertas": [
         "O nome da regra cita 20 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
       ]
@@ -455,6 +478,10 @@
         7,
         90
       ],
+      "numeros_exigidos": [
+        7,
+        90
+      ],
       "alertas": [
         "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Lagos (286) e Norte (284) para Tmk 2 (292)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
       ]
@@ -493,6 +520,10 @@
       "inalcancavel": false,
       "numeros": [
         7
+      ],
+      "numeros_exigidos": [
+        7,
+        90
       ],
       "alertas": [
         "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Lagos (286) e Norte (284) para Tmk 2 (292)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
@@ -533,6 +564,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        7
+      ],
+      "numeros_exigidos": [
         7
       ],
       "alertas": []
@@ -582,6 +616,10 @@
         16,
         60
       ],
+      "numeros_exigidos": [
+        5,
+        60
+      ],
       "alertas": [
         "O nome da regra cita 20 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
       ]
@@ -624,6 +662,10 @@
         7,
         90
       ],
+      "numeros_exigidos": [
+        7,
+        90
+      ],
       "alertas": [
         "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Baixada 1 (275) e Baixada 3 (277) para Tmk 3 (294)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
       ]
@@ -662,6 +704,10 @@
       "inalcancavel": false,
       "numeros": [
         7
+      ],
+      "numeros_exigidos": [
+        7,
+        90
       ],
       "alertas": [
         "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Baixada 1 (275) e Baixada 3 (277) para Tmk 3 (294)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
@@ -702,6 +748,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        7
+      ],
+      "numeros_exigidos": [
         7
       ],
       "alertas": []
@@ -751,6 +800,10 @@
         16,
         60
       ],
+      "numeros_exigidos": [
+        5,
+        60
+      ],
       "alertas": [
         "O nome da regra cita 20 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
       ]
@@ -793,6 +846,10 @@
         7,
         90
       ],
+      "numeros_exigidos": [
+        7,
+        90
+      ],
       "alertas": [
         "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Rio 1 (278) e Rio 3 (280) para Tmk 5 (375)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
       ]
@@ -831,6 +888,10 @@
       "inalcancavel": false,
       "numeros": [
         7
+      ],
+      "numeros_exigidos": [
+        7,
+        90
       ],
       "alertas": [
         "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Rio 1 (278) e Rio 3 (280) para Tmk 5 (375)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
@@ -871,6 +932,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        7
+      ],
+      "numeros_exigidos": [
         7
       ],
       "alertas": []
@@ -920,6 +984,10 @@
         16,
         60
       ],
+      "numeros_exigidos": [
+        5,
+        60
+      ],
       "alertas": [
         "O nome da regra cita 20 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
       ]
@@ -962,6 +1030,10 @@
         7,
         90
       ],
+      "numeros_exigidos": [
+        7,
+        90
+      ],
       "alertas": [
         "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Sul Flu 1 (273) e Sul Flu 2 (274) para Tmk 6 (900)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
       ]
@@ -1000,6 +1072,10 @@
       "inalcancavel": false,
       "numeros": [
         7
+      ],
+      "numeros_exigidos": [
+        7,
+        90
       ],
       "alertas": [
         "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Sul Flu 1 (273) e Sul Flu 2 (274) para Tmk 6 (900)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
@@ -1040,6 +1116,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        7
+      ],
+      "numeros_exigidos": [
         7
       ],
       "alertas": []
@@ -1089,6 +1168,10 @@
         16,
         60
       ],
+      "numeros_exigidos": [
+        5,
+        60
+      ],
       "alertas": [
         "O nome da regra cita 20 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
       ]
@@ -1131,6 +1214,10 @@
         7,
         90
       ],
+      "numeros_exigidos": [
+        7,
+        90
+      ],
       "alertas": [
         "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Serrana (282) e Baixada 2 (276) para Tmk 7 (901)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
       ]
@@ -1169,6 +1256,10 @@
       "inalcancavel": false,
       "numeros": [
         7
+      ],
+      "numeros_exigidos": [
+        7,
+        90
       ],
       "alertas": [
         "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Serrana (282) e Baixada 2 (276) para Tmk 7 (901)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra."
@@ -1213,6 +1304,9 @@
       "numeros": [
         7
       ],
+      "numeros_exigidos": [
+        7
+      ],
       "alertas": [
         "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
       ]
@@ -1254,6 +1348,10 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        7,
+        60
+      ],
+      "numeros_exigidos": [
         7,
         60
       ],
@@ -1308,6 +1406,10 @@
         7,
         90
       ],
+      "numeros_exigidos": [
+        7,
+        90
+      ],
       "alertas": [
         "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Niteroi (283) e Rio 2 (279) para Tmk 1 (291)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
         "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Lagos (286) e Norte (284) para Tmk 2 (292)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
@@ -1353,6 +1455,10 @@
       "inalcancavel": false,
       "numeros": [
         7
+      ],
+      "numeros_exigidos": [
+        7,
+        90
       ],
       "alertas": []
     },
@@ -1403,6 +1509,7 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": [
         "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Niteroi (283) e Rio 2 (279) para Tmk 1 (291)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",
         "Nos dias em que \"Ativos (A partir do dia 20 de cada mês) / Ext. Lagos (286) e Norte (284) para Tmk 2 (292)\" é executada (somente a partir do dia 16 de cada mês), os clientes dela são tratados por ela antes desta regra.",

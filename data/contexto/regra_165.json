@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_165.gobr",
   "sha256": "bc61014bea041dbf9709dcd573fe2732ac929060104cbd07bcc087f86a1012f1",
   "comentarios": [
@@ -112,6 +112,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -144,6 +145,10 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        7,
+        90
+      ],
+      "numeros_exigidos": [
         7,
         90
       ],
@@ -190,6 +195,12 @@
         14,
         15
       ],
+      "numeros_exigidos": [
+        7,
+        14,
+        15,
+        90
+      ],
       "alertas": []
     },
     {
@@ -233,6 +244,9 @@
         28,
         31,
         45
+      ],
+      "numeros_exigidos": [
+        28
       ],
       "alertas": []
     },
@@ -279,6 +293,9 @@
         46,
         60
       ],
+      "numeros_exigidos": [
+        21
+      ],
       "alertas": []
     },
     {
@@ -321,6 +338,10 @@
         15,
         90
       ],
+      "numeros_exigidos": [
+        15,
+        90
+      ],
       "alertas": [
         "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Não agendar clientes inativos inadimplentes\", \"Clientes há mais de 90 dias sem compra\"."
       ]
@@ -354,6 +375,7 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": [
         "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
       ]

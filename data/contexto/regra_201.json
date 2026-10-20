@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_201.gobr",
   "sha256": "0437aa8a5270bd495162053555ef6a50fd7c41da153bd9b617f21a09548a55e1",
   "comentarios": [
@@ -53,6 +53,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -85,6 +86,7 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -118,6 +120,7 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -152,6 +155,7 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -187,6 +191,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        7
+      ],
+      "numeros_exigidos": [
         7
       ],
       "alertas": []
@@ -226,6 +233,10 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        28,
+        90
+      ],
+      "numeros_exigidos": [
         28,
         90
       ],
@@ -275,6 +286,11 @@
         30,
         60
       ],
+      "numeros_exigidos": [
+        30,
+        60,
+        90
+      ],
       "alertas": []
     },
     {
@@ -305,7 +321,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram nos últimos 30 dias e frequência histórica de compra de menos de 30 dias",
-      "condicao_efetiva": "(compraram no grupo de vendedores nos últimos 30 dias e já compraram com o próprio vendedor e não (cadastrados no ERP há pelo menos 60 dias) e frequência histórica de compra de menos de 30 dias) OU (compraram no grupo de vendedores nos últimos 30 dias e já compraram com o próprio vendedor e cadastrados no ERP há pelo menos 60 dias e frequência histórica de compra de menos de 30 dias e sem ser de compra única com o vendedor)",
+      "condicao_efetiva": "(compraram no grupo de vendedores nos últimos 30 dias e já compraram com o próprio vendedor e cadastrados no ERP há menos de 60 dias e frequência histórica de compra de menos de 30 dias) OU (compraram no grupo de vendedores nos últimos 30 dias e já compraram com o próprio vendedor e cadastrados no ERP há pelo menos 60 dias e frequência histórica de compra de menos de 30 dias e sem ser de compra única com o vendedor)",
       "tratados_antes_por": [
         "R5",
         "R7"
@@ -318,6 +334,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        30
+      ],
+      "numeros_exigidos": [
         30
       ],
       "alertas": []
@@ -350,7 +369,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram nos últimos 30 dias e frequência histórica de compra de menos de 90 dias",
-      "condicao_efetiva": "(compraram no grupo de vendedores nos últimos 30 dias e já compraram com o próprio vendedor e não (cadastrados no ERP há pelo menos 60 dias) e frequência histórica de compra entre 30 e 89 dias) OU (compraram no grupo de vendedores nos últimos 30 dias e já compraram com o próprio vendedor e cadastrados no ERP há pelo menos 60 dias e frequência histórica de compra entre 30 e 89 dias e sem ser de compra única com o vendedor)",
+      "condicao_efetiva": "(compraram no grupo de vendedores nos últimos 30 dias e já compraram com o próprio vendedor e cadastrados no ERP há menos de 60 dias e frequência histórica de compra entre 30 e 89 dias) OU (compraram no grupo de vendedores nos últimos 30 dias e já compraram com o próprio vendedor e cadastrados no ERP há pelo menos 60 dias e frequência histórica de compra entre 30 e 89 dias e sem ser de compra única com o vendedor)",
       "tratados_antes_por": [
         "R5",
         "R7",
@@ -366,6 +385,10 @@
       "numeros": [
         30,
         90
+      ],
+      "numeros_exigidos": [
+        30,
+        89
       ],
       "alertas": []
     },
@@ -411,6 +434,11 @@
         30,
         60
       ],
+      "numeros_exigidos": [
+        10,
+        30,
+        60
+      ],
       "alertas": [
         "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
       ]
@@ -438,7 +466,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram nos últimos 90 dias, mas estão há mais de 60 dias sem comprar",
-      "condicao_efetiva": "(compraram no grupo de vendedores nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e já compraram com o próprio vendedor e não (cadastrados no ERP há pelo menos 60 dias)) OU (compraram no grupo de vendedores nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e já compraram com o próprio vendedor e cadastrados no ERP há pelo menos 60 dias e sem ser de compra única com o vendedor)",
+      "condicao_efetiva": "(compraram no grupo de vendedores nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e já compraram com o próprio vendedor e cadastrados no ERP há menos de 60 dias) OU (compraram no grupo de vendedores nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e já compraram com o próprio vendedor e cadastrados no ERP há pelo menos 60 dias e sem ser de compra única com o vendedor)",
       "tratados_antes_por": [
         "R5",
         "R7"
@@ -453,6 +481,11 @@
       "numeros": [
         14,
         61,
+        90
+      ],
+      "numeros_exigidos": [
+        14,
+        60,
         90
       ],
       "alertas": []
@@ -474,7 +507,7 @@
       ],
       "acao_principal": "nao_agendar",
       "condicao_propria": "todos os clientes da fonte (sem filtro)",
-      "condicao_efetiva": "(compraram no grupo de vendedores nos últimos 29 dias e já compraram com o próprio vendedor e não (cadastrados no ERP há pelo menos 60 dias) e frequência histórica indefinida ou frequência histórica de compra de pelo menos 90 dias) OU (compraram no grupo de vendedores nos últimos 29 dias e já compraram com o próprio vendedor e cadastrados no ERP há pelo menos 60 dias e frequência histórica indefinida ou frequência histórica de compra de pelo menos 90 dias e sem ser de compra única com o vendedor)",
+      "condicao_efetiva": "(compraram no grupo de vendedores nos últimos 29 dias e já compraram com o próprio vendedor e cadastrados no ERP há menos de 60 dias e frequência histórica indefinida ou frequência histórica de compra de pelo menos 90 dias) OU (compraram no grupo de vendedores nos últimos 29 dias e já compraram com o próprio vendedor e cadastrados no ERP há pelo menos 60 dias e frequência histórica indefinida ou frequência histórica de compra de pelo menos 90 dias e sem ser de compra única com o vendedor)",
       "tratados_antes_por": [
         "R5",
         "R6",
@@ -492,6 +525,7 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     }
   ],

@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_142.gobr",
   "sha256": "ad7b98b19207008790dce1f9ca97935cffb1d859a09278b761ef08d169a1afc4",
   "comentarios": [
@@ -82,6 +82,9 @@
       "numeros": [
         3
       ],
+      "numeros_exigidos": [
+        3
+      ],
       "alertas": []
     },
     {
@@ -112,6 +115,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        7
+      ],
+      "numeros_exigidos": [
         7
       ],
       "alertas": []
@@ -146,6 +152,9 @@
       "numeros": [
         14
       ],
+      "numeros_exigidos": [
+        14
+      ],
       "alertas": []
     },
     {
@@ -174,6 +183,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        14
+      ],
+      "numeros_exigidos": [
         14
       ],
       "alertas": []
@@ -208,6 +220,9 @@
       "numeros": [
         2
       ],
+      "numeros_exigidos": [
+        2
+      ],
       "alertas": []
     },
     {
@@ -238,6 +253,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        7
+      ],
+      "numeros_exigidos": [
         7
       ],
       "alertas": []
@@ -272,6 +290,9 @@
       "numeros": [
         14
       ],
+      "numeros_exigidos": [
+        14
+      ],
       "alertas": []
     },
     {
@@ -300,6 +321,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        7
+      ],
+      "numeros_exigidos": [
         7
       ],
       "alertas": []
@@ -334,6 +358,9 @@
       "numeros": [
         4
       ],
+      "numeros_exigidos": [
+        4
+      ],
       "alertas": []
     },
     {
@@ -364,6 +391,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        7
+      ],
+      "numeros_exigidos": [
         7
       ],
       "alertas": []
@@ -398,6 +428,9 @@
       "numeros": [
         9
       ],
+      "numeros_exigidos": [
+        9
+      ],
       "alertas": []
     },
     {
@@ -426,6 +459,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        14
+      ],
+      "numeros_exigidos": [
         14
       ],
       "alertas": []
@@ -458,6 +494,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -490,6 +527,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        14
+      ],
+      "numeros_exigidos": [
         14
       ],
       "alertas": []
@@ -526,6 +566,9 @@
       "numeros": [
         7
       ],
+      "numeros_exigidos": [
+        7
+      ],
       "alertas": []
     },
     {
@@ -560,6 +603,9 @@
       "numeros": [
         21
       ],
+      "numeros_exigidos": [
+        21
+      ],
       "alertas": []
     },
     {
@@ -592,6 +638,7 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -631,6 +678,9 @@
       "numeros": [
         7
       ],
+      "numeros_exigidos": [
+        7
+      ],
       "alertas": []
     },
     {
@@ -663,6 +713,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        15
+      ],
+      "numeros_exigidos": [
         15
       ],
       "alertas": []

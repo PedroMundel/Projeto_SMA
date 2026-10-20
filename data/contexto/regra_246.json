@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_246.gobr",
   "sha256": "a2a35299f9f0d41acd35c2589c92ccb5bedfa820a0d40fcea61ca095bf90a4f8",
   "comentarios": [
@@ -104,6 +104,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -136,6 +137,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        7
+      ],
+      "numeros_exigidos": [
         7
       ],
       "alertas": []
@@ -173,6 +177,10 @@
         14,
         45
       ],
+      "numeros_exigidos": [
+        14,
+        45
+      ],
       "alertas": []
     },
     {
@@ -203,6 +211,10 @@
       "inalcancavel": false,
       "numeros": [
         7
+      ],
+      "numeros_exigidos": [
+        7,
+        45
       ],
       "alertas": []
     },
@@ -239,6 +251,10 @@
         21,
         60
       ],
+      "numeros_exigidos": [
+        21,
+        60
+      ],
       "alertas": []
     },
     {
@@ -269,6 +285,10 @@
       "inalcancavel": false,
       "numeros": [
         10
+      ],
+      "numeros_exigidos": [
+        10,
+        60
       ],
       "alertas": []
     },
@@ -305,6 +325,10 @@
         28,
         75
       ],
+      "numeros_exigidos": [
+        28,
+        75
+      ],
       "alertas": []
     },
     {
@@ -335,6 +359,10 @@
       "inalcancavel": false,
       "numeros": [
         14
+      ],
+      "numeros_exigidos": [
+        14,
+        75
       ],
       "alertas": []
     },
@@ -371,6 +399,10 @@
         28,
         90
       ],
+      "numeros_exigidos": [
+        28,
+        90
+      ],
       "alertas": []
     },
     {
@@ -401,6 +433,10 @@
       "inalcancavel": false,
       "numeros": [
         14
+      ],
+      "numeros_exigidos": [
+        14,
+        90
       ],
       "alertas": []
     },
@@ -438,6 +474,7 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     }
   ],

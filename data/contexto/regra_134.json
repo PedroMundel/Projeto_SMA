@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_134.gobr",
   "sha256": "97a362a093db4db2ecd31bdce117607cfb7e8cfb8087b0c444b5e982a3e8832e",
   "comentarios": [],
@@ -37,6 +37,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        15
+      ],
+      "numeros_exigidos": [
         15
       ],
       "alertas": []

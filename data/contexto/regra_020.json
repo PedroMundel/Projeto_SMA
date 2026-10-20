@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_020.gobr",
   "sha256": "ed79166da41820ad490a2e7973bcd073efcda1a8ad57cd7fda6858323ec39f64",
   "comentarios": [],
@@ -46,6 +46,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        7
+      ],
+      "numeros_exigidos": [
         7
       ],
       "alertas": []

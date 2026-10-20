@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_183.gobr",
   "sha256": "3827edd4f7f6580076a5aa3cf4007d92e296f65f6e5ed6d8149bfad457eae3aa",
   "comentarios": [
@@ -48,6 +48,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -80,6 +81,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        21
+      ],
+      "numeros_exigidos": [
         21
       ],
       "alertas": []
@@ -124,6 +128,10 @@
         5,
         30
       ],
+      "numeros_exigidos": [
+        5,
+        30
+      ],
       "alertas": []
     },
     {
@@ -163,6 +171,10 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        14,
+        30
+      ],
+      "numeros_exigidos": [
         14,
         30
       ],
@@ -213,6 +225,10 @@
         14,
         30
       ],
+      "numeros_exigidos": [
+        14,
+        30
+      ],
       "alertas": [
         "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Não agendar inadimplentes\", \"Freq. de 14d para 'Compra regularmente' (Sem pedido em 30d)\"."
       ]
@@ -251,6 +267,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        21
+      ],
+      "numeros_exigidos": [
         21
       ],
       "alertas": []

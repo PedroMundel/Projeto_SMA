@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_186.gobr",
   "sha256": "30580e8c4285a3ddab77a5428cb2f559f9711350ce6de899ae534d6134c51324",
   "comentarios": [
@@ -51,6 +51,9 @@
       "numeros": [
         7
       ],
+      "numeros_exigidos": [
+        7
+      ],
       "alertas": []
     },
     {
@@ -83,6 +86,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        7
+      ],
+      "numeros_exigidos": [
         7
       ],
       "alertas": []
@@ -118,6 +124,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        14
+      ],
+      "numeros_exigidos": [
         14
       ],
       "alertas": []
@@ -159,6 +168,11 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        14,
+        180,
+        360
+      ],
+      "numeros_exigidos": [
         14,
         180,
         360
@@ -215,6 +229,11 @@
         181,
         360
       ],
+      "numeros_exigidos": [
+        14,
+        180,
+        360
+      ],
       "alertas": []
     },
     {
@@ -262,6 +281,10 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        7,
+        30
+      ],
+      "numeros_exigidos": [
         7,
         30
       ],
@@ -319,6 +342,10 @@
         31,
         60
       ],
+      "numeros_exigidos": [
+        7,
+        60
+      ],
       "alertas": [
         "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
       ]
@@ -360,6 +387,11 @@
       "numeros": [
         7,
         61,
+        90
+      ],
+      "numeros_exigidos": [
+        7,
+        60,
         90
       ],
       "alertas": [
@@ -405,6 +437,11 @@
         91,
         180
       ],
+      "numeros_exigidos": [
+        7,
+        90,
+        180
+      ],
       "alertas": [
         "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
       ]
@@ -442,6 +479,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        28
+      ],
+      "numeros_exigidos": [
         28
       ],
       "alertas": [

@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_080.gobr",
   "sha256": "28eed7badaa8259d53ab7d02484f97e281912ae5848516559467ee6e3332b9bd",
   "comentarios": [
@@ -64,6 +64,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [
+        30
+      ],
       "alertas": []
     },
     {
@@ -101,6 +104,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [
+        15
+      ],
       "alertas": []
     },
     {
@@ -136,6 +142,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [
+        30
+      ],
       "alertas": []
     },
     {
@@ -174,6 +183,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": true,
       "numeros": [],
+      "numeros_exigidos": [
+        15
+      ],
       "alertas": [
         "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Regra Padrao da Empresa Customizavel: mensal para inativos com cnae do erp que inicia com (\"03\",\"47\",\"27\")\", \"Regra Padrao da Empresa Customizavel: 15 dias para inativos\"."
       ]
@@ -211,6 +223,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [
+        30
+      ],
       "alertas": []
     }
   ],

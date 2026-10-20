@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_178.gobr",
   "sha256": "1a7d314a6e07ad6bfcea5457eb260cfb47e16ae485fda6060a8bb9009a15b900",
   "comentarios": [
@@ -57,6 +57,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -87,6 +88,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        7
+      ],
+      "numeros_exigidos": [
         7
       ],
       "alertas": []
@@ -123,6 +127,9 @@
       "numeros": [
         39
       ],
+      "numeros_exigidos": [
+        39
+      ],
       "alertas": []
     },
     {
@@ -148,17 +155,23 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "cadastrados no ERP há pelo menos 60 dias",
-      "condicao_efetiva": "cadastrados no ERP há pelo menos 60 dias",
+      "condicao_efetiva": null,
       "tratados_antes_por": [],
       "bloqueios_anteriores": [
         "R2"
       ],
-      "inalcancavel": false,
+      "inalcancavel": true,
       "numeros": [
         30,
         60
       ],
-      "alertas": []
+      "numeros_exigidos": [
+        30,
+        60
+      ],
+      "alertas": [
+        "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Clientes que nunca compraram com a empresa\"."
+      ]
     },
     {
       "id": "R5",
@@ -183,19 +196,23 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "cadastrados no ERP há pelo menos 30 dias",
-      "condicao_efetiva": "cadastrados no ERP há pelo menos 30 dias e não (cadastrados no ERP há pelo menos 60 dias)",
-      "tratados_antes_por": [
-        "R4"
-      ],
+      "condicao_efetiva": null,
+      "tratados_antes_por": [],
       "bloqueios_anteriores": [
         "R2"
       ],
-      "inalcancavel": false,
+      "inalcancavel": true,
       "numeros": [
         20,
         30
       ],
-      "alertas": []
+      "numeros_exigidos": [
+        20,
+        30
+      ],
+      "alertas": [
+        "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Clientes que nunca compraram com a empresa\"."
+      ]
     },
     {
       "id": "R6",
@@ -220,19 +237,21 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "cadastrados no ERP há pelo menos 15 dias",
-      "condicao_efetiva": "cadastrados no ERP há pelo menos 15 dias e não (cadastrados no ERP há pelo menos 30 dias) e não (cadastrados no ERP há pelo menos 60 dias)",
-      "tratados_antes_por": [
-        "R4",
-        "R5"
-      ],
+      "condicao_efetiva": null,
+      "tratados_antes_por": [],
       "bloqueios_anteriores": [
         "R2"
       ],
-      "inalcancavel": false,
+      "inalcancavel": true,
       "numeros": [
         15
       ],
-      "alertas": []
+      "numeros_exigidos": [
+        15
+      ],
+      "alertas": [
+        "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Clientes que nunca compraram com a empresa\"."
+      ]
     },
     {
       "id": "R7",
@@ -256,22 +275,24 @@
         }
       ],
       "acao_principal": "frequencia",
-      "condicao_propria": "cadastrados no ERP há pelo menos 8 dias",
-      "condicao_efetiva": "não (cadastrados no ERP há pelo menos 15 dias) e não (cadastrados no ERP há pelo menos 30 dias) e não (cadastrados no ERP há pelo menos 60 dias) e cadastrados no ERP há pelo menos 8 dias",
-      "tratados_antes_por": [
-        "R4",
-        "R5",
-        "R6"
-      ],
+      "condicao_propria": "cadastrados no ERP há mais de 7 dias",
+      "condicao_efetiva": null,
+      "tratados_antes_por": [],
       "bloqueios_anteriores": [
         "R2"
       ],
-      "inalcancavel": false,
+      "inalcancavel": true,
       "numeros": [
         8,
         15
       ],
-      "alertas": []
+      "numeros_exigidos": [
+        7,
+        15
+      ],
+      "alertas": [
+        "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Clientes que nunca compraram com a empresa\"."
+      ]
     },
     {
       "id": "R8",
@@ -305,6 +326,11 @@
       "numeros": [
         15,
         40,
+        89
+      ],
+      "numeros_exigidos": [
+        15,
+        39,
         89
       ],
       "alertas": []
@@ -343,6 +369,11 @@
         90,
         119
       ],
+      "numeros_exigidos": [
+        7,
+        89,
+        119
+      ],
       "alertas": []
     },
     {
@@ -377,6 +408,11 @@
       "numeros": [
         7,
         120,
+        359
+      ],
+      "numeros_exigidos": [
+        7,
+        119,
         359
       ],
       "alertas": []
@@ -414,12 +450,16 @@
         7,
         359
       ],
+      "numeros_exigidos": [
+        7,
+        359
+      ],
       "alertas": []
     }
   ],
   "nao_cobertos": {
     "do time televendas_1": "todos os clientes",
-    "do time televendas_2": "não (cadastrados no ERP há pelo menos 15 dias) e não (cadastrados no ERP há pelo menos 30 dias) e não (cadastrados no ERP há pelo menos 60 dias) e não (cadastrados no ERP há pelo menos 8 dias)"
+    "do time televendas_2": "todos os clientes"
   },
   "alertas": [],
   "numeros_obrigatorios": [

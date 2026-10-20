@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_168.gobr",
   "sha256": "588f2199f9fde1bae53b09c41254597cb8fa8372455de57c4d31bb599f1abb95",
   "comentarios": [
@@ -117,6 +117,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -149,6 +150,7 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -191,6 +193,9 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [
+        1
+      ],
       "alertas": []
     },
     {
@@ -239,6 +244,9 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [
+        1
+      ],
       "alertas": []
     },
     {
@@ -287,6 +295,9 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [
+        1
+      ],
       "alertas": []
     },
     {
@@ -335,6 +346,9 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [
+        1
+      ],
       "alertas": []
     },
     {
@@ -383,6 +397,9 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [
+        1
+      ],
       "alertas": []
     },
     {
@@ -412,6 +429,7 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": [
         "Nos dias em que \"Rota de terça -> Agendamento segunda\" é executada (somente quando executada na segunda), os clientes dela são tratados por ela antes desta regra.",
         "Nos dias em que \"Rota de quarta -> Agendamento terça\" é executada (somente quando executada na terça), os clientes dela são tratados por ela antes desta regra.",

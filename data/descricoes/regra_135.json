@@ -1,35 +1,35 @@
 {
-  "resumo": "Regra de agendamento de dois times de televendas. O time televendas_2 atende seis carteiras fixas, cinco por dia da semana (segunda a sexta) e uma irrestrita; o time televendas_1 é organizado por tempo desde a última compra. Cada carteira de dia da semana tem seis regras (prospects e cinco faixas) com frequência de 7 dias e um dia de preferência, enquanto a irrestrita usa frequências de 7, 14, 21 e 30 dias por perfil e curva A, B ou C. Duas regras gerais do televendas_2 cobrem os clientes fora das carteiras, e o televendas_1 termina com a regra dos inativos há mais de 180 dias. Não há regras de bloqueio.",
+  "resumo": "Regra de agendamento de dois times de televendas. O time de vendedores de id 0000002 atende seis carteiras fixas por cidade (segunda a sexta e irrestrito); nas de segunda a sexta, as faixas são prospects, alta frequência, regularidade, risco de inatividade, inativos e sem regra, todas com frequência de 7 dias e um dia de preferência por carteira. A carteira irrestrito tem faixas próprias de 7 a 30 dias e duas regras finais por cidade. Os demais vendedores seguem sete faixas pelo tempo desde a última compra, com regra final para os inativos. Não há regras de bloqueio.",
   "carteiras": [
     {
       "id": "C1",
       "nome": "segunda_feira_televendas_2",
-      "descricao": "Carteira fixa dos vendedores do time televendas_2 com clientes de AGUAS DE SAO PEDRO, AMERICANA, ARARAS, CHARQUEADA, CORDEIROPOLIS, Cordeirópolis e mais 10 cidades"
+      "descricao": "Carteira fixa dos vendedores do time televendas_2, com clientes de AGUAS DE SAO PEDRO, AMERICANA, ARARAS, CHARQUEADA, CORDEIROPOLIS, Cordeirópolis e mais 10 cidades"
     },
     {
       "id": "C2",
       "nome": "terca_feira_televendas_2",
-      "descricao": "Carteira fixa dos vendedores do time televendas_2 com clientes de AMERICO BRASILIENSE, ARARAQUARA, BARRINHA, CRAVINHOS, DESCALVADO, GUARIBA e mais 15 cidades"
+      "descricao": "Carteira fixa dos vendedores do time televendas_2, com clientes de AMERICO BRASILIENSE, ARARAQUARA, BARRINHA, CRAVINHOS, DESCALVADO, GUARIBA e mais 15 cidades"
     },
     {
       "id": "C3",
       "nome": "quarta_feira_televendas_2",
-      "descricao": "Carteira fixa dos vendedores do time televendas_2 com clientes de AGUAI, AGUAS DE LINDOIA, AMPARO, ANDRADAS, ARTUR NOGUEIRA, ENGENHEIRO COELHO e mais 17 cidades"
+      "descricao": "Carteira fixa dos vendedores do time televendas_2, com clientes de AGUAI, AGUAS DE LINDOIA, AMPARO, ANDRADAS, ARTUR NOGUEIRA, ENGENHEIRO COELHO e mais 17 cidades"
     },
     {
       "id": "C4",
       "nome": "quinta_feira_televendas_2",
-      "descricao": "Carteira fixa dos vendedores do time televendas_2 com clientes de ALUMINIO, ARACOIABA DA SERRA, BOITUVA, CERQUILHO, COTIA, IBIUNA e mais 15 cidades"
+      "descricao": "Carteira fixa dos vendedores do time televendas_2, com clientes de ALUMINIO, ARACOIABA DA SERRA, BOITUVA, CERQUILHO, COTIA, IBIUNA e mais 15 cidades"
     },
     {
       "id": "C5",
       "nome": "sexta_feira_televendas_2",
-      "descricao": "Carteira fixa dos vendedores do time televendas_2 com clientes de ATIBAIA, BRAGANCA PAULISTA, CAMPINAS, CAMPO LIMPO PAULISTA, COSMOPOLIS, HORTOLANDIA e mais 9 cidades"
+      "descricao": "Carteira fixa dos vendedores do time televendas_2, com clientes de ATIBAIA, BRAGANCA PAULISTA, CAMPINAS, CAMPO LIMPO PAULISTA, COSMOPOLIS, HORTOLANDIA e mais 9 cidades"
     },
     {
       "id": "C6",
       "nome": "irrestrito_televendas_2",
-      "descricao": "Carteira fixa dos vendedores do time televendas_2 com clientes de ARUJA, BARUERI, CAIEIRAS, CAJAMAR, CARAPICUIBA, DIADEMA e mais 19 cidades"
+      "descricao": "Carteira fixa dos vendedores do time televendas_2, com clientes de ARUJA, BARUERI, CAIEIRAS, CAJAMAR, CARAPICUIBA, DIADEMA e mais 19 cidades"
     }
   ],
   "regras": [
@@ -37,277 +37,277 @@
       "id": "R1",
       "nome": "Prospects Segunda",
       "segmento": "Prospects (segunda)",
-      "criterio": "Clientes da carteira de segunda que nunca compraram com o próprio vendedor",
+      "criterio": "Clientes que nunca compraram com o próprio vendedor",
       "frequencia": "7 dias",
-      "observacao": "Dia de preferência: sexta; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na sexta; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R2",
       "nome": "Alta Frequencia Segunda",
       "segmento": "Alta frequência (segunda)",
-      "criterio": "Clientes da carteira de segunda que compraram com o próprio vendedor nos últimos 30 dias",
+      "criterio": "Clientes que compraram com o próprio vendedor nos últimos 30 dias",
       "frequencia": "7 dias",
-      "observacao": "Dia de preferência: sexta; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na sexta; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R3",
       "nome": "Regularidade Segunda",
       "segmento": "Regularidade (segunda)",
-      "criterio": "Clientes da carteira de segunda que compraram com o próprio vendedor nos últimos 45 dias, mas estão há mais de 30 dias sem comprar",
+      "criterio": "Clientes que compraram com o próprio vendedor nos últimos 45 dias, mas estão há mais de 30 dias sem comprar",
       "frequencia": "7 dias",
-      "observacao": "Dia de preferência: sexta; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na sexta; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R4",
       "nome": "Risco Inatividade Segunda",
       "segmento": "Risco de inatividade (segunda)",
-      "criterio": "Clientes da carteira de segunda que já compraram com o próprio vendedor, mas estão há mais de 120 dias sem comprar com qualquer vendedor da empresa",
+      "criterio": "Clientes que estão há mais de 120 dias sem comprar com qualquer vendedor da empresa e já compraram com o próprio vendedor",
       "frequencia": "7 dias",
-      "observacao": "Dia de preferência: sexta; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na sexta; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R5",
       "nome": "Inativos Segunda",
       "segmento": "Inativos (segunda)",
-      "criterio": "Clientes da carteira de segunda que já compraram com o próprio vendedor, compraram na empresa nos últimos 120 dias e estão há mais de 180 dias sem comprar no grupo de vendedores",
+      "criterio": "Clientes que compraram na empresa nos últimos 120 dias, estão há mais de 180 dias sem comprar no grupo de vendedores e já compraram com o próprio vendedor",
       "frequencia": "7 dias",
-      "observacao": "Dia de preferência: sexta; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na sexta; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R6",
       "nome": "Sem Regra Segunda",
       "segmento": "Sem regra (segunda)",
-      "criterio": "Clientes da carteira de segunda que compraram na empresa nos últimos 120 dias e no grupo nos últimos 180 dias, mas estão há mais de 45 dias sem comprar com o próprio vendedor",
+      "criterio": "Clientes que compraram na empresa nos últimos 120 dias e no grupo de vendedores nos últimos 180 dias, mas estão há mais de 45 dias sem comprar com o próprio vendedor",
       "frequencia": "7 dias",
-      "observacao": "Dia de preferência: sexta; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na sexta; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R7",
       "nome": "Prospects Terca",
       "segmento": "Prospects (terça)",
-      "criterio": "Clientes da carteira de terça que nunca compraram com o próprio vendedor",
+      "criterio": "Clientes que nunca compraram com o próprio vendedor",
       "frequencia": "7 dias",
-      "observacao": "Dia de preferência: segunda; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na segunda; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R8",
       "nome": "Alta Frequencia Terca",
       "segmento": "Alta frequência (terça)",
-      "criterio": "Clientes da carteira de terça que compraram com o próprio vendedor nos últimos 30 dias",
+      "criterio": "Clientes que compraram com o próprio vendedor nos últimos 30 dias",
       "frequencia": "7 dias",
-      "observacao": "Dia de preferência: segunda; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na segunda; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R9",
       "nome": "Regularidade Terca",
       "segmento": "Regularidade (terça)",
-      "criterio": "Clientes da carteira de terça que compraram com o próprio vendedor nos últimos 45 dias, mas estão há mais de 30 dias sem comprar",
+      "criterio": "Clientes que compraram com o próprio vendedor nos últimos 45 dias, mas estão há mais de 30 dias sem comprar",
       "frequencia": "7 dias",
-      "observacao": "Dia de preferência: segunda; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na segunda; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R10",
       "nome": "Risco Inatividade Terca",
       "segmento": "Risco de inatividade (terça)",
-      "criterio": "Clientes da carteira de terça que já compraram com o próprio vendedor, mas estão há mais de 120 dias sem comprar com qualquer vendedor da empresa",
+      "criterio": "Clientes que estão há mais de 120 dias sem comprar com qualquer vendedor da empresa e já compraram com o próprio vendedor",
       "frequencia": "7 dias",
-      "observacao": "Dia de preferência: segunda; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na segunda; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R11",
       "nome": "Inativos Terca",
       "segmento": "Inativos (terça)",
-      "criterio": "Clientes da carteira de terça que já compraram com o próprio vendedor, compraram na empresa nos últimos 120 dias e estão há mais de 180 dias sem comprar no grupo de vendedores",
+      "criterio": "Clientes que compraram na empresa nos últimos 120 dias, estão há mais de 180 dias sem comprar no grupo de vendedores e já compraram com o próprio vendedor",
       "frequencia": "7 dias",
-      "observacao": "Dia de preferência: segunda; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na segunda; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R12",
       "nome": "Sem Regra Terca",
       "segmento": "Sem regra (terça)",
-      "criterio": "Clientes da carteira de terça que compraram na empresa nos últimos 120 dias e no grupo nos últimos 180 dias, mas estão há mais de 45 dias sem comprar com o próprio vendedor",
+      "criterio": "Clientes que compraram na empresa nos últimos 120 dias e no grupo de vendedores nos últimos 180 dias, mas estão há mais de 45 dias sem comprar com o próprio vendedor",
       "frequencia": "7 dias",
-      "observacao": "Dia de preferência: segunda; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na segunda; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R13",
       "nome": "Prospects Quarta",
       "segmento": "Prospects (quarta)",
-      "criterio": "Clientes da carteira de quarta que nunca compraram com o próprio vendedor",
+      "criterio": "Clientes que nunca compraram com o próprio vendedor",
       "frequencia": "7 dias",
-      "observacao": "Dia de preferência: terça; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na terça; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R14",
       "nome": "Alta Frequencia Quarta",
       "segmento": "Alta frequência (quarta)",
-      "criterio": "Clientes da carteira de quarta que compraram com o próprio vendedor nos últimos 30 dias",
+      "criterio": "Clientes que compraram com o próprio vendedor nos últimos 30 dias",
       "frequencia": "7 dias",
-      "observacao": "Dia de preferência: terça; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na terça; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R15",
       "nome": "Regularidade Quarta",
       "segmento": "Regularidade (quarta)",
-      "criterio": "Clientes da carteira de quarta que compraram com o próprio vendedor nos últimos 45 dias, mas estão há mais de 30 dias sem comprar",
+      "criterio": "Clientes que compraram com o próprio vendedor nos últimos 45 dias, mas estão há mais de 30 dias sem comprar",
       "frequencia": "7 dias",
-      "observacao": "Dia de preferência: terça; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na terça; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R16",
       "nome": "Risco Inatividade Quarta",
       "segmento": "Risco de inatividade (quarta)",
-      "criterio": "Clientes da carteira de quarta que já compraram com o próprio vendedor, mas estão há mais de 120 dias sem comprar com qualquer vendedor da empresa",
+      "criterio": "Clientes que estão há mais de 120 dias sem comprar com qualquer vendedor da empresa e já compraram com o próprio vendedor",
       "frequencia": "7 dias",
-      "observacao": "Dia de preferência: terça; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na terça; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R17",
       "nome": "Inativos Quarta",
       "segmento": "Inativos (quarta)",
-      "criterio": "Clientes da carteira de quarta que já compraram com o próprio vendedor, compraram na empresa nos últimos 120 dias e estão há mais de 180 dias sem comprar no grupo de vendedores",
+      "criterio": "Clientes que compraram na empresa nos últimos 120 dias, estão há mais de 180 dias sem comprar no grupo de vendedores e já compraram com o próprio vendedor",
       "frequencia": "7 dias",
-      "observacao": "Dia de preferência: terça; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na terça; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R18",
       "nome": "Sem Regra Quarta",
       "segmento": "Sem regra (quarta)",
-      "criterio": "Clientes da carteira de quarta que compraram na empresa nos últimos 120 dias e no grupo nos últimos 180 dias, mas estão há mais de 45 dias sem comprar com o próprio vendedor",
+      "criterio": "Clientes que compraram na empresa nos últimos 120 dias e no grupo de vendedores nos últimos 180 dias, mas estão há mais de 45 dias sem comprar com o próprio vendedor",
       "frequencia": "7 dias",
-      "observacao": "Dia de preferência: terça; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na terça; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R19",
       "nome": "Prospects Quinta",
       "segmento": "Prospects (quinta)",
-      "criterio": "Clientes da carteira de quinta que nunca compraram com o próprio vendedor",
+      "criterio": "Clientes que nunca compraram com o próprio vendedor",
       "frequencia": "7 dias",
-      "observacao": "Dia de preferência: quarta; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na quarta; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R20",
       "nome": "Alta Frequencia Quinta",
       "segmento": "Alta frequência (quinta)",
-      "criterio": "Clientes da carteira de quinta que compraram com o próprio vendedor nos últimos 30 dias",
+      "criterio": "Clientes que compraram com o próprio vendedor nos últimos 30 dias",
       "frequencia": "7 dias",
-      "observacao": "Dia de preferência: quarta; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na quarta; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R21",
       "nome": "Regularidade Quinta",
       "segmento": "Regularidade (quinta)",
-      "criterio": "Clientes da carteira de quinta que compraram com o próprio vendedor nos últimos 45 dias, mas estão há mais de 30 dias sem comprar",
+      "criterio": "Clientes que compraram com o próprio vendedor nos últimos 45 dias, mas estão há mais de 30 dias sem comprar",
       "frequencia": "7 dias",
-      "observacao": "Dia de preferência: quarta; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na quarta; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R22",
       "nome": "Risco Inatividade Quinta",
       "segmento": "Risco de inatividade (quinta)",
-      "criterio": "Clientes da carteira de quinta que já compraram com o próprio vendedor, mas estão há mais de 120 dias sem comprar com qualquer vendedor da empresa",
+      "criterio": "Clientes que estão há mais de 120 dias sem comprar com qualquer vendedor da empresa e já compraram com o próprio vendedor",
       "frequencia": "7 dias",
-      "observacao": "Dia de preferência: quarta; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na quarta; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R23",
       "nome": "Inativos Quinta",
       "segmento": "Inativos (quinta)",
-      "criterio": "Clientes da carteira de quinta que já compraram com o próprio vendedor, compraram na empresa nos últimos 120 dias e estão há mais de 180 dias sem comprar no grupo de vendedores",
+      "criterio": "Clientes que compraram na empresa nos últimos 120 dias, estão há mais de 180 dias sem comprar no grupo de vendedores e já compraram com o próprio vendedor",
       "frequencia": "7 dias",
-      "observacao": "Dia de preferência: quarta; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na quarta; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R24",
       "nome": "Sem Regra Quinta",
       "segmento": "Sem regra (quinta)",
-      "criterio": "Clientes da carteira de quinta que compraram na empresa nos últimos 120 dias e no grupo nos últimos 180 dias, mas estão há mais de 45 dias sem comprar com o próprio vendedor",
+      "criterio": "Clientes que compraram na empresa nos últimos 120 dias e no grupo de vendedores nos últimos 180 dias, mas estão há mais de 45 dias sem comprar com o próprio vendedor",
       "frequencia": "7 dias",
-      "observacao": "Dia de preferência: quarta; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na quarta; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R25",
       "nome": "Prospects Sexta",
       "segmento": "Prospects (sexta)",
-      "criterio": "Clientes da carteira de sexta que nunca compraram com o próprio vendedor",
+      "criterio": "Clientes que nunca compraram com o próprio vendedor",
       "frequencia": "7 dias",
-      "observacao": "Dia de preferência: quinta; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na quinta; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R26",
       "nome": "Alta Frequencia Sexta",
       "segmento": "Alta frequência (sexta)",
-      "criterio": "Clientes da carteira de sexta que compraram com o próprio vendedor nos últimos 30 dias",
+      "criterio": "Clientes que compraram com o próprio vendedor nos últimos 30 dias",
       "frequencia": "7 dias",
-      "observacao": "Dia de preferência: quinta; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na quinta; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R27",
       "nome": "Regularidade Sexta",
       "segmento": "Regularidade (sexta)",
-      "criterio": "Clientes da carteira de sexta que compraram com o próprio vendedor nos últimos 45 dias, mas estão há mais de 30 dias sem comprar",
+      "criterio": "Clientes que compraram com o próprio vendedor nos últimos 45 dias, mas estão há mais de 30 dias sem comprar",
       "frequencia": "7 dias",
-      "observacao": "Dia de preferência: quinta; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na quinta; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R28",
       "nome": "Risco Inatividade Sexta",
       "segmento": "Risco de inatividade (sexta)",
-      "criterio": "Clientes da carteira de sexta que já compraram com o próprio vendedor, mas estão há mais de 120 dias sem comprar com qualquer vendedor da empresa",
+      "criterio": "Clientes que estão há mais de 120 dias sem comprar com qualquer vendedor da empresa e já compraram com o próprio vendedor",
       "frequencia": "7 dias",
-      "observacao": "Dia de preferência: quinta; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na quinta; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R29",
       "nome": "Inativos Sexta",
       "segmento": "Inativos (sexta)",
-      "criterio": "Clientes da carteira de sexta que já compraram com o próprio vendedor, compraram na empresa nos últimos 120 dias e estão há mais de 180 dias sem comprar no grupo de vendedores",
+      "criterio": "Clientes que compraram na empresa nos últimos 120 dias, estão há mais de 180 dias sem comprar no grupo de vendedores e já compraram com o próprio vendedor",
       "frequencia": "7 dias",
-      "observacao": "Dia de preferência: quinta; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na quinta; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R30",
       "nome": "Sem Regra Sexta",
       "segmento": "Sem regra (sexta)",
-      "criterio": "Clientes da carteira de sexta que compraram na empresa nos últimos 120 dias e no grupo nos últimos 180 dias, mas estão há mais de 45 dias sem comprar com o próprio vendedor",
+      "criterio": "Clientes que compraram na empresa nos últimos 120 dias e no grupo de vendedores nos últimos 180 dias, mas estão há mais de 45 dias sem comprar com o próprio vendedor",
       "frequencia": "7 dias",
-      "observacao": "Dia de preferência: quinta; demais dias sem atendimento",
+      "observacao": "Preferência de atendimento na quinta; demais dias sem atendimento",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R31",
       "nome": "Irrestrito: Clientes prospects",
       "segmento": "Irrestrito: prospects",
-      "criterio": "Clientes da carteira irrestrita que nunca compraram com o próprio vendedor",
+      "criterio": "Clientes que nunca compraram com o próprio vendedor",
       "frequencia": "7 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -316,7 +316,7 @@
       "id": "R32",
       "nome": "Irrestrito: Clientes com Alta Freq. de compra",
       "segmento": "Irrestrito: alta frequência",
-      "criterio": "Clientes da carteira irrestrita que já compraram com o próprio vendedor e compraram no grupo de vendedores nos últimos 7 dias",
+      "criterio": "Clientes que compraram no grupo de vendedores nos últimos 7 dias e já compraram com o próprio vendedor",
       "frequencia": "7 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -325,7 +325,7 @@
       "id": "R33",
       "nome": "Irrestrito: Clientes que compram com regularidade",
       "segmento": "Irrestrito: regularidade",
-      "criterio": "Clientes da carteira irrestrita que já compraram com o próprio vendedor e compraram no grupo nos últimos 45 dias, mas estão há mais de 7 dias sem comprar",
+      "criterio": "Clientes que compraram no grupo de vendedores nos últimos 45 dias, mas estão há mais de 7 dias sem comprar, e já compraram com o próprio vendedor",
       "frequencia": "14 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -333,8 +333,8 @@
     {
       "id": "R34",
       "nome": "Irrestrito: Risco de ficar inativo curva A",
-      "segmento": "Irrestrito: risco de inatividade, curva A",
-      "criterio": "Clientes da carteira irrestrita, curva A com a empresa, que já compraram com o próprio vendedor e estão há mais de 120 dias sem comprar com qualquer vendedor da empresa",
+      "segmento": "Irrestrito: risco de inatividade curva A",
+      "criterio": "Clientes curva A com a empresa, há mais de 120 dias sem comprar com qualquer vendedor da empresa, que já compraram com o próprio vendedor",
       "frequencia": "14 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -342,8 +342,8 @@
     {
       "id": "R35",
       "nome": "Irrestrito: Risco de ficar inativo curva B",
-      "segmento": "Irrestrito: risco de inatividade, curva B",
-      "criterio": "Clientes da carteira irrestrita, curva B com a empresa, que já compraram com o próprio vendedor e estão há mais de 120 dias sem comprar com qualquer vendedor da empresa",
+      "segmento": "Irrestrito: risco de inatividade curva B",
+      "criterio": "Clientes curva B com a empresa, há mais de 120 dias sem comprar com qualquer vendedor da empresa, que já compraram com o próprio vendedor",
       "frequencia": "30 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -351,8 +351,8 @@
     {
       "id": "R36",
       "nome": "Irrestrito: Risco de ficar inativo curva C",
-      "segmento": "Irrestrito: risco de inatividade, curva C",
-      "criterio": "Clientes da carteira irrestrita, curva C com a empresa, que já compraram com o próprio vendedor e estão há mais de 120 dias sem comprar com qualquer vendedor da empresa",
+      "segmento": "Irrestrito: risco de inatividade curva C",
+      "criterio": "Clientes curva C com a empresa, há mais de 120 dias sem comprar com qualquer vendedor da empresa, que já compraram com o próprio vendedor",
       "frequencia": "30 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -361,34 +361,34 @@
       "id": "R37",
       "nome": "Irrestrito: Clientes inativos",
       "segmento": "Irrestrito: inativos",
-      "criterio": "Clientes da carteira irrestrita que já compraram com o próprio vendedor e estão há mais de 180 dias sem comprar no grupo; os parados há mais de 120 dias na empresa, só se fora das curvas A, B e C",
+      "criterio": "Clientes que já compraram com o próprio vendedor e estão há mais de 180 dias sem comprar no grupo de vendedores",
       "frequencia": "21 dias",
-      "observacao": "Inclui quem comprou na empresa nos últimos 120 dias",
+      "observacao": "Entra quem comprou na empresa em até 120 dias ou, acima disso, quem está fora das curvas A, B e C",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R38",
       "nome": "cidade SÃO JOSE DO RIO PRETO - 30 dias",
       "segmento": "São José do Rio Preto",
-      "criterio": "Clientes de SAO JOSE DO RIO PRETO fora de todas as carteiras, ou da carteira irrestrita que compraram no grupo nos últimos 180 dias e estão há mais de 45 dias sem comprar com o próprio vendedor",
+      "criterio": "Clientes da cidade SAO JOSE DO RIO PRETO fora de todas as carteiras ou, na carteira irrestrito, sem regra mapeada nas faixas anteriores",
       "frequencia": "30 dias",
-      "observacao": "Na carteira irrestrita, os parados há mais de 120 dias na empresa só entram se fora das curvas A, B e C",
+      "observacao": "Vale para quem sobrou das regras anteriores",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R39",
       "nome": "Irrestrito: sem regra mapeada",
-      "segmento": "Irrestrito: demais cidades",
-      "criterio": "Clientes de cidade diferente de SAO JOSE DO RIO PRETO fora de todas as carteiras, ou da carteira irrestrita que compraram no grupo nos últimos 180 dias e estão há mais de 45 dias sem comprar com o próprio vendedor",
+      "segmento": "Irrestrito: sem regra mapeada",
+      "criterio": "Clientes de cidade diferente de SAO JOSE DO RIO PRETO fora de todas as carteiras ou, na carteira irrestrito, sem regra mapeada nas faixas anteriores",
       "frequencia": "30 dias",
-      "observacao": "Na carteira irrestrita, os parados há mais de 120 dias na empresa só entram se fora das curvas A, B e C",
+      "observacao": "Regra final do time televendas_2: vale para quem sobrou das regras anteriores",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R40",
       "nome": "Freq. de 14d para Prospects",
       "segmento": "Prospects",
-      "criterio": "Clientes que nunca compraram com qualquer vendedor da empresa",
+      "criterio": "Clientes que nunca compraram na empresa",
       "frequencia": "14 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -442,67 +442,52 @@
       "id": "R46",
       "nome": "Inativos - sem compra acima de 180 dias",
       "segmento": "Inativos (acima de 180 dias)",
-      "criterio": "Clientes que já compraram com qualquer vendedor da empresa e nunca compraram no grupo de vendedores ou estão há mais de 180 dias sem comprar no grupo",
+      "criterio": "Clientes que já compraram na empresa e nunca compraram no grupo de vendedores ou estão há mais de 180 dias sem comprar nele",
       "frequencia": "21 dias",
       "observacao": "Regra final do time televendas_1: vale para quem sobrou das faixas anteriores",
       "clausulas_nao_traduzidas": []
     }
   ],
   "pontos_de_atencao": [
-    "A cascata mistura escopos de recência de compra (empresa: Risco Inatividade Segunda, Terca e Quarta; grupo: Inativos Segunda, Terca e Quarta; vendedor: Alta Frequencia Segunda, Regularidade Segunda e Alta Frequencia Terca), então as faixas podem se sobrepor ou deixar lacunas."
+    "A sequência de regras mistura escopos de recência de compra (global em Risco Inatividade Segunda, Terca e Quarta; grupo de vendedores em Inativos Segunda, Terca e Quarta; vendedor em Alta Frequencia Segunda, Regularidade Segunda e Alta Frequencia Terca), então faixas de escopos diferentes podem se sobrepor ou deixar lacunas."
   ],
   "consultas_hipoteticas": [
-    "Televendas_2: carteiras de segunda a sexta com prospects, alta frequência (30 dias), regularidade (45 dias), risco de inatividade (120 dias), inativos (180 dias) e sem regra (45 dias), todas a cada 7 dias; irrestrita por curva A, B e C; televendas_1 por recência até 180 dias",
-    "A gente tem uma carteira por dia da semana pro televendas_2, todas com visita a cada 7 dias e um dia de preferência, e uma carteira irrestrita que muda a frequência entre 7, 14, 21 e 30 dias. O outro time vai de 14 dias pros prospects até 21 dias pros inativos há mais de 180 dias",
-    "Quero parametrizar dois times de televendas, um com carteiras por dia da semana e uma carteira irrestrita, e outro por tempo desde a última compra, com prospects a cada 14 dias"
+    "Televendas_2 por carteira de cidades (segunda a sexta e irrestrito): prospects, alta frequência (30 dias), regularidade (45 dias), risco de inatividade (120 dias), inativos (180 dias), tudo a cada 7 dias; irrestrito com 7, 14, 21 e 30 dias. Televendas_1: prospects 14 dias; ativos 21, 30, 45, 70 e 15 dias; inativos 21 dias",
+    "O vendedor de id 0000002 atende uma carteira de cidades para cada dia da semana, sempre com visita semanal e um dia de preferência, e uma carteira irrestrita com frequências de 7 a 30 dias. Os outros vendedores de televendas ligam a cada 14 dias para prospects e entre 15 e 70 dias para ativos, e a cada 21 dias para inativos acima de 180 dias",
+    "Quero separar o televendas em dois times, um com carteiras por cidade e dia da semana, outro com faixas de recência de compra, com prospects a cada 14 dias"
   ],
   "_meta": {
     "arquivo": "regra_135.gobr",
     "sha256_gobr": "99816a5a2a4d02eece749e28c749c846ec7b335304972ef0a83911065393212e",
-    "versao_pacote": "2",
-    "prompt_sha256": "51c624fe9f9f",
+    "versao_pacote": "4",
+    "prompt_sha256": "fd3b943ec528",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T16:12:29+00:00",
+    "gerado_em": "2026-10-20T16:43:31+00:00",
     "candidatos": {
       "agente_1.json": {
-        "valido": false,
-        "erros": [
-          "R38: faltam os números [120]",
-          "R39: faltam os números [120]"
-        ],
+        "valido": true,
+        "erros": [],
         "avisos": []
       },
       "agente_2.json": {
-        "valido": false,
-        "erros": [
-          "R38: faltam os números [120]",
-          "R39: faltam os números [120]"
-        ],
+        "valido": true,
+        "erros": [],
         "avisos": []
       },
       "agente_3.json": {
-        "valido": false,
-        "erros": [
-          "R38: faltam os números [45, 120, 180]",
-          "R39: faltam os números [45, 120, 180]"
-        ],
+        "valido": true,
+        "erros": [],
         "avisos": []
       },
       "agente_4.json": {
-        "valido": false,
-        "erros": [
-          "R38: faltam os números [120, 180]",
-          "R39: faltam os números [120, 180]"
-        ],
+        "valido": true,
+        "erros": [],
         "avisos": []
       },
       "agente_5.json": {
-        "valido": false,
-        "erros": [
-          "R38: faltam os números [120]",
-          "R39: faltam os números [120]"
-        ],
+        "valido": true,
+        "erros": [],
         "avisos": []
       },
       "agente_6.json": {
@@ -511,15 +496,12 @@
         "avisos": []
       },
       "agente_7.json": {
-        "valido": false,
-        "erros": [
-          "R38: faltam os números [45, 120, 180]",
-          "R39: faltam os números [45, 120, 180]"
-        ],
+        "valido": true,
+        "erros": [],
         "avisos": []
       }
     },
-    "escolhido": "agente_6.json",
-    "concordancia": 1.0
+    "escolhido": "agente_3.json",
+    "concordancia": 0.848
   }
 }

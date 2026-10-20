@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_182.gobr",
   "sha256": "f51a309e70fd224f54fd38462e600edc124deb986fc01554ae8c22a21b5a2a80",
   "comentarios": [
@@ -51,6 +51,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -83,6 +84,7 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -116,6 +118,7 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -150,6 +153,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        7
+      ],
+      "numeros_exigidos": [
         7
       ],
       "alertas": []
@@ -191,6 +197,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        7
+      ],
+      "numeros_exigidos": [
         7
       ],
       "alertas": []
@@ -236,6 +245,11 @@
         14,
         45
       ],
+      "numeros_exigidos": [
+        7,
+        14,
+        45
+      ],
       "alertas": []
     },
     {
@@ -275,6 +289,10 @@
       "inalcancavel": false,
       "numeros": [
         7
+      ],
+      "numeros_exigidos": [
+        7,
+        45
       ],
       "alertas": []
     },
@@ -319,6 +337,11 @@
         21,
         60
       ],
+      "numeros_exigidos": [
+        7,
+        21,
+        60
+      ],
       "alertas": []
     },
     {
@@ -358,6 +381,10 @@
       "inalcancavel": false,
       "numeros": [
         10
+      ],
+      "numeros_exigidos": [
+        10,
+        60
       ],
       "alertas": []
     },
@@ -402,6 +429,11 @@
         14,
         45
       ],
+      "numeros_exigidos": [
+        7,
+        14,
+        45
+      ],
       "alertas": []
     },
     {
@@ -441,6 +473,10 @@
       "inalcancavel": false,
       "numeros": [
         7
+      ],
+      "numeros_exigidos": [
+        7,
+        45
       ],
       "alertas": []
     },
@@ -485,6 +521,11 @@
         28,
         90
       ],
+      "numeros_exigidos": [
+        7,
+        28,
+        90
+      ],
       "alertas": []
     },
     {
@@ -524,6 +565,10 @@
       "inalcancavel": false,
       "numeros": [
         14
+      ],
+      "numeros_exigidos": [
+        14,
+        90
       ],
       "alertas": []
     },
@@ -568,6 +613,11 @@
         14,
         45
       ],
+      "numeros_exigidos": [
+        7,
+        14,
+        45
+      ],
       "alertas": []
     },
     {
@@ -607,6 +657,10 @@
       "inalcancavel": false,
       "numeros": [
         7
+      ],
+      "numeros_exigidos": [
+        7,
+        45
       ],
       "alertas": []
     },
@@ -651,6 +705,11 @@
         28,
         90
       ],
+      "numeros_exigidos": [
+        7,
+        28,
+        90
+      ],
       "alertas": []
     },
     {
@@ -690,6 +749,10 @@
       "inalcancavel": false,
       "numeros": [
         14
+      ],
+      "numeros_exigidos": [
+        14,
+        90
       ],
       "alertas": []
     },
@@ -734,6 +797,11 @@
         21,
         75
       ],
+      "numeros_exigidos": [
+        7,
+        21,
+        75
+      ],
       "alertas": []
     },
     {
@@ -773,6 +841,10 @@
       "inalcancavel": false,
       "numeros": [
         14
+      ],
+      "numeros_exigidos": [
+        14,
+        75
       ],
       "alertas": []
     },
@@ -817,6 +889,11 @@
         28,
         75
       ],
+      "numeros_exigidos": [
+        7,
+        28,
+        75
+      ],
       "alertas": []
     },
     {
@@ -856,6 +933,10 @@
       "inalcancavel": false,
       "numeros": [
         14
+      ],
+      "numeros_exigidos": [
+        14,
+        75
       ],
       "alertas": []
     },
@@ -900,6 +981,11 @@
         21,
         60
       ],
+      "numeros_exigidos": [
+        7,
+        21,
+        60
+      ],
       "alertas": []
     },
     {
@@ -939,6 +1025,10 @@
       "inalcancavel": false,
       "numeros": [
         10
+      ],
+      "numeros_exigidos": [
+        10,
+        60
       ],
       "alertas": []
     },
@@ -983,6 +1073,11 @@
         21,
         60
       ],
+      "numeros_exigidos": [
+        7,
+        21,
+        60
+      ],
       "alertas": []
     },
     {
@@ -1022,6 +1117,10 @@
       "inalcancavel": false,
       "numeros": [
         10
+      ],
+      "numeros_exigidos": [
+        10,
+        60
       ],
       "alertas": []
     },
@@ -1066,6 +1165,11 @@
         14,
         45
       ],
+      "numeros_exigidos": [
+        7,
+        14,
+        45
+      ],
       "alertas": []
     },
     {
@@ -1105,6 +1209,10 @@
       "inalcancavel": false,
       "numeros": [
         7
+      ],
+      "numeros_exigidos": [
+        7,
+        45
       ],
       "alertas": []
     },
@@ -1149,6 +1257,11 @@
         28,
         75
       ],
+      "numeros_exigidos": [
+        7,
+        28,
+        75
+      ],
       "alertas": []
     },
     {
@@ -1188,6 +1301,10 @@
       "inalcancavel": false,
       "numeros": [
         7
+      ],
+      "numeros_exigidos": [
+        7,
+        75
       ],
       "alertas": []
     },
@@ -1232,6 +1349,11 @@
         28,
         90
       ],
+      "numeros_exigidos": [
+        7,
+        28,
+        90
+      ],
       "alertas": []
     },
     {
@@ -1271,6 +1393,10 @@
       "inalcancavel": false,
       "numeros": [
         14
+      ],
+      "numeros_exigidos": [
+        14,
+        90
       ],
       "alertas": []
     },
@@ -1315,6 +1441,11 @@
         14,
         45
       ],
+      "numeros_exigidos": [
+        7,
+        14,
+        45
+      ],
       "alertas": []
     },
     {
@@ -1354,6 +1485,10 @@
       "inalcancavel": false,
       "numeros": [
         7
+      ],
+      "numeros_exigidos": [
+        7,
+        45
       ],
       "alertas": []
     },
@@ -1398,6 +1533,11 @@
         28,
         90
       ],
+      "numeros_exigidos": [
+        7,
+        28,
+        90
+      ],
       "alertas": []
     },
     {
@@ -1437,6 +1577,10 @@
       "inalcancavel": false,
       "numeros": [
         14
+      ],
+      "numeros_exigidos": [
+        14,
+        90
       ],
       "alertas": []
     }

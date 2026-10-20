@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "RegraMaxlub.gobr",
   "sha256": "860b3c4a2bb430ade002f2e449c74d326fe7a02eacdb78af2541e930a6907542",
   "comentarios": [
@@ -53,6 +53,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -85,6 +86,7 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -118,6 +120,7 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -154,6 +157,9 @@
       "numeros": [
         14
       ],
+      "numeros_exigidos": [
+        14
+      ],
       "alertas": []
     },
     {
@@ -188,6 +194,10 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        14,
+        60
+      ],
+      "numeros_exigidos": [
         14,
         60
       ],
@@ -230,6 +240,11 @@
         7,
         90
       ],
+      "numeros_exigidos": [
+        7,
+        60,
+        90
+      ],
       "alertas": []
     },
     {
@@ -268,6 +283,11 @@
       "inalcancavel": false,
       "numeros": [
         14,
+        120
+      ],
+      "numeros_exigidos": [
+        14,
+        90,
         120
       ],
       "alertas": []
@@ -309,6 +329,11 @@
       "inalcancavel": false,
       "numeros": [
         21,
+        150
+      ],
+      "numeros_exigidos": [
+        21,
+        120,
         150
       ],
       "alertas": []
@@ -353,6 +378,11 @@
         28,
         180
       ],
+      "numeros_exigidos": [
+        28,
+        150,
+        180
+      ],
       "alertas": []
     },
     {
@@ -388,6 +418,9 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [
+        180
+      ],
       "alertas": []
     }
   ],

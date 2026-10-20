@@ -90,7 +90,7 @@
    "acoes": [
     "frequência de 14 dias"
    ],
-   "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 30 dias, mas estão há mais de 7 dias sem comprar e não (cadastrados no ERP há pelo menos 60 dias)) OU (compraram com qualquer vendedor da empresa nos últimos 30 dias, mas estão há mais de 7 dias sem comprar e cadastrados no ERP há pelo menos 60 dias e sem ser de compra única com o vendedor)",
+   "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 30 dias, mas estão há mais de 7 dias sem comprar e cadastrados no ERP há menos de 60 dias) OU (compraram com qualquer vendedor da empresa nos últimos 30 dias, mas estão há mais de 7 dias sem comprar e cadastrados no ERP há pelo menos 60 dias e sem ser de compra única com o vendedor)",
    "tratados_antes_por": [
     "R6"
    ]
@@ -103,7 +103,7 @@
    "acoes": [
     "frequência de 7 dias"
    ],
-   "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e não (cadastrados no ERP há pelo menos 60 dias)) OU (compraram com qualquer vendedor da empresa nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e cadastrados no ERP há pelo menos 60 dias e sem ser de compra única com o vendedor)",
+   "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e cadastrados no ERP há menos de 60 dias) OU (compraram com qualquer vendedor da empresa nos últimos 60 dias, mas estão há mais de 30 dias sem comprar e cadastrados no ERP há pelo menos 60 dias e sem ser de compra única com o vendedor)",
    "tratados_antes_por": [
     "R6"
    ]
@@ -116,7 +116,7 @@
    "acoes": [
     "frequência de 3 dias"
    ],
-   "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e não (cadastrados no ERP há pelo menos 60 dias)) OU (compraram com qualquer vendedor da empresa nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e cadastrados no ERP há pelo menos 60 dias e sem ser de compra única com o vendedor)",
+   "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e cadastrados no ERP há menos de 60 dias) OU (compraram com qualquer vendedor da empresa nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e cadastrados no ERP há pelo menos 60 dias e sem ser de compra única com o vendedor)",
    "tratados_antes_por": [
     "R6"
    ]
@@ -148,7 +148,7 @@
    "acoes": [
     "frequência de 14 dias"
    ],
-   "condicao_efetiva": "(sem comprar com qualquer vendedor da empresa há mais de 90 dias e não (cadastrados no ERP há pelo menos 60 dias)) OU (sem comprar com qualquer vendedor da empresa há mais de 90 dias e cadastrados no ERP há pelo menos 60 dias e sem ser de compra única com o vendedor)",
+   "condicao_efetiva": "(sem comprar com qualquer vendedor da empresa há mais de 90 dias e cadastrados no ERP há menos de 60 dias) OU (sem comprar com qualquer vendedor da empresa há mais de 90 dias e cadastrados no ERP há pelo menos 60 dias e sem ser de compra única com o vendedor)",
    "tratados_antes_por": [
     "R6"
    ]

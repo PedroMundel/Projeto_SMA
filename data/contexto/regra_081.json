@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_081.gobr",
   "sha256": "f6dca84770d6516e5585dc677b39b20777b90784a3e89a50b75790210b24921e",
   "comentarios": [
@@ -61,6 +61,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [
+        7
+      ],
       "alertas": []
     },
     {
@@ -105,6 +108,9 @@
       "numeros": [
         21
       ],
+      "numeros_exigidos": [
+        21
+      ],
       "alertas": [
         "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Regra Padrao da Empresa Customizavel: semanal para clientes ativos e adimplentes\"."
       ]
@@ -144,6 +150,9 @@
       "numeros": [
         30
       ],
+      "numeros_exigidos": [
+        30
+      ],
       "alertas": []
     },
     {
@@ -181,6 +190,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": true,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": [
         "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Regra Padrao da Empresa Customizavel: 30 dias para clientes inativos e adimplentes\".",
         "Bloqueio depois de regras de frequência: clientes já parametrizados por \"Regra Padrao da Empresa Customizavel: 30 dias para clientes inativos e adimplentes\" não serão bloqueados por esta regra."
@@ -219,6 +229,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        30
+      ],
+      "numeros_exigidos": [
         30
       ],
       "alertas": []

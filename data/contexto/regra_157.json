@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_157.gobr",
   "sha256": "088a9153a1a0305318a684e3fe84b713acad8bd59e0a862c2188c81597797215",
   "comentarios": [],
@@ -51,6 +51,10 @@
         14,
         120
       ],
+      "numeros_exigidos": [
+        14,
+        120
+      ],
       "alertas": []
     },
     {
@@ -91,6 +95,11 @@
         7,
         30
       ],
+      "numeros_exigidos": [
+        7,
+        30,
+        120
+      ],
       "alertas": []
     },
     {
@@ -123,6 +132,10 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        5,
+        30
+      ],
+      "numeros_exigidos": [
         5,
         30
       ],

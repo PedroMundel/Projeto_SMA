@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_206.gobr",
   "sha256": "79988d85b1a5178205a77f6ea8c10cd843a29f0912379ce026de308378548442",
   "comentarios": [
@@ -84,6 +84,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -116,6 +117,7 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -149,6 +151,7 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -183,6 +186,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        7
+      ],
+      "numeros_exigidos": [
         7
       ],
       "alertas": [
@@ -223,6 +229,9 @@
       "numeros": [
         15
       ],
+      "numeros_exigidos": [
+        15
+      ],
       "alertas": [
         "O nome da regra cita 90 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
       ]
@@ -256,6 +265,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        28
+      ],
+      "numeros_exigidos": [
         28
       ],
       "alertas": [
@@ -296,6 +308,9 @@
       "numeros": [
         7
       ],
+      "numeros_exigidos": [
+        7
+      ],
       "alertas": [
         "O nome da regra cita 90, 180 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
       ]
@@ -334,6 +349,9 @@
       "numeros": [
         15
       ],
+      "numeros_exigidos": [
+        15
+      ],
       "alertas": [
         "O nome da regra cita 90, 180 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
       ]
@@ -367,6 +385,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        28
+      ],
+      "numeros_exigidos": [
         28
       ],
       "alertas": [
@@ -406,6 +427,9 @@
       "numeros": [
         7
       ],
+      "numeros_exigidos": [
+        7
+      ],
       "alertas": []
     },
     {
@@ -441,6 +465,9 @@
       "numeros": [
         15
       ],
+      "numeros_exigidos": [
+        15
+      ],
       "alertas": []
     },
     {
@@ -471,6 +498,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        28
+      ],
+      "numeros_exigidos": [
         28
       ],
       "alertas": []

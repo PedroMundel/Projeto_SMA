@@ -1,5 +1,5 @@
 {
-  "resumo": "Regra de agendamento do time de televendas por tempo desde a última compra e frequência de compra, em oito faixas, sem carteiras. Antes das faixas, deixam de ser agendados os clientes baixados na Receita Federal, os inadimplentes, os bloqueados e as filiais. Os prospects e os inativos vêm primeiro, seguidos dos ativados e dos ativos. Quem não se enquadra em nenhuma faixa também não é agendado.",
+  "resumo": "Regra de agendamento do time de televendas, com frequências de 7 a 30 dias por perfil do cliente: prospects, inativos, ativados com uma única compra, ativos pela frequência histórica de compra e clientes em ruptura. Antes das faixas, deixam de ser agendados os clientes baixados na Receita Federal, os inadimplentes, os bloqueados e as filiais. A regra final também não agenda quem comprou recentemente mas não se enquadrou nas faixas anteriores.",
   "carteiras": [],
   "regras": [
     {
@@ -41,7 +41,7 @@
     {
       "id": "R5",
       "nome": "Prospect: Cliente potencial",
-      "segmento": "Prospects",
+      "segmento": "Prospect",
       "criterio": "Clientes que nunca compraram com o próprio vendedor",
       "frequencia": "7 dias",
       "observacao": "",
@@ -50,8 +50,8 @@
     {
       "id": "R6",
       "nome": "Inativo: Reativar clientes sem compra",
-      "segmento": "Inativos",
-      "criterio": "Clientes que já compraram com o próprio vendedor e estão há mais de 90 dias sem comprar no grupo de vendedores",
+      "segmento": "Inativo",
+      "criterio": "Clientes que já compraram com o próprio vendedor, mas estão há mais de 90 dias sem comprar no grupo de vendedores",
       "frequencia": "28 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -59,8 +59,8 @@
     {
       "id": "R7",
       "nome": "Ativado: Fez um pedido e ainda não comprou mais",
-      "segmento": "Ativado: um pedido",
-      "criterio": "Clientes que compraram no grupo de vendedores nos últimos 90 dias, cadastrados no ERP há pelo menos 60 dias e com uma única compra com o vendedor",
+      "segmento": "Ativado: um pedido só",
+      "criterio": "Clientes que compraram no grupo de vendedores nos últimos 90 dias, cadastrados no ERP há pelo menos 60 dias e com uma única compra com o próprio vendedor",
       "frequencia": "30 dias",
       "observacao": "",
       "clausulas_nao_traduzidas": []
@@ -69,18 +69,18 @@
       "id": "R8",
       "nome": "Ativo: Alta frequência de compra",
       "segmento": "Ativo: alta frequência",
-      "criterio": "Clientes que compraram no grupo de vendedores nos últimos 30 dias, já compraram com o próprio vendedor e têm frequência histórica de compra de menos de 30 dias",
+      "criterio": "Clientes que já compraram com o próprio vendedor e compraram no grupo de vendedores nos últimos 30 dias, com frequência histórica de compra de menos de 30 dias",
       "frequencia": "30 dias",
-      "observacao": "Compra única só entra se cadastrado no ERP há menos de 60 dias",
+      "observacao": "Compra única só entra se cadastrada no ERP há menos de 60 dias",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R9",
       "nome": "Ativo: Compra regularmente",
       "segmento": "Ativo: compra regularmente",
-      "criterio": "Clientes que compraram no grupo de vendedores nos últimos 30 dias, já compraram com o próprio vendedor e têm frequência histórica de compra entre 30 e 89 dias",
+      "criterio": "Clientes que já compraram com o próprio vendedor e compraram no grupo de vendedores nos últimos 30 dias, com frequência histórica de compra entre 30 e 89 dias",
       "frequencia": "30 dias",
-      "observacao": "Compra única só entra se cadastrado no ERP há menos de 60 dias",
+      "observacao": "Compra única só entra se cadastrada no ERP há menos de 60 dias",
       "clausulas_nao_traduzidas": []
     },
     {
@@ -96,37 +96,37 @@
       "id": "R11",
       "nome": "Em ruptura: Risco de ficar inativo",
       "segmento": "Em ruptura: risco de inatividade",
-      "criterio": "Clientes que já compraram com o próprio vendedor, compraram no grupo de vendedores nos últimos 90 dias, mas estão há mais de 60 dias sem comprar",
+      "criterio": "Clientes que já compraram com o próprio vendedor e compraram no grupo de vendedores nos últimos 90 dias, mas estão há mais de 60 dias sem comprar",
       "frequencia": "14 dias",
-      "observacao": "Compra única só entra se cadastrado no ERP há menos de 60 dias",
+      "observacao": "Compra única só entra se cadastrada no ERP há menos de 60 dias",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R12",
       "nome": "Clientes que hoje não se enquararam nas regras padrão",
-      "segmento": "Demais clientes",
-      "criterio": "Clientes que compraram no grupo de vendedores nos últimos 29 dias, já compraram com o próprio vendedor e têm frequência histórica indefinida ou de pelo menos 90 dias",
+      "segmento": "Bloqueio: fora das regras padrão",
+      "criterio": "Clientes que já compraram com o próprio vendedor e compraram no grupo de vendedores nos últimos 29 dias, com frequência histórica indefinida ou de pelo menos 90 dias",
       "frequencia": "Não agendar",
-      "observacao": "Regra final; compra única só entra se cadastrado no ERP há menos de 60 dias",
+      "observacao": "Regra final: vale para quem sobrou das anteriores. Compra única só entra se cadastrada há menos de 60 dias",
       "clausulas_nao_traduzidas": []
     }
   ],
   "pontos_de_atencao": [
-    "A regra 'Ativo: Estimular a regularidade de compra' tem condição fragmentada demais para resumir: vale para quem comprou nos últimos 60 dias, mas está há pelo menos 30 dias sem comprar, exceto os clientes já tratados pelas regras anteriores."
+    "A condição da regra 'Ativo: estimular regularidade' é fragmentada demais para resumir: ela vale para os clientes da condição própria, exceto os já tratados pelas regras anteriores."
   ],
   "consultas_hipoteticas": [
-    "Televendas: não agendar baixados na Receita, inadimplentes, bloqueados e filiais; prospects 7 dias; inativos acima de 90 dias 28 dias; ativado com um pedido 30 dias; ativos 30 dias; estimular regularidade 10 dias; ruptura 14 dias",
-    "A gente liga toda semana pra quem nunca comprou e a cada 28 dias pra quem está parado há mais de 90 dias. Quem compra regularmente fica em 30 dias, quem está em ruptura em 14 dias, e filial, inadimplente e bloqueado não entra na agenda",
-    "Quero agendar o televendas por situação do cliente: prospects, inativos, ativados e ativos, sem agendar filiais nem inadimplentes"
+    "Televendas: não agendar baixados na Receita, inadimplentes, bloqueados e filiais; prospects 7 dias; inativos (mais de 90 dias sem comprar) 28 dias; ativado com compra única 30 dias; ativos 30 dias; estimular regularidade 10 dias; ruptura 14 dias",
+    "No televendas a gente não agenda filial, inadimplente nem cliente bloqueado. Prospect é toda semana, inativo a cada 28 dias, e quem está entre 30 e 60 dias sem comprar a cada 10 dias. Quem comprou nos últimos 29 dias e não cabe em nenhuma faixa fica de fora",
+    "Quero agendar os clientes do televendas por perfil (prospect, inativo, ativo, em ruptura), com frequências de 7 a 30 dias, bloqueando inadimplentes e filiais"
   ],
   "_meta": {
     "arquivo": "regra_201.gobr",
     "sha256_gobr": "0437aa8a5270bd495162053555ef6a50fd7c41da153bd9b617f21a09548a55e1",
-    "versao_pacote": "2",
-    "prompt_sha256": "51c624fe9f9f",
+    "versao_pacote": "4",
+    "prompt_sha256": "fd3b943ec528",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T16:12:30+00:00",
+    "gerado_em": "2026-10-20T16:43:34+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,
@@ -136,7 +136,6 @@
       "agente_2.json": {
         "valido": false,
         "erros": [
-          "R12: faltam os números [60]",
           "o pacote tem alertas, mas pontos_de_atencao está vazio"
         ],
         "avisos": []
@@ -154,12 +153,14 @@
         "avisos": []
       },
       "agente_5.json": {
-        "valido": true,
-        "erros": [],
+        "valido": false,
+        "erros": [
+          "o pacote tem alertas, mas pontos_de_atencao está vazio"
+        ],
         "avisos": []
       }
     },
-    "escolhido": "agente_5.json",
-    "concordancia": 0.77
+    "escolhido": "agente_1.json",
+    "concordancia": 0.778
   }
 }

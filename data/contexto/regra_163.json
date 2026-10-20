@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_163.gobr",
   "sha256": "4b9ebdcbbc1f8eb2d6797107dbea2be29cf919366bee9b1922282f88f58dd82c",
   "comentarios": [
@@ -80,6 +80,9 @@
       "numeros": [
         30
       ],
+      "numeros_exigidos": [
+        30
+      ],
       "alertas": []
     },
     {
@@ -112,6 +115,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        30
+      ],
+      "numeros_exigidos": [
         30
       ],
       "alertas": []
@@ -154,6 +160,10 @@
         21,
         60
       ],
+      "numeros_exigidos": [
+        21,
+        60
+      ],
       "alertas": []
     },
     {
@@ -191,6 +201,11 @@
       "numeros": [
         28,
         31,
+        60
+      ],
+      "numeros_exigidos": [
+        28,
+        30,
         60
       ],
       "alertas": []
@@ -233,6 +248,11 @@
         61,
         90
       ],
+      "numeros_exigidos": [
+        14,
+        30,
+        60
+      ],
       "alertas": []
     },
     {
@@ -266,6 +286,9 @@
       "numeros": [
         21
       ],
+      "numeros_exigidos": [
+        21
+      ],
       "alertas": []
     },
     {
@@ -296,6 +319,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        7
+      ],
+      "numeros_exigidos": [
         7
       ],
       "alertas": []
@@ -338,6 +364,10 @@
         14,
         30
       ],
+      "numeros_exigidos": [
+        14,
+        30
+      ],
       "alertas": []
     },
     {
@@ -370,6 +400,11 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        7,
+        30
+      ],
+      "numeros_exigidos": [
+        6,
         7,
         30
       ],
@@ -411,6 +446,11 @@
         31,
         60
       ],
+      "numeros_exigidos": [
+        14,
+        30,
+        60
+      ],
       "alertas": []
     },
     {
@@ -450,6 +490,11 @@
         61,
         90
       ],
+      "numeros_exigidos": [
+        7,
+        30,
+        60
+      ],
       "alertas": []
     },
     {
@@ -480,6 +525,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        7
+      ],
+      "numeros_exigidos": [
         7
       ],
       "alertas": []

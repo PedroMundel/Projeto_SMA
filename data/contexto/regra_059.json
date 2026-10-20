@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_059.gobr",
   "sha256": "6781af05840724fcb632d459a063c15bb1f622534fa63bbe5bee4b8e43da2927",
   "comentarios": [
@@ -50,6 +50,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -87,6 +88,9 @@
       "numeros": [
         30
       ],
+      "numeros_exigidos": [
+        30
+      ],
       "alertas": []
     },
     {
@@ -122,6 +126,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        30
+      ],
+      "numeros_exigidos": [
         30
       ],
       "alertas": []
@@ -163,6 +170,9 @@
       "numeros": [
         15
       ],
+      "numeros_exigidos": [
+        15
+      ],
       "alertas": []
     },
     {
@@ -200,6 +210,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        7
+      ],
+      "numeros_exigidos": [
         7
       ],
       "alertas": []
@@ -241,6 +254,9 @@
       "numeros": [
         5
       ],
+      "numeros_exigidos": [
+        5
+      ],
       "alertas": []
     },
     {
@@ -273,6 +289,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        30
+      ],
+      "numeros_exigidos": [
         30
       ],
       "alertas": []
@@ -309,6 +328,9 @@
       "numeros": [
         20
       ],
+      "numeros_exigidos": [
+        20
+      ],
       "alertas": []
     },
     {
@@ -341,6 +363,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        15
+      ],
+      "numeros_exigidos": [
         15
       ],
       "alertas": []
@@ -376,6 +401,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        10
+      ],
+      "numeros_exigidos": [
         10
       ],
       "alertas": []
@@ -414,6 +442,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        5
+      ],
+      "numeros_exigidos": [
         5
       ],
       "alertas": []

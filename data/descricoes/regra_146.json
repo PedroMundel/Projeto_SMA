@@ -88,17 +88,15 @@
   "_meta": {
     "arquivo": "regra_146.gobr",
     "sha256_gobr": "1655af5f6662050af6d2607955bcd0a1fbaa157d1054161c3bcaff6986fa3e85",
-    "versao_pacote": "2",
-    "prompt_sha256": "51c624fe9f9f",
+    "versao_pacote": "4",
+    "prompt_sha256": "fd3b943ec528",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T16:12:29+00:00",
+    "gerado_em": "2026-10-20T16:43:31+00:00",
     "candidatos": {
       "agente_1.json": {
-        "valido": false,
-        "erros": [
-          "R8: faltam os números [30]"
-        ],
+        "valido": true,
+        "erros": [],
         "avisos": []
       },
       "agente_2.json": {
@@ -107,11 +105,8 @@
         "avisos": []
       },
       "agente_3.json": {
-        "valido": false,
-        "erros": [
-          "R5: faltam os números [7]",
-          "R8: faltam os números [30]"
-        ],
+        "valido": true,
+        "erros": [],
         "avisos": []
       },
       "agente_4.json": {
@@ -126,6 +121,6 @@
       }
     },
     "escolhido": "agente_4.json",
-    "concordancia": 0.675
+    "concordancia": 0.684
   }
 }

@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_143.gobr",
   "sha256": "ab27f0d3c40789be9326e40d24822edc346e04c9433f844723c40ccecfc2ec53",
   "comentarios": [
@@ -50,6 +50,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -84,6 +85,9 @@
       "numeros": [
         30
       ],
+      "numeros_exigidos": [
+        30
+      ],
       "alertas": []
     },
     {
@@ -116,6 +120,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        28
+      ],
+      "numeros_exigidos": [
         28
       ],
       "alertas": []
@@ -165,6 +172,10 @@
         30,
         45
       ],
+      "numeros_exigidos": [
+        7,
+        45
+      ],
       "alertas": []
     },
     {
@@ -212,6 +223,10 @@
         30,
         45
       ],
+      "numeros_exigidos": [
+        14,
+        45
+      ],
       "alertas": []
     },
     {
@@ -255,6 +270,10 @@
       "numeros": [
         21,
         30,
+        45
+      ],
+      "numeros_exigidos": [
+        21,
         45
       ],
       "alertas": []
@@ -303,6 +322,11 @@
         45,
         60
       ],
+      "numeros_exigidos": [
+        14,
+        30,
+        44
+      ],
       "alertas": []
     },
     {
@@ -344,6 +368,10 @@
       "numeros": [
         7
       ],
+      "numeros_exigidos": [
+        7,
+        45
+      ],
       "alertas": [
         "O nome da regra cita 60 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
       ]
@@ -381,6 +409,10 @@
       "inalcancavel": false,
       "numeros": [
         7
+      ],
+      "numeros_exigidos": [
+        7,
+        30
       ],
       "alertas": []
     }

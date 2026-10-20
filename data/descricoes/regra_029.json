@@ -36,11 +36,11 @@
   "_meta": {
     "arquivo": "regra_029.gobr",
     "sha256_gobr": "0f071b6dd825eab350b4a30e128e65d4478e729a7efb23ebef3c7f5a1d64ea06",
-    "versao_pacote": "2",
-    "prompt_sha256": "51c624fe9f9f",
+    "versao_pacote": "4",
+    "prompt_sha256": "fd3b943ec528",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T16:12:27+00:00",
+    "gerado_em": "2026-10-20T16:43:29+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,

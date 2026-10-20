@@ -7,14 +7,15 @@ import hashlib
 import re
 from pathlib import Path
 
-from gobr import cascade
+from gobr import cascade, dims
 from gobr.cascade import Effective
 from gobr.ir import Block, Clause, GobrFile
 from gobr.parser import parse_file, read_source
 from gobr.text import CONTROL_CHARS_RE
 
-PACKAGE_VERSION = "2"  # 2: composite sources as unions (P8)
+PACKAGE_VERSION = "4"  # 2: composite sources as unions (P8); 3: registration age as interval; 4: required numbers
 MAX_CODE_CHARS = 160  # long id/city lists are summarized in 'significado'; the full list stays in the .gobr
+DAY_NUMBER_RE = re.compile(r"(\d+)\s*dias?\b")
 NAME_DAY_NUMBER_RE = re.compile(r"(\d+)\s*(?:d\b|dias?\b)|\bdia (\d+)", re.IGNORECASE)
 PREMISES = {
     "P1": "'fora da recencia' exige compra/visita registrada: quem nunca comprou não entra.",
@@ -79,9 +80,27 @@ def _rule(e: Effective, numbers: set[int], hidden_keys: set[str]) -> dict:
         "bloqueios_anteriores": [b.id for b in e.treated_before if b.schedules_nothing],
         "inalcancavel": e.unreachable,
         "numeros": sorted({n for c in block.filters + block.actions + block.temporal for n in c.numbers}),
+        "numeros_exigidos": _required_numbers(e, effective_text, numbers, hidden),
         "alertas": _rule_alerts(e, effective_text, own_text),
     }
     return rule
+
+
+def _required_numbers(e: Effective, effective_text: str | None, numbers: set[int], hidden: set[str]) -> list[int]:
+    """Day thresholds the description must carry. A single effective box: all of them. A union of boxes:
+    only the thresholds of the rule's own dimensions shared by every box; the others are cascade exclusions
+    that the redator may summarize as "exceto os já tratados". Fragmented or unreachable rules: their own
+    condition. Action days (frequency limits) are always required."""
+    boxes = e.boxes if effective_text is not None else e.own
+    own_keys = {k for box in e.own for k in box}
+    per_box = []
+    for box in boxes:
+        keys = [k for k in box if k not in hidden and (len(boxes) == 1 or k in own_keys)]
+        rendered = " ".join(dims.render(k, box[k], numbers) for k in keys)
+        per_box.append({int(n) for n in DAY_NUMBER_RE.findall(rendered)})
+    shared = set.intersection(*per_box) if per_box else set()
+    action_days = {int(n) for c in e.block.actions for n in DAY_NUMBER_RE.findall(c.gloss)}
+    return sorted(shared | action_days)
 
 
 def _clause(c: Clause) -> dict:

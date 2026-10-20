@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_171.gobr",
   "sha256": "d81b243d39826e8db937f53a80412a8137312e6faaac190c15808bea0bd280e6",
   "comentarios": [
@@ -52,6 +52,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -84,6 +85,7 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -117,6 +119,7 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -151,6 +154,7 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -186,6 +190,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        14
+      ],
+      "numeros_exigidos": [
         14
       ],
       "alertas": []
@@ -233,6 +240,10 @@
         10,
         30
       ],
+      "numeros_exigidos": [
+        10,
+        30
+      ],
       "alertas": []
     },
     {
@@ -263,7 +274,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 30 dias e frequência histórica de compra de menos de 14 dias",
-      "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 30 dias e frequência histórica de compra de menos de 14 dias e sem ser de compra única na empresa) OU (compraram com qualquer vendedor da empresa nos últimos 30 dias e não (cadastrados no ERP há pelo menos 30 dias) e frequência histórica de compra de menos de 14 dias e com uma única compra na empresa)",
+      "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 30 dias e frequência histórica de compra de menos de 14 dias e sem ser de compra única na empresa) OU (compraram com qualquer vendedor da empresa nos últimos 30 dias e cadastrados no ERP há menos de 30 dias e frequência histórica de compra de menos de 14 dias e com uma única compra na empresa)",
       "tratados_antes_por": [
         "R6"
       ],
@@ -275,6 +286,10 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        14,
+        30
+      ],
+      "numeros_exigidos": [
         14,
         30
       ],
@@ -308,7 +323,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 30 dias e frequência histórica de compra de menos de 30 dias",
-      "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 30 dias e frequência histórica de compra entre 14 e 29 dias e sem ser de compra única na empresa) OU (compraram com qualquer vendedor da empresa nos últimos 30 dias e não (cadastrados no ERP há pelo menos 30 dias) e frequência histórica de compra entre 14 e 29 dias e com uma única compra na empresa)",
+      "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 30 dias e frequência histórica de compra entre 14 e 29 dias e sem ser de compra única na empresa) OU (compraram com qualquer vendedor da empresa nos últimos 30 dias e cadastrados no ERP há menos de 30 dias e frequência histórica de compra entre 14 e 29 dias e com uma única compra na empresa)",
       "tratados_antes_por": [
         "R6",
         "R7"
@@ -323,6 +338,12 @@
       "numeros": [
         14,
         28,
+        30
+      ],
+      "numeros_exigidos": [
+        14,
+        28,
+        29,
         30
       ],
       "alertas": [
@@ -370,6 +391,11 @@
         21,
         60
       ],
+      "numeros_exigidos": [
+        14,
+        21,
+        60
+      ],
       "alertas": [
         "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
       ]
@@ -397,7 +423,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "compraram com qualquer vendedor da empresa nos últimos 90 dias, mas estão há mais de 60 dias sem comprar",
-      "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e sem ser de compra única na empresa) OU (compraram com qualquer vendedor da empresa nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e não (cadastrados no ERP há pelo menos 30 dias) e com uma única compra na empresa)",
+      "condicao_efetiva": "(compraram com qualquer vendedor da empresa nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e sem ser de compra única na empresa) OU (compraram com qualquer vendedor da empresa nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e cadastrados no ERP há menos de 30 dias e com uma única compra na empresa)",
       "tratados_antes_por": [
         "R6"
       ],
@@ -411,6 +437,11 @@
       "numeros": [
         7,
         61,
+        90
+      ],
+      "numeros_exigidos": [
+        7,
+        60,
         90
       ],
       "alertas": []
@@ -458,13 +489,18 @@
         90,
         180
       ],
+      "numeros_exigidos": [
+        21,
+        89,
+        180
+      ],
       "alertas": [
         "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
       ]
     }
   ],
   "nao_cobertos": {
-    "do time televendas": "(compraram com qualquer vendedor da empresa nos últimos 180 dias, mas estão há mais de 90 dias sem comprar e sem ser de compra única na empresa) OU (compraram com qualquer vendedor da empresa nos últimos 180 dias, mas estão há mais de 90 dias sem comprar e não (cadastrados no ERP há pelo menos 30 dias) e com uma única compra na empresa)"
+    "do time televendas": "(compraram com qualquer vendedor da empresa nos últimos 180 dias, mas estão há mais de 90 dias sem comprar e sem ser de compra única na empresa) OU (compraram com qualquer vendedor da empresa nos últimos 180 dias, mas estão há mais de 90 dias sem comprar e cadastrados no ERP há menos de 30 dias e com uma única compra na empresa)"
   },
   "alertas": [],
   "numeros_obrigatorios": [

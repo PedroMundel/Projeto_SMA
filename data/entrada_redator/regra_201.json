@@ -106,7 +106,7 @@
    "acoes": [
     "frequência de 30 dias"
    ],
-   "condicao_efetiva": "(compraram no grupo de vendedores nos últimos 30 dias e já compraram com o próprio vendedor e não (cadastrados no ERP há pelo menos 60 dias) e frequência histórica de compra de menos de 30 dias) OU (compraram no grupo de vendedores nos últimos 30 dias e já compraram com o próprio vendedor e cadastrados no ERP há pelo menos 60 dias e frequência histórica de compra de menos de 30 dias e sem ser de compra única com o vendedor)",
+   "condicao_efetiva": "(compraram no grupo de vendedores nos últimos 30 dias e já compraram com o próprio vendedor e cadastrados no ERP há menos de 60 dias e frequência histórica de compra de menos de 30 dias) OU (compraram no grupo de vendedores nos últimos 30 dias e já compraram com o próprio vendedor e cadastrados no ERP há pelo menos 60 dias e frequência histórica de compra de menos de 30 dias e sem ser de compra única com o vendedor)",
    "tratados_antes_por": [
     "R5",
     "R7"
@@ -120,7 +120,7 @@
    "acoes": [
     "frequência de 30 dias"
    ],
-   "condicao_efetiva": "(compraram no grupo de vendedores nos últimos 30 dias e já compraram com o próprio vendedor e não (cadastrados no ERP há pelo menos 60 dias) e frequência histórica de compra entre 30 e 89 dias) OU (compraram no grupo de vendedores nos últimos 30 dias e já compraram com o próprio vendedor e cadastrados no ERP há pelo menos 60 dias e frequência histórica de compra entre 30 e 89 dias e sem ser de compra única com o vendedor)",
+   "condicao_efetiva": "(compraram no grupo de vendedores nos últimos 30 dias e já compraram com o próprio vendedor e cadastrados no ERP há menos de 60 dias e frequência histórica de compra entre 30 e 89 dias) OU (compraram no grupo de vendedores nos últimos 30 dias e já compraram com o próprio vendedor e cadastrados no ERP há pelo menos 60 dias e frequência histórica de compra entre 30 e 89 dias e sem ser de compra única com o vendedor)",
    "tratados_antes_por": [
     "R5",
     "R7",
@@ -155,7 +155,7 @@
    "acoes": [
     "frequência de 14 dias"
    ],
-   "condicao_efetiva": "(compraram no grupo de vendedores nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e já compraram com o próprio vendedor e não (cadastrados no ERP há pelo menos 60 dias)) OU (compraram no grupo de vendedores nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e já compraram com o próprio vendedor e cadastrados no ERP há pelo menos 60 dias e sem ser de compra única com o vendedor)",
+   "condicao_efetiva": "(compraram no grupo de vendedores nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e já compraram com o próprio vendedor e cadastrados no ERP há menos de 60 dias) OU (compraram no grupo de vendedores nos últimos 90 dias, mas estão há mais de 60 dias sem comprar e já compraram com o próprio vendedor e cadastrados no ERP há pelo menos 60 dias e sem ser de compra única com o vendedor)",
    "tratados_antes_por": [
     "R5",
     "R7"
@@ -169,7 +169,7 @@
    "acoes": [
     "não agendar"
    ],
-   "condicao_efetiva": "(compraram no grupo de vendedores nos últimos 29 dias e já compraram com o próprio vendedor e não (cadastrados no ERP há pelo menos 60 dias) e frequência histórica indefinida ou frequência histórica de compra de pelo menos 90 dias) OU (compraram no grupo de vendedores nos últimos 29 dias e já compraram com o próprio vendedor e cadastrados no ERP há pelo menos 60 dias e frequência histórica indefinida ou frequência histórica de compra de pelo menos 90 dias e sem ser de compra única com o vendedor)",
+   "condicao_efetiva": "(compraram no grupo de vendedores nos últimos 29 dias e já compraram com o próprio vendedor e cadastrados no ERP há menos de 60 dias e frequência histórica indefinida ou frequência histórica de compra de pelo menos 90 dias) OU (compraram no grupo de vendedores nos últimos 29 dias e já compraram com o próprio vendedor e cadastrados no ERP há pelo menos 60 dias e frequência histórica indefinida ou frequência histórica de compra de pelo menos 90 dias e sem ser de compra única com o vendedor)",
    "tratados_antes_por": [
     "R5",
     "R6",

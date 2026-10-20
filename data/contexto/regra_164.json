@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_164.gobr",
   "sha256": "e036078569b2d5a98776ce2f03c0da5a11d95fb084554c9e69458b9b625c292d",
   "comentarios": [
@@ -67,6 +67,9 @@
         14,
         2024
       ],
+      "numeros_exigidos": [
+        14
+      ],
       "alertas": []
     },
     {
@@ -104,6 +107,10 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        7,
+        30
+      ],
+      "numeros_exigidos": [
         7,
         30
       ],
@@ -147,6 +154,10 @@
         30,
         90
       ],
+      "numeros_exigidos": [
+        30,
+        90
+      ],
       "alertas": []
     },
     {
@@ -186,6 +197,9 @@
         7,
         8,
         2024
+      ],
+      "numeros_exigidos": [
+        7
       ],
       "alertas": []
     },
@@ -229,6 +243,10 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        14,
+        60
+      ],
+      "numeros_exigidos": [
         14,
         60
       ],
@@ -285,6 +303,11 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        7,
+        14,
+        30
+      ],
+      "numeros_exigidos": [
         7,
         14,
         30
@@ -348,6 +371,11 @@
         14,
         30
       ],
+      "numeros_exigidos": [
+        10,
+        14,
+        30
+      ],
       "alertas": [
         "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
       ]
@@ -406,6 +434,10 @@
         14,
         30
       ],
+      "numeros_exigidos": [
+        14,
+        30
+      ],
       "alertas": [
         "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
       ]
@@ -454,6 +486,10 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        14,
+        30
+      ],
+      "numeros_exigidos": [
         14,
         30
       ],
@@ -509,6 +545,10 @@
         10,
         45
       ],
+      "numeros_exigidos": [
+        10,
+        45
+      ],
       "alertas": [
         "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
       ]
@@ -554,6 +594,10 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        14,
+        60
+      ],
+      "numeros_exigidos": [
         14,
         60
       ],
@@ -608,6 +652,9 @@
         10,
         2024
       ],
+      "numeros_exigidos": [
+        7
+      ],
       "alertas": [
         "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
       ]
@@ -650,6 +697,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        45
+      ],
+      "numeros_exigidos": [
         45
       ],
       "alertas": [
@@ -704,6 +754,9 @@
         14,
         2024
       ],
+      "numeros_exigidos": [
+        14
+      ],
       "alertas": []
     },
     {
@@ -750,6 +803,10 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        7,
+        30
+      ],
+      "numeros_exigidos": [
         7,
         30
       ],
@@ -802,6 +859,9 @@
       "numeros": [
         30
       ],
+      "numeros_exigidos": [
+        30
+      ],
       "alertas": [
         "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Freq. de 7d para: 'Ativar prospects'\", \"Boas vindas: Frequência de 14d para construtora\", \"Compra com regularidade no RJ - Curva A: Frequência de 7d para construtora\", \"Compra com regularidade no RJ - Curva B: Frequência de 10d para construtora\", \"Compra com regularidade no RJ - Curva C: Frequência de 14d para construtora\", \"Compra com regularidade: Frequência de 14d para construtora\", \"Risco de ficar inativo: Frequência de 14d para construtora\", \"Ativar novos clientes: Frequência de 7d para construtora\", \"Resgate de inativos: Frequência de 45d para construtora\", \"Freq. de 14 dias para Novos cadastros shopping, supermercado, industria, estaleiro, clube, escolas, universidade, igreja, hotel, hospital, clínica, restaurantes, condominio\", \"Freq. de 7 dias para Novos cadastros shopping, supermercado, industria, estaleiro, clube, escolas, universidade, igreja, hotel, hospital, clínica, restaurantes, condominio\"."
       ]
@@ -841,6 +901,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": [
         "Condição efetiva fragmentada demais para resumir; descreva como a condição própria exceto os clientes já tratados pelas regras anteriores."
       ]

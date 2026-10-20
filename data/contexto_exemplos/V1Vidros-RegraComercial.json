@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "V1Vidros-RegraComercial.gobr",
   "sha256": "88414119d37232fe3f3f0fcf4a3e30700be0232b29ed97b94edcebe8a5d9ad0b",
   "comentarios": [
@@ -49,6 +49,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     },
     {
@@ -81,6 +82,10 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        14,
+        30
+      ],
+      "numeros_exigidos": [
         14,
         30
       ],
@@ -125,6 +130,11 @@
         30,
         45
       ],
+      "numeros_exigidos": [
+        7,
+        30,
+        45
+      ],
       "alertas": []
     },
     {
@@ -160,6 +170,10 @@
         14,
         45
       ],
+      "numeros_exigidos": [
+        14,
+        45
+      ],
       "alertas": []
     },
     {
@@ -192,6 +206,9 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        7
+      ],
+      "numeros_exigidos": [
         7
       ],
       "alertas": []

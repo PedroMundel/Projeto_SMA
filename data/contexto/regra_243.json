@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_243.gobr",
   "sha256": "bf45544b7aa91eaaeeba1b86a8d49042107e9711f6971626f2a5c08dcbe8d24c",
   "comentarios": [
@@ -61,6 +61,9 @@
       "numeros": [
         21
       ],
+      "numeros_exigidos": [
+        21
+      ],
       "alertas": []
     },
     {
@@ -103,6 +106,10 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        3,
+        20
+      ],
+      "numeros_exigidos": [
         3,
         20
       ],
@@ -153,6 +160,11 @@
         20,
         33
       ],
+      "numeros_exigidos": [
+        2,
+        20,
+        33
+      ],
       "alertas": []
     },
     {
@@ -187,6 +199,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [
+        33
+      ],
       "alertas": [
         "Bloqueio depois de regras de frequência: clientes já parametrizados por \"Ative este cliente!\", \"Faça seu pós-vendas!\", \"Mantenha o cliente engajado!\" não serão bloqueados por esta regra."
       ]
@@ -219,6 +234,7 @@
       ],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": []
     }
   ],

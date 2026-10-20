@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_227.gobr",
   "sha256": "db66e0f1e61631b2b78aeecb69baf893e3396b4da576a94fa29ddb4d62052212",
   "comentarios": [
@@ -59,6 +59,10 @@
         1,
         7
       ],
+      "numeros_exigidos": [
+        1,
+        7
+      ],
       "alertas": []
     },
     {
@@ -91,6 +95,10 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        30
+      ],
+      "numeros_exigidos": [
+        7,
         30
       ],
       "alertas": [
@@ -127,6 +135,10 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        60
+      ],
+      "numeros_exigidos": [
+        7,
         60
       ],
       "alertas": []
@@ -167,6 +179,12 @@
         30,
         90
       ],
+      "numeros_exigidos": [
+        7,
+        15,
+        30,
+        90
+      ],
       "alertas": []
     },
     {
@@ -199,6 +217,11 @@
       "numeros": [
         10
       ],
+      "numeros_exigidos": [
+        7,
+        10,
+        90
+      ],
       "alertas": []
     },
     {
@@ -230,6 +253,7 @@
       ],
       "inalcancavel": true,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": [
         "Regra inalcançável: todos os clientes dela já foram tratados antes por \"Cobertura de rota de visita exatamente 7 dias depois\", \"Não agendar clientes com compra em 30 dias (Ativos)\", \"Freq. de 60d para clientes que nunca compraram (Prospects)\", \"Freq. de 15d para clientes com compra entre 30 e 90 dias (Ativos)\", \"Freq. de 10d para clientes sem compra em 90 dias (Inativos)\"."
       ]

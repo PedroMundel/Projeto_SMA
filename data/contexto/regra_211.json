@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_211.gobr",
   "sha256": "9da6480ae74f161f7606a21e5c8de84c30b5b76502784ed0931392a4dd4cbdf5",
   "comentarios": [
@@ -49,6 +49,10 @@
         21,
         30
       ],
+      "numeros_exigidos": [
+        21,
+        30
+      ],
       "alertas": []
     },
     {
@@ -76,6 +80,10 @@
       "inalcancavel": false,
       "numeros": [
         15
+      ],
+      "numeros_exigidos": [
+        15,
+        30
       ],
       "alertas": []
     }

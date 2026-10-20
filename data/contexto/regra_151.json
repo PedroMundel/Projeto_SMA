@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_151.gobr",
   "sha256": "1fed3ec8cee93c762eac8a1355752c8fb8c88644148184f61b044e448e7cb0b8",
   "comentarios": [
@@ -81,6 +81,7 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [],
       "alertas": [
         "O nome da regra cita 60 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
       ]

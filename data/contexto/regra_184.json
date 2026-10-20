@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_184.gobr",
   "sha256": "f89a5f91e4f82435bbdc9a8c256348ef79528424b935a6e0136545f63d676b6e",
   "comentarios": [
@@ -61,6 +61,9 @@
       "numeros": [
         5
       ],
+      "numeros_exigidos": [
+        5
+      ],
       "alertas": []
     },
     {
@@ -102,6 +105,11 @@
         5,
         7
       ],
+      "numeros_exigidos": [
+        1,
+        5,
+        7
+      ],
       "alertas": []
     },
     {
@@ -135,6 +143,11 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        7,
+        12,
+        14
+      ],
+      "numeros_exigidos": [
         7,
         12,
         14
@@ -176,6 +189,11 @@
         28,
         30
       ],
+      "numeros_exigidos": [
+        14,
+        28,
+        30
+      ],
       "alertas": []
     },
     {
@@ -210,6 +228,11 @@
       "numeros": [
         14,
         31,
+        90
+      ],
+      "numeros_exigidos": [
+        14,
+        30,
         90
       ],
       "alertas": []
@@ -248,6 +271,11 @@
         91,
         180
       ],
+      "numeros_exigidos": [
+        14,
+        90,
+        180
+      ],
       "alertas": []
     },
     {
@@ -280,6 +308,10 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        21,
+        360
+      ],
+      "numeros_exigidos": [
         21,
         360
       ],
@@ -325,6 +357,9 @@
       "numeros": [
         7
       ],
+      "numeros_exigidos": [
+        7
+      ],
       "alertas": []
     },
     {
@@ -365,6 +400,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        14
+      ],
+      "numeros_exigidos": [
         14
       ],
       "alertas": []
@@ -409,6 +447,9 @@
       "numeros": [
         28
       ],
+      "numeros_exigidos": [
+        28
+      ],
       "alertas": []
     },
     {
@@ -449,6 +490,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        56
+      ],
+      "numeros_exigidos": [
         56
       ],
       "alertas": []
@@ -493,6 +537,9 @@
       "numeros": [
         84
       ],
+      "numeros_exigidos": [
+        84
+      ],
       "alertas": []
     },
     {
@@ -512,7 +559,7 @@
       ],
       "acao_principal": "frequencia",
       "condicao_propria": "todos os clientes da fonte (sem filtro)",
-      "condicao_efetiva": "(do time sao_paulo e frequência histórica indefinida ou frequência histórica de compra de menos de 7 dias ou frequência histórica de compra entre 8 e 13 dias ou frequência histórica de compra entre 15 e 27 dias ou frequência histórica de compra entre 29 e 55 dias ou frequência histórica de compra entre 57 e 83 dias ou frequência histórica de compra de mais de 84 dias) OU (do time televendas e (nunca compraram ou compraram nos últimos 0 dias ou compraram nos últimos 360 dias, mas estão há mais de 180 dias sem comprar) e sem ser de compra única na empresa) OU (do time televendas e (nunca compraram ou compraram nos últimos 0 dias ou compraram nos últimos 360 dias, mas estão há mais de 180 dias sem comprar) e não (com compra no mês atual) e com uma única compra na empresa)",
+      "condicao_efetiva": "(do time sao_paulo e frequência histórica indefinida ou frequência histórica de compra de menos de 7 dias ou frequência histórica de compra entre 8 e 13 dias ou frequência histórica de compra entre 15 e 27 dias ou frequência histórica de compra entre 29 e 55 dias ou frequência histórica de compra entre 57 e 83 dias ou frequência histórica de compra de mais de 84 dias) OU (do time televendas e (nunca compraram ou compraram hoje ou compraram nos últimos 360 dias, mas estão há mais de 180 dias sem comprar) e sem ser de compra única na empresa) OU (do time televendas e (nunca compraram ou compraram hoje ou compraram nos últimos 360 dias, mas estão há mais de 180 dias sem comprar) e não (com compra no mês atual) e com uma única compra na empresa)",
       "tratados_antes_por": [
         "R1",
         "R2",
@@ -530,6 +577,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        30
+      ],
+      "numeros_exigidos": [
         30
       ],
       "alertas": []

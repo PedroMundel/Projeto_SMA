@@ -89,7 +89,7 @@
    "acoes": [
     "frequência de 21 dias"
    ],
-   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa e não (cadastrados no ERP há pelo menos 30 dias)",
+   "condicao_efetiva": "nunca compraram com qualquer vendedor da empresa e cadastrados no ERP há menos de 30 dias",
    "tratados_antes_por": [
     "R6"
    ]

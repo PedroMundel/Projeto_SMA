@@ -1,23 +1,23 @@
 {
-  "resumo": "Regras de frequência por situação do cliente. O time todos organiza prospects, inadimplentes, primeira compra, compra entre 31 e 60 dias, risco de inatividade e resgate de inativos. Os times fabricantes e segmentos de revendas/manutenção têm uma regra de ativos com 21 dias, e os times de consumidor final, compra exporádica e grande porte têm outra com 28 dias. Nenhuma regra bloqueia a agenda.",
+  "resumo": "Regra de frequência por situação do cliente, aplicada a todos os vendedores: prospects, inadimplentes, primeira compra, compra entre 31 e 60 dias, risco de inatividade e inativos. Nenhuma regra bloqueia a agenda. As duas últimas regras tratam quem comprou nos últimos 30 dias, com frequência de 21 dias para Fabricantes e Segmentos de Revendas/Manutenção e de 28 dias para os times de consumidor final.",
   "carteiras": [],
   "regras": [
     {
       "id": "R1",
       "nome": "Freq. de 14d para 'PROSPECT: FAZER O PRIMEIRO PEDIDO' (Todos)",
       "segmento": "Prospects",
-      "criterio": "Clientes que nunca compraram com qualquer vendedor da empresa",
+      "criterio": "Clientes que nunca compraram na empresa",
       "frequencia": "14 dias",
-      "observacao": "Vale para o time todos",
+      "observacao": "",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R2",
       "nome": "Freq. de 21d para 'INADIMPLENTES' (Todos)",
       "segmento": "Inadimplentes",
-      "criterio": "Clientes inadimplentes que já compraram com qualquer vendedor da empresa",
+      "criterio": "Clientes inadimplentes que já compraram na empresa",
       "frequencia": "21 dias",
-      "observacao": "Vale para o time todos",
+      "observacao": "",
       "clausulas_nao_traduzidas": []
     },
     {
@@ -26,25 +26,25 @@
       "segmento": "Boas-vindas ao primeiro pedido",
       "criterio": "Clientes adimplentes com uma única compra na empresa, cadastrados no ERP há pelo menos 30 dias",
       "frequencia": "28 dias",
-      "observacao": "Vale para o time todos",
+      "observacao": "",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R4",
       "nome": "Freq. de 30d para 'COM COMPRA ENTRE 31 E 60 DIAS' (Todos)",
       "segmento": "Compra entre 31 e 60 dias",
-      "criterio": "Clientes adimplentes que compraram nos últimos 60 dias, mas estão há mais de 30 dias sem comprar (compra única só se cadastrados há menos de 30 dias)",
+      "criterio": "Clientes adimplentes que compraram nos últimos 60 dias, mas estão há mais de 30 dias sem comprar",
       "frequencia": "30 dias",
-      "observacao": "Vale para o time todos",
+      "observacao": "Compra única só entra se cadastrado no ERP há menos de 30 dias",
       "clausulas_nao_traduzidas": []
     },
     {
       "id": "R5",
       "nome": "Freq. de 10d para 'EM RUPTURA: RISCO DE INATIVIDADE' (Todos)",
-      "segmento": "Risco de inatividade",
-      "criterio": "Clientes adimplentes que compraram nos últimos 90 dias, mas estão há mais de 60 dias sem comprar (compra única só se cadastrados há menos de 30 dias)",
+      "segmento": "Em ruptura: risco de inatividade",
+      "criterio": "Clientes adimplentes que compraram nos últimos 90 dias, mas estão há mais de 60 dias sem comprar",
       "frequencia": "10 dias",
-      "observacao": "Vale para o time todos",
+      "observacao": "Compra única só entra se cadastrado no ERP há menos de 30 dias",
       "clausulas_nao_traduzidas": []
     },
     {
@@ -53,7 +53,7 @@
       "segmento": "Inativos: resgate",
       "criterio": "Clientes adimplentes inativos na empresa que nunca compraram no grupo de vendedores, compraram nele nos últimos 30 dias ou estão há mais de 90 dias sem comprar nele",
       "frequencia": "21 dias",
-      "observacao": "Vale para o time todos; compra única só se cadastrados há menos de 30 dias",
+      "observacao": "Compra única só entra se cadastrado no ERP há menos de 30 dias",
       "clausulas_nao_traduzidas": []
     },
     {
@@ -62,7 +62,7 @@
       "segmento": "Ativos: Fabricantes e Revendas/Manutenção",
       "criterio": "Clientes que compraram nos últimos 30 dias",
       "frequencia": "21 dias",
-      "observacao": "Vale para os times fabricantes e segmentos de revendas/manutenção",
+      "observacao": "Vale para os times Fabricantes e Segmentos de Revendas/Manutenção",
       "clausulas_nao_traduzidas": []
     },
     {
@@ -71,28 +71,28 @@
       "segmento": "Ativos: Consumidor final",
       "criterio": "Clientes que compraram nos últimos 30 dias",
       "frequencia": "28 dias",
-      "observacao": "Vale para os times consumidor final recorrente, compra exporadica e consumidor final - grande porte",
+      "observacao": "Vale para os times Consumidor final recorrente, Compra esporádica e Consumidor final - Grande porte",
       "clausulas_nao_traduzidas": []
     }
   ],
   "pontos_de_atencao": [
-    "Clientes do time todos que já compraram na empresa, são adimplentes, não estão no ciclo de vida inativo e nunca compraram no grupo de vendedores, compraram nele nos últimos 30 dias ou estão há mais de 90 dias sem comprar nele não se enquadram em nenhuma regra e ficam sem parametrização.",
-    "Clientes dos times fabricantes e segmentos de revendas/manutenção que nunca compraram ou estão há mais de 30 dias sem comprar não se enquadram em nenhuma regra e ficam sem parametrização.",
-    "Clientes dos times consumidor final recorrente, compra exporadica e consumidor final - grande porte que nunca compraram ou estão há mais de 30 dias sem comprar não se enquadram em nenhuma regra e ficam sem parametrização."
+    "Clientes adimplentes que já compraram na empresa, fora do ciclo de vida inativo, e que nunca compraram no grupo de vendedores, compraram nele nos últimos 30 dias ou estão há mais de 90 dias sem comprar nele não se enquadram em nenhuma regra do time todos e ficam sem parametrização (compra única só se cadastrados há menos de 30 dias).",
+    "Clientes dos times Fabricantes e Segmentos de Revendas/Manutenção que nunca compraram ou estão há mais de 30 dias sem comprar não se enquadram em nenhuma regra desses times e ficam sem parametrização.",
+    "Clientes dos times Consumidor final recorrente, Compra esporádica e Consumidor final - Grande porte que nunca compraram ou estão há mais de 30 dias sem comprar não se enquadram em nenhuma regra desses times e ficam sem parametrização."
   ],
   "consultas_hipoteticas": [
-    "Todos: prospects 14 dias; inadimplentes 21 dias; primeiro pedido 28 dias; compra entre 31 e 60 dias 30 dias; risco de inatividade 10 dias; inativos 21 dias. Fabricantes e revendas ativos 21 dias; consumidor final ativos 28 dias",
-    "Para todos os times a gente liga a cada 14 dias para prospect e a cada 10 dias para quem está em risco de inatividade. Quem comprou nos últimos 30 dias é atendido a cada 21 dias nos fabricantes e revendas e a cada 28 dias no consumidor final",
-    "Frequência por situação do cliente: prospect, inadimplente, primeira compra, compra recente, risco de inatividade e inativos, com regra de ativos diferente por time"
+    "Todos: prospects a cada 14 dias; inadimplentes 21; primeira compra 28; entre 31 e 60 dias sem comprar 30; risco de inatividade 10; inativos 21. Ativos até 30 dias: 21 para Fabricantes e Revendas, 28 para consumidor final",
+    "A gente liga a cada 14 dias pra quem nunca comprou e a cada 21 pra inadimplente. Quem está há mais de 60 dias sem comprar entra na faixa de risco, a cada 10 dias. Cliente que comprou no último mês: 21 dias pra fabricante e 28 pra consumidor final",
+    "Quero frequências por situação do cliente (prospect, inadimplente, primeiro pedido, risco de inatividade e inativo), com tratamento diferente de ativos por time"
   ],
   "_meta": {
     "arquivo": "regra_144.gobr",
     "sha256_gobr": "7f1b52138ba2254ad91c7173f36408e57b653330d33330028d109d720606b674",
-    "versao_pacote": "2",
-    "prompt_sha256": "51c624fe9f9f",
+    "versao_pacote": "4",
+    "prompt_sha256": "fd3b943ec528",
     "modelo": "claude-sonnet-5-5",
     "gerador": "claude-code-subagent",
-    "gerado_em": "2026-10-20T16:12:29+00:00",
+    "gerado_em": "2026-10-20T16:43:34+00:00",
     "candidatos": {
       "agente_1.json": {
         "valido": true,
@@ -100,19 +100,27 @@
         "avisos": []
       },
       "agente_2.json": {
-        "valido": false,
-        "erros": [
-          "R5: faltam os números [30]"
-        ],
+        "valido": true,
+        "erros": [],
         "avisos": []
       },
       "agente_3.json": {
         "valido": true,
         "erros": [],
         "avisos": []
+      },
+      "agente_4.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
+      },
+      "agente_5.json": {
+        "valido": true,
+        "erros": [],
+        "avisos": []
       }
     },
-    "escolhido": "agente_1.json",
-    "concordancia": 0.848
+    "escolhido": "agente_4.json",
+    "concordancia": 0.77
   }
 }

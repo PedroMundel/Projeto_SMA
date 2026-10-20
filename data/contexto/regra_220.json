@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_220.gobr",
   "sha256": "2fa1f273540834192b7ee03f3ff7ed1644aac7717a882342a47f3af52a8b0106",
   "comentarios": [
@@ -63,6 +63,9 @@
       "numeros": [
         30
       ],
+      "numeros_exigidos": [
+        30
+      ],
       "alertas": []
     },
     {
@@ -90,6 +93,10 @@
       "inalcancavel": false,
       "numeros": [
         7
+      ],
+      "numeros_exigidos": [
+        7,
+        30
       ],
       "alertas": [
         "O nome da regra cita 150 dia(s), valor que não aparece no código nem na condição efetiva: nome e código podem estar divergentes."
@@ -123,6 +130,10 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        14,
+        149
+      ],
+      "numeros_exigidos": [
         14,
         149
       ],
@@ -160,6 +171,10 @@
       "numeros": [
         14
       ],
+      "numeros_exigidos": [
+        14,
+        149
+      ],
       "alertas": []
     },
     {
@@ -187,6 +202,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [],
+      "numeros_exigidos": [
+        149
+      ],
       "alertas": []
     },
     {
@@ -211,6 +229,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        7
+      ],
+      "numeros_exigidos": [
         7
       ],
       "alertas": []

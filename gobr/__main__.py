@@ -70,7 +70,8 @@ def consolidate(candidates_dir: Path, out_dir: Path, context_dirs: list[Path], p
         candidates, chosen, agreement = evaluate(file_dir, package)
         meta = consensus.provenance(package, candidates, chosen, agreement, prompt, MODEL)
         valid = sum(c.report.ok for c in candidates)
-        print(f"{file_dir.name}: {valid}/{len(candidates)} válidos, concordância {agreement:.2f}, escolhido {meta['escolhido']}")
+        shown = "sem medida" if agreement is None else f"{agreement:.2f}"
+        print(f"{file_dir.name}: {valid}/{len(candidates)} válidos, concordância {shown}, escolhido {meta['escolhido']}")
         if chosen is None:
             write_json(out_dir / f"{file_dir.name}.falha.json", {"_meta": meta})
             continue
@@ -87,7 +88,7 @@ def report_pending(candidates_dir: Path, inputs_dir: Path, context_dirs: list[Pa
         missing = base - len(existing)
         if missing <= 0 and len(existing) < maximum:
             candidates, _, agreement = evaluate(file_dir, load_package(input_path.stem, context_dirs))
-            if agreement < threshold or sum(c.report.ok for c in candidates) < 2:
+            if agreement is None or agreement < threshold:
                 missing = maximum - len(existing)
         if missing > 0:
             print(f"{input_path.stem} {missing}")

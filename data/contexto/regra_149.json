@@ -1,5 +1,5 @@
 {
-  "versao_pacote": "2",
+  "versao_pacote": "4",
   "arquivo": "regra_149.gobr",
   "sha256": "c88ffa7e13b34c6bb4a28301e21181d3e7b3a245c27ede5801d6de0cf8cdbb81",
   "comentarios": [
@@ -52,6 +52,9 @@
       "numeros": [
         7
       ],
+      "numeros_exigidos": [
+        7
+      ],
       "alertas": []
     },
     {
@@ -87,6 +90,9 @@
       "bloqueios_anteriores": [],
       "inalcancavel": false,
       "numeros": [
+        14
+      ],
+      "numeros_exigidos": [
         14
       ],
       "alertas": []
@@ -126,6 +132,11 @@
       ],
       "inalcancavel": false,
       "numeros": [
+        14,
+        30
+      ],
+      "numeros_exigidos": [
+        7,
         14,
         30
       ],
@@ -171,6 +182,11 @@
         14,
         60
       ],
+      "numeros_exigidos": [
+        14,
+        30,
+        60
+      ],
       "alertas": []
     },
     {
@@ -214,6 +230,11 @@
         14,
         90
       ],
+      "numeros_exigidos": [
+        14,
+        60,
+        90
+      ],
       "alertas": []
     },
     {
@@ -251,6 +272,10 @@
       "inalcancavel": false,
       "numeros": [
         14
+      ],
+      "numeros_exigidos": [
+        14,
+        90
       ],
       "alertas": []
     }
