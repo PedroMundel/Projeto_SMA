@@ -1,0 +1,10 @@
+{"resumo": "Regra de agendamento para todos os vendedores habilitados. Clientes ativos para o vendedor são atendidos a cada 7 dias e os não ativos, a cada 14 dias. Não são agendados os clientes inadimplentes nem as filiais, antes das regras de frequência.", "carteiras": [], "regras": [
+{"id": "R1", "nome": "Boa Praça: Não agendar clientes inadimplentes", "segmento": "Bloqueio: inadimplentes", "criterio": "Clientes inadimplentes", "frequencia": "Não agendar", "observacao": "", "clausulas_nao_traduzidas": []},
+{"id": "R2", "nome": "Boa Praça: Não agendar clientes filial", "segmento": "Bloqueio: filiais", "criterio": "Clientes que são filiais", "frequencia": "Não agendar", "observacao": "", "clausulas_nao_traduzidas": []},
+{"id": "R3", "nome": "Boa Praça: Freq. de 7 dias para clientes ativos", "segmento": "Clientes ativos", "criterio": "Clientes ativos para o vendedor", "frequencia": "7 dias", "observacao": "", "clausulas_nao_traduzidas": []},
+{"id": "R4", "nome": "Boa Praça: Freq. de 14 dias para clientes inativos", "segmento": "Clientes inativos", "criterio": "Clientes que não estão ativos para o vendedor", "frequencia": "14 dias", "observacao": "Regra final: vale para quem sobrou da regra de ativos", "clausulas_nao_traduzidas": []}
+], "pontos_de_atencao": [], "consultas_hipoteticas": [
+"Todos os vendedores: ativos a cada 7 dias, inativos a cada 14 dias; não agendar inadimplentes e filiais",
+"A gente quer visitar o cliente ativo toda semana e o inativo a cada 14 dias, mas inadimplente e filial não entram na agenda",
+"Frequência por situação do cliente para todos os vendedores, sem agendar inadimplentes"
+]}
