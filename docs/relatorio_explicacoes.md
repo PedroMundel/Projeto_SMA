@@ -15,7 +15,7 @@ de modelagem.
 | Pipeline híbrido: a semântica é determinística e o LLM só redige | Só LLM; só templates | Um LLM sozinho erra a cascata (manual §7.6). Templates sozinhos produzem texto robótico, ruim para a recuperação. Pesquisa em `research/`. |
 | Parser escrito à mão + catálogo de cláusulas | Lark, pyparsing, ANTLR | Não existe a gramática `.g4`; a cauda de cláusulas é longa e há arquivos com erros de sintaxe. |
 | Cascata como álgebra de "caixas" (intervalos de dias, conjuntos de valores) | Só repetir o código; regras ad hoc | Calcula a população efetiva de cada regra e, de quebra, detecta regras que nunca são aplicadas, lacunas e escopos misturados. |
-| Ambiguidades resolvidas como premissas explícitas (P1 a P8) | Perguntar a alguém | Ninguém vai responder. Interpretar faz parte da tarefa ([premissas.md](premissas.md)). |
+| Ambiguidades resolvidas como premissas explícitas (P1 a P9) | Perguntar a alguém | Ninguém vai responder. Interpretar faz parte da tarefa ([premissas.md](premissas.md)). |
 | Redator: subagentes Sonnet, 3 réplicas + 2 adaptativas, escolha por concordância | 5 réplicas fixas; API em lote | Na calibração, a diferença entre réplicas era sobretudo de redação. O validador é a garantia de fidelidade. O lote rodou numa sessão na nuvem com crédito promocional. |
 | Validador determinístico | Juiz LLM | É barato e reproduzível, e pega o modo de falha principal: número omitido ou inventado. |
 

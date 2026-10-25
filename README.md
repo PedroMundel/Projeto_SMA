@@ -10,6 +10,10 @@ para recuperar exemplos parecidos com o que o usuário descrever.
 
 Relatório completo da etapa: [docs/relatorio_explicacoes.md](docs/relatorio_explicacoes.md).
 
+A segunda etapa **indexa essas explicações com embeddings** (`gobr/index.py`): dada a descrição de negócio
+do usuário, devolve as regras existentes mais parecidas, com o `.gobr` de exemplo. Relatório:
+[docs/relatorio_indexacao.md](docs/relatorio_indexacao.md).
+
 ## Como funciona
 
 ```
@@ -30,7 +34,7 @@ Relatório completo da etapa: [docs/relatorio_explicacoes.md](docs/relatorio_exp
 4. **Concordância** (`gobr/consensus.py`): gera 3 réplicas por arquivo, mais 2 quando a concordância fica
    abaixo de 0,8, e escolhe a réplica válida mais próxima das demais.
 
-As ambiguidades do manual foram resolvidas como premissas explícitas, de P1 a P8, em
+As ambiguidades do manual foram resolvidas como premissas explícitas, de P1 a P9, em
 [docs/premissas.md](docs/premissas.md).
 
 ## Estrutura
@@ -38,22 +42,26 @@ As ambiguidades do manual foram resolvidas como premissas explícitas, de P1 a P
 | Caminho | Conteúdo |
 |---|---|
 | `gobr/` | camada determinística, validador, concordância e CLI |
-| `tests/test_gobr.py` | 36 testes (`unittest`) |
+| `tests/test_gobr.py`, `tests/test_index.py` | 36 + 16 testes (`unittest`) |
 | `redator/` | prompt congelado, exemplos do prompt e roteiro do lote na nuvem |
 | `data/contexto/`, `data/contexto_exemplos/` | pacote de contexto completo por arquivo (v5) |
 | `data/entrada_redator/` | visão do pacote que o redator lê |
 | `data/candidatos_v2/`, `_v3/`, `_v4/`, `_v5/` | réplicas geradas pelo redator (lote na nuvem e regerações) |
 | `data/descricoes/` | **resultado**: `<arquivo>.md` (tabela) e `<arquivo>.json` (com `_meta` de procedência) |
-| `docs/` | premissas, avaliação, relatório e texto do manual GoBR |
+| `data/indice/<modelo>/` | **índice de embeddings**: vetores, chunks, manifesto e avaliação, um por modelo |
+| `data/consultas_avaliacao/` | consultas rotuladas para avaliar a recuperação (gabaritos do professor e 30 cegas) |
+| `docs/` | premissas, avaliação, relatórios e texto do manual GoBR |
 | `research/` | pesquisas que embasaram as decisões |
 | `data/candidatos/`, `data/candidatos_piloto/` | piloto e calibração (experimentos iniciais) |
 
 ## Como reproduzir
 
-Requer Python 3.11 ou mais novo. Não há dependências externas.
+Requer Python 3.11 ou mais novo. A camada determinística não tem dependências externas; o índice precisa
+de `numpy` e `sentence-transformers` (testado com numpy 2.4.4, sentence-transformers 6.1.0 e torch 2.11 com
+CUDA). Os testes do índice usam um embedder falso e não baixam modelo.
 
 ```bash
-python -m unittest tests.test_gobr
+python -m unittest tests.test_gobr tests.test_index
 ```
 
 ```bash
@@ -78,6 +86,20 @@ Para reproduzir exatamente `data/descricoes/`, consolide `candidatos_v2`, depois
 (gerar as réplicas listadas por `pendentes`) está descrito em [redator/LOTE_NUVEM.md](redator/LOTE_NUVEM.md). `python -m gobr cobertura <dir>` lista as cláusulas que o
 parser não reconheceu.
 
+Índice de embeddings (o modelo padrão é `Qwen/Qwen3-Embedding-0.6B`; troque com `--modelo`):
+
+```bash
+python -m gobr indexar data/descricoes data/indice/qwen3-0.6b --contexto data/contexto data/contexto_exemplos --gobr trabalho/trabalho/referencias trabalho/trabalho/exemplos
+```
+
+```bash
+python -m gobr buscar data/indice/qwen3-0.6b "Ativos: compra nos últimos 30 dias, 14 dias. Inativos: mais de 45 dias, 14 dias"
+```
+
+```bash
+python -m gobr avaliar-indice data/indice/qwen3-0.6b --consultas data/consultas_avaliacao/ouro.json data/consultas_avaliacao/cegas.json
+```
+
 ## Resultado
 
 - 249 de 249 arquivos descritos e validados, sem números inventados.
@@ -90,3 +112,6 @@ parser não reconheceu.
 - 77 dos 246 arquivos do corpus têm algum alerta de modelagem: regras que nunca são aplicadas, nomes
   divergentes do código, escopos misturados, lacunas e outros. São esses achados que o agente vai usar
   para ser proativo.
+- Recuperação: os 3 gabaritos do professor voltam em 1º lugar e, das 30 consultas cegas, 28 voltam em 1º
+  e todas no top-5. O vetor do arquivo, reordenado pelos números em comum, ganhou do multi-vetor
+  ([docs/relatorio_indexacao.md](docs/relatorio_indexacao.md)).

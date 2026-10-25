@@ -9,6 +9,12 @@
         estratégia adaptativa: imprime "<arquivo> <n>" para cada arquivo que ainda precisa de n réplicas
         (completa até --base; vai até --maximo quando a concordância fica abaixo de --limiar)
   python -m gobr cobertura <dir_gobr>                            lista trechos não reconhecidos
+  python -m gobr indexar <dir_descricoes> <dir_indice> --contexto <dir> [<dir>...] --gobr <dir> [<dir>...]
+        embute os chunks (arquivo, regra, consulta hipotética) com --modelo e grava vetores e metadados
+  python -m gobr buscar <dir_indice> "<descrição do usuário>" [-k 5]
+        arquivos mais parecidos, um por assinatura estrutural, com o caminho do .gobr
+  python -m gobr avaliar-indice <dir_indice> --consultas <arquivo.json> [<arquivo.json>...]
+        Recall@1/@k e MRR por variante de índice (consultas: {arquivo esperado: texto})
 """
 import argparse
 import json
@@ -20,6 +26,7 @@ from gobr.context import build
 from gobr.parser import parse_file, unrecognized
 
 MODEL = "claude-sonnet-5-5"
+EMBEDDING_MODEL = "Qwen/Qwen3-Embedding-0.6B"
 
 
 def gobr_files(target: Path) -> list[Path]:
@@ -106,6 +113,45 @@ def report_coverage(target: Path) -> None:
     print(f"{total} cláusulas analisadas", file=sys.stderr)
 
 
+# gobr.index exige numpy e sentence-transformers; o resto da CLI roda só com a biblioteca padrão.
+def build_index(descriptions_dir: Path, out_dir: Path, context_dirs: list[Path], gobr_dirs: list[Path], model: str) -> None:
+    from gobr import index
+
+    built = index.build(descriptions_dir, context_dirs, gobr_dirs, index.Embedder(model))
+    index.save(built, out_dir)
+    print(f"{len(built.files)} arquivos, {len(built.chunks)} chunks ({model}) gravados em {out_dir}")
+
+
+def search(index_dir: Path, text: str, k: int) -> None:
+    from gobr import index
+
+    loaded = index.load(index_dir)
+    query = index.Embedder(loaded.model).queries([text])[0]
+    for n, hit in enumerate(index.search(loaded, query, index.numbers(text), k), 1):
+        same = f" (+{len(hit['equivalentes'])} de mesma estrutura)" if hit["equivalentes"] else ""
+        print(f"{n}. {hit['arquivo']}  {hit['nota']:.3f}{same}  {hit['gobr']}")
+        if hit["regra_mais_parecida"]:
+            print(f"   regra mais parecida: {hit['regra_mais_parecida']['texto'].splitlines()[-1]}")
+
+
+def evaluate_index(index_dir: Path, query_files: list[Path], k: int) -> None:
+    from gobr import index
+
+    loaded = index.load(index_dir)
+    labelled = {}
+    for path in query_files:
+        queries = json.loads(path.read_text(encoding="utf-8"))
+        labelled[path.stem] = {name: text for name, text in queries.items() if not name.startswith("_")}
+    table = index.evaluate(loaded, index.Embedder(loaded.model), labelled, k)
+    print(f"modelo: {loaded.model}\n")
+    print(f"| chunks | peso dos números | consultas | n | recall@1 | recall@{k} | MRR | posições |")
+    print("|---|---|---|---|---|---|---|---|")
+    for (variant, weight, group), row in table.items():
+        positions = "" if row["posicoes"] is None else " ".join(str(p or "-") for p in row["posicoes"])
+        print(f"| {variant} | {weight} | {group} | {row['n']} | {row['recall@1']:.3f} | {row[f'recall@{k}']:.3f} "
+              f"| {row['mrr']:.3f} | {positions} |")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(prog="python -m gobr")
     commands = parser.add_subparsers(dest="command", required=True)
@@ -127,7 +173,23 @@ def main() -> None:
     pending_cmd.add_argument("--limiar", type=float, default=0.8)
     coverage_cmd = commands.add_parser("cobertura")
     coverage_cmd.add_argument("entrada", type=Path)
+    index_cmd = commands.add_parser("indexar")
+    index_cmd.add_argument("descricoes", type=Path)
+    index_cmd.add_argument("saida", type=Path)
+    index_cmd.add_argument("--contexto", type=Path, nargs="+", required=True)
+    index_cmd.add_argument("--gobr", type=Path, nargs="+", required=True)
+    index_cmd.add_argument("--modelo", default=EMBEDDING_MODEL)
+    search_cmd = commands.add_parser("buscar")
+    search_cmd.add_argument("indice", type=Path)
+    search_cmd.add_argument("texto")
+    search_cmd.add_argument("-k", type=int, default=5)
+    eval_cmd = commands.add_parser("avaliar-indice")
+    eval_cmd.add_argument("indice", type=Path)
+    eval_cmd.add_argument("--consultas", type=Path, nargs="+", required=True)
+    eval_cmd.add_argument("-k", type=int, default=5)
     args = parser.parse_args()
+    if getattr(args, "k", 1) < 1:
+        parser.error("-k precisa ser pelo menos 1")
     if args.command == "contexto":
         write_packages(args.entrada, args.saida)
     elif args.command == "entrada":
@@ -136,8 +198,14 @@ def main() -> None:
         consolidate(args.candidatos, args.saida, args.contexto, args.prompt)
     elif args.command == "pendentes":
         report_pending(args.candidatos, args.entrada, args.contexto, args.base, args.maximo, args.limiar)
-    else:
+    elif args.command == "cobertura":
         report_coverage(args.entrada)
+    elif args.command == "indexar":
+        build_index(args.descricoes, args.saida, args.contexto, args.gobr, args.modelo)
+    elif args.command == "buscar":
+        search(args.indice, args.texto, args.k)
+    else:
+        evaluate_index(args.indice, args.consultas, args.k)
 
 
 if __name__ == "__main__":

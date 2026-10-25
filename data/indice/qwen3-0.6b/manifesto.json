@@ -1,0 +1,2807 @@
+{
+ "modelo": "Qwen/Qwen3-Embedding-0.6B",
+ "dimensao": 1024,
+ "chunks": {
+  "arquivo": 249,
+  "regra": 1720,
+  "consulta": 747
+ },
+ "criado_em": "2026-10-25T20:27:25+00:00",
+ "arquivos": {
+  "regra_001": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_001.json",
+   "gobr": "trabalho/trabalho/referencias/regra_001.gobr",
+   "numeros": []
+  },
+  "regra_002": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_002.json",
+   "gobr": "trabalho/trabalho/referencias/regra_002.gobr",
+   "numeros": []
+  },
+  "regra_003": {
+   "assinatura": "c30a225f2033",
+   "descricao": "data/descricoes/regra_003.json",
+   "gobr": "trabalho/trabalho/referencias/regra_003.gobr",
+   "numeros": [
+    3,
+    7,
+    14,
+    21,
+    30,
+    31,
+    60,
+    61,
+    90
+   ]
+  },
+  "regra_004": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_004.json",
+   "gobr": "trabalho/trabalho/referencias/regra_004.gobr",
+   "numeros": []
+  },
+  "regra_005": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_005.json",
+   "gobr": "trabalho/trabalho/referencias/regra_005.gobr",
+   "numeros": []
+  },
+  "regra_006": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_006.json",
+   "gobr": "trabalho/trabalho/referencias/regra_006.gobr",
+   "numeros": []
+  },
+  "regra_007": {
+   "assinatura": "8df6a5671124",
+   "descricao": "data/descricoes/regra_007.json",
+   "gobr": "trabalho/trabalho/referencias/regra_007.gobr",
+   "numeros": [
+    7,
+    14,
+    30
+   ]
+  },
+  "regra_008": {
+   "assinatura": "0dbfcd1077c1",
+   "descricao": "data/descricoes/regra_008.json",
+   "gobr": "trabalho/trabalho/referencias/regra_008.gobr",
+   "numeros": [
+    14,
+    30
+   ]
+  },
+  "regra_009": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_009.json",
+   "gobr": "trabalho/trabalho/referencias/regra_009.gobr",
+   "numeros": []
+  },
+  "regra_010": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_010.json",
+   "gobr": "trabalho/trabalho/referencias/regra_010.gobr",
+   "numeros": []
+  },
+  "regra_011": {
+   "assinatura": "d93193c66ebe",
+   "descricao": "data/descricoes/regra_011.json",
+   "gobr": "trabalho/trabalho/referencias/regra_011.gobr",
+   "numeros": [
+    14
+   ]
+  },
+  "regra_012": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_012.json",
+   "gobr": "trabalho/trabalho/referencias/regra_012.gobr",
+   "numeros": []
+  },
+  "regra_013": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_013.json",
+   "gobr": "trabalho/trabalho/referencias/regra_013.gobr",
+   "numeros": []
+  },
+  "regra_014": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_014.json",
+   "gobr": "trabalho/trabalho/referencias/regra_014.gobr",
+   "numeros": []
+  },
+  "regra_015": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_015.json",
+   "gobr": "trabalho/trabalho/referencias/regra_015.gobr",
+   "numeros": []
+  },
+  "regra_016": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_016.json",
+   "gobr": "trabalho/trabalho/referencias/regra_016.gobr",
+   "numeros": []
+  },
+  "regra_017": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_017.json",
+   "gobr": "trabalho/trabalho/referencias/regra_017.gobr",
+   "numeros": []
+  },
+  "regra_018": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_018.json",
+   "gobr": "trabalho/trabalho/referencias/regra_018.gobr",
+   "numeros": []
+  },
+  "regra_019": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_019.json",
+   "gobr": "trabalho/trabalho/referencias/regra_019.gobr",
+   "numeros": []
+  },
+  "regra_020": {
+   "assinatura": "f6017166bf79",
+   "descricao": "data/descricoes/regra_020.json",
+   "gobr": "trabalho/trabalho/referencias/regra_020.gobr",
+   "numeros": [
+    7
+   ]
+  },
+  "regra_021": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_021.json",
+   "gobr": "trabalho/trabalho/referencias/regra_021.gobr",
+   "numeros": []
+  },
+  "regra_022": {
+   "assinatura": "d8506263bc78",
+   "descricao": "data/descricoes/regra_022.json",
+   "gobr": "trabalho/trabalho/referencias/regra_022.gobr",
+   "numeros": [
+    14
+   ]
+  },
+  "regra_023": {
+   "assinatura": "799dc7a5a791",
+   "descricao": "data/descricoes/regra_023.json",
+   "gobr": "trabalho/trabalho/referencias/regra_023.gobr",
+   "numeros": [
+    7,
+    14,
+    15
+   ]
+  },
+  "regra_024": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_024.json",
+   "gobr": "trabalho/trabalho/referencias/regra_024.gobr",
+   "numeros": []
+  },
+  "regra_025": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_025.json",
+   "gobr": "trabalho/trabalho/referencias/regra_025.gobr",
+   "numeros": []
+  },
+  "regra_026": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_026.json",
+   "gobr": "trabalho/trabalho/referencias/regra_026.gobr",
+   "numeros": []
+  },
+  "regra_027": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_027.json",
+   "gobr": "trabalho/trabalho/referencias/regra_027.gobr",
+   "numeros": []
+  },
+  "regra_028": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_028.json",
+   "gobr": "trabalho/trabalho/referencias/regra_028.gobr",
+   "numeros": []
+  },
+  "regra_029": {
+   "assinatura": "90d988a9ea87",
+   "descricao": "data/descricoes/regra_029.json",
+   "gobr": "trabalho/trabalho/referencias/regra_029.gobr",
+   "numeros": [
+    14
+   ]
+  },
+  "regra_030": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_030.json",
+   "gobr": "trabalho/trabalho/referencias/regra_030.gobr",
+   "numeros": []
+  },
+  "regra_031": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_031.json",
+   "gobr": "trabalho/trabalho/referencias/regra_031.gobr",
+   "numeros": []
+  },
+  "regra_032": {
+   "assinatura": "1ef06fb217ff",
+   "descricao": "data/descricoes/regra_032.json",
+   "gobr": "trabalho/trabalho/referencias/regra_032.gobr",
+   "numeros": [
+    7,
+    10,
+    14,
+    21,
+    28,
+    120,
+    150,
+    180,
+    10000,
+    15000,
+    25000,
+    50000
+   ]
+  },
+  "regra_033": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_033.json",
+   "gobr": "trabalho/trabalho/referencias/regra_033.gobr",
+   "numeros": []
+  },
+  "regra_034": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_034.json",
+   "gobr": "trabalho/trabalho/referencias/regra_034.gobr",
+   "numeros": []
+  },
+  "regra_035": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_035.json",
+   "gobr": "trabalho/trabalho/referencias/regra_035.gobr",
+   "numeros": []
+  },
+  "regra_036": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_036.json",
+   "gobr": "trabalho/trabalho/referencias/regra_036.gobr",
+   "numeros": []
+  },
+  "regra_037": {
+   "assinatura": "3c8af5399f22",
+   "descricao": "data/descricoes/regra_037.json",
+   "gobr": "trabalho/trabalho/referencias/regra_037.gobr",
+   "numeros": [
+    30
+   ]
+  },
+  "regra_038": {
+   "assinatura": "53b58b5f74c9",
+   "descricao": "data/descricoes/regra_038.json",
+   "gobr": "trabalho/trabalho/referencias/regra_038.gobr",
+   "numeros": [
+    7,
+    14,
+    30
+   ]
+  },
+  "regra_039": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_039.json",
+   "gobr": "trabalho/trabalho/referencias/regra_039.gobr",
+   "numeros": []
+  },
+  "regra_040": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_040.json",
+   "gobr": "trabalho/trabalho/referencias/regra_040.gobr",
+   "numeros": []
+  },
+  "regra_041": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_041.json",
+   "gobr": "trabalho/trabalho/referencias/regra_041.gobr",
+   "numeros": []
+  },
+  "regra_042": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_042.json",
+   "gobr": "trabalho/trabalho/referencias/regra_042.gobr",
+   "numeros": []
+  },
+  "regra_043": {
+   "assinatura": "fd33cb6f2960",
+   "descricao": "data/descricoes/regra_043.json",
+   "gobr": "trabalho/trabalho/referencias/regra_043.gobr",
+   "numeros": [
+    14
+   ]
+  },
+  "regra_044": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_044.json",
+   "gobr": "trabalho/trabalho/referencias/regra_044.gobr",
+   "numeros": []
+  },
+  "regra_045": {
+   "assinatura": "bcdc36e8d28b",
+   "descricao": "data/descricoes/regra_045.json",
+   "gobr": "trabalho/trabalho/referencias/regra_045.gobr",
+   "numeros": [
+    7,
+    14,
+    30
+   ]
+  },
+  "regra_046": {
+   "assinatura": "919ce8edf590",
+   "descricao": "data/descricoes/regra_046.json",
+   "gobr": "trabalho/trabalho/referencias/regra_046.gobr",
+   "numeros": [
+    7,
+    14,
+    30
+   ]
+  },
+  "regra_047": {
+   "assinatura": "af4794803903",
+   "descricao": "data/descricoes/regra_047.json",
+   "gobr": "trabalho/trabalho/referencias/regra_047.gobr",
+   "numeros": [
+    7,
+    14
+   ]
+  },
+  "regra_048": {
+   "assinatura": "dcd41493da79",
+   "descricao": "data/descricoes/regra_048.json",
+   "gobr": "trabalho/trabalho/referencias/regra_048.gobr",
+   "numeros": [
+    7,
+    14,
+    30,
+    60
+   ]
+  },
+  "regra_049": {
+   "assinatura": "b1b414a6ddbb",
+   "descricao": "data/descricoes/regra_049.json",
+   "gobr": "trabalho/trabalho/referencias/regra_049.gobr",
+   "numeros": [
+    7,
+    14,
+    30,
+    45
+   ]
+  },
+  "regra_050": {
+   "assinatura": "ce1e87ca89ba",
+   "descricao": "data/descricoes/regra_050.json",
+   "gobr": "trabalho/trabalho/referencias/regra_050.gobr",
+   "numeros": [
+    7,
+    14
+   ]
+  },
+  "regra_051": {
+   "assinatura": "40f7a397a726",
+   "descricao": "data/descricoes/regra_051.json",
+   "gobr": "trabalho/trabalho/referencias/regra_051.gobr",
+   "numeros": [
+    7,
+    14
+   ]
+  },
+  "regra_052": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_052.json",
+   "gobr": "trabalho/trabalho/referencias/regra_052.gobr",
+   "numeros": []
+  },
+  "regra_053": {
+   "assinatura": "3c8219471a73",
+   "descricao": "data/descricoes/regra_053.json",
+   "gobr": "trabalho/trabalho/referencias/regra_053.gobr",
+   "numeros": [
+    7,
+    14,
+    30
+   ]
+  },
+  "regra_054": {
+   "assinatura": "90bfd88d7ddb",
+   "descricao": "data/descricoes/regra_054.json",
+   "gobr": "trabalho/trabalho/referencias/regra_054.gobr",
+   "numeros": [
+    14,
+    30
+   ]
+  },
+  "regra_055": {
+   "assinatura": "172ab82bfda4",
+   "descricao": "data/descricoes/regra_055.json",
+   "gobr": "trabalho/trabalho/referencias/regra_055.gobr",
+   "numeros": [
+    14,
+    30
+   ]
+  },
+  "regra_056": {
+   "assinatura": "e9b29af54e7e",
+   "descricao": "data/descricoes/regra_056.json",
+   "gobr": "trabalho/trabalho/referencias/regra_056.gobr",
+   "numeros": [
+    14,
+    30
+   ]
+  },
+  "regra_057": {
+   "assinatura": "570e9c166e86",
+   "descricao": "data/descricoes/regra_057.json",
+   "gobr": "trabalho/trabalho/referencias/regra_057.gobr",
+   "numeros": [
+    25,
+    30
+   ]
+  },
+  "regra_058": {
+   "assinatura": "5afd24baacaf",
+   "descricao": "data/descricoes/regra_058.json",
+   "gobr": "trabalho/trabalho/referencias/regra_058.gobr",
+   "numeros": [
+    7,
+    14,
+    60
+   ]
+  },
+  "regra_059": {
+   "assinatura": "21be3d285be0",
+   "descricao": "data/descricoes/regra_059.json",
+   "gobr": "trabalho/trabalho/referencias/regra_059.gobr",
+   "numeros": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    14,
+    15,
+    17,
+    18,
+    19,
+    20,
+    30
+   ]
+  },
+  "regra_060": {
+   "assinatura": "fcbccfc5be52",
+   "descricao": "data/descricoes/regra_060.json",
+   "gobr": "trabalho/trabalho/referencias/regra_060.gobr",
+   "numeros": [
+    7,
+    15
+   ]
+  },
+  "regra_061": {
+   "assinatura": "60d91d8e981d",
+   "descricao": "data/descricoes/regra_061.json",
+   "gobr": "trabalho/trabalho/referencias/regra_061.gobr",
+   "numeros": [
+    14
+   ]
+  },
+  "regra_062": {
+   "assinatura": "073ca0f7b196",
+   "descricao": "data/descricoes/regra_062.json",
+   "gobr": "trabalho/trabalho/referencias/regra_062.gobr",
+   "numeros": [
+    7,
+    14,
+    30
+   ]
+  },
+  "regra_063": {
+   "assinatura": "3680f376a8d7",
+   "descricao": "data/descricoes/regra_063.json",
+   "gobr": "trabalho/trabalho/referencias/regra_063.gobr",
+   "numeros": [
+    30
+   ]
+  },
+  "regra_064": {
+   "assinatura": "073ca0f7b196",
+   "descricao": "data/descricoes/regra_064.json",
+   "gobr": "trabalho/trabalho/referencias/regra_064.gobr",
+   "numeros": [
+    7,
+    14,
+    30
+   ]
+  },
+  "regra_065": {
+   "assinatura": "0f10d0c8ea4a",
+   "descricao": "data/descricoes/regra_065.json",
+   "gobr": "trabalho/trabalho/referencias/regra_065.gobr",
+   "numeros": [
+    14,
+    28,
+    30
+   ]
+  },
+  "regra_066": {
+   "assinatura": "45131002ade8",
+   "descricao": "data/descricoes/regra_066.json",
+   "gobr": "trabalho/trabalho/referencias/regra_066.gobr",
+   "numeros": [
+    7,
+    14,
+    30
+   ]
+  },
+  "regra_067": {
+   "assinatura": "21971063d506",
+   "descricao": "data/descricoes/regra_067.json",
+   "gobr": "trabalho/trabalho/referencias/regra_067.gobr",
+   "numeros": [
+    7,
+    14,
+    20,
+    21,
+    30,
+    42
+   ]
+  },
+  "regra_068": {
+   "assinatura": "bf063e941100",
+   "descricao": "data/descricoes/regra_068.json",
+   "gobr": "trabalho/trabalho/referencias/regra_068.gobr",
+   "numeros": [
+    14,
+    17,
+    21,
+    30
+   ]
+  },
+  "regra_069": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_069.json",
+   "gobr": "trabalho/trabalho/referencias/regra_069.gobr",
+   "numeros": []
+  },
+  "regra_070": {
+   "assinatura": "d6dc3d71a711",
+   "descricao": "data/descricoes/regra_070.json",
+   "gobr": "trabalho/trabalho/referencias/regra_070.gobr",
+   "numeros": [
+    14,
+    30
+   ]
+  },
+  "regra_071": {
+   "assinatura": "7b7b4bbb5e78",
+   "descricao": "data/descricoes/regra_071.json",
+   "gobr": "trabalho/trabalho/referencias/regra_071.gobr",
+   "numeros": [
+    7,
+    14,
+    30
+   ]
+  },
+  "regra_072": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_072.json",
+   "gobr": "trabalho/trabalho/referencias/regra_072.gobr",
+   "numeros": []
+  },
+  "regra_073": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_073.json",
+   "gobr": "trabalho/trabalho/referencias/regra_073.gobr",
+   "numeros": []
+  },
+  "regra_074": {
+   "assinatura": "27ff567fee8c",
+   "descricao": "data/descricoes/regra_074.json",
+   "gobr": "trabalho/trabalho/referencias/regra_074.gobr",
+   "numeros": [
+    21,
+    45
+   ]
+  },
+  "regra_075": {
+   "assinatura": "cbc47f464fc1",
+   "descricao": "data/descricoes/regra_075.json",
+   "gobr": "trabalho/trabalho/referencias/regra_075.gobr",
+   "numeros": [
+    7,
+    14
+   ]
+  },
+  "regra_076": {
+   "assinatura": "dd39225b8ec9",
+   "descricao": "data/descricoes/regra_076.json",
+   "gobr": "trabalho/trabalho/referencias/regra_076.gobr",
+   "numeros": [
+    1,
+    5,
+    7,
+    15,
+    20,
+    30,
+    90
+   ]
+  },
+  "regra_077": {
+   "assinatura": "45a378c0ff40",
+   "descricao": "data/descricoes/regra_077.json",
+   "gobr": "trabalho/trabalho/referencias/regra_077.gobr",
+   "numeros": [
+    7,
+    14,
+    30
+   ]
+  },
+  "regra_078": {
+   "assinatura": "2f4f400156d1",
+   "descricao": "data/descricoes/regra_078.json",
+   "gobr": "trabalho/trabalho/referencias/regra_078.gobr",
+   "numeros": [
+    7,
+    14,
+    30
+   ]
+  },
+  "regra_079": {
+   "assinatura": "635f89b8c2ad",
+   "descricao": "data/descricoes/regra_079.json",
+   "gobr": "trabalho/trabalho/referencias/regra_079.gobr",
+   "numeros": [
+    7,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+   ]
+  },
+  "regra_080": {
+   "assinatura": "98f698a4adfa",
+   "descricao": "data/descricoes/regra_080.json",
+   "gobr": "trabalho/trabalho/referencias/regra_080.gobr",
+   "numeros": [
+    3,
+    15,
+    27,
+    30,
+    47
+   ]
+  },
+  "regra_081": {
+   "assinatura": "5d10bd91c904",
+   "descricao": "data/descricoes/regra_081.json",
+   "gobr": "trabalho/trabalho/referencias/regra_081.gobr",
+   "numeros": [
+    7,
+    21,
+    30
+   ]
+  },
+  "regra_082": {
+   "assinatura": "d07271a16a46",
+   "descricao": "data/descricoes/regra_082.json",
+   "gobr": "trabalho/trabalho/referencias/regra_082.gobr",
+   "numeros": [
+    7,
+    14,
+    30
+   ]
+  },
+  "regra_083": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_083.json",
+   "gobr": "trabalho/trabalho/referencias/regra_083.gobr",
+   "numeros": []
+  },
+  "regra_084": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_084.json",
+   "gobr": "trabalho/trabalho/referencias/regra_084.gobr",
+   "numeros": []
+  },
+  "regra_085": {
+   "assinatura": "bf2631bafe77",
+   "descricao": "data/descricoes/regra_085.json",
+   "gobr": "trabalho/trabalho/referencias/regra_085.gobr",
+   "numeros": [
+    7,
+    14,
+    30
+   ]
+  },
+  "regra_086": {
+   "assinatura": "081741c3ad59",
+   "descricao": "data/descricoes/regra_086.json",
+   "gobr": "trabalho/trabalho/referencias/regra_086.gobr",
+   "numeros": [
+    10,
+    14,
+    21,
+    90
+   ]
+  },
+  "regra_087": {
+   "assinatura": "490acf5f5989",
+   "descricao": "data/descricoes/regra_087.json",
+   "gobr": "trabalho/trabalho/referencias/regra_087.gobr",
+   "numeros": [
+    14,
+    30,
+    60
+   ]
+  },
+  "regra_088": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_088.json",
+   "gobr": "trabalho/trabalho/referencias/regra_088.gobr",
+   "numeros": []
+  },
+  "regra_089": {
+   "assinatura": "cf279ae290ef",
+   "descricao": "data/descricoes/regra_089.json",
+   "gobr": "trabalho/trabalho/referencias/regra_089.gobr",
+   "numeros": [
+    7,
+    14
+   ]
+  },
+  "regra_090": {
+   "assinatura": "9c6e1076d04e",
+   "descricao": "data/descricoes/regra_090.json",
+   "gobr": "trabalho/trabalho/referencias/regra_090.gobr",
+   "numeros": [
+    7,
+    14
+   ]
+  },
+  "regra_091": {
+   "assinatura": "613c73eb541b",
+   "descricao": "data/descricoes/regra_091.json",
+   "gobr": "trabalho/trabalho/referencias/regra_091.gobr",
+   "numeros": [
+    7,
+    14,
+    30,
+    60
+   ]
+  },
+  "regra_092": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_092.json",
+   "gobr": "trabalho/trabalho/referencias/regra_092.gobr",
+   "numeros": []
+  },
+  "regra_093": {
+   "assinatura": "e28be74ebbd1",
+   "descricao": "data/descricoes/regra_093.json",
+   "gobr": "trabalho/trabalho/referencias/regra_093.gobr",
+   "numeros": [
+    7,
+    14,
+    30
+   ]
+  },
+  "regra_094": {
+   "assinatura": "5d33828ef1e9",
+   "descricao": "data/descricoes/regra_094.json",
+   "gobr": "trabalho/trabalho/referencias/regra_094.gobr",
+   "numeros": [
+    30,
+    60
+   ]
+  },
+  "regra_095": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_095.json",
+   "gobr": "trabalho/trabalho/referencias/regra_095.gobr",
+   "numeros": []
+  },
+  "regra_096": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_096.json",
+   "gobr": "trabalho/trabalho/referencias/regra_096.gobr",
+   "numeros": []
+  },
+  "regra_097": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_097.json",
+   "gobr": "trabalho/trabalho/referencias/regra_097.gobr",
+   "numeros": []
+  },
+  "regra_098": {
+   "assinatura": "34022afa3e15",
+   "descricao": "data/descricoes/regra_098.json",
+   "gobr": "trabalho/trabalho/referencias/regra_098.gobr",
+   "numeros": [
+    1
+   ]
+  },
+  "regra_099": {
+   "assinatura": "6a8cea5c8485",
+   "descricao": "data/descricoes/regra_099.json",
+   "gobr": "trabalho/trabalho/referencias/regra_099.gobr",
+   "numeros": [
+    7,
+    30
+   ]
+  },
+  "regra_100": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_100.json",
+   "gobr": "trabalho/trabalho/referencias/regra_100.gobr",
+   "numeros": []
+  },
+  "regra_101": {
+   "assinatura": "918bdd7de8f1",
+   "descricao": "data/descricoes/regra_101.json",
+   "gobr": "trabalho/trabalho/referencias/regra_101.gobr",
+   "numeros": [
+    7,
+    14,
+    30
+   ]
+  },
+  "regra_102": {
+   "assinatura": "54d6c74e1ef7",
+   "descricao": "data/descricoes/regra_102.json",
+   "gobr": "trabalho/trabalho/referencias/regra_102.gobr",
+   "numeros": [
+    14,
+    30
+   ]
+  },
+  "regra_103": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_103.json",
+   "gobr": "trabalho/trabalho/referencias/regra_103.gobr",
+   "numeros": []
+  },
+  "regra_104": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_104.json",
+   "gobr": "trabalho/trabalho/referencias/regra_104.gobr",
+   "numeros": []
+  },
+  "regra_105": {
+   "assinatura": "16fb1bca3f74",
+   "descricao": "data/descricoes/regra_105.json",
+   "gobr": "trabalho/trabalho/referencias/regra_105.gobr",
+   "numeros": [
+    7,
+    14
+   ]
+  },
+  "regra_106": {
+   "assinatura": "4965150ed894",
+   "descricao": "data/descricoes/regra_106.json",
+   "gobr": "trabalho/trabalho/referencias/regra_106.gobr",
+   "numeros": [
+    10,
+    14,
+    21,
+    30,
+    60
+   ]
+  },
+  "regra_107": {
+   "assinatura": "53e753e82f11",
+   "descricao": "data/descricoes/regra_107.json",
+   "gobr": "trabalho/trabalho/referencias/regra_107.gobr",
+   "numeros": [
+    15
+   ]
+  },
+  "regra_108": {
+   "assinatura": "45f9a586bd5a",
+   "descricao": "data/descricoes/regra_108.json",
+   "gobr": "trabalho/trabalho/referencias/regra_108.gobr",
+   "numeros": [
+    7,
+    11,
+    14,
+    21,
+    37,
+    59,
+    89,
+    90
+   ]
+  },
+  "regra_109": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_109.json",
+   "gobr": "trabalho/trabalho/referencias/regra_109.gobr",
+   "numeros": []
+  },
+  "regra_110": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_110.json",
+   "gobr": "trabalho/trabalho/referencias/regra_110.gobr",
+   "numeros": []
+  },
+  "regra_111": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_111.json",
+   "gobr": "trabalho/trabalho/referencias/regra_111.gobr",
+   "numeros": []
+  },
+  "regra_112": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_112.json",
+   "gobr": "trabalho/trabalho/referencias/regra_112.gobr",
+   "numeros": []
+  },
+  "regra_113": {
+   "assinatura": "88a891ea90c2",
+   "descricao": "data/descricoes/regra_113.json",
+   "gobr": "trabalho/trabalho/referencias/regra_113.gobr",
+   "numeros": [
+    30,
+    60
+   ]
+  },
+  "regra_114": {
+   "assinatura": "ee4993bb34b0",
+   "descricao": "data/descricoes/regra_114.json",
+   "gobr": "trabalho/trabalho/referencias/regra_114.gobr",
+   "numeros": [
+    7,
+    14,
+    15,
+    30
+   ]
+  },
+  "regra_115": {
+   "assinatura": "27a9242e8b54",
+   "descricao": "data/descricoes/regra_115.json",
+   "gobr": "trabalho/trabalho/referencias/regra_115.gobr",
+   "numeros": [
+    2,
+    7
+   ]
+  },
+  "regra_116": {
+   "assinatura": "e39fae7762c1",
+   "descricao": "data/descricoes/regra_116.json",
+   "gobr": "trabalho/trabalho/referencias/regra_116.gobr",
+   "numeros": [
+    7,
+    14,
+    30,
+    60
+   ]
+  },
+  "regra_117": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_117.json",
+   "gobr": "trabalho/trabalho/referencias/regra_117.gobr",
+   "numeros": []
+  },
+  "regra_118": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_118.json",
+   "gobr": "trabalho/trabalho/referencias/regra_118.gobr",
+   "numeros": []
+  },
+  "regra_119": {
+   "assinatura": "ce72f4f2e417",
+   "descricao": "data/descricoes/regra_119.json",
+   "gobr": "trabalho/trabalho/referencias/regra_119.gobr",
+   "numeros": [
+    7,
+    15,
+    30
+   ]
+  },
+  "regra_120": {
+   "assinatura": "1c1f338db6d0",
+   "descricao": "data/descricoes/regra_120.json",
+   "gobr": "trabalho/trabalho/referencias/regra_120.gobr",
+   "numeros": [
+    7,
+    12,
+    14,
+    20,
+    21,
+    30,
+    38,
+    42
+   ]
+  },
+  "regra_121": {
+   "assinatura": "d190c5890c61",
+   "descricao": "data/descricoes/regra_121.json",
+   "gobr": "trabalho/trabalho/referencias/regra_121.gobr",
+   "numeros": [
+    3,
+    7,
+    14,
+    21,
+    30,
+    60,
+    90,
+    120
+   ]
+  },
+  "regra_122": {
+   "assinatura": "e2785984921f",
+   "descricao": "data/descricoes/regra_122.json",
+   "gobr": "trabalho/trabalho/referencias/regra_122.gobr",
+   "numeros": [
+    14,
+    30
+   ]
+  },
+  "regra_123": {
+   "assinatura": "b0e7d3893a95",
+   "descricao": "data/descricoes/regra_123.json",
+   "gobr": "trabalho/trabalho/referencias/regra_123.gobr",
+   "numeros": [
+    1,
+    7,
+    15,
+    7027
+   ]
+  },
+  "regra_124": {
+   "assinatura": "fbaa7d77c1cf",
+   "descricao": "data/descricoes/regra_124.json",
+   "gobr": "trabalho/trabalho/referencias/regra_124.gobr",
+   "numeros": [
+    25,
+    30
+   ]
+  },
+  "regra_125": {
+   "assinatura": "e79231e81d5b",
+   "descricao": "data/descricoes/regra_125.json",
+   "gobr": "trabalho/trabalho/referencias/regra_125.gobr",
+   "numeros": [
+    7,
+    15,
+    20
+   ]
+  },
+  "regra_126": {
+   "assinatura": "4284f6d137d1",
+   "descricao": "data/descricoes/regra_126.json",
+   "gobr": "trabalho/trabalho/referencias/regra_126.gobr",
+   "numeros": [
+    7,
+    14,
+    15,
+    21,
+    30,
+    31
+   ]
+  },
+  "regra_127": {
+   "assinatura": "77b0b9b8cf96",
+   "descricao": "data/descricoes/regra_127.json",
+   "gobr": "trabalho/trabalho/referencias/regra_127.gobr",
+   "numeros": []
+  },
+  "regra_128": {
+   "assinatura": "0d1b83793c6e",
+   "descricao": "data/descricoes/regra_128.json",
+   "gobr": "trabalho/trabalho/referencias/regra_128.gobr",
+   "numeros": [
+    1,
+    2,
+    3,
+    5,
+    6,
+    7,
+    16,
+    60,
+    90
+   ]
+  },
+  "regra_129": {
+   "assinatura": "38e434abca28",
+   "descricao": "data/descricoes/regra_129.json",
+   "gobr": "trabalho/trabalho/referencias/regra_129.gobr",
+   "numeros": [
+    7,
+    14
+   ]
+  },
+  "regra_130": {
+   "assinatura": "d326f83bf23a",
+   "descricao": "data/descricoes/regra_130.json",
+   "gobr": "trabalho/trabalho/referencias/regra_130.gobr",
+   "numeros": [
+    7,
+    15,
+    20
+   ]
+  },
+  "regra_131": {
+   "assinatura": "28dd5adda562",
+   "descricao": "data/descricoes/regra_131.json",
+   "gobr": "trabalho/trabalho/referencias/regra_131.gobr",
+   "numeros": [
+    1,
+    2,
+    3,
+    7,
+    9,
+    14,
+    21,
+    30,
+    3250705,
+    4645101,
+    4773300,
+    7500100,
+    8411600,
+    8424800,
+    8532500,
+    8533300,
+    8610101,
+    8610102,
+    8630501,
+    8630502,
+    8630503
+   ]
+  },
+  "regra_132": {
+   "assinatura": "c0de53c1a165",
+   "descricao": "data/descricoes/regra_132.json",
+   "gobr": "trabalho/trabalho/referencias/regra_132.gobr",
+   "numeros": [
+    7,
+    10,
+    14,
+    59,
+    89
+   ]
+  },
+  "regra_133": {
+   "assinatura": "9ed67a869940",
+   "descricao": "data/descricoes/regra_133.json",
+   "gobr": "trabalho/trabalho/referencias/regra_133.gobr",
+   "numeros": [
+    7,
+    14,
+    15
+   ]
+  },
+  "regra_134": {
+   "assinatura": "242a93989e8e",
+   "descricao": "data/descricoes/regra_134.json",
+   "gobr": "trabalho/trabalho/referencias/regra_134.gobr",
+   "numeros": [
+    15
+   ]
+  },
+  "regra_135": {
+   "assinatura": "f02e96c90274",
+   "descricao": "data/descricoes/regra_135.json",
+   "gobr": "trabalho/trabalho/referencias/regra_135.gobr",
+   "numeros": [
+    1,
+    2,
+    7,
+    8,
+    14,
+    15,
+    21,
+    30,
+    31,
+    45,
+    60,
+    61,
+    70,
+    90,
+    91,
+    120,
+    180
+   ]
+  },
+  "regra_136": {
+   "assinatura": "c03ad5813d14",
+   "descricao": "data/descricoes/regra_136.json",
+   "gobr": "trabalho/trabalho/referencias/regra_136.gobr",
+   "numeros": [
+    7,
+    14,
+    19
+   ]
+  },
+  "regra_137": {
+   "assinatura": "57a9e7678a5e",
+   "descricao": "data/descricoes/regra_137.json",
+   "gobr": "trabalho/trabalho/referencias/regra_137.gobr",
+   "numeros": [
+    14,
+    21
+   ]
+  },
+  "regra_138": {
+   "assinatura": "1f00695d5fe6",
+   "descricao": "data/descricoes/regra_138.json",
+   "gobr": "trabalho/trabalho/referencias/regra_138.gobr",
+   "numeros": [
+    7
+   ]
+  },
+  "regra_139": {
+   "assinatura": "aa69f6670448",
+   "descricao": "data/descricoes/regra_139.json",
+   "gobr": "trabalho/trabalho/referencias/regra_139.gobr",
+   "numeros": [
+    21,
+    25,
+    30,
+    31,
+    40,
+    44,
+    45,
+    90,
+    180
+   ]
+  },
+  "regra_140": {
+   "assinatura": "6ee1535101b3",
+   "descricao": "data/descricoes/regra_140.json",
+   "gobr": "trabalho/trabalho/referencias/regra_140.gobr",
+   "numeros": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    20,
+    21,
+    41,
+    90
+   ]
+  },
+  "regra_141": {
+   "assinatura": "254bbeb4a26a",
+   "descricao": "data/descricoes/regra_141.json",
+   "gobr": "trabalho/trabalho/referencias/regra_141.gobr",
+   "numeros": [
+    7,
+    14,
+    15,
+    21,
+    30
+   ]
+  },
+  "regra_142": {
+   "assinatura": "f779a82b937f",
+   "descricao": "data/descricoes/regra_142.json",
+   "gobr": "trabalho/trabalho/referencias/regra_142.gobr",
+   "numeros": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    9,
+    14,
+    15,
+    21,
+    100
+   ]
+  },
+  "regra_143": {
+   "assinatura": "c940e58d4d9a",
+   "descricao": "data/descricoes/regra_143.json",
+   "gobr": "trabalho/trabalho/referencias/regra_143.gobr",
+   "numeros": [
+    7,
+    14,
+    21,
+    28,
+    30,
+    44,
+    45
+   ]
+  },
+  "regra_144": {
+   "assinatura": "60bce84787a8",
+   "descricao": "data/descricoes/regra_144.json",
+   "gobr": "trabalho/trabalho/referencias/regra_144.gobr",
+   "numeros": [
+    10,
+    14,
+    21,
+    28,
+    30,
+    31,
+    60,
+    90
+   ]
+  },
+  "regra_145": {
+   "assinatura": "f09f7c1cb870",
+   "descricao": "data/descricoes/regra_145.json",
+   "gobr": "trabalho/trabalho/referencias/regra_145.gobr",
+   "numeros": [
+    1,
+    2,
+    7,
+    10,
+    14,
+    21,
+    30,
+    60,
+    90
+   ]
+  },
+  "regra_146": {
+   "assinatura": "77e1de33404d",
+   "descricao": "data/descricoes/regra_146.json",
+   "gobr": "trabalho/trabalho/referencias/regra_146.gobr",
+   "numeros": [
+    4,
+    7,
+    15,
+    21,
+    25,
+    30,
+    37,
+    41,
+    43,
+    45,
+    46
+   ]
+  },
+  "regra_147": {
+   "assinatura": "f576547d67ff",
+   "descricao": "data/descricoes/regra_147.json",
+   "gobr": "trabalho/trabalho/referencias/regra_147.gobr",
+   "numeros": [
+    1,
+    2,
+    4,
+    5,
+    7,
+    10,
+    15,
+    18,
+    20,
+    60,
+    2023
+   ]
+  },
+  "regra_148": {
+   "assinatura": "2bf1187eb1c3",
+   "descricao": "data/descricoes/regra_148.json",
+   "gobr": "trabalho/trabalho/referencias/regra_148.gobr",
+   "numeros": [
+    7,
+    15
+   ]
+  },
+  "regra_149": {
+   "assinatura": "23987f310370",
+   "descricao": "data/descricoes/regra_149.json",
+   "gobr": "trabalho/trabalho/referencias/regra_149.gobr",
+   "numeros": [
+    7,
+    14,
+    30,
+    60,
+    90
+   ]
+  },
+  "regra_150": {
+   "assinatura": "b9eee5953453",
+   "descricao": "data/descricoes/regra_150.json",
+   "gobr": "trabalho/trabalho/referencias/regra_150.gobr",
+   "numeros": [
+    14,
+    21,
+    28,
+    45,
+    89
+   ]
+  },
+  "regra_151": {
+   "assinatura": "f10ad60990cc",
+   "descricao": "data/descricoes/regra_151.json",
+   "gobr": "trabalho/trabalho/referencias/regra_151.gobr",
+   "numeros": [
+    7,
+    60
+   ]
+  },
+  "regra_152": {
+   "assinatura": "86d594e6e703",
+   "descricao": "data/descricoes/regra_152.json",
+   "gobr": "trabalho/trabalho/referencias/regra_152.gobr",
+   "numeros": [
+    0,
+    7,
+    14,
+    30,
+    60,
+    90
+   ]
+  },
+  "regra_153": {
+   "assinatura": "8841eee08ca2",
+   "descricao": "data/descricoes/regra_153.json",
+   "gobr": "trabalho/trabalho/referencias/regra_153.gobr",
+   "numeros": [
+    7,
+    14,
+    80
+   ]
+  },
+  "regra_154": {
+   "assinatura": "ae8f0806002a",
+   "descricao": "data/descricoes/regra_154.json",
+   "gobr": "trabalho/trabalho/referencias/regra_154.gobr",
+   "numeros": [
+    2,
+    6,
+    7,
+    8,
+    14,
+    21,
+    23,
+    28,
+    30
+   ]
+  },
+  "regra_155": {
+   "assinatura": "1e39ed71af8e",
+   "descricao": "data/descricoes/regra_155.json",
+   "gobr": "trabalho/trabalho/referencias/regra_155.gobr",
+   "numeros": [
+    7,
+    14,
+    21,
+    28,
+    29,
+    30,
+    45,
+    60,
+    90
+   ]
+  },
+  "regra_156": {
+   "assinatura": "36d43e22b269",
+   "descricao": "data/descricoes/regra_156.json",
+   "gobr": "trabalho/trabalho/referencias/regra_156.gobr",
+   "numeros": [
+    1,
+    7,
+    10,
+    14
+   ]
+  },
+  "regra_157": {
+   "assinatura": "b55aeb8cd260",
+   "descricao": "data/descricoes/regra_157.json",
+   "gobr": "trabalho/trabalho/referencias/regra_157.gobr",
+   "numeros": [
+    5,
+    7,
+    14,
+    30,
+    120
+   ]
+  },
+  "regra_158": {
+   "assinatura": "f427c240702f",
+   "descricao": "data/descricoes/regra_158.json",
+   "gobr": "trabalho/trabalho/referencias/regra_158.gobr",
+   "numeros": [
+    14,
+    21,
+    30,
+    45,
+    70,
+    119,
+    120
+   ]
+  },
+  "regra_159": {
+   "assinatura": "6f9606c297ad",
+   "descricao": "data/descricoes/regra_159.json",
+   "gobr": "trabalho/trabalho/referencias/regra_159.gobr",
+   "numeros": [
+    7,
+    15,
+    30,
+    45,
+    5000,
+    10000,
+    20000,
+    30000
+   ]
+  },
+  "regra_160": {
+   "assinatura": "0512a7dab144",
+   "descricao": "data/descricoes/regra_160.json",
+   "gobr": "trabalho/trabalho/referencias/regra_160.gobr",
+   "numeros": [
+    1,
+    3,
+    7,
+    14,
+    21,
+    30,
+    60,
+    90,
+    3000
+   ]
+  },
+  "regra_161": {
+   "assinatura": "ec8c0825e741",
+   "descricao": "data/descricoes/regra_161.json",
+   "gobr": "trabalho/trabalho/referencias/regra_161.gobr",
+   "numeros": [
+    7,
+    15
+   ]
+  },
+  "regra_162": {
+   "assinatura": "d9cc42236be3",
+   "descricao": "data/descricoes/regra_162.json",
+   "gobr": "trabalho/trabalho/referencias/regra_162.gobr",
+   "numeros": [
+    14,
+    30,
+    45
+   ]
+  },
+  "regra_163": {
+   "assinatura": "a3c093ba4680",
+   "descricao": "data/descricoes/regra_163.json",
+   "gobr": "trabalho/trabalho/referencias/regra_163.gobr",
+   "numeros": [
+    6,
+    7,
+    14,
+    21,
+    28,
+    30,
+    60
+   ]
+  },
+  "regra_164": {
+   "assinatura": "0704da77d468",
+   "descricao": "data/descricoes/regra_164.json",
+   "gobr": "trabalho/trabalho/referencias/regra_164.gobr",
+   "numeros": [
+    1,
+    3,
+    7,
+    8,
+    10,
+    14,
+    30,
+    45,
+    60,
+    90,
+    2024
+   ]
+  },
+  "regra_165": {
+   "assinatura": "5f78efa2309c",
+   "descricao": "data/descricoes/regra_165.json",
+   "gobr": "trabalho/trabalho/referencias/regra_165.gobr",
+   "numeros": [
+    1,
+    7,
+    14,
+    15,
+    16,
+    21,
+    28,
+    30,
+    31,
+    45,
+    60,
+    61,
+    90
+   ]
+  },
+  "regra_166": {
+   "assinatura": "b0bf5b323f4d",
+   "descricao": "data/descricoes/regra_166.json",
+   "gobr": "trabalho/trabalho/referencias/regra_166.gobr",
+   "numeros": [
+    7,
+    14,
+    199
+   ]
+  },
+  "regra_167": {
+   "assinatura": "5bf2f2528ad7",
+   "descricao": "data/descricoes/regra_167.json",
+   "gobr": "trabalho/trabalho/referencias/regra_167.gobr",
+   "numeros": [
+    7,
+    15,
+    21,
+    28,
+    30,
+    45,
+    60,
+    90,
+    120
+   ]
+  },
+  "regra_168": {
+   "assinatura": "b844e758eee4",
+   "descricao": "data/descricoes/regra_168.json",
+   "gobr": "trabalho/trabalho/referencias/regra_168.gobr",
+   "numeros": [
+    1
+   ]
+  },
+  "regra_169": {
+   "assinatura": "3e4e3ba607ef",
+   "descricao": "data/descricoes/regra_169.json",
+   "gobr": "trabalho/trabalho/referencias/regra_169.gobr",
+   "numeros": [
+    2,
+    7,
+    14,
+    30,
+    60,
+    90,
+    180
+   ]
+  },
+  "regra_170": {
+   "assinatura": "e16554f76db1",
+   "descricao": "data/descricoes/regra_170.json",
+   "gobr": "trabalho/trabalho/referencias/regra_170.gobr",
+   "numeros": [
+    7,
+    10,
+    15,
+    21,
+    30,
+    60
+   ]
+  },
+  "regra_171": {
+   "assinatura": "3587c0f33079",
+   "descricao": "data/descricoes/regra_171.json",
+   "gobr": "trabalho/trabalho/referencias/regra_171.gobr",
+   "numeros": [
+    7,
+    10,
+    14,
+    21,
+    28,
+    29,
+    30,
+    60,
+    89,
+    90,
+    180
+   ]
+  },
+  "regra_172": {
+   "assinatura": "38e434abca28",
+   "descricao": "data/descricoes/regra_172.json",
+   "gobr": "trabalho/trabalho/referencias/regra_172.gobr",
+   "numeros": [
+    7,
+    14
+   ]
+  },
+  "regra_173": {
+   "assinatura": "2cdaebe6c598",
+   "descricao": "data/descricoes/regra_173.json",
+   "gobr": "trabalho/trabalho/referencias/regra_173.gobr",
+   "numeros": [
+    7,
+    14,
+    21,
+    28,
+    60,
+    90,
+    120,
+    150,
+    180
+   ]
+  },
+  "regra_174": {
+   "assinatura": "0f3e6a725d41",
+   "descricao": "data/descricoes/regra_174.json",
+   "gobr": "trabalho/trabalho/referencias/regra_174.gobr",
+   "numeros": [
+    9,
+    10,
+    14,
+    18,
+    21,
+    28,
+    30,
+    60,
+    90
+   ]
+  },
+  "regra_175": {
+   "assinatura": "b65fadeaecc8",
+   "descricao": "data/descricoes/regra_175.json",
+   "gobr": "trabalho/trabalho/referencias/regra_175.gobr",
+   "numeros": [
+    0,
+    1,
+    14,
+    21,
+    30
+   ]
+  },
+  "regra_176": {
+   "assinatura": "b0bf5b323f4d",
+   "descricao": "data/descricoes/regra_176.json",
+   "gobr": "trabalho/trabalho/referencias/regra_176.gobr",
+   "numeros": [
+    7,
+    14,
+    199
+   ]
+  },
+  "regra_177": {
+   "assinatura": "b0bf5b323f4d",
+   "descricao": "data/descricoes/regra_177.json",
+   "gobr": "trabalho/trabalho/referencias/regra_177.gobr",
+   "numeros": [
+    7,
+    14,
+    199
+   ]
+  },
+  "regra_178": {
+   "assinatura": "77c4380fb0a5",
+   "descricao": "data/descricoes/regra_178.json",
+   "gobr": "trabalho/trabalho/referencias/regra_178.gobr",
+   "numeros": [
+    1,
+    2,
+    7,
+    15,
+    20,
+    30,
+    39,
+    60,
+    89,
+    119,
+    359
+   ]
+  },
+  "regra_179": {
+   "assinatura": "3a959dc84822",
+   "descricao": "data/descricoes/regra_179.json",
+   "gobr": "trabalho/trabalho/referencias/regra_179.gobr",
+   "numeros": [
+    6,
+    7,
+    14,
+    21,
+    28,
+    30,
+    60,
+    89,
+    179,
+    180
+   ]
+  },
+  "regra_180": {
+   "assinatura": "5babde09bc44",
+   "descricao": "data/descricoes/regra_180.json",
+   "gobr": "trabalho/trabalho/referencias/regra_180.gobr",
+   "numeros": [
+    7,
+    22,
+    30,
+    69,
+    73,
+    84,
+    85
+   ]
+  },
+  "regra_181": {
+   "assinatura": "d94d0fe437f8",
+   "descricao": "data/descricoes/regra_181.json",
+   "gobr": "trabalho/trabalho/referencias/regra_181.gobr",
+   "numeros": [
+    7,
+    14,
+    30
+   ]
+  },
+  "regra_182": {
+   "assinatura": "c0fbf468e8bb",
+   "descricao": "data/descricoes/regra_182.json",
+   "gobr": "trabalho/trabalho/referencias/regra_182.gobr",
+   "numeros": [
+    7,
+    9,
+    10,
+    14,
+    21,
+    28,
+    45,
+    60,
+    75,
+    89,
+    90,
+    91,
+    92,
+    93,
+    94,
+    95,
+    96,
+    97,
+    98,
+    99,
+    100,
+    101,
+    102,
+    103
+   ]
+  },
+  "regra_183": {
+   "assinatura": "4f7ee9bb3ca8",
+   "descricao": "data/descricoes/regra_183.json",
+   "gobr": "trabalho/trabalho/referencias/regra_183.gobr",
+   "numeros": [
+    5,
+    14,
+    21,
+    30
+   ]
+  },
+  "regra_184": {
+   "assinatura": "5cf1a87853c6",
+   "descricao": "data/descricoes/regra_184.json",
+   "gobr": "trabalho/trabalho/referencias/regra_184.gobr",
+   "numeros": [
+    1,
+    5,
+    7,
+    12,
+    14,
+    21,
+    28,
+    30,
+    56,
+    84,
+    90,
+    180,
+    360
+   ]
+  },
+  "regra_185": {
+   "assinatura": "05a3db6a2824",
+   "descricao": "data/descricoes/regra_185.json",
+   "gobr": "trabalho/trabalho/referencias/regra_185.gobr",
+   "numeros": [
+    7,
+    14
+   ]
+  },
+  "regra_186": {
+   "assinatura": "8a9570e118bf",
+   "descricao": "data/descricoes/regra_186.json",
+   "gobr": "trabalho/trabalho/referencias/regra_186.gobr",
+   "numeros": [
+    7,
+    14,
+    15,
+    28,
+    30,
+    31,
+    60,
+    90,
+    180,
+    181,
+    360
+   ]
+  },
+  "regra_187": {
+   "assinatura": "56d14b2ca874",
+   "descricao": "data/descricoes/regra_187.json",
+   "gobr": "trabalho/trabalho/referencias/regra_187.gobr",
+   "numeros": [
+    7,
+    14,
+    21,
+    28,
+    60,
+    90,
+    120,
+    180,
+    360
+   ]
+  },
+  "regra_188": {
+   "assinatura": "934894c1c19a",
+   "descricao": "data/descricoes/regra_188.json",
+   "gobr": "trabalho/trabalho/referencias/regra_188.gobr",
+   "numeros": [
+    7,
+    14,
+    21,
+    30,
+    45
+   ]
+  },
+  "regra_189": {
+   "assinatura": "4b27b1e3af53",
+   "descricao": "data/descricoes/regra_189.json",
+   "gobr": "trabalho/trabalho/referencias/regra_189.gobr",
+   "numeros": [
+    4,
+    6,
+    7,
+    14,
+    24,
+    30,
+    4999
+   ]
+  },
+  "regra_190": {
+   "assinatura": "0d01f41678a1",
+   "descricao": "data/descricoes/regra_190.json",
+   "gobr": "trabalho/trabalho/referencias/regra_190.gobr",
+   "numeros": [
+    7,
+    10,
+    14,
+    21,
+    30,
+    60,
+    61,
+    90
+   ]
+  },
+  "regra_191": {
+   "assinatura": "b0c19acdc29b",
+   "descricao": "data/descricoes/regra_191.json",
+   "gobr": "trabalho/trabalho/referencias/regra_191.gobr",
+   "numeros": [
+    3,
+    7,
+    14,
+    21,
+    30,
+    45,
+    60
+   ]
+  },
+  "regra_192": {
+   "assinatura": "f3544ce3f0ba",
+   "descricao": "data/descricoes/regra_192.json",
+   "gobr": "trabalho/trabalho/referencias/regra_192.gobr",
+   "numeros": [
+    3,
+    5,
+    7,
+    14,
+    15,
+    30
+   ]
+  },
+  "regra_193": {
+   "assinatura": "62839428b27b",
+   "descricao": "data/descricoes/regra_193.json",
+   "gobr": "trabalho/trabalho/referencias/regra_193.gobr",
+   "numeros": [
+    7,
+    14,
+    21,
+    60
+   ]
+  },
+  "regra_194": {
+   "assinatura": "17df629c146b",
+   "descricao": "data/descricoes/regra_194.json",
+   "gobr": "trabalho/trabalho/referencias/regra_194.gobr",
+   "numeros": [
+    7,
+    14,
+    28,
+    60,
+    90
+   ]
+  },
+  "regra_195": {
+   "assinatura": "f172d106f7e6",
+   "descricao": "data/descricoes/regra_195.json",
+   "gobr": "trabalho/trabalho/referencias/regra_195.gobr",
+   "numeros": [
+    7,
+    14,
+    21,
+    30,
+    60,
+    90
+   ]
+  },
+  "regra_196": {
+   "assinatura": "c909e4b01206",
+   "descricao": "data/descricoes/regra_196.json",
+   "gobr": "trabalho/trabalho/referencias/regra_196.gobr",
+   "numeros": [
+    15,
+    20,
+    40,
+    60
+   ]
+  },
+  "regra_197": {
+   "assinatura": "05ef0a77b861",
+   "descricao": "data/descricoes/regra_197.json",
+   "gobr": "trabalho/trabalho/referencias/regra_197.gobr",
+   "numeros": [
+    7,
+    14,
+    60,
+    90
+   ]
+  },
+  "regra_198": {
+   "assinatura": "eee00ad5a879",
+   "descricao": "data/descricoes/regra_198.json",
+   "gobr": "trabalho/trabalho/referencias/regra_198.gobr",
+   "numeros": [
+    7,
+    14,
+    21,
+    25,
+    30
+   ]
+  },
+  "regra_199": {
+   "assinatura": "d2f765e596bc",
+   "descricao": "data/descricoes/regra_199.json",
+   "gobr": "trabalho/trabalho/referencias/regra_199.gobr",
+   "numeros": [
+    21,
+    30,
+    40,
+    45,
+    59,
+    89,
+    90
+   ]
+  },
+  "regra_200": {
+   "assinatura": "bb0a39533012",
+   "descricao": "data/descricoes/regra_200.json",
+   "gobr": "trabalho/trabalho/referencias/regra_200.gobr",
+   "numeros": [
+    1,
+    5,
+    7,
+    10,
+    14,
+    21,
+    30,
+    60,
+    90
+   ]
+  },
+  "regra_201": {
+   "assinatura": "b83f2937788a",
+   "descricao": "data/descricoes/regra_201.json",
+   "gobr": "trabalho/trabalho/referencias/regra_201.gobr",
+   "numeros": [
+    7,
+    10,
+    14,
+    28,
+    29,
+    30,
+    60,
+    89,
+    90
+   ]
+  },
+  "regra_202": {
+   "assinatura": "94db4bafccc3",
+   "descricao": "data/descricoes/regra_202.json",
+   "gobr": "trabalho/trabalho/referencias/regra_202.gobr",
+   "numeros": [
+    7,
+    30,
+    60
+   ]
+  },
+  "regra_203": {
+   "assinatura": "0761fb8567b4",
+   "descricao": "data/descricoes/regra_203.json",
+   "gobr": "trabalho/trabalho/referencias/regra_203.gobr",
+   "numeros": [
+    0,
+    6,
+    7,
+    8,
+    9,
+    14,
+    15,
+    16,
+    21,
+    22,
+    23,
+    28,
+    29,
+    35,
+    38,
+    39,
+    55,
+    60,
+    95,
+    36979
+   ]
+  },
+  "regra_204": {
+   "assinatura": "2456e24d7bb7",
+   "descricao": "data/descricoes/regra_204.json",
+   "gobr": "trabalho/trabalho/referencias/regra_204.gobr",
+   "numeros": [
+    7,
+    14,
+    21,
+    30,
+    60,
+    90
+   ]
+  },
+  "regra_205": {
+   "assinatura": "962eceeb93ae",
+   "descricao": "data/descricoes/regra_205.json",
+   "gobr": "trabalho/trabalho/referencias/regra_205.gobr",
+   "numeros": [
+    7,
+    14,
+    28,
+    90
+   ]
+  },
+  "regra_206": {
+   "assinatura": "7d9fa46f8436",
+   "descricao": "data/descricoes/regra_206.json",
+   "gobr": "trabalho/trabalho/referencias/regra_206.gobr",
+   "numeros": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    7,
+    12,
+    15,
+    28,
+    90,
+    180
+   ]
+  },
+  "regra_207": {
+   "assinatura": "176c769118eb",
+   "descricao": "data/descricoes/regra_207.json",
+   "gobr": "trabalho/trabalho/referencias/regra_207.gobr",
+   "numeros": [
+    7,
+    14,
+    21,
+    28,
+    30,
+    45,
+    90
+   ]
+  },
+  "regra_208": {
+   "assinatura": "c845ff8fc89e",
+   "descricao": "data/descricoes/regra_208.json",
+   "gobr": "trabalho/trabalho/referencias/regra_208.gobr",
+   "numeros": [
+    3,
+    7,
+    14,
+    30,
+    89,
+    90,
+    120
+   ]
+  },
+  "regra_209": {
+   "assinatura": "d264cf77ebff",
+   "descricao": "data/descricoes/regra_209.json",
+   "gobr": "trabalho/trabalho/referencias/regra_209.gobr",
+   "numeros": [
+    7,
+    17,
+    30,
+    90
+   ]
+  },
+  "regra_210": {
+   "assinatura": "9e794b4364fd",
+   "descricao": "data/descricoes/regra_210.json",
+   "gobr": "trabalho/trabalho/referencias/regra_210.gobr",
+   "numeros": [
+    30,
+    180,
+    181,
+    365
+   ]
+  },
+  "regra_211": {
+   "assinatura": "39bffaff50ab",
+   "descricao": "data/descricoes/regra_211.json",
+   "gobr": "trabalho/trabalho/referencias/regra_211.gobr",
+   "numeros": [
+    15,
+    21,
+    30,
+    945,
+    965
+   ]
+  },
+  "regra_212": {
+   "assinatura": "642b172389f8",
+   "descricao": "data/descricoes/regra_212.json",
+   "gobr": "trabalho/trabalho/referencias/regra_212.gobr",
+   "numeros": [
+    7,
+    14,
+    20,
+    30,
+    60,
+    90,
+    179,
+    180,
+    360
+   ]
+  },
+  "regra_213": {
+   "assinatura": "c62f39659984",
+   "descricao": "data/descricoes/regra_213.json",
+   "gobr": "trabalho/trabalho/referencias/regra_213.gobr",
+   "numeros": [
+    7,
+    28
+   ]
+  },
+  "regra_214": {
+   "assinatura": "30553d57c6de",
+   "descricao": "data/descricoes/regra_214.json",
+   "gobr": "trabalho/trabalho/referencias/regra_214.gobr",
+   "numeros": [
+    10,
+    14,
+    21,
+    29,
+    30,
+    59,
+    89,
+    90
+   ]
+  },
+  "regra_215": {
+   "assinatura": "09e6c6cf102b",
+   "descricao": "data/descricoes/regra_215.json",
+   "gobr": "trabalho/trabalho/referencias/regra_215.gobr",
+   "numeros": [
+    7,
+    20,
+    30,
+    60,
+    90
+   ]
+  },
+  "regra_216": {
+   "assinatura": "3a959dc84822",
+   "descricao": "data/descricoes/regra_216.json",
+   "gobr": "trabalho/trabalho/referencias/regra_216.gobr",
+   "numeros": [
+    6,
+    7,
+    14,
+    21,
+    28,
+    30,
+    60,
+    89,
+    179,
+    180
+   ]
+  },
+  "regra_217": {
+   "assinatura": "6958232df81f",
+   "descricao": "data/descricoes/regra_217.json",
+   "gobr": "trabalho/trabalho/referencias/regra_217.gobr",
+   "numeros": [
+    7,
+    14,
+    28,
+    30
+   ]
+  },
+  "regra_218": {
+   "assinatura": "2afd58c5caf3",
+   "descricao": "data/descricoes/regra_218.json",
+   "gobr": "trabalho/trabalho/referencias/regra_218.gobr",
+   "numeros": [
+    1,
+    2,
+    5,
+    7,
+    14,
+    30,
+    4504
+   ]
+  },
+  "regra_219": {
+   "assinatura": "d9f72b95e9c1",
+   "descricao": "data/descricoes/regra_219.json",
+   "gobr": "trabalho/trabalho/referencias/regra_219.gobr",
+   "numeros": [
+    7,
+    14,
+    21,
+    25,
+    60,
+    90
+   ]
+  },
+  "regra_220": {
+   "assinatura": "662be98ca7cf",
+   "descricao": "data/descricoes/regra_220.json",
+   "gobr": "trabalho/trabalho/referencias/regra_220.gobr",
+   "numeros": [
+    7,
+    14,
+    30,
+    149
+   ]
+  },
+  "regra_221": {
+   "assinatura": "4ca6ac4e91b1",
+   "descricao": "data/descricoes/regra_221.json",
+   "gobr": "trabalho/trabalho/referencias/regra_221.gobr",
+   "numeros": [
+    7,
+    14,
+    21,
+    28,
+    30,
+    60,
+    90,
+    360
+   ]
+  },
+  "regra_222": {
+   "assinatura": "2b8b083ce2c6",
+   "descricao": "data/descricoes/regra_222.json",
+   "gobr": "trabalho/trabalho/referencias/regra_222.gobr",
+   "numeros": [
+    1,
+    6,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    21,
+    24,
+    28,
+    30,
+    32,
+    33,
+    37,
+    38,
+    45,
+    90
+   ]
+  },
+  "regra_223": {
+   "assinatura": "667b79ed3be8",
+   "descricao": "data/descricoes/regra_223.json",
+   "gobr": "trabalho/trabalho/referencias/regra_223.gobr",
+   "numeros": [
+    7,
+    14,
+    15,
+    21,
+    30
+   ]
+  },
+  "regra_224": {
+   "assinatura": "89a5fdab0dc0",
+   "descricao": "data/descricoes/regra_224.json",
+   "gobr": "trabalho/trabalho/referencias/regra_224.gobr",
+   "numeros": [
+    7,
+    14,
+    60,
+    90
+   ]
+  },
+  "regra_225": {
+   "assinatura": "6b84949e8d24",
+   "descricao": "data/descricoes/regra_225.json",
+   "gobr": "trabalho/trabalho/referencias/regra_225.gobr",
+   "numeros": [
+    10,
+    14,
+    21
+   ]
+  },
+  "regra_226": {
+   "assinatura": "0d10c0caf7d6",
+   "descricao": "data/descricoes/regra_226.json",
+   "gobr": "trabalho/trabalho/referencias/regra_226.gobr",
+   "numeros": [
+    7,
+    14,
+    20,
+    28,
+    30,
+    60,
+    120,
+    180
+   ]
+  },
+  "regra_227": {
+   "assinatura": "6611501378ca",
+   "descricao": "data/descricoes/regra_227.json",
+   "gobr": "trabalho/trabalho/referencias/regra_227.gobr",
+   "numeros": [
+    1,
+    7,
+    10,
+    15,
+    30,
+    60,
+    90
+   ]
+  },
+  "regra_228": {
+   "assinatura": "55b79cff160d",
+   "descricao": "data/descricoes/regra_228.json",
+   "gobr": "trabalho/trabalho/referencias/regra_228.gobr",
+   "numeros": [
+    7,
+    14,
+    21,
+    28,
+    45,
+    90,
+    180
+   ]
+  },
+  "regra_229": {
+   "assinatura": "c4eefc85369b",
+   "descricao": "data/descricoes/regra_229.json",
+   "gobr": "trabalho/trabalho/referencias/regra_229.gobr",
+   "numeros": [
+    14,
+    21,
+    28,
+    30,
+    60
+   ]
+  },
+  "regra_230": {
+   "assinatura": "8a213db370b0",
+   "descricao": "data/descricoes/regra_230.json",
+   "gobr": "trabalho/trabalho/referencias/regra_230.gobr",
+   "numeros": [
+    7,
+    14,
+    16,
+    21,
+    45,
+    60,
+    89
+   ]
+  },
+  "regra_231": {
+   "assinatura": "cf0a635cfc23",
+   "descricao": "data/descricoes/regra_231.json",
+   "gobr": "trabalho/trabalho/referencias/regra_231.gobr",
+   "numeros": [
+    7,
+    14,
+    30,
+    150
+   ]
+  },
+  "regra_232": {
+   "assinatura": "5f8b3b8f8105",
+   "descricao": "data/descricoes/regra_232.json",
+   "gobr": "trabalho/trabalho/referencias/regra_232.gobr",
+   "numeros": [
+    1,
+    14,
+    21,
+    29,
+    30,
+    59,
+    60,
+    89,
+    90
+   ]
+  },
+  "regra_233": {
+   "assinatura": "add525fb1679",
+   "descricao": "data/descricoes/regra_233.json",
+   "gobr": "trabalho/trabalho/referencias/regra_233.gobr",
+   "numeros": [
+    7,
+    14,
+    199
+   ]
+  },
+  "regra_234": {
+   "assinatura": "695610c6df49",
+   "descricao": "data/descricoes/regra_234.json",
+   "gobr": "trabalho/trabalho/referencias/regra_234.gobr",
+   "numeros": [
+    3,
+    5,
+    7,
+    1138,
+    9999
+   ]
+  },
+  "regra_235": {
+   "assinatura": "7a26360e3f59",
+   "descricao": "data/descricoes/regra_235.json",
+   "gobr": "trabalho/trabalho/referencias/regra_235.gobr",
+   "numeros": [
+    1,
+    2,
+    5,
+    6,
+    7,
+    10,
+    14,
+    15,
+    21,
+    30,
+    31,
+    60,
+    61,
+    89,
+    90,
+    179,
+    180
+   ]
+  },
+  "regra_236": {
+   "assinatura": "c1a0d6174bf0",
+   "descricao": "data/descricoes/regra_236.json",
+   "gobr": "trabalho/trabalho/referencias/regra_236.gobr",
+   "numeros": [
+    1,
+    2,
+    7
+   ]
+  },
+  "regra_237": {
+   "assinatura": "924402e34bbe",
+   "descricao": "data/descricoes/regra_237.json",
+   "gobr": "trabalho/trabalho/referencias/regra_237.gobr",
+   "numeros": [
+    0,
+    14,
+    30,
+    60
+   ]
+  },
+  "regra_238": {
+   "assinatura": "ba37afa54107",
+   "descricao": "data/descricoes/regra_238.json",
+   "gobr": "trabalho/trabalho/referencias/regra_238.gobr",
+   "numeros": [
+    14,
+    59,
+    89
+   ]
+  },
+  "regra_239": {
+   "assinatura": "fefc70b089c6",
+   "descricao": "data/descricoes/regra_239.json",
+   "gobr": "trabalho/trabalho/referencias/regra_239.gobr",
+   "numeros": [
+    7,
+    14,
+    21,
+    28,
+    60,
+    90,
+    120,
+    150,
+    180
+   ]
+  },
+  "regra_240": {
+   "assinatura": "eaf9ba30f5af",
+   "descricao": "data/descricoes/regra_240.json",
+   "gobr": "trabalho/trabalho/referencias/regra_240.gobr",
+   "numeros": [
+    7,
+    14,
+    21,
+    30,
+    60,
+    90
+   ]
+  },
+  "regra_241": {
+   "assinatura": "66a1fd0c3182",
+   "descricao": "data/descricoes/regra_241.json",
+   "gobr": "trabalho/trabalho/referencias/regra_241.gobr",
+   "numeros": [
+    1,
+    7,
+    14,
+    15,
+    28,
+    100,
+    106,
+    107,
+    108,
+    109,
+    110,
+    111,
+    112,
+    113,
+    114,
+    138,
+    139,
+    140,
+    141,
+    142,
+    143,
+    144,
+    146,
+    147,
+    148
+   ]
+  },
+  "regra_242": {
+   "assinatura": "fb93c84f9889",
+   "descricao": "data/descricoes/regra_242.json",
+   "gobr": "trabalho/trabalho/referencias/regra_242.gobr",
+   "numeros": [
+    15,
+    20,
+    21,
+    29,
+    30,
+    31,
+    44,
+    60,
+    61,
+    90,
+    91,
+    120,
+    180
+   ]
+  },
+  "regra_243": {
+   "assinatura": "deab6b9b7052",
+   "descricao": "data/descricoes/regra_243.json",
+   "gobr": "trabalho/trabalho/referencias/regra_243.gobr",
+   "numeros": [
+    2,
+    3,
+    20,
+    21,
+    33
+   ]
+  },
+  "regra_244": {
+   "assinatura": "4ba3e5312076",
+   "descricao": "data/descricoes/regra_244.json",
+   "gobr": "trabalho/trabalho/referencias/regra_244.gobr",
+   "numeros": [
+    5,
+    7,
+    14,
+    30,
+    60
+   ]
+  },
+  "regra_245": {
+   "assinatura": "5e3c3d3ee454",
+   "descricao": "data/descricoes/regra_245.json",
+   "gobr": "trabalho/trabalho/referencias/regra_245.gobr",
+   "numeros": [
+    1,
+    2,
+    3,
+    7,
+    14,
+    60
+   ]
+  },
+  "regra_246": {
+   "assinatura": "36eb01217386",
+   "descricao": "data/descricoes/regra_246.json",
+   "gobr": "trabalho/trabalho/referencias/regra_246.gobr",
+   "numeros": [
+    1,
+    2,
+    3,
+    4,
+    7,
+    10,
+    14,
+    21,
+    28,
+    45,
+    60,
+    75,
+    90
+   ]
+  },
+  "RegraInfinittoDesign": {
+   "assinatura": "17df629c146b",
+   "descricao": "data/descricoes/RegraInfinittoDesign.json",
+   "gobr": "trabalho/trabalho/exemplos/RegraInfinittoDesign.gobr",
+   "numeros": [
+    7,
+    14,
+    28,
+    60,
+    90
+   ]
+  },
+  "RegraMaxlub": {
+   "assinatura": "2cdaebe6c598",
+   "descricao": "data/descricoes/RegraMaxlub.json",
+   "gobr": "trabalho/trabalho/exemplos/RegraMaxlub.gobr",
+   "numeros": [
+    7,
+    14,
+    21,
+    28,
+    60,
+    90,
+    120,
+    150,
+    180
+   ]
+  },
+  "V1Vidros-RegraComercial": {
+   "assinatura": "b1b414a6ddbb",
+   "descricao": "data/descricoes/V1Vidros-RegraComercial.json",
+   "gobr": "trabalho/trabalho/exemplos/V1Vidros-RegraComercial.gobr",
+   "numeros": [
+    7,
+    14,
+    30,
+    45
+   ]
+  }
+ }
+}

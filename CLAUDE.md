@@ -1,13 +1,14 @@
 # Projeto SMA: assistente GoBR
 
 Disciplina de Sistemas Multiagentes (UFG, 2026-2): agente LangGraph + RAG que ajuda a escrever regras
-na DSL GoBR do Govendas. Etapa atual: explicações em linguagem de negócio de cada `.gobr` do corpus.
+na DSL GoBR do Govendas. Etapas: explicações de cada `.gobr` (feita) e índice de embeddings delas (`gobr/index.py`).
 Visão geral e comandos: `README.md`. Estado da sessão: `HANDOFF.md`.
 
 ## Comandos
 
-- Testes: `python -m unittest tests.test_gobr`
+- Testes: `python -m unittest tests.test_gobr tests.test_index`
 - Pacotes: `python -m gobr contexto|entrada|pendentes|consolidar|cobertura ...` (ver docstring de `gobr/__main__.py`)
+- Índice: `python -m gobr indexar|buscar|avaliar-indice ...`; rode com `HF_HUB_OFFLINE=1` (modelos em cache)
 
 ## Regras
 
@@ -15,6 +16,7 @@ Visão geral e comandos: `README.md`. Estado da sessão: `HANDOFF.md`.
 - **PREMISE-LOG**: toda ambiguidade de semântica vira uma premissa em `docs/premissas.md`; nunca se pede a alguém para resolvê-la.
 - **VERSIONED-CANDIDATES**: ao mudar a entrada do redator, gere candidatos novos em `data/candidatos_vN/` e consolide em ordem; nunca misture candidatos de entradas diferentes.
 - **NO-COAUTHOR**: commits e PRs deste repositório vão sem a linha Co-Authored-By.
+- **MEASURE-RETRIEVAL**: mudança no índice (chunks, pesos, modelo) só entra com `avaliar-indice` rodado e comparado com a tabela do relatório.
 
 ## Rejected
 
@@ -33,6 +35,7 @@ Visão geral e comandos: `README.md`. Estado da sessão: `HANDOFF.md`.
 |---|---|
 | `docs/premissas.md` | for mudar a semântica da cascata ou do catálogo de cláusulas |
 | `docs/relatorio_explicacoes.md` | for escrever relatório ou apresentação, ou precisar dos números da etapa |
+| `docs/relatorio_indexacao.md` | for mexer no índice de embeddings, no `search` ou no modelo, ou precisar dos números de recuperação |
 | `docs/avaliacao/*.md` | for mexer na qualidade das descrições ou reavaliar |
 | `research/camada_deterministica.md`, `research/redator_llm.md` | for fazer o índice RAG, o backend Ollama ou mudar o prompt |
 | `docs/manual_gobr.txt` | for precisar do significado oficial de uma cláusula GoBR |
