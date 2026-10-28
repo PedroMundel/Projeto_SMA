@@ -9,6 +9,10 @@
         estratégia adaptativa: imprime "<arquivo> <n>" para cada arquivo que ainda precisa de n réplicas
         (completa até --base; vai até --maximo quando a concordância fica abaixo de --limiar)
   python -m gobr cobertura <dir_gobr>                            lista trechos não reconhecidos
+  python -m gobr manual <manual.pdf> <dir_saida>                 seções e chunks do manual (exige pdfplumber)
+  python -m gobr indexar-manual <dir_manual> <dir_indice> [--modelo M]   embute os chunks do manual
+  python -m gobr buscar-manual <dir_indice> "<pergunta>" [-k 3] [--modo denso|bm25|hibrido]
+  python -m gobr avaliar-manual <dir_indice> --consultas <arquivo.json> [-k 5]   Recall@1/@k e MRR por modo
   python -m gobr indexar <dir_descricoes> <dir_indice> --contexto <dir> [<dir>...] --gobr <dir> [<dir>...]
         embute os chunks (arquivo, regra, consulta hipotética) com --modelo e grava vetores e metadados
   python -m gobr buscar <dir_indice> "<descrição do usuário>" [-k 5]
@@ -103,6 +107,55 @@ def report_pending(candidates_dir: Path, inputs_dir: Path, context_dirs: list[Pa
     print(f"{total} réplicas pendentes", file=sys.stderr)
 
 
+def write_manual(pdf: Path, out_dir: Path) -> None:
+    from gobr import manual
+
+    sections = manual.extract(pdf)
+    if not sections:
+        raise SystemExit(f"{pdf}: nenhuma seção encontrada (o capítulo 1 precisa de um título em negrito)")
+    out_dir.mkdir(parents=True, exist_ok=True)
+    write_json(out_dir / "secoes.json", [
+        {"secao": s.number, "titulo": s.title, "pagina": s.page, "caminho": s.path, "texto": manual.render(s)}
+        for s in sections
+    ], indent=1)
+    found = manual.chunks(sections)
+    (out_dir / "chunks.jsonl").write_text("".join(json.dumps(c, ensure_ascii=False) + "\n" for c in found),
+                                          encoding="utf-8")
+    print(f"{len(sections)} seções, {len(found)} chunks gravados em {out_dir}")
+
+
+def build_manual_index(manual_dir: Path, out_dir: Path, model: str) -> None:
+    from gobr import index, manual_search
+
+    built, manifest = manual_search.build(manual_dir, index.Embedder(model))
+    manual_search.save(built, manifest, out_dir)
+    print(f"{len(built.chunks)} chunks do manual ({model}) gravados em {out_dir}")
+
+
+def search_manual(index_dir: Path, text: str, k: int, mode: str) -> None:
+    from gobr import index, manual_search
+
+    loaded = manual_search.load(index_dir)
+    vector = index.Embedder(loaded.model).queries([text])[0]
+    for n, hit in enumerate(manual_search.search(loaded, text, vector, k, mode), 1):
+        print(f"{n}. {hit['secao']} {hit['titulo']} (p. {hit['pagina']})  {hit['nota']:.4f}")
+        preview = [line for line in hit["chunk"]["texto"].splitlines() if line.strip() and line != "```"][-1]
+        print(f"   [{hit['chunk']['tipo']}] {preview[:160]}")
+
+
+def evaluate_manual(index_dir: Path, query_file: Path, k: int) -> None:
+    from gobr import index, manual_search
+
+    loaded = manual_search.load(index_dir)
+    queries = json.loads(query_file.read_text(encoding="utf-8"))["consultas"]
+    table = manual_search.evaluate(loaded, index.Embedder(loaded.model), queries, k)
+    print(f"modelo: {loaded.model}\n")
+    print(f"| modo | consultas | n | recall@1 | recall@{k} | MRR |")
+    print("|---|---|---|---|---|---|")
+    for (mode, kind), row in table.items():
+        print(f"| {mode} | {kind} | {row['n']} | {row['recall@1']:.3f} | {row[f'recall@{k}']:.3f} | {row['mrr']:.3f} |")
+
+
 def report_coverage(target: Path) -> None:
     total = 0
     for path in gobr_files(target):
@@ -171,6 +224,22 @@ def main() -> None:
     pending_cmd.add_argument("--base", type=int, default=3)
     pending_cmd.add_argument("--maximo", type=int, default=5)
     pending_cmd.add_argument("--limiar", type=float, default=0.8)
+    manual_cmd = commands.add_parser("manual")
+    manual_cmd.add_argument("pdf", type=Path)
+    manual_cmd.add_argument("saida", type=Path)
+    manual_index_cmd = commands.add_parser("indexar-manual")
+    manual_index_cmd.add_argument("manual", type=Path)
+    manual_index_cmd.add_argument("saida", type=Path)
+    manual_index_cmd.add_argument("--modelo", default=EMBEDDING_MODEL)
+    manual_search_cmd = commands.add_parser("buscar-manual")
+    manual_search_cmd.add_argument("indice", type=Path)
+    manual_search_cmd.add_argument("texto")
+    manual_search_cmd.add_argument("-k", type=int, default=3)
+    manual_search_cmd.add_argument("--modo", choices=("denso", "bm25", "hibrido"), default="hibrido")
+    manual_eval_cmd = commands.add_parser("avaliar-manual")
+    manual_eval_cmd.add_argument("indice", type=Path)
+    manual_eval_cmd.add_argument("--consultas", type=Path, required=True)
+    manual_eval_cmd.add_argument("-k", type=int, default=5)
     coverage_cmd = commands.add_parser("cobertura")
     coverage_cmd.add_argument("entrada", type=Path)
     index_cmd = commands.add_parser("indexar")
@@ -198,6 +267,14 @@ def main() -> None:
         consolidate(args.candidatos, args.saida, args.contexto, args.prompt)
     elif args.command == "pendentes":
         report_pending(args.candidatos, args.entrada, args.contexto, args.base, args.maximo, args.limiar)
+    elif args.command == "manual":
+        write_manual(args.pdf, args.saida)
+    elif args.command == "indexar-manual":
+        build_manual_index(args.manual, args.saida, args.modelo)
+    elif args.command == "buscar-manual":
+        search_manual(args.indice, args.texto, args.k, args.modo)
+    elif args.command == "avaliar-manual":
+        evaluate_manual(args.indice, args.consultas, args.k)
     elif args.command == "cobertura":
         report_coverage(args.entrada)
     elif args.command == "indexar":

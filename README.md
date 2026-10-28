@@ -14,6 +14,10 @@ A segunda etapa **indexa essas explicações com embeddings** (`gobr/index.py`):
 do usuário, devolve as regras existentes mais parecidas, com o `.gobr` de exemplo. Relatório:
 [docs/relatorio_indexacao.md](docs/relatorio_indexacao.md).
 
+A terceira etapa **indexa o manual GoBR**: `gobr/manual.py` extrai do PDF seções, tabelas e exemplos de
+código, e `gobr/manual_search.py` busca a seção certa por embeddings, BM25 ou a fusão dos dois. Relatório:
+[docs/relatorio_manual.md](docs/relatorio_manual.md).
+
 ## Como funciona
 
 ```
@@ -42,14 +46,16 @@ As ambiguidades do manual foram resolvidas como premissas explícitas, de P1 a P
 | Caminho | Conteúdo |
 |---|---|
 | `gobr/` | camada determinística, validador, concordância e CLI |
-| `tests/test_gobr.py`, `tests/test_index.py` | 36 + 16 testes (`unittest`) |
+| `tests/test_gobr.py`, `tests/test_index.py`, `tests/test_manual.py` | 36 + 16 + 22 testes (`unittest`) |
 | `redator/` | prompt congelado, exemplos do prompt e roteiro do lote na nuvem |
 | `data/contexto/`, `data/contexto_exemplos/` | pacote de contexto completo por arquivo (v5) |
 | `data/entrada_redator/` | visão do pacote que o redator lê |
 | `data/candidatos_v2/`, `_v3/`, `_v4/`, `_v5/` | réplicas geradas pelo redator (lote na nuvem e regerações) |
 | `data/descricoes/` | **resultado**: `<arquivo>.md` (tabela) e `<arquivo>.json` (com `_meta` de procedência) |
 | `data/indice/<modelo>/` | **índice de embeddings**: vetores, chunks, manifesto e avaliação, um por modelo |
-| `data/consultas_avaliacao/` | consultas rotuladas para avaliar a recuperação (gabaritos do professor e 30 cegas) |
+| `data/consultas_avaliacao/` | consultas rotuladas para avaliar a recuperação (gabaritos do professor, 30 cegas e 48 do manual) |
+| `data/manual/` | manual extraído do PDF: `secoes.json` (95 seções) e `chunks.jsonl` (463 chunks) |
+| `data/indice_manual/<modelo>/` | índice de embeddings do manual e avaliação |
 | `docs/` | premissas, avaliação, relatórios e texto do manual GoBR |
 | `research/` | pesquisas que embasaram as decisões |
 | `data/candidatos/`, `data/candidatos_piloto/` | piloto e calibração (experimentos iniciais) |
@@ -58,10 +64,11 @@ As ambiguidades do manual foram resolvidas como premissas explícitas, de P1 a P
 
 Requer Python 3.11 ou mais novo. A camada determinística não tem dependências externas; o índice precisa
 de `numpy` e `sentence-transformers` (testado com numpy 2.4.4, sentence-transformers 6.1.0 e torch 2.11 com
-CUDA). Os testes do índice usam um embedder falso e não baixam modelo.
+CUDA). Os testes do índice usam um embedder falso e não baixam modelo. Extrair o manual do PDF
+(`python -m gobr manual`) exige `pdfplumber` 0.11.10 (MIT).
 
 ```bash
-python -m unittest tests.test_gobr tests.test_index
+python -m unittest tests.test_gobr tests.test_index tests.test_manual
 ```
 
 ```bash
@@ -100,6 +107,24 @@ python -m gobr buscar data/indice/qwen3-0.6b "Ativos: compra nos últimos 30 dia
 python -m gobr avaliar-indice data/indice/qwen3-0.6b --consultas data/consultas_avaliacao/ouro.json data/consultas_avaliacao/cegas.json
 ```
 
+Manual (extração, índice, busca e avaliação):
+
+```bash
+python -m gobr manual trabalho/trabalho/govendas-rules.pdf data/manual
+```
+
+```bash
+python -m gobr indexar-manual data/manual data/indice_manual/qwen3-0.6b
+```
+
+```bash
+python -m gobr buscar-manual data/indice_manual/qwen3-0.6b "frequencia fixa semanal" -k 3
+```
+
+```bash
+python -m gobr avaliar-manual data/indice_manual/qwen3-0.6b --consultas data/consultas_avaliacao/manual.json
+```
+
 ## Resultado
 
 - 249 de 249 arquivos descritos e validados, sem números inventados.
@@ -115,3 +140,5 @@ python -m gobr avaliar-indice data/indice/qwen3-0.6b --consultas data/consultas_
 - Recuperação: os 3 gabaritos do professor voltam em 1º lugar e, das 30 consultas cegas, 28 voltam em 1º
   e todas no top-5. O vetor do arquivo, reordenado pelos números em comum, ganhou do multi-vetor
   ([docs/relatorio_indexacao.md](docs/relatorio_indexacao.md)).
+- Manual: em 48 consultas rotuladas, a busca híbrida (embeddings + BM25) põe a seção certa no top-5 em todas
+  ([docs/relatorio_manual.md](docs/relatorio_manual.md)).

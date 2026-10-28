@@ -1,0 +1,376 @@
+{
+ "_fonte": "48 consultas escritas à mão a partir de data/manual/secoes.json (24 necessidade, 12 sintaxe, 12 conceito); esperadas conferidas contra o texto de cada seção, folhas preferidas.",
+ "consultas": [
+  {
+   "consulta": "quero um time só com os televendas que estão habilitados, tirando dois que saíram de férias",
+   "tipo": "necessidade",
+   "esperadas": [
+    "3.3.1",
+    "3.4"
+   ]
+  },
+  {
+   "consulta": "preciso montar um grupo com os vendedores de campo de apenas dois supervisores",
+   "tipo": "necessidade",
+   "esperadas": [
+    "3.3.1",
+    "3.4"
+   ]
+  },
+  {
+   "consulta": "um mesmo vendedor precisa seguir as regras de dois grupos comerciais diferentes",
+   "tipo": "necessidade",
+   "esperadas": [
+    "3.5",
+    "3.2"
+   ]
+  },
+  {
+   "consulta": "quero separar um grupo de clientes para fazer ajustes sem que eles apareçam na agenda do vendedor",
+   "tipo": "necessidade",
+   "esperadas": [
+    "4.1.2",
+    "2.2"
+   ]
+  },
+  {
+   "consulta": "os televendas devem assumir os clientes que o campo deixou de comprar faz mais de três meses",
+   "tipo": "necessidade",
+   "esperadas": [
+    "4.6.1",
+    "4.3.1"
+   ]
+  },
+  {
+   "consulta": "clientes que não compram com ninguém da empresa há mais de 60 dias",
+   "tipo": "necessidade",
+   "esperadas": [
+    "6.1",
+    "6.2"
+   ]
+  },
+  {
+   "consulta": "só quero clientes sem pendência financeira em aberto",
+   "tipo": "necessidade",
+   "esperadas": [
+    "6.3"
+   ]
+  },
+  {
+   "consulta": "marcar os clientes que reclamaram nos últimos atendimentos para facilitar filtros depois",
+   "tipo": "necessidade",
+   "esperadas": [
+    "9.1.2",
+    "9.1",
+    "9"
+   ]
+  },
+  {
+   "consulta": "não quero repetir na agenda de amanhã quem já foi agendado hoje para o vendedor",
+   "tipo": "necessidade",
+   "esperadas": [
+    "6.4"
+   ]
+  },
+  {
+   "consulta": "clientes que ficam em determinada cidade ou bairro",
+   "tipo": "necessidade",
+   "esperadas": [
+    "6.5"
+   ]
+  },
+  {
+   "consulta": "clientes cujo faturamento caiu bastante em relação ao período anterior",
+   "tipo": "necessidade",
+   "esperadas": [
+    "6.11"
+   ]
+  },
+  {
+   "consulta": "separar meus melhores clientes pelo volume faturado com a empresa",
+   "tipo": "necessidade",
+   "esperadas": [
+    "6.7"
+   ]
+  },
+  {
+   "consulta": "clientes que estão demorando mais para comprar do que costumam demorar",
+   "tipo": "necessidade",
+   "esperadas": [
+    "6.8"
+   ]
+  },
+  {
+   "consulta": "clientes que fizeram a primeira compra com o vendedor depois de terem sido só contatos sem venda",
+   "tipo": "necessidade",
+   "esperadas": [
+    "6.7",
+    "6.1"
+   ]
+  },
+  {
+   "consulta": "rodar a regra só na primeira semana do mês e apenas na segunda metade do ano",
+   "tipo": "necessidade",
+   "esperadas": [
+    "5.4",
+    "5.5",
+    "5.1"
+   ]
+  },
+  {
+   "consulta": "disparar o aviso de hora em hora durante o expediente, das 8h às 18h",
+   "tipo": "necessidade",
+   "esperadas": [
+    "5.6"
+   ]
+  },
+  {
+   "consulta": "visitar com mais prioridade na segunda, menos na terça e nunca no domingo",
+   "tipo": "necessidade",
+   "esperadas": [
+    "7.3.3",
+    "7.2"
+   ]
+  },
+  {
+   "consulta": "se o vendedor não definiu de quantos em quantos dias visitar, usar 35 dias",
+   "tipo": "necessidade",
+   "esperadas": [
+    "7.3.6",
+    "7.4.3"
+   ]
+  },
+  {
+   "consulta": "tirar da agenda os clientes parados há muito tempo",
+   "tipo": "necessidade",
+   "esperadas": [
+    "7.3.4"
+   ]
+  },
+  {
+   "consulta": "evitar que o cliente receba ligação do televendas e visita do campo no mesmo dia",
+   "tipo": "necessidade",
+   "esperadas": [
+    "7.3.8"
+   ]
+  },
+  {
+   "consulta": "apagar as configurações automáticas dos clientes antes de aplicar as regras novas",
+   "tipo": "necessidade",
+   "esperadas": [
+    "7.3.11",
+    "7.6"
+   ]
+  },
+  {
+   "consulta": "o cliente só pode entrar na agenda a partir da segunda semana do mês",
+   "tipo": "necessidade",
+   "esperadas": [
+    "7.3.9",
+    "7.5"
+   ]
+  },
+  {
+   "consulta": "avisar o gestor pelo WhatsApp quando um cliente ativo passar semanas sem comprar",
+   "tipo": "necessidade",
+   "esperadas": [
+    "8.2",
+    "8.7",
+    "8.6"
+   ]
+  },
+  {
+   "consulta": "mostrar no texto do aviso o nome de quem recebe e o total de clientes envolvidos",
+   "tipo": "necessidade",
+   "esperadas": [
+    "8.5.2",
+    "8.5.3",
+    "8.5"
+   ]
+  },
+  {
+   "consulta": "frequencia fixa semanal",
+   "tipo": "sintaxe",
+   "esperadas": [
+    "7.4.1",
+    "7.3.1"
+   ]
+  },
+  {
+   "consulta": "nao agendar inadimplente",
+   "tipo": "sintaxe",
+   "esperadas": [
+    "7.3.4",
+    "6.3"
+   ]
+  },
+  {
+   "consulta": "preferencia segunda e terca",
+   "tipo": "sintaxe",
+   "esperadas": [
+    "7.3.2",
+    "7.3.3"
+   ]
+  },
+  {
+   "consulta": "sem choque na carteira",
+   "tipo": "sintaxe",
+   "esperadas": [
+    "7.3.8"
+   ]
+  },
+  {
+   "consulta": "restrito a partir da segunda semana",
+   "tipo": "sintaxe",
+   "esperadas": [
+    "7.5",
+    "7.3.9"
+   ]
+  },
+  {
+   "consulta": "ruptura de positivacao ou prospects",
+   "tipo": "sintaxe",
+   "esperadas": [
+    "4.6.1"
+   ]
+  },
+  {
+   "consulta": "recencia de visita entre 10 dias e 90 dias",
+   "tipo": "sintaxe",
+   "esperadas": [
+    "6.2",
+    "6.12"
+   ]
+  },
+  {
+   "consulta": "vendedores todosdecampo dos supervisores menos",
+   "tipo": "sintaxe",
+   "esperadas": [
+    "3.3.1",
+    "3.4"
+   ]
+  },
+  {
+   "consulta": "informe com 5 clientes e com o nome do vendedor",
+   "tipo": "sintaxe",
+   "esperadas": [
+    "8.2",
+    "8.3"
+   ]
+  },
+  {
+   "consulta": "no ultimo dia do mes ou entre os dias 12 e 30",
+   "tipo": "sintaxe",
+   "esperadas": [
+    "5.2"
+   ]
+  },
+  {
+   "consulta": "clientes ruptura da segmentacao para time",
+   "tipo": "sintaxe",
+   "esperadas": [
+    "4.6",
+    "4.5"
+   ]
+  },
+  {
+   "consulta": "contido na segmentacao",
+   "tipo": "sintaxe",
+   "esperadas": [
+    "6.9"
+   ]
+  },
+  {
+   "consulta": "a ordem em que escrevo as carteiras muda o resultado?",
+   "tipo": "conceito",
+   "esperadas": [
+    "4.3.3",
+    "4.7",
+    "4.2"
+   ]
+  },
+  {
+   "consulta": "um cliente já parametrizado por uma regra anterior é processado de novo pelas seguintes?",
+   "tipo": "conceito",
+   "esperadas": [
+    "7.6"
+   ]
+  },
+  {
+   "consulta": "o que é uma carteira livre e quando usar",
+   "tipo": "conceito",
+   "esperadas": [
+    "4.2",
+    "4.4"
+   ]
+  },
+  {
+   "consulta": "qual a diferença entre carteira e segmentação",
+   "tipo": "conceito",
+   "esperadas": [
+    "4.1.2",
+    "4.1.1"
+   ]
+  },
+  {
+   "consulta": "como escrevo um comentário nas regras",
+   "tipo": "conceito",
+   "esperadas": [
+    "3.1",
+    "10"
+   ]
+  },
+  {
+   "consulta": "a linha de versão do arquivo é obrigatória?",
+   "tipo": "conceito",
+   "esperadas": [
+    "3.1",
+    "2.2"
+   ]
+  },
+  {
+   "consulta": "como o alerta decide a prioridade dos clientes e a ordem dos alertas importa?",
+   "tipo": "conceito",
+   "esperadas": [
+    "8.8"
+   ]
+  },
+  {
+   "consulta": "o que acontece se um time é usado em parâmetros ou alertas sem eu ter criado carteira?",
+   "tipo": "conceito",
+   "esperadas": [
+    "4.7"
+   ]
+  },
+  {
+   "consulta": "posso misturar parametrização e alertas no mesmo conjunto de regras?",
+   "tipo": "conceito",
+   "esperadas": [
+    "8",
+    "10"
+   ]
+  },
+  {
+   "consulta": "a parametrização automática sobrescreve o que o vendedor configurou na mão?",
+   "tipo": "conceito",
+   "esperadas": [
+    "7"
+   ]
+  },
+  {
+   "consulta": "qual a gramática de um arquivo válido e que combinações de blocos são permitidas",
+   "tipo": "conceito",
+   "esperadas": [
+    "10",
+    "2.2"
+   ]
+  },
+  {
+   "consulta": "quando as regras são executadas e que tipos de execução existem",
+   "tipo": "conceito",
+   "esperadas": [
+    "1.3"
+   ]
+  }
+ ]
+}

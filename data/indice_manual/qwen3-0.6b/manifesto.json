@@ -1,0 +1,7 @@
+{
+ "modelo": "Qwen/Qwen3-Embedding-0.6B",
+ "manual": "../../manual",
+ "manual_sha256": "dc4686d22ab6",
+ "n_chunks": 463,
+ "dimensao": 1024
+}
