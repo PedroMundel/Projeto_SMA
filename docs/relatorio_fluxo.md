@@ -90,8 +90,8 @@ A validação garante sintaxe, fontes, ações, alcance das regras e presença d
   "Segmento: critério, frequência".
 - **Escopos misturados:** com RAG, o V1Vidros mistura recência global e de grupo. A cascata avisa (é alerta,
   não erro), mas o agente não corrige.
-- **Raciocínio em comentários:** com RAG, o `.gobr` do Maxlub termina com 4 linhas `#` em que o modelo pensa
-  alto sobre uma regra final que não escreveu. O parser ignora comentários, então isso passa.
+- **Raciocínio em comentários:** com RAG, o `.gobr` do Maxlub termina com 17 linhas `#` em que o modelo pensa
+  alto sobre uma regra final que não escreveu (apêndice A). O parser ignora comentários, então isso passa.
 
 As frequências de agendamento dos 6 arquivos gerados conferem com as dos pedidos.
 
