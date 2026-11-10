@@ -1,0 +1,67 @@
+version 1.0
+
+time "televendas":
+    vendedores todostelevendas ativados
+
+# BLOQUEIOS
+
+parametros "Não agendar inadimplentes":
+    do time("televendas")
+    quando inadimplentes
+    nao agendar
+
+parametros "Não agendar clientes com data da rota na semana":
+    do time("televendas")
+    quando data da rota na semana
+    nao agendar
+
+# FAIXAS DE CLIENTES
+
+parametros "Clientes Ativos":
+    do time("televendas")
+    quando recencia de positivacao global em 60 dias
+    frequencia de 14 dias
+
+parametros "Risco de Inatividade":
+    do time("televendas")
+    quando recencia de positivacao global em 90 dias
+    frequencia de 7 dias
+
+parametros "Inativos (90 dias)":
+    do time("televendas")
+    quando recencia de positivacao global em 120 dias
+    frequencia de 14 dias
+
+parametros "Inativos (120 dias)":
+    do time("televendas")
+    quando recencia de positivacao global em 150 dias
+    frequencia de 21 dias
+
+parametros "Inativos (150 dias)":
+    do time("televendas")
+    quando recencia de positivacao global em 180 dias
+    frequencia de 28 dias
+
+parametros "Prospects":
+    do time("televendas")
+    quando no ciclo de vida prospect com a empresa
+    frequencia de 14 dias
+
+# REGRA FINAL PARA QUEM SOBROU (INATIVOS > 180 DIAS OU SEM COMPRA HÁ MAIS DE 180 DIAS)
+# O pedido não especifica frequência para este grupo residual, mas a lógica de "faixas" exige uma regra final.
+# Como não há instrução explícita para agendar os inativos > 180 dias, e o exemplo 239 usa "nao agendar" para não mapeados,
+# mas aqui temos faixas de inatividade específicas até 150 dias (180 dias de recência).
+# Clientes com mais de 180 dias sem comprar não se enquadram em nenhuma regra acima.
+# Se o objetivo é não agendar quem está muito inativo, usamos nao agendar. Se o objetivo é agendar com frequência padrão,
+# precisaríamos de uma frequência. Considerando a estrutura de "Inativos (150 dias)" como a última faixa ativa,
+# assumiremos que quem não se encaixa em nenhuma faixa (inativos > 180 dias) não será agendado automaticamente por estas regras,
+# ou poderia ser tratado por uma regra de "catch-all" se houvesse instrução.
+# Dado o pedido "Inativos (150 dias): Comprou nos últimos 180 mas estão a 150 dias sem comprar",
+# quem comprou há mais de 180 dias não entra em nenhuma regra.
+# Vou deixar sem regra final explícita ou com nao agendar se for o padrão de limpeza.
+# No exemplo 239, a regra final é "nao agendar" para não mapeados.
+# Aqui, não há instrução para agendar quem está há > 180 dias.
+# Portanto, não há regra para agendar quem sobrou.
+
+# NOTA: A capacidade de atendimento de 35 clientes/dia é uma restrição operacional do sistema/rota,
+# não uma cláusula de filtragem de cliente no GoBR.

@@ -1,0 +1,39 @@
+version 1.0
+
+time "televendas":
+    vendedores todostelevendas ativados
+
+## Regras de não agendamento
+
+parametros "Não agendar clientes baixados na receita":
+    do time("televendas")
+    quando status na receita federal definido como baixada
+    nao agendar
+
+parametros "Não agendar inadiplentes":
+    do time("televendas")
+    quando inadimplentes
+    nao agendar
+
+## Regras de agendamento
+
+parametros "Clientes Prospects":
+    do time("televendas")
+    quando no ciclo de vida prospect com a empresa
+    frequencia de 7 dias
+
+parametros "Clientes Ativos":
+    do time("televendas")
+    quando atividade de 30 dias
+    frequencia de 14 dias
+
+parametros "Risco de Inatividade":
+    do time("televendas")
+    quando atividade de 45 dias
+    quando inatividade de 30 dias
+    frequencia de 7 dias
+
+parametros "Inativos":
+    do time("televendas")
+    quando inatividade global de 45 dias
+    frequencia de 14 dias

@@ -18,6 +18,17 @@ A terceira etapa **indexa o manual GoBR**: `gobr/manual.py` extrai do PDF seçõ
 código, e `gobr/manual_search.py` busca a seção certa por embeddings, BM25 ou a fusão dos dois. Relatório:
 [docs/relatorio_manual.md](docs/relatorio_manual.md).
 
+A quarta etapa é o **fluxo básico do agente** em LangGraph (`gobr/agent.py`):
+
+```
+descrição ──► buscar (exemplos + manual) ──► redigir (LLM) ──► validar (parser + cascata) ──► responder
+                                                ▲                    │ erro
+                                                └────────────────────┘ (até 2 tentativas)
+```
+
+O LLM é o Qwen3.6-35B-A3B no llama-server do PC com a RTX 5060, acessado por um túnel SSH. A validação diz
+se o `.gobr` serve; os alertas da cascata voltam para o usuário como pontos de atenção da modelagem.
+
 ## Como funciona
 
 ```
@@ -45,9 +56,9 @@ As ambiguidades do manual foram resolvidas como premissas explícitas, de P1 a P
 
 | Caminho | Conteúdo |
 |---|---|
-| `gobr/` | camada determinística, validador, concordância e CLI |
-| `tests/test_gobr.py`, `tests/test_index.py`, `tests/test_manual.py` | 36 + 16 + 22 testes (`unittest`) |
-| `redator/` | prompt congelado, exemplos do prompt e roteiro do lote na nuvem |
+| `gobr/` | camada determinística, validador, concordância, índices, fluxo do agente (`agent.py`) e CLI |
+| `tests/test_gobr.py`, `tests/test_index.py`, `tests/test_manual.py`, `tests/test_agent.py` | 36 + 16 + 22 + 14 testes (`unittest`) |
+| `redator/` | prompts congelados (redator e `prompt_agente.md`), exemplos do prompt e roteiro do lote na nuvem |
 | `data/contexto/`, `data/contexto_exemplos/` | pacote de contexto completo por arquivo (v5) |
 | `data/entrada_redator/` | visão do pacote que o redator lê |
 | `data/candidatos_v2/`, `_v3/`, `_v4/`, `_v5/` | réplicas geradas pelo redator (lote na nuvem e regerações) |
@@ -56,6 +67,7 @@ As ambiguidades do manual foram resolvidas como premissas explícitas, de P1 a P
 | `data/consultas_avaliacao/` | consultas rotuladas para avaliar a recuperação (gabaritos do professor, 30 cegas e 48 do manual) |
 | `data/manual/` | manual extraído do PDF: `secoes.json` (95 seções) e `chunks.jsonl` (463 chunks) |
 | `data/indice_manual/<modelo>/` | índice de embeddings do manual e avaliação |
+| `data/agente/` | avaliação do agente nos 3 gabaritos: `avaliacao.md` e o `.gobr` e a resposta de cada um, por modo |
 | `docs/` | premissas, avaliação, relatórios e texto do manual GoBR |
 | `research/` | pesquisas que embasaram as decisões |
 | `data/candidatos/`, `data/candidatos_piloto/` | piloto e calibração (experimentos iniciais) |
@@ -125,6 +137,26 @@ python -m gobr buscar-manual data/indice_manual/qwen3-0.6b "frequencia fixa sema
 python -m gobr avaliar-manual data/indice_manual/qwen3-0.6b --consultas data/consultas_avaliacao/manual.json
 ```
 
+Agente (exige `langgraph` 1.2.20 e `openai` 3.49.0, e o llama-server do PC no ar). Num terminal, suba o
+servidor no PC e abra o túnel na mesma conexão (`-c 32768` cabe o manual inteiro; com RAG, 8192 basta):
+
+```bash
+ssh -L 8080:127.0.0.1:8080 pc "& D:\tools\llama.cpp-b11770\llama-server.exe -m D:\tools\models\Qwen3.6-35B-A3B-UD-IQ4_XS.gguf -ngl 999 --n-cpu-moe 30 -c 32768 -np 1 --jinja --host 127.0.0.1 --port 8080"
+```
+
+O servidor continua vivo no PC depois que a conexão cai; encerre-o com
+`ssh pc "Get-Process llama-server | Stop-Process"`.
+
+Em outro, rode o agente ou a avaliação nos 3 gabaritos (a busca tira o próprio gabarito e os de mesma estrutura):
+
+```bash
+python -m gobr agente "Ativos: compra nos últimos 30 dias, 14 dias. Inativos: mais de 45 dias, 28 dias"
+```
+
+```bash
+python -m gobr avaliar-agente data/agente/rag --consultas data/consultas_avaliacao/ouro.json --gabaritos trabalho/trabalho/exemplos
+```
+
 ## Resultado
 
 - 249 de 249 arquivos descritos e validados, sem números inventados.
@@ -142,3 +174,7 @@ python -m gobr avaliar-manual data/indice_manual/qwen3-0.6b --consultas data/con
   ([docs/relatorio_indexacao.md](docs/relatorio_indexacao.md)).
 - Manual: em 48 consultas rotuladas, a busca híbrida (embeddings + BM25) põe a seção certa no top-5 em todas
   ([docs/relatorio_manual.md](docs/relatorio_manual.md)).
+- Agente: nos 3 exemplos do professor, sem o próprio gabarito na busca, 2 de 3 `.gobr` passam na validação
+  com RAG do manual (185 s para os 3) e 2 de 3 com o manual inteiro no prompt (548 s). A validação não pega
+  erros de significado, como "agendar inadimplentes autorizados" virar `nao agendar`
+  ([docs/relatorio_fluxo.md](docs/relatorio_fluxo.md), [data/agente/avaliacao.md](data/agente/avaliacao.md)).

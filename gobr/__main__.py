@@ -19,6 +19,10 @@
         arquivos mais parecidos, um por assinatura estrutural, com o caminho do .gobr
   python -m gobr avaliar-indice <dir_indice> --consultas <arquivo.json> [<arquivo.json>...]
         Recall@1/@k e MRR por variante de índice (consultas: {arquivo esperado: texto})
+  python -m gobr agente "<descrição de negócio>" [--servidor URL] [--manual-inteiro]
+        fluxo LangGraph: busca exemplos e manual, redige o .gobr no llama-server e valida com o pacote
+  python -m gobr avaliar-agente --consultas <arquivo.json> --gabaritos <dir_gobr> <dir_saida> [--manual-inteiro]
+        roda o agente em cada consulta sem o próprio gabarito na busca e compara com o .gobr do gabarito
 """
 import argparse
 import json
@@ -31,6 +35,10 @@ from gobr.parser import parse_file, unrecognized
 
 MODEL = "claude-sonnet-5-5"
 EMBEDDING_MODEL = "Qwen/Qwen3-Embedding-0.6B"
+REPO = Path(__file__).resolve().parent.parent
+EXAMPLES_INDEX = REPO / "data" / "indice" / "qwen3-0.6b"
+MANUAL_INDEX = REPO / "data" / "indice_manual" / "qwen3-0.6b"
+LLM_SERVER = "http://127.0.0.1:8080/v1"  # llama-server do PC pelo túnel `ssh -L 8080:127.0.0.1:8080 pc`
 
 
 def gobr_files(target: Path) -> list[Path]:
@@ -205,6 +213,56 @@ def evaluate_index(index_dir: Path, query_files: list[Path], k: int) -> None:
               f"| {row['mrr']:.3f} | {positions} |")
 
 
+def agent_resources(server: str, whole_manual: bool):
+    from gobr import agent, index, manual_search
+
+    examples, manual = index.load(EXAMPLES_INDEX), manual_search.load(MANUAL_INDEX)
+    if examples.model != manual.model:
+        raise SystemExit(f"os índices usam modelos diferentes: {examples.model} e {manual.model}")
+    return agent.Resources(examples, manual, index.Embedder(examples.model), agent.openai_chat(server), whole_manual)
+
+
+def run_agent(text: str, server: str, whole_manual: bool) -> None:
+    from gobr import agent
+
+    print(agent.build_graph(agent_resources(server, whole_manual)).invoke({"descricao": text})["resposta"])
+
+
+def evaluate_agent(query_file: Path, gold_dir: Path, out_dir: Path, server: str, whole_manual: bool) -> None:
+    """Aprovado = sem erro de validação (parse, fontes, ações e números do pedido); o resto só é reportado."""
+    from openai import APIError
+
+    from gobr import agent, index
+
+    resources = agent_resources(server, whole_manual)
+    queries = {name: text for name, text in json.loads(query_file.read_text(encoding="utf-8")).items()
+               if not name.startswith("_")}
+    problems = [f"{n}: fora do índice" for n in queries if n not in resources.examples.files]
+    problems += [f"{n}: sem {gold_dir / f'{n}.gobr'}" for n in queries if not (gold_dir / f"{n}.gobr").exists()]
+    if problems:
+        raise SystemExit("consultas sem gabarito utilizável: " + "; ".join(problems))
+    graph = agent.build_graph(resources)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    print("| gabarito | aprovado | tentativas | regras (gerado/gabarito) | assinatura igual | alertas | exemplos |")
+    print("|---|---|---|---|---|---|---|")
+    for name, text in queries.items():
+        try:
+            out = graph.invoke({"descricao": text, "excluir": [name]})
+        except APIError as exc:  # servidor fora do ar ou contexto estourado: registra e segue para o próximo
+            (out_dir / f"{name}.md").write_text(f"Erro do LLM: {exc}", encoding="utf-8")
+            print(f"| {name} | erro do LLM: {type(exc).__name__} | | | | | |")
+            continue
+        generated = out_dir / f"{name}.gobr"
+        generated.write_bytes(out["gobr"].replace("\r\n", "\n").encode("utf-8"))
+        (out_dir / f"{name}.md").write_text(out["resposta"], encoding="utf-8")
+        gold = build(gold_dir / f"{name}.gobr")
+        made = build(generated)
+        print(f"| {name} | {'sim' if not out['erros'] else 'não'} | {out['tentativas']} "
+              f"| {len(made['regras'])}/{len(gold['regras'])} "
+              f"| {'sim' if made['regras'] and index.signature(made) == index.signature(gold) else 'não'} "
+              f"| {len(out['alertas'])} | {', '.join(e['arquivo'] for e in out['exemplos'])} |")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(prog="python -m gobr")
     commands = parser.add_subparsers(dest="command", required=True)
@@ -256,6 +314,15 @@ def main() -> None:
     eval_cmd.add_argument("indice", type=Path)
     eval_cmd.add_argument("--consultas", type=Path, nargs="+", required=True)
     eval_cmd.add_argument("-k", type=int, default=5)
+    agent_cmd = commands.add_parser("agente")
+    agent_cmd.add_argument("texto")
+    agent_eval_cmd = commands.add_parser("avaliar-agente")
+    agent_eval_cmd.add_argument("saida", type=Path)
+    agent_eval_cmd.add_argument("--consultas", type=Path, required=True)
+    agent_eval_cmd.add_argument("--gabaritos", type=Path, required=True)
+    for cmd in (agent_cmd, agent_eval_cmd):
+        cmd.add_argument("--servidor", default=LLM_SERVER)
+        cmd.add_argument("--manual-inteiro", action="store_true")
     args = parser.parse_args()
     if getattr(args, "k", 1) < 1:
         parser.error("-k precisa ser pelo menos 1")
@@ -281,6 +348,10 @@ def main() -> None:
         build_index(args.descricoes, args.saida, args.contexto, args.gobr, args.modelo)
     elif args.command == "buscar":
         search(args.indice, args.texto, args.k)
+    elif args.command == "agente":
+        run_agent(args.texto, args.servidor, args.manual_inteiro)
+    elif args.command == "avaliar-agente":
+        evaluate_agent(args.consultas, args.gabaritos, args.saida, args.servidor, args.manual_inteiro)
     else:
         evaluate_index(args.indice, args.consultas, args.k)
 

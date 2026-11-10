@@ -1,0 +1,27 @@
+version 1.0
+
+## Definição de times
+
+time "televendas":
+    vendedores todostelevendas ativados
+
+## Regras de planejamento
+
+parametros "Prospect":
+    do time("televendas")
+    quando no ciclo de vida prospect com a empresa
+    frequencia de 7 dias
+
+parametros "Ativo":
+    do time("televendas")
+    quando recencia de positivacao global em 60 dias
+    frequencia de 14 dias
+
+parametros "Risco de inatividade":
+    do time("televendas")
+    quando recencia de positivacao global em 90 dias
+    frequencia de 7 dias
+
+parametros "Inativo":
+    do time("televendas")
+    frequencia de 28 dias
