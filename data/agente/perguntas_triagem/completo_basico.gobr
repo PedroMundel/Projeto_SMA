@@ -1,0 +1,17 @@
+version 1.0
+
+time "padrao":
+    vendedores todos
+
+carteira "padrao":
+    clientes carteirafixa("padrao")
+
+parametros "Ativos":
+    da carteira("padrao")
+    quando atividade de 30 dias
+    frequencia de 14 dias
+
+parametros "Inativos":
+    da carteira("padrao")
+    quando inatividade de 30 dias
+    frequencia de 28 dias

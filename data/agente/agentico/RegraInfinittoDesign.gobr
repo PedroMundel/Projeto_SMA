@@ -1,0 +1,26 @@
+version 1.0
+
+
+time "televendas":
+    vendedores todostelevendas ativados
+
+
+parametros "Prospect":
+    do time("televendas")
+    quando no ciclo de vida prospect com a empresa
+    frequencia de 7 dias
+
+parametros "Ativo":
+    do time("televendas")
+    quando atividade de 60 dias
+    frequencia de 14 dias
+
+parametros "Risco de inatividade":
+    do time("televendas")
+    quando atividade de 90 dias
+    frequencia de 7 dias
+
+parametros "Inativo":
+    do time("televendas")
+    quando inatividade global de 90 dias
+    frequencia de 28 dias

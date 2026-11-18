@@ -19,19 +19,25 @@
         arquivos mais parecidos, um por assinatura estrutural, com o caminho do .gobr
   python -m gobr avaliar-indice <dir_indice> --consultas <arquivo.json> [<arquivo.json>...]
         Recall@1/@k e MRR por variante de índice (consultas: {arquivo esperado: texto})
-  python -m gobr agente "<descrição de negócio>" [--servidor URL] [--manual-inteiro]
-        fluxo LangGraph: busca exemplos e manual, redige o .gobr no llama-server e valida com o pacote
+  python -m gobr agente "<pedido>" [--servidor URL] [--manual-inteiro]
+        conversa no terminal: o agente busca exemplos e manual, pode perguntar, e o .gobr entregue passa
+        pelo validador (pacote) e pelo conferente de significado
   python -m gobr avaliar-agente --consultas <arquivo.json> --gabaritos <dir_gobr> <dir_saida> [--manual-inteiro]
-        roda o agente em cada consulta sem o próprio gabarito na busca e compara com o .gobr do gabarito
+        roda o agente em cada consulta sem o próprio gabarito na busca (perguntas recebem a resposta padrão)
+  python -m gobr avaliar-perguntas <casos.json> <dir_saida> [--manual-inteiro]
+        roda o agente em cada caso com o usuário simulado do arquivo; mede se perguntou quando faltava algo
+  python -m gobr conferir <arquivo.gobr> [<arquivo.gobr>...] --consultas <arquivo.json>
+        só o conferente: compara o que cada regra faz com o pedido de mesmo nome em --consultas
 """
 import argparse
 import json
 import sys
+import time
 from pathlib import Path
 
 from gobr import consensus, redator
 from gobr.context import build
-from gobr.parser import parse_file, unrecognized
+from gobr.parser import parse_file, read_source, unrecognized
 
 MODEL = "claude-sonnet-5-5"
 EMBEDDING_MODEL = "Qwen/Qwen3-Embedding-0.6B"
@@ -225,42 +231,102 @@ def agent_resources(server: str, whole_manual: bool):
 def run_agent(text: str, server: str, whole_manual: bool) -> None:
     from gobr import agent
 
-    print(agent.build_graph(agent_resources(server, whole_manual)).invoke({"descricao": text})["resposta"])
+    def answer(question: str) -> str:
+        try:
+            return input(f"\n{question}\n> ")
+        except EOFError:  # entrada redirecionada e já lida: vale como "sem resposta"
+            return ""
+
+    graph = agent.build_graph(agent_resources(server, whole_manual))
+    print(agent.converse(graph, {"descricao": text}, answer)["resposta"])
+
+
+def _read_cases(path: Path) -> dict:
+    return {name: case for name, case in json.loads(path.read_text(encoding="utf-8")).items() if not name.startswith("_")}
+
+
+def _run_case(graph, state: dict, answers: list[str], out_dir: Path, name: str) -> dict | None:
+    """Roda uma conversa com respostas roteirizadas, grava .gobr e .md e devolve o estado final (None se falhou)."""
+    from gobr import agent
+
+    pending = list(answers)
+    started = time.perf_counter()
+    try:
+        out = agent.converse(graph, state, lambda _question: pending.pop(0) if pending else agent.NO_ANSWER)
+    except Exception as exc:  # servidor fora do ar, contexto estourado, laço: registra e segue para o próximo caso
+        (out_dir / f"{name}.md").write_text(f"Erro: {type(exc).__name__}: {exc}", encoding="utf-8")
+        print(f"| {name} | erro: {type(exc).__name__} |")
+        return None
+    out["segundos"] = time.perf_counter() - started
+    (out_dir / f"{name}.gobr").write_bytes(out["gobr"].replace("\r\n", "\n").encode("utf-8"))
+    (out_dir / f"{name}.md").write_text(out["resposta"], encoding="utf-8")
+    return out
 
 
 def evaluate_agent(query_file: Path, gold_dir: Path, out_dir: Path, server: str, whole_manual: bool) -> None:
     """Aprovado = sem erro de validação (parse, fontes, ações e números do pedido); o resto só é reportado."""
-    from openai import APIError
-
     from gobr import agent, index
 
     resources = agent_resources(server, whole_manual)
-    queries = {name: text for name, text in json.loads(query_file.read_text(encoding="utf-8")).items()
-               if not name.startswith("_")}
+    queries = _read_cases(query_file)
     problems = [f"{n}: fora do índice" for n in queries if n not in resources.examples.files]
     problems += [f"{n}: sem {gold_dir / f'{n}.gobr'}" for n in queries if not (gold_dir / f"{n}.gobr").exists()]
     if problems:
         raise SystemExit("consultas sem gabarito utilizável: " + "; ".join(problems))
     graph = agent.build_graph(resources)
     out_dir.mkdir(parents=True, exist_ok=True)
-    print("| gabarito | aprovado | tentativas | regras (gerado/gabarito) | assinatura igual | alertas | exemplos |")
-    print("|---|---|---|---|---|---|---|")
+    print("| gabarito | aprovado | entregas | passos | lacunas | perguntas (triagem + agente) | divergências (código + LLM) "
+          "| regras (gerado/gabarito) | assinatura igual | alertas | s |")
+    print("|---|---|---|---|---|---|---|---|---|---|---|")
     for name, text in queries.items():
-        try:
-            out = graph.invoke({"descricao": text, "excluir": [name]})
-        except APIError as exc:  # servidor fora do ar ou contexto estourado: registra e segue para o próximo
-            (out_dir / f"{name}.md").write_text(f"Erro do LLM: {exc}", encoding="utf-8")
-            print(f"| {name} | erro do LLM: {type(exc).__name__} | | | | | |")
+        out = _run_case(graph, {"descricao": text, "excluir": [name]}, [], out_dir, name)
+        if out is None:
             continue
-        generated = out_dir / f"{name}.gobr"
-        generated.write_bytes(out["gobr"].replace("\r\n", "\n").encode("utf-8"))
-        (out_dir / f"{name}.md").write_text(out["resposta"], encoding="utf-8")
-        gold = build(gold_dir / f"{name}.gobr")
-        made = build(generated)
-        print(f"| {name} | {'sim' if not out['erros'] else 'não'} | {out['tentativas']} "
+        gold, made = build(gold_dir / f"{name}.gobr"), build(out_dir / f"{name}.gobr")
+        print(f"| {name} | {'sim' if not out['erros'] else 'não'} | {out['entregas']} | {out['passos']} "
+              f"| {len(out['lacunas_iniciais'])} | {_questions(out)} | {_divergences(out)} "
               f"| {len(made['regras'])}/{len(gold['regras'])} "
               f"| {'sim' if made['regras'] and index.signature(made) == index.signature(gold) else 'não'} "
-              f"| {len(out['alertas'])} | {', '.join(e['arquivo'] for e in out['exemplos'])} |")
+              f"| {len(out['alertas']) + len(out['avisos'])} | {out['segundos']:.0f} |")
+
+
+def _questions(out: dict) -> str:
+    return f"{1 if out.get('pergunta_lacunas') else 0} + {len(out['perguntas'])}"
+
+
+def _divergences(out: dict) -> str:
+    by_code = len(out["divergencias_codigo"])
+    return f"{by_code} + {len(out['divergencias']) - by_code}"
+
+
+def evaluate_questions(case_file: Path, out_dir: Path, server: str, whole_manual: bool) -> None:
+    """Cada caso: {"pedido", "falta" (o que falta, ou "" se está completo), "respostas" do usuário simulado}."""
+    from gobr import agent
+
+    graph = agent.build_graph(agent_resources(server, whole_manual))
+    out_dir.mkdir(parents=True, exist_ok=True)
+    print("| caso | faltava algo | lacunas | perguntou | perguntas (triagem + agente) | aprovado | divergências (código + LLM) "
+          "| alertas | s |")
+    print("|---|---|---|---|---|---|---|---|---|")
+    for name, case in _read_cases(case_file).items():
+        out = _run_case(graph, {"descricao": case["pedido"]}, case["respostas"], out_dir, name)
+        if out is not None:
+            asked = out.get("pergunta_lacunas") or out["perguntas"]
+            print(f"| {name} | {'sim' if case['falta'] else 'não'} | {len(out['lacunas_iniciais'])} "
+                  f"| {'sim' if asked else 'não'} | {_questions(out)} | {'sim' if not out['erros'] else 'não'} "
+                  f"| {_divergences(out)} | {len(out['alertas']) + len(out['avisos'])} | {out['segundos']:.0f} |")
+
+
+def confer_files(paths: list[Path], query_file: Path, server: str) -> None:
+    from gobr import agent
+
+    queries, chat = _read_cases(query_file), agent.openai_chat(server)
+    missing = [p.stem for p in paths if p.stem not in queries]
+    if missing:
+        raise SystemExit(f"sem pedido em {query_file}: {', '.join(missing)}")
+    for path in paths:
+        divergences, alerts = agent.confer(chat, read_source(path), queries[path.stem])
+        print(f"## {path}\n\n" + "\n".join(f"- {d}" for d in divergences + alerts or ["confere"]) + "\n")
 
 
 def main() -> None:
@@ -320,7 +386,14 @@ def main() -> None:
     agent_eval_cmd.add_argument("saida", type=Path)
     agent_eval_cmd.add_argument("--consultas", type=Path, required=True)
     agent_eval_cmd.add_argument("--gabaritos", type=Path, required=True)
-    for cmd in (agent_cmd, agent_eval_cmd):
+    questions_cmd = commands.add_parser("avaliar-perguntas")
+    questions_cmd.add_argument("casos", type=Path)
+    questions_cmd.add_argument("saida", type=Path)
+    confer_cmd = commands.add_parser("conferir")
+    confer_cmd.add_argument("arquivos", type=Path, nargs="+")
+    confer_cmd.add_argument("--consultas", type=Path, required=True)
+    confer_cmd.add_argument("--servidor", default=LLM_SERVER)
+    for cmd in (agent_cmd, agent_eval_cmd, questions_cmd):
         cmd.add_argument("--servidor", default=LLM_SERVER)
         cmd.add_argument("--manual-inteiro", action="store_true")
     args = parser.parse_args()
@@ -352,6 +425,10 @@ def main() -> None:
         run_agent(args.texto, args.servidor, args.manual_inteiro)
     elif args.command == "avaliar-agente":
         evaluate_agent(args.consultas, args.gabaritos, args.saida, args.servidor, args.manual_inteiro)
+    elif args.command == "avaliar-perguntas":
+        evaluate_questions(args.casos, args.saida, args.servidor, args.manual_inteiro)
+    elif args.command == "conferir":
+        confer_files(args.arquivos, args.consultas, args.servidor)
     else:
         evaluate_index(args.indice, args.consultas, args.k)
 

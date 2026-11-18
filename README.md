@@ -18,16 +18,25 @@ A terceira etapa **indexa o manual GoBR**: `gobr/manual.py` extrai do PDF seçõ
 código, e `gobr/manual_search.py` busca a seção certa por embeddings, BM25 ou a fusão dos dois. Relatório:
 [docs/relatorio_manual.md](docs/relatorio_manual.md).
 
-A quarta etapa é o **fluxo básico do agente** em LangGraph (`gobr/agent.py`):
+A quarta etapa foi o fluxo básico em LangGraph (busca fixa, redação e validação; relatório em
+[docs/relatorio_fluxo.md](docs/relatorio_fluxo.md)). A quinta é o **fluxo agêntico** (`gobr/agent.py`): o
+LLM decide quando buscar mais exemplos ou o manual e quando perguntar ao usuário, e o grafo valida e confere
+tudo o que ele entrega ([docs/desenho_agente.md](docs/desenho_agente.md)):
 
 ```
-descrição ──► buscar (exemplos + manual) ──► redigir (LLM) ──► validar (parser + cascata) ──► responder
-                                                ▲                    │ erro
-                                                └────────────────────┘ (até 2 tentativas)
+pedido ─► triagem (LLM extrai os segmentos; o código vê o que falta) ─(lacunas)─► pergunta ao usuário ─► triagem
+   └─► preparar (busca inicial + tabela de segmentos) ─► agente (LLM)
+                                                    ┌─ buscar_exemplos / buscar_manual ─► agente
+                                                    ├─ perguntar_usuario (pausa e espera a resposta) ─► agente
+                                                    └─ entrega ─► validar ─(erro)─► agente
+                                                                     └─(ok)─► conferir ─(divergência, 1ª vez)─► agente
+                                                                                  └─► responder
 ```
 
-O LLM é o Qwen3.6-35B-A3B no llama-server do PC com a RTX 5060, acessado por um túnel SSH. A validação diz
-se o `.gobr` serve; os alertas da cascata voltam para o usuário como pontos de atenção da modelagem.
+O LLM é o Qwen3.6-35B-A3B no llama-server do PC com a RTX 5060, acessado por um túnel SSH. O validador
+(parser + cascata) diz se o `.gobr` serve. Na conferência, o código compara a ação e a frequência de cada
+regra com o segmento da triagem, e o conferente (LLM) compara com o pedido o que cada regra faz, segundo o
+pacote. Os alertas da cascata voltam para o usuário como pontos de atenção da modelagem.
 
 ## Como funciona
 
@@ -57,8 +66,8 @@ As ambiguidades do manual foram resolvidas como premissas explícitas, de P1 a P
 | Caminho | Conteúdo |
 |---|---|
 | `gobr/` | camada determinística, validador, concordância, índices, fluxo do agente (`agent.py`) e CLI |
-| `tests/test_gobr.py`, `tests/test_index.py`, `tests/test_manual.py`, `tests/test_agent.py` | 36 + 16 + 22 + 14 testes (`unittest`) |
-| `redator/` | prompts congelados (redator e `prompt_agente.md`), exemplos do prompt e roteiro do lote na nuvem |
+| `tests/test_gobr.py`, `tests/test_index.py`, `tests/test_manual.py`, `tests/test_agent.py` | 36 + 16 + 22 + 51 testes (`unittest`) |
+| `redator/` | prompts congelados (redator, `prompt_agente.md` e `prompt_conferente.md`), exemplos do prompt e roteiro do lote na nuvem |
 | `data/contexto/`, `data/contexto_exemplos/` | pacote de contexto completo por arquivo (v5) |
 | `data/entrada_redator/` | visão do pacote que o redator lê |
 | `data/candidatos_v2/`, `_v3/`, `_v4/`, `_v5/` | réplicas geradas pelo redator (lote na nuvem e regerações) |
@@ -67,7 +76,7 @@ As ambiguidades do manual foram resolvidas como premissas explícitas, de P1 a P
 | `data/consultas_avaliacao/` | consultas rotuladas para avaliar a recuperação (gabaritos do professor, 30 cegas e 48 do manual) |
 | `data/manual/` | manual extraído do PDF: `secoes.json` (95 seções) e `chunks.jsonl` (463 chunks) |
 | `data/indice_manual/<modelo>/` | índice de embeddings do manual e avaliação |
-| `data/agente/` | avaliação do agente nos 3 gabaritos: `avaliacao.md` e o `.gobr` e a resposta de cada um, por modo |
+| `data/agente/` | avaliação do agente: fluxo fixo (`avaliacao.md`, `rag/`, `manual_inteiro/`) e agêntico (`avaliacao_agentico.md`, `agentico/`, `perguntas/`, com triagem `agentico_triagem/` e `perguntas_triagem/`, `casos_pergunta.json`) |
 | `docs/` | premissas, avaliação, relatórios e texto do manual GoBR |
 | `research/` | pesquisas que embasaram as decisões |
 | `data/candidatos/`, `data/candidatos_piloto/` | piloto e calibração (experimentos iniciais) |
@@ -147,14 +156,28 @@ ssh -L 8080:127.0.0.1:8080 pc "& D:\tools\llama.cpp-b11770\llama-server.exe -m D
 O servidor continua vivo no PC depois que a conexão cai; encerre-o com
 `ssh pc "Get-Process llama-server | Stop-Process"`.
 
-Em outro, rode o agente ou a avaliação nos 3 gabaritos (a busca tira o próprio gabarito e os de mesma estrutura):
+Em outro, converse com o agente (ele pode fazer até 2 perguntas; responda no terminal):
 
 ```bash
 python -m gobr agente "Ativos: compra nos últimos 30 dias, 14 dias. Inativos: mais de 45 dias, 28 dias"
 ```
 
+Avaliação nos 3 gabaritos (a busca tira o próprio gabarito e os de mesma estrutura):
+
 ```bash
-python -m gobr avaliar-agente data/agente/rag --consultas data/consultas_avaliacao/ouro.json --gabaritos trabalho/trabalho/exemplos
+python -m gobr avaliar-agente data/agente/agentico --consultas data/consultas_avaliacao/ouro.json --gabaritos trabalho/trabalho/exemplos
+```
+
+Perguntas, com o usuário simulado de `data/agente/casos_pergunta.json`:
+
+```bash
+python -m gobr avaliar-perguntas data/agente/casos_pergunta.json data/agente/perguntas
+```
+
+Só o conferente, em `.gobr` já escritos:
+
+```bash
+python -m gobr conferir data/agente/rag/*.gobr --consultas data/consultas_avaliacao/ouro.json
 ```
 
 ## Resultado
@@ -174,7 +197,12 @@ python -m gobr avaliar-agente data/agente/rag --consultas data/consultas_avaliac
   ([docs/relatorio_indexacao.md](docs/relatorio_indexacao.md)).
 - Manual: em 48 consultas rotuladas, a busca híbrida (embeddings + BM25) põe a seção certa no top-5 em todas
   ([docs/relatorio_manual.md](docs/relatorio_manual.md)).
-- Agente: nos 3 exemplos do professor, sem o próprio gabarito na busca, 2 de 3 `.gobr` passam na validação
+- Fluxo fixo: nos 3 exemplos do professor, sem o próprio gabarito na busca, 2 de 3 `.gobr` passam na validação
   com RAG do manual (185 s para os 3) e 2 de 3 com o manual inteiro no prompt (548 s). A validação não pega
   erros de significado, como "agendar inadimplentes autorizados" virar `nao agendar`
   ([docs/relatorio_fluxo.md](docs/relatorio_fluxo.md), [data/agente/avaliacao.md](data/agente/avaliacao.md)).
+- Fluxo agêntico: 3 de 3 passam na validação. O conferente acusa a ação invertida do V1Vidros nas entregas
+  antigas e não acusa nada nas outras quatro. Sem a triagem, o agente não perguntava quando faltava um dado
+  (0 de 3 casos incompletos). Com a triagem, pergunta nos 3, e a triagem não aponta lacuna nos 3 completos;
+  num deles, o próprio agente perguntou time e carteira. Os gabaritos seguem 3/3, em 352 s
+  ([docs/relatorio_agente.md](docs/relatorio_agente.md), [data/agente/avaliacao_agentico.md](data/agente/avaliacao_agentico.md)).

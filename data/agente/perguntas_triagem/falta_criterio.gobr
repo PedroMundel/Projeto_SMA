@@ -1,0 +1,16 @@
+version 1.0
+
+time "padrao":
+    vendedores todos
+
+carteira "carteira padrao":
+    clientes portfolio("padrao")
+
+parametros "Ativos":
+    da carteira("carteira padrao")
+    quando atividade do vendedor de 60 dias
+    frequencia de 14 dias
+
+parametros "Inativos":
+    da carteira("carteira padrao")
+    frequencia de 28 dias

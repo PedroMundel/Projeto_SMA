@@ -1,0 +1,18 @@
+version 1.0
+
+time "vendas":
+    vendedores todos
+
+parametros "Inadimplentes":
+    do time("vendas")
+    quando inadimplentes
+    nao agendar
+
+parametros "Ativos":
+    do time("vendas")
+    quando recencia de positivacao global em 60 dias
+    frequencia de 14 dias
+
+parametros "Inativos":
+    do time("vendas")
+    frequencia de 28 dias

@@ -1,0 +1,14 @@
+version 1.0
+
+time "padrao":
+    vendedores todos
+
+parametros "Ativos":
+    do time("padrao")
+    quando atividade de 30 dias
+    frequencia de 14 dias
+
+parametros "Inativos":
+    do time("padrao")
+    quando inatividade de 30 dias
+    frequencia de 28 dias

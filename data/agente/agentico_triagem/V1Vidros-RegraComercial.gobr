@@ -1,0 +1,34 @@
+version 1.0
+
+time "todos":
+    vendedores todos ativados
+
+parametros "Não agendar clientes baixados na receita":
+    do time("todos")
+    quando status na receita federal definido como baixada
+    nao agendar
+
+parametros "Clientes Prospects":
+    do time("todos")
+    quando no ciclo de vida prospect com a empresa
+    frequencia de 7 dias
+
+parametros "Clientes Ativos":
+    do time("todos")
+    quando atividade de 30 dias
+    frequencia de 14 dias
+
+parametros "Risco de Inatividade":
+    do time("todos")
+    quando atividade de 45 dias
+    frequencia de 7 dias
+
+parametros "Inativos":
+    do time("todos")
+    quando inatividade global de 45 dias
+    frequencia de 14 dias
+
+parametros "Inadiplentes":
+    do time("todos")
+    quando inadimplentes
+    frequencia de 14 dias

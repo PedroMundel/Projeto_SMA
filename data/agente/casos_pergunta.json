@@ -1,0 +1,33 @@
+{
+  "_fonte": "Pedidos inventados no formato dos 3 PDFs de exemplo (2026-11-17). 'falta' diz o que o pedido não informa ('' = completo); 'respostas' é o que o usuário simulado responde, em ordem, às perguntas do agente.",
+  "completo_basico": {
+    "pedido": "Ativos: compra nos últimos 30 dias, 14 dias\nInativos: sem compra há mais de 30 dias, 28 dias",
+    "falta": "",
+    "respostas": []
+  },
+  "completo_bloqueio": {
+    "pedido": "Não agendar inadimplentes\nAtivos: clientes com pedidos nos últimos 60 dias, 7 dias\nInativos: clientes sem pedidos há mais de 60 dias, 21 dias",
+    "falta": "",
+    "respostas": []
+  },
+  "completo_prospect": {
+    "pedido": "Prospects: clientes com ciclo de vida prospect, 7 dias\nAtivos: compra nos últimos 90 dias, 14 dias\nDemais clientes: 30 dias",
+    "falta": "",
+    "respostas": []
+  },
+  "falta_frequencia": {
+    "pedido": "Ativos: compra nos últimos 30 dias, 14 dias\nInativos: sem compra há mais de 30 dias",
+    "falta": "frequência dos inativos",
+    "respostas": ["Os inativos a cada 28 dias."]
+  },
+  "falta_criterio": {
+    "pedido": "Ativos: 14 dias\nInativos: 28 dias",
+    "falta": "o que define ativo e inativo",
+    "respostas": ["Ativo é quem comprou nos últimos 60 dias; inativo é quem não comprou nesse período."]
+  },
+  "acao_ambigua": {
+    "pedido": "Inadimplentes: tratar à parte\nAtivos: compra nos últimos 60 dias, 14 dias\nInativos: os demais, 28 dias",
+    "falta": "se os inadimplentes são agendados",
+    "respostas": ["Não agendar os inadimplentes."]
+  }
+}

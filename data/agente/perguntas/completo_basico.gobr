@@ -1,0 +1,17 @@
+version 1.0
+
+time "time padrao":
+    vendedores todos
+
+carteira "padrao":
+    clientes carteirafixa("time padrao")
+
+parametros "Ativos com compra nos ultimos 30 dias":
+    da carteira("padrao")
+    quando atividade de 30 dias
+    frequencia de 14 dias
+
+parametros "Inativos sem compra a mais de 30 dias":
+    da carteira("padrao")
+    quando inatividade de 30 dias
+    frequencia de 28 dias

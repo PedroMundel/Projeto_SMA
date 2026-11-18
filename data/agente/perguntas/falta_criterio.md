@@ -1,0 +1,19 @@
+```gobr
+version 1.0
+
+time "padrao":
+    vendedores todos
+
+carteira "carteira padrao":
+    clientes carteirafixa("padrao")
+
+parametros "Ativos: 14 dias":
+    da carteira("carteira padrao")
+    quando ativos para o vendedor
+    frequencia de 14 dias
+
+parametros "Inativos: 28 dias":
+    da carteira("carteira padrao")
+    quando inativos para o vendedor
+    frequencia de 28 dias
+```

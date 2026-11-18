@@ -2,13 +2,13 @@
 
 Disciplina de Sistemas Multiagentes (UFG, 2026-2): agente LangGraph + RAG que ajuda a escrever regras
 na DSL GoBR do Govendas. Etapas: explicações de cada `.gobr`, índice delas (`gobr/index.py`) e índice do manual
-(`gobr/manual.py` extrai, `gobr/manual_search.py` busca) e fluxo básico LangGraph (`gobr/agent.py`).
+(`gobr/manual.py` extrai, `gobr/manual_search.py` busca) e fluxo agêntico LangGraph (`gobr/agent.py`: triagem, ferramentas, perguntas com `interrupt`, validador e conferente).
 Visão geral e comandos: `README.md`. Estado da sessão: `HANDOFF.md`.
 
 ## Comandos
 
 - Testes: `python -m unittest tests.test_gobr tests.test_index tests.test_manual tests.test_agent`
-- Agente: `python -m gobr agente|avaliar-agente ...`; o LLM é o llama-server do PC (RTX 5060) pelo túnel `ssh -L 8080:127.0.0.1:8080 pc`
+- Agente: `python -m gobr agente|avaliar-agente|avaliar-perguntas|conferir ...`; o LLM é o llama-server do PC (RTX 5060) pelo túnel `ssh -L 8080:127.0.0.1:8080 pc`
 - Pacotes: `python -m gobr contexto|entrada|pendentes|consolidar|cobertura ...` (ver docstring de `gobr/__main__.py`)
 - Índice: `python -m gobr indexar|buscar|avaliar-indice ...`; rode com `HF_HUB_OFFLINE=1` (modelos em cache)
 - Manual: `python -m gobr manual|indexar-manual|buscar-manual|avaliar-manual ...`
@@ -46,7 +46,8 @@ Visão geral e comandos: `README.md`. Estado da sessão: `HANDOFF.md`.
 | `docs/premissas.md` | for mudar a semântica da cascata ou do catálogo de cláusulas |
 | `docs/relatorio_explicacoes.md` | for escrever relatório ou apresentação, ou precisar dos números da etapa |
 | `docs/relatorio_manual.md` | for mexer na extração do PDF, nos chunks ou na busca do manual (denso, BM25, híbrido) |
-| `docs/relatorio_fluxo.md`, `research/backend_llm_fluxo.md` | for mexer no grafo (`gobr/agent.py`), no prompt do agente, no backend do LLM ou na avaliação nos gabaritos |
+| `docs/desenho_agente.md`, `docs/relatorio_agente.md` | for mexer no grafo (`gobr/agent.py`: ferramentas, `interrupt`, conferente), nos prompts do agente ou do conferente, ou na avaliação do agente |
+| `docs/relatorio_fluxo.md`, `research/backend_llm_fluxo.md` | for precisar da linha de base do fluxo fixo (commit `094e6b1`) ou mexer no backend do LLM |
 | `docs/relatorio_indexacao.md` | for mexer no índice de embeddings, no `search` ou no modelo, ou precisar dos números de recuperação |
 | `docs/avaliacao/*.md` | for mexer na qualidade das descrições ou reavaliar |
 | `research/camada_deterministica.md`, `research/redator_llm.md` | for fazer o índice RAG, o backend Ollama ou mudar o prompt |

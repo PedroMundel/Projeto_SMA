@@ -1,0 +1,18 @@
+version 1.0
+
+time "vendas":
+    vendedores todos
+
+parametros "Prospects":
+    do time("vendas")
+    quando prospects da empresa
+    frequencia de 7 dias
+
+parametros "Ativos":
+    do time("vendas")
+    quando atividade de 90 dias
+    frequencia de 14 dias
+
+parametros "Demais clientes":
+    do time("vendas")
+    frequencia de 30 dias
