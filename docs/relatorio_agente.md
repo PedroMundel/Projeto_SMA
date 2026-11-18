@@ -10,16 +10,29 @@ devolva as regras em GoBR. O desenho e as alternativas descartadas estão em `do
 
 ## 2. O grafo (`gobr/agent.py`)
 
-```
-pedido ─► preparar ─► agente ─┬─ buscar_exemplos / buscar_manual ─► ferramentas ─► agente
-                              ├─ perguntar_usuario ─► perguntar (interrupt) ─► agente
-                              └─ entrega (texto com ```gobr) ─► validar ─(erro, < 3 entregas)─► agente
-                                                                   └─(ok)─► conferir ─(divergência, 1ª)─► agente
-                                                                               └─► responder
-```
+Transições do grafo:
 
+| de | condição | para |
+|---|---|---|
+| início | | triagem |
+| triagem | há lacunas e ainda não perguntou | perguntar_lacunas |
+| triagem | sem lacunas, ou já perguntou | preparar |
+| perguntar_lacunas | o usuário respondeu | triagem (de novo, com a resposta) |
+| perguntar_lacunas | sem resposta | preparar |
+| preparar | | agente |
+| agente | chamou `buscar_exemplos` / `buscar_manual` | ferramentas → agente |
+| agente | chamou `perguntar_usuario` | perguntar (interrupt) → agente |
+| agente | respondeu em texto (entrega) | validar |
+| validar | erro e menos de 3 entregas | agente |
+| validar | sem erro | conferir |
+| conferir | divergência na 1ª conferência | agente |
+| conferir / validar | caso contrário | responder |
+
+- **triagem** (LLM com json_schema, `redator/prompt_triagem.md`) e **perguntar_lacunas** (código): ver §4.4.
+  A triagem extrai os segmentos do pedido; o código acha as lacunas e faz uma só pergunta com todas.
 - **preparar** (determinístico): a busca da etapa anterior (3 exemplos por embeddings, com leave-out por
-  assinatura na avaliação, e 3 seções do manual pela busca híbrida). É o piso: se o agente não chamar nenhuma
+  assinatura na avaliação, e 3 seções do manual pela busca híbrida), mais a tabela de segmentos da triagem.
+  É o piso: se o agente não chamar nenhuma
   ferramenta, faz o mesmo que o fluxo fixo.
 - **agente** (LLM com ferramentas no formato da API OpenAI): `buscar_exemplos(consulta)`,
   `buscar_manual(consulta)` e `perguntar_usuario(pergunta)`. Responder em texto com um bloco ```gobr é
@@ -31,7 +44,8 @@ pedido ─► preparar ─► agente ─┬─ buscar_exemplos / buscar_manual �
 - **validar**: o `check` da etapa anterior, sem mudança (parser, fontes, ações, regras inalcançáveis ou
   contraditórias, números do pedido). Antes, tira as linhas `#` depois do cabeçalho: na etapa anterior, o
   Maxlub terminava com 17 linhas de raciocínio do modelo.
-- **conferir**: segunda chamada ao LLM, com prompt próprio (`redator/prompt_conferente.md`) e saída JSON
+- **conferir**: primeiro o código compara a ação e a frequência de cada regra com o segmento de mesmo nome
+  da triagem (§4.4); depois, uma chamada ao LLM, com prompt próprio (`redator/prompt_conferente.md`) e saída JSON
   (`response_format` json_schema). Recebe o pedido, as notas do redator e uma tabela que o pacote
   (`gobr.context.build`) calcula para cada regra: filtros (código), clientes (a `condicao_efetiva`, em
   português), bloqueios anteriores e ação. As respostas do usuário às perguntas entram junto com o pedido.
@@ -75,7 +89,7 @@ e está há 30 sem comprar". O gabarito do Maxlub faz exatamente isso
 (`recencia ... em 90 dias e fora da recencia ... em 60 dias`), então a afirmação do agente é falsa, e a
 divergência ficou na resposta para o usuário.
 
-### 4.2 Perguntas: o agente não pergunta quando falta um dado
+### 4.2 Perguntas, antes da triagem: o agente não perguntava quando faltava um dado
 
 Nos 6 casos de `data/agente/casos_pergunta.json`, ele não perguntou nos 3 completos (certo) nem nos 3
 incompletos (errado). Nos incompletos, inventou o que faltava:
