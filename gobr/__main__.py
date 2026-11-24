@@ -19,9 +19,14 @@
         arquivos mais parecidos, um por assinatura estrutural, com o caminho do .gobr
   python -m gobr avaliar-indice <dir_indice> --consultas <arquivo.json> [<arquivo.json>...]
         Recall@1/@k e MRR por variante de índice (consultas: {arquivo esperado: texto})
-  python -m gobr agente "<pedido>" [--servidor URL] [--manual-inteiro]
-        conversa no terminal: o agente busca exemplos e manual, pode perguntar, e o .gobr entregue passa
-        pelo validador (pacote) e pelo conferente de significado
+  python -m gobr agente ["<mensagem>"] [--conversa NOME] [--memoria BANCO.db] [--servidor URL] [--manual-inteiro]
+        conversa no terminal, com memória: o agente busca exemplos e manual, pode perguntar, e o .gobr entregue
+        passa pelo validador (pacote) e pelo conferente de significado. Depois da resposta, cada linha é um novo
+        turno (mudar, perguntar, desfazer, pedido novo); linha vazia ou /sair encerra, /memoria mostra o que está
+        guardado. Com --conversa, retoma de onde parou, até no meio de uma pergunta
+  python -m gobr conversas [--memoria BANCO.db]   Conversas guardadas
+  python -m gobr avaliar-memoria <casos.json> <dir_saida> [--modo memoria|concatenada|nenhuma]
+        roda as conversas roteirizadas e confere as saídas esperadas de cada turno
   python -m gobr avaliar-agente --consultas <arquivo.json> --gabaritos <dir_gobr> <dir_saida> [--manual-inteiro]
         roda o agente em cada consulta sem o próprio gabarito na busca (perguntas recebem a resposta padrão)
   python -m gobr avaliar-perguntas <casos.json> <dir_saida> [--manual-inteiro]
@@ -44,7 +49,8 @@ EMBEDDING_MODEL = "Qwen/Qwen3-Embedding-0.6B"
 REPO = Path(__file__).resolve().parent.parent
 EXAMPLES_INDEX = REPO / "data" / "indice" / "qwen3-0.6b"
 MANUAL_INDEX = REPO / "data" / "indice_manual" / "qwen3-0.6b"
-LLM_SERVER = "http://127.0.0.1:8080/v1"  # llama-server do PC pelo túnel `ssh -L 8080:127.0.0.1:8080 pc`
+MEMORY_DB = REPO / "data" / "memoria" / "conversas.db"
+LLM_SERVER = "http://127.0.0.1:8080/v1"  # llama-server local
 
 
 def gobr_files(target: Path) -> list[Path]:
@@ -219,26 +225,87 @@ def evaluate_index(index_dir: Path, query_files: list[Path], k: int) -> None:
               f"| {row['mrr']:.3f} | {positions} |")
 
 
-def agent_resources(server: str, whole_manual: bool):
+def agent_resources(server: str, whole_manual: bool, prompt_tokens: list[int] | None = None):
     from gobr import agent, index, manual_search
 
     examples, manual = index.load(EXAMPLES_INDEX), manual_search.load(MANUAL_INDEX)
     if examples.model != manual.model:
         raise SystemExit(f"os índices usam modelos diferentes: {examples.model} e {manual.model}")
-    return agent.Resources(examples, manual, index.Embedder(examples.model), agent.openai_chat(server), whole_manual)
+    return agent.Resources(examples, manual, index.Embedder(examples.model), agent.openai_chat(server, prompt_tokens),
+                           whole_manual)
 
 
-def run_agent(text: str, server: str, whole_manual: bool) -> None:
-    from gobr import agent
+def _read_line(prompt: str) -> str:
+    try:
+        return input(prompt)
+    except EOFError:  # entrada redirecionada e já lida: vale como "sem resposta" e encerra a conversa
+        return ""
+
+
+def run_agent(text: str, conversation: str, db: Path, server: str, whole_manual: bool) -> None:
+    """Uma conversa no terminal: retoma o que ficou pendente e depois trata cada linha como um turno."""
+    from gobr import agent, memory
 
     def answer(question: str) -> str:
-        try:
-            return input(f"\n{question}\n> ")
-        except EOFError:  # entrada redirecionada e já lida: vale como "sem resposta"
-            return ""
+        return _read_line(f"\n{question}\n> ")
 
-    graph = agent.build_graph(agent_resources(server, whole_manual))
-    print(agent.converse(graph, {"descricao": text}, answer)["resposta"])
+    name = conversation or time.strftime("conversa-%Y%m%d-%H%M%S")
+    again = f'python -m gobr agente --conversa "{name}"' + ("" if db == MEMORY_DB else f' --memoria "{db}"')
+    with agent.open_memory(db) as saver:
+        graph = agent.build_graph(agent_resources(server, whole_manual), saver)
+        print(f"Conversa: {name}", file=sys.stderr)
+        try:
+            # um turno que falhou só é refeito se não veio mensagem nova; uma pergunta pendente é sempre retomada
+            pending = graph.get_state(agent.thread_config(name)).interrupts
+            resumed = agent.converse(graph, None, answer, name) if pending or not text else None
+            if resumed:
+                print(resumed["resposta"])
+            message = text or _read_line("\nVocê> ")
+            while message.strip() and message.strip() != "/sair":
+                if message.strip() == "/memoria":
+                    print(memory.summary(graph.get_state(agent.thread_config(name)).values))
+                else:
+                    print(agent.converse(graph, {"mensagem": message}, answer, name)["resposta"])
+                message = _read_line("\nVocê> ")
+        except (Exception, KeyboardInterrupt) as exc:
+            if not isinstance(exc, KeyboardInterrupt):
+                print(f"\nErro: {type(exc).__name__}: {exc}", file=sys.stderr)
+            raise SystemExit(f"A conversa está guardada. Para refazer este turno: {again}\n"
+                             f'Para trocá-lo por outra mensagem: {again} "<mensagem>"') from exc
+    print(f"Conversa guardada. Retome com: {again}", file=sys.stderr)
+
+
+def list_conversations(db: Path) -> None:
+    from gobr import agent
+
+    if not db.exists():
+        print("Nenhuma conversa guardada.")
+        return
+    with agent.open_memory(db) as saver:
+        for c in agent.conversations(saver):
+            print(f"{c['nome']}  {c['turnos']} turnos, versão {c['versao']}: {' '.join(c['inicio'].split())[:80]}")
+
+
+def evaluate_memory(case_file: Path, out_dir: Path, mode: str, server: str, whole_manual: bool) -> None:
+    """Verificações certas por caso; o banco fica em <saida>/conversas.db e cada rodada usa conversas novas."""
+    from gobr import memory_eval
+
+    tokens: list[int] = []
+    resources = agent_resources(server, whole_manual, tokens)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    run, totals = time.strftime("%Y%m%d-%H%M%S"), [0, 0]
+    print("| caso | turnos | verificações certas | turnos todos certos | tipos | perguntas | maior prompt por turno (tokens) | s |")
+    print("|---|---|---|---|---|---|---|---|")
+    for name, turns in _read_cases(case_file).items():
+        records = memory_eval.run_case(resources, turns, mode, out_dir / "conversas.db", f"{name}-{run}", tokens)
+        (out_dir / f"{name}.md").write_text(memory_eval.case_report(name, records), encoding="utf-8")
+        checks = [ok for r in records for _, ok in r["verificacoes"]]
+        totals = [totals[0] + sum(checks), totals[1] + len(checks)]
+        whole = sum(all(ok for _, ok in r["verificacoes"]) for r in records)
+        print(f"| {name} | {len(records)} | {sum(checks)}/{len(checks)} | {whole}/{len(records)} "
+              f"| {', '.join(r['tipo'] for r in records)} | {' '.join(str(r['perguntas']) for r in records)} "
+              f"| {' '.join(str(r['tokens']) for r in records)} | {sum(r['segundos'] for r in records):.0f} |", flush=True)
+    print(f"\nTotal ({mode}): {totals[0]}/{totals[1]} verificações")
 
 
 def _read_cases(path: Path) -> dict:
@@ -279,7 +346,7 @@ def evaluate_agent(query_file: Path, gold_dir: Path, out_dir: Path, server: str,
           "| regras (gerado/gabarito) | assinatura igual | alertas | s |")
     print("|---|---|---|---|---|---|---|---|---|---|---|")
     for name, text in queries.items():
-        out = _run_case(graph, {"descricao": text, "excluir": [name]}, [], out_dir, name)
+        out = _run_case(graph, {"mensagem": text, "excluir": [name]}, [], out_dir, name)
         if out is None:
             continue
         gold, made = build(gold_dir / f"{name}.gobr"), build(out_dir / f"{name}.gobr")
@@ -309,7 +376,7 @@ def evaluate_questions(case_file: Path, out_dir: Path, server: str, whole_manual
           "| alertas | s |")
     print("|---|---|---|---|---|---|---|---|---|")
     for name, case in _read_cases(case_file).items():
-        out = _run_case(graph, {"descricao": case["pedido"]}, case["respostas"], out_dir, name)
+        out = _run_case(graph, {"mensagem": case["pedido"]}, case["respostas"], out_dir, name)
         if out is not None:
             asked = out.get("pergunta_lacunas") or out["perguntas"]
             print(f"| {name} | {'sim' if case['falta'] else 'não'} | {len(out['lacunas_iniciais'])} "
@@ -381,7 +448,15 @@ def main() -> None:
     eval_cmd.add_argument("--consultas", type=Path, nargs="+", required=True)
     eval_cmd.add_argument("-k", type=int, default=5)
     agent_cmd = commands.add_parser("agente")
-    agent_cmd.add_argument("texto")
+    agent_cmd.add_argument("texto", nargs="?", default="")
+    agent_cmd.add_argument("--conversa", default="")
+    list_cmd = commands.add_parser("conversas")
+    for cmd in (agent_cmd, list_cmd):
+        cmd.add_argument("--memoria", type=Path, default=MEMORY_DB)
+    memory_cmd = commands.add_parser("avaliar-memoria")
+    memory_cmd.add_argument("casos", type=Path)
+    memory_cmd.add_argument("saida", type=Path)
+    memory_cmd.add_argument("--modo", choices=("memoria", "concatenada", "nenhuma"), default="memoria")
     agent_eval_cmd = commands.add_parser("avaliar-agente")
     agent_eval_cmd.add_argument("saida", type=Path)
     agent_eval_cmd.add_argument("--consultas", type=Path, required=True)
@@ -393,7 +468,7 @@ def main() -> None:
     confer_cmd.add_argument("arquivos", type=Path, nargs="+")
     confer_cmd.add_argument("--consultas", type=Path, required=True)
     confer_cmd.add_argument("--servidor", default=LLM_SERVER)
-    for cmd in (agent_cmd, agent_eval_cmd, questions_cmd):
+    for cmd in (agent_cmd, agent_eval_cmd, questions_cmd, memory_cmd):
         cmd.add_argument("--servidor", default=LLM_SERVER)
         cmd.add_argument("--manual-inteiro", action="store_true")
     args = parser.parse_args()
@@ -422,7 +497,11 @@ def main() -> None:
     elif args.command == "buscar":
         search(args.indice, args.texto, args.k)
     elif args.command == "agente":
-        run_agent(args.texto, args.servidor, args.manual_inteiro)
+        run_agent(args.texto, args.conversa, args.memoria, args.servidor, args.manual_inteiro)
+    elif args.command == "conversas":
+        list_conversations(args.memoria)
+    elif args.command == "avaliar-memoria":
+        evaluate_memory(args.casos, args.saida, args.modo, args.servidor, args.manual_inteiro)
     elif args.command == "avaliar-agente":
         evaluate_agent(args.consultas, args.gabaritos, args.saida, args.servidor, args.manual_inteiro)
     elif args.command == "avaliar-perguntas":

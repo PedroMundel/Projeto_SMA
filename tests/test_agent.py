@@ -58,16 +58,21 @@ class ScriptedChat:
     Padrões: a triagem devolve os segmentos do REQUEST, sem lacunas; o conferente diz que confere.
     """
 
-    def __init__(self, *replies, conference=(), triage=()):
+    def __init__(self, *replies, conference=(), triage=(), interpret=()):
         self.replies = [{"role": "assistant", "content": r} if isinstance(r, str) else r for r in replies]
         self.conference = _json_list(conference, AGREES)
         self.triage = _json_list(triage, TRIAGED)
-        self.received, self.tools, self.conferred, self.triaged = [], [], [], []
+        self.interpret = _json_list(interpret, {})
+        self.received, self.tools, self.conferred, self.triaged, self.interpreted = [], [], [], [], []
 
     def __call__(self, messages: list[dict], tools=None, schema=None) -> dict:
         if schema is agent.TRIAGE_SCHEMA:
             self.triaged.append(messages)
             return {"role": "assistant", "content": self.triage[min(len(self.triaged), len(self.triage)) - 1]}
+        if schema is agent.INTERPRET_SCHEMA:
+            self.interpreted.append(messages)
+            return {"role": "assistant",
+                    "content": self.interpret[min(len(self.interpreted), len(self.interpret)) - 1]}
         if schema is not None:
             self.conferred.append(messages)
             return {"role": "assistant", "content": self.conference[min(len(self.conferred), len(self.conference)) - 1]}
@@ -76,7 +81,9 @@ class ScriptedChat:
         return self.replies[min(len(self.received), len(self.replies)) - 1]
 
 
-class AgentTest(unittest.TestCase):
+class AgentFixture(unittest.TestCase):
+    """Índices mínimos de exemplos e de manual, com o embedder falso."""
+
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.embedder = WordHashEmbedder()
@@ -104,6 +111,8 @@ class AgentTest(unittest.TestCase):
     def tearDown(self):
         self.tmp.cleanup()
 
+
+class AgentTest(AgentFixture):
     def run_graph(self, chat, answers=(), **state) -> dict:
         res = agent.Resources(self.examples, self.manual, self.embedder, chat, whole_manual=state.pop("inteiro", False))
         pending = list(answers)
@@ -112,7 +121,7 @@ class AgentTest(unittest.TestCase):
             self.asked.append(question)
             return pending.pop(0) if pending else ""
 
-        return agent.converse(agent.build_graph(res), {"descricao": REQUEST, **state}, answer)
+        return agent.converse(agent.build_graph(res), {"mensagem": REQUEST, **state}, answer)
 
     # preparar: busca inicial
 
@@ -256,7 +265,7 @@ class AgentTest(unittest.TestCase):
 
     def test_number_left_out_in_the_notes_is_an_alert_not_an_error(self):
         notes = "Capacidade de 35 clientes por dia: o GoBR não tem cláusula para isso."
-        out = self.run_graph(ScriptedChat(fenced(VALID, notes)), descricao=REQUEST + " Capacidade: 35 clientes.")
+        out = self.run_graph(ScriptedChat(fenced(VALID, notes)), mensagem=REQUEST + " Capacidade: 35 clientes.")
         self.assertEqual(out["erros"], [])
         self.assertIn("ficaram de fora do GoBR (ver notas): 35", out["resposta"])
         self.assertIn(notes, out["resposta"])
@@ -381,7 +390,7 @@ class AgentTest(unittest.TestCase):
         answered = {"segmentos": [TRIAGED["segmentos"][0], {**TRIAGED["segmentos"][1], "frequencia_dias": 7}]}
         fixed = VALID.replace("frequencia de 28 dias", "frequencia de 7 dias")
         chat = ScriptedChat(fenced(VALID), fenced(fixed), triage=[answered])
-        out = self.run_graph(chat, descricao="Ativo: clientes com pedido nos últimos 60 dias, 14 dias. Inativo: os demais.")
+        out = self.run_graph(chat, mensagem="Ativo: clientes com pedido nos últimos 60 dias, 14 dias. Inativo: os demais.")
         self.assertIn('"Inativo": a regra agenda a cada 28 dias; o pedido dá 7.', chat.received[1][-1]["content"])
         self.assertEqual((out["entregas"], out["divergencias"]), (2, []))
 

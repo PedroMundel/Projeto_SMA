@@ -33,7 +33,19 @@ pedido ─► triagem (LLM extrai os segmentos; o código vê o que falta) ─(l
                                                                                   └─► responder
 ```
 
-O LLM é o Qwen3.6-35B-A3B no llama-server do PC com a RTX 5060, acessado por um túnel SSH. O validador
+A sexta etapa dá ao agente **memória de contexto** (`gobr/memory.py`, [docs/desenho_memoria.md](docs/desenho_memoria.md),
+[docs/relatorio_memoria.md](docs/relatorio_memoria.md)): a conversa continua depois da primeira resposta e
+sobrevive ao fechamento do programa (`SqliteSaver` do LangGraph, um banco local). A cada mensagem, o LLM diz o
+que ela é e que linhas do pedido mudam, e o código aplica:
+
+```
+mensagem ─► receber ─(1º pedido)─► triagem ─► ... ─► responder ─────────────┐
+               └─(já há pedido)─► interpretar ─(mudança, pedido novo)─► triagem  │
+                                      ├─(dúvida)─► explicar ───────────────────┤
+                                      └─(volta)─► desfazer ────────────────────┴─► lembrar (pedido, versões, turnos)
+```
+
+O LLM é o Qwen3.6-35B-A3B num llama-server local, numa RTX 5060. O validador
 (parser + cascata) diz se o `.gobr` serve. Na conferência, o código compara a ação e a frequência de cada
 regra com o segmento da triagem, e o conferente (LLM) compara com o pedido o que cada regra faz, segundo o
 pacote. Os alertas da cascata voltam para o usuário como pontos de atenção da modelagem.
@@ -65,9 +77,9 @@ As ambiguidades do manual foram resolvidas como premissas explícitas, de P1 a P
 
 | Caminho | Conteúdo |
 |---|---|
-| `gobr/` | camada determinística, validador, concordância, índices, fluxo do agente (`agent.py`) e CLI |
-| `tests/test_gobr.py`, `tests/test_index.py`, `tests/test_manual.py`, `tests/test_agent.py` | 36 + 16 + 22 + 51 testes (`unittest`) |
-| `redator/` | prompts congelados (redator, `prompt_agente.md` e `prompt_conferente.md`), exemplos do prompt e roteiro do lote na nuvem |
+| `gobr/` | camada determinística, validador, concordância, índices, fluxo do agente (`agent.py`), memória da conversa (`memory.py`, avaliada por `memory_eval.py`) e CLI |
+| `tests/test_gobr.py`, `tests/test_index.py`, `tests/test_manual.py`, `tests/test_agent.py`, `tests/test_memory.py` | 36 + 16 + 22 + 51 + 67 testes (`unittest`) |
+| `redator/` | prompts congelados (redator, `prompt_agente.md`, `prompt_conferente.md`, `prompt_triagem.md`, `prompt_interprete.md` e `prompt_explicar.md`), exemplos do prompt e roteiro do lote na nuvem |
 | `data/contexto/`, `data/contexto_exemplos/` | pacote de contexto completo por arquivo (v5) |
 | `data/entrada_redator/` | visão do pacote que o redator lê |
 | `data/candidatos_v2/`, `_v3/`, `_v4/`, `_v5/` | réplicas geradas pelo redator (lote na nuvem e regerações) |
@@ -76,7 +88,7 @@ As ambiguidades do manual foram resolvidas como premissas explícitas, de P1 a P
 | `data/consultas_avaliacao/` | consultas rotuladas para avaliar a recuperação (gabaritos do professor, 30 cegas e 48 do manual) |
 | `data/manual/` | manual extraído do PDF: `secoes.json` (95 seções) e `chunks.jsonl` (463 chunks) |
 | `data/indice_manual/<modelo>/` | índice de embeddings do manual e avaliação |
-| `data/agente/` | avaliação do agente: fluxo fixo (`avaliacao.md`, `rag/`, `manual_inteiro/`) e agêntico (`avaliacao_agentico.md`, `agentico/`, `perguntas/`, com triagem `agentico_triagem/` e `perguntas_triagem/`, `casos_pergunta.json`) |
+| `data/agente/` | avaliação do agente: fluxo fixo (`avaliacao.md`, `rag/`, `manual_inteiro/`) e agêntico (`avaliacao_agentico.md`, `agentico/`, `perguntas/`, com triagem `agentico_triagem/` e `perguntas_triagem/`, `casos_pergunta.json`) e memória (`avaliacao_memoria.md`, `memoria/`, `casos_memoria.json`, `casos_memoria_novos.json`) |
 | `docs/` | premissas, avaliação, relatórios e texto do manual GoBR |
 | `research/` | pesquisas que embasaram as decisões |
 | `data/candidatos/`, `data/candidatos_piloto/` | piloto e calibração (experimentos iniciais) |
@@ -86,10 +98,11 @@ As ambiguidades do manual foram resolvidas como premissas explícitas, de P1 a P
 Requer Python 3.11 ou mais novo. A camada determinística não tem dependências externas; o índice precisa
 de `numpy` e `sentence-transformers` (testado com numpy 2.4.4, sentence-transformers 6.1.0 e torch 2.11 com
 CUDA). Os testes do índice usam um embedder falso e não baixam modelo. Extrair o manual do PDF
-(`python -m gobr manual`) exige `pdfplumber` 0.11.10 (MIT).
+(`python -m gobr manual`) exige `pdfplumber` 0.11.10 (MIT). O agente exige `langgraph` 1.2.20, `openai` e, para a
+memória, `langgraph-checkpoint-sqlite` 3.1.3 (MIT).
 
 ```bash
-python -m unittest tests.test_gobr tests.test_index tests.test_manual
+python -m unittest tests.test_gobr tests.test_index tests.test_manual tests.test_agent tests.test_memory
 ```
 
 ```bash
@@ -146,15 +159,14 @@ python -m gobr buscar-manual data/indice_manual/qwen3-0.6b "frequencia fixa sema
 python -m gobr avaliar-manual data/indice_manual/qwen3-0.6b --consultas data/consultas_avaliacao/manual.json
 ```
 
-Agente (exige `langgraph` 1.2.20 e `openai` 3.49.0, e o llama-server do PC no ar). Num terminal, suba o
-servidor no PC e abra o túnel na mesma conexão (`-c 32768` cabe o manual inteiro; com RAG, 8192 basta):
+Agente (exige `langgraph` 1.2.20, `langgraph-checkpoint-sqlite` 3.1.3 e `openai` 3.49.0, e o llama-server no ar).
+Num terminal, suba o servidor (caminhos da máquina em que foi medido):
 
 ```bash
-ssh -L 8080:127.0.0.1:8080 pc "& D:\tools\llama.cpp-b11770\llama-server.exe -m D:\tools\models\Qwen3.6-35B-A3B-UD-IQ4_XS.gguf -ngl 999 --n-cpu-moe 30 -c 32768 -np 1 --jinja --host 127.0.0.1 --port 8080"
+E:/tools/llama.cpp-b11770/llama-server.exe -m E:/tools/models/Qwen3.6-35B-A3B-UD-IQ4_XS.gguf -ngl 999 --n-cpu-moe 30 -c 32768 -np 1 --jinja --host 127.0.0.1 --port 8080
 ```
 
-O servidor continua vivo no PC depois que a conexão cai; encerre-o com
-`ssh pc "Get-Process llama-server | Stop-Process"`.
+Com o servidor na mesma GPU de 8 GB, rode o agente com `CUDA_VISIBLE_DEVICES=-1` (os embeddings vão para a CPU).
 
 Em outro, converse com o agente (ele pode fazer até 2 perguntas; responda no terminal):
 
@@ -172,6 +184,24 @@ Perguntas, com o usuário simulado de `data/agente/casos_pergunta.json`:
 
 ```bash
 python -m gobr avaliar-perguntas data/agente/casos_pergunta.json data/agente/perguntas
+```
+
+Conversa com memória: cada linha depois da resposta é um novo turno, e o mesmo nome retoma a conversa em outro
+processo (`conversas` lista as guardadas):
+
+```bash
+python -m gobr agente --conversa minha-empresa "Ativos: compra nos últimos 30 dias, 14 dias"
+```
+
+```bash
+python -m gobr conversas
+```
+
+Conversas roteirizadas, com as saídas esperadas de cada turno (`--modo concatenada` e `--modo nenhuma` são as
+linhas de base):
+
+```bash
+python -m gobr avaliar-memoria data/agente/casos_memoria.json data/agente/memoria/memoria
 ```
 
 Só o conferente, em `.gobr` já escritos:
@@ -206,3 +236,8 @@ python -m gobr conferir data/agente/rag/*.gobr --consultas data/consultas_avalia
   (0 de 3 casos incompletos). Com a triagem, pergunta nos 3, e a triagem não aponta lacuna nos 3 completos;
   num deles, o próprio agente perguntou time e carteira. Os gabaritos seguem 3/3, em 352 s
   ([docs/relatorio_agente.md](docs/relatorio_agente.md), [data/agente/avaliacao_agentico.md](data/agente/avaliacao_agentico.md)).
+- Memória: em 7 conversas escritas com o código congelado, o agente com memória acerta 54 de 54 verificações; com as
+  mensagens concatenadas num pedido só, 31; sem memória, 27. Nas 10 conversas que guiaram as correções, 87, 58 e 45 de
+  87. São poucas conversas, de um autor só e com uma rodada, e parte da diferença é da verificação "regra intacta"; sem
+  ela, nas novas, 46, 30 e 27 de 46 ([docs/relatorio_memoria.md](docs/relatorio_memoria.md),
+  [data/agente/avaliacao_memoria.md](data/agente/avaliacao_memoria.md)).

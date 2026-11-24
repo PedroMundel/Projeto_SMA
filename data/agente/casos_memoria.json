@@ -1,0 +1,84 @@
+{
+  "_fonte": "Conversas inventadas no formato dos 3 PDFs de exemplo (2026-11-24), com as saídas esperadas escritas à mão antes da 1ª rodada. 'respostas' é o que o usuário simulado responde às perguntas do agente naquele turno. Em 'espera': regras = {nome: {dias, acao, numero}}, sem_regra, intactas (iguais ao turno anterior), numero_ausente (em nenhuma cláusula), arquivo_do_turno e arquivo_difere_do_turno (igual ao arquivo daquele turno, ou diferente dele), resposta_tem (todos os trechos), perguntas_max. Depois da 1ª rodada entrou bloqueia_antes (o bloqueio vem antes das regras de frequência), porque a verificação da ação não via um bloqueio inócuo no fim do arquivo.",
+  "muda_frequencia": [
+    {"mensagem": "Ativos: compra nos últimos 30 dias, 14 dias\nInativos: sem compra há mais de 30 dias, 28 dias",
+     "espera": {"regras": {"Ativos": {"dias": 14}, "Inativos": {"dias": 28}}}},
+    {"mensagem": "Troque os ativos para 15 dias.",
+     "espera": {"regras": {"Ativos": {"dias": 15}, "Inativos": {"dias": 28}}, "intactas": ["Inativos"], "numero_ausente": [14]}},
+    {"mensagem": "E os inativos, ficaram a cada quantos dias?",
+     "espera": {"arquivo_do_turno": 2, "resposta_tem": ["28"]}}
+  ],
+  "inclui_segmentos": [
+    {"mensagem": "Ativos: compra nos últimos 60 dias, 14 dias\nInativos: sem compra há mais de 60 dias, 28 dias",
+     "espera": {"regras": {"Ativos": {"dias": 14}, "Inativos": {"dias": 28}}}},
+    {"mensagem": "Inclua os prospects, clientes com ciclo de vida prospect, a cada 7 dias.",
+     "espera": {"regras": {"Prospects": {"dias": 7}}, "intactas": ["Ativos", "Inativos"]}},
+    {"mensagem": "Agora não agende os inadimplentes.",
+     "espera": {"regras": {"Inadimplentes": {"acao": "nao_agendar"}}, "bloqueia_antes": ["Inadimplentes"], "intactas": ["Ativos", "Inativos", "Prospects"]}}
+  ],
+  "remove_segmento": [
+    {"mensagem": "Prospects: clientes com ciclo de vida prospect, 7 dias\nAtivos: compra nos últimos 90 dias, 14 dias\nDemais clientes: 30 dias",
+     "espera": {"regras": {"Prospects": {"dias": 7}, "Ativos": {"dias": 14}, "Demais clientes": {"dias": 30}}}},
+    {"mensagem": "Tire os prospects.",
+     "espera": {"sem_regra": ["Prospects"], "intactas": ["Ativos", "Demais clientes"], "numero_ausente": [7]}}
+  ],
+  "desfaz": [
+    {"mensagem": "Ativos: compra nos últimos 30 dias, 14 dias\nInativos: sem compra há mais de 30 dias, 28 dias",
+     "espera": {"regras": {"Ativos": {"dias": 14}, "Inativos": {"dias": 28}}}},
+    {"mensagem": "Mude os inativos para 21 dias.",
+     "espera": {"regras": {"Inativos": {"dias": 21}}, "intactas": ["Ativos"]}},
+    {"mensagem": "Não gostei, volte para a versão anterior.",
+     "espera": {"arquivo_do_turno": 1, "arquivo_difere_do_turno": 2}},
+    {"mensagem": "Agora mude os ativos para 10 dias.",
+     "espera": {"regras": {"Ativos": {"dias": 10}, "Inativos": {"dias": 28}}, "intactas": ["Inativos"], "numero_ausente": [21]}}
+  ],
+  "lembra_resposta": [
+    {"mensagem": "Ativos: compra nos últimos 30 dias, 14 dias\nInativos: sem compra há mais de 30 dias",
+     "respostas": ["Os inativos a cada 28 dias."],
+     "espera": {"regras": {"Ativos": {"dias": 14}, "Inativos": {"dias": 28}}}},
+    {"mensagem": "Mude os ativos para 7 dias.",
+     "espera": {"regras": {"Ativos": {"dias": 7}, "Inativos": {"dias": 28}}, "intactas": ["Inativos"], "perguntas_max": 0}}
+  ],
+  "completa_depois": [
+    {"mensagem": "Ativos: compra nos últimos 30 dias, 14 dias\nInativos: sem compra há mais de 30 dias",
+     "espera": {"regras": {"Ativos": {"dias": 14}}}},
+    {"mensagem": "Os inativos são a cada 21 dias.",
+     "espera": {"regras": {"Ativos": {"dias": 14}, "Inativos": {"dias": 21}}, "intactas": ["Ativos"], "perguntas_max": 0}}
+  ],
+  "referencia": [
+    {"mensagem": "Ativos: compra nos últimos 30 dias, 14 dias\nInativos: sem compra há mais de 90 dias, 28 dias",
+     "espera": {"regras": {"Ativos": {"dias": 14}, "Inativos": {"dias": 28, "numero": 90}}}},
+    {"mensagem": "A partir de quantos dias sem comprar o cliente conta como inativo?",
+     "espera": {"arquivo_do_turno": 1, "resposta_tem": ["90"]}},
+    {"mensagem": "Aumente esse prazo para 120.",
+     "espera": {"regras": {"Inativos": {"dias": 28, "numero": 120}}, "intactas": ["Ativos"], "numero_ausente": [90]}}
+  ],
+  "pedido_novo": [
+    {"mensagem": "Ativos: compra nos últimos 30 dias, 14 dias\nInativos: sem compra há mais de 30 dias, 28 dias",
+     "espera": {"regras": {"Ativos": {"dias": 14}, "Inativos": {"dias": 28}}}},
+    {"mensagem": "Esqueça esse pedido, é outro cliente. Novo pedido:\nProspects: clientes com ciclo de vida prospect, 7 dias\nNão agendar inadimplentes",
+     "espera": {"regras": {"Prospects": {"dias": 7}, "Inadimplentes": {"acao": "nao_agendar"}}, "bloqueia_antes": ["Inadimplentes"], "sem_regra": ["Ativos", "Inativos"], "numero_ausente": [14, 28]}}
+  ],
+  "muda_criterio": [
+    {"mensagem": "Ativos: compra nos últimos 30 dias, 14 dias\nInativos: sem compra há mais de 30 dias, 28 dias",
+     "espera": {"regras": {"Ativos": {"dias": 14}, "Inativos": {"dias": 28}}}},
+    {"mensagem": "O corte entre ativo e inativo passa a ser de 45 dias sem compra, as frequências continuam.",
+     "espera": {"regras": {"Ativos": {"dias": 14, "numero": 45}, "Inativos": {"dias": 28}}, "numero_ausente": [30]}}
+  ],
+  "conversa_longa": [
+    {"mensagem": "Ativos: compra nos últimos 60 dias, 14 dias\nInativos: sem compra há mais de 60 dias, 28 dias",
+     "espera": {"regras": {"Ativos": {"dias": 14}, "Inativos": {"dias": 28}}}},
+    {"mensagem": "Troque os ativos para 10 dias.",
+     "espera": {"regras": {"Ativos": {"dias": 10}}, "intactas": ["Inativos"]}},
+    {"mensagem": "Os inativos passam para 35 dias.",
+     "espera": {"regras": {"Inativos": {"dias": 35}}, "intactas": ["Ativos"]}},
+    {"mensagem": "Inclua prospects (ciclo de vida prospect) a cada 7 dias.",
+     "espera": {"regras": {"Prospects": {"dias": 7}}, "intactas": ["Ativos", "Inativos"]}},
+    {"mensagem": "Não agende quem está inadimplente.",
+     "espera": {"regras": {"Inadimplentes": {"acao": "nao_agendar"}}, "bloqueia_antes": ["Inadimplentes"], "intactas": ["Ativos", "Inativos", "Prospects"]}},
+    {"mensagem": "Volte os ativos para 12 dias.",
+     "espera": {"regras": {"Ativos": {"dias": 12}}, "intactas": ["Inativos", "Prospects"]}},
+    {"mensagem": "Qual era a frequência dos ativos no meu primeiro pedido, e qual é a de agora?",
+     "espera": {"arquivo_do_turno": 6, "resposta_tem": ["14", "12"]}}
+  ]
+}

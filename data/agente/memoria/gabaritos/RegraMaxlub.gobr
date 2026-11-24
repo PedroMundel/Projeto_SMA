@@ -1,0 +1,49 @@
+version 1.0
+
+time "televendas":
+    vendedores todostelevendas ativados
+
+parametros "Não agendar inadimplentes":
+    do time("televendas")
+    quando inadimplentes
+    nao agendar
+
+parametros "Não agendar clientes em rota":
+    do time("televendas")
+    quando data da rota na semana
+    nao agendar
+
+parametros "Clientes Ativos":
+    do time("televendas")
+    quando atividade de 60 dias
+    e inatividade de 60 dias
+    frequencia de 14 dias
+
+parametros "Risco de Inatividade":
+    do time("televendas")
+    quando atividade de 90 dias
+    e inatividade de 60 dias
+    frequencia de 7 dias
+
+parametros "Inativos (90 dias)":
+    do time("televendas")
+    quando atividade de 120 dias
+    e inatividade de 90 dias
+    frequencia de 14 dias
+
+parametros "Inativos (120 dias)":
+    do time("televendas")
+    quando atividade de 150 dias
+    e inatividade de 120 dias
+    frequencia de 21 dias
+
+parametros "Inativos (150 dias)":
+    do time("televendas")
+    quando atividade de 180 dias
+    e inatividade de 150 dias
+    frequencia de 28 dias
+
+parametros "Prospects":
+    do time("televendas")
+    quando prospects da empresa
+    frequencia de 14 dias

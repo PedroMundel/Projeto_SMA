@@ -1,0 +1,54 @@
+{
+  "_fonte": "Segundo conjunto (2026-11-24): escrito depois de congelar o código e os prompts, para medir fora dos casos que guiaram as correções. Mesmo formato de casos_memoria.json; numero_presente = o número aparece em alguma regra.",
+  "duas_mudancas": [
+    {"mensagem": "Ativo: Clientes com pedidos nos últimos 60 dias, 14 dias\nRisco de inatividade: Clientes com pedidos entre 60 e 90 dias, 7 dias\nInativo: Clientes sem pedidos há mais de 90 dias, 28 dias",
+     "espera": {"regras": {"Ativo": {"dias": 14}, "Risco de inatividade": {"dias": 7}, "Inativo": {"dias": 28}}}},
+    {"mensagem": "O risco passa a 5 dias e o ativo a 10.",
+     "espera": {"regras": {"Ativo": {"dias": 10}, "Risco de inatividade": {"dias": 5}, "Inativo": {"dias": 28}}, "intactas": ["Inativo"], "numero_ausente": [14, 7]}}
+  ],
+  "mudanca_global": [
+    {"mensagem": "Ativos: compra nos últimos 45 dias, 14 dias\nInativos: sem compra há mais de 45 dias, 28 dias",
+     "espera": {"regras": {"Ativos": {"dias": 14}, "Inativos": {"dias": 28}}}},
+    {"mensagem": "Quero todos os segmentos com a mesma frequência, a cada 10 dias.",
+     "espera": {"regras": {"Ativos": {"dias": 10, "numero": 45}, "Inativos": {"dias": 10}}, "numero_ausente": [14, 28]}}
+  ],
+  "divide_segmento": [
+    {"mensagem": "Ativos: compra nos últimos 60 dias, 14 dias\nInativos: sem compra há mais de 60 dias, 28 dias",
+     "espera": {"regras": {"Ativos": {"dias": 14}, "Inativos": {"dias": 28}}}},
+    {"mensagem": "Separe os inativos em dois: sem compra entre 60 e 120 dias, a cada 21 dias, e sem compra há mais de 120 dias, a cada 45 dias.",
+     "espera": {"intactas": ["Ativos"], "numero_presente": [120, 21, 45], "numero_ausente": [28]}}
+  ],
+  "volta_a_versao_1": [
+    {"mensagem": "Ativos: compra nos últimos 30 dias, 14 dias\nInativos: sem compra há mais de 30 dias, 28 dias",
+     "espera": {"regras": {"Ativos": {"dias": 14}, "Inativos": {"dias": 28}}}},
+    {"mensagem": "Ativos a cada 9 dias.",
+     "espera": {"regras": {"Ativos": {"dias": 9}}, "intactas": ["Inativos"]}},
+    {"mensagem": "E inativos a cada 40.",
+     "espera": {"regras": {"Inativos": {"dias": 40}}, "intactas": ["Ativos"]}},
+    {"mensagem": "Volta tudo para a versão 1.",
+     "espera": {"arquivo_do_turno": 1, "arquivo_difere_do_turno": 3}}
+  ],
+  "duvida_de_cascata": [
+    {"mensagem": "Ativos: compra nos últimos 30 dias, 14 dias\nRisco: última compra entre 30 e 60 dias, 7 dias\nInativos: sem compra há mais de 60 dias, 28 dias",
+     "espera": {"regras": {"Ativos": {"dias": 14}, "Risco": {"dias": 7}, "Inativos": {"dias": 28}}}},
+    {"mensagem": "Um cliente que comprou há 40 dias cai em qual regra?",
+     "espera": {"arquivo_do_turno": 1, "resposta_tem": ["Risco"]}},
+    {"mensagem": "E um que está sem comprar há 100 dias, é agendado de quanto em quanto tempo?",
+     "espera": {"arquivo_do_turno": 1, "resposta_tem": ["28"]}}
+  ],
+  "muda_a_resposta": [
+    {"mensagem": "Ativos: compra nos últimos 60 dias, 14 dias\nInativos: sem compra há mais de 60 dias",
+     "respostas": ["Agendar os inativos a cada 28 dias."],
+     "espera": {"regras": {"Ativos": {"dias": 14}, "Inativos": {"dias": 28}}}},
+    {"mensagem": "Na verdade prefiro os inativos a cada 35 dias.",
+     "espera": {"regras": {"Ativos": {"dias": 14}, "Inativos": {"dias": 35}}, "intactas": ["Ativos"], "numero_ausente": [28], "perguntas_max": 0}}
+  ],
+  "informal": [
+    {"mensagem": "Ativos: compra nos últimos 30 dias, 14 dias\nInativos: sem compra há mais de 30 dias, 28 dias",
+     "espera": {"regras": {"Ativos": {"dias": 14}, "Inativos": {"dias": 28}}}},
+    {"mensagem": "muda os ativo p 20 dias blz",
+     "espera": {"regras": {"Ativos": {"dias": 20}, "Inativos": {"dias": 28}}, "intactas": ["Inativos"], "numero_ausente": [14]}},
+    {"mensagem": "bloqueia quem ta baixado na receita",
+     "espera": {"regras": {"Ativos": {"dias": 20}, "Inativos": {"dias": 28}}, "intactas": ["Ativos", "Inativos"]}}
+  ]
+}

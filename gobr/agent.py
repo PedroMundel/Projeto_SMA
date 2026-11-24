@@ -1,4 +1,9 @@
-"""Fluxo agêntico (LangGraph): o LLM decide buscas e perguntas; o grafo valida e confere toda entrega.
+"""Fluxo agêntico (LangGraph) com memória: o LLM decide buscas e perguntas; o grafo valida e confere toda entrega.
+
+    receber --1º pedido--> triagem
+           \\--já há pedido--> interpretar --mudança ou pedido novo--> triagem
+                                          \\--dúvida--> explicar
+                                          \\--volta--> desfazer
 
     triagem --lacunas--> perguntar_lacunas --resposta--> triagem
            \\--> preparar -> agente --tool_calls--> ferramentas --(pergunta)--> perguntar --> agente
@@ -6,28 +11,36 @@
                                                          \\--ok--> conferir --divergência na 1ª--> agente
                                                                             \\--> responder
 
+    responder, explicar, desfazer e mudança que não deu para aplicar --> lembrar
+
 O LLM só extrai, redige e escolhe ferramentas (CASCADE-FIRST): a triagem devolve os segmentos do pedido em
 JSON e o código decide o que falta perguntar; quem diz se o .gobr está certo é o parser, e o que cada regra
 faz vem do pacote de `gobr.context`. Na conferência, o código compara ação e frequência com os segmentos, e
 o conferente (LLM) compara, em português, a tabela do pacote com o pedido. `chat` recebe mensagens no formato da API OpenAI e devolve a mensagem do assistente;
 `openai_chat` liga ao llama-server, e os testes passam um LLM falso. Perguntas ao usuário pausam o grafo
 com `interrupt()`; `converse` retoma com a resposta.
+
+Cada conversa é um `thread_id`, e cada chamada de `converse` é um turno. Entre turnos só passam o pedido
+vigente, as versões do arquivo e o registro dos turnos (`gobr.memory`); o resto do estado é zerado em `receber`.
 """
 import json
 import re
 import sys
 import tempfile
 import uuid
+from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Callable, TypedDict
+from typing import Callable, Iterator, TypedDict
 
 from langgraph.checkpoint.memory import InMemorySaver
+from langgraph.checkpoint.sqlite import SqliteSaver
 from langgraph.graph import END, START, StateGraph
 from langgraph.types import Command, interrupt
 
-from gobr import index, manual_search
-from gobr.context import build
+from gobr import index, manual_search, memory
+from gobr.context import LATE_BLOCK, build
+from gobr.memory import requested_numbers
 from gobr.parser import parse_file, read_source, unrecognized
 from gobr.text import fold
 
@@ -40,10 +53,11 @@ ROOT = Path(__file__).resolve().parent.parent  # os caminhos do manifesto do ín
 PROMPT = ROOT / "redator" / "prompt_agente.md"
 CONFERENCE_PROMPT = ROOT / "redator" / "prompt_conferente.md"
 TRIAGE_PROMPT = ROOT / "redator" / "prompt_triagem.md"
+INTERPRET_PROMPT = ROOT / "redator" / "prompt_interprete.md"
+EXPLAIN_PROMPT = ROOT / "redator" / "prompt_explicar.md"
 ACTIONS = ("agendar", "nao_agendar", "indefinido")
 RESIDUAL = re.compile(r"\b(demais|restantes?)\b")  # no nome do segmento: "os demais" não precisa de critério
 GOBR_BLOCK = re.compile(r"```[ \t]*(?:gobr)?[ \t]*\r?\n(.*?)```", re.DOTALL | re.IGNORECASE)
-RULE_LABEL = re.compile(r"\bregra\s+\d+", re.IGNORECASE)  # "Regra 01:" numera o pedido, não é um limite
 ASK = "perguntar_usuario"
 NO_ANSWER = "Sem resposta do usuário: siga com a premissa mais provável e diga nas notas qual foi."
 QUESTION_LIMIT = "Limite de perguntas atingido: siga com a premissa mais provável e diga nas notas qual foi."
@@ -88,17 +102,42 @@ TRIAGE_SCHEMA = {  # sem campos nulos: "não informado" é "", "indefinido" ou 0
     },
     "required": ["segmentos"],
 }
+INTERPRET_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "tipo": {"type": "string", "enum": list(memory.KINDS)},
+        "versao": {"type": "integer"},
+        "operacoes": {"type": "array", "items": {
+            "type": "object",
+            "properties": {"op": {"type": "string", "enum": ["alterar", "incluir", "remover"]},
+                           "linha": {"type": "integer"}, "texto": {"type": "string"}},
+            "required": ["op", "linha", "texto"]}},
+    },
+    "required": ["tipo", "versao", "operacoes"],
+}
 
 Chat = Callable[..., dict]  # chat(messages, tools=None, schema=None) -> mensagem do assistente
 
 
 class State(TypedDict, total=False):
-    descricao: str
+    # memória: passa de um turno para o outro
+    pedido: list[str]  # o pedido vigente, linha a linha, com as mudanças e as respostas do usuário
+    versoes: list[dict]  # arquivos aprovados: n, pai (de onde veio), pedido, segmentos, gobr, notas, fora, sem_resposta
+    versao_atual: int
+    turnos: list[dict]  # n, mensagem, tipo, resumo, perguntas, versao (a que o turno criou, ou 0)
+    sem_resposta: list[str]  # lacunas que o usuário não resolveu: a triagem não pergunta de novo
+    # o turno
+    mensagem: str
+    tipo: str  # inicial, sem_mudanca ou um de `memory.KINDS`
+    base: int  # versão de onde parte a mudança (0 = começa do zero)
+    mudancas: list[dict]  # no pedido: antes e depois de cada linha
+    avisos_memoria: list[str]
+    descricao: str  # o pedido deste turno, já com as mudanças
     excluir: list[str]  # arquivos (e os de mesma assinatura) fora da busca, para avaliar sem o gabarito
     exemplos: list[dict]  # busca inicial
     segmentos: list[dict]  # o pedido, segmento a segmento, segundo a triagem
     lacunas: list[str]  # o que falta nos segmentos (o código decide, não o LLM)
-    lacunas_iniciais: list[str]
+    lacunas_iniciais: list[str] | None
     pergunta_lacunas: str
     resposta_lacunas: str
     avisos: list[str]  # da triagem: lacunas sem resposta, triagem sem JSON
@@ -127,8 +166,11 @@ class Resources:
     whole_manual: bool = False  # manda o manual inteiro na 1ª mensagem em vez das seções recuperadas
 
 
-def openai_chat(base_url: str) -> Chat:
-    """LLM por uma API compatível com a da OpenAI (llama-server), determinístico e sem raciocínio."""
+def openai_chat(base_url: str, prompt_tokens: list[int] | None = None) -> Chat:
+    """LLM por uma API compatível com a da OpenAI (llama-server), determinístico e sem raciocínio.
+
+    `prompt_tokens`, se dado, recebe o tamanho de cada prompt enviado (para medir o contexto).
+    """
     from openai import OpenAI  # import tardio: os testes não precisam do cliente
 
     client = OpenAI(base_url=base_url, api_key="sem-chave")
@@ -142,6 +184,8 @@ def openai_chat(base_url: str) -> Chat:
                                         "json_schema": {"name": "resposta", "strict": True, "schema": schema}}
         reply = client.chat.completions.create(model="local", messages=messages, temperature=0, seed=0,
                                                max_tokens=3072, reasoning_effort="none", **extra)
+        if prompt_tokens is not None and reply.usage:
+            prompt_tokens.append(reply.usage.prompt_tokens)
         choice = reply.choices[0]
         if choice.finish_reason == "length":
             print("aviso: resposta do LLM cortada no limite de tokens", file=sys.stderr)
@@ -223,6 +267,73 @@ def gaps(segments: list[dict]) -> list[str]:
     return found
 
 
+def receive(state: State) -> State:
+    """Começo do turno: zera o trabalho do anterior e mantém só a memória."""
+    first = not state.get("pedido")
+    return {"tipo": "inicial" if first else "", "base": 0, "mudancas": [], "avisos_memoria": [],
+            "descricao": state["mensagem"] if first else "\n".join(state["pedido"]),
+            "exemplos": [], "segmentos": [], "lacunas": [], "lacunas_iniciais": None, "pergunta_lacunas": "",
+            "resposta_lacunas": "", "avisos": [], "divergencias_codigo": [], "mensagens": [], "gobr": "", "notas": "",
+            "erros": [], "alertas": [], "divergencias": [], "perguntas": [], "passos": 0, "entregas": 0,
+            "conferencias": 0, "valido": None, "restaurada": False, "resposta": ""}
+
+
+def after_receive(state: State) -> str:
+    return "triagem" if state["tipo"] == "inicial" else "interpretar"
+
+
+def _numbered(lines: list[str]) -> str:
+    return "\n".join(f"{n}. {line}" for n, line in enumerate(lines, 1))
+
+
+def _unchanged(reason: str) -> State:
+    return {"tipo": "sem_mudanca", "resposta": f"Não mudei nada. {reason}"}
+
+
+def interpret_message(res: Resources, state: State) -> State:
+    """O LLM diz o que a mensagem é e que linhas do pedido mudam; o código aplica as mudanças."""
+    lines, message = state["pedido"], state["mensagem"]
+    content = (f"<pedido>\n{_numbered(lines)}\n</pedido>\n"
+               f"<conversa>\n{memory.history_text(state.get('turnos', []))}\n</conversa>\n"
+               f"<mensagem>\n{message}\n</mensagem>")
+    reply = res.chat([{"role": "system", "content": INTERPRET_PROMPT.read_text(encoding="utf-8")},
+                      {"role": "user", "content": content}], schema=INTERPRET_SCHEMA)
+    read = memory.parse_interpretation(reply["content"])
+    if read["tipo"] == "duvida":
+        return {"tipo": "duvida"}
+    if read["tipo"] == "desfazer":
+        now = memory.current(state)
+        before = now["pai"] if now else 0
+        last = next((t for t in reversed(state["turnos"]) if t["tipo"] != "duvida"), None)
+        if not read["versao"] and now and last and last["tipo"] in ("alterar", "novo") and not last["versao"]:
+            return _unchanged(f"A última mudança não tinha entrado, e a versão {now['n']} continua valendo."
+                              + (f' Para voltar mais, diga "volte para a versão {before}".' if before else ""))
+        target = memory.version(state, read["versao"] or before)
+        if target is None or target["n"] == now["n"]:
+            return _unchanged("Não há essa versão anterior para voltar.")
+        return {"tipo": "desfazer", "base": target["n"]}
+    if read["tipo"] == "novo":
+        new, _, warnings = memory.apply_operations([], read["operacoes"], message)
+        new = new or memory.request_lines(message)
+        return {"tipo": "novo", "descricao": "\n".join(new), "avisos_memoria": warnings}
+    new, changes, warnings = memory.apply_operations(lines, read["operacoes"], message)
+    if read["tipo"] != "alterar" or not changes or not new:
+        reasons = ["Isso apagaria o pedido inteiro."] if changes else warnings
+        return _unchanged("Não entendi que parte do pedido mudar. Diga o segmento e o valor novo, por exemplo "
+                          '"troque os ativos para 15 dias".' + "".join(f"\n- {r}" for r in reasons))
+    return {"tipo": "alterar", "base": state.get("versao_atual") or 0, "mudancas": changes,
+            "descricao": "\n".join(new), "avisos_memoria": warnings}
+
+
+def after_interpret(state: State) -> str:
+    return {"duvida": "explicar", "desfazer": "desfazer", "sem_mudanca": "lembrar"}.get(state["tipo"], "triagem")
+
+
+def _base(state: State) -> dict | None:
+    """A versão que este turno muda; None quando ele começa do zero."""
+    return memory.version(state, state["base"])
+
+
 def _answers(state: State) -> list[tuple[str, str]]:
     asked = [(state["pergunta_lacunas"], state["resposta_lacunas"])] if state.get("pergunta_lacunas") else []
     return asked + [(p["pergunta"], p["resposta"]) for p in state.get("perguntas", [])]
@@ -236,19 +347,32 @@ def triage(res: Resources, state: State) -> State:
     reply = res.chat([{"role": "system", "content": TRIAGE_PROMPT.read_text(encoding="utf-8")},
                       {"role": "user", "content": request}], schema=TRIAGE_SCHEMA)
     segments, warnings = parse_segments(reply["content"])
+    base = _base(state)
+    if base:
+        segments = memory.keep_segments(base["segmentos"], segments, state["mudancas"], state["mensagem"])
     found = gaps(segments)
-    return {"segmentos": segments, "lacunas": found, "lacunas_iniciais": state.get("lacunas_iniciais", found),
+    first = state["lacunas_iniciais"]
+    return {"segmentos": segments, "lacunas": found, "lacunas_iniciais": found if first is None else first,
             "avisos": warnings}
 
 
+def _asked_before(state: State) -> list[str]:
+    return [] if state["tipo"] == "novo" else state.get("sem_resposta", [])  # pedido novo: as lacunas são outras
+
+
+def _open_gaps(state: State) -> list[str]:
+    """Lacunas que ainda não foram perguntadas num turno anterior."""
+    return [g for g in state["lacunas"] if g not in _asked_before(state)]
+
+
 def after_triage(state: State) -> str:
-    return "perguntar_lacunas" if state["lacunas"] and not state.get("pergunta_lacunas") else "preparar"
+    return "perguntar_lacunas" if _open_gaps(state) and not state.get("pergunta_lacunas") else "preparar"
 
 
 def ask_gaps(state: State) -> State:
     """Uma só pergunta, montada pelo código, com todas as lacunas; a resposta volta para a triagem."""
     question = ("Para escrever as regras sem chutar, faltam estes dados no pedido:\n"
-                + "\n".join(f"- {g}" for g in state["lacunas"]) + "\nResponda numa mensagem só.")
+                + "\n".join(f"- {g}" for g in _open_gaps(state)) + "\nResponda numa mensagem só.")
     answer = str(interrupt({"pergunta": question})).strip()
     return {"pergunta_lacunas": question, "resposta_lacunas": answer or NO_ANSWER}
 
@@ -268,15 +392,30 @@ def segments_text(segments: list[dict]) -> str:
                      for s in segments)
 
 
+def change_context(state: State) -> str:
+    """O que a memória põe na 1ª mensagem do agente quando o turno muda um arquivo que já existe."""
+    base = _base(state)
+    if base is None:
+        return ""
+    changes = "\n".join(f"- {memory.change_text(c)}" for c in state["mudancas"])
+    return (f'<conversa>\n{memory.history_text(state["turnos"])}\n</conversa>\n'
+            f'<arquivo_atual versao="{base["n"]}">\n{base["gobr"]}\n</arquivo_atual>\n'
+            f"<notas_anteriores>\n{base['notas'] or '(nenhuma)'}\n</notas_anteriores>\n"
+            f"<mudanca>\nO arquivo atual atende ao pedido anterior, e o pedido acima já tem a mudança. Altere no "
+            f"arquivo atual só o que ela pede, mantenha as outras regras idênticas e na mesma ordem, e entregue o "
+            f"arquivo completo. Um bloqueio novo (`nao agendar`) entra antes das regras de frequência. O usuário escreveu: {state['mensagem']}\nMudança no pedido:\n{changes}\n</mudanca>\n")
+
+
 def prepare(res: Resources, state: State) -> State:
-    text = state["descricao"]
+    request = state["descricao"]
+    text = "\n".join(c["depois"] for c in state["mudancas"] if c["depois"]) or request  # o que mudou guia a busca
     vector = res.embedder.queries([text])[0]
     examples = find_examples(res, text, vector, state.get("excluir", []))
     if res.whole_manual:
         sections = [{"secao": s["secao"], "texto": s["texto"]} for s in res.manual.sections.values()]
     else:
         sections = find_sections(res, text, vector)
-    first = f"<pedido>\n{text}\n</pedido>\n"
+    first = f"<pedido>\n{request}\n</pedido>\n{change_context(state)}"
     if state.get("segmentos"):
         answered = f"\nO usuário respondeu: {state['resposta_lacunas']}" if state.get("resposta_lacunas") else ""
         first += (f"<segmentos>\nO pedido, segmento a segmento (com as respostas do usuário, se houve pergunta). "
@@ -284,11 +423,10 @@ def prepare(res: Resources, state: State) -> State:
                   f"{segments_text(state['segmentos'])}\n</segmentos>\n")
     first += (f"<exemplos>\n{examples_text(examples)}\n</exemplos>\n"
               f"<manual>\n{sections_text(sections)}\n</manual>")
-    unresolved = ("Lacuna do pedido sem resposta do usuário" if state.get("resposta_lacunas", NO_ANSWER) == NO_ANSWER
+    unresolved = ("Lacuna do pedido sem resposta do usuário" if (state["resposta_lacunas"] or NO_ANSWER) == NO_ANSWER
                   else "Lacuna que a resposta do usuário não resolveu")
     warnings = state.get("avisos", []) + [f"{unresolved}: {g}" for g in state.get("lacunas", [])]
-    return {"exemplos": examples, "perguntas": [], "passos": 0, "entregas": 0, "conferencias": 0, "avisos": warnings,
-            "divergencias": [], "divergencias_codigo": [], "valido": None, "restaurada": False,
+    return {"exemplos": examples, "avisos": warnings,
             "mensagens": [{"role": "system", "content": PROMPT.read_text(encoding="utf-8")},
                           {"role": "user", "content": first}]}
 
@@ -380,19 +518,18 @@ def _package(gobr_text: str):
         return parse_file(path), build(path)
 
 
-def requested_numbers(text: str) -> set[int]:
-    """Inteiros do pedido que o .gobr tem de ter: sem o 0, sem "Regra NN" e com 1.500,00 lido como 1500."""
-    text = RULE_LABEL.sub(" ", text)
-    text = re.sub(r"(?<=\d)\.(?=\d{3}\b)", "", text)
-    text = re.sub(r"(?<=\d),\d+", "", text)
-    return set(index.numbers(text)) - {0}
+def _clause_numbers(file) -> set[int]:
+    return {n for b in file.blocks for c in b.all_clauses() for n in index.numbers(c.text)}
 
 
-def check(gobr_text: str, description: str, notes: str = "") -> tuple[list[str], list[str]]:
+def check(gobr_text: str, description: str, notes: str = "", left_out_before: frozenset[int] = frozenset(),
+          declared_only: bool = False) -> tuple[list[str], list[str]]:
     """Erros (o .gobr não serve e volta ao LLM) e alertas da cascata (pontos falhos para o usuário).
 
     Um número do pedido conta quando aparece numa cláusula (não no nome da regra) ou quando o LLM diz, nas
-    notas, que o deixou de fora porque o GoBR não o expressa.
+    notas, que o deixou de fora porque o GoBR não o expressa (ou disse num turno anterior: `left_out_before`).
+    Com `declared_only`, só vale a linha das notas que diz isso com todas as letras: numa mudança, as notas contam o
+    que mudou ("de 14 para 15"), e citar o número não é deixá-lo de fora.
     """
     if not gobr_text:
         return ["A resposta não trouxe um bloco ```gobr com o arquivo."], []
@@ -411,10 +548,10 @@ def check(gobr_text: str, description: str, notes: str = "") -> tuple[list[str],
             errors.append(f'"{rule["nome"]}": os filtros se contradizem, nenhum cliente atende a todos.')
         elif rule["inalcancavel"]:
             errors.append(f'"{rule["nome"]}": inalcançável, todos os clientes dela já foram tratados por regras anteriores.')
-    in_clauses = {n for b in file.blocks for c in b.all_clauses() for n in index.numbers(c.text)}
-    absent = requested_numbers(description) - in_clauses
-    left_out = sorted(absent & index.numbers(notes))
-    missing = sorted(absent - index.numbers(notes))
+    absent = requested_numbers(description) - _clause_numbers(file)
+    said_left_out = (memory.declared_left_out(notes) if declared_only else index.numbers(notes)) | left_out_before
+    left_out = sorted(absent & said_left_out)
+    missing = sorted(absent - said_left_out)
     if missing:
         errors.append(f"Números do pedido ausentes nas cláusulas do GoBR: {', '.join(map(str, missing))}. Ponha cada "
                       "um numa cláusula ou, se o GoBR não o expressa, diga depois do código o que ficou de fora, "
@@ -425,12 +562,20 @@ def check(gobr_text: str, description: str, notes: str = "") -> tuple[list[str],
     return errors, alerts
 
 
+def _left_out_before(state: State) -> frozenset[int]:
+    """Números que a versão de origem já deixou de fora, salvo os que a mudança voltou a pedir."""
+    base = _base(state)
+    asked_again = {n for c in state["mudancas"] for n in requested_numbers(c["depois"])}
+    return frozenset(base["fora"]) - asked_again if base else frozenset()
+
+
 def validate(state: State) -> State:
     reply = state["mensagens"][-1]["content"]
     block = GOBR_BLOCK.search(reply)
     gobr = strip_comments(block.group(1).strip()) if block else ""
     notes = ((reply[:block.start()] + reply[block.end():]) if block else reply).strip()
-    errors, alerts = check(gobr, state["descricao"], notes)
+    errors, alerts = check(gobr, memory.binding_text(state["descricao"]), notes, _left_out_before(state),
+                           declared_only=_base(state) is not None)
     deliveries = state["entregas"] + 1
     if not errors:
         return {"gobr": gobr, "notas": notes, "erros": [], "alertas": alerts, "entregas": deliveries,
@@ -476,6 +621,11 @@ def rule_table(gobr_text: str) -> str:
     return "\n".join(lines)
 
 
+def late_blocks(gobr_text: str) -> list[str]:
+    """Regras `nao agendar` que vêm depois de regras de frequência que já trataram clientes delas."""
+    return [r["nome"] for r in _package(gobr_text)[1]["regras"] if any(a.startswith(LATE_BLOCK) for a in r["alertas"])]
+
+
 def _frequency_days(block) -> list[int]:
     days = []
     for clause in block.actions:
@@ -494,12 +644,9 @@ def match_segments(gobr_text: str, segments: list[dict]) -> list[str]:
         return []
     file, package = _package(gobr_text)
     blocks = {b.id: b for b in file.blocks}
-    named = sorted(((fold(s["segmento"]), s) for s in segments), key=lambda pair: -len(pair[0]))
     found = []
     for rule in package["regras"]:
-        name = fold(rule["nome"])
-        seg = next((s for key, s in named
-                    if name == key or name.startswith(key + ":")), None)  # "Ativos: compra ..." é o segmento Ativos
+        seg = memory.segment_of(rule["nome"], segments)
         if seg is None or seg["acao"] == "indefinido":
             continue
         blocking = rule["acao_principal"] == "nao_agendar"
@@ -514,20 +661,15 @@ def match_segments(gobr_text: str, segments: list[dict]) -> list[str]:
     return found
 
 
-def _short(text: str, limit: int = 300) -> str:
-    """O conferente às vezes pensa alto dentro do campo `motivo`; na resposta, só cabe o começo."""
-    return text if len(text) <= limit else text[:limit].rstrip() + "…"
-
-
 def confer(chat: Chat, gobr_text: str, description: str, notes: str = "") -> tuple[list[str], list[str]]:
     """Divergências entre o pedido e o que as regras fazem, e alertas do próprio conferente."""
     content = (f"<pedido>\n{description}\n</pedido>\n<regras>\n{rule_table(gobr_text)}\n</regras>\n"
                f"<notas_do_redator>\n{notes or '(nenhuma)'}\n</notas_do_redator>")
     reply = chat([{"role": "system", "content": CONFERENCE_PROMPT.read_text(encoding="utf-8")},
                   {"role": "user", "content": content}], schema=CONFERENCE_SCHEMA)
-    try:
+    try:  # o conferente às vezes pensa alto dentro do campo `motivo`; na resposta, só cabe o começo
         data = json.loads(reply["content"])
-        divergences = [f'"{r["regra"]}": {_short(r["motivo"])} (pedido: "{_short(r["trecho_do_pedido"])}")'
+        divergences = [f'"{r["regra"]}": {memory.short(r["motivo"])} (pedido: "{memory.short(r["trecho_do_pedido"])}")'
                        for r in data["regras"] if not r["confere"]]
         divergences += [f'Trecho do pedido sem regra: "{s}"' for s in data["sem_regra"]]
     except (json.JSONDecodeError, KeyError, TypeError):
@@ -541,6 +683,15 @@ def conference(res: Resources, state: State) -> State:
         request += "\nRespostas do usuário às perguntas do agente:\n" + "\n".join(
             f"- {q} -> {a}" for q, a in _answers(state))
     by_segment = match_segments(state["gobr"], state.get("segmentos", []))  # o código antes do LLM
+    base = _base(state)
+    if base:
+        by_segment += memory.untouched_changes(_package(base["gobr"])[0].blocks, _package(state["gobr"])[0].blocks,
+                                               base["segmentos"], state["segmentos"], state["mudancas"],
+                                               state["mensagem"])
+        before = {fold(b.name) for b in _package(base["gobr"])[0].blocks}
+        by_segment += [f'"{name}": o bloqueio novo ficou depois de regras de frequência e não pega os clientes que elas '
+                       "já trataram. Ponha-o antes das regras de frequência."
+                       for name in late_blocks(state["gobr"]) if fold(name) not in before]
     divergences, alerts = confer(res.chat, state["gobr"], request, state["notas"])
     divergences = by_segment + divergences
     count = state["conferencias"] + 1
@@ -563,6 +714,14 @@ def after_conference(state: State) -> str:
 
 def respond(state: State) -> State:
     parts = [f"```gobr\n{state['gobr']}\n```"] if state["gobr"] else []
+    base, kept = _base(state), memory.current(state)
+    if state["mudancas"]:
+        parts.append("Mudança no pedido:\n" + "\n".join(f"- {memory.change_text(c)}" for c in state["mudancas"]))
+    if state["erros"] and kept:
+        parts.append(f"Esta mudança não passou no validador: a versão {kept['n']} e o pedido dela continuam valendo.")
+    elif base:
+        diff = memory.diff_blocks(_package(base["gobr"])[0].blocks, _package(state["gobr"])[0].blocks)
+        parts.append("O que mudou no arquivo:\n" + "\n".join(f"- {d}" for d in diff or ["nada"]))
     if state.get("notas"):
         parts.append(state["notas"])
     if state["erros"]:
@@ -571,7 +730,7 @@ def respond(state: State) -> State:
     if state["divergencias"]:
         parts.append("Divergências entre o pedido e as regras (conferente):\n"
                      + "\n".join(f"- {d}" for d in state["divergencias"]))
-    attention = state.get("avisos", []) + state["alertas"]
+    attention = state["avisos_memoria"] + state["avisos"] + state["alertas"]
     if attention:
         parts.append("Pontos de atenção na modelagem:\n" + "\n".join(f"- {a}" for a in attention))
     if _answers(state):
@@ -579,8 +738,76 @@ def respond(state: State) -> State:
     return {"resposta": "\n\n".join(parts)}
 
 
-def build_graph(res: Resources):
+def explain(res: Resources, state: State) -> State:
+    """Responde a uma dúvida com o que o pacote e a memória dizem; o arquivo não muda."""
+    now, question, request = memory.current(state), state["mensagem"], "\n".join(state["pedido"])
+    sections = find_sections(res, question, res.embedder.queries([question])[0])
+    table, alerts = "(ainda não há arquivo)", []
+    if now:
+        table = rule_table(now["gobr"])
+        _, alerts = check(now["gobr"], memory.binding_text(request), left_out_before=frozenset(now["fora"]))
+    content = (f"<pedido>\n{request}\n</pedido>\n<regras>\n{table}\n</regras>\n"
+               f"<alertas>\n" + ("\n".join(alerts) or "(nenhum)") + "\n</alertas>\n"
+               f"<conversa>\n{memory.history_text(state.get('turnos', []))}\n</conversa>\n"
+               f"<versoes>\n{memory.versions_text(state)}\n</versoes>\n"
+               f"<manual>\n{sections_text(sections)}\n</manual>\n<pergunta>\n{question}\n</pergunta>")
+    reply = res.chat([{"role": "system", "content": EXPLAIN_PROMPT.read_text(encoding="utf-8")},
+                      {"role": "user", "content": content}])
+    answer = GOBR_BLOCK.sub("", reply["content"]).strip()  # código aqui não passou no validador
+    return {"resposta": answer or "Não consegui responder a essa dúvida."}
+
+
+def undo(state: State) -> State:
+    target = _base(state)
+    return {"versao_atual": target["n"], "pedido": target["pedido"], "sem_resposta": target["sem_resposta"],
+            "resposta": f"```gobr\n{target['gobr']}\n```\n\nVoltei à versão {target['n']}, com o pedido dela:\n"
+                        + "\n".join(f"- {line}" for line in target["pedido"])}
+
+
+def remember(state: State) -> State:
+    """Fim do turno: grava a versão (só a que passou no validador), o pedido e o registro do turno."""
+    turns = state.get("turnos", [])
+    out: State = {}
+    if state["tipo"] in ("inicial", "novo", "alterar"):
+        out, summary = _remember_delivery(state)
+    elif state["tipo"] == "desfazer":
+        summary = f"voltou à versão {state['versao_atual']}"
+    else:
+        summary = memory.short(memory.one_line(state["resposta"]))
+    record = {"n": len(turns) + 1, "mensagem": state["mensagem"], "tipo": state["tipo"], "resumo": summary,
+              "perguntas": _answers(state), "versao": out.get("versao_atual", 0)}
+    return {**out, "turnos": turns + [record]}
+
+
+def _remember_delivery(state: State) -> tuple[State, str]:
+    kept = memory.current(state)
+    if state["erros"] and kept:
+        return {}, f"a mudança não passou no validador; a versão {kept['n']} continua valendo"
+    request = memory.request_lines(state["descricao"]) + [
+        memory.answer_line(q, a) for q, a in _answers(state) if a != NO_ANSWER]
+    unanswered = [g for g in state["lacunas"] if g in _asked_before(state) or state["pergunta_lacunas"]]
+    out: State = {"pedido": request, "sem_resposta": unanswered}
+    if state["erros"]:
+        return out, f"o arquivo não passou no validador: {memory.short('; '.join(state['erros']))}"
+    versions = state.get("versoes", [])
+    number = len(versions) + 1
+    left_out = requested_numbers(memory.binding_text(state["descricao"])) - _clause_numbers(_package(state["gobr"])[0])
+    made = {"n": number, "pai": kept["n"] if kept else 0, "pedido": request, "segmentos": state["segmentos"],
+            "gobr": state["gobr"], "notas": state["notas"], "fora": sorted(left_out),
+            "sem_resposta": unanswered}
+    changes = "; ".join(memory.change_text(c) for c in state["mudancas"]) or "pedido " + memory.short("; ".join(request))
+    pending = f"; {len(state['divergencias'])} divergências avisadas" if state["divergencias"] else ""
+    return {**out, "versoes": versions + [made], "versao_atual": number}, f"versão {number}: {changes}{pending}"
+
+
+def build_graph(res: Resources, checkpointer=None):
+    """`checkpointer` guarda a memória entre turnos; sem ele, ela dura o processo (testes e avaliações)."""
     graph = StateGraph(State)
+    graph.add_node("receber", receive)
+    graph.add_node("interpretar", lambda s: interpret_message(res, s))
+    graph.add_node("explicar", lambda s: explain(res, s))
+    graph.add_node("desfazer", undo)
+    graph.add_node("lembrar", remember)
     graph.add_node("triagem", lambda s: triage(res, s))
     graph.add_node("perguntar_lacunas", ask_gaps)
     graph.add_node("preparar", lambda s: prepare(res, s))
@@ -590,7 +817,9 @@ def build_graph(res: Resources):
     graph.add_node("validar", validate)
     graph.add_node("conferir", lambda s: conference(res, s))
     graph.add_node("responder", respond)
-    graph.add_edge(START, "triagem")
+    graph.add_edge(START, "receber")
+    graph.add_conditional_edges("receber", after_receive, ["triagem", "interpretar"])
+    graph.add_conditional_edges("interpretar", after_interpret, ["triagem", "explicar", "desfazer", "lembrar"])
     graph.add_conditional_edges("triagem", after_triage, ["perguntar_lacunas", "preparar"])
     graph.add_conditional_edges("perguntar_lacunas", after_ask_gaps, ["triagem", "preparar"])
     graph.add_edge("preparar", "agente")
@@ -599,14 +828,51 @@ def build_graph(res: Resources):
     graph.add_edge("perguntar", "agente")
     graph.add_conditional_edges("validar", after_validate, ["conferir", "agente", "responder"])
     graph.add_conditional_edges("conferir", after_conference, ["agente", "responder"])
-    graph.add_edge("responder", END)
-    return graph.compile(checkpointer=InMemorySaver())
+    for last in ("responder", "explicar", "desfazer"):
+        graph.add_edge(last, "lembrar")
+    graph.add_edge("lembrar", END)
+    return graph.compile(checkpointer=InMemorySaver() if checkpointer is None else checkpointer)
 
 
-def converse(graph, state: State, answer: Callable[[str], str]) -> State:
-    """Roda o grafo até o fim; cada pergunta do agente vai a `answer`, e a resposta retoma o grafo."""
-    config = {"configurable": {"thread_id": uuid.uuid4().hex}, "recursion_limit": 80}
-    out = graph.invoke(state, config)
+@contextmanager
+def open_memory(path: Path) -> Iterator[SqliteSaver]:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with SqliteSaver.from_conn_string(str(path)) as saver:
+        saver.setup()
+        yield saver
+
+
+def conversations(saver: SqliteSaver) -> list[dict]:
+    """Conversas guardadas: nome, turnos, versão atual e a 1ª mensagem."""
+    with saver.cursor(transaction=False) as cursor:
+        names = [row[0] for row in cursor.execute("SELECT DISTINCT thread_id FROM checkpoints ORDER BY thread_id")]
+    found = []
+    for name in names:
+        state = saver.get_tuple(thread_config(name)).checkpoint["channel_values"]
+        turns = state.get("turnos", [])
+        found.append({"nome": name, "turnos": len(turns), "versao": state.get("versao_atual", 0),
+                      "inicio": turns[0]["mensagem"] if turns else state.get("mensagem", "")})
+    return found
+
+
+def thread_config(thread_id: str) -> dict:
+    return {"configurable": {"thread_id": thread_id}, "recursion_limit": 80}
+
+
+def converse(graph, state: State | None, answer: Callable[[str], str], thread_id: str | None = None) -> State | None:
+    """Roda um turno até o fim; cada pergunta do agente vai a `answer`, e a resposta retoma o grafo.
+
+    Sem `thread_id`, a conversa é nova. Com `state=None`, retoma o turno que ficou pela metade (pergunta sem
+    resposta ou erro no meio); devolve None se não há nada pendente.
+    """
+    config = thread_config(thread_id or uuid.uuid4().hex)
+    if state is None:
+        snapshot = graph.get_state(config)
+        if not snapshot.next:
+            return None
+        out = {"__interrupt__": snapshot.interrupts} if snapshot.interrupts else graph.invoke(None, config)
+    else:
+        out = graph.invoke(state, config)
     while out.get("__interrupt__"):
         out = graph.invoke(Command(resume=answer(out["__interrupt__"][0].value["pergunta"])), config)
     return out

@@ -2,13 +2,14 @@
 
 Disciplina de Sistemas Multiagentes (UFG, 2026-2): agente LangGraph + RAG que ajuda a escrever regras
 na DSL GoBR do Govendas. Etapas: explicações de cada `.gobr`, índice delas (`gobr/index.py`) e índice do manual
-(`gobr/manual.py` extrai, `gobr/manual_search.py` busca) e fluxo agêntico LangGraph (`gobr/agent.py`: triagem, ferramentas, perguntas com `interrupt`, validador e conferente).
+(`gobr/manual.py` extrai, `gobr/manual_search.py` busca), fluxo agêntico LangGraph (`gobr/agent.py`: triagem, ferramentas, perguntas com `interrupt`, validador e conferente) e memória da conversa (`gobr/memory.py`, `SqliteSaver`).
 Visão geral e comandos: `README.md`. Estado da sessão: `HANDOFF.md`.
 
 ## Comandos
 
-- Testes: `python -m unittest tests.test_gobr tests.test_index tests.test_manual tests.test_agent`
-- Agente: `python -m gobr agente|avaliar-agente|avaliar-perguntas|conferir ...`; o LLM é o llama-server do PC (RTX 5060) pelo túnel `ssh -L 8080:127.0.0.1:8080 pc`
+- Testes: `python -m unittest tests.test_gobr tests.test_index tests.test_manual tests.test_agent tests.test_memory`
+- Agente: `python -m gobr agente|conversas|avaliar-agente|avaliar-perguntas|avaliar-memoria|conferir ...`
+- LLM: llama-server local, na RTX 5060 (desde 2026-11-24, sem SSH): `E:\tools\llama.cpp-b11770\llama-server.exe -m E:\tools\models\Qwen3.6-35B-A3B-UD-IQ4_XS.gguf -ngl 999 --n-cpu-moe 30 -c 32768 -np 1 --jinja --host 127.0.0.1 --port 8080`; com ele no ar, rode o agente com `CUDA_VISIBLE_DEVICES=-1` (a VRAM está cheia)
 - Pacotes: `python -m gobr contexto|entrada|pendentes|consolidar|cobertura ...` (ver docstring de `gobr/__main__.py`)
 - Índice: `python -m gobr indexar|buscar|avaliar-indice ...`; rode com `HF_HUB_OFFLINE=1` (modelos em cache)
 - Manual: `python -m gobr manual|indexar-manual|buscar-manual|avaliar-manual ...`
@@ -38,6 +39,11 @@ Visão geral e comandos: `README.md`. Estado da sessão: `HANDOFF.md`.
 - Ollama + gemma4 como backend do fluxo: exige instalar e baixar ~7 GB, e o llama-server com o Qwen3.6-35B-A3B já roda no PC (Pedro, 2026-11-10).
 - Claude API como backend do fluxo: sem chave e com custo próprio; os créditos valem só para sessões na nuvem (Pedro, 2026-11-10).
 - Assinatura igual ao gabarito como critério de aprovação: o gabarito tem regras que a descrição não pede (Baixados na Receita).
+- ReAct livre (o LLM poderia pular a validação) e triagem só na frente do pipeline fixo: o Pedro escolheu o agente com guardas e conferente (2026-11-17).
+- Prompt para o agente perceber sozinho o dado que falta: 2 versões, 0/3 e 1/3 casos, e a 2ª reprovou o Maxlub. Quem decide é o código, pela triagem.
+- Casar regra e segmento por qualquer prefixo do nome: julgava "Ativos inadimplentes" como "Ativos". Só nome igual ou "<segmento>:".
+- Memória de longo prazo do usuário entre conversas, e memória só na sessão: o Pedro escolheu a conversa persistente; um fato velho entraria numa regra sem ninguém notar (2026-11-24).
+- JSON próprio ou `InMemorySaver` para a memória: não retomam o `interrupt` ou não persistem; o Pedro escolheu o `SqliteSaver` (2026-11-24).
 
 ## Domain guides
 
@@ -47,6 +53,7 @@ Visão geral e comandos: `README.md`. Estado da sessão: `HANDOFF.md`.
 | `docs/relatorio_explicacoes.md` | for escrever relatório ou apresentação, ou precisar dos números da etapa |
 | `docs/relatorio_manual.md` | for mexer na extração do PDF, nos chunks ou na busca do manual (denso, BM25, híbrido) |
 | `docs/desenho_agente.md`, `docs/relatorio_agente.md` | for mexer no grafo (`gobr/agent.py`: ferramentas, `interrupt`, conferente), nos prompts do agente ou do conferente, ou na avaliação do agente |
+| `docs/desenho_memoria.md`, `docs/relatorio_memoria.md` | for mexer na memória da conversa (`gobr/memory.py`, nós `receber`, `interpretar`, `explicar`, `desfazer`, `lembrar`), nos turnos ou na retomada |
 | `docs/relatorio_fluxo.md`, `research/backend_llm_fluxo.md` | for precisar da linha de base do fluxo fixo (commit `094e6b1`) ou mexer no backend do LLM |
 | `docs/relatorio_indexacao.md` | for mexer no índice de embeddings, no `search` ou no modelo, ou precisar dos números de recuperação |
 | `docs/avaliacao/*.md` | for mexer na qualidade das descrições ou reavaliar |

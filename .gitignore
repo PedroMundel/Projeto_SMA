@@ -1,3 +1,5 @@
 __pycache__/
 *.pyc
 trabalho.zip
+data/memoria/
+data/agente/**/conversas.db*

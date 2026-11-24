@@ -153,6 +153,9 @@ def _file_numbers(file: GobrFile) -> set[int]:
     return found
 
 
+LATE_BLOCK = "Bloqueio depois de regras de frequência"
+
+
 def _rule_alerts(e: Effective, effective_text: str | None, own_text: str | None,
                  definitions: list[Block]) -> list[str]:
     block, alerts = e.block, []
@@ -163,7 +166,7 @@ def _rule_alerts(e: Effective, effective_text: str | None, own_text: str | None,
         alerts.append(f"Regra inalcançável: todos os clientes dela já foram tratados antes por {names}.")
     if block.schedules_nothing and block.filters and any(not b.schedules_nothing for b in e.treated_before):
         names = ", ".join(f'"{b.name}"' for b in e.treated_before if not b.schedules_nothing)
-        alerts.append(f"Bloqueio depois de regras de frequência: clientes já parametrizados por {names} "
+        alerts.append(f"{LATE_BLOCK}: clientes já parametrizados por {names} "
                       "não serão bloqueados por esta regra.")
     for earlier in e.partial_before:
         when = "; ".join(c.gloss for c in earlier.temporal)
