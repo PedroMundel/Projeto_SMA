@@ -1,0 +1,51 @@
+version 1.0
+
+
+time "vendas":
+    vendedores todos
+
+
+parametros "Bloqueio: inadimplentes":
+    do time("vendas")
+    quando inadimplentes
+    nao agendar
+
+parametros "Bloqueio: bloqueados":
+    do time("vendas")
+    quando bloqueados
+    nao agendar
+
+
+parametros "Prospect: cliente potencial":
+    do time("vendas")
+    quando prospects da empresa
+    frequencia de 30 dias
+
+parametros "Ativado: um pedido":
+    do time("vendas")
+    quando unica compra com a empresa
+        e atividade global de 40 dias
+    frequencia de 30 dias
+
+parametros "Ativo: compra regularmente":
+    do time("vendas")
+    quando ativos para o vendedor
+        e frequencia historica menor que 21 dias
+    frequencia de 90 dias
+
+parametros "Ativo: estimular regularidade":
+    do time("vendas")
+    quando recencia de positivacao global entre 30 dias e 59 dias
+    frequencia de 30 dias
+
+parametros "Em ruptura: risco de inatividade":
+    do time("vendas")
+    quando recencia de positivacao global entre 60 dias e 89 dias
+        e inativos para o vendedor
+    frequencia de 21 dias
+
+parametros "Inativo: reativar":
+    do time("vendas")
+    quando inatividade global de 90 dias
+        e inativos para o vendedor
+    frequencia de 45 dias

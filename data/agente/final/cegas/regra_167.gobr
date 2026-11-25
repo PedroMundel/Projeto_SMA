@@ -1,0 +1,41 @@
+version 1.0
+
+
+time "televendas":
+    vendedores todostelevendas ativados
+
+
+parametros "Baixado na Receita":
+    do time("televendas")
+    quando status na receita federal definido como baixada
+    nao agendar
+
+parametros "Prospect":
+    do time("televendas")
+    quando no ciclo de vida prospect com a empresa
+    frequencia de 7 dias
+
+parametros "Única compra":
+    do time("televendas")
+    quando unica compra com a empresa
+    frequencia de 15 dias
+
+parametros "Ativo (comprou nos últimos 30 dias)":
+    do time("televendas")
+    quando recencia de positivacao em 30 dias
+    frequencia de 7 dias
+
+parametros "Entre 31 e 90 dias":
+    do time("televendas")
+    quando recencia de positivacao entre 31 dias e 90 dias
+    frequencia de 28 dias
+
+parametros "Entre 91 e 120 dias":
+    do time("televendas")
+    quando recencia de positivacao entre 91 dias e 120 dias
+    frequencia de 45 dias
+
+parametros "Sem venda há 120 dias":
+    do time("televendas")
+    quando fora da recencia de positivacao em 120 dias
+    frequencia de 60 dias

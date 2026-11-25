@@ -1,0 +1,49 @@
+version 1.0
+
+time "televendas":
+    vendedores todostelevendas ativados
+
+parametros "Nao agendar filiais":
+    do time("televendas")
+    quando e o cliente filial
+    nao agendar
+
+parametros "Nao agendar compra nos ultimos 30 dias":
+    do time("televendas")
+    quando recencia de positivacao global em 30 dias
+    nao agendar
+
+parametros "Prospects":
+    do time("televendas")
+    quando prospects da empresa
+    frequencia de 28 dias
+
+parametros "Ativos sem compra ate 44 dias":
+    do time("televendas")
+    quando recencia de positivacao global em 44 dias
+    e fora da recencia de positivacao global em 30 dias
+    frequencia de 14 dias
+
+parametros "Ativos sem compra Curva A":
+    do time("televendas")
+    quando fora da recencia de positivacao global em 45 dias
+    e curva A com a empresa
+    frequencia de 7 dias
+
+parametros "Ativos sem compra Curva B":
+    do time("televendas")
+    quando fora da recencia de positivacao global em 45 dias
+    e curva B com a empresa
+    frequencia de 14 dias
+
+parametros "Ativos sem compra Curva C":
+    do time("televendas")
+    quando fora da recencia de positivacao global em 45 dias
+    e fora da curva A com a empresa
+    e fora da curva B com a empresa
+    frequencia de 21 dias
+
+parametros "Inativos":
+    do time("televendas")
+    quando inativos para a empresa
+    frequencia de 7 dias

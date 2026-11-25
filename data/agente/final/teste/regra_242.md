@@ -1,0 +1,59 @@
+```gobr
+version 1.0
+
+time "televendas":
+    vendedores todostelevendas ativados
+
+parametros "Freq. histórica até 30 dias":
+    do time("televendas")
+    quando frequencia historica entre 1 dias e 30 dias
+        e fora da recencia de positivacao entre 20 dias e 30 dias
+    frequencia de 21 dias
+
+parametros "Freq. histórica 31 a 60 dias (29 dias sem comprar)":
+    do time("televendas")
+    quando frequencia historica entre 31 dias e 60 dias
+        e fora da recencia de positivacao entre 29 dias e 44 dias
+    frequencia de 21 dias
+
+parametros "Freq. histórica 31 a 60 dias (44 dias sem comprar)":
+    do time("televendas")
+    quando frequencia historica entre 31 dias e 60 dias
+        e fora da recencia de positivacao em 44 dias
+    frequencia de 21 dias
+
+parametros "Freq. histórica 61 a 90 dias (60 dias sem comprar)":
+    do time("televendas")
+    quando frequencia historica entre 61 dias e 90 dias
+        e fora da recencia de positivacao em 60 dias
+    frequencia de 15 dias
+
+parametros "Freq. histórica 61 a 90 dias (90 dias sem comprar)":
+    do time("televendas")
+    quando frequencia historica entre 61 dias e 90 dias
+        e fora da recencia de positivacao em 90 dias
+    frequencia de 21 dias
+
+parametros "Freq. histórica 91 a 180 dias (44 dias sem comprar)":
+    do time("televendas")
+    quando frequencia historica entre 91 dias e 180 dias
+        e fora da recencia de positivacao entre 44 dias e 120 dias
+    frequencia de 21 dias
+
+parametros "Freq. histórica 91 a 180 dias (120 dias sem comprar)":
+    do time("televendas")
+    quando frequencia historica entre 91 dias e 180 dias
+        e fora da recencia de positivacao em 120 dias
+    frequencia de 15 dias
+```
+
+Erros que ficaram depois de 3 entregas:
+- "Freq. histórica 31 a 60 dias (44 dias sem comprar)": inalcançável, todos os clientes dela já foram tratados por regras anteriores.
+- "Freq. histórica 61 a 90 dias (90 dias sem comprar)": inalcançável, todos os clientes dela já foram tratados por regras anteriores.
+- "Freq. histórica 91 a 180 dias (120 dias sem comprar)": inalcançável, todos os clientes dela já foram tratados por regras anteriores.
+
+Pontos de atenção na modelagem:
+- Freq. histórica 31 a 60 dias (44 dias sem comprar): Regra inalcançável: todos os clientes dela já foram tratados antes por "Freq. histórica 31 a 60 dias (29 dias sem comprar)".
+- Freq. histórica 61 a 90 dias (90 dias sem comprar): Regra inalcançável: todos os clientes dela já foram tratados antes por "Freq. histórica 61 a 90 dias (60 dias sem comprar)".
+- Freq. histórica 91 a 180 dias (120 dias sem comprar): Regra inalcançável: todos os clientes dela já foram tratados antes por "Freq. histórica 91 a 180 dias (44 dias sem comprar)".
+- O pedido não diz o time (premissa P11). O arquivo usa "televendas": todos os vendedores de televendas habilitados no Govendas.

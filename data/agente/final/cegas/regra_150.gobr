@@ -1,0 +1,24 @@
+version 1.0
+
+time "televendas":
+    vendedores todostelevendas
+
+parametros "Não agendar clientes ativos recentes":
+    do time("televendas")
+    quando tem venda da empresa em 45 dias
+    nao agendar
+
+parametros "Prospect - 28 dias":
+    do time("televendas")
+    quando prospects da empresa
+    frequencia de 28 dias
+
+parametros "Caminhando para inatividade - 14 dias":
+    do time("televendas")
+    quando tem venda da empresa em 89 dias
+        e não tem venda da empresa em 45 dias
+    frequencia de 14 dias
+
+parametros "Inativo para resgate - 21 dias":
+    do time("televendas")
+    frequencia de 21 dias

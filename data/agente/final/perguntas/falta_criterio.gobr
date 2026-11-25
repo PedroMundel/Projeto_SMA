@@ -1,0 +1,17 @@
+version 1.0
+
+time "televendas":
+    vendedores todostelevendas
+
+carteira "carteira televendas":
+    clientes carteirafixa("televendas")
+
+parametros "Inativos":
+    da carteira("carteira televendas")
+    quando inativos para o vendedor
+    frequencia de 28 dias
+
+parametros "Ativos":
+    da carteira("carteira televendas")
+    quando ativos para o vendedor
+    frequencia de 14 dias

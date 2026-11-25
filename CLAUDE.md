@@ -7,8 +7,8 @@ Visão geral e comandos: `README.md`. Estado da sessão: `HANDOFF.md`.
 
 ## Comandos
 
-- Testes: `python -m unittest tests.test_gobr tests.test_index tests.test_manual tests.test_agent tests.test_memory`
-- Agente: `python -m gobr agente|conversas|avaliar-agente|avaliar-perguntas|avaliar-memoria|conferir ...`
+- Testes: `python -m unittest tests.test_gobr tests.test_index tests.test_manual tests.test_agent tests.test_memory tests.test_outcomes tests.test_similarity tests.test_equality`
+- Agente: `python -m gobr agente|conversas|avaliar-agente|avaliar-perguntas|avaliar-memoria|conferir|comparar|igualdade|cosseno|cosseno-respostas ...`
 - LLM: llama-server local, na RTX 5060 (desde 2026-11-24, sem SSH): `E:\tools\llama.cpp-b11770\llama-server.exe -m E:\tools\models\Qwen3.6-35B-A3B-UD-IQ4_XS.gguf -ngl 999 --n-cpu-moe 30 -c 32768 -np 1 --jinja --host 127.0.0.1 --port 8080`; com ele no ar, rode o agente com `CUDA_VISIBLE_DEVICES=-1` (a VRAM está cheia)
 - Pacotes: `python -m gobr contexto|entrada|pendentes|consolidar|cobertura ...` (ver docstring de `gobr/__main__.py`)
 - Índice: `python -m gobr indexar|buscar|avaliar-indice ...`; rode com `HF_HUB_OFFLINE=1` (modelos em cache)
@@ -44,6 +44,10 @@ Visão geral e comandos: `README.md`. Estado da sessão: `HANDOFF.md`.
 - Casar regra e segmento por qualquer prefixo do nome: julgava "Ativos inadimplentes" como "Ativos". Só nome igual ou "<segmento>:".
 - Memória de longo prazo do usuário entre conversas, e memória só na sessão: o Pedro escolheu a conversa persistente; um fato velho entraria numa regra sem ninguém notar (2026-11-24).
 - JSON próprio ou `InMemorySaver` para a memória: não retomam o `interrupt` ou não persistem; o Pedro escolheu o `SqliteSaver` (2026-11-24).
+- Escopos de compra misturados como divergência: um gabarito do professor mistura; virou orientação no prompt (2026-11-24).
+- Mensagem do validador mandando tirar a cláusula não reconhecida: hipótese de ter apagado os filtros da `regra_145`; agora manda procurar a forma certa antes (2026-11-24).
+- Checagem de "regra de atributo tardia" sem restrição: acusaria 80 regras reais em 25 arquivos; só vale para segmento sem número (2026-11-24).
+- Métrica por cliente sem média por regra: uma regra só dava 92% no V1Vidros (2026-11-24).
 
 ## Domain guides
 
@@ -54,6 +58,7 @@ Visão geral e comandos: `README.md`. Estado da sessão: `HANDOFF.md`.
 | `docs/relatorio_manual.md` | for mexer na extração do PDF, nos chunks ou na busca do manual (denso, BM25, híbrido) |
 | `docs/desenho_agente.md`, `docs/relatorio_agente.md` | for mexer no grafo (`gobr/agent.py`: ferramentas, `interrupt`, conferente), nos prompts do agente ou do conferente, ou na avaliação do agente |
 | `docs/desenho_memoria.md`, `docs/relatorio_memoria.md` | for mexer na memória da conversa (`gobr/memory.py`, nós `receber`, `interpretar`, `explicar`, `desfazer`, `lembrar`), nos turnos ou na retomada |
+| `docs/desenho_qualidade.md`, `docs/relatorio_qualidade.md`, `docs/premissas.md` (P10, P11) | for mexer na qualidade das regras geradas, na métrica `gobr/outcomes.py` ou decidir se uma mudança entra (treino, validação, teste) |
 | `docs/relatorio_fluxo.md`, `research/backend_llm_fluxo.md` | for precisar da linha de base do fluxo fixo (commit `094e6b1`) ou mexer no backend do LLM |
 | `docs/relatorio_indexacao.md` | for mexer no índice de embeddings, no `search` ou no modelo, ou precisar dos números de recuperação |
 | `docs/avaliacao/*.md` | for mexer na qualidade das descrições ou reavaliar |

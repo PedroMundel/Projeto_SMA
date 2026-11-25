@@ -95,6 +95,31 @@ class ApplyOperationsTest(unittest.TestCase):
                                       "troque para 15")[0]
         self.assertEqual(own, ["1. Ativos: 15 dias"])
 
+    def test_change_that_the_message_does_not_touch_is_refused(self):
+        lines, changes, warnings = self.apply({"op": "remover", "linha": 2}, message="agora não agende os inadimplentes")
+        self.assertEqual((lines, changes, len(warnings)), (self.LINES, [], 1))
+        for message in ("tire os inativos", "tire o último", "remova essa linha", "tire o de 28 dias", "junte tudo num só"):
+            with self.subTest(message=message):
+                self.assertEqual(len(self.apply({"op": "remover", "linha": 2}, message=message)[1]), 1)
+        kept = self.apply({"op": "alterar", "linha": 2, "texto": "Inativos: 40 dias"}, message="o resto passa a 40")[1]
+        self.assertEqual(len(kept), 1)  # o número da mensagem entrou na linha
+
+    def test_bare_days_are_the_frequency_not_the_criterion(self):
+        lines = ["Ativos: compra nos últimos 30 dias, 14 dias"]
+
+        def change_(text, message):
+            return memory.apply_operations(lines, [{"op": "alterar", "linha": 1, "texto": text}], message)[0][0]
+        wrong, right = "Ativos: compra nos últimos 20 dias, 14 dias", "Ativos: compra nos últimos 30 dias, 20 dias"
+        self.assertEqual(change_(wrong, "muda os ativo p 20 dias blz"), right)
+        self.assertEqual(change_(right, "muda os ativo p 20 dias blz"), right)
+        for message in ("o corte dos ativos passa a 20 dias", "ativos agora é quem comprou nos últimos 20 dias",
+                        "aumente o prazo dos ativos para 20", "ativos: recência de 20 dias"):
+            with self.subTest(message=message):
+                self.assertEqual(change_(wrong, message), wrong)
+        self.assertEqual(memory.apply_operations(["Ativos: compra nos últimos 30 dias"], [
+            {"op": "alterar", "linha": 1, "texto": "Ativos: compra nos últimos 20 dias"}], "ativos 20 dias")[0],
+            ["Ativos: compra nos últimos 20 dias"])  # sem frequência na linha, não há para onde mover
+
     def test_operations_that_are_not_a_list(self):
         self.assertEqual(memory.apply_operations(self.LINES, None, "x")[:2], (self.LINES, []))
 
@@ -258,7 +283,7 @@ class ConversationTest(AgentFixture):
         chat = ScriptedChat(fenced(VALID))
         self.turn(chat, REQUEST)
         first = chat.received[0][1]["content"]
-        self.assertTrue(first.startswith(f"<pedido>\n{REQUEST}\n</pedido>\n<segmentos>\n"))
+        self.assertTrue(first.startswith(f"<pedido>\n{REQUEST}\n</pedido>\n<premissas>\n{agent.P11}\n{agent.SAME_SCOPE}\n</premissas>\n<segmentos>\n"))
         for tag in ("<conversa>", "<arquivo_atual", "<mudanca>"):
             self.assertNotIn(tag, first)
         self.assertEqual(chat.interpreted, [])
@@ -343,6 +368,42 @@ class ConversationTest(AgentFixture):
             out = self.turn(ScriptedChat("não usado", interpret=[read]), "mude aquilo")
             self.assertEqual((out["tipo"], out["versao_atual"], len(out["pedido"])), ("sem_mudanca", 1, 2))
             self.assertTrue(out["resposta"])
+
+    def test_unrelated_change_gets_a_second_chance_with_the_reason(self):
+        self.started()
+        wrong = {"tipo": "alterar", "versao": 0, "operacoes": [{"op": "remover", "linha": 2, "texto": ""}]}
+        chat = ScriptedChat(fenced(ACTIVE_15), interpret=[wrong, TO_15], triage=[TRIAGED_15])
+        out = self.turn(chat, "troque o ativo para 15 dias")
+        self.assertEqual((len(chat.interpreted), out["tipo"], out["versao_atual"]), (2, "alterar", 2))
+        self.assertIn("não fala", chat.interpreted[1][-1]["content"])
+
+    def test_message_that_cites_two_segments_and_changes_one_is_read_again(self):
+        self.started()
+        both = {"tipo": "alterar", "versao": 0, "operacoes": TO_15["operacoes"] + [
+            {"op": "alterar", "linha": 2, "texto": "Inativo: os demais, 30 dias"}]}
+        triaged = {"segmentos": [TRIAGED_15["segmentos"][0], {**TRIAGED["segmentos"][1], "frequencia_dias": 30}]}
+        chat = ScriptedChat(fenced(BOTH_CHANGED), interpret=[TO_15, both], triage=[triaged])
+        out = self.turn(chat, "o ativo passa a 15 dias e o inativo a 30 dias")
+        self.assertEqual((len(chat.interpreted), len(out["mudancas"])), (2, 2))
+        self.assertIn('"Inativo"', chat.interpreted[1][-1]["content"])
+        stays = ScriptedChat(fenced(ACTIVE_15), interpret=[change(1, "Ativo: clientes com pedido nos últimos 60 dias, 30 dias")])
+        self.turn(stays, "o ativo com a mesma frequência do inativo")  # insistiu: vale a 2ª leitura
+        self.assertEqual(len(stays.interpreted), 2)
+        one = ScriptedChat(fenced(BOTH_CHANGED), interpret=[change(1, "Ativo: clientes com pedido nos últimos 60 dias, 16 dias")])
+        self.turn(one, "o ativo passa a 16 dias")
+        self.assertEqual(len(one.interpreted), 1)
+
+    def test_doubt_without_a_question_gets_a_second_chance(self):
+        self.started()
+        chat = ScriptedChat(fenced(ACTIVE_15), interpret=[DOUBT, TO_15], triage=[TRIAGED_15])
+        out = self.turn(chat, "troque o ativo para 15 dias")
+        self.assertEqual((len(chat.interpreted), out["tipo"]), (2, "alterar"))
+        insists = ScriptedChat("resposta", interpret=[DOUBT])
+        self.assertEqual(self.turn(insists, "me explica a regra do ativo")["tipo"], "duvida")
+        self.assertEqual(len(insists.interpreted), 1)  # pede explicação: não precisa de "?"
+        stays = ScriptedChat("resposta", interpret=[DOUBT])
+        self.assertEqual(self.turn(stays, "troque o ativo")["tipo"], "duvida")  # insistiu: vale a 2ª leitura
+        self.assertEqual(len(stays.interpreted), 2)
 
     def test_new_request_starts_from_scratch_but_keeps_the_versions(self):
         self.started()
@@ -506,9 +567,9 @@ class ConversationTest(AgentFixture):
         self.assertEqual((self.asked, out["segmentos"][1]["frequencia_dias"]), ([], 28))
 
     def test_answers_to_the_agent_become_request_lines(self):
-        chat = ScriptedChat(call(agent.ASK, {"pergunta": "Qual time?"}), fenced(VALID))
-        out = self.turn(chat, LINES, answers=["televendas"])
-        self.assertEqual(out["pedido"][2:], [memory.answer_line("Qual time?", "televendas")])
+        chat = ScriptedChat(call(agent.ASK, {"pergunta": "Quem comprou hoje entra?"}), fenced(VALID))
+        out = self.turn(chat, LINES, answers=["sim"])
+        self.assertEqual(out["pedido"][2:], [memory.answer_line("Quem comprou hoje entra?", "sim")])
 
     def test_prompt_does_not_grow_with_the_conversation(self):
         self.started()
@@ -578,6 +639,12 @@ class CheckTurnTest(unittest.TestCase):
 
     def test_number_present_in_some_rule(self):
         self.assertEqual(self.check({"numero_presente": [28, 99]}, VALID), [True, False])
+
+    def test_some_block_that_works(self):
+        block = 'parametros "Devedores":@N    do time("televendas")@N    quando inadimplentes@N    nao agendar@N'.replace("@N", chr(10))
+        early = VALID.replace('parametros "Ativo"', block + chr(10) + 'parametros "Ativo"')
+        for source, ok in ((early, True), (VALID + chr(10) + block, False), (VALID, False)):
+            self.assertEqual(self.check({"tem_bloqueio": True}, source), [ok])
 
     def test_unknown_check_is_an_error(self):
         with self.assertRaises(ValueError):

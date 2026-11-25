@@ -1,0 +1,30 @@
+version 1.0
+
+
+time "televendas":
+    vendedores todostelevendas ativados
+
+
+parametros "Clientes que nunca compraram":
+    do time("televendas")
+    quando prospects da empresa
+    frequencia de 21 dias
+    preferencia nos dias uteis e no sabado
+
+parametros "Pós-venda (compra nos últimos 20 dias)":
+    do time("televendas")
+    quando tem venda da empresa em 20 dias
+    frequencia de 3 dias
+    preferencia nos dias uteis e no sabado
+
+parametros "Clientes com compra entre 20 e 33 dias":
+    do time("televendas")
+    quando fora da recencia de positivacao em 20 dias
+        e tem venda da empresa em 33 dias
+    frequencia de 3 dias
+    preferencia nos dias uteis e no sabado
+
+parametros "Resto de PJ (sem compra em 33 dias)":
+    do time("televendas")
+    quando nao tem venda da empresa em 33 dias
+    nao agendar

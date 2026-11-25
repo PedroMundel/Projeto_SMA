@@ -1,7 +1,7 @@
 # Premissas de interpretação do GoBR
 
 O manual não resolve alguns pontos de semântica, e não há a quem perguntar. A camada
-determinística (`gobr/`) adota as interpretações abaixo. Cada pacote de contexto lista em
+determinística (`gobr/`) adota as interpretações abaixo (a P10 e a P11 são do agente). Cada pacote de contexto lista em
 `premissas_usadas` as premissas de que depende, para a descrição gerada poder deixar isso explícito.
 
 | Id | Premissa | Por quê | Onde está no código |
@@ -15,6 +15,8 @@ determinística (`gobr/`) adota as interpretações abaixo. Cada pacote de conte
 | P7 | Na cascata, cada cliente é alcançado por uma carteira de cada vez; `da carteira("a","b")` significa a **ou** b. | Carteiras exclusivas não compartilham clientes (§4.2). Interseção de carteiras exclusivas seria sempre vazia. Carteiras livres que dividem cidades/bairros geram alerta próprio. | `catalogue.parse_rule_source` (dimensão `carteira`) |
 | P8 | Fonte composta (`da segmentacao("x")` + `e da carteira("y")`) é a **união** das fontes. | Na `regra_169` a carteira "y" é definida com `nao contido na segmentacao("x")`: a interseção seria vazia por construção, então o autor quis "clientes da segmentação e também os da carteira". | `catalogue.parse_rule_source` (`detail["alternativas"]`), `cascade.own_boxes` |
 | P9 | Em `frequencia do historico ou no minimo de X e no maximo de Y`, o mínimo e o máximo **limitam** a frequência calculada pelo histórico. Não são uma alternativa para quando falta histórico. | O manual (§7.4.2) define `no máximo`/`no mínimo` como modificadores de limite. Ler como alternativa deixaria a frequência indefinida sem histórico ("mínimo 14 e máximo 28" não é um valor). `do historico` usa o histórico de **visitas** (§7.4.3). | `catalogue._frequency` |
+| P10 | Segmento que o pedido manda agendar sem dar frequência, definido só por um atributo (inadimplentes, curva, situação na Receita), não vira regra: sem um bloqueio, os clientes seguem a regra da faixa de compra deles. | O gabarito do V1Vidros não tem regra para "Agendar inadimplentes autorizados". Uma regra própria exigiria inventar a frequência. Se o usuário der a frequência, a regra existe e vem antes das faixas. | `agent.invented_frequencies`, `agent.apply_p10`, `agent.late_attribute_rules` |
+| P11 | Pedido que não diz o time nem a carteira vale para todos os televendas ativados, sem carteira. | Os 3 gabaritos do professor usam exatamente esse time, e nenhum pedido o diz; é também o time mais comum do corpus. Perguntar custava até 2 perguntas por pedido. | `agent.P11` |
 
 ## Semântica central (do manual, não é premissa)
 

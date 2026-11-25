@@ -1,0 +1,37 @@
+version 1.0
+
+time "time televendas":
+    vendedores todostelevendas
+
+carteira "carteira televendas":
+    clientes carteirafixa("time televendas")
+
+parametros "Não agendar clientes DH sem crédito":
+    da carteira("carteira televendas")
+    quando nao tem credito e tipo de cobranca igual("DH")
+    nao agendar
+
+parametros "Não agendar clientes BK com menos de R$ 199 de crédito":
+    da carteira("carteira televendas")
+    quando com menos de R$ 199 de credito disponivel e tipo de cobranca igual("BK")
+    nao agendar
+
+parametros "Não agendar clientes inadimplentes":
+    da carteira("carteira televendas")
+    quando inadimplentes
+    nao agendar
+
+parametros "Ativos 7 dias":
+    da carteira("carteira televendas")
+    quando ativos para o vendedor
+    frequencia de 7 dias
+
+parametros "Inativos 14 dias":
+    da carteira("carteira televendas")
+    quando inativos para o vendedor
+    frequencia de 14 dias
+
+parametros "Sem venda 14 dias":
+    da carteira("carteira televendas")
+    quando sem venda
+    frequencia de 14 dias

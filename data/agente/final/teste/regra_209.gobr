@@ -1,0 +1,39 @@
+version 1.0
+
+
+time "televendas":
+    vendedores todos ativados
+
+
+parametros "Bloqueio: inadimplentes":
+    do time("televendas")
+    quando inadimplentes
+    nao agendar
+
+parametros "Bloqueio: filiais":
+    do time("televendas")
+    quando cliente filial
+    nao agendar
+
+parametros "Bloqueio: fora de recencia 90 dias":
+    do time("televendas")
+    quando fora da recencia de positivação do vendedor há 90 dias atras
+    nao agendar
+
+
+parametros "Novos clientes":
+    do time("televendas")
+    quando prospects do vendedor
+    frequencia de 7 dias
+
+parametros "Compra com regularidade":
+    do time("televendas")
+    quando atividade do vendedor de 30 dias
+        e frequencia historica menor que 30 dias
+    frequencia de 7 dias
+
+parametros "Precisa de acompanhamento":
+    do time("televendas")
+    quando atividade do vendedor de 30 dias
+        e frequencia historica maior que 30 dias
+    frequencia de 17 dias

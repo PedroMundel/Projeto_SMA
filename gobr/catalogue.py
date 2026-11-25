@@ -283,7 +283,6 @@ FACT_PATTERNS: list[tuple[str, Callable[[re.Match], str]]] = [
     (r"elegivel( incluindo roteirizavel)?", lambda m: "elegíveis (não excluídos, ativos e agendáveis)"),
     (r"sem perfil com (o vendedor|a empresa)", lambda m: f"sem perfil de não agendamento com {m.group(1)}"),
     (r"(?:nao )?tem parametro(?: manual)?", lambda m: m.group(0).replace("nao ", "sem ").replace("tem ", "com ")),
-    (r"em ruptura global do (bimestre|trimestre|semestre|ano)", lambda m: f"em ruptura global de compra do {m.group(1)}"),
 ]
 
 
@@ -291,6 +290,18 @@ def _money(rest: str) -> str:
     rest = rest.strip()
     rest = re.sub(r"r\$ ?", "R$ ", rest)
     return rest.replace("ou indefinido", "(ou valor desconhecido)")
+
+
+RUPTURE_BANDS = {"bimestre": (30, 60), "trimestre": (61, 90), "semestre": (91, 180), "ano": (181, 365)}  # manual §6.10
+
+
+def _global_rupture(text: str, ctx: Context) -> Clause | None:
+    m = re.fullmatch(r"em ruptura global do (bimestre|trimestre|semestre|ano)", text)
+    if not m:
+        return None
+    low, high = RUPTURE_BANDS[m.group(1)]
+    return Clause(text, f"em ruptura global de compra do {m.group(1)} (sem comprar há {low} a {high} dias)",
+                  constraint={"rec:compra:global": IntervalSet.of(low, high)}, numbers=[low, high])
 
 
 def _fact_catalogue(text: str, ctx: Context) -> Clause | None:
@@ -308,7 +319,7 @@ def _fact(text: str, gloss: str) -> Clause:
 
 FILTER_MATCHERS: list[Matcher] = [
     _recency, _activity, _situation, _lifecycle, _curve, _revenue_status, _person_type, _boolean, _field,
-    _segment_membership, _historical_frequency, _registration_age, _fact_catalogue,
+    _segment_membership, _historical_frequency, _registration_age, _global_rupture, _fact_catalogue,
 ]
 
 

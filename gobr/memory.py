@@ -15,6 +15,12 @@ RULE_LABEL = re.compile(r"\bregra\s+\d+", re.IGNORECASE)  # "Regra 01:" numera o
 LEFT_OUT = re.compile(r"gobr nao (tem|expressa|possui|permite|suporta|oferece)")  # a forma que o prompt pede nas notas
 NUMBERING = re.compile(r"^\d+[.)]\s+")  # o pedido vai ao LLM com as linhas numeradas, e ele às vezes copia o número
 QUOTED = re.compile(r'"([^"]+)"')
+REFERENCE = re.compile(r"\b(ess[ae]s?|iss[oa]|est[ae]s?|mesm[oa]s?|tod[oa]s?|tudo|outr[oa]s?|anterior|ultim[oa]s?|primeir[oa]s?|"
+                       r"ambos|dois|duas|linha|resto|demais|corte)\b")  # a mensagem aponta para linhas sem as citar
+CRITERION = re.compile(r"\b(compr\w*|venda\w*|pedidos?|recencia|inatividade|atividade|corte|criterio|prazo|ultimos|faixa|entre)\b")
+FREQUENCY_TAIL = re.compile(r"\b(\d+)( dias?)\W*$")  # "..., 14 dias": o último "N dias" da linha é a frequência
+QUESTION = re.compile(r"\?|^\W*(qual|quais|quant\w*|como|por ?que|quem|onde|quando|o que)\b|\b(explic\w*|me (diz|fala|mostra)|"
+                      r"duvida|entend\w*|lembr\w*)\b")
 ANSWER_PREFIX = "Resposta do usuário ("
 CHANGED_ANSWER_PREFIX = "Pedido do usuário ("
 HISTORY_CHARS = 4000  # ~1.000 tokens: o efeito dos turnos já está no pedido e no arquivo
@@ -72,6 +78,42 @@ def parse_interpretation(content: str) -> dict:
             "operacoes": operations if isinstance(operations, list) else []}
 
 
+def _stems(text: str) -> set[str]:
+    return {w.removesuffix("s") for w in re.findall(r"[a-z]{4,}", fold(text))} - {"dia", "dias", "cliente", "para", "agora", "mais"}
+
+
+def related(change: dict, message: str) -> bool:
+    """A mudança tem a ver com a mensagem: uma palavra em comum, um número dela, ou a mensagem aponta sem citar."""
+    if REFERENCE.search(fold(message)) or _stems(message) & _stems(f'{change["antes"]} {change["depois"]}'):
+        return True
+    said = requested_numbers(message)
+    return bool(said & (requested_numbers(change["depois"]) | requested_numbers(change["antes"])))
+
+
+def _frequency_not_criterion(before: str, after: str, message: str) -> str:
+    """"Muda os ativos para 20 dias" é a frequência; o critério só muda se a mensagem fala dele."""
+    old, new = FREQUENCY_TAIL.search(before), FREQUENCY_TAIL.search(after)
+    said = requested_numbers(message)
+    if not old or not new or old.group(1) != new.group(1) or len(said) != 1 or CRITERION.search(fold(message)):
+        return after
+    number = said.pop()
+    if number not in requested_numbers(after) - requested_numbers(before):
+        return after
+    return f"{before[:old.start(1)]}{number}{before[old.end(1):]}"
+
+
+def left_behind(segments: list[dict], changes: list[dict], message: str) -> list[str]:
+    """Segmentos que a mensagem cita e a mudança não toca, quando ela cita mais de um e toca só alguns."""
+    words = _stems(message)
+    cited = [s for s in segments if _stems(s["segmento"]) and _stems(s["segmento"]) <= words]
+    missed = [s["segmento"] for s in cited if not touched(s, changes)]
+    return missed if len(cited) > 1 and len(missed) < len(cited) else []
+
+
+def is_question(message: str) -> bool:
+    return QUESTION.search(fold(message)) is not None
+
+
 def apply_operations(lines: list[str], operations: list, message: str) -> tuple[list[str], list[dict], list[str]]:
     """Linhas novas do pedido, mudanças ({antes, depois}) e avisos. As linhas não citadas ficam idênticas."""
     kept: list[str | None] = list(lines)
@@ -96,8 +138,13 @@ def apply_operations(lines: list[str], operations: list, message: str) -> tuple[
         after = "" if kind == "remover" else text
         if after != before and after.startswith(ANSWER_PREFIX):  # o usuário mudou o valor: agora é exigido
             after = CHANGED_ANSWER_PREFIX + after[len(ANSWER_PREFIX):]
+        if kind == "alterar":
+            after = _frequency_not_criterion(before, after, message)
         if kind != "remover" and (not after or after == before):
             warnings.append(f"Mudança ignorada: {'o texto novo é igual ao atual' if after else 'o texto novo está vazio'}.")
+            continue
+        if kind != "incluir" and not related({"antes": before, "depois": after}, message):
+            warnings.append(f'Mudança ignorada: a mensagem não fala da linha "{before}".')
             continue
         if kind == "incluir":
             added.append(after)

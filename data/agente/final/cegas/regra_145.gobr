@@ -1,0 +1,50 @@
+version 1.0
+
+time "time_inteiro":
+    vendedores todostelevendas
+
+parametros "Bloqueio: filiais":
+    do time("time_inteiro")
+    quando cliente filial
+    nao agendar
+
+parametros "Prospects":
+    do time("time_inteiro")
+    quando prospects da empresa
+    frequencia de 10 dias
+
+parametros "Primeira compra: indústria (ramo 2)":
+    do time("time_inteiro")
+    quando pessoa juridica
+           e ramo de atividade igual("2")
+           e unica compra com a empresa
+    frequencia de 14 dias
+
+parametros "Primeira compra: revenda (ramo 1)":
+    do time("time_inteiro")
+    quando pessoa juridica
+           e ramo de atividade igual("1")
+           e unica compra com a empresa
+    frequencia de 7 dias
+
+parametros "Estimular regularidade":
+    do time("time_inteiro")
+    quando adimplentes
+           e recencia de positivacao global entre 31 dias e 60 dias
+    frequencia de 14 dias
+
+parametros "Compra regularmente":
+    do time("time_inteiro")
+    quando adimplentes
+           e atividade de 30 dias
+    frequencia de 21 dias
+
+parametros "Risco de inatividade":
+    do time("time_inteiro")
+    quando adimplentes
+           e recencia de positivacao global entre 61 dias e 90 dias
+    frequencia de 7 dias
+
+parametros "Resgate (inativos)":
+    do time("time_inteiro")
+    frequencia de 21 dias

@@ -1,0 +1,14 @@
+version 1.0
+
+time "televendas":
+    vendedores todostelevendas ativados
+
+parametros "Ativos":
+    do time("televendas")
+    quando tem venda do vendedor em 30 dias
+    frequencia de 14 dias
+
+parametros "Inativos":
+    do time("televendas")
+    quando inativos para o vendedor
+    frequencia de 28 dias

@@ -1,0 +1,24 @@
+version 1.0
+
+time "vendedores":
+    vendedores todos
+
+parametros "Bloqueio: inativos inadimplentes":
+    do time("vendedores")
+    quando inativos para o vendedor e inadimplentes
+    nao agendar
+
+parametros "Adimplentes":
+    do time("vendedores")
+    quando adimplentes
+    frequencia de 7 dias
+
+parametros "Ativos inadimplentes":
+    do time("vendedores")
+    quando ativos para o vendedor e inadimplentes
+    frequencia de 14 dias
+
+parametros "Sem vendas":
+    do time("vendedores")
+    quando inadimplentes e prospects do vendedor
+    frequencia de 7 dias

@@ -31,6 +31,10 @@ mudanças.
 2. Em `alterar`, copie a linha e troque só o trecho que muda. Se a linha é "Ativos: compra nos últimos 30 dias,
    14 dias" e o usuário diz "troque os ativos para 15 dias", o texto é "Ativos: compra nos últimos 30 dias,
    15 dias": o último "N dias" é a frequência, e os números antes dele são o critério.
+   "Passe a curva B para 45 dias" também é a frequência: o critério só muda quando a mensagem fala dele ("corte",
+   "compra nos últimos", "sem comprar há", "prazo").
+   Se a mensagem bloqueia ou agenda um grupo que não tem linha ("bloqueie as filiais"), use `incluir` com a linha
+   "Filiais: não agendar"; não é dúvida e não mexe nas outras linhas.
 3. Nunca invente números: use os da mensagem, os da própria linha ou os que a mensagem referencia.
 4. Se o dado novo completa um segmento que já tem linha ("os inativos são a cada 28 dias"), altere a linha
    desse segmento em vez de incluir outra.

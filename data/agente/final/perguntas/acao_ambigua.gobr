@@ -1,0 +1,18 @@
+version 1.0
+
+time "televendas":
+    vendedores todostelevendas ativados
+
+parametros "Inadimplentes":
+    do time("televendas")
+    quando inadimplentes
+    nao agendar
+
+parametros "Ativos":
+    do time("televendas")
+    quando recencia de positivacao global em 60 dias
+    frequencia de 14 dias
+
+parametros "Inativos":
+    do time("televendas")
+    frequencia de 28 dias

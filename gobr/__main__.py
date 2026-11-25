@@ -31,6 +31,14 @@
         roda o agente em cada consulta sem o próprio gabarito na busca (perguntas recebem a resposta padrão)
   python -m gobr avaliar-perguntas <casos.json> <dir_saida> [--manual-inteiro]
         roda o agente em cada caso com o usuário simulado do arquivo; mede se perguntou quando faltava algo
+  python -m gobr comparar <dir_gerados> --gabaritos <dir_gobr>
+        significado, sem LLM: fração dos clientes sintéticos com a mesma decisão no arquivo gerado e no gabarito
+  python -m gobr cosseno <dir_gerados> --gabaritos <dir_gobr> --consultas <arquivo.json>
+        semelhança de texto: cosseno do arquivo gerado com o gabarito e das cláusulas dele com o manual (complementar a comparar)
+  python -m gobr igualdade <dir_gerados> --gabaritos <dir_gobr> --consultas <arquivo.json>
+        regra por regra, quantas são sintática e semanticamente iguais às do gabarito
+  python -m gobr cosseno-respostas <conversas.db | dir_com_entregas.json>...
+        cosseno entre as respostas do LLM para o mesmo pedido, quando houve mais de uma
   python -m gobr conferir <arquivo.gobr> [<arquivo.gobr>...] --consultas <arquivo.json>
         só o conferente: compara o que cada regra faz com o pedido de mesmo nome em --consultas
 """
@@ -42,6 +50,7 @@ from pathlib import Path
 
 from gobr import consensus, redator
 from gobr.context import build
+from gobr.ir import GobrFile
 from gobr.parser import parse_file, read_source, unrecognized
 
 MODEL = "claude-sonnet-5-5"
@@ -314,7 +323,7 @@ def _read_cases(path: Path) -> dict:
 
 def _run_case(graph, state: dict, answers: list[str], out_dir: Path, name: str) -> dict | None:
     """Roda uma conversa com respostas roteirizadas, grava .gobr e .md e devolve o estado final (None se falhou)."""
-    from gobr import agent
+    from gobr import agent, similarity
 
     pending = list(answers)
     started = time.perf_counter()
@@ -327,6 +336,9 @@ def _run_case(graph, state: dict, answers: list[str], out_dir: Path, name: str) 
     out["segundos"] = time.perf_counter() - started
     (out_dir / f"{name}.gobr").write_bytes(out["gobr"].replace("\r\n", "\n").encode("utf-8"))
     (out_dir / f"{name}.md").write_text(out["resposta"], encoding="utf-8")
+    sent = similarity.deliveries(out.get("mensagens", []), agent.GOBR_BLOCK)
+    if len(sent) > 1:  # o `cosseno-respostas` compara as entregas do mesmo pedido
+        (out_dir / f"{name}.entregas.json").write_text(json.dumps(sent, ensure_ascii=False, indent=1), encoding="utf-8")
     return out
 
 
@@ -343,8 +355,8 @@ def evaluate_agent(query_file: Path, gold_dir: Path, out_dir: Path, server: str,
     graph = agent.build_graph(resources)
     out_dir.mkdir(parents=True, exist_ok=True)
     print("| gabarito | aprovado | entregas | passos | lacunas | perguntas (triagem + agente) | divergências (código + LLM) "
-          "| regras (gerado/gabarito) | assinatura igual | alertas | s |")
-    print("|---|---|---|---|---|---|---|---|---|---|---|")
+          "| regras (gerado/gabarito) | assinatura igual | alertas | s | mesma decisão (%) |")
+    print("|---|---|---|---|---|---|---|---|---|---|---|---|")
     for name, text in queries.items():
         out = _run_case(graph, {"mensagem": text, "excluir": [name]}, [], out_dir, name)
         if out is None:
@@ -354,7 +366,118 @@ def evaluate_agent(query_file: Path, gold_dir: Path, out_dir: Path, server: str,
               f"| {len(out['lacunas_iniciais'])} | {_questions(out)} | {_divergences(out)} "
               f"| {len(made['regras'])}/{len(gold['regras'])} "
               f"| {'sim' if made['regras'] and index.signature(made) == index.signature(gold) else 'não'} "
-              f"| {len(out['alertas']) + len(out['avisos'])} | {out['segundos']:.0f} |")
+              f"| {len(out['alertas']) + len(out['avisos'])} | {out['segundos']:.0f} "
+              f"| {_same_decision(out_dir / f'{name}.gobr', gold_dir / f'{name}.gobr')} |")
+
+
+def _same_decision(made: Path, gold: Path) -> str:
+    from gobr import outcomes
+
+    result = outcomes.agreement(parse_file(made), parse_file(gold))
+    missed = "; ".join(f"{name} {100 * share:.1f}" for name, share in result["regras"].items() if share < 1)
+    return f"{100 * result['media']:.1f}" + (f" ({missed})" if missed else "")
+
+
+def compare(made_dir: Path, gold_dir: Path) -> None:
+    """Significado, sem LLM; o piso é a nota de um arquivo vazio e a de uma regra só."""
+    from gobr import outcomes
+
+    for made in sorted(made_dir.glob("*.gobr")):
+        gold = gold_dir / made.name
+        floor = outcomes.baselines(parse_file(gold))
+        print(f"{made.stem}: {_same_decision(made, gold)} | piso: vazio {100 * floor['vazio']:.1f}, "
+              f"uma regra {100 * floor['uma regra']:.1f}")
+
+
+def cosine(made_dir: Path, gold_dir: Path, query_file: Path) -> None:
+    """Semelhança de texto com o gabarito; o piso é o cosseno médio com os gabaritos dos outros arquivos."""
+    from gobr import index, manual_search, similarity
+
+    names = [n for n in json.loads(query_file.read_text(encoding="utf-8")) if not n.startswith("_")]
+    gold = {n: read_source(gold_dir / f"{n}.gobr") for n in names}
+    made = {n: read_source(made_dir / f"{n}.gobr") for n in names if (made_dir / f"{n}.gobr").exists()}
+    embedder = index.Embedder(EMBEDDING_MODEL)
+    rows = similarity.cosine_rows(made, gold, embedder)
+    print("| gabarito | cosseno | piso | gabarito certo é o mais próximo |")
+    print("|---|---|---|---|")
+    for row in rows:
+        floor = "-" if row["piso"] is None else f"{row['piso']:.3f}"
+        print(f"| {row['nome']} | {row['cosseno']:.3f} | {floor} | {'sim' if row['mais_proximo'] else 'não'} |")
+    print(f"Média (0 para o que faltou): {sum(r['cosseno'] for r in rows) / len(rows):.3f}; "
+          f"mais próximo: {sum(r['mais_proximo'] for r in rows)}/{len(rows)}")
+    manual = manual_search.load(MANUAL_INDEX).vectors
+    print("\n| cláusulas contra o manual | cláusulas | cosseno | reconhecidas pelo catálogo |")
+    print("|---|---|---|---|")
+    for title, files in (("gerado", {n: made_dir / f"{n}.gobr" for n in made if made[n].strip()}),
+                         ("gabarito", {n: gold_dir / f"{n}.gobr" for n in names})):
+        checked = similarity.manual_rows({n: parse_file(path) for n, path in files.items()}, manual, embedder)
+        for row in checked:
+            print(f"| {title} {row['nome']} | {row['clausulas']} | {row['cosseno']:.3f} | {100 * row['reconhecidas']:.0f}% |")
+        if checked:
+            print(f"| **{title}, média** | {sum(r['clausulas'] for r in checked)} | "
+                  f"{sum(r['cosseno'] for r in checked) / len(checked):.3f} | "
+                  f"{100 * sum(r['reconhecidas'] for r in checked) / len(checked):.1f}% |")
+
+
+def equality_table(made_dir: Path, gold_dir: Path, query_file: Path) -> None:
+    """Arquivo que não existe conta como nenhuma regra igual."""
+    from gobr import equality
+
+    names = [n for n in json.loads(query_file.read_text(encoding="utf-8")) if not n.startswith("_")]
+    total = {"regras": 0, "sintatica": 0, "semantica": 0, "arquivo_sintatico": 0, "arquivo_semantico": 0}
+    print("| gabarito | regras | sintaticamente iguais | semanticamente iguais | arquivo igual (sint. / sem.) | faltam |")
+    print("|---|---|---|---|---|---|")
+    for name in names:
+        made, gold = made_dir / f"{name}.gobr", parse_file(gold_dir / f"{name}.gobr")
+        result = equality.compare(parse_file(made) if made.exists() else GobrFile([], [], {}), gold)
+        for key in total:
+            total[key] += result[key]
+        yes = lambda ok: "sim" if ok else "não"
+        print(f"| {name} | {result['regras']} | {result['sintatica']} | {result['semantica']} "
+              f"| {yes(result['arquivo_sintatico'])} / {yes(result['arquivo_semantico'])} | {'; '.join(result['faltam_semantica'])} |")
+    print(f"Total: {total['sintatica']}/{total['regras']} sintáticas ({100 * total['sintatica'] / total['regras']:.1f}%), "
+          f"{total['semantica']}/{total['regras']} semânticas ({100 * total['semantica'] / total['regras']:.1f}%); arquivos iguais: "
+          f"{total['arquivo_sintatico']}/{len(names)} e {total['arquivo_semantico']}/{len(names)}")
+
+
+def _response_groups(source: Path) -> dict[str, list[str]]:
+    """Respostas do LLM por pedido: um banco de conversas (um grupo por turno) ou arquivos *.entregas.json."""
+    from langgraph.checkpoint.sqlite import SqliteSaver
+
+    from gobr import agent, similarity
+
+    if source.is_dir():
+        return {f.name.removesuffix(".entregas.json"): json.loads(f.read_text(encoding="utf-8"))
+                for f in sorted(source.glob("*.entregas.json"))}
+    groups: dict[str, list[list[dict]]] = {}
+    with SqliteSaver.from_conn_string(str(source)) as saver:
+        for saved in sorted(saver.list(None), key=lambda t: t.checkpoint["id"]):
+            messages = saved.checkpoint["channel_values"].get("mensagens") or []
+            turns = groups.setdefault(saved.config["configurable"]["thread_id"], [])
+            if messages and turns and messages[:len(turns[-1])] == turns[-1]:
+                turns[-1] = messages
+            elif messages:
+                turns.append(messages)
+    return {f"{thread} turno {n}": similarity.deliveries(messages, agent.GOBR_BLOCK)
+            for thread, turns in groups.items() for n, messages in enumerate(turns, 1)}
+
+
+def response_cosine(sources: list[Path]) -> None:
+    from gobr import index, similarity
+
+    embedder = index.Embedder(EMBEDDING_MODEL)
+    for source in sources:
+        rows = {name: row for name, texts in _response_groups(source).items()
+                if (row := similarity.between_responses(texts, embedder))}
+        print(f"\n{source}: {len(rows)} pedidos com mais de uma resposta")
+        print("| pedido | respostas | seguidas | primeira e última | idênticas |")
+        print("|---|---|---|---|---|")
+        for name, row in rows.items():
+            print(f"| {name} | {row['respostas']} | {', '.join(f'{c:.3f}' for c in row['seguidas'])} "
+                  f"| {row['primeira_ultima']:.3f} | {'sim' if row['iguais'] else 'não'} |")
+        if rows:
+            steps = [c for row in rows.values() for c in row["seguidas"]]
+            print(f"Média entre respostas seguidas: {sum(steps) / len(steps):.3f} ({len(steps)} pares)")
 
 
 def _questions(out: dict) -> str:
@@ -464,6 +587,19 @@ def main() -> None:
     questions_cmd = commands.add_parser("avaliar-perguntas")
     questions_cmd.add_argument("casos", type=Path)
     questions_cmd.add_argument("saida", type=Path)
+    compare_cmd = commands.add_parser("comparar")
+    compare_cmd.add_argument("gerados", type=Path)
+    compare_cmd.add_argument("--gabaritos", type=Path, required=True)
+    equality_cmd = commands.add_parser("igualdade")
+    equality_cmd.add_argument("gerados", type=Path)
+    equality_cmd.add_argument("--gabaritos", type=Path, required=True)
+    equality_cmd.add_argument("--consultas", type=Path, required=True)
+    cosine_cmd = commands.add_parser("cosseno")
+    cosine_cmd.add_argument("gerados", type=Path)
+    cosine_cmd.add_argument("--gabaritos", type=Path, required=True)
+    cosine_cmd.add_argument("--consultas", type=Path, required=True)
+    responses_cmd = commands.add_parser("cosseno-respostas")
+    responses_cmd.add_argument("fontes", type=Path, nargs="+")
     confer_cmd = commands.add_parser("conferir")
     confer_cmd.add_argument("arquivos", type=Path, nargs="+")
     confer_cmd.add_argument("--consultas", type=Path, required=True)
@@ -506,6 +642,14 @@ def main() -> None:
         evaluate_agent(args.consultas, args.gabaritos, args.saida, args.servidor, args.manual_inteiro)
     elif args.command == "avaliar-perguntas":
         evaluate_questions(args.casos, args.saida, args.servidor, args.manual_inteiro)
+    elif args.command == "comparar":
+        compare(args.gerados, args.gabaritos)
+    elif args.command == "igualdade":
+        equality_table(args.gerados, args.gabaritos, args.consultas)
+    elif args.command == "cosseno":
+        cosine(args.gerados, args.gabaritos, args.consultas)
+    elif args.command == "cosseno-respostas":
+        response_cosine(args.fontes)
     elif args.command == "conferir":
         confer_files(args.arquivos, args.consultas, args.servidor)
     else:

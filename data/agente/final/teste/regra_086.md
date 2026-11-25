@@ -1,0 +1,35 @@
+```gobr
+version 1.0
+
+time "vendas":
+    vendedores todos
+
+parametros "Ativos adimplentes":
+    do time("vendas")
+    quando ativos para o vendedor
+        e adimplentes
+    frequencia de 10 dias
+
+parametros "Ativos inadimplentes":
+    do time("vendas")
+    quando ativos para o vendedor
+        e inadimplentes
+    frequencia de 14 dias
+
+parametros "Inativos adimplentes":
+    do time("vendas")
+    quando inativos para o vendedor
+        e adimplentes
+    frequencia de 14 dias
+
+parametros "Inativos inadimplentes":
+    do time("vendas")
+    quando inativos para o vendedor
+        e inadimplentes
+    frequencia de 90 dias
+
+parametros "Sem vendas":
+    do time("vendas")
+    quando prospects do vendedor
+    frequencia de 21 dias
+```

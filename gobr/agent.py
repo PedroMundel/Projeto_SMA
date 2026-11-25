@@ -38,7 +38,7 @@ from langgraph.checkpoint.sqlite import SqliteSaver
 from langgraph.graph import END, START, StateGraph
 from langgraph.types import Command, interrupt
 
-from gobr import index, manual_search, memory
+from gobr import cascade, index, manual_search, memory
 from gobr.context import LATE_BLOCK, build
 from gobr.memory import requested_numbers
 from gobr.parser import parse_file, read_source, unrecognized
@@ -59,8 +59,28 @@ ACTIONS = ("agendar", "nao_agendar", "indefinido")
 RESIDUAL = re.compile(r"\b(demais|restantes?)\b")  # no nome do segmento: "os demais" não precisa de critério
 GOBR_BLOCK = re.compile(r"```[ \t]*(?:gobr)?[ \t]*\r?\n(.*?)```", re.DOTALL | re.IGNORECASE)
 ASK = "perguntar_usuario"
+NOTES_CHARS = 1200  # o que se mostra das notas; o LLM às vezes pensa alto antes delas
+NOTES_HEADER = re.compile(r"^\W*(notas|premissas|observacoes|o que ficou de fora)\b", re.IGNORECASE)
+# vocabulário largo: na dúvida, o pedido fala do time, e a premissa P11 não se aplica
+TEAM = re.compile(r"\b(times?|carteiras?|equipes?|vendedor\w*|televendas|representantes?|supervisor\w*|extern[oa]s?|campo|sdrs?)\b")
+TEAM_QUESTION = re.compile(r"\b(times?|carteiras?|equipes?)\b")
+OTHER_TOPIC = re.compile(r"\b(compr\w*|recencia|dias|frequencia|inclu\w*|criterio|agendad\w*|bloque\w*)\b")
+SCOPE = re.compile(r"\b(empresa|global|globais|grupo|vendedor\w*|lojas?|rede|filia\w*)\b")
+FREQUENCY_QUESTION = re.compile(r"\b(frequencia|periodicidade|quantos em quantos|cada quantos)\b")
+DEFAULT_TEAM = 'time "televendas":\n    vendedores todostelevendas ativados'
+SAME_SCOPE = ("O pedido não fala de escopo de compra (empresa, grupo ou vendedor): use o mesmo escopo, o padrão, em todas as "
+              "faixas (sem `global` e sem `do vendedor`). Prospect é sempre da empresa.")
+P11 = (f"Premissa P11: o pedido não diz o time nem a carteira. Use este time em todas as regras, sem carteira, e não "
+       f"pergunte sobre isso:\n{DEFAULT_TEAM}")
+CONTEXT_CHARS = 80000  # ~25 mil tokens (3,2 caracteres por token, medidos: 3,6): cabe nos 32k com a resposta e as ferramentas
+OMITTED = "[resultado antigo omitido para caber no contexto; busque de novo se precisar]"
 NO_ANSWER = "Sem resposta do usuário: siga com a premissa mais provável e diga nas notas qual foi."
 QUESTION_LIMIT = "Limite de perguntas atingido: siga com a premissa mais provável e diga nas notas qual foi."
+FORMS = (  # (o que o LLM escreve, a forma dos exemplos); as duas geram a mesma condição no catálogo
+    (re.compile(r"\batividade( global| do vendedor)? de (\d+) dias", re.IGNORECASE), r"recencia de positivacao\1 em \2 dias"),
+    (re.compile(r"\bprospects d(a empresa|o vendedor)\b", re.IGNORECASE),
+     lambda m: "no ciclo de vida prospect com " + {"a": "a empresa", "o": "o vendedor"}[m.group(1)[0].lower()]),
+)
 LAST_STEP = "Limite de buscas atingido: entregue agora o arquivo GoBR completo no bloco ```gobr."
 
 TOOLS = [
@@ -154,6 +174,7 @@ class State(TypedDict, total=False):
     conferencias: int
     valido: dict | None  # última entrega sem erro (gobr, notas, alertas): volta se a correção pedida falhar
     restaurada: bool
+    perdoados: list[int]  # números que só estavam numa regra de cláusula inventada, tirada pelo código
     resposta: str
 
 
@@ -275,7 +296,7 @@ def receive(state: State) -> State:
             "exemplos": [], "segmentos": [], "lacunas": [], "lacunas_iniciais": None, "pergunta_lacunas": "",
             "resposta_lacunas": "", "avisos": [], "divergencias_codigo": [], "mensagens": [], "gobr": "", "notas": "",
             "erros": [], "alertas": [], "divergencias": [], "perguntas": [], "passos": 0, "entregas": 0,
-            "conferencias": 0, "valido": None, "restaurada": False, "resposta": ""}
+            "conferencias": 0, "valido": None, "restaurada": False, "perdoados": [], "resposta": ""}
 
 
 def after_receive(state: State) -> str:
@@ -290,15 +311,39 @@ def _unchanged(reason: str) -> State:
     return {"tipo": "sem_mudanca", "resposta": f"Não mudei nada. {reason}"}
 
 
+def _objection(read: dict, lines: list[str], message: str, segments: list[dict]) -> str:
+    """Por que a 1ª leitura da mensagem é suspeita; vazio se não é."""
+    if read["tipo"] == "duvida" and not memory.is_question(message):
+        return ("A mensagem não tem pergunta nem pede explicação. Releia-a: se ela manda mudar, incluir, tirar ou bloquear algo, "
+                "o tipo é \"alterar\", com as operações.")
+    if read["tipo"] != "alterar":
+        return ""
+    _, changes, warnings = memory.apply_operations(lines, read["operacoes"], message)
+    missed = memory.left_behind(segments, changes, message)
+    if missed:
+        return (f"A mensagem também cita {', '.join(f'{chr(34)}{m}{chr(34)}' for m in missed)}, e nenhuma operação mexe nisso. "
+                "Releia-a: se a mudança vale para esse segmento, inclua a operação dele; se ele só foi citado como referência, "
+                "repita as mesmas operações.")
+    if changes or not warnings:
+        return ""
+    return ("O programa recusou todas as operações:\n" + "\n".join(f"- {w}" for w in warnings)
+            + "\nReleia a mensagem e mude só o que ela pede. Se ela fala de um grupo que ainda não está no pedido, use "
+              "\"incluir\" com uma linha para ele.")
+
+
 def interpret_message(res: Resources, state: State) -> State:
     """O LLM diz o que a mensagem é e que linhas do pedido mudam; o código aplica as mudanças."""
     lines, message = state["pedido"], state["mensagem"]
     content = (f"<pedido>\n{_numbered(lines)}\n</pedido>\n"
                f"<conversa>\n{memory.history_text(state.get('turnos', []))}\n</conversa>\n"
                f"<mensagem>\n{message}\n</mensagem>")
-    reply = res.chat([{"role": "system", "content": INTERPRET_PROMPT.read_text(encoding="utf-8")},
-                      {"role": "user", "content": content}], schema=INTERPRET_SCHEMA)
+    asked = [{"role": "system", "content": INTERPRET_PROMPT.read_text(encoding="utf-8")},
+             {"role": "user", "content": content}]
+    reply = res.chat(asked, schema=INTERPRET_SCHEMA)
     read = memory.parse_interpretation(reply["content"])
+    if (objection := _objection(read, lines, message, (memory.current(state) or {}).get("segmentos", []))):  # uma 2ª leitura, com o motivo; o que vier vale
+        reply = res.chat(asked + [reply, {"role": "user", "content": objection}], schema=INTERPRET_SCHEMA)
+        read = memory.parse_interpretation(reply["content"])
     if read["tipo"] == "duvida":
         return {"tipo": "duvida"}
     if read["tipo"] == "desfazer":
@@ -386,7 +431,9 @@ def segments_text(segments: list[dict]) -> str:
         if s["acao"] == "nao_agendar":
             return "não agendar"
         if s["acao"] == "agendar":
-            return f"agendar a cada {s['frequencia_dias']} dias" if s["frequencia_dias"] else "agendar (frequência não dada)"
+            return f"agendar a cada {s['frequencia_dias']} dias" if s["frequencia_dias"] else (
+                "agendar (frequência não dada; premissa P10: se o grupo é só um atributo, como inadimplentes, não escreva "
+                "regra para ele: sem bloqueio, esses clientes seguem a regra da faixa deles)")
         return "indefinida"
     return "\n".join(f'- "{s["segmento"]}" | critério: {s["criterio"] or "(não dado)"} | ação: {action(s)}'
                      for s in segments)
@@ -406,6 +453,24 @@ def change_context(state: State) -> str:
             f"arquivo completo. Um bloqueio novo (`nao agendar`) entra antes das regras de frequência. O usuário escreveu: {state['mensagem']}\nMudança no pedido:\n{changes}\n</mudanca>\n")
 
 
+def _team_is_open(state: State) -> bool:
+    """O usuário não falou de time nem de carteira (nem nas respostas), e ainda não há arquivo que os defina."""
+    return _base(state) is None and not TEAM.search(fold(_said(state)))
+
+
+def _answers_text(state: State) -> str:
+    return "\n".join(a for _, a in _answers(state) if a != NO_ANSWER)
+
+
+def _said(state: State) -> str:
+    return f"{state['descricao']}\n{_answers_text(state)}"
+
+
+def _scope_is_open(state: State) -> bool:
+    text = re.sub(r"prospects?[^\n.;]*", " ", fold(_said(state)))  # prospect é da empresa por definição
+    return _base(state) is None and not SCOPE.search(text)
+
+
 def prepare(res: Resources, state: State) -> State:
     request = state["descricao"]
     text = "\n".join(c["depois"] for c in state["mudancas"] if c["depois"]) or request  # o que mudou guia a busca
@@ -416,6 +481,9 @@ def prepare(res: Resources, state: State) -> State:
     else:
         sections = find_sections(res, text, vector)
     first = f"<pedido>\n{request}\n</pedido>\n{change_context(state)}"
+    premises = [P11] * _team_is_open(state) + [SAME_SCOPE] * _scope_is_open(state)
+    if premises:
+        first += "<premissas>\n" + "\n".join(premises) + "\n</premissas>\n"
     if state.get("segmentos"):
         answered = f"\nO usuário respondeu: {state['resposta_lacunas']}" if state.get("resposta_lacunas") else ""
         first += (f"<segmentos>\nO pedido, segmento a segmento (com as respostas do usuário, se houve pergunta). "
@@ -431,11 +499,28 @@ def prepare(res: Resources, state: State) -> State:
                           {"role": "user", "content": first}]}
 
 
+def fit_context(messages: list[dict], limit: int) -> list[dict]:
+    """As mensagens que cabem no contexto: omite primeiro as buscas antigas, depois as entregas antigas.
+
+    As duas primeiras (prompt e pedido) e as três últimas ficam sempre inteiras; o estado guarda tudo.
+    """
+    size = sum(len(m["content"]) for m in messages)
+    fitted = list(messages)
+    for roles in (("tool",), ("assistant",)):
+        for n, message in enumerate(fitted[:-3]):
+            if size <= limit:
+                return fitted
+            if n >= 2 and message["role"] in roles and len(message["content"]) > len(OMITTED):
+                size -= len(message["content"]) - len(OMITTED)
+                fitted[n] = {**message, "content": OMITTED}
+    return fitted
+
+
 def act(res: Resources, state: State) -> State:
     messages, steps = state["mensagens"], state["passos"] + 1
     if steps == MAX_STEPS:
         messages = messages + [{"role": "user", "content": LAST_STEP}]
-    reply = res.chat(messages, tools=TOOLS if steps < MAX_STEPS else None)
+    reply = res.chat(fit_context(messages, CONTEXT_CHARS), tools=TOOLS if steps < MAX_STEPS else None)
     if steps >= MAX_STEPS:  # sem ferramentas oferecidas, uma chamada mesmo assim conta como entrega (sem laço)
         reply = {k: v for k, v in reply.items() if k != "tool_calls"}
     return {"mensagens": messages + [reply], "passos": steps}
@@ -480,6 +565,19 @@ def after_tools(state: State) -> str:
     return "perguntar" if any(c["function"]["name"] == ASK for c in _last_calls(state)) else "agente"
 
 
+def _answer_without_the_user(state: State, question: str) -> str | None:
+    """Pergunta que uma premissa ou a pergunta da triagem já respondeu; None se é para o usuário."""
+    text = fold(question)
+    if _team_is_open(state) and TEAM_QUESTION.search(text) and not OTHER_TOPIC.search(text):
+        return P11
+    asked = state["lacunas_iniciais"] if state["pergunta_lacunas"] else _asked_before(state)
+    still_open = {s["segmento"] for s in state["segmentos"] for g in state["lacunas"]
+                  if g in (asked or []) and g.startswith(f'"{s["segmento"]}": de quantos')}
+    if FREQUENCY_QUESTION.search(text) and any(memory.mentioned(n, [], question) for n in still_open):
+        return f"Esta pergunta já foi feita ao usuário. Resposta: {state['resposta_lacunas'] or NO_ANSWER}"
+    return None
+
+
 def ask(state: State) -> State:
     """Pausa o grafo por pergunta; ao retomar, o nó roda de novo e cada `interrupt` devolve a sua resposta."""
     asked, results = list(state["perguntas"]), []
@@ -490,6 +588,8 @@ def ask(state: State) -> State:
             answer = "Pergunta vazia: escreva a pergunta no argumento `pergunta`."
         elif previous is not None:  # a mesma pergunta de novo não incomoda o usuário: vale a resposta anterior
             answer = f"Você já fez esta pergunta. Resposta: {previous}"
+        elif (known := _answer_without_the_user(state, question)) is not None:
+            answer = known
         elif len(asked) >= MAX_QUESTIONS:
             answer = QUESTION_LIMIT
         else:
@@ -534,7 +634,9 @@ def check(gobr_text: str, description: str, notes: str = "", left_out_before: fr
     if not gobr_text:
         return ["A resposta não trouxe um bloco ```gobr com o arquivo."], []
     file, package = _package(gobr_text)
-    errors = [f"{block_id}: trecho não reconhecido: {getattr(item, 'text', item)}" for block_id, item in unrecognized(file)]
+    errors = [f"{block_id}: trecho não reconhecido: {getattr(item, 'text', item)}. Essa cláusula não existe no GoBR desse jeito. Se não "
+              "souber a forma certa, procure com buscar_manual ou buscar_exemplos pelo critério e mantenha o filtro. Só se o GoBR "
+              "não tiver cláusula para isso, tire o trecho e diga nas notas o que ficou de fora, com o número." for block_id, item in unrecognized(file)]
     for block in file.blocks:
         undeclared = sorted({n for c in block.sources for n in c.detail.get("fontes_nao_declaradas", [])})
         if undeclared:
@@ -548,6 +650,12 @@ def check(gobr_text: str, description: str, notes: str = "", left_out_before: fr
             errors.append(f'"{rule["nome"]}": os filtros se contradizem, nenhum cliente atende a todos.')
         elif rule["inalcancavel"]:
             errors.append(f'"{rule["nome"]}": inalcançável, todos os clientes dela já foram tratados por regras anteriores.')
+    for effective in cascade.compute(file):
+        day = cascade.single_day(effective.own)
+        if day is not None:
+            errors.append(f'"{effective.block.name}": os filtros só deixam quem está há exatamente {day} dias, então quase '
+                          f'ninguém. Para "comprou nos últimos {day} dias", fique só com o filtro de atividade ou recência; '
+                          f'para "sem comprar há mais de {day} dias", só com o de inatividade.')
     absent = requested_numbers(description) - _clause_numbers(file)
     said_left_out = (memory.declared_left_out(notes) if declared_only else index.numbers(notes)) | left_out_before
     left_out = sorted(absent & said_left_out)
@@ -566,17 +674,84 @@ def _left_out_before(state: State) -> frozenset[int]:
     """Números que a versão de origem já deixou de fora, salvo os que a mudança voltou a pedir."""
     base = _base(state)
     asked_again = {n for c in state["mudancas"] for n in requested_numbers(c["depois"])}
-    return frozenset(base["fora"]) - asked_again if base else frozenset()
+    return (frozenset(base["fora"]) - asked_again if base else frozenset()) | frozenset(state["perdoados"])
+
+
+def drop_rules(gobr_text: str, names: list[str]) -> str:
+    """O arquivo sem os blocos `parametros` desses nomes."""
+    blocks = _package(gobr_text)[0].blocks
+    lines, dropped = gobr_text.split("\n"), set()
+    for block, following in zip(blocks, blocks[1:] + [None]):
+        if block.kind == "parametros" and block.name in names:
+            dropped.update(range(block.line_no - 1, following.line_no - 1 if following else len(lines)))
+    return "\n".join(line for n, line in enumerate(lines) if n not in dropped).strip() if dropped else gobr_text
+
+
+def _prune_unknown(gobr: str, notes: str, state: State) -> State | None:
+    """Na última entrega de um arquivo novo: sem as regras de cláusula inventada que o pedido não tem como segmento.
+
+    Só poda quando há segmentos para comparar e a regra não tem nenhuma palavra em comum com eles.
+    """
+    if not gobr or not state["segmentos"] or _base(state):
+        return None
+    file, _ = _package(gobr)
+    wanted = {w for s in state["segmentos"] for w in _stems(s["segmento"])}
+    clauses: dict[str, list[str]] = {}
+    for block_id, item in unrecognized(file):
+        block = next(b for b in file.blocks if b.id == block_id)
+        if block.kind != "parametros" or _stems(block.name) & wanted:
+            return None
+        clauses.setdefault(block.name, []).append(getattr(item, "text", item))
+    if not clauses:
+        return None
+    left = drop_rules(gobr, list(clauses))
+    used = {n for s in state["segmentos"] for n in index.numbers(f'{s["trecho"]} {s["criterio"]}') | {s["frequencia_dias"]}}
+    forgiven = {n for texts in clauses.values() for t in texts for n in index.numbers(t)} - used
+    errors, alerts = check(left, memory.binding_text(state["descricao"]), notes, _left_out_before(state) | forgiven)
+    if errors:
+        return None
+    alerts += [f'Tirei a regra "{name}": a cláusula `{"; ".join(texts)}` não existe no GoBR, e o que ela pedia ficou de fora.'
+               for name, texts in clauses.items()]
+    return {"gobr": left, "alertas": alerts, "perdoados": sorted(forgiven)}
+
+
+def _stems(name: str) -> set[str]:
+    """Palavras do nome sem o plural e sem as que qualquer regra tem."""
+    words = {w.removesuffix("s") for w in re.findall(r"[a-z]{3,}", fold(name))}
+    return words - {"cliente", "nao", "agendar", "regra", "com", "dos", "das", "que", "para", "dia"}
+
+
+def canonical_forms(gobr_text: str) -> str:
+    """O arquivo com as cláusulas na forma dos exemplos do corpus; igual ao original se algo mudar de sentido."""
+    parts = re.split(r'("[^"]*")', gobr_text)  # os textos entre aspas (nomes) não mudam
+    for n in range(0, len(parts), 2):
+        for pattern, form in FORMS:
+            parts[n] = pattern.sub(form, parts[n])
+    rewritten = "".join(parts)
+    if rewritten == gobr_text:
+        return gobr_text
+    before, after = _package(gobr_text)[0], _package(rewritten)[0]
+
+    def meaning(file):
+        return [(e.block.name, e.boxes, [c.text for c in e.block.actions]) for e in cascade.compute(file)]
+
+    same = meaning(before) == meaning(after) and len(unrecognized(after)) <= len(unrecognized(before))
+    return rewritten if same else gobr_text
 
 
 def validate(state: State) -> State:
     reply = state["mensagens"][-1]["content"]
     block = GOBR_BLOCK.search(reply)
-    gobr = strip_comments(block.group(1).strip()) if block else ""
+    gobr = canonical_forms(strip_comments(block.group(1).strip())) if block else ""
     notes = ((reply[:block.start()] + reply[block.end():]) if block else reply).strip()
     errors, alerts = check(gobr, memory.binding_text(state["descricao"]), notes, _left_out_before(state),
                            declared_only=_base(state) is not None)
     deliveries = state["entregas"] + 1
+    if errors and deliveries >= MAX_DELIVERIES and not state["valido"]:
+        pruned = _prune_unknown(gobr, notes, state)
+        if pruned:
+            return {**pruned, "notas": notes, "erros": [], "entregas": deliveries,
+                    "valido": {"gobr": pruned["gobr"], "notas": notes, "alertas": pruned["alertas"]}}
     if not errors:
         return {"gobr": gobr, "notas": notes, "erros": [], "alertas": alerts, "entregas": deliveries,
                 "valido": {"gobr": gobr, "notas": notes, "alertas": alerts}}
@@ -624,6 +799,39 @@ def rule_table(gobr_text: str) -> str:
 def late_blocks(gobr_text: str) -> list[str]:
     """Regras `nao agendar` que vêm depois de regras de frequência que já trataram clientes delas."""
     return [r["nome"] for r in _package(gobr_text)[1]["regras"] if any(a.startswith(LATE_BLOCK) for a in r["alertas"])]
+
+
+def _attribute_rules(gobr_text: str) -> list[cascade.Effective]:
+    return [e for e in cascade.compute(_package(gobr_text)[0])
+            if e.block.kind == "parametros" and not e.block.schedules_nothing and cascade.attribute_only(e)]
+
+
+def late_attribute_rules(gobr_text: str, segments: list[dict]) -> list[str]:
+    """Regras de frequência só de atributo que vêm depois de faixas de compra que já trataram clientes delas.
+
+    Só julga o segmento que o pedido define sem nenhum número e que não é o resto ("demais"): em "Inativos curva A", a
+    regra só de curva é o resto de uma faixa, forma comum no corpus (80 regras em 25 arquivos).
+    """
+    attributes = {e.block.id for e in _attribute_rules(gobr_text)}
+    return [e.block.name for e in cascade.compute(_package(gobr_text)[0]) if e.block.id in attributes
+            and any(not b.schedules_nothing and b.id not in attributes for b in e.treated_before)
+            and (s := memory.segment_of(e.block.name, segments)) and not index.numbers(s["criterio"])
+            and not RESIDUAL.search(fold(f'{s["segmento"]} {s["criterio"]}'))]
+
+
+def invented_frequencies(gobr_text: str, segments: list[dict], answers: str = "") -> list[str]:
+    """Regras só de atributo com dias que ninguém deu: o pedido manda agendar sem frequência (premissa P10).
+
+    Fica a regra cujos dias estão numa resposta do usuário, a que não é em dias (histórico, dias úteis) e a de um
+    arquivo sem faixas de compra que peguem os clientes dela.
+    """
+    rules = _attribute_rules(gobr_text)
+    attributes = {e.block.id for e in rules}
+    bands = [e for e in cascade.compute(_package(gobr_text)[0]) if e.block.kind == "parametros" and e.own
+             and e.block.id not in attributes and not e.block.schedules_nothing]
+    said = index.numbers(answers)
+    return [e.block.name for e in rules if bands and (days := _frequency_days(e.block)) and not said & set(days)
+            and (s := memory.segment_of(e.block.name, segments)) and s["acao"] == "agendar" and not s["frequencia_dias"]]
 
 
 def _frequency_days(block) -> list[int]:
@@ -683,15 +891,24 @@ def conference(res: Resources, state: State) -> State:
         request += "\nRespostas do usuário às perguntas do agente:\n" + "\n".join(
             f"- {q} -> {a}" for q, a in _answers(state))
     by_segment = match_segments(state["gobr"], state.get("segmentos", []))  # o código antes do LLM
+    invented = invented_frequencies(state["gobr"], state["segmentos"], _answers_text(state))
+    by_segment += [p10_divergence(name) for name in invented]
     base = _base(state)
+    old_names = {fold(b.name) for b in _package(base["gobr"])[0].blocks} if base else set()
+    by_segment += [f'"{name}": a regra vem depois de outras que já trataram clientes dela e quase não os pega. Ponha-a '
+                   "antes das faixas de compra." for name in late_attribute_rules(state["gobr"], state["segmentos"])
+                   if name not in invented and fold(name) not in old_names]
+    without_frequency = [s["segmento"] for s in state["segmentos"] if s["acao"] == "agendar" and not s["frequencia_dias"]]
+    if without_frequency:
+        request += f"\nPremissa P10: {', '.join(without_frequency)} não tem frequência no pedido; se o grupo é definido " \
+                   "só por um atributo (ex.: inadimplentes), não ter regra própria está certo."
     if base:
         by_segment += memory.untouched_changes(_package(base["gobr"])[0].blocks, _package(state["gobr"])[0].blocks,
                                                base["segmentos"], state["segmentos"], state["mudancas"],
                                                state["mensagem"])
-        before = {fold(b.name) for b in _package(base["gobr"])[0].blocks}
         by_segment += [f'"{name}": o bloqueio novo ficou depois de regras de frequência e não pega os clientes que elas '
                        "já trataram. Ponha-o antes das regras de frequência."
-                       for name in late_blocks(state["gobr"]) if fold(name) not in before]
+                       for name in late_blocks(state["gobr"]) if fold(name) not in old_names]
     divergences, alerts = confer(res.chat, state["gobr"], request, state["notas"])
     divergences = by_segment + divergences
     count = state["conferencias"] + 1
@@ -712,7 +929,57 @@ def after_conference(state: State) -> str:
     return "agente" if back else "responder"
 
 
+def shown_notes(notes: str) -> str:
+    """As notas que o usuário vê: sem o que o LLM pensou antes da 1ª seção; o que ficou de fora do GoBR sempre aparece."""
+    if len(notes) <= NOTES_CHARS:
+        return notes
+    lines = notes.splitlines()
+    start = next((n for n, line in enumerate(lines) if NOTES_HEADER.match(fold(line))), 0)
+    shown = memory.short("\n".join(lines[start:]), NOTES_CHARS)
+    hidden = [line for line in lines if memory.LEFT_OUT.search(fold(line)) and line not in shown]
+    return "\n".join([shown] + hidden)
+
+
+def apply_p10(state: State) -> State:
+    """Se o agente manteve uma frequência que ninguém deu, o código tira a regra (premissa P10)."""
+    if state["erros"] or not state["gobr"]:
+        return {}
+    names = invented_frequencies(state["gobr"], state["segmentos"], _answers_text(state))
+    left = drop_rules(state["gobr"], names)
+    errors = check(left, memory.binding_text(state["descricao"]), state["notas"], _left_out_before(state),
+                   declared_only=_base(state) is not None)[0] if names else ["nada a tirar"]
+    if errors:
+        return {}
+
+    def keep(divergence: str) -> str | None:
+        if any(divergence == p10_divergence(n) for n in names):
+            return None
+        about = any(divergence.startswith(f'"{n}"') for n in names)
+        return f"(sobre a regra que tirei) {divergence}" if about else divergence
+
+    return {"gobr": left, "alertas": state["alertas"] + [
+                f'Tirei a regra "{n}": o pedido manda agendar e não dá frequência. Pela premissa P10, sem um bloqueio, esses '
+                "clientes seguem a regra da faixa deles. Se quiser uma frequência própria, diga qual." for n in names],
+            **{key: [k for d in state[key] if (k := keep(d))] for key in ("divergencias", "divergencias_codigo")}}
+
+
+def p10_divergence(name: str) -> str:
+    return (f'"{name}": o pedido manda agendar e não dá frequência. Pela premissa P10, tire esta regra: sem um bloqueio, '
+            "esses clientes seguem a regra da faixa deles.")
+
+
+def team_alert(state: State) -> list[str]:
+    """O time que o arquivo usa, quando o usuário não disse qual."""
+    if not state["gobr"] or not _team_is_open(state):
+        return []
+    teams = "; ".join(f'"{t["nome"]}": {t["definicao"]}' for t in _package(state["gobr"])[1]["times"])
+    return [f"O pedido não diz o time (premissa P11). O arquivo usa {teams}."]
+
+
 def respond(state: State) -> State:
+    changed = apply_p10(state)
+    state = {**state, **changed}
+    changed["alertas"] = state["alertas"] = state["alertas"] + team_alert(state)
     parts = [f"```gobr\n{state['gobr']}\n```"] if state["gobr"] else []
     base, kept = _base(state), memory.current(state)
     if state["mudancas"]:
@@ -723,7 +990,7 @@ def respond(state: State) -> State:
         diff = memory.diff_blocks(_package(base["gobr"])[0].blocks, _package(state["gobr"])[0].blocks)
         parts.append("O que mudou no arquivo:\n" + "\n".join(f"- {d}" for d in diff or ["nada"]))
     if state.get("notas"):
-        parts.append(state["notas"])
+        parts.append(shown_notes(state["notas"]))
     if state["erros"]:
         parts.append(f"Erros que ficaram depois de {state['entregas']} entregas:\n"
                      + "\n".join(f"- {e}" for e in state["erros"]))
@@ -735,7 +1002,7 @@ def respond(state: State) -> State:
         parts.append("Pontos de atenção na modelagem:\n" + "\n".join(f"- {a}" for a in attention))
     if _answers(state):
         parts.append("Perguntas feitas:\n" + "\n".join(f"- {q} -> {a}" for q, a in _answers(state)))
-    return {"resposta": "\n\n".join(parts)}
+    return {**changed, "resposta": "\n\n".join(parts)}
 
 
 def explain(res: Resources, state: State) -> State:

@@ -9,7 +9,7 @@ from gobr.index import numbers
 from gobr.text import fold
 
 CHECKS = ("regras", "sem_regra", "intactas", "numero_ausente", "numero_presente", "arquivo_do_turno", "arquivo_difere_do_turno",
-          "resposta_tem", "perguntas_max", "bloqueia_antes")
+          "resposta_tem", "perguntas_max", "bloqueia_antes", "tem_bloqueio")
 NAME_PREFIX = re.compile(r"^((regra \d+|clientes?|nao agendar|bloqueio|bloquear|de)\b[:\s-]*)+")
 
 
@@ -73,6 +73,8 @@ def check_turn(expected: dict, gobr: str, answer: str, questions: int, previous:
     for name in expected.get("bloqueia_antes", []):
         found = _named(rules, name)
         results.append((f"{name} bloqueia antes", bool(found) and not any(r["nome"] in late for r in found)))
+    if expected.get("tem_bloqueio"):  # algum bloqueio que valha, seja qual for o nome da regra
+        results.append(("bloqueio que vale", any(r["acao"] == "nao_agendar" and r["nome"] not in late for r in rules)))
     if "perguntas_max" in expected:
         results.append((f"até {expected['perguntas_max']} perguntas", questions <= expected["perguntas_max"]))
     return [(label, ok and not failed) for label, ok in results]

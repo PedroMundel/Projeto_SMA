@@ -1,0 +1,40 @@
+{
+  "_fonte": "Conversas de teste (2026-11-24): escritas antes da rodada de validação e não rodadas nem usadas para ajustar nada até o código final, sem reaproveitar frases dos outros dois conjuntos nem dos prompts, e rodadas uma vez no código antigo (620cae6) e uma no novo. Mesmo formato de casos_memoria.json.",
+  "troca_informal": [
+    {"mensagem": "Frequentes: compra nos últimos 40 dias, 10 dias\nSumidos: sem compra há mais de 40 dias, 25 dias",
+     "espera": {"regras": {"Frequentes": {"dias": 10}, "Sumidos": {"dias": 25}}}},
+    {"mensagem": "bota os sumidos de 18 em 18",
+     "espera": {"regras": {"Sumidos": {"dias": 18, "numero": 40}, "Frequentes": {"dias": 10}}, "intactas": ["Frequentes"], "numero_ausente": [25]}}
+  ],
+  "bloqueio_pedido_de_outro_jeito": [
+    {"mensagem": "Recorrentes: compra nos últimos 60 dias, 15 dias\nParados: sem compra há mais de 60 dias, 30 dias",
+     "espera": {"regras": {"Recorrentes": {"dias": 15}, "Parados": {"dias": 30}}}},
+    {"mensagem": "Quem está devendo não pode receber ligação.",
+     "espera": {"regras": {"Recorrentes": {"dias": 15}, "Parados": {"dias": 30}}, "intactas": ["Recorrentes", "Parados"], "tem_bloqueio": true}}
+  ],
+  "muda_so_o_criterio": [
+    {"mensagem": "Recorrentes: compra nos últimos 30 dias, 14 dias\nParados: sem compra há mais de 30 dias, 35 dias",
+     "espera": {"regras": {"Recorrentes": {"dias": 14}, "Parados": {"dias": 35}}}},
+    {"mensagem": "Considere parado só quem não compra há mais de 75 dias.",
+     "espera": {"regras": {"Parados": {"dias": 35, "numero": 75}, "Recorrentes": {"dias": 14}}, "intactas": ["Recorrentes"]}}
+  ],
+  "pergunta_sem_interrogacao": [
+    {"mensagem": "Recorrentes: compra nos últimos 45 dias, 12 dias\nParados: sem compra há mais de 45 dias, 33 dias",
+     "espera": {"regras": {"Recorrentes": {"dias": 12}, "Parados": {"dias": 33}}}},
+    {"mensagem": "Queria saber a frequência que ficou para os parados",
+     "espera": {"arquivo_do_turno": 1, "resposta_tem": ["33"]}}
+  ],
+  "tira_e_poe_de_volta": [
+    {"mensagem": "Novos: clientes com ciclo de vida prospect, 5 dias\nRecorrentes: compra nos últimos 90 dias, 20 dias\nRestantes: 45 dias",
+     "espera": {"regras": {"Novos": {"dias": 5}, "Recorrentes": {"dias": 20}, "Restantes": {"dias": 45}}}},
+    {"mensagem": "Pode remover os novos.",
+     "espera": {"sem_regra": ["Novos"], "intactas": ["Recorrentes", "Restantes"], "numero_ausente": [5]}},
+    {"mensagem": "Pensando bem, desfaz isso.",
+     "espera": {"arquivo_do_turno": 1, "arquivo_difere_do_turno": 2}}
+  ],
+  "resposta_com_frequencia_do_grupo": [
+    {"mensagem": "Recorrentes: compra nos últimos 60 dias, 14 dias\nParados: sem compra há mais de 60 dias, 28 dias\nAgendar inadimplentes",
+     "respostas": ["Os inadimplentes de 21 em 21 dias.", "21 dias", "21 dias"],
+     "espera": {"regras": {"Recorrentes": {"dias": 14}, "Parados": {"dias": 28}, "Inadimplentes": {"dias": 21}}}}
+  ]
+}

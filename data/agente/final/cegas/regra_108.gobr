@@ -1,0 +1,51 @@
+version 1.0
+
+time "televendas":
+    vendedores todostelevendas ativados
+
+parametros "Não agendar inadimplentes":
+    do time("televendas")
+    quando inadimplentes
+    nao agendar
+
+parametros "Prospect 7 dias":
+    do time("televendas")
+    quando prospects da empresa
+    frequencia de 7 dias
+
+parametros "Construtora unica compra 21 dias":
+    do time("televendas")
+    quando ramo de atividade igual("37")
+        e unica compra com a empresa
+    frequencia de 21 dias
+
+parametros "Cliente unica compra 7 dias":
+    do time("televendas")
+    quando unica compra com a empresa
+    frequencia de 7 dias
+
+parametros "Frequencia historica menor que 11 dias 7 dias":
+    do time("televendas")
+    quando frequencia historica menor que 11 dias ou indefinida
+    frequencia de 7 dias
+
+parametros "Construtora recencia 60-89 dias 14 dias":
+    do time("televendas")
+    quando ramo de atividade igual("37")
+        e recencia de positivacao entre 60 dias e 89 dias
+    frequencia de 14 dias
+
+parametros "Construtora recencia 11-59 dias 21 dias":
+    do time("televendas")
+    quando ramo de atividade igual("37")
+        e recencia de positivacao entre 11 dias e 59 dias
+    frequencia de 21 dias
+
+parametros "Inativo 21 dias":
+    do time("televendas")
+    quando inatividade global de 90 dias
+    frequencia de 21 dias
+
+parametros "Demais clientes 7 dias":
+    do time("televendas")
+    frequencia de 7 dias

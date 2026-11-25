@@ -1,0 +1,24 @@
+```gobr
+version 1.0
+
+time "televendas":
+    vendedores todostelevendas ativados
+
+parametros "Compraram até 30 dias":
+    do time("televendas")
+    quando recencia de positivacao em 30 dias
+    frequencia de 14 dias
+
+parametros "Sem comprar há mais de 30 dias":
+    do time("televendas")
+    quando fora da recencia de positivacao em 30 dias
+    frequencia de 28 dias
+
+parametros "Nunca compraram":
+    do time("televendas")
+    quando prospects da empresa
+    frequencia de 28 dias
+```
+
+Pontos de atenção na modelagem:
+- O pedido não diz o time (premissa P11). O arquivo usa "televendas": todos os vendedores de televendas habilitados no Govendas.

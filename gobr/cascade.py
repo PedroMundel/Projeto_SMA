@@ -8,7 +8,7 @@ own boxes minus the boxes of every earlier block that runs at least whenever k r
 from dataclasses import dataclass, field
 
 from gobr import dims
-from gobr.intervals import NEVER, IntervalSet
+from gobr.intervals import INF, NEVER, IntervalSet
 from gobr.ir import Block, GobrFile
 
 Box = dict
@@ -20,6 +20,8 @@ STATUS_RECENCY = (("situacao:vendedor", "rec:compra:vendedor"), ("situacao:empre
 BOUGHT = frozenset({"ativo", "inativo"})
 MAX_RENDERED_BOXES = 3
 SOURCE_PREFIXES = ("time", "carteira", "segmentacao:")
+# faixas de relacionamento; um fato sem modelo na cascata pode ser de compra ou visita e, na dúvida, conta como faixa
+BAND_PREFIXES = ("rec:", "freqhist", "cadastro", "situacao:", "ciclo:", "unica_compra:", "fato:", "opaco:")
 
 
 @dataclass
@@ -142,6 +144,41 @@ def _longest(days: IntervalSet) -> float:
     if any(lo == NEVER for lo, _ in days.spans):
         return NEVER_DAYS
     return max(hi for _, hi in days.spans)
+
+
+def single_day(boxes: list[Box]) -> int | None:
+    """Dia único a que os filtros reduzem a regra ("nos últimos 60" e "há pelo menos 60" só deixam o dia 60).
+
+    Vale também entre escopos, pela ordem global <= grupo <= vendedor. Os dias 0 e 1 ("comprou hoje", "comprou ontem")
+    são filtros legítimos.
+    """
+    days = {_pinned_day(box) for box in boxes}
+    return days.pop() if len(days) == 1 else None
+
+
+def _pinned_day(box: Box) -> int | None:
+    for event in ("compra", "visita"):
+        values = [box.get(f"rec:{event}:{scope}", IntervalSet.full()) for scope in reversed(SCOPES_NARROW_TO_WIDE)]
+        recorded = [[(max(lo, 0), hi) for lo, hi in v.spans if hi > NEVER] for v in values]
+        lows, floor = [], 0
+        for spans in recorded:  # do escopo mais largo ao mais estreito: o piso só sobe
+            floor = max(floor, min((lo for lo, _ in spans), default=INF))
+            lows.append(floor)
+        ceiling = INF
+        for value, spans, low in reversed(list(zip(values, recorded, lows))):
+            never = any(lo == NEVER for lo, _ in value.spans)
+            if never or not spans:
+                continue  # quem nunca comprou no escopo estreito não limita o mais largo
+            ceiling = min(ceiling, max(hi for _, hi in spans))
+            if 1 < low == ceiling:
+                return low
+    return None
+
+
+def attribute_only(effective: Effective) -> bool:
+    """Regra definida só por atributos do cliente (inadimplente, receita, curva...), sem faixa de compra ou visita."""
+    keys = {k for box in effective.own for k in box if not k.startswith(SOURCE_PREFIXES)}
+    return bool(keys) and not any(k.startswith(BAND_PREFIXES) for k in keys)
 
 
 def own_boxes(block: Block, space: Space) -> list[Box]:

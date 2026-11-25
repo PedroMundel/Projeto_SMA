@@ -1,0 +1,14 @@
+version 1.0
+
+time "todos os vendedores":
+    vendedores todos ativados
+
+parametros "Clientes Inadimplentes":
+    da time("todos os vendedores")
+    quando inadimplentes
+    nao agendar
+
+parametros "O resto (ativo, inativo, prospect) adimplente":
+    da time("todos os vendedores")
+    quando adimplentes
+    frequencia de 7 dias

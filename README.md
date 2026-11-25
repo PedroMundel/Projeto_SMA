@@ -204,6 +204,16 @@ linhas de base):
 python -m gobr avaliar-memoria data/agente/casos_memoria.json data/agente/memoria/memoria
 ```
 
+Qualidade contra o gabarito (decisão por cliente, igualdade por regra e cosseno; os dois últimos exigem `--consultas`):
+
+```bash
+python -m gobr comparar data/agente/final/teste --gabaritos trabalho/trabalho/referencias
+```
+
+```bash
+python -m gobr igualdade data/agente/final/teste --gabaritos trabalho/trabalho/referencias --consultas data/consultas_avaliacao/teste_qualidade.json
+```
+
 Só o conferente, em `.gobr` já escritos:
 
 ```bash
@@ -241,3 +251,8 @@ python -m gobr conferir data/agente/rag/*.gobr --consultas data/consultas_avalia
   87. São poucas conversas, de um autor só e com uma rodada, e parte da diferença é da verificação "regra intacta"; sem
   ela, nas novas, 46, 30 e 27 de 46 ([docs/relatorio_memoria.md](docs/relatorio_memoria.md),
   [data/agente/avaliacao_memoria.md](data/agente/avaliacao_memoria.md)).
+- Qualidade: em 12 arquivos sorteados, com regra escrita antes, a versão sem a reescrita final de formas tira 63,5 de 100 em
+  mesma decisão por cliente (antes, 58,1) e 34 de 34 verificações nas conversas. Por regra, 25% saem sintática e 44%
+  semanticamente iguais ao gabarito com ele fora da busca; nos 3 exemplos do professor (treino), 8 de 20 e 8 de 20 com a
+  reescrita aplicada às saídas prontas. Em uso real, com o gabarito entre os exemplos que o agente pode buscar e o código final, 12 de 20 regras saem iguais e o V1Vidros saiu idêntico. O
+  resto, com o que não deu certo, está em [docs/relatorio_qualidade.md](docs/relatorio_qualidade.md).

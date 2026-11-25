@@ -1,0 +1,35 @@
+```gobr
+version 1.0
+
+time "vendedores":
+    vendedores todos ativados
+
+parametros "Bloqueio: inativos inadimplentes":
+    do time("vendedores")
+    quando inadimplentes
+        e inativos para o vendedor
+    nao agendar
+
+parametros "Ativos adimplentes":
+    do time("vendedores")
+    quando ativos para o vendedor
+        e adimplentes
+    frequencia de 7 dias
+
+parametros "Ativos inadimplentes":
+    do time("vendedores")
+    quando ativos para o vendedor
+        e inadimplentes
+    frequencia de 14 dias
+
+parametros "Inativos adimplentes":
+    do time("vendedores")
+    quando inativos para o vendedor
+        e adimplentes
+    frequencia de 14 dias
+
+parametros "Sem vendas":
+    do time("vendedores")
+    quando sem venda
+    frequencia de 14 dias
+```

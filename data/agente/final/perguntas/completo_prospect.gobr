@@ -1,0 +1,18 @@
+version 1.0
+
+time "televendas":
+    vendedores todostelevendas ativados
+
+parametros "Prospects":
+    do time("televendas")
+    quando prospects da empresa
+    frequencia de 7 dias
+
+parametros "Ativos":
+    do time("televendas")
+    quando atividade de 90 dias
+    frequencia de 14 dias
+
+parametros "Demais clientes":
+    do time("televendas")
+    frequencia de 30 dias
