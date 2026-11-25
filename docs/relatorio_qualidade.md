@@ -29,12 +29,13 @@ agenda os mesmos clientes. O cosseno não vê número nem sentido (0,577 no gera
 
 | | Antigo `620cae6` | Completa |
 |---|---|---|
-| decisão (0 para reprovado ou exceção) | 58,1 | 63,5 |
+| decisão (0 para reprovado ou exceção), medidor corrigido | 62,5 | 64,0 |
+| decisão, medidor do commit `005c5be` | 58,1 | 63,5 |
 | aprovados | 8 | 8 |
 | conversas | 34/34 | 34/34 |
 
 A diferença vem de dois casos em que o antigo estourava o contexto (`050` e `209`). Nos 9 casos que o antigo terminou, ele
-tirou mais (697,2 contra 586,7 pontos), porque a completa reprovou a `143` e a `242`. São 12 casos e uma rodada por lado.
+tirou mais (749,9 contra 591,9 pontos, medidor corrigido), porque a completa reprovou a `143` e a `242`. São 12 casos e uma rodada por lado.
 
 ### 3.2 Segundo teste: uma versão enxuta (`620cae6` mais as peças gerais)
 
@@ -45,7 +46,7 @@ byte a byte. Neste sorteio o antigo não estourou o contexto. A completa não ro
 
 | Conjunto | Antigo | Completa |
 |---|---|---|
-| 10 consultas cegas (validação) | 87,9 | 87,7 |
+| 10 consultas cegas (validação), medidor corrigido | 88,2 | 87,7 |
 | memória, 10 conversas originais (treino) | 87/87 | 84/87 |
 | memória, 7 conversas novas (treino) | 54/54 | 52/54 |
 | gabaritos Maxlub / V1Vidros / Infinitto (treino) | 88,2 / 100 / 80 | 97 / 100 / 80 |
@@ -60,9 +61,11 @@ Regras do gabarito que o arquivo gerado tem iguais, com o próprio gabarito fora
 
 | Conjunto | sintática | semântica |
 |---|---|---|
-| 1º teste, antigo | 15/68 | 26/68 |
-| 1º teste, completa | 17/68 | 30/68 |
-| 2º teste, antigo e enxuta | 33/63 | 41/63 |
+| 1º teste, antigo | 15/68 | 18/68 |
+| 1º teste, completa | 17/68 | 22/68 |
+| 2º teste, antigo e enxuta | 33/63 | 39/63 |
+| cegas, antigo | 24/56 | 33/56 |
+| cegas, completa | 20/56 | 26/56 |
 | 3 gabaritos, completa, antes da reescrita | 4/20 | 8/20 |
 | 3 gabaritos, as mesmas saídas, com a reescrita | 8/20 | 8/20 |
 
@@ -95,11 +98,12 @@ Entre respostas do mesmo pedido, nas 6 conversas de cada versão: média de 0,97
 - O modelo às vezes escreve a chamada de ferramenta como texto no último passo e o pedido acaba sem arquivo (`197`, `219`
   e o Maxlub em uso real com a enxuta). Não foi corrigido.
 - Nenhum arquivo saiu idêntico aos três gabaritos de referência; no V1Vidros, as 5 regras são iguais, em outra ordem.
-- **Os medidores têm defeitos achados depois do commit `005c5be`, por um teste adversarial e uma auditoria, ainda não
-  corrigidos:** a igualdade ignora a ordem das regras e parte da ação ("14 dias ou do vendedor" conta como "14 dias"), então
-  a contagem semântica pode estar inflada; a decisão por cliente não mede a `242` (um arquivo vazio tira 100 nela) e deixa de
-  fora regras que nenhum cliente sintético alcança; a igualdade entre conjuntos pode variar entre execuções. A conta "0 para
-  reprovado ou exceção" foi feita à mão, e os comandos não a fazem.
+- **Os medidores foram corrigidos depois do commit `414b88b`**, com teste antes: a igualdade agora conta a ação inteira, exige a
+  ordem para dizer "arquivo igual", tem chave estável entre execuções e não iguala regras contraditórias; a decisão por cliente
+  separa valores de um campo, mede a frequência histórica, lista as regras que nenhum cliente sintético alcança e aceita a
+  média com 0 para reprovado ou exceção. As tabelas 3.1, 3.3 (validação) e 3.4 são do medidor corrigido; as notas de gabarito
+  da 3.3 e o treino de memória são do anterior. Com ele, a vantagem da completa no primeiro teste cai de 5,4 para 1,5 pontos,
+  e nas cegas a versão antiga tem mais regras iguais ao gabarito (33 contra 26 de 56).
 - **O agente tem defeitos apontados pela auditoria, não corrigidos:** "muda os ativos para 20 dias" pode mudar o critério, quando
   a frequência não está no fim da linha; a P10 pode tirar uma regra cuja frequência o usuário deu; a reescrita de formas compara
   só as regras, e não segmentações e carteiras.

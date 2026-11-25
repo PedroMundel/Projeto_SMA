@@ -251,8 +251,8 @@ python -m gobr conferir data/agente/rag/*.gobr --consultas data/consultas_avalia
   87. São poucas conversas, de um autor só e com uma rodada, e parte da diferença é da verificação "regra intacta"; sem
   ela, nas novas, 46, 30 e 27 de 46 ([docs/relatorio_memoria.md](docs/relatorio_memoria.md),
   [data/agente/avaliacao_memoria.md](data/agente/avaliacao_memoria.md)).
-- Qualidade: em 12 arquivos sorteados, com regra escrita antes, a versão sem a reescrita final de formas tira 63,5 de 100 em
-  mesma decisão por cliente (antes, 58,1) e 34 de 34 verificações nas conversas. Por regra, 25% saem sintática e 44%
+- Qualidade: em 12 arquivos sorteados, com regra escrita antes, a versão sem a reescrita final de formas tira 64,0 de 100 em
+  mesma decisão por cliente (antes, 62,5; diferença pequena, e na validação a antiga teve 88,2 contra 87,7) e 34 de 34 verificações nas conversas. Por regra, 25% saem sintática e 32%
   semanticamente iguais ao gabarito com ele fora da busca; nos 3 exemplos do professor (treino), 8 de 20 e 8 de 20 com a
   reescrita aplicada às saídas prontas. Em uso real, com o gabarito entre os exemplos que o agente pode buscar e o código final, 12 de 20 regras saem iguais; no V1Vidros são as 5 regras do gabarito, em outra ordem. A igualdade ignora a ordem e
   parte da ação (ver as ressalvas do relatório). O

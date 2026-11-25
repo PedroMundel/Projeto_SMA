@@ -34,9 +34,18 @@ class SimilarityTest(unittest.TestCase):
         self.assertEqual([r["cosseno"] for r in rows], [0.0, 0.0, 0.0])
         self.assertFalse(any(r["mais_proximo"] for r in rows))
 
-    def test_single_gold_has_no_floor(self):
+    def test_single_gold_has_no_floor_nor_closest(self):
         row = similarity.cosine_rows({"a": A}, {"a": A}, WordHashEmbedder())[0]
         self.assertIsNone(row["piso"])
+        self.assertIsNone(row["mais_proximo"])
+
+    def test_low_precision_vectors_never_pass_one(self):
+        class Rough(WordHashEmbedder):
+            def documents(self, texts):
+                return np.float16(super().documents(texts) * 1.002)
+
+        self.assertLessEqual(similarity.between_responses([A, A], Rough())["seguidas"][0], 1.0 + 1e-6)
+        self.assertLessEqual(similarity.cosine_rows({"a": A, "b": B}, {"a": A, "b": B}, Rough())[0]["cosseno"], 1.0 + 1e-6)
 
     def test_the_embedder_is_called_once_per_text(self):
         calls = []

@@ -31,8 +31,11 @@ def _holds(key: str, allowed, group: int, company: int, attributes: dict) -> boo
     if key.startswith("rec:compra:"):
         day = company if key.endswith(":global") else group
         return bool(allowed & IntervalSet.of(day, day))
-    if key.startswith("rec:visita:") or key == "freqhist":
+    if key.startswith("rec:visita:"):
         return bool(allowed & IntervalSet.of(NEVER, NEVER))
+    if key == "freqhist":
+        day = attributes.get(key, NEVER)
+        return bool(allowed & IntervalSet.of(day, day))
     if key == "cadastro":
         return bool(allowed & IntervalSet.of(INF, INF))
     family = key.split(":")[0]
@@ -41,7 +44,7 @@ def _holds(key: str, allowed, group: int, company: int, attributes: dict) -> boo
     if family in dims.CATEGORICAL_DOMAINS:
         return attributes.get(key, _default(key)) in allowed
     if isinstance(allowed, dims.ValueSet):
-        return allowed.excluding != (key in attributes)
+        return allowed.excluding != (attributes.get(key) in allowed.values)
     return attributes.get(key, False) in allowed
 
 
@@ -75,7 +78,13 @@ def profiles(files: list[GobrFile]) -> list[dict]:
             for box in e.own:
                 for key, allowed in box.items():
                     family = key.split(":")[0]
-                    if key.startswith(cascade.SOURCE_PREFIXES) or family in ("rec", "freqhist", "cadastro"):
+                    if key.startswith(cascade.SOURCE_PREFIXES) or family in ("rec", "cadastro"):
+                        continue
+                    if family == "freqhist":
+                        values |= {(key, day) for lo, hi in allowed.spans for day in (lo, min(hi, lo + 1)) if day != NEVER}
+                        continue
+                    if isinstance(allowed, dims.ValueSet):
+                        values |= {(key, value) for value in allowed.values}
                         continue
                     if family in dims.CATEGORICAL_DOMAINS:
                         values |= {(key, v) for v in allowed if v not in (_default(key), dims.OTHER, "sem_venda")}
@@ -89,21 +98,26 @@ def profiles(files: list[GobrFile]) -> list[dict]:
 def agreement(made: GobrFile, gold: GobrFile) -> dict:
     """`regras`: por regra do gabarito, a fração dos clientes dela com o mesmo resultado; `media`: a média delas.
 
-    Os clientes que o gabarito não pega com regra nenhuma entram como mais uma linha, se existirem.
+    Os clientes que o gabarito não pega com regra nenhuma entram como mais uma linha, se existirem. `nao_medidas` são
+    as regras do gabarito que nenhum cliente sintético alcança (por exemplo, só de cadastro): ficam fora da média.
     """
     made_rules, gold_rules = _rules(made), _rules(gold)
-    hits: dict[str, list[int]] = {}
+    hits: dict[str | int, list[int]] = {}
     for attributes in profiles([made, gold]):
         for day in DAYS:
             g, m = _match(gold_rules, day, day, attributes), _match(made_rules, day, day, attributes)
             wanted = NOT_SCHEDULED if g is None else gold_rules[g][1]
             got = NOT_SCHEDULED if m is None else made_rules[m][1]
-            count = hits.setdefault(UNSEEN if g is None else gold_rules[g][0].block.name, [0, 0])
+            count = hits.setdefault(UNSEEN if g is None else g, [0, 0])
             count[0] += wanted == got
             count[1] += 1
-    order = [e.block.name for e, _ in gold_rules if e.block.name in hits] + [UNSEEN] * (UNSEEN in hits)
-    shares = {name: hits[name][0] / hits[name][1] for name in order}
-    return {"media": sum(shares.values()) / len(shares), "regras": shares}
+    names = [e.block.name for e, _ in gold_rules]
+    labels = [name if names.count(name) == 1 else f"{name} ({n})" for n, name in enumerate(names, 1)]
+    shares = {labels[n]: hits[n][0] / hits[n][1] for n in range(len(names)) if n in hits}
+    if UNSEEN in hits:
+        shares[UNSEEN] = hits[UNSEEN][0] / hits[UNSEEN][1]
+    return {"media": sum(shares.values()) / len(shares), "regras": shares,
+            "nao_medidas": [labels[n] for n in range(len(names)) if n not in hits]}
 
 
 def baselines(gold: GobrFile) -> dict[str, float]:

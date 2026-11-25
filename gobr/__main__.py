@@ -375,25 +375,59 @@ def _same_decision(made: Path, gold: Path) -> str:
 
     result = outcomes.agreement(parse_file(made), parse_file(gold))
     missed = "; ".join(f"{name} {100 * share:.1f}" for name, share in result["regras"].items() if share < 1)
-    return f"{100 * result['media']:.1f}" + (f" ({missed})" if missed else "")
+    unmeasured = f" [não medidas: {'; '.join(result['nao_medidas'])}]" if result["nao_medidas"] else ""
+    return f"{100 * result['media']:.1f}" + (f" ({missed})" if missed else "") + unmeasured
 
 
-def compare(made_dir: Path, gold_dir: Path) -> None:
-    """Significado, sem LLM; o piso é a nota de um arquivo vazio e a de uma regra só."""
+def _failed(made_dir: Path, name: str) -> bool:
+    """Sem arquivo, arquivo vazio, exceção ou reprovado pelo validador: vale 0 na média."""
+    made, note = made_dir / f"{name}.gobr", made_dir / f"{name}.md"
+    text = note.read_text(encoding="utf-8") if note.exists() else ""
+    return not made.exists() or not made.read_text(encoding="utf-8").strip() or text.startswith("Erro: ") \
+        or "Erros que ficaram depois de" in text
+
+
+def _queried_names(query_file: Path, gold_dir: Path) -> list[str]:
+    names = [n for n in json.loads(query_file.read_text(encoding="utf-8")) if not n.startswith("_")]
+    missing = [n for n in names if not (gold_dir / f"{n}.gobr").exists()]
+    if not names or missing:
+        raise SystemExit("nenhuma consulta no arquivo" if not names else f"sem gabarito para: {', '.join(missing)}")
+    return names
+
+
+def compare(made_dir: Path, gold_dir: Path, query_file: Path | None = None) -> None:
+    """Significado, sem LLM; o piso é a nota de um arquivo vazio e a de uma regra só.
+
+    Com `query_file`, percorre as consultas (o que não saiu conta) e imprime a média com 0 para reprovado ou exceção.
+    """
     from gobr import outcomes
 
-    for made in sorted(made_dir.glob("*.gobr")):
-        gold = gold_dir / made.name
+    if not made_dir.is_dir():
+        raise SystemExit(f"pasta não encontrada: {made_dir}")
+    if query_file:
+        names = _queried_names(query_file, gold_dir)
+    else:
+        names = [p.stem for p in sorted(made_dir.glob("*.gobr")) if (gold_dir / p.name).exists()]
+    total = 0.0
+    for name in names:
+        gold, made, failed = gold_dir / f"{name}.gobr", made_dir / f"{name}.gobr", _failed(made_dir, name)
         floor = outcomes.baselines(parse_file(gold))
-        print(f"{made.stem}: {_same_decision(made, gold)} | piso: vazio {100 * floor['vazio']:.1f}, "
+        shown = "sem arquivo" if not made.exists() else _same_decision(made, gold)
+        if not failed:
+            total += outcomes.agreement(parse_file(made), parse_file(gold))["media"]
+        print(f"{name}: {shown}{' | reprovado ou exceção: vale 0' if failed else ''} | piso: vazio {100 * floor['vazio']:.1f}, "
               f"uma regra {100 * floor['uma regra']:.1f}")
+    if names:
+        print(f"Média (0 para reprovado ou exceção): {100 * total / len(names):.1f} em {len(names)} arquivos")
 
 
 def cosine(made_dir: Path, gold_dir: Path, query_file: Path) -> None:
     """Semelhança de texto com o gabarito; o piso é o cosseno médio com os gabaritos dos outros arquivos."""
     from gobr import index, manual_search, similarity
 
-    names = [n for n in json.loads(query_file.read_text(encoding="utf-8")) if not n.startswith("_")]
+    names = _queried_names(query_file, gold_dir)
+    if not made_dir.is_dir():
+        raise SystemExit(f"pasta não encontrada: {made_dir}")
     gold = {n: read_source(gold_dir / f"{n}.gobr") for n in names}
     made = {n: read_source(made_dir / f"{n}.gobr") for n in names if (made_dir / f"{n}.gobr").exists()}
     embedder = index.Embedder(EMBEDDING_MODEL)
@@ -402,9 +436,10 @@ def cosine(made_dir: Path, gold_dir: Path, query_file: Path) -> None:
     print("|---|---|---|---|")
     for row in rows:
         floor = "-" if row["piso"] is None else f"{row['piso']:.3f}"
-        print(f"| {row['nome']} | {row['cosseno']:.3f} | {floor} | {'sim' if row['mais_proximo'] else 'não'} |")
+        closest = "-" if row["mais_proximo"] is None else "sim" if row["mais_proximo"] else "não"
+        print(f"| {row['nome']} | {row['cosseno']:.3f} | {floor} | {closest} |")
     print(f"Média (0 para o que faltou): {sum(r['cosseno'] for r in rows) / len(rows):.3f}; "
-          f"mais próximo: {sum(r['mais_proximo'] for r in rows)}/{len(rows)}")
+          f"mais próximo: {sum(bool(r['mais_proximo']) for r in rows)}/{len(rows)}")
     manual = manual_search.load(MANUAL_INDEX).vectors
     print("\n| cláusulas contra o manual | cláusulas | cosseno | reconhecidas pelo catálogo |")
     print("|---|---|---|---|")
@@ -423,7 +458,9 @@ def equality_table(made_dir: Path, gold_dir: Path, query_file: Path) -> None:
     """Arquivo que não existe conta como nenhuma regra igual."""
     from gobr import equality
 
-    names = [n for n in json.loads(query_file.read_text(encoding="utf-8")) if not n.startswith("_")]
+    names = _queried_names(query_file, gold_dir)
+    if not made_dir.is_dir():
+        raise SystemExit(f"pasta não encontrada: {made_dir}")
     total = {"regras": 0, "sintatica": 0, "semantica": 0, "arquivo_sintatico": 0, "arquivo_semantico": 0}
     print("| gabarito | regras | sintaticamente iguais | semanticamente iguais | arquivo igual (sint. / sem.) | faltam |")
     print("|---|---|---|---|---|---|")
@@ -433,7 +470,7 @@ def equality_table(made_dir: Path, gold_dir: Path, query_file: Path) -> None:
         for key in total:
             total[key] += result[key]
         yes = lambda ok: "sim" if ok else "não"
-        print(f"| {name} | {result['regras']} | {result['sintatica']} | {result['semantica']} "
+        print(f"| {name}{' (reprovado)' if _failed(made_dir, name) else ''} | {result['regras']} | {result['sintatica']} | {result['semantica']} "
               f"| {yes(result['arquivo_sintatico'])} / {yes(result['arquivo_semantico'])} | {'; '.join(result['faltam_semantica'])} |")
     print(f"Total: {total['sintatica']}/{total['regras']} sintáticas ({100 * total['sintatica'] / total['regras']:.1f}%), "
           f"{total['semantica']}/{total['regras']} semânticas ({100 * total['semantica'] / total['regras']:.1f}%); arquivos iguais: "
@@ -466,6 +503,8 @@ def response_cosine(sources: list[Path]) -> None:
     from gobr import index, similarity
 
     embedder = index.Embedder(EMBEDDING_MODEL)
+    if missing := [s for s in sources if not s.exists()]:
+        raise SystemExit(f"não encontrado: {', '.join(map(str, missing))}")
     for source in sources:
         rows = {name: row for name, texts in _response_groups(source).items()
                 if (row := similarity.between_responses(texts, embedder))}
@@ -590,6 +629,7 @@ def main() -> None:
     compare_cmd = commands.add_parser("comparar")
     compare_cmd.add_argument("gerados", type=Path)
     compare_cmd.add_argument("--gabaritos", type=Path, required=True)
+    compare_cmd.add_argument("--consultas", type=Path)
     equality_cmd = commands.add_parser("igualdade")
     equality_cmd.add_argument("gerados", type=Path)
     equality_cmd.add_argument("--gabaritos", type=Path, required=True)
@@ -643,7 +683,7 @@ def main() -> None:
     elif args.command == "avaliar-perguntas":
         evaluate_questions(args.casos, args.saida, args.servidor, args.manual_inteiro)
     elif args.command == "comparar":
-        compare(args.gerados, args.gabaritos)
+        compare(args.gerados, args.gabaritos, args.consultas)
     elif args.command == "igualdade":
         equality_table(args.gerados, args.gabaritos, args.consultas)
     elif args.command == "cosseno":

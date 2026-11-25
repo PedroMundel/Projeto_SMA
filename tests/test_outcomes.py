@@ -75,6 +75,30 @@ class OutcomesTest(unittest.TestCase):
         self.assertLess(base["vazio"], 0.35)
         self.assertLess(base["uma regra"], 0.65)
 
+    def test_different_values_of_a_field_are_different_clients(self):
+        gold = parsed(HEADER + one_rule('ramo de atividade igual("1")'))
+        other = parsed(HEADER + one_rule('ramo de atividade igual("2")'))
+        self.assertLess(outcomes.agreement(other, gold)["regras"]["Ativos"], 0.9)
+        self.assertEqual(outcomes.agreement(gold, gold)["media"], 1.0)
+
+    def test_historical_frequency_rules_are_measured(self):
+        gold = parsed(HEADER + one_rule("frequencia historica menor que 30 dias", action="frequencia de 7 dias", name="A")
+                      + one_rule("frequencia historica maior que 30 dias", action="frequencia de 21 dias", name="B"))
+        result = outcomes.agreement(gold, gold)
+        self.assertEqual(result["nao_medidas"], [])
+        self.assertEqual(result["media"], 1.0)
+        empty = outcomes.agreement(parsed(HEADER), gold)
+        self.assertLess(empty["media"], 0.5)
+
+    def test_rules_no_client_reaches_are_listed(self):
+        gold = parsed(HEADER + one_rule("atividade de 90 dias", name="Ativo") + one_rule("recencia de visita em 10 dias", name="Novo", action="frequencia de 7 dias"))
+        result = outcomes.agreement(gold, gold)
+        self.assertEqual(result["nao_medidas"], ["Novo"])
+
+    def test_two_rules_with_the_same_name_are_two_rows(self):
+        both = parsed(HEADER + one_rule("atividade de 30 dias", name="A") + one_rule("inadimplentes", name="A", action="frequencia de 7 dias"))
+        self.assertEqual(len([n for n in outcomes.agreement(both, both)["regras"] if n.startswith("A")]), 2)
+
     def test_single_day_rule_of_the_maxlub_is_seen(self):
         gold = HEADER + one_rule("atividade de 60 dias")
         made = HEADER + one_rule("atividade de 60 dias", "inatividade de 60 dias")

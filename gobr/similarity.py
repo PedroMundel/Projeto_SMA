@@ -12,6 +12,12 @@ from gobr.parser import unrecognized
 from gobr.text import strip_comment
 
 
+def _unit(vectors) -> np.ndarray:
+    """Vetores de norma 1 em float64: em meia precisão, o cosseno passava de 1."""
+    vectors = np.asarray(vectors, dtype=np.float64)
+    return vectors / np.linalg.norm(vectors, axis=1, keepdims=True)
+
+
 def code_text(source: str) -> str:
     """O arquivo sem comentários nem linhas vazias: os do professor têm links e títulos que o agente não escreve."""
     lines = (strip_comment(line).rstrip() for line in source.splitlines())
@@ -23,7 +29,7 @@ def cosine_rows(made: dict[str, str], gold: dict[str, str], embedder) -> list[di
     names = list(gold)
     present = [n for n in names if code_text(made.get(n, ""))]
     texts = [code_text(made[n]) for n in present] + [code_text(gold[n]) for n in names]
-    vectors = np.asarray(embedder.documents(texts)) if present else np.zeros((0, 1))
+    vectors = _unit(embedder.documents(texts)) if present else np.zeros((0, 1))
     similarities = vectors[:len(present)] @ vectors[len(present):].T if present else vectors
     rows = []
     for name in names:
@@ -34,7 +40,7 @@ def cosine_rows(made: dict[str, str], gold: dict[str, str], embedder) -> list[di
         line = similarities[present.index(name)]
         others = np.delete(line, own)
         rows.append({"nome": name, "cosseno": float(line[own]), "piso": float(others.mean()) if len(others) else None,
-                     "mais_proximo": bool(line[own] > others.max()) if len(others) else True})
+                     "mais_proximo": bool(line[own] > others.max()) if len(others) else None})
     return rows
 
 
@@ -51,7 +57,7 @@ def manual_rows(files: dict[str, GobrFile], manual_vectors: np.ndarray, embedder
     texts = list(dict.fromkeys(t for found in clauses.values() for t in found))
     best = {}
     if texts:
-        scores = np.asarray(embedder.queries(texts)) @ manual_vectors.T
+        scores = _unit(embedder.queries(texts)) @ _unit(manual_vectors).T
         best = dict(zip(texts, scores.max(axis=1)))
     rows = []
     for name, file in files.items():
@@ -75,7 +81,7 @@ def between_responses(responses: list[str], embedder) -> dict | None:
     """Cosseno entre respostas do mesmo pedido; None se há menos de duas. `seguidas`: cada uma com a anterior."""
     if len(responses) < 2:
         return None
-    vectors = np.asarray(embedder.documents(responses))
+    vectors = _unit(embedder.documents(responses))
     consecutive = [float(a @ b) for a, b in zip(vectors, vectors[1:])]
     return {"respostas": len(responses), "seguidas": consecutive, "primeira_ultima": float(vectors[0] @ vectors[-1]),
             "iguais": len(set(responses)) == 1}

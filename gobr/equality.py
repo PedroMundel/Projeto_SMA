@@ -1,21 +1,29 @@
-"""Igualdade exata com o gabarito, regra por regra, sem LLM nem embedding.
+"""Igualdade com o gabarito, regra por regra e do arquivo inteiro, sem LLM nem embedding.
 
 - sintática: as mesmas cláusulas (quando roda, filtros e ações), no texto normalizado do parser, em qualquer ordem;
-- semântica: as mesmas condições e a mesma ação, mesmo escritas de outro jeito ("inatividade de 60 dias" e "fora da
-  recencia de positivacao em 60 dias" são iguais se geram a mesma condição). Vale a condição da própria regra, sem a
+- semântica: as mesmas condições e a mesma ação, mesmo escritas de outro jeito ("atividade de 60 dias" e "recencia de
+  positivacao em 60 dias" geram a mesma condição). Vale a condição da própria regra, sem a
   cascata: a ordem entra em `outcomes`.
-Nome da regra, time e carteira não contam: o pedido não os dá. A situação ou o escopo diferente conta.
+Nome da regra, time e carteira não contam: o pedido não os dá. A situação ou o escopo diferente conta. O arquivo só é
+igual se as regras também vierem na mesma ordem.
 """
-from gobr import agent, cascade
+from gobr import cascade, dims
 from gobr.ir import Block, GobrFile
 from gobr.text import fold
 
 
 def _action(block: Block) -> str:
-    days = agent._frequency_days(block)
-    if block.schedules_nothing:
-        return "não agendado"
-    return f"{days[0]} dias" if len(days) == 1 else "; ".join(sorted(fold(c.text) for c in block.actions))
+    """Toda a ação: "14 dias ou do vendedor" e "14 dias, na segunda" não são "14 dias"."""
+    return "não agendado" if block.schedules_nothing else "; ".join(sorted(fold(c.text) for c in block.actions))
+
+
+def _frozen(value) -> str:
+    """Texto estável do valor de uma condição: o `repr` de um conjunto muda a cada execução."""
+    if isinstance(value, dims.ValueSet):
+        return f"{value.excluding}:{sorted(value.values)}"
+    if isinstance(value, frozenset):
+        return str(sorted(map(str, value)))
+    return repr(value)
 
 
 def syntactic_key(block: Block) -> tuple:
@@ -23,8 +31,10 @@ def syntactic_key(block: Block) -> tuple:
 
 
 def semantic_key(effective: cascade.Effective) -> tuple:
-    boxes = {tuple(sorted((k, repr(v)) for k, v in box.items() if not k.startswith(cascade.SOURCE_PREFIXES)))
+    boxes = {tuple(sorted((k, _frozen(v)) for k, v in box.items() if not k.startswith(cascade.SOURCE_PREFIXES)))
              for box in effective.own}
+    if not boxes:  # os filtros se contradizem: sem condição, só é igual à mesma regra escrita igual
+        return ("contraditória",), syntactic_key(effective.block), _action(effective.block)
     when = tuple(sorted(fold(c.text) for c in effective.block.temporal))
     return tuple(sorted(boxes)), when, _action(effective.block)
 
@@ -48,6 +58,6 @@ def compare(made: GobrFile, gold: GobrFile) -> dict:
     semantic = _matched([semantic_key(e) for e in theirs], [semantic_key(e) for e in ours])
     total = len(theirs)
     return {"regras": total, "geradas": len(ours), "sintatica": sum(syntactic), "semantica": sum(semantic),
-            "arquivo_sintatico": total == len(ours) == sum(syntactic),
-            "arquivo_semantico": total == len(ours) == sum(semantic),
+            "arquivo_sintatico": [syntactic_key(e.block) for e in ours] == [syntactic_key(e.block) for e in theirs],
+            "arquivo_semantico": [semantic_key(e) for e in ours] == [semantic_key(e) for e in theirs],
             "faltam_semantica": [e.block.name for e, ok in zip(theirs, semantic) if not ok]}
