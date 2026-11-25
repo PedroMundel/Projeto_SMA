@@ -67,10 +67,10 @@ Regras do gabarito que o arquivo gerado tem iguais, com o próprio gabarito fora
 | 3 gabaritos, as mesmas saídas, com a reescrita | 8/20 | 8/20 |
 
 Em uso real, com o próprio gabarito entre os exemplos que o agente pode buscar (não é avaliação independente), a completa
-antes da reescrita teve 11/20 e 12/20, com o V1Vidros idêntico regra a regra; a enxuta teve 8/20 e 8/20 e não entregou o
+antes da reescrita teve 11/20 e 12/20, com as 5 regras do V1Vidros iguais às do gabarito; a enxuta teve 8/20 e 8/20 e não entregou o
 Maxlub. Uma rodada de cada, em conjunto de treino, e a escolha da completa entre as duas foi feita depois de ver isso, não pela regra
 escrita antes (as duas passaram na regra dos seus testes). Com o código final (reescrita incluída, `data/agente/final/uso_real/`), 12/20 e 12/20:
-5 das 5 do V1Vidros (arquivo idêntico), 3 das 5 do Infinitto e 4 das 10 do Maxlub, todos aprovados. A decisão por cliente
+5 das 5 do V1Vidros (em outra ordem: "Clientes Prospects" vem em 2º, não em 5º, e a decisão por cliente é a mesma), 3 das 5 do Infinitto e 4 das 10 do Maxlub, todos aprovados. A decisão por cliente
 fica em 100, 80 e 97.
 
 **Por que não chega a 100%.** O gabarito tem regras que o texto do pedido não pede: baixados na Receita no Infinitto e
@@ -94,4 +94,12 @@ Entre respostas do mesmo pedido, nas 6 conversas de cada versão: média de 0,97
 - Conjuntos pequenos, uma rodada por configuração, e a maior parte das peças foi escolhida olhando os 3 gabaritos.
 - O modelo às vezes escreve a chamada de ferramenta como texto no último passo e o pedido acaba sem arquivo (`197`, `219`
   e o Maxlub em uso real com a enxuta). Não foi corrigido.
-- Igualdade idêntica ao gabarito não foi alcançada nas três referências; só o V1Vidros, em uso real.
+- Nenhum arquivo saiu idêntico aos três gabaritos de referência; no V1Vidros, as 5 regras são iguais, em outra ordem.
+- **Os medidores têm defeitos achados depois do commit `005c5be`, por um teste adversarial e uma auditoria, ainda não
+  corrigidos:** a igualdade ignora a ordem das regras e parte da ação ("14 dias ou do vendedor" conta como "14 dias"), então
+  a contagem semântica pode estar inflada; a decisão por cliente não mede a `242` (um arquivo vazio tira 100 nela) e deixa de
+  fora regras que nenhum cliente sintético alcança; a igualdade entre conjuntos pode variar entre execuções. A conta "0 para
+  reprovado ou exceção" foi feita à mão, e os comandos não a fazem.
+- **O agente tem defeitos apontados pela auditoria, não corrigidos:** "muda os ativos para 20 dias" pode mudar o critério, quando
+  a frequência não está no fim da linha; a P10 pode tirar uma regra cuja frequência o usuário deu; a reescrita de formas compara
+  só as regras, e não segmentações e carteiras.
