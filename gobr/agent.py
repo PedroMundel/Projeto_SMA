@@ -73,6 +73,19 @@ SAME_SCOPE = ("O pedido não fala de escopo de compra (empresa, grupo ou vendedo
 P11 = (f"Premissa P11: o pedido não diz o time nem a carteira. Use este time em todas as regras, sem carteira, e não "
        f"pergunte sobre isso:\n{DEFAULT_TEAM}")
 CONTEXT_CHARS = 80000  # ~25 mil tokens (3,2 caracteres por token, medidos: 3,6): cabe nos 32k com a resposta e as ferramentas
+FREQUENCY_WORDS = (  # o que o usuário diz em palavras -> dias
+    (re.compile(r"\b((toda|cada|por|uma vez por|uma vez na|por) semana|semana(l|lmente|is))\b(?! que vem)"), {7}),
+    (re.compile(r"\b(quinzena(l|lmente|is)|(toda|cada|por) quinzena)\b"), {14, 15}),
+    (re.compile(r"\b(mensa(l|lmente|is)|(todo|cada|por|ao) mes)\b"), {30}),
+    (re.compile(r"\b(diaria(mente)?|diario|todos? os? dias?|todo dia|cada dia)\b"), {1}),
+)
+WEEKS = re.compile(r"\b(\d+|uma|duas|tres|quatro|seis|oito) semanas?\b")
+WEEK_WORDS = {"uma": 1, "duas": 2, "tres": 3, "quatro": 4, "seis": 6, "oito": 8}
+TOOL_TEXT = re.compile(r"<function=(\w+)>(.*?)(?:</function>|(?=<function=)|</tool_call>)", re.DOTALL)
+TOOL_MARKUP = re.compile(r"<tool_call>.*?(</tool_call>|$)", re.DOTALL)
+TOOL_PARAMETER = re.compile(r"<parameter=(\w+)>\s*(.*?)\s*</parameter>", re.DOTALL)
+NO_TOOLS = ("As buscas acabaram e não há mais ferramentas. Não escreva <tool_call>: entregue agora o arquivo GoBR completo no "
+            "bloco ```gobr.")
 OMITTED = "[resultado antigo omitido para caber no contexto; busque de novo se precisar]"
 NO_ANSWER = "Sem resposta do usuário: siga com a premissa mais provável e diga nas notas qual foi."
 QUESTION_LIMIT = "Limite de perguntas atingido: siga com a premissa mais provável e diga nas notas qual foi."
@@ -516,11 +529,32 @@ def fit_context(messages: list[dict], limit: int) -> list[dict]:
     return fitted
 
 
+def _has_file(content: str) -> bool:
+    """A resposta traz um bloco com regras (uma cerca comum, com uma chamada escrita dentro, não conta)."""
+    return any("parametros" in block for block in GOBR_BLOCK.findall(content))
+
+
+def parsed_tool_text(reply: dict, step: int) -> dict:
+    """A chamada que o modelo escreveu como texto vira uma chamada de ferramenta de verdade."""
+    content = reply.get("content") or ""
+    if reply.get("tool_calls") or _has_file(content):
+        return reply
+    calls = [{"id": f"texto_{step}_{n}", "type": "function",
+              "function": {"name": name, "arguments": json.dumps(dict(TOOL_PARAMETER.findall(body)), ensure_ascii=False)}}
+             for n, (name, body) in enumerate(TOOL_TEXT.findall(content))]
+    return {**reply, "content": "", "tool_calls": calls} if calls else reply
+
+
 def act(res: Resources, state: State) -> State:
     messages, steps = state["mensagens"], state["passos"] + 1
     if steps == MAX_STEPS:
         messages = messages + [{"role": "user", "content": LAST_STEP}]
     reply = res.chat(fit_context(messages, CONTEXT_CHARS), tools=TOOLS if steps < MAX_STEPS else None)
+    if steps < MAX_STEPS:
+        reply = parsed_tool_text(reply, steps)
+    elif TOOL_TEXT.search(reply["content"]) and not _has_file(reply["content"]):  # o modelo escreveu a chamada como texto
+        asked = messages + [{"role": "assistant", "content": reply["content"]}, {"role": "user", "content": NO_TOOLS}]
+        reply = res.chat(fit_context(asked, CONTEXT_CHARS))
     if steps >= MAX_STEPS:  # sem ferramentas oferecidas, uma chamada mesmo assim conta como entrega (sem laço)
         reply = {k: v for k, v in reply.items() if k != "tool_calls"}
     return {"mensagens": messages + [reply], "passos": steps}
@@ -652,10 +686,11 @@ def check(gobr_text: str, description: str, notes: str = "", left_out_before: fr
             errors.append(f'"{rule["nome"]}": inalcançável, todos os clientes dela já foram tratados por regras anteriores.')
     for effective in cascade.compute(file):
         day = cascade.single_day(effective.own)
-        if day is not None:
+        explicit = {int(n) for c in effective.block.filters for n in re.findall(r"entre (\d+) dias e \1 dias", fold(c.text))}
+        if day is not None and day not in explicit:
             errors.append(f'"{effective.block.name}": os filtros só deixam quem está há exatamente {day} dias, então quase '
-                          f'ninguém. Para "comprou nos últimos {day} dias", fique só com o filtro de atividade ou recência; '
-                          f'para "sem comprar há mais de {day} dias", só com o de inatividade.')
+                          f'ninguém. Para "nos últimos {day} dias", fique só com o filtro de atividade ou recência; '
+                          f'para "há mais de {day} dias", só com o de inatividade.')
     absent = requested_numbers(description) - _clause_numbers(file)
     said_left_out = (memory.declared_left_out(notes) if declared_only else index.numbers(notes)) | left_out_before
     left_out = sorted(absent & said_left_out)
@@ -674,16 +709,22 @@ def _left_out_before(state: State) -> frozenset[int]:
     """Números que a versão de origem já deixou de fora, salvo os que a mudança voltou a pedir."""
     base = _base(state)
     asked_again = {n for c in state["mudancas"] for n in requested_numbers(c["depois"])}
-    return (frozenset(base["fora"]) - asked_again if base else frozenset()) | frozenset(state["perdoados"])
+    return (frozenset(base["fora"]) - asked_again if base else frozenset()) | frozenset(state.get("perdoados", []))
 
 
-def drop_rules(gobr_text: str, names: list[str]) -> str:
-    """O arquivo sem os blocos `parametros` desses nomes."""
+def _block_spans(gobr_text: str) -> tuple[list[str], list[tuple]]:
+    """As linhas do arquivo e, por bloco, (bloco, primeira linha, fim)."""
+    lines = gobr_text.splitlines()  # como o parser conta as linhas
     blocks = _package(gobr_text)[0].blocks
-    lines, dropped = gobr_text.split("\n"), set()
-    for block, following in zip(blocks, blocks[1:] + [None]):
-        if block.kind == "parametros" and block.name in names:
-            dropped.update(range(block.line_no - 1, following.line_no - 1 if following else len(lines)))
+    ends = [b.line_no - 1 for b in blocks[1:]] + [len(lines)]
+    return lines, [(b, b.line_no - 1, end) for b, end in zip(blocks, ends)]
+
+
+def drop_rules(gobr_text: str, names: list[str], ids: list[str] = ()) -> str:
+    """O arquivo sem os blocos `parametros` desses nomes ou com esses ids (dois blocos podem ter o mesmo nome)."""
+    lines, spans = _block_spans(gobr_text)
+    dropped = {n for block, start, end in spans if block.kind == "parametros" and (block.name in names or block.id in ids)
+               for n in range(start, end)}
     return "\n".join(line for n, line in enumerate(lines) if n not in dropped).strip() if dropped else gobr_text
 
 
@@ -705,6 +746,10 @@ def _prune_unknown(gobr: str, notes: str, state: State) -> State | None:
     if not clauses:
         return None
     left = drop_rules(gobr, list(clauses))
+    remaining = [b.name for b in _package(left)[0].of_kind("parametros")]
+    needs_rule = [s for s in state["segmentos"] if s["acao"] != "agendar" or s["frequencia_dias"]]  # fora a premissa P10
+    if any(not any(memory.segment_of(name, [s]) for name in remaining) for s in needs_rule):
+        return None  # algum segmento do pedido ficaria sem regra
     used = {n for s in state["segmentos"] for n in index.numbers(f'{s["trecho"]} {s["criterio"]}') | {s["frequencia_dias"]}}
     forgiven = {n for texts in clauses.values() for t in texts for n in index.numbers(t)} - used
     errors, alerts = check(left, memory.binding_text(state["descricao"]), notes, _left_out_before(state) | forgiven)
@@ -721,31 +766,49 @@ def _stems(name: str) -> set[str]:
     return words - {"cliente", "nao", "agendar", "regra", "com", "dos", "das", "que", "para", "dia"}
 
 
-def canonical_forms(gobr_text: str) -> str:
-    """O arquivo com as cláusulas na forma dos exemplos do corpus; igual ao original se algo mudar de sentido."""
-    parts = re.split(r'("[^"]*")', gobr_text)  # os textos entre aspas (nomes) não mudam
+def _in_example_form(text: str) -> str:
+    parts = re.split(r'("[^"]*")', text)  # os textos entre aspas (nomes) não mudam
     for n in range(0, len(parts), 2):
         for pattern, form in FORMS:
             parts[n] = pattern.sub(form, parts[n])
-    rewritten = "".join(parts)
+    return "".join(parts)
+
+
+def canonical_forms(gobr_text: str, base_text: str = "") -> str:
+    """O arquivo com as cláusulas na forma dos exemplos do corpus; igual ao original se algo mudar de sentido.
+
+    Os blocos iguais aos do arquivo de base ficam como estão: numa mudança, regra não citada não pode mudar.
+    """
+    _, spans = _block_spans(gobr_text)
+    base_lines, base_spans = _block_spans(base_text) if base_text else ([], [])
+    kept = {"\n".join(base_lines[start:end]).strip() for _, start, end in base_spans}
+    raw = gobr_text.splitlines(keepends=True)  # as quebras de linha ficam como estão
+    head = "".join(raw[:spans[0][1]]) if spans else "".join(raw)
+    pieces = [head]
+    for _, start, end in spans:
+        text = "".join(raw[start:end])
+        pieces.append(text if "\n".join(text.splitlines()).strip() in kept else _in_example_form(text))
+    rewritten = "".join(pieces)
     if rewritten == gobr_text:
         return gobr_text
     before, after = _package(gobr_text)[0], _package(rewritten)[0]
 
     def meaning(file):
-        return [(e.block.name, e.boxes, [c.text for c in e.block.actions]) for e in cascade.compute(file)]
+        blocks = [(b.kind, b.name, [(c.recognized, c.constraint) for c in b.all_clauses()], len(b.unclassified))
+                  for b in file.blocks]
+        return blocks, [(e.block.name, e.boxes, [c.text for c in e.block.actions]) for e in cascade.compute(file)]
 
-    same = meaning(before) == meaning(after) and len(unrecognized(after)) <= len(unrecognized(before))
-    return rewritten if same else gobr_text
+    return rewritten if meaning(before) == meaning(after) else gobr_text
 
 
 def validate(state: State) -> State:
     reply = state["mensagens"][-1]["content"]
     block = GOBR_BLOCK.search(reply)
-    gobr = canonical_forms(strip_comments(block.group(1).strip())) if block else ""
-    notes = ((reply[:block.start()] + reply[block.end():]) if block else reply).strip()
+    base = _base(state)
+    gobr = canonical_forms(strip_comments(block.group(1).strip()), base["gobr"] if base else "") if block else ""
+    notes = TOOL_MARKUP.sub("", (reply[:block.start()] + reply[block.end():]) if block else reply).strip()
     errors, alerts = check(gobr, memory.binding_text(state["descricao"]), notes, _left_out_before(state),
-                           declared_only=_base(state) is not None)
+                           declared_only=base is not None)
     deliveries = state["entregas"] + 1
     if errors and deliveries >= MAX_DELIVERIES and not state["valido"]:
         pruned = _prune_unknown(gobr, notes, state)
@@ -825,13 +888,40 @@ def invented_frequencies(gobr_text: str, segments: list[dict], answers: str = ""
     Fica a regra cujos dias estão numa resposta do usuário, a que não é em dias (histórico, dias úteis) e a de um
     arquivo sem faixas de compra que peguem os clientes dela.
     """
+    return [e.block.name for e in _invented_rules(gobr_text, segments, lambda _: _days_in(answers))]
+
+
+def _days_in(text: str) -> set[int]:
+    """Dias ditos em números ou em palavras ("toda semana", "a cada duas semanas")."""
+    text = fold(text)
+    weeks = {7 * (int(n) if n.isdigit() else WEEK_WORDS[n]) for n in WEEKS.findall(text)}
+    text = WEEKS.sub(" ", text)
+    return weeks | set(index.numbers(text)) | {d for pattern, days in FREQUENCY_WORDS if pattern.search(text) for d in days}
+
+
+def _invented_rules(gobr_text: str, segments: list[dict], said: Callable[[dict], set[int]]) -> list[cascade.Effective]:
+    """As regras que a premissa P10 tira; `said` dá as frequências que o usuário disse para um segmento."""
     rules = _attribute_rules(gobr_text)
     attributes = {e.block.id for e in rules}
-    bands = [e for e in cascade.compute(_package(gobr_text)[0]) if e.block.kind == "parametros" and e.own
+    bands = [e for e in cascade.compute(_package(gobr_text)[0]) if e.block.kind == "parametros"
              and e.block.id not in attributes and not e.block.schedules_nothing]
-    said = index.numbers(answers)
-    return [e.block.name for e in rules if bands and (days := _frequency_days(e.block)) and not said & set(days)
-            and (s := memory.segment_of(e.block.name, segments)) and s["acao"] == "agendar" and not s["frequencia_dias"]]
+    return [e for e in rules if any(_may_share(a, b) for band in bands for a in band.own for b in e.own)
+            and (days := _frequency_days(e.block))
+            and (s := memory.segment_of(e.block.name, segments)) and s["acao"] == "agendar" and not s["frequencia_dias"]
+            and not said(s) & set(days)]
+
+
+def _may_share(one: dict, other: dict) -> bool:
+    """Algum cliente pode atender às duas condições, com as fontes (time, carteira e segmentação) inclusas."""
+    return all(value & other[key] for key, value in one.items() if key in other)
+
+
+def _frequencies_said(state: State, wanted: dict) -> set[int]:
+    """Frequências que o usuário disse: as deste turno e as de turnos anteriores que falam da frequência deste segmento."""
+    persisted = [line.rsplit("): ", 1)[-1] for line in state["descricao"].splitlines()
+                 if line.startswith((memory.ANSWER_PREFIX, memory.CHANGED_ANSWER_PREFIX))
+                 and memory.mentioned(wanted["segmento"], [], line) and FREQUENCY_QUESTION.search(fold(line))]
+    return _days_in("\n".join([_answers_text(state), *persisted]))
 
 
 def _frequency_days(block) -> list[int]:
@@ -891,7 +981,7 @@ def conference(res: Resources, state: State) -> State:
         request += "\nRespostas do usuário às perguntas do agente:\n" + "\n".join(
             f"- {q} -> {a}" for q, a in _answers(state))
     by_segment = match_segments(state["gobr"], state.get("segmentos", []))  # o código antes do LLM
-    invented = invented_frequencies(state["gobr"], state["segmentos"], _answers_text(state))
+    invented = [e.block.name for e in _invented_rules(state["gobr"], state["segmentos"], lambda s: _frequencies_said(state, s))]
     by_segment += [p10_divergence(name) for name in invented]
     base = _base(state)
     old_names = {fold(b.name) for b in _package(base["gobr"])[0].blocks} if base else set()
@@ -944,8 +1034,9 @@ def apply_p10(state: State) -> State:
     """Se o agente manteve uma frequência que ninguém deu, o código tira a regra (premissa P10)."""
     if state["erros"] or not state["gobr"]:
         return {}
-    names = invented_frequencies(state["gobr"], state["segmentos"], _answers_text(state))
-    left = drop_rules(state["gobr"], names)
+    invented = _invented_rules(state["gobr"], state["segmentos"], lambda s: _frequencies_said(state, s))
+    names = [e.block.name for e in invented]
+    left = drop_rules(state["gobr"], [], ids=[e.block.id for e in invented])
     errors = check(left, memory.binding_text(state["descricao"]), state["notas"], _left_out_before(state),
                    declared_only=_base(state) is not None)[0] if names else ["nada a tirar"]
     if errors:
@@ -976,10 +1067,22 @@ def team_alert(state: State) -> list[str]:
     return [f"O pedido não diz o time (premissa P11). O arquivo usa {teams}."]
 
 
+def scope_alert(state: State) -> list[str]:
+    """O escopo de compra que o arquivo usa, quando o usuário não disse qual (premissa P12)."""
+    if not state["gobr"] or not _scope_is_open(state):
+        return []
+    clauses = [fold(c.text) for b in _package(state["gobr"])[0].of_kind("parametros") for c in b.filters]
+    used = [scope for scope in ("global", "do vendedor") if any(f" {scope}" in t for t in clauses if "recencia" in t or "atividade" in t)]
+    if used:
+        return [f"O pedido não diz o escopo de compra (premissa P12), e o arquivo usa {' e '.join(f'`{s}`' for s in used)}. Confira."]
+    return ["O pedido não diz o escopo de compra (premissa P12): usei o padrão, sem `global` e sem `do vendedor`. Se quer o "
+            "escopo da empresa ou do vendedor, diga qual."]
+
+
 def respond(state: State) -> State:
     changed = apply_p10(state)
     state = {**state, **changed}
-    changed["alertas"] = state["alertas"] = state["alertas"] + team_alert(state)
+    changed["alertas"] = state["alertas"] = state["alertas"] + team_alert(state) + scope_alert(state)
     parts = [f"```gobr\n{state['gobr']}\n```"] if state["gobr"] else []
     base, kept = _base(state), memory.current(state)
     if state["mudancas"]:

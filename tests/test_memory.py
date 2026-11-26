@@ -200,6 +200,30 @@ def blocks(source: str):
     return agent._package(source)[0].blocks
 
 
+class AuditFixesTest(unittest.TestCase):
+    def test_days_in_the_criterion_are_not_the_frequency(self):
+        before = "Ativos: agendar a cada 14 dias quem comprou nos ultimos 30 dias"
+        edit = "Ativos: agendar a cada 20 dias quem comprou nos ultimos 30 dias"
+        self.assertEqual(memory._frequency_not_criterion(before, edit, "muda os ativos para 20 dias"), edit)
+        kept = memory._frequency_not_criterion("Ativos: compra nos últimos 30 dias, 14 dias", "Ativos: compra nos últimos 20 dias, 14 dias", "muda os ativos para 20 dias")
+        self.assertEqual(kept, "Ativos: compra nos últimos 30 dias, 20 dias")
+
+    def test_short_names_are_related_to_the_message(self):
+        self.assertTrue(memory.related({"antes": "MEI: não agendar", "depois": ""}, "tire os MEI"))
+        self.assertFalse(memory.related({"antes": "Ativos: 30, 14 dias", "depois": ""}, "tire os MEI"))
+        for line, message in (("Não compradores: 90, 28 dias", "não agendar os MEI"), ("Sem pedido: 28 dias", "deixe os MEI sem visita"),
+                              ("Até 30 dias: 14 dias", "os MEI podem ir até 40"), ("Resposta do usuário (os MEI ou os outros?): 21 dias", "os MEI sem ou com visita")):
+            self.assertFalse(memory.related({"antes": line, "depois": ""}, message), line)
+
+    def test_the_tail_with_a_cada_is_still_the_frequency(self):
+        for tail in ("agendar a cada 14 dias", "visitar a cada 14 dias", "com frequência de 14 dias", "14 dias", "(14 dias)"):
+            before, edit = f"Ativos: compra nos últimos 30 dias, {tail}", f"Ativos: compra nos últimos 20 dias, {tail}"
+            expected = before.replace("14", "20")
+            self.assertEqual(memory._frequency_not_criterion(before, edit, "muda os ativos para 20 dias"), expected, tail)
+        line = "Inativos: sem pedidos a mais de 45 dias"
+        self.assertEqual(memory._frequency_not_criterion(line, line.replace("45", "60"), "inativos para 60 dias"), line.replace("45", "60"))
+
+
 class UntouchedChangesTest(unittest.TestCase):
     SEGMENTS = TRIAGED["segmentos"]
     CHANGE = [{"antes": "Ativo: 60 dias, 14 dias", "depois": "Ativo: 60 dias, 15 dias"}]

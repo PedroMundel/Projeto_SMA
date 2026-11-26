@@ -95,8 +95,9 @@ Entre respostas do mesmo pedido, nas 6 conversas de cada versão: média de 0,97
 ## 4. Limites
 
 - Conjuntos pequenos, uma rodada por configuração, e a maior parte das peças foi escolhida olhando os 3 gabaritos.
-- O modelo às vezes escreve a chamada de ferramenta como texto no último passo e o pedido acaba sem arquivo (`197`, `219`
-  e o Maxlub em uso real com a enxuta). Não foi corrigido.
+- O modelo às vezes escreve a chamada de ferramenta como texto no último passo e o pedido acabava sem arquivo (`197`, `219`
+  e o Maxlub em uso real com a enxuta). Corrigido depois do `c093268`: a chamada vira chamada de verdade e, no último
+  passo, o modelo é cobrado a entregar. A `219` passou a ser aprovada; a `197` entrega arquivo e segue reprovada.
 - Nenhum arquivo saiu idêntico aos três gabaritos de referência; no V1Vidros, as 5 regras são iguais, em outra ordem.
 - **Os medidores foram corrigidos depois do commit `414b88b`**, com teste antes: a igualdade agora conta a ação inteira, exige a
   ordem para dizer "arquivo igual", tem chave estável entre execuções e não iguala regras contraditórias; a decisão por cliente
@@ -104,6 +105,13 @@ Entre respostas do mesmo pedido, nas 6 conversas de cada versão: média de 0,97
   média com 0 para reprovado ou exceção. As tabelas 3.1, 3.3 (validação) e 3.4 são do medidor corrigido; as notas de gabarito
   da 3.3 e o treino de memória são do anterior. Com ele, a vantagem da completa no primeiro teste cai de 5,4 para 1,5 pontos,
   e nas cegas a versão antiga tem mais regras iguais ao gabarito (33 contra 26 de 56).
-- **O agente tem defeitos apontados pela auditoria, não corrigidos:** "muda os ativos para 20 dias" pode mudar o critério, quando
-  a frequência não está no fim da linha; a P10 pode tirar uma regra cuja frequência o usuário deu; a reescrita de formas compara
-  só as regras, e não segmentações e carteiras.
+- **Defeitos do agente corrigidos depois do `c093268`**, com teste antes, depois de duas auditorias e um teste adversarial:
+  frequência trocada pelo critério, a P10 que tirava regra que o usuário deu ou que nenhuma faixa pegava, reescrita que dava
+  sentido a uma cláusula inventada ou mexia em regra não citada, poda que deixava um segmento sem regra, nome curto recusado e
+  aviso de escopo (premissa P12, nova). Parte da primeira tentativa criou defeitos novos, achados pela segunda auditoria e
+  desfeitos. **Ficaram:** "tire a curva A" pode apagar a linha da Curva B, e "são 7 vendedores" conta como frequência.
+- **Medidas do código corrigido** (uma rodada; são casos já vistos, então não provam melhora geral): uso real idêntico ao
+  publicado nos 3 arquivos (12/20 e 92,3); conversas de teste 34/34; memória de treino 85/87 e 52/54 (antes, 84/87 e 52/54); nos 6
+  casos do primeiro teste que falhavam ou perdiam, decisão 46,3 (antes, 28,0) e 20/43 regras iguais na semântica (antes, 10/43).
+  Um rótulo no prompt ("Premissa P12:") chegou a derrubar o V1Vidros de 100 para 80 e a subir a `242`; foi retirado. Uma
+  palavra no prompt pode mudar o resultado de um caso, e por isso uma rodada não basta para decidir.

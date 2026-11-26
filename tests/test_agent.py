@@ -214,7 +214,7 @@ class AgentTest(AgentFixture):
     def test_crlf_and_untagged_fence_are_read(self):
         reply = "```\r\n" + VALID.replace("\n", "\r\n") + "```"
         out = self.run_graph(ScriptedChat(reply))
-        self.assertEqual((out["erros"], [a for a in out["alertas"] if "P11" not in a]), ([], []))
+        self.assertEqual((out["erros"], [a for a in out["alertas"] if "P11" not in a and "P12" not in a]), ([], []))
 
     def test_error_goes_back_to_the_llm_and_is_fixed(self):
         chat = ScriptedChat(fenced(UNKNOWN_CLAUSE), fenced(VALID))
@@ -548,6 +548,131 @@ class CanonicalFormsTest(unittest.TestCase):
         text = HEADER + one_rule("inadimplentes", action="nao agendar") + one_rule("ativos para o vendedor", name="B")
         self.assertEqual(agent.canonical_forms(text), text)
         self.assertEqual(agent.canonical_forms(""), "")
+
+
+class AuditFixesTest(AgentFixture):
+    """Defeitos que a auditoria de 2026-11-24 reproduziu."""
+    run_graph = AgentTest.run_graph
+    OVERDUE = one_rule("inadimplentes", action="frequencia de 21 dias", name="Inadimplentes")
+
+    def test_p10_keeps_a_rule_no_band_would_take(self):
+        rules = HEADER + one_rule("atividade de 30 dias", "adimplentes", name="Ativos") + self.OVERDUE
+        self.assertEqual(agent.invented_frequencies(rules, [segment("Inadimplentes", "agendar", 0)]), [])
+        bands = HEADER + one_rule("atividade de 30 dias", name="Ativos") + self.OVERDUE
+        self.assertEqual(agent.invented_frequencies(bands, [segment("Inadimplentes", "agendar", 0)]), ["Inadimplentes"])
+
+    def test_p10_accepts_frequency_words_and_persisted_answers(self):
+        rules = HEADER + one_rule("atividade de 30 dias", name="Ativos") + one_rule("inadimplentes", action="frequencia de 7 dias", name="Inadimplentes")
+        wanted = [segment("Inadimplentes", "agendar", 0)]
+        self.assertEqual(agent.invented_frequencies(rules, wanted, "toda semana"), [])
+        self.assertEqual(agent.invented_frequencies(rules, wanted, "semanalmente"), [])
+        self.assertEqual(agent.invented_frequencies(rules, wanted, "a cada 10 dias"), ["Inadimplentes"])
+
+    def test_drop_rules_takes_one_of_two_with_the_same_name_and_survives_line_separators(self):
+        both = HEADER + one_rule("atividade de 30 dias", name="A") + one_rule("inadimplentes", name="A")
+        blocks = agent._package(both)[0].of_kind("parametros")
+        left = agent.drop_rules(both, [], ids=[blocks[1].id])
+        self.assertEqual([b.filters[0].text for b in agent._package(left)[0].of_kind("parametros")], [blocks[0].filters[0].text])
+        odd = HEADER + one_rule("atividade de 30 dias", name="A\u2028b") + one_rule("inadimplentes", name="I") + one_rule("atividade de 90 dias", name="Z")
+        self.assertIn('"Z"', agent.drop_rules(odd, ["I"]))
+        self.assertNotIn('"I"', agent.drop_rules(odd, ["I"]))
+
+    def test_canonical_forms_does_not_give_meaning_to_an_invented_clause(self):
+        text = HEADER + 'segmentacao "s":\n    clientes\n    quando fora da atividade de 30 dias\n\n' + one_rule("inadimplentes")
+        self.assertEqual(agent.canonical_forms(text), text)
+
+    def test_canonical_forms_keeps_the_blocks_of_the_base(self):
+        base = HEADER + one_rule("atividade de 30 dias", name="A") + one_rule("inadimplentes", name="B")
+        changed = base.replace("inadimplentes", "prospects da empresa")
+        made = agent.canonical_forms(changed, base)
+        self.assertIn("atividade de 30 dias", made)  # regra igual à da base fica como era
+        self.assertIn("no ciclo de vida prospect com a empresa", made)
+        self.assertNotIn("atividade de 30 dias", agent.canonical_forms(changed))
+
+    def test_prune_refuses_to_leave_a_segment_without_rule(self):
+        state = {"segmentos": [segment("Inadimplentes", "nao_agendar"), segment("Ativos", "agendar", 14)], "descricao": "x", "versoes": [], "versao_atual": 0, "base": 0, "mudancas": [], "perdoados": [], "lacunas": []}
+        gobr = HEADER + one_rule("atividade de 60 dias", name="Ativos") + one_rule("titulo vencido", action="nao agendar", name="Devedores")
+        self.assertIsNone(agent._prune_unknown(gobr, "", state))
+
+    def test_resumed_state_without_the_new_field_does_not_break(self):
+        state = {"mudancas": [], "versoes": [], "versao_atual": 0, "base": 0}
+        self.assertEqual(agent._left_out_before(state), frozenset())
+
+    def test_explicit_single_day_range_is_accepted(self):
+        errors = agent.check(HEADER + one_rule("recencia de visita entre 7 dias e 7 dias"), "Ativos")[0]
+        self.assertEqual([e for e in errors if "exatamente" in e], [])
+
+    def test_tool_call_written_as_text_becomes_a_call(self):
+        raw = {"role": "assistant", "content": "<tool_call>\n<function=buscar_manual>\n<parameter=consulta>\nrota\n</parameter>\n</function>\n</tool_call>"}
+        chat = ScriptedChat(raw, fenced(VALID))
+        out = self.run_graph(chat)
+        self.assertEqual((out["erros"], out["entregas"]), ([], 1))
+        self.assertTrue(any(m["role"] == "tool" for m in chat.received[-1]))
+
+    def test_tool_call_as_text_at_the_last_step_is_asked_again(self):
+        raw = {"role": "assistant", "content": "<tool_call>\n<function=buscar_manual>\n<parameter=consulta>\nrota\n</parameter>\n</function>\n</tool_call>"}
+        calls = [call("buscar_manual", {"consulta": f"q{n}"}, f"c{n}") for n in range(agent.MAX_STEPS - 1)]
+        chat = ScriptedChat(*calls, raw, fenced(VALID))
+        out = self.run_graph(chat)
+        self.assertEqual((out["erros"], out["entregas"]), ([], 1))
+
+    def test_p10_frequency_phrases(self):
+        rules = HEADER + one_rule("atividade de 30 dias", name="Ativos") + one_rule("inadimplentes", action="frequencia de 7 dias", name="Inadimplentes")
+        wanted = [segment("Inadimplentes", "agendar", 0)]
+        for said in ("toda semana", "semanalmente", "uma vez por semana", "a cada 7 dias"):
+            self.assertEqual(agent.invented_frequencies(rules, wanted, said), [], said)
+        for said in ("data da rota na semana", "decido na semana que vem", "mensalidade atrasada", "", "a cada duas semanas"):
+            self.assertEqual(agent.invented_frequencies(rules, wanted, said), ["Inadimplentes"], said)
+        fortnight = rules.replace("frequencia de 7 dias", "frequencia de 14 dias")
+        for said in ("a cada duas semanas", "a cada 2 semanas", "quinzenal"):
+            self.assertEqual(agent.invented_frequencies(fortnight, wanted, said), [], said)
+        self.assertEqual(agent.invented_frequencies(rules.replace("de 7 dias", "de 1 dias"), wanted, "todos os dias"), [])
+
+    def test_p10_persisted_answer_belongs_to_its_segment(self):
+        rules = HEADER + one_rule("atividade de 30 dias", name="Ativos") + one_rule("inadimplentes", action="frequencia de 28 dias", name="Inadimplentes")
+        wanted = [segment("Inadimplentes", "agendar", 0)]
+        base = {"pergunta_lacunas": "", "perguntas": [], "gobr": rules, "base": 0, "versoes": [], "mudancas": [], "segmentos": wanted}
+        said = lambda line: agent._invented_rules(rules, wanted, lambda s: agent._frequencies_said({**base, "descricao": line}, s))
+        self.assertEqual(len(said("x\nResposta do usuário (Inativos: de quantos dias?): 28 dias")), 1)
+        self.assertEqual(len(said("x\nResposta do usuário (Inadimplentes: de quantos dias é a frequência?): 28 dias")), 0)
+        self.assertEqual(len(said("x\nResposta do usuário (Inadimplentes: 21 ou 28 dias?): tanto faz")), 1)
+
+    def test_p10_looks_at_the_sources_too(self):
+        rules = HEADER + 'time "externos":\n    vendedores todos\n\n' + one_rule("atividade de 30 dias", name="Ativos") \
+            + one_rule("inadimplentes", action="frequencia de 21 dias", name="Inadimplentes").replace('time("televendas")', 'time("externos")')
+        self.assertEqual(agent.invented_frequencies(rules, [segment("Inadimplentes", "agendar", 0)]), [])
+
+    def test_prune_checks_each_wanted_segment(self):
+        state = {"segmentos": [segment("Ativos", "agendar", 14), segment("Inadimplentes", "agendar", 0)], "descricao": "x", "versoes": [], "base": 0, "mudancas": [], "perdoados": [], "lacunas": []}
+        extra = HEADER + one_rule("atividade de 60 dias", name="Ativos") + one_rule("capacidade de 35 clientes", action="nao agendar", name="Extra")
+        self.assertIsNotNone(agent._prune_unknown(extra, "", state))
+        wanted = {**state, "segmentos": [segment("Ativos", "agendar", 14), segment("Inadimplentes", "nao_agendar")]}
+        twice = HEADER + one_rule("atividade de 60 dias", name="Ativos") + one_rule("atividade de 90 dias", name="Ativos 2") \
+            + one_rule("titulo vencido", action="nao agendar", name="Devedores")
+        self.assertIsNone(agent._prune_unknown(twice, "", wanted))
+
+    def test_scope_alert_says_what_the_file_uses(self):
+        state = {"gobr": VALID, "descricao": "Ativos: 30, 14 dias", "versoes": [], "versao_atual": 0, "base": 0, "pergunta_lacunas": "", "perguntas": [], "mudancas": []}
+        self.assertIn("usa `global`", agent.scope_alert(state)[0])
+        plain = {**state, "gobr": HEADER + one_rule("recencia de positivacao em 30 dias")}
+        self.assertIn("padrão", agent.scope_alert(plain)[0])
+        self.assertNotIn("usa `global`", agent.scope_alert(plain)[0])
+
+    def test_explicit_range_only_excuses_its_own_day(self):
+        one = agent.check(HEADER + one_rule("recencia de visita entre 7 dias e 7 dias", "atividade de 60 dias", "inatividade de 60 dias"), "Ativos")[0]
+        self.assertTrue([e for e in one if "exatamente" in e])
+
+    def test_tool_text_survives_fences_and_several_calls(self):
+        two = "<tool_call><function=buscar_manual><parameter=consulta>a</parameter></function></tool_call>" * 2
+        self.assertEqual(len(agent.parsed_tool_text({"role": "assistant", "content": two}, 3)["tool_calls"]), 2)
+        ids = [c["id"] for c in agent.parsed_tool_text({"role": "assistant", "content": two}, 3)["tool_calls"]]
+        self.assertEqual(len(set(ids) | {c["id"] for c in agent.parsed_tool_text({"role": "assistant", "content": two}, 4)["tool_calls"]}), 4)
+        fenced_call = "```xml\n" + two + "\n```"
+        self.assertTrue(agent.parsed_tool_text({"role": "assistant", "content": fenced_call}, 1)["tool_calls"])
+
+    def test_the_scope_premise_is_shown(self):
+        state = {"gobr": VALID, "descricao": "Ativos: 30, 14 dias", "versoes": [], "versao_atual": 0, "base": 0, "pergunta_lacunas": "", "perguntas": [], "mudancas": []}
+        self.assertTrue(any("P12" in a for a in agent.scope_alert(state)))
 
 
 class QualityTest(AgentFixture):

@@ -13,11 +13,14 @@ from gobr.text import fold
 KINDS = ("alterar", "duvida", "novo", "desfazer")
 RULE_LABEL = re.compile(r"\bregra\s+\d+", re.IGNORECASE)  # "Regra 01:" numera o pedido, não é um limite
 LEFT_OUT = re.compile(r"gobr nao (tem|expressa|possui|permite|suporta|oferece)")  # a forma que o prompt pede nas notas
+FUNCTION_WORDS = {"a", "o", "e", "as", "os", "de", "do", "da", "dos", "das", "um", "uma", "em", "no", "na", "nos", "nas", "para", "por", "que",
+                  "com", "dias", "dia", "nao", "sem", "ate", "ou", "se", "so", "mais", "menos", "todos", "todas", "outros", "outras", "cliente", "clientes"}
 NUMBERING = re.compile(r"^\d+[.)]\s+")  # o pedido vai ao LLM com as linhas numeradas, e ele às vezes copia o número
 QUOTED = re.compile(r'"([^"]+)"')
 REFERENCE = re.compile(r"\b(ess[ae]s?|iss[oa]|est[ae]s?|mesm[oa]s?|tod[oa]s?|tudo|outr[oa]s?|anterior|ultim[oa]s?|primeir[oa]s?|"
                        r"ambos|dois|duas|linha|resto|demais|corte)\b")  # a mensagem aponta para linhas sem as citar
 CRITERION = re.compile(r"\b(compr\w*|venda\w*|pedidos?|recencia|inatividade|atividade|corte|criterio|prazo|ultimos|faixa|entre)\b")
+CRITERION_BEFORE = re.compile(r"\b(ultim\w*|ha|mais de|menos de|ate|entre|sem|compr\w*|pedido\w*|inatividade|atividade|recencia|faz)\W+(\w+\W+){0,2}$")  # "nos últimos 30 dias" não é a frequência
 FREQUENCY_TAIL = re.compile(r"\b(\d+)( dias?)\W*$")  # "..., 14 dias": o último "N dias" da linha é a frequência
 QUESTION = re.compile(r"\?|^\W*(qual|quais|quant\w*|como|por ?que|quem|onde|quando|o que)\b|\b(explic\w*|me (diz|fala|mostra)|"
                       r"duvida|entend\w*|lembr\w*)\b")
@@ -82,19 +85,37 @@ def _stems(text: str) -> set[str]:
     return {w.removesuffix("s") for w in re.findall(r"[a-z]{4,}", fold(text))} - {"dia", "dias", "cliente", "para", "agora", "mais"}
 
 
+def _label_words(line: str) -> set[str]:
+    """Palavras do nome do segmento ("MEI: ..."), até as curtas, que `_stems` não vê; a linha de resposta não é um nome."""
+    if ":" not in line or line.startswith((ANSWER_PREFIX, CHANGED_ANSWER_PREFIX)):
+        return set()
+    return {w for w in re.findall(r"\w+", fold(line.split(":")[0])) if not w.isdigit()} - FUNCTION_WORDS
+
+
 def related(change: dict, message: str) -> bool:
     """A mudança tem a ver com a mensagem: uma palavra em comum, um número dela, ou a mensagem aponta sem citar."""
     if REFERENCE.search(fold(message)) or _stems(message) & _stems(f'{change["antes"]} {change["depois"]}'):
         return True
+    said_words = set(re.findall(r"\w+", fold(message)))
+    for label in (_label_words(change["antes"]), _label_words(change["depois"])):
+        if label and label <= said_words and all(len(w) > 1 for w in label):  # o nome inteiro, não uma palavra dele
+            return True
     said = requested_numbers(message)
     return bool(said & (requested_numbers(change["depois"]) | requested_numbers(change["antes"])))
+
+
+def _criterion_tail(line: str) -> bool:
+    """O último "N dias" da linha é o critério ("quem comprou nos últimos 30 dias"), e não a frequência."""
+    tail = fold(re.split(r"[,:;(]| - ", line)[-1])
+    number = re.search(r"\d+ dias?\W*$", tail)
+    return bool(number) and CRITERION_BEFORE.search(tail[:number.start()]) is not None
 
 
 def _frequency_not_criterion(before: str, after: str, message: str) -> str:
     """"Muda os ativos para 20 dias" é a frequência; o critério só muda se a mensagem fala dele."""
     old, new = FREQUENCY_TAIL.search(before), FREQUENCY_TAIL.search(after)
     said = requested_numbers(message)
-    if not old or not new or old.group(1) != new.group(1) or len(said) != 1 or CRITERION.search(fold(message)):
+    if not old or not new or _criterion_tail(before) or old.group(1) != new.group(1) or len(said) != 1 or CRITERION.search(fold(message)):
         return after
     number = said.pop()
     if number not in requested_numbers(after) - requested_numbers(before):
